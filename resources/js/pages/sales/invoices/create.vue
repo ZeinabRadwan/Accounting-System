@@ -218,6 +218,52 @@
                 @discount-change="calculateProductDiscount" @vat-change="calculateProductVat" @remove-item="removeItem"
                 @open-stock-modal="openStockAdjustmentModal" @edit-product="editProductFromTable" />
 
+              <!-- Summary Footer -->
+              <div v-if="form.selectedProducts && form.selectedProducts.length > 0" class="summary-footer-wrapper mt-2 mb-3">
+                <div class="table-responsive table-custom w-100 m-auto" style="max-width: 100%;">
+                  <table class="table table-sm text-center invoices-create-table">
+                    <tbody>
+                      <tr class="summary-footer-row">
+                        <td colspan="6" class="text-right summary-label">
+                          <strong>{{ $t("Number of Items") }} (عدد الأصناف):</strong>
+                        </td>
+                        <td class="summary-value">
+                          <strong>{{ numberOfItems }}</strong>
+                        </td>
+                        <td colspan="6"></td>
+                      </tr>
+                      <tr class="summary-footer-row">
+                        <td colspan="6" class="text-right summary-label">
+                          <strong>{{ $t("Total Tax") }} (إجمالي الضريبة):</strong>
+                        </td>
+                        <td class="summary-value">
+                          {{ formatToTwoDecimals(totalProductTax) }} <span class="saudi-riyal">ê</span>
+                        </td>
+                        <td colspan="6"></td>
+                      </tr>
+                      <tr class="summary-footer-row">
+                        <td colspan="6" class="text-right summary-label">
+                          <strong>{{ $t("Total Discount") }} (إجمالي الخصم):</strong>
+                        </td>
+                        <td class="summary-value">
+                          {{ formatToTwoDecimals(totalProductDiscount) }} <span class="saudi-riyal">ê</span>
+                        </td>
+                        <td colspan="6"></td>
+                      </tr>
+                      <tr class="summary-footer-row grand-total-row">
+                        <td colspan="6" class="text-right summary-label">
+                          <strong>{{ $t("Grand Total") }} (المجموع):</strong>
+                        </td>
+                        <td class="summary-value grand-total-value">
+                          <strong>{{ formatToTwoDecimals(form.netTotal) }} <span class="saudi-riyal">ê</span></strong>
+                        </td>
+                        <td colspan="6"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
               <!-- Insufficient Stock Warning -->
               <div v-if="hasInsufficientStock" class="row mt-3 mb-3">
                 <div class="col-12">
@@ -995,6 +1041,14 @@ export default {
     // Calculate subtotal (reactive) - WITH VAT for invoices (matching quotation logic)
     subtotal() {
       return this.roundToTwoDecimals(this.totalAfterDiscount + this.totalProductTax);
+    },
+
+    // Calculate number of items
+    numberOfItems() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        return 0;
+      }
+      return this.form.selectedProducts.length;
     },
 
     // Add computed property to check if chart of account is assigned
@@ -2822,6 +2876,20 @@ export default {
                 title: this.$t("Success"),
                 text: this.$t("Invoice created successfully"),
               });
+              
+              // Show journal entries creation confirmation if entries were created
+              if (data.data.journal_entries_created) {
+                setTimeout(() => {
+                  toast.fire({
+                    type: "success",
+                    title: this.$t("Journal Entries Created"),
+                    text: this.$t("Journal entries have been automatically created for this invoice"),
+                    timer: 4000,
+                    timerProgressBar: true,
+                  });
+                }, 500);
+              }
+              
               this.clearTemporaryData();
               this.$router.push({ name: "invoices.show", params: { slug: data.data.slug } });
             } else {
@@ -2848,6 +2916,20 @@ export default {
               title: this.$t("Success"),
               text: this.$t("Invoice created successfully"),
             });
+            
+            // Show journal entries creation confirmation if entries were created
+            if (data.data.journal_entries_created) {
+              setTimeout(() => {
+                toast.fire({
+                  type: "success",
+                  title: this.$t("Journal Entries Created"),
+                  text: this.$t("Journal entries have been automatically created for this invoice"),
+                  timer: 4000,
+                  timerProgressBar: true,
+                });
+              }, 500);
+            }
+            
             this.clearTemporaryData();
             this.$router.push({ name: "invoices.show", params: { slug: data.data.slug } });
           } else {
@@ -4719,6 +4801,65 @@ export default {
 [dir="rtl"] .invoices-create-table thead th:last-child {
   border-top-right-radius: 0;
   border-top-left-radius: 10px;
+}
+
+/* Summary Footer Styles */
+.summary-footer-wrapper {
+  margin-top: 10px;
+}
+
+.summary-footer-row {
+  background-color: #f8f9fa;
+  border-top: 2px solid #dee2e6;
+}
+
+.summary-footer-row:last-child {
+  border-bottom: 2px solid #dee2e6;
+}
+
+.summary-label {
+  padding: 12px 16px;
+  font-size: 14px;
+  color: #495057;
+}
+
+.summary-value {
+  padding: 12px 16px;
+  font-size: 14px;
+  color: #212529;
+  text-align: left;
+}
+
+.grand-total-row {
+  background-color: #e9ecef;
+  border-top: 3px solid #33a0d9;
+}
+
+.grand-total-value {
+  font-size: 16px;
+  color: #33a0d9;
+}
+
+/* RTL Support for Summary Footer */
+[dir="rtl"] .summary-label {
+  text-align: left;
+}
+
+[dir="rtl"] .summary-value {
+  text-align: right;
+}
+
+/* Responsive Summary Footer */
+@media (max-width: 768px) {
+  .summary-label,
+  .summary-value {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  .grand-total-value {
+    font-size: 14px;
+  }
 }
 
 /* Space between action buttons */

@@ -278,10 +278,12 @@ class InvoiceController extends Controller
             }
 
             // Create journal entry for invoice sale (skip for Saudi Arabia)
+            $journalEntriesCreated = false;
             if (! $isSaudiArabia) {
                 try {
                     $journalService = new BusinessTransactionJournalService;
                     $journalEntry = $journalService->createInvoiceSaleJournal($invoice, $userId);
+                    $journalEntriesCreated = true;
                 } catch (\Exception $e) {
                     // Log the error but don't fail the invoice creation
                     Log::error('Failed to create journal entry for invoice: '.$e->getMessage());
@@ -379,6 +381,7 @@ class InvoiceController extends Controller
                 'invoice_id' => $invoice->id,
                 'invoice_slug' => $invoice->slug,
                 'slug' => $invoice->slug,
+                'journal_entries_created' => $journalEntriesCreated,
             ]);
         } catch (Exception $e) {
             DB::rollback();

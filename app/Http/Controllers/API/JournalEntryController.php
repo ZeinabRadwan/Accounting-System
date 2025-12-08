@@ -143,6 +143,30 @@ class JournalEntryController extends Controller
                     });
             });
         }
+
+        // Invoice filter (filter by invoice number via reference or source_id)
+        if ($request->has('invoice') && $request->invoice) {
+            $invoiceNumber = $request->invoice;
+            $invoiceModel = \App\Models\Invoice::class;
+            
+            // Get invoice IDs that match the invoice number
+            $invoiceIds = \App\Models\Invoice::where('invoice_no', 'LIKE', "%{$invoiceNumber}%")
+                ->pluck('id')
+                ->toArray();
+            
+            $query->where(function ($q) use ($invoiceNumber, $invoiceModel, $invoiceIds) {
+                // Match by reference (invoice number or invoice number-COGS)
+                $q->where('reference', 'LIKE', "%{$invoiceNumber}%");
+                
+                // Also match by source_id if source_type is Invoice and invoice IDs were found
+                if (!empty($invoiceIds)) {
+                    $q->orWhere(function ($subQ) use ($invoiceModel, $invoiceIds) {
+                        $subQ->where('source_type', $invoiceModel)
+                            ->whereIn('source_id', $invoiceIds);
+                    });
+                }
+            });
+        }
     }
 
     /**

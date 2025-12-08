@@ -178,6 +178,53 @@
               :total-after-discount="totalAfterDiscount" :total-product-tax="totalProductTax" :subtotal="subtotal"
               :amount-in-words="toWord()" table-class="invoices-create-table" @item-change="handleItemChange"
               @discount-change="calculateProductDiscount" @vat-change="calculateProductVat" @remove-item="removeItem" />
+
+            <!-- Summary Footer -->
+            <div v-if="form.selectedProducts && form.selectedProducts.length > 0" class="summary-footer-wrapper mt-2 mb-3">
+              <div class="table-responsive table-custom w-100 m-auto" style="max-width: 100%;">
+                <table class="table table-sm text-center invoices-create-table">
+                  <tbody>
+                    <tr class="summary-footer-row">
+                      <td colspan="6" class="text-right summary-label">
+                        <strong>{{ $t("Number of Items") }} (عدد الأصناف):</strong>
+                      </td>
+                      <td class="summary-value">
+                        <strong>{{ numberOfItems }}</strong>
+                      </td>
+                      <td colspan="6"></td>
+                    </tr>
+                    <tr class="summary-footer-row">
+                      <td colspan="6" class="text-right summary-label">
+                        <strong>{{ $t("Total Tax") }} (إجمالي الضريبة):</strong>
+                      </td>
+                      <td class="summary-value">
+                        {{ formatToTwoDecimals(totalProductTax) }} <span class="saudi-riyal">ê</span>
+                      </td>
+                      <td colspan="6"></td>
+                    </tr>
+                    <tr class="summary-footer-row">
+                      <td colspan="6" class="text-right summary-label">
+                        <strong>{{ $t("Total Discount") }} (إجمالي الخصم):</strong>
+                      </td>
+                      <td class="summary-value">
+                        {{ formatToTwoDecimals(totalProductDiscount) }} <span class="saudi-riyal">ê</span>
+                      </td>
+                      <td colspan="6"></td>
+                    </tr>
+                    <tr class="summary-footer-row grand-total-row">
+                      <td colspan="6" class="text-right summary-label">
+                        <strong>{{ $t("Grand Total") }} (المجموع):</strong>
+                      </td>
+                      <td class="summary-value grand-total-value">
+                        <strong>{{ formatToTwoDecimals(form.netTotal) }} <span class="saudi-riyal">ê</span></strong>
+                      </td>
+                      <td colspan="6"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
             <div class="row">
               <!-- Payment Terms field hidden as per requirements -->
               <div class="form-group col-md-6 col-xl-3" style="display: none;">
@@ -594,6 +641,13 @@ export default {
 
     subtotal() {
       return this.getTotalWithVATSum();
+    },
+    // Calculate number of items
+    numberOfItems() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        return 0;
+      }
+      return this.form.selectedProducts.length;
     },
     // Check if the country is Saudi Arabia
     isSaudiArabia() {
@@ -1131,6 +1185,18 @@ export default {
       return null;
     },
 
+    // Format number to display with exactly 2 decimal places
+    formatToTwoDecimals(value) {
+      if (value === null || value === undefined || value === '') {
+        return '0.00';
+      }
+      const numValue = Number(value);
+      if (isNaN(numValue)) {
+        return '0.00';
+      }
+      return numValue.toFixed(2);
+    },
+
     // return number to word with language support
     toWord() {
       const amount = this.totalUnitPrice || 0;
@@ -1584,6 +1650,19 @@ export default {
             title: this.$t("Purchase added successfully"),
           });
 
+          // Show journal entries creation confirmation if entries were created
+          if (response.data.data.journal_entries_created) {
+            setTimeout(() => {
+              toast.fire({
+                type: "success",
+                title: this.$t("Purchase Journal Entry Created Successfully"),
+                text: this.$t("Journal entry has been automatically created for this purchase"),
+                timer: 4000,
+                timerProgressBar: true,
+              });
+            }, 500);
+          }
+
           this.clearTemporaryData()
           this.$router.push({
             name: "purchases.show",
@@ -1618,6 +1697,19 @@ export default {
             type: "success",
             title: this.$t("Purchase added successfully"),
           });
+
+          // Show journal entries creation confirmation if entries were created
+          if (response.data.data.journal_entries_created) {
+            setTimeout(() => {
+              toast.fire({
+                type: "success",
+                title: this.$t("Purchase Journal Entry Created Successfully"),
+                text: this.$t("Journal entry has been automatically created for this purchase"),
+                timer: 4000,
+                timerProgressBar: true,
+              });
+            }, 500);
+          }
 
           this.clearTemporaryData()
           this.$router.push({
@@ -2559,5 +2651,64 @@ textarea.form-control {
 /* Search Input Background Override */
 .form-control {
   background: #fff !important;
+}
+
+/* Summary Footer Styles */
+.summary-footer-wrapper {
+  margin-top: 10px;
+}
+
+.summary-footer-row {
+  background-color: #f8f9fa;
+  border-top: 2px solid #dee2e6;
+}
+
+.summary-footer-row:last-child {
+  border-bottom: 2px solid #dee2e6;
+}
+
+.summary-label {
+  padding: 12px 16px;
+  font-size: 14px;
+  color: #495057;
+}
+
+.summary-value {
+  padding: 12px 16px;
+  font-size: 14px;
+  color: #212529;
+  text-align: left;
+}
+
+.grand-total-row {
+  background-color: #e9ecef;
+  border-top: 3px solid #33a0d9;
+}
+
+.grand-total-value {
+  font-size: 16px;
+  color: #33a0d9;
+}
+
+/* RTL Support for Summary Footer */
+[dir="rtl"] .summary-label {
+  text-align: left;
+}
+
+[dir="rtl"] .summary-value {
+  text-align: right;
+}
+
+/* Responsive Summary Footer */
+@media (max-width: 768px) {
+  .summary-label,
+  .summary-value {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  .grand-total-value {
+    font-size: 14px;
+  }
 }
 </style>

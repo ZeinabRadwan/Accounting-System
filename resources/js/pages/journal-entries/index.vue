@@ -51,6 +51,7 @@
                     <th>{{ $t('Branch') }}</th>
                     <th>{{ $t('Type') }}</th>
                     <th>{{ $t('Reference') }}</th>
+                    <th>{{ $t('Invoice') }}</th>
                     <th>{{ $t('Account') }}</th>
                     <th class="text-center">{{ $t('Debit') }}</th>
                     <th class="text-center">{{ $t('Credit') }}</th>
@@ -132,6 +133,15 @@
                         type="text" 
                         class="form-control form-control-sm column-filter" 
                         :placeholder="$t('Filter')"
+                        @input="applyFilters"
+                      />
+                    </th>
+                    <th>
+                      <input 
+                        v-model="columnFilters.invoice" 
+                        type="text" 
+                        class="form-control form-control-sm column-filter" 
+                        :placeholder="$t('Invoice Number')"
                         @input="applyFilters"
                       />
                     </th>
@@ -242,7 +252,11 @@
                   <template v-for="(entry, entryIndex) in displayItems">
                     <template v-if="entry.lines && entry.lines.length > 0">
                       <tr v-for="(line, lineIndex) in entry.lines" :key="`${entry.id}-${line.id}`"
-                        :class="{ 'entry-first-line': lineIndex === 0 }">
+                        :class="{ 
+                          'entry-first-line': lineIndex === 0,
+                          'invoice-group': getInvoiceNumber(entry),
+                          'invoice-group-first': lineIndex === 0 && getInvoiceNumber(entry) && isFirstEntryForInvoice(entry, entryIndex)
+                        }">
                         <td v-if="lineIndex === 0" :rowspan="entry.lines.length">
                           <strong>{{ entry.formatted_entry_number }}</strong>
                         </td>
@@ -257,6 +271,9 @@
                         </td>
                         <td v-if="lineIndex === 0" :rowspan="entry.lines.length">
                           {{ entry.reference || '-' }}
+                        </td>
+                        <td v-if="lineIndex === 0" :rowspan="entry.lines.length">
+                          {{ getInvoiceNumber(entry) || '-' }}
                         </td>
                         <td class="account-cell">
                           <span v-if="line.chart_of_account" class="account-info">
@@ -393,7 +410,11 @@
                         </td>
                       </tr>
                     </template>
-                    <tr v-else :key="`entry-${entry.id}`">
+                    <tr v-else :key="`entry-${entry.id}`"
+                        :class="{
+                          'invoice-group': getInvoiceNumber(entry),
+                          'invoice-group-first': getInvoiceNumber(entry) && isFirstEntryForInvoice(entry, entryIndex)
+                        }">
                       <td>
                         <strong>{{ entry.formatted_entry_number }}</strong>
                       </td>
@@ -401,6 +422,7 @@
                       <td>{{ entry.branch ? entry.branch.name : '-' }}</td>
                       <td>{{ getEntryTypeLabel(entry.entry_type) || '-' }}</td>
                       <td>{{ entry.reference || '-' }}</td>
+                      <td>{{ getInvoiceNumber(entry) || '-' }}</td>
                         <td>-</td>
                         <td class="text-center">-</td>
                         <td class="text-center">-</td>
@@ -512,14 +534,14 @@
                     </tr>
                   </template>
                   <tr v-show="!loading && !displayItems.length">
-                    <td colspan="15" class="text-center">
+                    <td colspan="16" class="text-center">
                       <EmptyTable />
                     </td>
                   </tr>
                 </tbody>
                 <tfoot v-if="displayItems.length > 0">
                   <tr class="table-footer">
-                    <td colspan="6" class="text-right font-weight-bold">
+                    <td colspan="7" class="text-right font-weight-bold">
                       {{ $t('Total') }}:
                     </td>
                     <td class="text-center font-weight-bold">
@@ -608,6 +630,7 @@ export default {
         branch: '',
         type: '',
         reference: '',
+        invoice: '',
         account: '',
         debit: '',
         credit: '',
@@ -634,6 +657,43 @@ export default {
     displayItems() {
       // Return items directly - filtering is now done server-side
       return this.items || [];
+    },
+    groupedByInvoice() {
+      // Group entries by invoice number for visual grouping
+      const groups = {};
+      const ungrouped = [];
+      
+      (this.items || []).forEach(entry => {
+        const invoiceNumber = this.getInvoiceNumber(entry);
+        if (invoiceNumber) {
+          if (!groups[invoiceNumber]) {
+            groups[invoiceNumber] = [];
+          }
+          groups[invoiceNumber].push(entry);
+        } else {
+          ungrouped.push(entry);
+        }
+      });
+      
+      // Convert groups to array format for display
+      const result = [];
+      Object.keys(groups).forEach(invoiceNumber => {
+        result.push({
+          isGroup: true,
+          invoiceNumber: invoiceNumber,
+          entries: groups[invoiceNumber]
+        });
+      });
+      
+      // Add ungrouped entries at the end
+      ungrouped.forEach(entry => {
+        result.push({
+          isGroup: false,
+          entry: entry
+        });
+      });
+      
+      return result;
     },
     totalDebit() {
       if (!this.displayItems || this.displayItems.length === 0) {
@@ -1194,6 +1254,44 @@ export default {
       return typeMap[entryType] || entryType;
     },
 
+    getInvoiceNumber(entry) {
+      if (!entry) return null;
+      
+      // If source_type is Invoice, try to get invoice number from reference
+      // Reference format: invoice_no or invoice_no-COGS
+      if (entry.source_type && entry.source_type.includes('Invoice')) {
+        if (entry.reference) {
+          // Remove -COGS suffix if present
+          return entry.reference.replace(/-COGS$/, '');
+        }
+      }
+      
+      // Also check if reference looks like an invoice number
+      if (entry.reference && !entry.reference.includes('-COGS')) {
+        // Check if entry type is sales-related
+        const salesTypes = ['sales', 'pos_sales', 'sales_returns'];
+        if (salesTypes.includes(entry.entry_type)) {
+          return entry.reference;
+        }
+      }
+      
+      return null;
+    },
+
+    isFirstEntryForInvoice(entry, currentIndex) {
+      if (!entry || currentIndex === 0) return true;
+      
+      const currentInvoiceNumber = this.getInvoiceNumber(entry);
+      if (!currentInvoiceNumber) return false;
+      
+      // Check if previous entry has a different invoice number
+      const previousEntry = this.displayItems[currentIndex - 1];
+      if (!previousEntry) return true;
+      
+      const previousInvoiceNumber = this.getInvoiceNumber(previousEntry);
+      return previousInvoiceNumber !== currentInvoiceNumber;
+    },
+
     applyFilters() {
       // Reset to first page when filters change
       this.pagination.current_page = 1;
@@ -1209,6 +1307,7 @@ export default {
         branch: '',
         type: '',
         reference: '',
+        invoice: '',
         account: '',
         debit: '',
         credit: '',
@@ -1525,6 +1624,19 @@ export default {
 
 .journal-entries-table tr.entry-first-line {
   border-top: 2px solid #e5e7eb;
+}
+
+.journal-entries-table tr.invoice-group-first {
+  border-top: 3px solid #33a0d9;
+  background-color: #f8f9fa;
+}
+
+.journal-entries-table tr.invoice-group {
+  border-left: 3px solid #33a0d9;
+}
+
+.journal-entries-table tr.invoice-group:hover {
+  background-color: #f0f7fa;
 }
 
 .journal-entries-table td {

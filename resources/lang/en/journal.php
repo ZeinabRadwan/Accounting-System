@@ -25,6 +25,8 @@ return [
     'discount_received_for_purchase' => 'Discount Received for Purchase :number',
     'transport_cost_for_purchase' => 'Transport Cost for Purchase :number',
     'vat_input_for_purchase' => 'VAT Input for Purchase :number',
+    'inventory_for_purchase' => 'Inventory for Purchase :number',
+    'payment_for_purchase' => 'Payment for Purchase :number',
     'reduction_in_accounts_payable_for_purchase' => 'Reduction in Accounts Payable for Purchase :number',
     'cash_bank_payment_for_purchase' => 'Cash/Bank payment for Purchase :number',
     'cash_bank_payment_for_expense' => 'Cash/Bank payment for expense',

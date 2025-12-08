@@ -25,6 +25,8 @@ return [
     'discount_received_for_purchase' => 'خصم مستلم للمشتريات :number',
     'transport_cost_for_purchase' => 'تكلفة نقل للمشتريات :number',
     'vat_input_for_purchase' => 'ضريبة القيمة المضافة على المدخلات للمشتريات :number',
+    'inventory_for_purchase' => 'المخزون للمشتريات :number',
+    'payment_for_purchase' => 'الدفع للمشتريات :number',
     'reduction_in_accounts_payable_for_purchase' => 'تخفيض في الحسابات الدائنة للمشتريات :number',
     'cash_bank_payment_for_purchase' => 'دفع نقدي/بنكي للمشتريات :number',
     'cash_bank_payment_for_expense' => 'دفع نقدي/بنكي للمصروف',

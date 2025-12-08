@@ -34859,12 +34859,12 @@ var map = {
 		1121
 	],
 	"./journal-entries": [
-		72498,
-		2498
+		52260,
+		2260
 	],
 	"./journal-entries/": [
-		72498,
-		2498
+		52260,
+		2260
 	],
 	"./journal-entries/create": [
 		62145,
@@ -34883,12 +34883,12 @@ var map = {
 		3756
 	],
 	"./journal-entries/index": [
-		72498,
-		2498
+		52260,
+		2260
 	],
 	"./journal-entries/index.vue": [
-		72498,
-		2498
+		52260,
+		2260
 	],
 	"./journal-entries/show": [
 		61594,
@@ -35411,12 +35411,12 @@ var map = {
 		5982
 	],
 	"./purchases/create": [
-		55628,
-		5628
+		17150,
+		7150
 	],
 	"./purchases/create.vue": [
-		55628,
-		5628
+		17150,
+		7150
 	],
 	"./purchases/edit": [
 		46389,
@@ -35627,12 +35627,12 @@ var map = {
 		9156
 	],
 	"./sales/invoices/create": [
-		5845,
-		5845
+		75673,
+		5673
 	],
 	"./sales/invoices/create.vue": [
-		5845,
-		5845
+		75673,
+		5673
 	],
 	"./sales/invoices/edit": [
 		4473,

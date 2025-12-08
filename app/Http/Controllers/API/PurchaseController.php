@@ -368,11 +368,24 @@ class PurchaseController extends Controller
             }
 
             // Create journal entry for purchase (skip for Saudi Arabia)
+            $journalEntriesCreated = false;
             if (! $isSaudiArabia) {
                 try {
                     Log::info('Starting journal entry creation for purchase: '.$purchase->purchase_no);
                     $journalService = new BusinessTransactionJournalService;
-                    $journalEntry = $journalService->createPurchaseJournal($purchase, $userId);
+                    
+                    // Get payment account if payment is being added
+                    $paymentAccount = null;
+                    if ($request->addPayment == true && isset($request->account['id'])) {
+                        $account = Account::find($request->account['id']);
+                        if ($account && $account->isChartOfAccountConnected()) {
+                            $paymentAccount = $account->chartOfAccount;
+                            Log::info('Using payment account (cash/bank) for purchase journal: Account ID '.$paymentAccount->id);
+                        }
+                    }
+                    
+                    $journalEntry = $journalService->createPurchaseJournal($purchase, $userId, $paymentAccount);
+                    $journalEntriesCreated = true;
                     Log::info('Journal entry created successfully for purchase: '.$purchase->purchase_no.' with ID: '.$journalEntry->id);
 
                     // Check if purchase_journals record was created
@@ -483,6 +496,7 @@ class PurchaseController extends Controller
 
             return $this->responseWithSuccess('Purchase added successfully', [
                 'slug' => $purchase->slug,
+                'journal_entries_created' => $journalEntriesCreated,
             ]);
         } catch (Exception $e) {
             DB::rollback();
