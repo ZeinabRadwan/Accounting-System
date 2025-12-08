@@ -280,53 +280,54 @@ class BusinessTransactionJournalService
                 $costOfSalesAccount = $this->getCostOfSalesAccount($branchId);
 
                 if (! $inventoryAccount || ! $costOfSalesAccount) {
-                    throw new Exception('Inventory and Cost of Sales accounts must be configured in account routing settings to create COGS journal entry.');
+                    // Log warning but don't throw exception - allow main journal entry to be created
+                    Log::warning('COGS journal entry skipped for invoice '.$invoice->invoice_no.': Inventory and Cost of Sales accounts must be configured in account routing settings.');
+                } else {
+                    $cogsJournalEntry = JournalEntry::create([
+                        'entry_number' => JournalEntry::generateEntryNumber(),
+                        'entry_date' => $invoice->invoice_date,
+                        'reference' => $invoice->invoice_no.'-COGS',
+                        'description' => __('journal.cogs_for_sale_invoice', ['number' => $invoice->invoice_no]),
+                        'total_debit' => $totalCogsAmount,
+                        'total_credit' => $totalCogsAmount,
+                        'status' => 'posted',
+                        'created_by' => $userId,
+                        'posted_by' => $userId,
+                        'posted_at' => now(),
+                        'source_type' => Invoice::class,
+                        'source_id' => $invoice->id,
+                        'fiscal_year_id' => $defaults['fiscal_year_id'],
+                        'accounting_period_id' => $defaults['accounting_period_id'],
+                        'branch_id' => $branchId,
+                    ]);
+
+                    // Dr Cost of Sales
+                    $this->createJournalEntryLine(
+                        $cogsJournalEntry,
+                        $costOfSalesAccount->id,
+                        $totalCogsAmount,
+                        0,
+                        1,
+                        __('journal.cost_of_sales_for_invoice', ['number' => $invoice->invoice_no])
+                    );
+
+                    // Cr Inventory
+                    $this->createJournalEntryLine(
+                        $cogsJournalEntry,
+                        $inventoryAccount->id,
+                        0,
+                        $totalCogsAmount,
+                        2,
+                        __('journal.inventory_reduction_for_invoice', ['number' => $invoice->invoice_no])
+                    );
+
+                    // Optionally link COGS journal to invoice as well
+                    \App\Models\InvoiceJournal::create([
+                        'invoice_id' => $invoice->id,
+                        'journal_entry_id' => $cogsJournalEntry->id,
+                        'type' => 'sale_cogs',
+                    ]);
                 }
-
-                $cogsJournalEntry = JournalEntry::create([
-                    'entry_number' => JournalEntry::generateEntryNumber(),
-                    'entry_date' => $invoice->invoice_date,
-                    'reference' => $invoice->invoice_no.'-COGS',
-                    'description' => __('journal.cogs_for_sale_invoice', ['number' => $invoice->invoice_no]),
-                    'total_debit' => $totalCogsAmount,
-                    'total_credit' => $totalCogsAmount,
-                    'status' => 'posted',
-                    'created_by' => $userId,
-                    'posted_by' => $userId,
-                    'posted_at' => now(),
-                    'source_type' => Invoice::class,
-                    'source_id' => $invoice->id,
-                    'fiscal_year_id' => $defaults['fiscal_year_id'],
-                    'accounting_period_id' => $defaults['accounting_period_id'],
-                    'branch_id' => $branchId,
-                ]);
-
-                // Dr Cost of Sales
-                $this->createJournalEntryLine(
-                    $cogsJournalEntry,
-                    $costOfSalesAccount->id,
-                    $totalCogsAmount,
-                    0,
-                    1,
-                    __('journal.cost_of_sales_for_invoice', ['number' => $invoice->invoice_no])
-                );
-
-                // Cr Inventory
-                $this->createJournalEntryLine(
-                    $cogsJournalEntry,
-                    $inventoryAccount->id,
-                    0,
-                    $totalCogsAmount,
-                    2,
-                    __('journal.inventory_reduction_for_invoice', ['number' => $invoice->invoice_no])
-                );
-
-                // Optionally link COGS journal to invoice as well
-                \App\Models\InvoiceJournal::create([
-                    'invoice_id' => $invoice->id,
-                    'journal_entry_id' => $cogsJournalEntry->id,
-                    'type' => 'sale_cogs',
-                ]);
             }
 
             DB::commit();
