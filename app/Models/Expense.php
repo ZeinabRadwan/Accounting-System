@@ -91,6 +91,14 @@ class Expense extends Model
     }
 
     /**
+     * Get the cost center for this expense.
+     */
+    public function costCenter()
+    {
+        return $this->belongsTo(CostCenter::class, 'cost_center_id');
+    }
+
+    /**
      * Scope: filter by branch
      */
     public function scopeForBranch($query, $branchId)

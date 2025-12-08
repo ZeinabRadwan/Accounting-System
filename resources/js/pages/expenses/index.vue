@@ -147,6 +147,22 @@
                   row.date | moment("Do MMM, YYYY")
                 }}</span>
               </template>
+              <template #cell-branch="{ row }">
+                <span v-if="row.branch">{{ row.branch.name }}</span>
+                <span v-else>-</span>
+              </template>
+              <template #cell-reference="{ row }">
+                <span v-if="row.reference">{{ row.reference }}</span>
+                <span v-else>-</span>
+              </template>
+              <template #cell-costCenter="{ row }">
+                <span v-if="row.costCenter">{{ row.costCenter.name }}</span>
+                <span v-else>-</span>
+              </template>
+              <template #cell-createdBy="{ row }">
+                <span v-if="row.createdBy">{{ row.createdBy }}</span>
+                <span v-else>-</span>
+              </template>
               <template #cell-status="{ row }">
                 <span v-if="row.status === 1" class="badge bg-success">{{
                   $t("Active")
@@ -204,6 +220,29 @@
           </div>
           <div class="card-footer">
             <div class="dtable-footer">
+              <!-- Summary Section -->
+              <div class="summary-section mb-3">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="summary-item">
+                      <span class="summary-label">{{ $t("العدد") }}:</span>
+                      <span class="summary-value">{{ totalCount }}</span>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="summary-item">
+                      <span class="summary-label">{{ $t("اجمالي الضريبة") }}:</span>
+                      <span class="summary-value" v-html="formatCurrency(totalTax)"></span>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="summary-item">
+                      <span class="summary-label">{{ $t("المجموع") }}:</span>
+                      <span class="summary-value" v-html="formatCurrency(totalAmount)"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div class="form-group row display-per-page">
                 <label>{{ $t("per_page") }} </label>
                 <div>
@@ -315,9 +354,13 @@ export default {
         { key: "reason", label: this.$t("Expense Reason") },
         { key: "category", label: this.$t("Category") },
         { key: "subCategory", label: this.$t("Sub Category") },
+        { key: "branch", label: this.$t("Branch") },
+        { key: "reference", label: this.$t("Reference Number") },
+        { key: "costCenter", label: this.$t("Cost Center") },
         { key: "amount", label: this.$t("Amount") },
         { key: "account", label: this.$t("Account") },
         { key: "date", label: this.$t("Date") },
+        { key: "createdBy", label: this.$t("Created By") },
         { key: "status", label: this.$t("Status") },
       ];
     },
@@ -334,6 +377,24 @@ export default {
           index,
         };
       });
+    },
+    // Calculate total count
+    totalCount() {
+      return this.pagination?.total || this.items.length || 0;
+    },
+    // Calculate total tax
+    totalTax() {
+      return this.items.reduce((sum, item) => {
+        const taxValue = parseFloat(item.taxValue) || 0;
+        return sum + taxValue;
+      }, 0);
+    },
+    // Calculate total amount
+    totalAmount() {
+      return this.items.reduce((sum, item) => {
+        const amount = item.transaction?.amount ? parseFloat(item.transaction.amount) : 0;
+        return sum + amount;
+      }, 0);
     },
   },
   watch: {
@@ -551,6 +612,19 @@ export default {
             });
         }
       });
+    },
+
+    // format currency
+    formatCurrency(amount) {
+      if (amount === null || amount === undefined || isNaN(amount)) {
+        return '0.00';
+      }
+      const numAmount = parseFloat(amount);
+      const formatted = numAmount.toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+      return formatted + ' <span class="saudi-riyal">ê</span>';
     },
   },
 };
@@ -833,6 +907,40 @@ export default {
 
 .expenses-table td {
   vertical-align: middle;
+}
+
+/* Summary Section Styles */
+.summary-section {
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  background-color: white;
+  border-radius: 6px;
+  border: 1px solid #dee2e6;
+}
+
+.summary-label {
+  font-weight: 600;
+  color: #495057;
+  font-size: 14px;
+}
+
+.summary-value {
+  font-weight: 700;
+  color: #2AB930;
+  font-size: 16px;
+}
+
+[dir="rtl"] .summary-item {
+  flex-direction: row-reverse;
 }
 </style>
 

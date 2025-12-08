@@ -34611,12 +34611,12 @@ var map = {
 		1321
 	],
 	"./expenses": [
-		63291,
-		3291
+		61978,
+		1978
 	],
 	"./expenses/": [
-		63291,
-		3291
+		61978,
+		1978
 	],
 	"./expenses/categories": [
 		99019,
@@ -34651,12 +34651,12 @@ var map = {
 		9019
 	],
 	"./expenses/create": [
-		17290,
-		7290
+		18215,
+		8215
 	],
 	"./expenses/create.vue": [
-		17290,
-		7290
+		18215,
+		8215
 	],
 	"./expenses/edit": [
 		40031,
@@ -34667,12 +34667,12 @@ var map = {
 		31
 	],
 	"./expenses/index": [
-		63291,
-		3291
+		61978,
+		1978
 	],
 	"./expenses/index.vue": [
-		63291,
-		3291
+		61978,
+		1978
 	],
 	"./expenses/show": [
 		42373,
@@ -35411,12 +35411,12 @@ var map = {
 		5982
 	],
 	"./purchases/create": [
-		78864,
-		8864
+		55628,
+		5628
 	],
 	"./purchases/create.vue": [
-		78864,
-		8864
+		55628,
+		5628
 	],
 	"./purchases/edit": [
 		46389,

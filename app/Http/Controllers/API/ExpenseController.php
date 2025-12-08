@@ -43,7 +43,7 @@ class ExpenseController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Expense::with('expSubCategory.expCategory', 'expTransaction.cashbookAccount', 'user');
+        $query = Expense::with('expSubCategory.expCategory', 'expTransaction.cashbookAccount', 'user', 'branch', 'costCenter');
         
         // Apply branch filter for non-superadmin users
         $user = Auth::user();

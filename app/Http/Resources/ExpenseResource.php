@@ -25,8 +25,19 @@ class ExpenseResource extends JsonResource
             'date' => $this->date,
             'note' => $this->note,
             'status' => (int) $this->status,
-            'createdBy' => $this->user->name,
+            'createdBy' => $this->user->name ?? null,
             'image' => $this->image_path ? global_asset($this->image_path) : '',
+            'branch' => $this->whenLoaded('branch') && $this->branch ? [
+                'id' => $this->branch->id,
+                'name' => $this->branch->name,
+                'slug' => $this->branch->slug ?? null,
+            ] : null,
+            'costCenter' => $this->whenLoaded('costCenter') && $this->costCenter ? [
+                'id' => $this->costCenter->id,
+                'name' => $this->costCenter->name,
+                'code' => $this->costCenter->code ?? null,
+            ] : null,
+            'reference' => $this->reference ?? null,
         ];
     }
 }
