@@ -35475,12 +35475,12 @@ var map = {
 		3966
 	],
 	"./purchases/show": [
-		26449,
-		6449
+		99631,
+		9631
 	],
 	"./purchases/show.vue": [
-		26449,
-		6449
+		99631,
+		9631
 	],
 	"./reports/account-statement": [
 		89861,

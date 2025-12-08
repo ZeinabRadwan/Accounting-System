@@ -160,6 +160,15 @@
                     </span>
                     <span v-else>{{ value || '-' }}</span>
                   </template>
+                  <template #cell-journalEntry="{ value }">
+                    <router-link v-if="value && value.id" 
+                      :to="{ name: 'journal-entries.show', params: { id: value.id } }" 
+                      class="badge bg-info text-white" 
+                      style="text-decoration: none;">
+                      {{ value.entry_number || `#${value.id}` }}
+                    </router-link>
+                    <span v-else class="text-muted">-</span>
+                  </template>
                 </GeneralTable>
               </div>
             </div>
