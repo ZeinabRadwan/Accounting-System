@@ -35435,20 +35435,20 @@ var map = {
 		6476
 	],
 	"./purchases/returns": [
-		92311,
-		2311
+		99658,
+		9658
 	],
 	"./purchases/returns/": [
-		92311,
-		2311
+		99658,
+		9658
 	],
 	"./purchases/returns/create": [
-		33782,
-		3782
+		69497,
+		9497
 	],
 	"./purchases/returns/create.vue": [
-		33782,
-		3782
+		69497,
+		9497
 	],
 	"./purchases/returns/edit": [
 		8068,
@@ -35459,20 +35459,20 @@ var map = {
 		8068
 	],
 	"./purchases/returns/index": [
-		92311,
-		2311
+		99658,
+		9658
 	],
 	"./purchases/returns/index.vue": [
-		92311,
-		2311
+		99658,
+		9658
 	],
 	"./purchases/returns/show": [
-		83966,
-		3966
+		28229,
+		8229
 	],
 	"./purchases/returns/show.vue": [
-		83966,
-		3966
+		28229,
+		8229
 	],
 	"./purchases/show": [
 		46597,

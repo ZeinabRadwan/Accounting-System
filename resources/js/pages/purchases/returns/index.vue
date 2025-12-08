@@ -144,12 +144,6 @@
                           {{ $t('View') }}
                         </router-link>
                       </li>
-                      <li v-if="isSaudiArabia && row.status === 0">
-                        <a href="#" @click.prevent="sendPurchaseReturn(row)">
-                          <i class="fas fa-paper-plane"></i>
-                          {{ $t('Send to ZATCA') }}
-                        </a>
-                      </li>
                       <li v-if="$can('invoice-return-edit')">
                         <router-link :to="{ name: 'purchaseReturns.edit', params: { slug: row.slug } }">
                           <i class="fas fa-edit"></i>

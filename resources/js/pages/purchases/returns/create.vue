@@ -849,6 +849,13 @@ export default {
             type: 'success',
             title: this.isSaudiArabia ? this.$t('Debit note added successfully') : this.$t('Purchase return added successfully'),
           })
+          // Show journal entry creation confirmation toast
+          setTimeout(() => {
+            toast.fire({
+              type: 'success',
+              title: this.$t('Journal Entry Created Successfully'),
+            })
+          }, 500)
           this.clearTemporaryData()
           this.$router.push({ name: 'purchaseReturns.show', params: { slug: data.data.slug }, })
         })

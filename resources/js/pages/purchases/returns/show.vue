@@ -34,11 +34,7 @@
             <a @click="downloadPDF" href="#" class="btn btn-info">
               <i class="fas fa-download"></i> {{ $t("download") }}
             </a>
-            <a v-if="isSaudiArabia && allData && allData.status === 0" @click="sendPurchaseReturn(allData)" href="#"
-              class="btn btn-success">
-              <i class="fas fa-paper-plane"></i> {{ $t("Send Purchase Return to ZATCA") }}
-            </a>
-            <router-link v-if="$can('purchase-return-edit') && !(isSaudiArabia && allData && allData.status === 1)" :to="{
+            <router-link v-if="$can('purchase-return-edit')" :to="{
               name: 'purchaseReturns.edit',
               params: { slug: allData.slug },
             }" class="btn btn-info">
@@ -953,62 +949,6 @@ export default {
       this.pagination.current_page = 1;
     },
 
-    // send purchase return to ZATCA
-    async sendPurchaseReturn(data) {
-      SwalOriginal.fire({
-        title: this.$t("Send Purchase Return to ZATCA"),
-        text: this.$t("Do you want to send this purchase return to ZATCA?"),
-        type: "question",
-        showCancelButton: true,
-        confirmButtonText: this.$t("Yes"),
-        cancelButtonText: this.$t("No"),
-        confirmButtonColor: "#28a745",
-        cancelButtonColor: "#dc3545",
-      }).then(async (result) => {
-        if (result.value) {
-          try {
-            // Show loading
-            SwalOriginal.fire({
-              title: this.$t("Sending..."),
-              text: this.$t("Please wait while we send the purchase return to ZATCA"),
-              allowOutsideClick: false,
-              showConfirmButton: false,
-              willOpen: () => {
-                SwalOriginal.showLoading();
-              }
-            });
-
-            // Send purchase return to ZATCA and create journal entries
-            const response = await axios.post(`/api/purchase-returns/${data.slug}/send-to-zatca`);
-
-            // Close the loading dialog
-            SwalOriginal.close();
-
-            if (response.data.success) {
-              this.$toast.success(
-                this.$t("Sent Successfully!"),
-                this.$t("Purchase return has been sent to ZATCA and journal entries have been created.")
-              );
-              // Refresh the purchase return data to update the status
-              this.getInvoiceReturn();
-            } else {
-              this.$toast.error(
-                this.$t("Failed!"),
-                response.data.message || this.$t("Failed to send purchase return to ZATCA")
-              );
-            }
-          } catch (error) {
-            console.error('Error sending purchase return to ZATCA:', error);
-            // Close the loading dialog
-            SwalOriginal.close();
-            this.$toast.error(
-              this.$t("Error!"),
-              this.$t("An error occurred while sending the purchase return to ZATCA")
-            );
-          }
-        }
-      });
-    },
   },
 };
 </script>

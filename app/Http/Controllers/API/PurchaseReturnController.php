@@ -9,7 +9,6 @@ use App\Http\Resources\PurchaseReturnListReource;
 use App\Http\Resources\PurchaseReturnResource;
 use App\Interfaces\ITransactionService;
 use App\Models\AccountTransaction;
-use App\Models\GeneralSetting;
 use App\Models\Product;
 use App\Models\PurchaseReturn;
 use App\Models\PurchaseReturnProduct;
@@ -170,8 +169,17 @@ class PurchaseReturnController extends Controller
                 }
             }
 
-            // Journal entries will be created when sent to ZATCA
-            // No journal entries created here to match invoice/purchase behavior
+            // Auto-create journal entry for purchase return
+            try {
+                \Illuminate\Support\Facades\Log::info('Creating journal entry for purchase return: '.$purchaseReturn->code);
+                $journalService = new \App\Services\BusinessTransactionJournalService;
+                $journalEntry = $journalService->createPurchaseReturnJournal($purchaseReturn, $userId);
+                \Illuminate\Support\Facades\Log::info('Journal entry created successfully for purchase return: '.$purchaseReturn->code);
+            } catch (\Exception $e) {
+                // Log the error but don't fail the return creation
+                \Illuminate\Support\Facades\Log::error('Failed to create journal entry for purchase return: '.$e->getMessage());
+                \Illuminate\Support\Facades\Log::error('Stack trace: '.$e->getTraceAsString());
+            }
 
             // update purchase status
             $purchaseReturn->purchase->update([
@@ -331,6 +339,20 @@ class PurchaseReturnController extends Controller
                 ]);
             }
 
+            // Auto-create journal entry for purchase return (if not already created)
+            if (! $purchaseReturn->journalEntry) {
+                try {
+                    \Illuminate\Support\Facades\Log::info('Creating journal entry for purchase return update: '.$purchaseReturn->code);
+                    $journalService = new \App\Services\BusinessTransactionJournalService;
+                    $journalEntry = $journalService->createPurchaseReturnJournal($purchaseReturn, $userId);
+                    \Illuminate\Support\Facades\Log::info('Journal entry created successfully for purchase return update: '.$purchaseReturn->code);
+                } catch (\Exception $e) {
+                    // Log the error but don't fail the return update
+                    \Illuminate\Support\Facades\Log::error('Failed to create journal entry for purchase return update: '.$e->getMessage());
+                    \Illuminate\Support\Facades\Log::error('Stack trace: '.$e->getTraceAsString());
+                }
+            }
+
             // add activity log
             activity()
                 ->causedBy(Auth::user())
@@ -443,81 +465,5 @@ class PurchaseReturnController extends Controller
         });
 
         return PurchaseReturnListReource::collection($query->latest()->paginate($request->perPage));
-    }
-
-    /**
-     * Send purchase return to ZATCA and create journal entries
-     *
-     * @param  string  $slug
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function sendToZatca($slug)
-    {
-        try {
-            $purchaseReturn = PurchaseReturn::where('slug', $slug)->with('purchase.supplier', 'purchaseReturnProducts.product', 'journalEntry')->first();
-
-            if (! $purchaseReturn) {
-                return $this->responseWithError('Purchase return not found');
-            }
-
-            // Get country setting
-            $country = GeneralSetting::where('key', 'country')->first()?->value ?? 'SA';
-            $isSaudiArabia = $country === 'SA';
-
-            // Only allow for Saudi Arabia
-            if (! $isSaudiArabia) {
-                return $this->responseWithError('This feature is only available for Saudi Arabia');
-            }
-
-            // Only allow for inactive purchase returns
-            if ($purchaseReturn->status != 0) {
-                return $this->responseWithError('Only inactive purchase returns can be sent to ZATCA');
-            }
-
-            DB::beginTransaction();
-
-            $userId = auth()->user()->id;
-
-            // Create journal entry for purchase return (now that we're sending to ZATCA)
-            try {
-                \Illuminate\Support\Facades\Log::info('Creating journal entry for ZATCA purchase return: '.$purchaseReturn->code);
-                $journalService = new \App\Services\BusinessTransactionJournalService;
-                $journalEntry = $journalService->createPurchaseReturnJournal($purchaseReturn, $userId);
-                \Illuminate\Support\Facades\Log::info('Journal entry created successfully for ZATCA purchase return: '.$purchaseReturn->code);
-            } catch (\Exception $e) {
-                \Illuminate\Support\Facades\Log::error('Failed to create journal entry for ZATCA purchase return: '.$e->getMessage());
-                DB::rollback();
-
-                return $this->responseWithError('Failed to create journal entries: '.$e->getMessage());
-            }
-
-            // Update purchase return status to active (sent to ZATCA)
-            $purchaseReturn->update(['status' => 1]);
-
-            // Here you would add actual ZATCA integration
-            // For now, we'll just simulate the ZATCA sending
-            // You can integrate with ZATCA API here
-
-            // Log the ZATCA sending
-            \Illuminate\Support\Facades\Log::info("Purchase return {$purchaseReturn->code} sent to ZATCA", [
-                'purchase_return_id' => $purchaseReturn->id,
-                'user_id' => $userId,
-                'timestamp' => now(),
-            ]);
-
-            DB::commit();
-
-            return $this->responseWithSuccess('Purchase return sent to ZATCA successfully and journal entries created', [
-                'purchase_return_id' => $purchaseReturn->id,
-                'purchase_return_code' => $purchaseReturn->code,
-                'status' => 'sent_to_zatca',
-            ]);
-
-        } catch (Exception $e) {
-            DB::rollback();
-            \Illuminate\Support\Facades\Log::error('Error sending purchase return to ZATCA: '.$e->getMessage());
-
-            return $this->responseWithError('Failed to send purchase return to ZATCA: '.$e->getMessage());
-        }
     }
 }
