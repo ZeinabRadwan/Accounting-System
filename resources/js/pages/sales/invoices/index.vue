@@ -415,6 +415,8 @@ export default {
       sms_configured: false,
       loading: true,
     },
+    // Journal entries map for quick lookup by invoice number
+    journalEntriesMap: {},
   }),
   filters: {
     startDate(val) {
@@ -454,10 +456,16 @@ export default {
       ];
     },
     itemsWithIndex() {
-      return this.items.map((item, index) => ({
-        ...item,
-        index: index + 1,
-      }));
+      return this.items.map((item, index) => {
+        // Find journal entry for this invoice by reference (invoiceNo)
+        const journalEntry = this.journalEntriesMap[item.invoiceNo] || item.journalEntry || null;
+        
+        return {
+          ...item,
+          index: index + 1,
+          journalEntry: journalEntry,
+        };
+      });
     },
   },
   watch: {
@@ -478,6 +486,7 @@ export default {
     this.getData();
     this.getAccounts();
     this.loadCommunicationConfigStatus();
+    this.loadJournalEntries();
     this.prefix = this.appInfo.invoicePrefix;
   },
   mounted() {
@@ -637,6 +646,62 @@ export default {
         path: "/api/invoices?page=",
         currentPage: currentPage + "&perPage=" + this.perPage,
       });
+      // Reload journal entries after fetching invoices
+      await this.loadJournalEntries();
+    },
+    
+    // Load journal entries and map them by invoice number (reference)
+    async loadJournalEntries() {
+      try {
+        // Get invoice numbers from current items
+        const invoiceNumbers = this.items.map(item => item.invoiceNo).filter(Boolean);
+        
+        if (invoiceNumbers.length === 0) {
+          return;
+        }
+        
+        // Fetch journal entries for all invoices at once
+        // We'll search for each invoice number, but we can optimize by getting all entries
+        const response = await axios.get('/api/journal-entries', {
+          params: {
+            perPage: 1000, // Get a large number to cover all invoices
+          }
+        });
+        
+        // Create a map of invoice numbers to journal entries
+        const map = {};
+        if (response.data && response.data.data) {
+          response.data.data.forEach(entry => {
+            // Check if reference matches an invoice number (could be invoiceNo or invoiceNo-COGS)
+            const reference = entry.reference || '';
+            if (!reference) return;
+            
+            // Extract invoice number (remove -COGS suffix if present)
+            const invoiceNo = reference.replace(/-COGS$/, '');
+            if (invoiceNo && invoiceNumbers.includes(invoiceNo) && !map[invoiceNo]) {
+              // Store the first journal entry found for this invoice (prefer non-COGS entries)
+              if (!reference.endsWith('-COGS')) {
+                map[invoiceNo] = {
+                  id: entry.id,
+                  entry_number: entry.entry_number,
+                  slug: entry.slug || null,
+                };
+              } else if (!map[invoiceNo]) {
+                // Fallback to COGS entry if no main entry found
+                map[invoiceNo] = {
+                  id: entry.id,
+                  entry_number: entry.entry_number,
+                  slug: entry.slug || null,
+                };
+              }
+            }
+          });
+        }
+        this.journalEntriesMap = map;
+      } catch (error) {
+        console.error('Error loading journal entries:', error);
+        // Don't show error to user, just log it
+      }
     },
 
     // Pagination
@@ -852,15 +917,15 @@ export default {
                 this.$t("Sent Successfully!"),
                 this.$t("Invoice has been sent to ZATCA and journal entries have been created.")
               );
-              
+
               // Refresh the table to update the status and journal entry
               await this.getData();
-              
+
               // Update the invoice row immediately with journal entry data from response after refresh
               if (response.data.data && response.data.data.journalEntry) {
                 await this.$nextTick();
-                const invoiceIndex = this.items.findIndex(item => 
-                  item.slug === data.slug || 
+                const invoiceIndex = this.items.findIndex(item =>
+                  item.slug === data.slug ||
                   item.id === response.data.data.invoice_id ||
                   item.invoiceNo === response.data.data.invoice_no
                 );

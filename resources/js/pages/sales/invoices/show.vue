@@ -1041,6 +1041,11 @@ export default {
       this.invoiceProducts = this.allData.invoiceProducts;
       this.invoiceProducts.sort(this.sortProducts);
 
+      // Load journal entry for this invoice if not already loaded
+      if (!this.allData.journalEntry && this.allData.invoiceNo) {
+        await this.loadJournalEntryForInvoice(this.allData.invoiceNo);
+      }
+
       // Debug: Check what we're getting
       console.log('[InvoiceDetails] allData.subTotal:', this.allData.subTotal);
       console.log('[InvoiceDetails] totalProductVat:', this.totalProductVat);
@@ -1050,6 +1055,52 @@ export default {
       console.log('[InvoiceDetails] appInfo:', this.appInfo);
 
       this.loading = false;
+    },
+
+    // Load journal entry for a specific invoice by invoice number
+    async loadJournalEntryForInvoice(invoiceNo) {
+      try {
+        // Search for journal entries with reference matching invoice number
+        const response = await axios.get('/api/journal-entries', {
+          params: {
+            reference: invoiceNo, // Search by reference field
+            perPage: 10,
+          }
+        });
+
+        if (response.data && response.data.data && response.data.data.length > 0) {
+          // Find the first journal entry that matches (prefer non-COGS entry)
+          let journalEntry = response.data.data.find(entry => {
+            const ref = entry.reference || '';
+            // Match exact invoice number (not COGS)
+            return ref === invoiceNo;
+          });
+
+          // If no exact match, use the first one (could be COGS)
+          if (!journalEntry) {
+            journalEntry = response.data.data.find(entry => {
+              const ref = entry.reference || '';
+              // Match invoice number-COGS
+              return ref.startsWith(invoiceNo + '-');
+            }) || response.data.data[0];
+          }
+
+          if (journalEntry) {
+            // Update allData with journal entry
+            this.allData = {
+              ...this.allData,
+              journalEntry: {
+                id: journalEntry.id,
+                entry_number: journalEntry.entry_number,
+                slug: journalEntry.slug || null,
+              },
+            };
+          }
+        }
+      } catch (error) {
+        console.error('Error loading journal entry for invoice:', error);
+        // Don't show error to user, just log it
+      }
     },
     sortProducts(a, b) {
       if (a.productCode < b.productCode) {
