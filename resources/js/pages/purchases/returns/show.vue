@@ -19,11 +19,6 @@
                   <i class="nav-icon fa fa-bell" aria-hidden="true"></i>
                   {{ $t("Activity log") }}</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#journal-entry" data-toggle="tab">
-                  <i class="nav-icon fa fa-book" aria-hidden="true"></i>
-                  {{ $t("Journal Entry") }}</a>
-              </li>
             </ul>
           </div>
           <div class="btn-group">
@@ -397,127 +392,6 @@
           </div>
         </div>
       </div>
-
-      <!-- Journal Entry Section -->
-      <div class="tab-pane" id="journal-entry">
-        <div class="card custom-card w-100 mt-5 no-print">
-          <div class="card-header setings-header">
-            <div class="col-xl-4 col-4">
-              <h3 class="card-title">
-                {{ $t("Journal Entry Information") }}
-              </h3>
-            </div>
-          </div>
-          <div class="card-body">
-            <div v-if="allData.journalEntries && allData.journalEntries.length > 0">
-              <div v-for="(journalEntry, index) in sortedJournalEntries" :key="index" class="mb-4">
-                <div class="row mb-3">
-                  <div class="col-md-3">
-                    <strong>{{ $t("Entry Number") }}:</strong>
-                    <span class="ml-2">{{
-                      journalEntry.formatted_entry_number
-                      }}</span>
-                  </div>
-                  <div class="col-md-3">
-                    <strong>{{ $t("Entry Date") }}:</strong>
-                    <span class="ml-2">{{
-                      journalEntry.entry_date | formatDate
-                      }}</span>
-                  </div>
-                  <div class="col-md-3">
-                    <strong>{{ $t("Status") }}:</strong>
-                    <span class="ml-2 badge" :class="journalEntry.status === 'posted'
-                      ? 'badge-success'
-                      : 'badge-warning'
-                      ">
-                      {{ journalEntry.formatted_status }}
-                    </span>
-                  </div>
-                  <div class="col-md-3">
-                    <strong>{{ $t("Total Amount") }}:</strong>
-                    <span class="ml-2">
-                      <CurrencyDisplay :amount="journalEntry.total_debit" />
-                    </span>
-                  </div>
-                </div>
-
-                <div class="row mb-3">
-                  <div class="col-12">
-                    <strong>{{ $t("Description") }}:</strong>
-                    <span class="ml-2">{{ journalEntry.description }}</span>
-                  </div>
-                </div>
-
-                <div class="table-responsive">
-                  <GeneralTable
-                    :columns="journalEntryLinesColumns"
-                    :rows="journalEntry.lines || []"
-                    wrapper-class="table-responsive"
-                  >
-                    <template #chart_of_account="{ row }">
-                      <strong>{{ row.chart_of_account?.name }}</strong>
-                      <br />
-                      <small class="text-muted">{{ row.chart_of_account?.type?.name }}</small>
-                    </template>
-                    <template #debit_amount="{ row }">
-                      <span v-if="row.debit_amount > 0">
-                        {{ row.debit_amount }}<span class="saudi-riyal">ê</span>
-                      </span>
-                      <span v-else class="text-muted">-</span>
-                    </template>
-                    <template #credit_amount="{ row }">
-                      <span v-if="row.credit_amount > 0">
-                        {{ row.credit_amount }} <span class="saudi-riyal">ê</span>
-                      </span>
-                      <span v-else class="text-muted">-</span>
-                    </template>
-                  </GeneralTable>
-                  <!-- Summary Footer -->
-                  <div class="table-responsive mt-2">
-                    <table class="table table-bordered table-sm">
-                      <tfoot class="bg-light">
-                        <tr>
-                          <th colspan="3" class="text-right">
-                            {{ $t("Total") }}:
-                          </th>
-                          <th class="text-right">
-                            {{ journalEntry.total_debit }} <span class="saudi-riyal">ê</span>
-                          </th>
-                          <th class="text-right">
-                            {{ journalEntry.total_credit }} <span class="saudi-riyal">ê</span>
-                          </th>
-                        </tr>
-                        <tr>
-                          <th colspan="3" class="text-right">
-                            {{ $t("Balance") }}:
-                          </th>
-                          <th colspan="2" class="text-center">
-                            <span class="badge" :class="journalEntry.is_balanced
-                              ? 'badge-success'
-                              : 'badge-danger'
-                              ">
-                              {{
-                                journalEntry.is_balanced
-                                  ? $t("Balanced")
-                                  : $t("Unbalanced")
-                              }}
-                            </span>
-                          </th>
-                        </tr>
-                      </tfoot>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div v-else class="text-center text-muted">
-              <p>
-                {{ $t("No journal entries found for this purchase return.") }}
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </template>
@@ -525,7 +399,6 @@
 <script>
 import axios from "axios";
 import { mapGetters } from "vuex";
-import SwalOriginal from "sweetalert2/dist/sweetalert2";
 import GeneralTable from "~/components/GeneralTable";
 
 export default {
@@ -538,7 +411,6 @@ export default {
     };
   },
   components: {
-    CurrencyDisplay: () => import('~/components/CurrencyDisplay'),
     GeneralTable,
   },
   data: () => ({
@@ -591,26 +463,6 @@ export default {
       return this.returnProducts.filter((product) => product.returnQty > 0);
     },
 
-    // Sort journal entry lines with debits first, then credits
-    sortedJournalEntries() {
-      if (!this.allData || !this.allData.journalEntries) {
-        return [];
-      }
-
-      return this.allData.journalEntries.map(journalEntry => ({
-        ...journalEntry,
-        lines: this.sortJournalEntryLines(journalEntry.lines || [])
-      }));
-    },
-    journalEntryLinesColumns() {
-      return [
-        { key: "line_number", label: this.$t("Line") },
-        { key: "chart_of_account", label: this.$t("Chart of Account") },
-        { key: "description", label: this.$t("Description") },
-        { key: "debit_amount", label: this.$t("Debit") },
-        { key: "credit_amount", label: this.$t("Credit") },
-      ];
-    },
     returnProductsColumns() {
       return [
         { key: "index", label: this.$t("#") },
@@ -704,24 +556,6 @@ export default {
       return 0;
     },
 
-    // Sort journal entry lines: debits first, then credits
-    sortJournalEntryLines(lines) {
-      if (!lines || lines.length === 0) {
-        return [];
-      }
-
-      return [...lines].sort((a, b) => {
-        // If both are debits or both are credits, maintain original order
-        const aIsDebit = a.debit_amount > 0;
-        const bIsDebit = b.debit_amount > 0;
-
-        if (aIsDebit && !bIsDebit) return -1; // a is debit, b is credit - a comes first
-        if (!aIsDebit && bIsDebit) return 1;  // a is credit, b is debit - b comes first
-
-        // If both are same type, maintain original order by line number
-        return a.line_number - b.line_number;
-      });
-    },
 
     // Get VAT rate for a product from database
     getVatRate(product = null) {

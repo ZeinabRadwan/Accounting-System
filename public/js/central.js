@@ -35467,12 +35467,12 @@ var map = {
 		9658
 	],
 	"./purchases/returns/show": [
-		28229,
-		8229
+		72880,
+		2880
 	],
 	"./purchases/returns/show.vue": [
-		28229,
-		8229
+		72880,
+		2880
 	],
 	"./purchases/show": [
 		90546,
