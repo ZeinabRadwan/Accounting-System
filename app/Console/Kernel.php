@@ -19,7 +19,6 @@ class Kernel extends ConsoleKernel
     /**
      * Define the application's command schedule.
      *
-     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
      * @return void
      */
     protected function schedule(Schedule $schedule)
@@ -30,6 +29,11 @@ class Kernel extends ConsoleKernel
         $schedule->command('db:wipe')->timezone('Asia/Dhaka')->everyTwoHours();
         $schedule->command('database:import')->timezone('Asia/Dhaka')->everyTwoHours();
         $schedule->command('trial-ends-email:send')->hourly();
+
+        // Reset working hours daily at 8 AM
+        $schedule->command('working-hours:reset')
+            ->dailyAt('08:00')
+            ->timezone('Asia/Dhaka');
     }
 
     /**
