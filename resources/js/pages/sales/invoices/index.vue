@@ -100,9 +100,8 @@
               </template>
               <template #cell-journalEntry="{ row }">
                 <span v-if="row.journalEntry">
-                  <router-link :to="{ name: 'journal-entries.show', params: { id: row.journalEntry.id } }" 
-                    class="badge bg-info text-white" 
-                    style="text-decoration: none;">
+                  <router-link :to="{ name: 'journal-entries.show', params: { id: row.journalEntry.id } }"
+                    class="badge bg-info text-white" style="text-decoration: none;">
                     {{ row.journalEntry.entry_number || `#${row.journalEntry.id}` }}
                   </router-link>
                 </span>
@@ -849,11 +848,24 @@ export default {
             SwalOriginal.close();
 
             if (response.data.success) {
+              // Update the invoice row immediately with journal entry data from response
+              if (response.data.data && response.data.data.journalEntry) {
+                const invoiceIndex = this.items.findIndex(item => item.slug === data.slug || item.id === response.data.data.invoice_id);
+                if (invoiceIndex !== -1) {
+                  // Update the invoice item with journal entry data
+                  this.$set(this.items, invoiceIndex, {
+                    ...this.items[invoiceIndex],
+                    journalEntry: response.data.data.journalEntry,
+                    status: 1, // Update status to sent
+                  });
+                }
+              }
+
               this.$toast.success(
                 this.$t("Sent Successfully!"),
                 this.$t("Invoice has been sent to ZATCA and journal entries have been created.")
               );
-              // Refresh the table to update the status
+              // Refresh the table to update the status and ensure data is in sync
               this.getData();
             } else {
               this.$toast.error(

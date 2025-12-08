@@ -138,12 +138,8 @@
             <!-- Invoice Header Information Table -->
             <div class="row mt-3">
               <div class="col-12">
-                <GeneralTable
-                  :columns="invoiceHeaderColumns"
-                  :rows="invoiceHeaderRows"
-                  :loading="loading"
-                  wrapper-class=""
-                >
+                <GeneralTable :columns="invoiceHeaderColumns" :rows="invoiceHeaderRows" :loading="loading"
+                  wrapper-class="">
                   <template #cell-invoiceNo="{ value }">
                     {{ value | withPrefix(invoicePrefix) }}
                   </template>
@@ -167,9 +163,8 @@
                     {{ value | moment("Do MMM, YYYY") }}
                   </template>
                   <template #cell-journalEntry="{ value }">
-                    <router-link v-if="value && value.id" 
-                      :to="{ name: 'journal-entries.show', params: { id: value.id } }" 
-                      class="badge bg-info text-white" 
+                    <router-link v-if="value && value.id"
+                      :to="{ name: 'journal-entries.show', params: { id: value.id } }" class="badge bg-info text-white"
                       style="text-decoration: none;">
                       {{ value.entry_number || `#${value.id}` }}
                     </router-link>
@@ -245,12 +240,8 @@
             <div class="row mt-4">
               <div class="col-12">
                 <strong class="mb-2 d-block">{{ $t("Invoice Products") }}:</strong>
-                <GeneralTable
-                  :columns="invoiceProductsColumns"
-                  :rows="invoiceProductsRows"
-                  :loading="loading"
-                  wrapper-class=""
-                >
+                <GeneralTable :columns="invoiceProductsColumns" :rows="invoiceProductsRows" :loading="loading"
+                  wrapper-class="">
                   <template #cell-code="{ value }">
                     {{ value | withPrefix(productPrefix) }}
                   </template>
@@ -291,7 +282,8 @@
                   </template>
                 </GeneralTable>
                 <div class="mt-2 text-center">
-                  <strong>{{ $t("Subtotal") }}: {{ formatNumber(allData.subTotal) }} <span class="saudi-riyal">ê</span></strong>
+                  <strong>{{ $t("Subtotal") }}: {{ formatNumber(allData.subTotal) }} <span
+                      class="saudi-riyal">ê</span></strong>
                 </div>
               </div>
             </div>
@@ -368,17 +360,15 @@
                       <span v-else class="badge bg-warning ml-2">
                         {{ $t("On Credit") }} (بيع آجل)
                       </span>
-                      <span v-if="(allData.paymentType === 'paid' || allData.is_paid) && (allData.paymentMethod || allData.payment_method_id)" class="ml-2">
+                      <span
+                        v-if="(allData.paymentType === 'paid' || allData.is_paid) && (allData.paymentMethod || allData.payment_method_id)"
+                        class="ml-2">
                         - {{ allData.paymentMethod ? allData.paymentMethod.name : '-' }}
                       </span>
                     </div>
                   </div>
-                  <GeneralTable
-                    :columns="paymentHistoryColumns"
-                    :rows="paymentHistoryRows"
-                    :loading="loading"
-                    wrapper-class=""
-                  >
+                  <GeneralTable :columns="paymentHistoryColumns" :rows="paymentHistoryRows" :loading="loading"
+                    wrapper-class="">
                     <template #cell-amount="{ value }">
                       {{ formatNumber(value) }} <span class="saudi-riyal">ê</span>
                     </template>
@@ -388,7 +378,8 @@
                     </template>
                   </GeneralTable>
                   <div class="mt-2 text-right">
-                    <strong>{{ $t("Total Paid") }}: {{ formatNumber(allData.totalPaid) }} <span class="saudi-riyal">ê</span></strong>
+                    <strong>{{ $t("Total Paid") }}: {{ formatNumber(allData.totalPaid) }} <span
+                        class="saudi-riyal">ê</span></strong>
                   </div>
                 </div>
                 <div class="no-print callout callout-danger mt-4 w-100" v-else>
@@ -402,7 +393,9 @@
                       <span v-else class="badge bg-warning ml-2">
                         {{ $t("On Credit") }} (بيع آجل)
                       </span>
-                      <span v-if="(allData.paymentType === 'paid' || allData.is_paid) && (allData.paymentMethod || allData.payment_method_id)" class="ml-2">
+                      <span
+                        v-if="(allData.paymentType === 'paid' || allData.is_paid) && (allData.paymentMethod || allData.payment_method_id)"
+                        class="ml-2">
                         - {{ allData.paymentMethod ? allData.paymentMethod.name : '-' }}
                       </span>
                     </div>
@@ -900,7 +893,7 @@ export default {
     // Invoice header rows
     invoiceHeaderRows() {
       if (!this.allData) return [];
-      
+
       return [{
         invoiceNo: this.allData.invoiceNo || '',
         invoiceDate: this.allData.invoiceDate || '',
@@ -1235,11 +1228,20 @@ export default {
             SwalOriginal.close();
 
             if (response.data.success) {
+              // Update the invoice data immediately with journal entry data from response
+              if (response.data.data && response.data.data.journalEntry) {
+                this.allData = {
+                  ...this.allData,
+                  journalEntry: response.data.data.journalEntry,
+                  status: 1, // Update status to sent
+                };
+              }
+
               this.$toast.success(
                 this.$t("Sent Successfully!"),
                 this.$t("Invoice has been sent to ZATCA and journal entries have been created.")
               );
-              // Refresh the invoice data to update the status
+              // Refresh the invoice data to update the status and ensure data is in sync
               this.getInvoice();
             } else {
               this.$toast.error(
