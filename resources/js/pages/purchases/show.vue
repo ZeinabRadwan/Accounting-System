@@ -45,7 +45,7 @@
               class="btn btn-primary">
               <i class="fas fa-money-bill" /> {{ $t("Add Payment") }}
             </a> -->
-            <a v-if="$can('purchase-return-create') && allData && allData.status === 1"
+            <a v-if="$can('purchase-return-create') && allData"
               @click.prevent="returnPurchase(allData)" href="#" class="btn btn-warning">
               <i class="fas fa-undo"></i> {{ $t("Return Purchase") }}
             </a>

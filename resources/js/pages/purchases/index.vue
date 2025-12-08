@@ -159,7 +159,7 @@
                           {{ $t('Add Payment?') }}
                         </a>
                       </li>
-                      <li v-if="$can('purchase-return-create') && row.status === 1">
+                      <li v-if="$can('purchase-return-create')">
                         <a href="#" @click.prevent="returnPurchase(row)">
                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
                             fill="none">
