@@ -35619,12 +35619,12 @@ var map = {
 		5998
 	],
 	"./sales/invoices": [
-		34434,
-		4434
+		33582,
+		3582
 	],
 	"./sales/invoices/": [
-		34434,
-		4434
+		33582,
+		3582
 	],
 	"./sales/invoices/create": [
 		75673,
@@ -35643,12 +35643,12 @@ var map = {
 		4473
 	],
 	"./sales/invoices/index": [
-		34434,
-		4434
+		33582,
+		3582
 	],
 	"./sales/invoices/index.vue": [
-		34434,
-		4434
+		33582,
+		3582
 	],
 	"./sales/invoices/show": [
 		66141,

@@ -451,6 +451,7 @@ export default {
         { key: "totalPaid", label: this.$t("Total Paid"), align: "text-right" },
         { key: "due", label: this.$t("Total Due"), align: "text-right" },
         { key: "status", label: this.$t("Status") },
+        { key: "journalEntry", label: this.$t("Journal Entry"), sortable: false },
       ];
     },
     itemsWithIndex() {
