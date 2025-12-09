@@ -99,12 +99,17 @@
                 <span v-html="formatCurrency(row.due)"></span>
               </template>
               <template #cell-journalEntry="{ row }">
-                <span v-if="row.journalEntry">
-                  <router-link :to="{ name: 'journal-entries.show', params: { id: row.journalEntry.id } }"
-                    class="badge bg-info text-white" style="text-decoration: none;">
-                    {{ row.journalEntry.entry_number || `#${row.journalEntry.id}` }}
+                <div v-if="row.journalEntries && row.journalEntries.length > 0" class="d-flex flex-wrap justify-content-center" style="gap: 4px;">
+                  <router-link
+                    v-for="(entry, index) in row.journalEntries"
+                    :key="entry.id"
+                    :to="{ name: 'journal-entries.show', params: { id: entry.id } }"
+                    class="badge bg-info text-white"
+                    style="text-decoration: none; margin: 2px;">
+                    {{ entry.entry_number || `#${entry.id}` }}
+                    <span v-if="entry.type === 'sale_cogs'" class="ml-1">(COGS)</span>
                   </router-link>
-                </span>
+                </div>
                 <span v-else class="text-muted">-</span>
               </template>
               <template #cell-status="{ row }">
@@ -452,18 +457,18 @@ export default {
         { key: "totalPaid", label: this.$t("Total Paid"), align: "text-right" },
         { key: "due", label: this.$t("Total Due"), align: "text-right" },
         { key: "status", label: this.$t("Status") },
-        { key: "journalEntry", label: this.$t("Journal Entry"), sortable: false },
+        { key: "journalEntry", label: this.$t("Journal Entries"), sortable: false },
       ];
     },
     itemsWithIndex() {
       return this.items.map((item, index) => {
-        // Find journal entry for this invoice by reference (invoiceNo)
-        const journalEntry = this.journalEntriesMap[item.invoiceNo] || item.journalEntry || null;
+        // Find journal entries for this invoice by reference (invoiceNo)
+        const journalEntries = this.journalEntriesMap[item.invoiceNo] || item.journalEntries || [];
 
         return {
           ...item,
           index: index + 1,
-          journalEntry: journalEntry,
+          journalEntries: Array.isArray(journalEntries) ? journalEntries : (journalEntries ? [journalEntries] : []),
         };
       });
     },
@@ -661,14 +666,13 @@ export default {
         }
 
         // Fetch journal entries for all invoices at once
-        // We'll search for each invoice number, but we can optimize by getting all entries
         const response = await axios.get('/api/journal-entries', {
           params: {
             perPage: 1000, // Get a large number to cover all invoices
           }
         });
 
-        // Create a map of invoice numbers to journal entries
+        // Create a map of invoice numbers to journal entries arrays
         const map = {};
         if (response.data && response.data.data) {
           response.data.data.forEach(entry => {
@@ -678,21 +682,24 @@ export default {
 
             // Extract invoice number (remove -COGS suffix if present)
             const invoiceNo = reference.replace(/-COGS$/, '');
-            if (invoiceNo && invoiceNumbers.includes(invoiceNo) && !map[invoiceNo]) {
-              // Store the first journal entry found for this invoice (prefer non-COGS entries)
-              if (!reference.endsWith('-COGS')) {
-                map[invoiceNo] = {
+            if (invoiceNo && invoiceNumbers.includes(invoiceNo)) {
+              // Initialize array if it doesn't exist
+              if (!map[invoiceNo]) {
+                map[invoiceNo] = [];
+              }
+
+              // Determine entry type
+              const entryType = reference.endsWith('-COGS') ? 'sale_cogs' : 'sale';
+
+              // Check if this entry already exists in the array
+              const entryExists = map[invoiceNo].some(e => e.id === entry.id);
+              if (!entryExists) {
+                map[invoiceNo].push({
                   id: entry.id,
                   entry_number: entry.entry_number,
                   slug: entry.slug || null,
-                };
-              } else if (!map[invoiceNo]) {
-                // Fallback to COGS entry if no main entry found
-                map[invoiceNo] = {
-                  id: entry.id,
-                  entry_number: entry.entry_number,
-                  slug: entry.slug || null,
-                };
+                  type: entryType,
+                });
               }
             }
           });
@@ -930,10 +937,25 @@ export default {
                   item.invoiceNo === response.data.data.invoice_no
                 );
                 if (invoiceIndex !== -1 && this.items[invoiceIndex]) {
+                  // Get existing journal entries or create new array
+                  const existingEntries = this.items[invoiceIndex].journalEntries || [];
+                  const newEntry = {
+                    id: response.data.data.journalEntry.id,
+                    entry_number: response.data.data.journalEntry.entry_number,
+                    slug: response.data.data.journalEntry.slug || null,
+                    type: 'sale',
+                  };
+                  
+                  // Check if entry already exists
+                  const entryExists = existingEntries.some(e => e.id === newEntry.id);
+                  if (!entryExists) {
+                    existingEntries.push(newEntry);
+                  }
+                  
                   // Force update using Vue.set for reactivity
                   this.$set(this.items, invoiceIndex, {
                     ...this.items[invoiceIndex],
-                    journalEntry: response.data.data.journalEntry,
+                    journalEntries: existingEntries,
                     status: 1, // Update status to sent
                   });
                 }

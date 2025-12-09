@@ -163,11 +163,17 @@
                     {{ value | moment("Do MMM, YYYY") }}
                   </template>
                   <template #cell-journalEntry="{ value }">
-                    <router-link v-if="value && value.id"
-                      :to="{ name: 'journal-entries.show', params: { id: value.id } }" class="badge bg-info text-white"
-                      style="text-decoration: none;">
-                      {{ value.entry_number || `#${value.id}` }}
-                    </router-link>
+                    <div v-if="value && value.length > 0" class="d-flex flex-wrap justify-content-center" style="gap: 4px;">
+                      <router-link
+                        v-for="(entry, index) in value"
+                        :key="entry.id"
+                        :to="{ name: 'journal-entries.show', params: { id: entry.id } }"
+                        class="badge bg-info text-white"
+                        style="text-decoration: none; margin: 2px;">
+                        {{ entry.entry_number || `#${entry.id}` }}
+                        <span v-if="entry.type === 'sale_cogs'" class="ml-1">(COGS)</span>
+                      </router-link>
+                    </div>
                     <span v-else class="text-muted">-</span>
                   </template>
                 </GeneralTable>
@@ -882,9 +888,9 @@ export default {
         { key: "date", label: this.$t("Date"), align: "text-center" },
       ];
 
-      // Add journal entry column if journal entry exists
-      if (this.allData && this.allData.journalEntry) {
-        columns.push({ key: "journalEntry", label: this.$t("Journal Entry"), align: "text-center" });
+      // Add journal entry column if journal entries exist
+      if (this.allData && this.allData.journalEntries && this.allData.journalEntries.length > 0) {
+        columns.push({ key: "journalEntry", label: this.$t("Journal Entries"), align: "text-center" });
       }
 
       return columns;
@@ -905,7 +911,7 @@ export default {
         cashier: this.allData.cashier ? this.allData.cashier.name : (this.allData.cashier_id ? '-' : '-'),
         saleStatus: this.allData.saleStatus || this.allData.sale_status || '-',
         date: this.allData.current_date || this.allData.invoiceDate || '',
-        journalEntry: this.allData.journalEntry || null,
+        journalEntry: this.allData.journalEntries || [],
       }];
     },
 
@@ -1041,8 +1047,18 @@ export default {
       this.invoiceProducts = this.allData.invoiceProducts;
       this.invoiceProducts.sort(this.sortProducts);
 
-      // Load journal entry for this invoice if not already loaded
-      if (!this.allData.journalEntry && this.allData.invoiceNo) {
+      // Convert journalEntry (singular) to journalEntries (array) if needed
+      if (this.allData.journalEntry && !this.allData.journalEntries) {
+        this.allData.journalEntries = [{
+          id: this.allData.journalEntry.id,
+          entry_number: this.allData.journalEntry.entry_number,
+          slug: this.allData.journalEntry.slug || null,
+          type: 'sale',
+        }];
+      }
+
+      // Load journal entries for this invoice if not already loaded
+      if ((!this.allData.journalEntries || this.allData.journalEntries.length === 0) && this.allData.invoiceNo) {
         await this.loadJournalEntryForInvoice(this.allData.invoiceNo);
       }
 
@@ -1057,48 +1073,62 @@ export default {
       this.loading = false;
     },
 
-    // Load journal entry for a specific invoice by invoice number
+    // Load journal entries for a specific invoice by invoice number
     async loadJournalEntryForInvoice(invoiceNo) {
       try {
         // Search for journal entries with reference matching invoice number
         const response = await axios.get('/api/journal-entries', {
           params: {
             reference: invoiceNo, // Search by reference field
-            perPage: 10,
+            perPage: 100, // Get more entries to find both Invoice JE and COGS JE
           }
         });
 
         if (response.data && response.data.data && response.data.data.length > 0) {
-          // Find the first journal entry that matches (prefer non-COGS entry)
-          let journalEntry = response.data.data.find(entry => {
+          const journalEntries = [];
+          
+          // Find Invoice JE (exact match)
+          const invoiceJE = response.data.data.find(entry => {
             const ref = entry.reference || '';
-            // Match exact invoice number (not COGS)
             return ref === invoiceNo;
           });
 
-          // If no exact match, use the first one (could be COGS)
-          if (!journalEntry) {
-            journalEntry = response.data.data.find(entry => {
-              const ref = entry.reference || '';
-              // Match invoice number-COGS
-              return ref.startsWith(invoiceNo + '-');
-            }) || response.data.data[0];
+          // Find COGS JE (invoice number with -COGS suffix)
+          const cogsJE = response.data.data.find(entry => {
+            const ref = entry.reference || '';
+            return ref === invoiceNo + '-COGS';
+          });
+
+          // Add Invoice JE if found
+          if (invoiceJE) {
+            journalEntries.push({
+              id: invoiceJE.id,
+              entry_number: invoiceJE.entry_number,
+              slug: invoiceJE.slug || null,
+              type: 'sale',
+            });
           }
 
-          if (journalEntry) {
-            // Update allData with journal entry
+          // Add COGS JE if found
+          if (cogsJE) {
+            journalEntries.push({
+              id: cogsJE.id,
+              entry_number: cogsJE.entry_number,
+              slug: cogsJE.slug || null,
+              type: 'sale_cogs',
+            });
+          }
+
+          if (journalEntries.length > 0) {
+            // Update allData with journal entries array
             this.allData = {
               ...this.allData,
-              journalEntry: {
-                id: journalEntry.id,
-                entry_number: journalEntry.entry_number,
-                slug: journalEntry.slug || null,
-              },
+              journalEntries: journalEntries,
             };
           }
         }
       } catch (error) {
-        console.error('Error loading journal entry for invoice:', error);
+        console.error('Error loading journal entries for invoice:', error);
         // Don't show error to user, just log it
       }
     },
@@ -1286,13 +1316,24 @@ export default {
 
               // Update the invoice data immediately with journal entry data from response
               if (response.data.data && response.data.data.journalEntry) {
+                // If we already have journal entries, add the new one, otherwise create array
+                const existingEntries = this.allData.journalEntries || [];
+                const newEntry = {
+                  id: response.data.data.journalEntry.id,
+                  entry_number: response.data.data.journalEntry.entry_number,
+                  slug: response.data.data.journalEntry.slug || null,
+                  type: 'sale',
+                };
+                
+                // Check if entry already exists
+                const entryExists = existingEntries.some(e => e.id === newEntry.id);
+                if (!entryExists) {
+                  existingEntries.push(newEntry);
+                }
+                
                 this.allData = {
                   ...this.allData,
-                  journalEntry: {
-                    id: response.data.data.journalEntry.id,
-                    entry_number: response.data.data.journalEntry.entry_number,
-                    slug: response.data.data.journalEntry.slug || null,
-                  },
+                  journalEntries: existingEntries,
                   status: 1, // Update status to sent
                 };
               }
