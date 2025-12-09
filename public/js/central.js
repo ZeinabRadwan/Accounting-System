@@ -35739,12 +35739,12 @@ var map = {
 		7151
 	],
 	"./sales/returns/form": [
-		1059,
-		1059
+		83648,
+		3648
 	],
 	"./sales/returns/form.vue": [
-		1059,
-		1059
+		83648,
+		3648
 	],
 	"./sales/returns/index": [
 		90622,
