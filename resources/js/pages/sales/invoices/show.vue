@@ -181,7 +181,7 @@
             </div>
 
             <!-- Invoice-Level Discount Section -->
-            <div class="row mt-3" v-if="allData.discountOnTotalType && allData.discountOnTotalValue">
+            <div class="row mt-3" v-if="hasInvoiceDiscount">
               <div class="col-12">
                 <div class="table-responsive table-custom">
                   <table class="table invoices-table">
@@ -190,20 +190,24 @@
                         <th>{{ $t("Invoice Discount") }}</th>
                         <th>{{ $t("Discount Type") }}</th>
                         <th>{{ $t("Discount Value") }}</th>
+                        <th>{{ $t("Discount Amount") }}</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
                         <td>{{ $t("Invoice Discount") }}</td>
                         <td>
-                          <span v-if="allData.discountOnTotalType === 'percentage'">{{ $t("%") }}</span>
-                          <span v-else-if="allData.discountOnTotalType === 'fixed'">{{ $t("Fixed") }}</span>
-                          <span v-else>{{ allData.discountOnTotalType }}</span>
+                          <span v-if="invoiceDiscountType === 'percentage'">{{ $t("%") }}</span>
+                          <span v-else-if="invoiceDiscountType === 'fixed'">{{ $t("Fixed") }}</span>
+                          <span v-else>{{ invoiceDiscountType }}</span>
                         </td>
                         <td>
-                          {{ formatNumber(allData.discountOnTotalValue) }}
-                          <span v-if="allData.discountOnTotalType === 'percentage'">%</span>
+                          {{ formatNumber(invoiceDiscountValue) }}
+                          <span v-if="invoiceDiscountType === 'percentage'">%</span>
                           <span v-else class="saudi-riyal">ê</span>
+                        </td>
+                        <td>
+                          {{ formatNumber(globalDiscountAmount) }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                     </tbody>
@@ -426,7 +430,7 @@
                       </tr>
 
                       <tr class="bg-green-light text-bold">
-                        <th>{{ $t("Total After Discount") }}:</th>
+                        <th>{{ $t("Total After Product Discount") }}:</th>
                         <td>{{ formatNumber(totalPrice - totalProductDiscount) }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
@@ -438,8 +442,18 @@
                         </td>
                       </tr>
 
-
-
+                      <!-- Invoice-Level Discount (for all countries) -->
+                      <tr v-if="hasInvoiceDiscount">
+                        <th>
+                          {{ $t("Invoice Discount") }}
+                          <span v-if="invoiceDiscountType === 'percentage'">({{ formatNumber(invoiceDiscountValue) }}%)</span>
+                          :
+                        </th>
+                        <td>
+                          <span class="minus-sign">-</span>
+                          {{ formatNumber(globalDiscountAmount) }} <span class="saudi-riyal">ê</span>
+                        </td>
+                      </tr>
 
                       <!-- <tr v-if="allData.totalInvoiceReturn">
                         <th>{{ $t("Cost of Return Products") }}:</th>
@@ -448,16 +462,6 @@
                           {{ allData.totalInvoiceReturn  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr> -->
-                      <tr v-if="!isSaudiArabia && allData.discount > 0">
-                        <th>
-                          {{ $t("Discount") }}
-                          <span v-if="allData.discountType == 1">({{ allData.discount }}%)</span>
-                          :
-                        </th>
-                        <td>
-                          {{ formatNumber(globalDiscountAmount) }} <span class="saudi-riyal">ê</span>
-                        </td>
-                      </tr>
                       <tr v-if="!isSaudiArabia && allData.transport > 0">
                         <th>{{ $t("Transport") }}:</th>
                         <td>
@@ -490,7 +494,7 @@
                         <th>{{ $t("Total with VAT") }}:</th>
                         <td>
                           <span class="equal-sign">=</span>
-                          {{ formatNumber(totalPrice - totalProductDiscount + totalProductVat) }} <span
+                          {{ formatNumber(netTotal) }} <span
                             class="saudi-riyal">ê</span>
                         </td>
                       </tr>
@@ -502,9 +506,7 @@
                       </tr>
                       <tr class="bg-red-light">
                         <th>{{ $t("Due") }}:</th>
-                        <td>{{ formatNumber((totalPrice - totalProductDiscount + totalProductVat) - (allData.totalPaid
-                          ||
-                          0)) }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ formatNumber(netTotal - (allData.totalPaid || 0)) }} <span class="saudi-riyal">ê</span></td>
                       </tr>
                       <tr class="bg-green-light" v-if="allData.accountPayable">
                         <th>{{ $t("Account Payable") }}:</th>
@@ -853,22 +855,90 @@ export default {
 
 
 
-    // Calculate global discount amount (handles both percentage and fixed)
-    globalDiscountAmount() {
-      if (!this.allData || !this.allData.discount || this.allData.discount <= 0) return 0;
+    // Check if invoice has discount (supports both old and new format)
+    hasInvoiceDiscount() {
+      if (!this.allData) return false;
+      // Check new format first (discountOnTotalType/discountOnTotalValue)
+      if (this.allData.discountOnTotalType && this.allData.discountOnTotalValue && this.allData.discountOnTotalValue > 0) {
+        return true;
+      }
+      // Check old format (discount/discountType)
+      if (this.allData.discount && this.allData.discount > 0) {
+        return true;
+      }
+      return false;
+    },
 
-      // Global invoice discounts use numeric values: 1 for percentage, 0 for fixed
-      if (this.allData.discountType == 1) { // Percentage
-        return (this.allData.subTotal * this.allData.discount) / 100;
-      } else { // Fixed
+    // Get invoice discount type (supports both old and new format)
+    invoiceDiscountType() {
+      if (!this.allData) return null;
+      // New format: discountOnTotalType is already "percentage" or "fixed"
+      if (this.allData.discountOnTotalType) {
+        return this.allData.discountOnTotalType;
+      }
+      // Old format: discountType is 0 (fixed) or 1 (percentage)
+      if (this.allData.discountType !== null && this.allData.discountType !== undefined) {
+        return this.allData.discountType == 1 ? 'percentage' : 'fixed';
+      }
+      return null;
+    },
+
+    // Get invoice discount value (supports both old and new format)
+    invoiceDiscountValue() {
+      if (!this.allData) return 0;
+      // New format: discountOnTotalValue
+      if (this.allData.discountOnTotalValue !== null && this.allData.discountOnTotalValue !== undefined) {
+        return this.allData.discountOnTotalValue;
+      }
+      // Old format: discount
+      if (this.allData.discount !== null && this.allData.discount !== undefined) {
         return this.allData.discount;
       }
+      return 0;
+    },
+
+    // Calculate global discount amount (handles both percentage and fixed)
+    globalDiscountAmount() {
+      if (!this.allData) return 0;
+      
+      const discountType = this.invoiceDiscountType;
+      const discountValue = this.invoiceDiscountValue;
+      
+      if (!discountType || !discountValue || discountValue <= 0) return 0;
+
+      // Calculate discount amount based on type
+      if (discountType === 'percentage') {
+        // For percentage, calculate from subtotal after product discounts
+        const baseAmount = this.totalPrice - this.totalProductDiscount;
+        return (baseAmount * discountValue) / 100;
+      } else {
+        // For fixed, return the discount value directly
+        return discountValue;
+      }
+    },
+
+    // Calculate net total (subtotal - product discounts + product VAT - invoice discount + transport + tax)
+    netTotal() {
+      if (!this.allData) return 0;
+      
+      let total = this.totalPrice - this.totalProductDiscount + this.totalProductVat;
+      
+      // Subtract invoice-level discount
+      total -= this.globalDiscountAmount;
+      
+      // Add transport and tax for non-Saudi Arabia countries
+      if (!this.isSaudiArabia) {
+        total += (this.allData.transport || 0);
+        total += (this.allData.tax || 0);
+      }
+      
+      return Math.max(0, total); // Ensure non-negative
     },
 
     // Calculate due amount
     calculateDueAmount() {
       if (!this.allData) return 0;
-      const total = this.totalPrice - this.totalProductDiscount + this.totalProductVat;
+      const total = this.netTotal;
       const paid = this.allData.totalPaid || 0;
       return total - paid;
     },

@@ -1218,6 +1218,34 @@ export default {
       }
     },
 
+    // Watch for changes in discount_type to sync with discountType
+    'form.discount_type': {
+      handler(newVal) {
+        if (newVal) {
+          // Sync discount_type to discountType (0 = fixed, 1 = percentage)
+          const newDiscountType = newVal === 'percentage' ? 1 : 0;
+          if (this.form.discountType !== newDiscountType) {
+            this.form.discountType = newDiscountType;
+          }
+        }
+      },
+      immediate: true
+    },
+
+    // Watch for changes in discount_value to sync with discount
+    'form.discount_value': {
+      handler(newVal) {
+        if (newVal !== null && newVal !== undefined) {
+          // Sync discount_value to discount
+          const newDiscount = parseFloat(newVal) || 0;
+          if (this.form.discount !== newDiscount) {
+            this.form.discount = newDiscount;
+          }
+        }
+      },
+      immediate: true
+    },
+
     // Watch for changes in selectedProducts to reset payment fields when products change
     'form.selectedProducts': {
       handler(newVal, oldVal) {
@@ -2340,7 +2368,10 @@ export default {
       this.$set(this.form, 'productTotalTax', this.roundToTwoDecimals(this.totalProductTax));
       this.$set(this.form, 'totalDiscount', this.roundToTwoDecimals(this.totalProductDiscount));
 
-      // Global discount
+      // Sync discount fields before calculations
+      this.syncDiscountFields();
+      
+      // Global discount (use synced values)
       let globalDiscount = 0;
       if (!this.isSaudiArabia && this.form.discount > 0) {
         if (this.form.discountType == 1) {
@@ -2375,13 +2406,13 @@ export default {
         );
       }
 
-      // Apply invoice-level discount
+      // Apply invoice-level discount (use synced values - discountType and discount)
       let invoiceLevelDiscount = 0;
-      if (this.form.discount_value > 0) {
-        if (this.form.discount_type === 'percentage') {
-          invoiceLevelDiscount = this.roundToTwoDecimals((netTotalBeforeInvoiceDiscount * this.form.discount_value) / 100);
-        } else {
-          invoiceLevelDiscount = this.roundToTwoDecimals(Number(this.form.discount_value));
+      if (this.form.discount > 0) {
+        if (this.form.discountType == 1) { // Percentage
+          invoiceLevelDiscount = this.roundToTwoDecimals((netTotalBeforeInvoiceDiscount * this.form.discount) / 100);
+        } else { // Fixed
+          invoiceLevelDiscount = this.roundToTwoDecimals(Number(this.form.discount));
           // Ensure discount doesn't exceed the total
           if (invoiceLevelDiscount > netTotalBeforeInvoiceDiscount) {
             invoiceLevelDiscount = netTotalBeforeInvoiceDiscount;
@@ -2721,9 +2752,24 @@ export default {
       }
     },
 
+    // Sync discount_type and discount_value to discountType and discount for backend compatibility
+    syncDiscountFields() {
+      // Map discount_type ("fixed"/"percentage") to discountType (0/1)
+      if (this.form.discount_type) {
+        this.form.discountType = this.form.discount_type === 'percentage' ? 1 : 0;
+      }
+      // Map discount_value to discount
+      if (this.form.discount_value !== null && this.form.discount_value !== undefined) {
+        this.form.discount = parseFloat(this.form.discount_value) || 0;
+      }
+    },
+
     // save invoice
     async saveInvoice() {
       try {
+        // Sync discount fields before submission
+        this.syncDiscountFields();
+        
         // Ensure all monetary values are properly formatted to 2 decimal places before submission
         this.formatFormValues();
 
@@ -2803,8 +2849,11 @@ export default {
           appendIfDefined('client[id]', formDataObj.client?.id);
           appendIfDefined('transportCost', formDataObj.transportCost);
           appendIfDefined('subTotal', formDataObj.subTotal);
-          appendIfDefined('discountType', formDataObj.discountType);
-          appendIfDefined('discount', formDataObj.discount);
+          // Sync discount fields before appending
+          this.syncDiscountFields();
+          
+          appendIfDefined('discountType', this.form.discountType);
+          appendIfDefined('discount', this.form.discount);
           appendIfDefined('poReference', formDataObj.poReference);
           appendIfDefined('paymentTerms', formDataObj.paymentTerms);
           appendIfDefined('deliveryPlace', formDataObj.deliveryPlace);
@@ -2829,9 +2878,6 @@ export default {
           appendIfDefined('current_date', formDataObj.current_date);
           appendIfDefined('isPaid', formDataObj.isPaid ? 1 : 0);
           appendIfDefined('payment_method_id', formDataObj.payment_method_id);
-          appendIfDefined('discount_type', formDataObj.discount_type);
-          appendIfDefined('discount_value', formDataObj.discount_value);
-          appendIfDefined('total_amount', formDataObj.total_amount);
 
           // Append selectedProducts array
           if (Array.isArray(formDataObj.selectedProducts)) {

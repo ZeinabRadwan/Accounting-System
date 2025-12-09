@@ -121,8 +121,9 @@ class InvoiceResource extends JsonResource
             'payment_method_id' => property_exists($this, 'payment_method_id') ? $this->payment_method_id : null,
             'attachments' => $formattedAttachments,
             'saleStatus' => $this->sale_status,
-            'discountOnTotalType' => property_exists($this, 'discount_on_total_type') ? $this->discount_on_total_type : null,
-            'discountOnTotalValue' => property_exists($this, 'discount_on_total_value') ? $this->discount_on_total_value : null,
+            // Map discount_type (0/1) to discountOnTotalType (fixed/percentage) for frontend compatibility
+            'discountOnTotalType' => $this->discount_type !== null ? ($this->discount_type == 1 ? 'percentage' : 'fixed') : null,
+            'discountOnTotalValue' => $this->discount,
             'current_date' => $this->invoice_date, // Alias for invoice_date
             'journalEntry' => $this->whenLoaded('journalEntry', function () {
                 return $this->journalEntry ? [
