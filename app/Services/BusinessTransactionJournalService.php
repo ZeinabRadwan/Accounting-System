@@ -655,7 +655,7 @@ class BusinessTransactionJournalService
 
             Log::info("Found {$purchaseProducts->count()} purchase products for PO {$purchase->purchase_no}");
 
-            // Calculate inventory amount = sum of (product cost × quantity) for all products with inventory tracking
+            // Calculate inventory amount = sum of line_net (after discount, before tax) for all products with inventory tracking
             $totalInventoryAmount = 0;
             $totalVatAmount = 0;
 
@@ -672,18 +672,24 @@ class BusinessTransactionJournalService
                     continue;
                 }
 
-                // Calculate inventory amount: product cost × quantity
-                $productCost = $purchaseProduct->purchase_price ?? 0;
-                $quantity = $purchaseProduct->quantity ?? 0;
-                $lineInventoryAmount = $productCost * $quantity;
-                $totalInventoryAmount += $lineInventoryAmount;
+                // Calculate line net (after discount, before tax)
+                // gross = purchase_price × quantity
+                $gross = ($purchaseProduct->purchase_price ?? 0) * ($purchaseProduct->quantity ?? 0);
 
-                // Add VAT amount from product
+                // discount_amount is already calculated and stored
+                $discountAmount = $purchaseProduct->discount_amount ?? 0;
+
+                // line_net = gross - discount
+                $lineNet = round($gross - $discountAmount, 2);
+                $totalInventoryAmount += $lineNet;
+
+                // Add VAT amount from product (already stored as total tax for the line)
                 $productVatAmount = $purchaseProduct->tax_amount ?? 0;
                 $totalVatAmount += $productVatAmount;
 
                 $productName = $product->name ?? 'Unknown';
-                Log::info("Product: {$productName}, Cost: {$productCost}, Quantity: {$quantity}, Inventory Amount: {$lineInventoryAmount}, VAT: {$productVatAmount}");
+                $quantity = $purchaseProduct->quantity ?? 0;
+                Log::info("Product: {$productName}, Gross: {$gross}, Discount: {$discountAmount}, Net: {$lineNet}, Quantity: {$quantity}, VAT: {$productVatAmount}");
             }
 
             // Skip journal entry if no products have inventory tracking (all are services)
