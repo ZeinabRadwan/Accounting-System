@@ -80,6 +80,28 @@
                   :class="{ 'is-invalid': form.errors.has('note') }" :placeholder="$t('Write your note here!')" />
                 <has-error :form="form" field="note" />
               </div>
+
+              <div class="form-group">
+                <label for="chartOfAccountId">{{ $t("Accounting Guide / Ledger Account") }}</label>
+                <v-select
+                  v-model="form.chartOfAccountId"
+                  :options="chartOfAccounts"
+                  label="name"
+                  :reduce="option => option.id"
+                  :class="{ 'is-invalid': form.errors.has('chartOfAccountId') }"
+                  name="chartOfAccountId"
+                  :placeholder="$t('Select a Chart of Account')"
+                >
+                  <template #option="{ name, code, type }">
+                    <div>
+                      <strong>{{ name }}</strong>
+                      <br>
+                      <small class="text-muted">{{ code }} - {{ type }}</small>
+                    </div>
+                  </template>
+                </v-select>
+                <has-error :form="form" field="chartOfAccountId" />
+              </div>
             </div>
 
             <div class="card-footer">
@@ -129,12 +151,37 @@ export default {
       note: "",
       status: 1,
       shortCode: "",
+      chartOfAccountId: null,
     }),
     loading: true,
+    chartOfAccounts: [],
   }),
+  mounted() {
+    this.loadChartOfAccounts();
+  },
   methods: {
+    // load chart of accounts
+    async loadChartOfAccounts() {
+      try {
+        const response = await this.$axios.get('/api/accounts/chart-of-accounts');
+        if (response.data && response.data.success) {
+          this.chartOfAccounts = response.data.data || [];
+        } else {
+          this.chartOfAccounts = [];
+        }
+      } catch (error) {
+        console.error('Error loading chart of accounts:', error);
+        toast.fire({
+          type: 'error',
+          title: this.$t('Failed to load chart of accounts')
+        });
+      }
+    },
     // save payment method
     async savePaymentMethod() {
+      // Set chart_of_account_id in form
+      this.form.chart_of_account_id = this.form.chartOfAccountId || null;
+
       await this.form
         .post(window.location.origin + "/api/payment-methods")
         .then(() => {

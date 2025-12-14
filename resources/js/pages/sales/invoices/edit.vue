@@ -543,6 +543,7 @@ export default {
       products: [],
       accounts: [],
       taxes: [],
+      paymentMethods: [],
       prefix: "",
       isUpdatingChartOfAccount: false,
       isAutoAssigningClient: false,
@@ -784,6 +785,7 @@ export default {
     this.getProducts();
     this.getAccounts();
     this.getTaxes();
+    this.getPaymentMethods();
     this.getInvoice();
     this.loadCommunicationConfigStatus();
     this.prefix = this.appInfo.productPrefix;
@@ -892,6 +894,18 @@ export default {
         this.taxes = data.data;
       } catch (error) {
         console.error('Error getting taxes:', error);
+      }
+    },
+
+    async getPaymentMethods() {
+      try {
+        const response = await axios.get(window.location.origin + '/api/payment-methods/all');
+        if (response.data && response.data.data) {
+          this.paymentMethods = response.data.data;
+        }
+      } catch (error) {
+        console.error('Error loading payment methods:', error);
+        this.paymentMethods = [];
       }
     },
 

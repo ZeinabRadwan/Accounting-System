@@ -224,6 +224,18 @@ export default {
   async created() {
     await this.loadAccountTypes();
     await this.loadParentAccounts();
+    // Check if parent_id is provided in query params (for sub-account creation)
+    if (this.$route.query.parent_id) {
+      const parentId = parseInt(this.$route.query.parent_id);
+      const parent = this.allParentAccounts.find(p => p.id === parentId);
+      if (parent) {
+        this.form.parent_id = parent;
+        // Auto-generate code if in automatic mode
+        if (this.form.code_generation === 'automatic') {
+          await this.generateCode();
+        }
+      }
+    }
   },
 
   beforeDestroy() {
@@ -481,8 +493,8 @@ export default {
   },
   mounted() {
     this.loadTemporaryData()
-    // Auto-generate code on initial load when in automatic mode
-    if (this.form.code_generation === 'automatic' && !this.form.code) {
+    // Auto-generate code on initial load when in automatic mode and no parent_id from query
+    if (this.form.code_generation === 'automatic' && !this.form.code && !this.$route.query.parent_id) {
       this.generateCode()
     }
   },

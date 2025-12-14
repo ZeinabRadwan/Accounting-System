@@ -170,7 +170,7 @@
             </div>
 
             <!-- Purchase-Level Discount Section -->
-            <div class="row mt-3" v-if="allData.discount_type && allData.discount_value">
+            <div class="row mt-3" v-if="hasPurchaseDiscount">
               <div class="col-12">
                 <div class="table-responsive table-custom">
                   <table class="table invoices-table">
@@ -179,20 +179,24 @@
                         <th>{{ $t("Purchase Discount") }}</th>
                         <th>{{ $t("Discount Type") }}</th>
                         <th>{{ $t("Discount Value") }}</th>
+                        <th>{{ $t("Discount Amount") }}</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
                         <td>{{ $t("Purchase Discount") }}</td>
                         <td>
-                          <span v-if="allData.discount_type === 'percentage'">{{ $t("%") }}</span>
-                          <span v-else-if="allData.discount_type === 'fixed'">{{ $t("Fixed") }}</span>
-                          <span v-else>{{ allData.discount_type }}</span>
+                          <span v-if="purchaseDiscountType === 'percentage'">{{ $t("%") }}</span>
+                          <span v-else-if="purchaseDiscountType === 'fixed'">{{ $t("Fixed") }}</span>
+                          <span v-else>{{ purchaseDiscountType }}</span>
                         </td>
                         <td>
-                          {{ formatNumber(allData.discount_value) }}
-                          <span v-if="allData.discount_type === 'percentage'">%</span>
+                          {{ formatNumber(purchaseDiscountValue) }}
+                          <span v-if="purchaseDiscountType === 'percentage'">%</span>
                           <span v-else class="saudi-riyal">ê</span>
+                        </td>
+                        <td>
+                          {{ formatNumber(globalDiscountAmount) }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                     </tbody>
@@ -395,21 +399,16 @@
                           }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
-                      <tr v-if="allData.discount_type || allData.discount_value">
+                      <!-- Purchase-Level Discount (for all countries) -->
+                      <tr v-if="hasPurchaseDiscount">
                         <th>
-                          {{ $t("Discount on Total Invoice") }}
-                          <span v-if="allData.discount_type === 'percentage'">({{ allData.discount_value }}%)</span>
+                          {{ $t("Purchase Discount") }}
+                          <span v-if="purchaseDiscountType === 'percentage'">({{ formatNumber(purchaseDiscountValue) }}%)</span>
                           :
                         </th>
                         <td>
-                          <span v-if="allData.discount_type === 'percentage'">
-                            {{ formatNumber((totalPrice - totalProductDiscount + totalProductVat) *
-                              (allData.discount_value
-                                / 100)) }} <span class="saudi-riyal">ê</span>
-                          </span>
-                          <span v-else>
-                            {{ formatNumber(allData.discount_value) }} <span class="saudi-riyal">ê</span>
-                          </span>
+                          <span class="minus-sign">-</span>
+                          {{ formatNumber(globalDiscountAmount) }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr v-if="!isSaudiArabia && allData.discount > 0 && !allData.discount_type">
@@ -441,7 +440,7 @@
                         <th>{{ $t("Total with VAT") }}:</th>
                         <td>
                           <span class="equal-sign">=</span>
-                          {{ formatNumber(totalPrice - totalProductDiscount + totalProductVat) }} <span
+                          {{ formatNumber(netTotal) }} <span
                             class="saudi-riyal">ê</span>
                         </td>
                       </tr>
@@ -453,8 +452,7 @@
                       </tr>
                       <tr class="bg-red-light">
                         <th>{{ $t("Due") }}:</th>
-                        <td>{{ formatNumber((totalPrice - totalProductDiscount + totalProductVat) -
-                          (parseFloat(allData.totalPaid) || 0)) }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ formatNumber(netTotal - (parseFloat(allData.totalPaid) || 0)) }} <span class="saudi-riyal">ê</span></td>
                       </tr>
                       <tr class="bg-green-light" v-if="allData.accountReceivable">
                         <th>{{ $t("Account Receivable") }}:</th>
@@ -638,9 +636,89 @@ export default {
     // Calculate due amount
     calculateDueAmount() {
       if (!this.allData) return 0;
-      const total = this.totalPrice - this.totalProductDiscount + this.totalProductVat;
+      const total = this.netTotal;
       const paid = parseFloat(this.allData.totalPaid) || 0;
       return total - paid;
+    },
+
+    // Check if purchase has discount (supports both old and new format)
+    hasPurchaseDiscount() {
+      if (!this.allData) return false;
+      // Check new format first (discount_type/discount_value)
+      if (this.allData.discount_type && this.allData.discount_value && this.allData.discount_value > 0) {
+        return true;
+      }
+      // Check old format (discount/discountType)
+      if (this.allData.discount && this.allData.discount > 0) {
+        return true;
+      }
+      return false;
+    },
+
+    // Get purchase discount type (supports both old and new format)
+    purchaseDiscountType() {
+      if (!this.allData) return null;
+      // New format: discount_type is already "percentage" or "fixed"
+      if (this.allData.discount_type) {
+        return this.allData.discount_type;
+      }
+      // Old format: discountType is 0 (fixed) or 1 (percentage)
+      if (this.allData.discountType !== null && this.allData.discountType !== undefined) {
+        return this.allData.discountType == 1 ? 'percentage' : 'fixed';
+      }
+      return null;
+    },
+
+    // Get purchase discount value (supports both old and new format)
+    purchaseDiscountValue() {
+      if (!this.allData) return 0;
+      // New format: discount_value
+      if (this.allData.discount_value !== null && this.allData.discount_value !== undefined) {
+        return this.allData.discount_value;
+      }
+      // Old format: discount
+      if (this.allData.discount !== null && this.allData.discount !== undefined) {
+        return this.allData.discount;
+      }
+      return 0;
+    },
+
+    // Calculate global discount amount (handles both percentage and fixed)
+    globalDiscountAmount() {
+      if (!this.allData) return 0;
+      
+      const discountType = this.purchaseDiscountType;
+      const discountValue = this.purchaseDiscountValue;
+      
+      if (!discountType || !discountValue || discountValue <= 0) return 0;
+
+      // Calculate discount amount based on type
+      if (discountType === 'percentage') {
+        // For percentage, calculate from subtotal after product discounts
+        const baseAmount = this.totalPrice - this.totalProductDiscount;
+        return (baseAmount * discountValue) / 100;
+      } else {
+        // For fixed, return the discount value directly
+        return discountValue;
+      }
+    },
+
+    // Calculate net total (subtotal - product discounts + product VAT - purchase discount + transport + tax)
+    netTotal() {
+      if (!this.allData) return 0;
+      
+      let total = this.totalPrice - this.totalProductDiscount + this.totalProductVat;
+      
+      // Subtract purchase-level discount
+      total -= this.globalDiscountAmount;
+      
+      // Add transport and tax for non-Saudi Arabia countries
+      if (!this.isSaudiArabia) {
+        total += (this.allData.transport || 0);
+        total += (this.allData.tax || 0);
+      }
+      
+      return Math.max(0, total); // Ensure non-negative
     },
 
     // Purchase header columns

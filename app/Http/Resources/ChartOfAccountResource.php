@@ -71,7 +71,20 @@ class ChartOfAccountResource extends JsonResource
                 return [
                     'id' => $this->parent->id,
                     'name' => method_exists($this->parent, 'getTranslatedField') ? $this->parent->getTranslatedField('name', $locale) : $this->parent->name,
+                    'code' => $this->parent->code,
                 ];
+            }),
+            'children_count' => $this->when(isset($this->children_count), function () {
+                return $this->children_count;
+            }, function () {
+                // Fallback: count children if not already loaded
+                return $this->children()->count();
+            }),
+            'has_children' => $this->when(isset($this->children_count), function () {
+                return $this->children_count > 0;
+            }, function () {
+                // Fallback: check if has children if not already loaded
+                return $this->children()->exists();
             }),
         ];
     }

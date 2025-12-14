@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers\API;
 
-use Exception;
-use Illuminate\Http\Request;
-use App\Models\PaymentMethod;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Resources\PaymentMethodResource;
 use App\Http\Requests\PaymentMethod\StorePaymentMethodRequest;
 use App\Http\Requests\PaymentMethod\UpdatePaymentMethodRequest;
+use App\Http\Resources\PaymentMethodResource;
+use App\Models\ChartOfAccount;
+use App\Models\PaymentMethod;
+use App\Models\PaymentMethodBranchAccount;
+use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class PaymentMethodController extends Controller
 {
@@ -26,7 +29,11 @@ class PaymentMethodController extends Controller
      */
     public function index(Request $request)
     {
-        return PaymentMethodResource::collection(PaymentMethod::latest()->paginate($request->perPage));
+        return PaymentMethodResource::collection(
+            PaymentMethod::with('chartOfAccount')
+                ->latest()
+                ->paginate($request->perPage)
+        );
     }
 
     /**
@@ -37,27 +44,67 @@ class PaymentMethodController extends Controller
      */
     public function store(StorePaymentMethodRequest $request)
     {
-        // save payment method
-       $paymentMethod = PaymentMethod::create([
-            'name' => $request->name,
-            'code' => $request->shortCode,
-            'note' => $request->note,
-            'status' => $request->status,
-        ]);
+        try {
+            DB::beginTransaction();
 
-        // add activity log
-        activity()
-            ->causedBy(Auth::user())
-            ->performedOn($paymentMethod)
-            ->withProperties([
-                'name' => "",
-                'code' => '[' . $request->name . ']',
-                'event' => 'Create'
-            ])
-            ->useLog('Payment Method Created')
-            ->log('Payment Method Created');
+            // Validate chart of account if provided
+            if ($request->has('chart_of_account_id') && $request->chart_of_account_id) {
+                $chartOfAccount = ChartOfAccount::find($request->chart_of_account_id);
+                if (! $chartOfAccount || ! $chartOfAccount->is_active) {
+                    return $this->responseWithError('Selected chart of account does not exist or is not active.');
+                }
+            }
 
-        return $this->responseWithSuccess('Payment method added successfully');
+            // save payment method
+            $paymentMethod = PaymentMethod::create([
+                'name' => $request->name,
+                'code' => $request->shortCode,
+                'note' => $request->note,
+                'status' => $request->status,
+                'chart_of_account_id' => $request->chart_of_account_id ?? null,
+            ]);
+
+            // Handle branch-specific analytical accounts
+            if ($request->has('branch_accounts') && is_array($request->branch_accounts)) {
+                foreach ($request->branch_accounts as $branchAccount) {
+                    if (isset($branchAccount['branch_id']) && isset($branchAccount['chart_of_account_id'])) {
+                        // Validate branch account
+                        $branchChartOfAccount = ChartOfAccount::find($branchAccount['chart_of_account_id']);
+                        if ($branchChartOfAccount && $branchChartOfAccount->is_active) {
+                            PaymentMethodBranchAccount::updateOrCreate(
+                                [
+                                    'payment_method_id' => $paymentMethod->id,
+                                    'branch_id' => $branchAccount['branch_id'],
+                                ],
+                                [
+                                    'chart_of_account_id' => $branchAccount['chart_of_account_id'],
+                                ]
+                            );
+                        }
+                    }
+                }
+            }
+
+            DB::commit();
+
+            // add activity log
+            activity()
+                ->causedBy(Auth::user())
+                ->performedOn($paymentMethod)
+                ->withProperties([
+                    'name' => '',
+                    'code' => '['.$request->name.']',
+                    'event' => 'Create',
+                ])
+                ->useLog('Payment Method Created')
+                ->log('Payment Method Created');
+
+            return $this->responseWithSuccess('Payment method added successfully');
+        } catch (Exception $e) {
+            DB::rollBack();
+
+            return $this->responseWithError($e->getMessage());
+        }
     }
 
     /**
@@ -69,9 +116,15 @@ class PaymentMethodController extends Controller
     public function show($slug)
     {
         try {
-            $method = PaymentMethod::where('slug', $slug)->first();
+            $method = PaymentMethod::with(['chartOfAccount', 'branchAccounts.chartOfAccount', 'branchAccounts.branch'])
+                ->where('slug', $slug)
+                ->first();
 
-            return $method;
+            if (! $method) {
+                return $this->responseWithError('Payment method not found.');
+            }
+
+            return new PaymentMethodResource($method);
         } catch (Exception $e) {
             return $this->responseWithError($e->getMessage());
         }
@@ -88,29 +141,74 @@ class PaymentMethodController extends Controller
     {
         $method = PaymentMethod::where('slug', $slug)->first();
 
+        if (! $method) {
+            return $this->responseWithError('Payment method not found.');
+        }
+
         try {
+            DB::beginTransaction();
+
+            // Validate chart of account if provided
+            if ($request->has('chart_of_account_id') && $request->chart_of_account_id) {
+                $chartOfAccount = ChartOfAccount::find($request->chart_of_account_id);
+                if (! $chartOfAccount || ! $chartOfAccount->is_active) {
+                    return $this->responseWithError('Selected chart of account does not exist or is not active.');
+                }
+            }
+
             // update payment method
             $method->update([
                 'name' => $request->name,
                 'code' => $request->shortCode,
                 'note' => $request->note,
                 'status' => $request->status,
+                'chart_of_account_id' => $request->chart_of_account_id ?? $method->chart_of_account_id,
             ]);
+
+            // Handle branch-specific analytical accounts
+            if ($request->has('branch_accounts') && is_array($request->branch_accounts)) {
+                // Delete existing branch accounts not in the request
+                $requestBranchIds = collect($request->branch_accounts)->pluck('branch_id')->filter();
+                $method->branchAccounts()->whereNotIn('branch_id', $requestBranchIds)->delete();
+
+                // Update or create branch accounts
+                foreach ($request->branch_accounts as $branchAccount) {
+                    if (isset($branchAccount['branch_id']) && isset($branchAccount['chart_of_account_id'])) {
+                        // Validate branch account
+                        $branchChartOfAccount = ChartOfAccount::find($branchAccount['chart_of_account_id']);
+                        if ($branchChartOfAccount && $branchChartOfAccount->is_active) {
+                            PaymentMethodBranchAccount::updateOrCreate(
+                                [
+                                    'payment_method_id' => $method->id,
+                                    'branch_id' => $branchAccount['branch_id'],
+                                ],
+                                [
+                                    'chart_of_account_id' => $branchAccount['chart_of_account_id'],
+                                ]
+                            );
+                        }
+                    }
+                }
+            }
+
+            DB::commit();
 
             // add activity log
             activity()
                 ->causedBy(Auth::user())
                 ->performedOn($method)
                 ->withProperties([
-                    'name' => "",
-                    'code' => '[' . $request->name . ']',
-                    'event' => 'Update'
+                    'name' => '',
+                    'code' => '['.$request->name.']',
+                    'event' => 'Update',
                 ])
                 ->useLog('Payment Method Updated')
                 ->log('Payment Method Updated');
 
             return $this->responseWithSuccess('Payment method updated successfully');
         } catch (Exception $e) {
+            DB::rollBack();
+
             return $this->responseWithError($e->getMessage());
         }
     }
@@ -131,13 +229,12 @@ class PaymentMethodController extends Controller
                 ->causedBy(Auth::user())
                 ->performedOn($method)
                 ->withProperties([
-                    'name' => "",
-                    'code' => '[' . $method->name . ']',
-                    'event' => 'Delete'
+                    'name' => '',
+                    'code' => '['.$method->name.']',
+                    'event' => 'Delete',
                 ])
                 ->useLog('Payment Method Deleted')
                 ->log('Payment Method Deleted');
-
 
             $method->delete();
 

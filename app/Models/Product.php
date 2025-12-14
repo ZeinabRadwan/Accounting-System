@@ -2,19 +2,17 @@
 
 namespace App\Models;
 
-use Spatie\MediaLibrary\HasMedia;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Storage;
 use Cviebrock\EloquentSluggable\Sluggable;
-use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
-use App\Models\ChartOfAccount;
 
 class Product extends Model implements HasMedia
 {
-    use Sluggable, HasFactory, InteractsWithMedia, SoftDeletes;
+    use HasFactory, InteractsWithMedia, Sluggable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -27,8 +25,6 @@ class Product extends Model implements HasMedia
 
     /**
      * Return the sluggable configuration array for this model.
-     *
-     * @return array
      */
     public function sluggable(): array
     {
@@ -222,7 +218,7 @@ class Product extends Model implements HasMedia
      */
     public function hasSalesAccount()
     {
-        return !is_null($this->sales_account_id);
+        return ! is_null($this->sales_account_id);
     }
 
     /**
@@ -230,7 +226,7 @@ class Product extends Model implements HasMedia
      */
     public function hasPurchaseAccount()
     {
-        return !is_null($this->purchase_account_id);
+        return ! is_null($this->purchase_account_id);
     }
 
     /**
@@ -268,9 +264,10 @@ class Product extends Model implements HasMedia
      */
     public function getSalesAccountValidationMessage()
     {
-        if (!$this->hasSalesAccount()) {
+        if (! $this->hasSalesAccount()) {
             return 'Product must have a Sales Account assigned for journal entries.';
         }
+
         return null;
     }
 
@@ -279,9 +276,10 @@ class Product extends Model implements HasMedia
      */
     public function getPurchaseAccountValidationMessage()
     {
-        if (!$this->hasPurchaseAccountWithFallback()) {
+        if (! $this->hasPurchaseAccountWithFallback()) {
             return 'Product must have a Purchase Account assigned for journal entries or a default Product Purchase Account configured in routing settings.';
         }
+
         return null;
     }
 
@@ -293,7 +291,7 @@ class Product extends Model implements HasMedia
         // Check if both accounts are already assigned
         $hasSalesAccount = isset($productData['sales_account_id']) && $productData['sales_account_id'];
         $hasPurchaseAccount = isset($productData['purchase_account_id']) && $productData['purchase_account_id'];
-        
+
         // If both accounts are already provided, use them
         if ($hasSalesAccount && $hasPurchaseAccount) {
             return $productData;
@@ -302,12 +300,12 @@ class Product extends Model implements HasMedia
         // Auto-assign based on product category or other criteria
         $defaultSalesAccount = null;
         $defaultPurchaseAccount = null;
-        
+
         // First try to get accounts from routing settings
         $salesRoutingSetting = \App\Models\AccountRoutingSetting::where('module', 'sales')
             ->where('setting_key', 'product_sales_account')
             ->first();
-        
+
         $purchaseRoutingSetting = \App\Models\AccountRoutingSetting::where('module', 'purchase')
             ->where('setting_key', 'product_purchase_account')
             ->first();
@@ -319,16 +317,14 @@ class Product extends Model implements HasMedia
         if ($purchaseRoutingSetting && $purchaseRoutingSetting->routing_type == 'automatic' && $purchaseRoutingSetting->main_account_id) {
             $defaultPurchaseAccount = \App\Models\ChartOfAccount::find($purchaseRoutingSetting->main_account_id);
         }
-        
-  
 
         // Only assign sales account if not already set
-        if ($defaultSalesAccount && !$hasSalesAccount) {
+        if ($defaultSalesAccount && ! $hasSalesAccount) {
             $productData['sales_account_id'] = $defaultSalesAccount->id;
         }
 
         // Only assign purchase account if not already set
-        if ($defaultPurchaseAccount && !$hasPurchaseAccount) {
+        if ($defaultPurchaseAccount && ! $hasPurchaseAccount) {
             $productData['purchase_account_id'] = $defaultPurchaseAccount->id;
         }
 
@@ -341,5 +337,73 @@ class Product extends Model implements HasMedia
     public function branch()
     {
         return $this->belongsTo(Branch::class);
+    }
+
+    /**
+     * Get the last purchase price from any supplier
+     * IMPORTANT: Returns purchase_price (unit price before tax), NOT unit_cost
+     *
+     * @return float
+     */
+    public function getLastPurchasePriceAttribute()
+    {
+        $lastPurchaseProduct = $this->purchaseProducts()
+            ->with('purchase')
+            ->whereHas('purchase', function ($query) {
+                $query->where('status', 1);
+            })
+            ->orderBy('created_at', 'desc')
+            ->first();
+
+        // Use purchase_price (unit price), NOT unit_cost (which includes tax)
+        return $lastPurchaseProduct ? (float) $lastPurchaseProduct->purchase_price : (float) ($this->purchase_price ?? 0);
+    }
+
+    /**
+     * Calculate weighted average purchase price for a specific supplier
+     *
+     * @param  int|null  $supplierId
+     * @return float
+     */
+    public function getAveragePurchasePriceBySupplier($supplierId = null)
+    {
+        if (! $supplierId) {
+            // If no supplier specified, return the current purchase_price
+            return (float) ($this->purchase_price ?? 0);
+        }
+
+        // Get all purchase products for this product from the specified supplier
+        $purchaseProducts = $this->purchaseProducts()
+            ->with('purchase')
+            ->whereHas('purchase', function ($query) use ($supplierId) {
+                $query->where('supplier_id', $supplierId)
+                    ->where('status', 1);
+            })
+            ->get();
+
+        if ($purchaseProducts->isEmpty()) {
+            // If no purchases from this supplier, return the current purchase_price or 0
+            return (float) ($this->purchase_price ?? 0);
+        }
+
+        // Calculate weighted average: sum(quantity * purchase_price) / sum(quantity)
+        // IMPORTANT: Use purchase_price (unit price before tax), NOT unit_cost (which includes tax)
+        $totalCost = 0;
+        $totalQuantity = 0;
+
+        foreach ($purchaseProducts as $purchaseProduct) {
+            $quantity = (float) $purchaseProduct->quantity;
+            // Use purchase_price (unit price), NOT unit_cost (which includes tax and other costs)
+            $price = (float) $purchaseProduct->purchase_price;
+
+            $totalCost += $quantity * $price;
+            $totalQuantity += $quantity;
+        }
+
+        if ($totalQuantity > 0) {
+            return round($totalCost / $totalQuantity, 2);
+        }
+
+        return (float) ($this->purchase_price ?? 0);
     }
 }

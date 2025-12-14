@@ -100,7 +100,14 @@
               </template>
               <template #cell-name="{ row }">
                 <div class="account-name">
+                  <span v-if="row.parent" class="account-indent">
+                    <i class="fas fa-level-down-alt text-muted mr-1"></i>
+                  </span>
                   <strong>{{ getTranslatedName(row) }}</strong>
+                  <span v-if="row.children_count > 0" class="badge bg-info ml-2">
+                    <i class="fas fa-sitemap mr-1"></i>
+                    {{ row.children_count }} {{ $t('Sub Account') }}{{ row.children_count > 1 ? 's' : '' }}
+                  </span>
                 </div>
               </template>
               <template #cell-type="{ row }">
@@ -132,13 +139,31 @@
                       </button>
                     </div>
                     <ul>
-                      <li>
+                      <li v-if="$can('chart-of-account-view')">
+                        <router-link :to="{ name: 'chart-of-accounts.show', params: { slug: row.code } }">
+                          <i class="fas fa-eye"></i>
+                          {{ $t('View') }}
+                        </router-link>
+                      </li>
+                      <li v-if="$can('chart-of-account-edit')">
                         <router-link :to="{ name: 'chart-of-accounts.edit', params: { slug: row.code } }">
                           <i class="fas fa-edit"></i>
                           {{ $t('Edit') }}
                         </router-link>
                       </li>
-                      <li v-if="!row.has_children">
+                      <li v-if="$can('chart-of-account-create')">
+                        <router-link :to="{ name: 'chart-of-accounts.create', query: { parent_id: row.id } }">
+                          <i class="fas fa-plus"></i>
+                          {{ $t('Add Sub Account') }}
+                        </router-link>
+                      </li>
+                      <li v-if="$can('chart-of-account-create') && !row.parent_id">
+                        <router-link :to="{ name: 'chart-of-accounts.create' }">
+                          <i class="fas fa-plus-circle"></i>
+                          {{ $t('Add Main Account') }}
+                        </router-link>
+                      </li>
+                      <li v-if="$can('chart-of-account-delete') && !row.has_children">
                         <a href="#" @click.prevent="deleteAccount(row)">
                           <i class="fas fa-trash"></i>
                           {{ $t('Delete') }}
@@ -419,7 +444,7 @@ export default {
           locale: this.currentLocale,
           include_translations: true,
           include_available_locales: true,
-          include: 'type',
+          include: 'type,parent',
           include_type_translations: true
         }
 
@@ -1065,6 +1090,20 @@ export default {
 
 .account-name strong {
   color: #2c3e50;
+}
+
+.account-indent {
+  margin-right: 8px;
+  color: #6c757d;
+}
+
+.account-indent i {
+  font-size: 0.9em;
+}
+
+[dir="rtl"] .account-indent {
+  margin-right: 0;
+  margin-left: 8px;
 }
 
 .language-selector .btn-group {

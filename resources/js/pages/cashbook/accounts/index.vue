@@ -113,6 +113,22 @@
                 </router-link>
                 <span v-else>{{ row.bankName }}</span>
               </template>
+              <template #cell-chartOfAccount="{ row }">
+                <div v-if="row.chartOfAccount">
+                  <router-link v-if="$can('chart-of-account-view')" :to="{ name: 'chart-of-accounts.show', params: { slug: row.chartOfAccount.code } }" class="text-primary">
+                    {{ row.chartOfAccount.code }} - {{ row.chartOfAccount.name }}
+                  </router-link>
+                  <span v-else>
+                    {{ row.chartOfAccount.code }} - {{ row.chartOfAccount.name }}
+                  </span>
+                  <span v-if="row.chartOfAccount.type" class="badge bg-info ml-2">
+                    {{ row.chartOfAccount.type }}
+                  </span>
+                </div>
+                <span v-else class="text-muted">
+                  <i class="fas fa-exclamation-triangle text-warning"></i> {{ $t('Not Linked') }}
+                </span>
+              </template>
               <template #cell-availableBalance="{ row }">
                 {{ row.availableBalance }} <span class="saudi-riyal">ê</span>
               </template>
@@ -145,6 +161,12 @@
                         <router-link :to="{ name: 'accounts.edit', params: { slug: row.slug } }">
                           <i class="fas fa-edit"></i>
                           {{ $t('Edit') }}
+                        </router-link>
+                      </li>
+                      <li v-if="$can('chart-of-account-create') && row.chartOfAccountId">
+                        <router-link :to="{ name: 'chart-of-accounts.create', query: { parent_id: row.chartOfAccountId } }">
+                          <i class="fas fa-plus"></i>
+                          {{ $t('Create Sub Account') }}
                         </router-link>
                       </li>
                       <li v-if="$can('account-delete') && appInfo.defaultAccountSlug != row.slug">
@@ -271,6 +293,7 @@ export default {
         { key: "bankName", label: this.$t("Bank Name") },
         { key: "branchName", label: this.$t("Branch Name") },
         { key: "accountNumber", label: this.$t("Account Number") },
+        { key: "chartOfAccount", label: this.$t("Chart of Account") },
         { key: "availableBalance", label: this.$t("Available Balance") },
         { key: "status", label: this.$t("Status") },
       ];

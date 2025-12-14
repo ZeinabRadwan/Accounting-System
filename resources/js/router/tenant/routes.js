@@ -608,11 +608,11 @@ export default [
     },
   },
    {
-    path: '/chart-of-accounts/tree',
-    name: 'chart-of-accounts.tree',
-    component: page('cashbook/chart-of-accounts/tree.vue'),
+    path: '/chart-of-accounts/sub-accounts',
+    name: 'chart-of-accounts.sub-accounts',
+    component: page('cashbook/chart-of-accounts/sub-accounts.vue'),
     meta: {
-      permissions: ['chart-of-account-tree'],
+      permissions: ['chart-of-account-list'],
       systemType: ['accounting', 'both']
     },
   },

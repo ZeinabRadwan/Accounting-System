@@ -60,12 +60,17 @@
             class="tree-action-btn tree-action-edit" v-tooltip="$t('Edit')">
             <i class="fas fa-edit"></i>
           </router-link>
+          <router-link v-if="hasPermission('create') && resolveRoute('createMain')" :to="resolveRoute('createMain')"
+            class="tree-action-btn tree-action-add-main" v-tooltip="$t('Add Main Account')">
+            <i class="fas fa-plus-circle"></i>
+          </router-link>
           <router-link v-if="hasPermission('create') && resolveRoute('createChild', item) && canAddChild(item)"
-            :to="resolveRoute('createChild', item)" class="tree-action-btn tree-action-add" v-tooltip="$t('Add Child')">
+            :to="resolveRoute('createChild', item)" class="tree-action-btn tree-action-add" v-tooltip="$t('Add Sub Account')">
             <i class="fas fa-plus"></i>
           </router-link>
           <a v-if="hasPermission('delete') && config.api?.delete" href="#" @click.prevent="deleteData(item)"
-            :class="['tree-action-btn', 'tree-action-delete', { disabled: !canDelete(item) }]" v-tooltip="$t('Delete')">
+            :class="['tree-action-btn', 'tree-action-delete', { disabled: !canDelete(item) }]" 
+            v-tooltip="canDelete(item) ? $t('Delete') : $t('Cannot delete account with child accounts')">
             <i class="fas fa-trash"></i>
           </a>
         </template>
@@ -216,7 +221,9 @@ export default {
       if (typeof resolver === "function") {
         return resolver(item);
       }
-      return true;
+      // Default: prevent deletion if account has children
+      const childrenCount = item[this.childrenCountField] || 0;
+      return childrenCount === 0;
     },
     canDragItem(item) {
       if (!this.enableDragAndDrop) {
@@ -523,6 +530,13 @@ export default {
     },
     async deleteData(item) {
       if (!this.config?.api?.delete || !this.canDelete(item)) {
+        const childrenCount = item[this.childrenCountField] || 0;
+        if (childrenCount > 0) {
+          this.$toast.warning(
+            this.$t("Cannot Delete"),
+            this.$t("This account has {count} child account(s) and cannot be deleted. Please delete or move the child accounts first.", { count: childrenCount })
+          );
+        }
         return;
       }
       const entityLabel = this.config?.messages?.entityLabel || this.$t("item");
@@ -633,5 +647,14 @@ export default {
   background: #fef4f4;
   color: #dc3545;
   border: 1px solid #ffebee;
+}
+
+.tree-action-add-main {
+  color: #2AB930;
+}
+
+.tree-action-add-main:hover {
+  background: #E8F5E9;
+  color: #1B5E20;
 }
 </style>

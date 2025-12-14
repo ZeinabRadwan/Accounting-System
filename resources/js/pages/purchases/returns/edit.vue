@@ -300,6 +300,7 @@ export default {
     purchasePrefix: '',
     purchaseReturnPrefix: '',
     taxes: '',
+    paymentMethods: [],
   }),
   computed: {
     ...mapGetters('operations', ['appInfo']),
@@ -364,6 +365,7 @@ export default {
     this.getPurchaseReturn()
     this.getAccounts()
     this.getTaxes()
+    this.getPaymentMethods()
     // default status by country
     this.form.status = this.isSaudiArabia ? 0 : 1
   },
@@ -383,6 +385,19 @@ export default {
         this.taxes = data.data
       } catch (e) {
         this.taxes = []
+      }
+    },
+
+    // get payment methods
+    async getPaymentMethods() {
+      try {
+        const response = await axios.get(window.location.origin + '/api/payment-methods/all');
+        if (response.data && response.data.data) {
+          this.paymentMethods = response.data.data;
+        }
+      } catch (error) {
+        console.error('Error loading payment methods:', error);
+        this.paymentMethods = [];
       }
     },
 

@@ -1579,26 +1579,6 @@ module.exports = "/images/vendor/flag-icons/flags/4x3/br.svg?33b38c329c8eb7d5a36
 
 /***/ }),
 
-/***/ 6600:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".main-sidebar{font-family:DINNextLTArabic,sans-serif;max-height:100vh;overflow-y:auto}.sidebar{border-top:1px solid #dee2e6;padding:0}.main-sidebar .brand-link{border-bottom:0!important}.main-sidebar .nav-sidebar .nav-link{margin:0}.nav-link{padding:.5rem .75rem}.main-sidebar .nav-sidebar .nav-link i.nav-icon,.main-sidebar .nav-sidebar .nav-link svg{align-items:center;background-color:#0775af1a;border-radius:5px;color:#0775af;display:inline-flex;height:18px;justify-content:center;margin-right:8px;min-width:18px;padding:10px 6px;position:relative;top:0;vertical-align:middle;width:18px}[dir=rtl] .main-sidebar .nav-sidebar .nav-link i.nav-icon,[dir=rtl] .main-sidebar .nav-sidebar .nav-link svg{margin-left:8px;margin-right:0}.main-sidebar .nav-sidebar .nav-header:not(:first-child){border-top:1px solid #e6eaed;margin-top:20px;padding:10px 0!important}.nav-header{color:#212b36;font-size:16px}.main-sidebar .nav-sidebar .nav-header{text-transform:lowercase}.main-sidebar .nav-sidebar .nav-header:first-letter{text-transform:uppercase}.main-sidebar .nav-sidebar .nav-treeview{background-color:transparent;border:1px solid #e6eaed;border-radius:0 0 10px 10px;border-top:none;margin:0 0 0 20px;padding:10px 12px 10px 8px}[dir=rtl] .main-sidebar .nav-sidebar .nav-treeview{border:1px solid #e6eaed;border-radius:0 0 10px 10px;border-top:none;margin-left:0;margin-right:0;padding:10px 8px 10px 12px}.main-sidebar .nav-sidebar .nav-treeview .nav-item{margin:0;position:relative}.main-sidebar .nav-sidebar .nav-treeview .nav-link{color:#586687;font-size:13px;font-weight:400;margin:10px 0;padding:.5rem .75rem;position:relative;transition:all .2s ease}.main-sidebar .nav-sidebar .nav-treeview .nav-link:hover{background-color:#f8fafc;color:#374151}.main-sidebar .nav-sidebar .nav-treeview .nav-link i{font-size:12px;margin-top:2px;text-align:center;width:14px}.main-sidebar .nav-sidebar .nav-treeview .nav-link.active:before,.main-sidebar .nav-sidebar .nav-treeview .nav-link.router-link-exact-active:before{background-color:#fff}.custom-nav-padding{padding:12px}.main-sidebar .nav-sidebar .pos-link p{text-transform:uppercase!important}.main-sidebar .nav-sidebar .nav-link.active,.main-sidebar .nav-sidebar .nav-link.router-link-exact-active{background-color:#0775af!important;border-radius:10px;color:#fff!important}.main-sidebar .nav-sidebar .nav-treeview .nav-link.active,.main-sidebar .nav-sidebar .nav-treeview .nav-link.router-link-exact-active{background-color:#0775af!important;border-radius:10px;color:#fff!important;padding:6px 16px}.main-sidebar .nav-sidebar .nav-link,.main-sidebar .nav-sidebar .nav-treeview .nav-link{align-items:center;border-radius:10px;color:#586687;display:flex}.main-sidebar .nav-sidebar .nav-link.active i,.main-sidebar .nav-sidebar .nav-link.active p,.main-sidebar .nav-sidebar .nav-link.router-link-exact-active i,.main-sidebar .nav-sidebar .nav-link.router-link-exact-active p,.main-sidebar .nav-sidebar .nav-treeview .nav-link.active i,.main-sidebar .nav-sidebar .nav-treeview .nav-link.active p,.main-sidebar .nav-sidebar .nav-treeview .nav-link.router-link-exact-active i,.main-sidebar .nav-sidebar .nav-treeview .nav-link.router-link-exact-active p{color:#fff!important}.main-sidebar .nav-sidebar .nav-link.active i.nav-icon,.main-sidebar .nav-sidebar .nav-link.router-link-exact-active i.nav-icon,.main-sidebar .nav-sidebar .nav-treeview .nav-link.active i.nav-icon,.main-sidebar .nav-sidebar .nav-treeview .nav-link.router-link-exact-active i.nav-icon{background-color:#fff!important;color:#0775af!important}html[dir=ltr] .main-sidebar .nav-sidebar .fa-angle-left{display:inline-block;transform:scaleX(-1);transition:transform .2s ease}html[dir=ltr] .main-sidebar .nav-sidebar .menu-is-opening>a .fa-angle-left,html[dir=ltr] .main-sidebar .nav-sidebar .menu-open>a .fa-angle-left{transform:scaleX(-1) rotate(-90deg)}[dir=rtl] .main-sidebar .nav-sidebar .nav-link .fa-angle-left{left:0}.main-sidebar .nav-sidebar .toggle-icon{color:#0775af;font-family:Font Awesome\\ 7 Free,Font Awesome\\ 6 Free,Font Awesome\\ 5 Free,FontAwesome,sans-serif;font-size:11px;font-weight:400;height:20px;line-height:20px;position:absolute;right:10px;text-align:center;top:50%;transform:translateY(-50%);width:20px}:dir(rtl) .main-sidebar .nav-sidebar .toggle-icon{left:10px;right:auto}.main-sidebar .nav-sidebar .nav-item.has-treeview>a .toggle-icon:before{content:\"\\f077\";font-family:Font Awesome\\ 7 Free,Font Awesome\\ 6 Free,Font Awesome\\ 5 Free,FontAwesome,sans-serif;font-weight:900}.main-sidebar .nav-sidebar .nav-item.has-treeview.menu-is-opening>a .toggle-icon:before,.main-sidebar .nav-sidebar .nav-item.has-treeview.menu-open>a .toggle-icon:before{content:\"\\f078\";font-family:Font Awesome\\ 7 Free,Font Awesome\\ 6 Free,Font Awesome\\ 5 Free,FontAwesome,sans-serif;font-weight:900}.main-sidebar .nav-sidebar .menu-is-opening>a .toggle-icon,.main-sidebar .nav-sidebar .menu-open>a .toggle-icon{color:#fff!important}.main-sidebar .nav-sidebar .nav-item,.main-sidebar .nav-sidebar .nav-link,.main-sidebar .nav-sidebar .nav-treeview .nav-item,.main-sidebar .nav-sidebar .nav-treeview .nav-link{border:none!important}.main-sidebar .nav-sidebar .nav-link:hover{background-color:#f8fafc!important;border-radius:10px;color:#374151!important;transform:translateX(2px);transition:all .3s ease}[dir=rtl] .main-sidebar .nav-sidebar .nav-link:hover{transform:translateX(-2px)}.main-sidebar .nav-sidebar .nav-link:hover i{color:#0775af!important;transform:scale(1.1);transition:all .3s ease}.main-sidebar .nav-sidebar .nav-link:hover p{color:#374151!important;font-weight:500}.main-sidebar .nav-sidebar .nav-treeview .nav-link:hover{background-color:#fff!important;color:#0775af!important;transform:translateX(4px);transition:all .3s ease}[dir=rtl] .main-sidebar .nav-sidebar .nav-treeview .nav-link:hover{transform:translateX(-4px)}.main-sidebar .nav-sidebar .nav-treeview .nav-link:hover i{color:#0775af!important;transform:scale(1.05);transition:all .3s ease}.main-sidebar .nav-sidebar .nav-treeview .nav-link:hover:before{background-color:#0775af!important;transform:scale(1.2);transition:all .3s ease}.main-sidebar .nav-sidebar .nav-header:hover{color:#0775af;font-weight:600}.main-sidebar .brand-link:hover,.main-sidebar .nav-sidebar .nav-header:hover{background-color:#f8fafc;border-radius:8px;transition:all .3s ease}.main-sidebar .nav-sidebar .menu-is-opening,.main-sidebar .nav-sidebar .menu-open{background-color:transparent;border:none!important;border-radius:0}.main-sidebar .nav-sidebar .menu-is-opening>a,.main-sidebar .nav-sidebar .menu-open>a{background-color:#0775af!important;border:none!important;border-radius:10px;color:#fff!important}.main-sidebar .nav-sidebar .menu-is-opening>a i,.main-sidebar .nav-sidebar .menu-is-opening>a p,.main-sidebar .nav-sidebar .menu-open>a i,.main-sidebar .nav-sidebar .menu-open>a p{color:#fff!important}.main-sidebar .nav-sidebar .nav-item.has-treeview>a.nav-link{align-items:baseline;display:flex}.main-sidebar .nav-sidebar .nav-item.has-treeview>a.nav-link>p{align-items:center;display:flex;gap:8px;justify-content:space-between;margin:0;white-space:nowrap;width:100%}.main-sidebar .nav-sidebar .nav-item.has-treeview.menu-is-opening>a.nav-link,.main-sidebar .nav-sidebar .nav-item.has-treeview.menu-open>a.nav-link{align-items:center;display:flex}.main-sidebar .nav-sidebar .nav-item.has-treeview ul.nav-treeview a.nav-link.router-link-exact-active,.main-sidebar .nav-sidebar .nav-item.has-treeview.menu-is-opening ul.nav-treeview a.nav-link.active,.main-sidebar .nav-sidebar .nav-item.has-treeview.menu-open ul.nav-treeview a.nav-link.active{background-color:#d7dbdd59!important;color:#0775af!important}.main-sidebar .nav-sidebar .nav-item.has-treeview ul.nav-treeview a.nav-link.router-link-exact-active .toggle-icon,.main-sidebar .nav-sidebar .nav-item.has-treeview ul.nav-treeview a.nav-link.router-link-exact-active i,.main-sidebar .nav-sidebar .nav-item.has-treeview ul.nav-treeview a.nav-link.router-link-exact-active p,.main-sidebar .nav-sidebar .nav-item.has-treeview ul.nav-treeview a.nav-link.router-link-exact-active svg,.main-sidebar .nav-sidebar .nav-item.has-treeview.menu-is-opening ul.nav-treeview a.nav-link.active .toggle-icon,.main-sidebar .nav-sidebar .nav-item.has-treeview.menu-is-opening ul.nav-treeview a.nav-link.active i,.main-sidebar .nav-sidebar .nav-item.has-treeview.menu-is-opening ul.nav-treeview a.nav-link.active p,.main-sidebar .nav-sidebar .nav-item.has-treeview.menu-is-opening ul.nav-treeview a.nav-link.active svg,.main-sidebar .nav-sidebar .nav-item.has-treeview.menu-open ul.nav-treeview a.nav-link.active .toggle-icon,.main-sidebar .nav-sidebar .nav-item.has-treeview.menu-open ul.nav-treeview a.nav-link.active i,.main-sidebar .nav-sidebar .nav-item.has-treeview.menu-open ul.nav-treeview a.nav-link.active p,.main-sidebar .nav-sidebar .nav-item.has-treeview.menu-open ul.nav-treeview a.nav-link.active svg{color:#0775af!important}.nav-sidebar .nav-header{margin:0}[dir=ltr] .main-sidebar .nav-sidebar .nav-link .fa-angle-left{right:0}[dir=rtl] .main-sidebar{transition:transform .3s ease-in-out,margin-right .3s ease-in-out}.add-btn-inline,[dir=rtl] .main-sidebar .nav-sidebar .nav-link,[dir=rtl] .main-sidebar .nav-sidebar .nav-treeview .nav-link{transition:all .3s ease}.add-btn-inline{align-items:center;background-color:#0775af;border-radius:50%;color:#fff;display:inline-flex;font-size:12px;height:20px;justify-content:center;margin-left:8px;text-decoration:none;width:20px}[dir=rtl] .add-btn-inline{margin-left:0;margin-right:8px}.add-btn-inline:hover{background-color:#2a8bc7;color:#fff;transform:scale(1.1)}.add-btn-inline i{font-size:10px;line-height:1}.nav-link p{align-items:center;display:flex;width:100%}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
 /***/ 6689:
 /***/ ((module) => {
 
@@ -22411,6 +22391,2984 @@ module.exports = {
 
 /***/ }),
 
+/***/ 35030:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "default": () => (/* binding */ layouts_default)
+});
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/layouts/default.vue?vue&type=template&id=3d484f6a&scoped=true
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', [_c('div', {
+    staticClass: "wrapper",
+    "class": {
+      'no-sidebar': !_vm.showSidebar
+    }
+  }, [_c('navbar'), _vm._v(" "), _vm.showSidebar ? _c('sidebar') : _vm._e(), _vm._v(" "), _c('section', {
+    staticClass: "content-wrapper"
+  }, [_vm.demo_message ? _c('div', {
+    staticClass: "trial-alert"
+  }, [_c('i', {
+    staticClass: "fas fa-exclamation-circle"
+  }), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.demo_message))])]) : _vm._e(), _vm._v(" "), _vm.tenant && !_vm.tenant.is_subscribed ? _c('div', {
+    staticClass: "trial-alert"
+  }, [_c('i', {
+    staticClass: "fas fa-exclamation-circle"
+  }), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.$t('You are not subscribed yet please subscribe.')))]), _vm._v(" "), _c('router-link', {
+    attrs: {
+      "to": {
+        name: 'settings.billing'
+      }
+    }
+  }, [_vm._v("\n          " + _vm._s(_vm.$t('Billing Page')) + "\n        ")])], 1) : _vm._e(), _vm._v(" "), _vm.tenant && _vm.tenant.on_trial ? _c('div', {
+    staticClass: "trial-alert"
+  }, [_c('div', [_c('i', {
+    staticClass: "fas fa-exclamation-circle"
+  }), _vm._v(" "), _c('span', [_vm._v("\n            " + _vm._s(_vm.$t('You are on trial version! Your trial ends')) + "\n            " + _vm._s(_vm.$t('in')) + "\n            " + _vm._s(_vm.getTrialDaysLeft(_vm.tenant.trial_ends_at)) + "\n            " + _vm._s(_vm.$t('days')) + "!\n          ")])]), _vm._v(" "), _c('div', {
+    staticClass: "mt-3 mt-md-0 mb-2 mb-md-0 my-md-2"
+  }, [_c('router-link', {
+    attrs: {
+      "to": {
+        name: 'settings.billing'
+      }
+    }
+  }, [_vm._v("\n            " + _vm._s(_vm.$t('Billing Page')) + "\n          ")])], 1)]) : _vm._e(), _vm._v(" "), _vm.subscription_limit_message ? _c('div', {
+    staticClass: "trial-alert"
+  }, [_c('i', {
+    staticClass: "fas fa-exclamation-circle"
+  }), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.subscription_limit_message))])]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "container-fluid"
+  }, [_c('child')], 1)]), _vm._v(" "), _c('footer', {
+    staticClass: "main-footer"
+  }, [_vm.appInfo ? _c('strong', [_vm._v(_vm._s(_vm.appInfo.copyright))]) : _vm._e(), _vm._v(" "), _vm.appInfo ? _c('div', {
+    staticClass: "float-right d-none d-sm-inline-block"
+  }, [_c('b', [_vm._v("Version")]), _vm._v(" " + _vm._s(_vm.appInfo.version))]) : _vm._e()]), _vm._v(" "), _c('sidebar-controll')], 1)]);
+};
+var staticRenderFns = [];
+
+// EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
+var vuex_esm = __webpack_require__(95353);
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Navbar.vue?vue&type=template&id=05ba50bb&scoped=true
+var Navbarvue_type_template_id_05ba50bb_scoped_true_render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('nav', {
+    staticClass: "main-header navbar navbar-expand navbar-white navbar-light",
+    "class": {
+      'full-width-navbar': _vm.isSelectBranchPage
+    },
+    style: _vm.isSelectBranchPage ? {
+      marginLeft: '0',
+      marginRight: '0',
+      left: '0',
+      right: '0',
+      width: '100%',
+      maxWidth: '100%'
+    } : {}
+  }, [_c('ul', {
+    staticClass: "navbar-nav"
+  }, [_vm.showSidebarToggle ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('a', {
+    staticClass: "nav-link custom-nav-btn",
+    attrs: {
+      "data-widget": "pushmenu",
+      "href": "#",
+      "role": "button"
+    }
+  }, [_c('svg', {
+    staticClass: "h-6 w-6",
+    attrs: {
+      "xmlns": "http://www.w3.org/2000/svg",
+      "fill": "none",
+      "viewBox": "0 0 24 24",
+      "stroke": "currentColor",
+      "stroke-width": "2"
+    }
+  }, [_c('path', {
+    attrs: {
+      "stroke-linecap": "round",
+      "stroke-linejoin": "round",
+      "d": "M4 6h16M4 12h16M4 18h7"
+    }
+  })])])]) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "navbar-search d-none d-md-block",
+    style: _vm.showSidebarToggle ? 'margin-left: 10px;' : 'margin-left: 0;'
+  }, [_c('div', {
+    staticClass: "search-area position-relative"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.menuSearchQuery,
+      expression: "menuSearchQuery"
+    }],
+    ref: "searchInput",
+    staticClass: "search-input",
+    attrs: {
+      "type": "text",
+      "placeholder": "".concat(_vm.$t('Search...'))
+    },
+    domProps: {
+      "value": _vm.menuSearchQuery
+    },
+    on: {
+      "input": [function ($event) {
+        if ($event.target.composing) return;
+        _vm.menuSearchQuery = $event.target.value;
+      }, _vm.searchMenu]
+    }
+  }), _vm._v(" "), _c('span', {
+    staticClass: "search-icon",
+    "class": [this.menuSearchQuery !== '' ? 'd-none' : '']
+  }, [_c('i', {
+    staticClass: "fas fa-search"
+  })]), _vm._v(" "), _vm.menuSearchQuery ? _c('button', {
+    staticClass: "btn btn-link p-0 clear-btn",
+    on: {
+      "click": _vm.clearMenuSearch
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-times"
+  })]) : _vm._e()]), _vm._v(" "), _vm.menuSearchQuery ? _c('div', {
+    staticClass: "dropdown-menu show w-100 mt-1 shadow",
+    staticStyle: {
+      "display": "block",
+      "max-height": "320px",
+      "overflow": "auto"
+    }
+  }, [_vm.menuItems.length ? _c('div', _vm._l(_vm.menuItems, function (menuItem, index) {
+    return _c('router-link', {
+      key: index,
+      staticClass: "dropdown-item d-flex align-items-center",
+      attrs: {
+        "to": {
+          name: menuItem.route
+        }
+      }
+    }, [menuItem.icon ? _c('i', {
+      "class": menuItem.icon + ' mr-2'
+    }) : _vm._e(), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.$t(menuItem.text)))])]);
+  }), 1) : _c('div', {
+    staticClass: "dropdown-item text-muted"
+  }, [_vm._v(_vm._s(_vm.$t('No matching items found')))])]) : _vm._e()]), _vm._v(" "), _c('ul', {
+    staticClass: "navbar-nav ml-auto"
+  }, [_vm.currentBranchName ? _c('li', {
+    directives: [{
+      name: "tooltip",
+      rawName: "v-tooltip",
+      value: _vm.displayBranchName,
+      expression: "displayBranchName"
+    }],
+    staticClass: "nav-item d-flex align-items-center mr-2"
+  }, [_c('span', {
+    staticClass: "branch-pill d-inline-flex align-items-center"
+  }, [_c('i', {
+    staticClass: "fas fa-code-branch mr-2"
+  }), _vm._v(" "), _c('a', {
+    staticClass: "text-truncate",
+    staticStyle: {
+      "max-width": "180px"
+    },
+    attrs: {
+      "href": "#"
+    },
+    on: {
+      "click": function click($event) {
+        $event.preventDefault();
+        return _vm.goSelectBranch.apply(null, arguments);
+      }
+    }
+  }, [_vm._v(_vm._s(_vm.displayBranchName))])])]) : _vm._e(), _vm._v(" "), _vm.$can('today-profit') ? _c('li', {
+    directives: [{
+      name: "tooltip",
+      rawName: "v-tooltip",
+      value: _vm.$t('Today Report'),
+      expression: "$t('Today Report')"
+    }],
+    staticClass: "nav-item"
+  }, [_c('a', {
+    staticClass: "nav-link custom-nav-btn",
+    attrs: {
+      "href": "#".concat(_vm.$route.name === 'reports.todayReport' ? '' : 'reports.todayReport')
+    },
+    on: {
+      "click": function click($event) {
+        $event.preventDefault();
+        return _vm.$router.push({
+          name: 'reports.todayReport'
+        });
+      }
+    }
+  }, [_c('svg', {
+    staticClass: "h-6 w-6",
+    attrs: {
+      "xmlns": "http://www.w3.org/2000/svg",
+      "fill": "none",
+      "viewBox": "0 0 24 24",
+      "stroke": "currentColor",
+      "stroke-width": "2"
+    }
+  }, [_c('path', {
+    attrs: {
+      "stroke-linecap": "round",
+      "stroke-linejoin": "round",
+      "d": "M12 1v22M17 5v14M7 5v14M5 10h14M5 14h14"
+    }
+  })])])]) : _vm._e(), _vm._v(" "), _vm.$can('lc-create') || _vm.$can('order-create') || _vm.$can('invoice-create') || _vm.$can('expense-create') || _vm.$can('international-purchase-create') ? _c('li', {
+    directives: [{
+      name: "tooltip",
+      rawName: "v-tooltip",
+      value: _vm.$t('Quick Add'),
+      expression: "$t('Quick Add')"
+    }],
+    staticClass: "nav-item dropdown"
+  }, [_c('a', {
+    staticClass: "nav-link custom-nav-btn",
+    attrs: {
+      "data-toggle": "dropdown",
+      "href": "#",
+      "aria-expanded": "true"
+    }
+  }, [_c('svg', {
+    staticClass: "h-6 w-6",
+    attrs: {
+      "xmlns": "http://www.w3.org/2000/svg",
+      "fill": "none",
+      "viewBox": "0 0 24 24",
+      "stroke": "currentColor",
+      "stroke-width": "2"
+    }
+  }, [_c('path', {
+    attrs: {
+      "stroke-linecap": "round",
+      "stroke-linejoin": "round",
+      "d": "M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "dropdown-menu dropdown-menu-sm dropdown-menu-right"
+  }, [_vm.$can('invoice-create') ? _c('router-link', {
+    staticClass: "dropdown-item dropdown-icon-center",
+    attrs: {
+      "to": {
+        name: 'invoices.create'
+      }
+    }
+  }, [_c('svg', {
+    staticClass: "h-6 w-6",
+    attrs: {
+      "xmlns": "http://www.w3.org/2000/svg",
+      "fill": "none",
+      "viewBox": "0 0 24 24",
+      "stroke": "currentColor",
+      "stroke-width": "2"
+    }
+  }, [_c('path', {
+    attrs: {
+      "stroke-linecap": "round",
+      "stroke-linejoin": "round",
+      "d": "M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"
+    }
+  })]), _vm._v("\n          " + _vm._s(_vm.$t("New Invoice")) + "\n        ")]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "dropdown-divider"
+  }), _vm._v(" "), _vm.$can('expense-create') ? _c('router-link', {
+    staticClass: "dropdown-item dropdown-icon-center",
+    attrs: {
+      "to": {
+        name: 'expenses.create'
+      }
+    }
+  }, [_c('svg', {
+    staticClass: "h-6 w-6",
+    attrs: {
+      "xmlns": "http://www.w3.org/2000/svg",
+      "fill": "none",
+      "viewBox": "0 0 24 24",
+      "stroke": "currentColor",
+      "stroke-width": "2"
+    }
+  }, [_c('path', {
+    attrs: {
+      "stroke-linecap": "round",
+      "stroke-linejoin": "round",
+      "d": "M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"
+    }
+  })]), _vm._v("\n          " + _vm._s(_vm.$t("New Expense")) + "\n        ")]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "dropdown-divider"
+  }), _vm._v(" "), _vm.$can('purchase-create') ? _c('router-link', {
+    staticClass: "dropdown-item dropdown-icon-center",
+    attrs: {
+      "to": {
+        name: 'purchases.create'
+      }
+    }
+  }, [_c('svg', {
+    staticClass: "h-6 w-6",
+    attrs: {
+      "xmlns": "http://www.w3.org/2000/svg",
+      "fill": "none",
+      "viewBox": "0 0 24 24",
+      "stroke": "currentColor",
+      "stroke-width": "2"
+    }
+  }, [_c('path', {
+    attrs: {
+      "stroke-linecap": "round",
+      "stroke-linejoin": "round",
+      "d": "M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+    }
+  })]), _vm._v("\n          " + _vm._s(_vm.$t("New Purchase")) + "\n        ")]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "dropdown-divider"
+  }), _vm._v(" "), _vm.$can('quotation-create') ? _c('router-link', {
+    staticClass: "dropdown-item dropdown-icon-center",
+    attrs: {
+      "to": {
+        name: 'quotations.create'
+      }
+    }
+  }, [_c('svg', {
+    staticClass: "h-6 w-6",
+    attrs: {
+      "xmlns": "http://www.w3.org/2000/svg",
+      "fill": "none",
+      "viewBox": "0 0 24 24",
+      "stroke": "currentColor",
+      "stroke-width": "2"
+    }
+  }, [_c('path', {
+    attrs: {
+      "stroke-linecap": "round",
+      "stroke-linejoin": "round",
+      "d": "M4 6h16M4 10h16M4 14h16M4 18h16"
+    }
+  })]), _vm._v("\n          " + _vm._s(_vm.$t("New Quotation")) + "\n        ")]) : _vm._e()], 1)]) : _vm._e(), _vm._v(" "), _c('li', {
+    directives: [{
+      name: "tooltip",
+      rawName: "v-tooltip",
+      value: _vm.$t('Notifications'),
+      expression: "$t('Notifications')"
+    }],
+    staticClass: "nav-item dropdown"
+  }, [_c('a', {
+    staticClass: "nav-link custom-nav-btn",
+    attrs: {
+      "data-toggle": "dropdown",
+      "href": "#"
+    }
+  }, [_c('svg', {
+    staticClass: "h-6 w-6",
+    attrs: {
+      "xmlns": "http://www.w3.org/2000/svg",
+      "fill": "none",
+      "viewBox": "0 0 24 24",
+      "stroke": "currentColor",
+      "stroke-width": "2"
+    }
+  }, [_c('path', {
+    attrs: {
+      "stroke-linecap": "round",
+      "stroke-linejoin": "round",
+      "d": "M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+    }
+  })]), _vm._v(" "), _vm.notificationCount > 0 ? _c('span', {
+    staticClass: "badge badge-warning navbar-badge"
+  }, [_vm._v(_vm._s(_vm.notificationCount))]) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "dropdown-menu dropdown-menu-lg dropdown-menu-right"
+  }, [_c('div', {
+    staticClass: "dropdown-divider"
+  }), _vm._v(" "), _vm.notificationCount > 0 ? _c('router-link', {
+    staticClass: "dropdown-item",
+    attrs: {
+      "to": {
+        name: 'stockAlertProducts'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-exclamation-circle mr-2 red"
+  }), _vm._v("\n          " + _vm._s(_vm.notificationCount) + " " + _vm._s(_vm.$t("Product Quantity Alert(s)")) + "\n        ")]) : _c('a', {
+    staticClass: "dropdown-item",
+    attrs: {
+      "href": "#"
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-check-circle mr-2 green"
+  }), _vm._v("\n          " + _vm._s(_vm.$t("No notification available")) + "\n        ")])], 1)]), _vm._v(" "), _c('locale-dropdown'), _vm._v(" "), _c('li', {
+    directives: [{
+      name: "tooltip",
+      rawName: "v-tooltip",
+      value: _vm.$t('Toggle Full Screen Mode'),
+      expression: "$t('Toggle Full Screen Mode')"
+    }],
+    staticClass: "nav-item"
+  }, [_c('a', {
+    staticClass: "nav-link custom-nav-btn",
+    attrs: {
+      "data-widget": "fullscreen",
+      "href": "#",
+      "role": "button"
+    }
+  }, [_c('svg', {
+    staticClass: "h-6 w-6",
+    attrs: {
+      "xmlns": "http://www.w3.org/2000/svg",
+      "fill": "none",
+      "viewBox": "0 0 24 24",
+      "stroke": "currentColor",
+      "stroke-width": "2"
+    }
+  }, [_c('path', {
+    attrs: {
+      "stroke-linecap": "round",
+      "stroke-linejoin": "round",
+      "d": "M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
+    }
+  })])])]), _vm._v(" "), _vm.user ? _c('li', {
+    staticClass: "nav-item dropdown"
+  }, [_c('a', {
+    staticClass: "nav-link user-profile",
+    attrs: {
+      "data-toggle": "dropdown",
+      "href": "#"
+    }
+  }, [_c('div', [!_vm.imageError ? _c('img', {
+    staticClass: "profile-avatar",
+    attrs: {
+      "src": _vm.user.photo_url,
+      "alt": _vm.user.name
+    },
+    on: {
+      "error": _vm.handleImageError
+    }
+  }) : _c('div', {
+    staticClass: "profile-avatar profile-avatar-fallback"
+  }, [_c('i', {
+    staticClass: "fas fa-user"
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "ml-2 d-none d-md-block"
+  }, [_c('div', {
+    staticClass: "welcome-text"
+  }, [_vm._v(_vm._s(_vm.$t('Welcome')))]), _vm._v(" "), _c('div', {
+    staticClass: "user-name"
+  }, [_vm._v(_vm._s(_vm.getFirstName(_vm.user.name)))])]), _vm._v(" "), _vm._m(0)]), _vm._v(" "), _c('div', {
+    staticClass: "dropdown-menu dropdown-menu-sm dropdown-menu-right"
+  }, [_c('router-link', {
+    staticClass: "dropdown-item dropdown-icon-center",
+    attrs: {
+      "to": {
+        name: 'settings.profile'
+      }
+    }
+  }, [_c('svg', {
+    staticClass: "h-6 w-6",
+    attrs: {
+      "xmlns": "http://www.w3.org/2000/svg",
+      "fill": "none",
+      "viewBox": "0 0 24 24",
+      "stroke": "currentColor",
+      "stroke-width": "2"
+    }
+  }, [_c('path', {
+    attrs: {
+      "stroke-linecap": "round",
+      "stroke-linejoin": "round",
+      "d": "M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+    }
+  })]), _vm._v("\n          " + _vm._s(_vm.$t("Profile")) + "\n        ")]), _vm._v(" "), _c('div', {
+    staticClass: "dropdown-divider"
+  }), _vm._v(" "), _c('router-link', {
+    staticClass: "dropdown-item dropdown-icon-center",
+    attrs: {
+      "to": {
+        name: 'settings.billing'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "pr-2 text-gray nav-icon fas fa-money-check-alt"
+  }), _vm._v(_vm._s(_vm.$t("Billing")) + "\n        ")]), _vm._v(" "), _c('div', {
+    staticClass: "dropdown-divider"
+  }), _vm._v(" "), _c('router-link', {
+    staticClass: "dropdown-item dropdown-icon-center",
+    attrs: {
+      "to": {
+        name: 'setup.general'
+      }
+    }
+  }, [_c('svg', {
+    staticClass: "h-6 w-6",
+    attrs: {
+      "xmlns": "http://www.w3.org/2000/svg",
+      "fill": "none",
+      "viewBox": "0 0 24 24",
+      "stroke": "currentColor",
+      "stroke-width": "2"
+    }
+  }, [_c('path', {
+    attrs: {
+      "stroke-linecap": "round",
+      "stroke-linejoin": "round",
+      "d": "M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+    }
+  }), _vm._v(" "), _c('path', {
+    attrs: {
+      "stroke-linecap": "round",
+      "stroke-linejoin": "round",
+      "d": "M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+    }
+  })]), _vm._v("\n          " + _vm._s(_vm.$t("Setup")) + "\n        ")]), _vm._v(" "), _c('div', {
+    staticClass: "dropdown-divider"
+  }), _vm._v(" "), _c('a', {
+    staticClass: "dropdown-item dropdown-icon-center",
+    attrs: {
+      "href": "#"
+    },
+    on: {
+      "click": function click($event) {
+        $event.preventDefault();
+        return _vm.logout.apply(null, arguments);
+      }
+    }
+  }, [_c('svg', {
+    staticClass: "h-6 w-6",
+    attrs: {
+      "xmlns": "http://www.w3.org/2000/svg",
+      "fill": "none",
+      "viewBox": "0 0 24 24",
+      "stroke": "currentColor",
+      "stroke-width": "2"
+    }
+  }, [_c('path', {
+    attrs: {
+      "stroke-linecap": "round",
+      "stroke-linejoin": "round",
+      "d": "M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+    }
+  })]), _vm._v("\n          " + _vm._s(_vm.$t("Logout")) + "\n        ")])], 1)]) : _vm._e()], 1)]);
+};
+var Navbarvue_type_template_id_05ba50bb_scoped_true_staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('span', {
+    staticClass: "mt-1 ml-1"
+  }, [_c('i', {
+    staticClass: "fas fa-angle-down"
+  })]);
+}];
+
+;// ./resources/js/components/Navbar.vue?vue&type=template&id=05ba50bb&scoped=true
+
+// EXTERNAL MODULE: ./node_modules/axios/index.js
+var axios = __webpack_require__(72505);
+var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
+// EXTERNAL MODULE: ./resources/js/components/LocaleDropdown.vue + 11 modules
+var LocaleDropdown = __webpack_require__(5531);
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Navbar.vue?vue&type=script&lang=js
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+
+
+
+/* harmony default export */ const Navbarvue_type_script_lang_js = ({
+  components: {
+    LocaleDropdown: LocaleDropdown/* default */.A
+  },
+  data: function data() {
+    return {
+      appName: window.config.appName,
+      notificationCount: 0,
+      menuSearchQuery: "",
+      menuItems: [],
+      imageError: false,
+      currentBranchName: '',
+      navbarEnforcerInterval: null,
+      searchDebounceTimer: null,
+      cachedRoutes: null
+    };
+  },
+  computed: _objectSpread(_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)({
+    user: "auth/user",
+    appInfo: "operations/appInfo"
+  })), {}, {
+    searchPlaceholderText: function searchPlaceholderText() {
+      return this.$t('Search...');
+    },
+    displayBranchName: function displayBranchName() {
+      if (this.currentBranchName === 'Main Branch') {
+        var _this$appInfo;
+        return ((_this$appInfo = this.appInfo) === null || _this$appInfo === void 0 ? void 0 : _this$appInfo.companyName) || this.currentBranchName;
+      }
+      return this.currentBranchName;
+    },
+    showSidebarToggle: function showSidebarToggle() {
+      // Hide sidebar toggle on select-branch page
+      return this.$route.name !== 'branches.select';
+    },
+    isSelectBranchPage: function isSelectBranchPage() {
+      return this.$route.name === 'branches.select';
+    }
+  }),
+  created: function created() {
+    this.stockNotification();
+    this.loadCurrentBranch();
+  },
+  mounted: function mounted() {
+    var _this = this;
+    this.$nextTick(function () {
+      setTimeout(function () {
+        _this.setSearchPlaceholder();
+      }, 100);
+    });
+    // Force navbar full width ONLY on select-branch page
+    if (this.isSelectBranchPage) {
+      this.$nextTick(function () {
+        _this.forceFullWidthNavbar();
+        // Set up interval to continuously enforce styles (in case AdminLTE overrides)
+        // Only runs on select-branch page
+        _this.navbarEnforcerInterval = setInterval(function () {
+          if (_this.isSelectBranchPage) {
+            _this.forceFullWidthNavbar();
+          } else {
+            // If we're no longer on select-branch page, clear interval and reset
+            clearInterval(_this.navbarEnforcerInterval);
+            _this.navbarEnforcerInterval = null;
+            _this.resetNavbarStyles();
+          }
+        }, 100);
+      });
+    } else {
+      // Make sure styles are reset on other pages
+      this.$nextTick(function () {
+        _this.resetNavbarStyles();
+      });
+    }
+  },
+  watch: {
+    '$i18n.locale': function $i18nLocale() {
+      this.updateSearchPlaceholder();
+      // Clear cached routes when locale changes
+      this.cachedRoutes = null;
+    },
+    '$route': function $route(to, from) {
+      var _this2 = this;
+      // Clear any existing interval first
+      if (this.navbarEnforcerInterval) {
+        clearInterval(this.navbarEnforcerInterval);
+        this.navbarEnforcerInterval = null;
+      }
+
+      // Reset styles when leaving select-branch page
+      if (from && from.name === 'branches.select' && to.name !== 'branches.select') {
+        this.$nextTick(function () {
+          _this2.resetNavbarStyles();
+        });
+      }
+
+      // Force navbar full width when route changes to select-branch
+      if (to.name === 'branches.select') {
+        this.$nextTick(function () {
+          _this2.forceFullWidthNavbar();
+          // Set up interval to continuously enforce styles (only on select-branch page)
+          _this2.navbarEnforcerInterval = setInterval(function () {
+            if (_this2.isSelectBranchPage) {
+              _this2.forceFullWidthNavbar();
+            } else {
+              // If we're no longer on select-branch page, clear interval and reset
+              clearInterval(_this2.navbarEnforcerInterval);
+              _this2.navbarEnforcerInterval = null;
+              _this2.resetNavbarStyles();
+            }
+          }, 100);
+        });
+      }
+    },
+    user: {
+      handler: function handler() {
+        // Reload current branch when user changes (e.g., after selecting new default)
+        this.loadCurrentBranch();
+      },
+      deep: false
+    }
+  },
+  methods: {
+    goSelectBranch: function goSelectBranch() {
+      this.$router.push({
+        name: 'branches.select',
+        query: {
+          redirect: this.$route.fullPath
+        }
+      });
+    },
+    loadCurrentBranch: function loadCurrentBranch() {
+      var _this3 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        var _data$branch, _yield$axios$get, data;
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              _context.prev = 0;
+              _context.next = 3;
+              return axios_default().get('/api/branches/current');
+            case 3:
+              _yield$axios$get = _context.sent;
+              data = _yield$axios$get.data;
+              _this3.currentBranchName = (data === null || data === void 0 || (_data$branch = data.branch) === null || _data$branch === void 0 ? void 0 : _data$branch.name) || '';
+              _context.next = 11;
+              break;
+            case 8:
+              _context.prev = 8;
+              _context.t0 = _context["catch"](0);
+              _this3.currentBranchName = '';
+            case 11:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee, null, [[0, 8]]);
+      }))();
+    },
+    setSearchPlaceholder: function setSearchPlaceholder() {
+      if (this.$refs.searchInput) {
+        this.$refs.searchInput.setAttribute('placeholder', this.$t('Search...'));
+      }
+    },
+    updateSearchPlaceholder: function updateSearchPlaceholder() {
+      this.setSearchPlaceholder();
+    },
+    getPlaceholder: function getPlaceholder() {
+      return this.$t('Search...');
+    },
+    // get stock notification
+    stockNotification: function stockNotification() {
+      var _this4 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        var _yield$axios$get2, data;
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return axios_default().get(window.location.origin + "/api/dashboard/stock-notification");
+            case 2:
+              _yield$axios$get2 = _context2.sent;
+              data = _yield$axios$get2.data;
+              _this4.notificationCount = data;
+            case 5:
+            case "end":
+              return _context2.stop();
+          }
+        }, _callee2);
+      }))();
+    },
+    // handle image load error
+    handleImageError: function handleImageError(event) {
+      console.log('Profile image failed to load:', event.target.src);
+      this.imageError = true;
+      // Fallback to a default avatar or initials
+      event.target.style.display = 'none';
+    },
+    // get first name from full name
+    getFirstName: function getFirstName(fullName) {
+      if (!fullName) return '';
+      return fullName.split(' ')[0];
+    },
+    clearMenuSearch: function clearMenuSearch() {
+      // Clear debounce timer
+      if (this.searchDebounceTimer) {
+        clearTimeout(this.searchDebounceTimer);
+        this.searchDebounceTimer = null;
+      }
+      this.menuSearchQuery = "";
+      this.menuItems = [];
+    },
+    // Get all routes from Sidebar structure
+    getAllSidebarRoutes: function getAllSidebarRoutes() {
+      var _this5 = this;
+      var routes = [];
+
+      // Helper function to add route
+      var addRoute = function addRoute(routeName, translationKey) {
+        var icon = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+        if (!routeName) return;
+
+        // Get translations in both languages
+        var enTranslation = _this5.getTranslation('en', translationKey);
+        var arTranslation = _this5.getTranslation('ar', translationKey);
+        routes.push({
+          route: routeName,
+          text: translationKey,
+          icon: icon,
+          enText: enTranslation,
+          arText: arTranslation
+        });
+      };
+
+      // Dashboard
+      addRoute('home', 'Dashboard', 'fas fa-home');
+
+      // Sales section
+      if (this.$can('invoice-list') || this.$can('invoice-create') || this.$can('quotation-list') || this.$can('quotation-create')) {
+        addRoute('pos.create', 'POS', 'fas fa-cash-register');
+        addRoute('quotations.index', 'Quotations List', 'fas fa-th-list');
+        addRoute('invoices.index', 'Invoices List', 'fas fa-file-invoice');
+        addRoute('invoiceReturns.index', 'Returns List', 'fas fa-undo-alt');
+        addRoute('clients.index', 'Clients', 'fas fa-users');
+      }
+
+      // Purchases section
+      if (this.$can('purchase-list') || this.$can('purchase-create') || this.$can('purchase-order-list')) {
+        addRoute('purchase-order.index', 'Purchase Orders', 'fas fa-file-invoice');
+        addRoute('purchases.index', 'Purchases List', 'fas fa-truck-loading');
+        addRoute('purchaseReturns.index', 'Returns List', 'fas fa-undo-alt');
+        addRoute('suppliers.index', 'Suppliers', 'fas fa-people-carry');
+      }
+
+      // Employees section
+      if (this.$can('employee-list') || this.$can('department-list') || this.$can('increment-list')) {
+        addRoute('departments.index', 'Departments', 'fas fa-server');
+        addRoute('employees.index', 'Employees List', 'fas fa-list-ul');
+        addRoute('increments.index', 'Increments', 'fas fa-list-ul');
+      }
+
+      // Accounting section
+      if ((this.$can('account-list') || this.$can('chart-of-account-list') || this.$can('account-balance-list')) && (this.$canAccessModule('accounting') || this.$canAccessModule('both'))) {
+        addRoute('chart-of-accounts.index', 'Chart of Accounts', 'fas fa-chart-line');
+        addRoute('accounts.index', 'Bank Accounts', 'fas fa-university');
+        addRoute('balances.index', 'Balance Adjustments', 'fas fa-sliders-h');
+        addRoute('transferBalances.index', 'Balance Transfers', 'fas fa-exchange-alt');
+        addRoute('transactions.index', 'Transaction History', 'fas fa-history');
+      }
+
+      // Cost Centers
+      if ((this.$can('view_cost_centers') || this.$can('create_cost_center')) && (this.$canAccessModule('accounting') || this.$canAccessModule('both'))) {
+        addRoute('cost-centers.index', 'All Cost Centers', 'fas fa-list');
+        addRoute('cost-centers.tree', 'Tree View', 'fas fa-sitemap');
+        addRoute('cost-centers.create', 'Create Cost Center', 'fas fa-plus');
+      }
+
+      // Cost Allocations
+      // Hidden for now
+      /*
+      if ((this.$can('view_cost_centers') || this.$can('create_cost_center')) && 
+          (this.$canAccessModule('accounting') || this.$canAccessModule('both'))) {
+        addRoute('cost-allocations.index', 'Allocation Rules', 'fas fa-list');
+        addRoute('cost-allocations.create', 'Create Rule', 'fas fa-plus');
+      }
+      */
+
+      // Journal Entries
+      if ((this.$can('journal-entry-list') || this.$can('journal-entry-create')) && (this.$canAccessModule('accounting') || this.$canAccessModule('both'))) {
+        addRoute('journal-entries.index', 'All Entries', 'fas fa-list');
+        addRoute('journal-entries.create', 'New Entry', 'fas fa-plus');
+      }
+
+      // Expenses
+      if (!this.$isPOS() && (this.$can('expense-list') || this.$can('expense-category-list'))) {
+        addRoute('expenseCats.index', 'Categories', 'fas fa-tags');
+        addRoute('expenseSubCats.index', 'Sub Categories', 'fas fa-code-branch');
+        addRoute('expenses.index', 'Expenses List', 'fas fa-list-ul');
+      }
+
+      // Vouchers
+      if (!this.$isPOS() && this.$can('payment-voucher-list')) {
+        addRoute('receiveVouchers.index', 'Receive Vouchers', 'fas fa-arrow-down');
+        addRoute('sendVouchers.index', 'Send Vouchers', 'fas fa-arrow-up');
+      }
+
+      // Payments
+      if (!this.$isPOS()) {
+        if (this.$can('invoice-payment-list') || this.$can('non-invoice-payment-list')) {
+          addRoute('invoicePayments.index', 'Invoice', 'fas fa-file-invoice');
+          addRoute('nonInvoicePayments.index', 'Non Invoice', 'fas fa-file-alt');
+        }
+        if (this.$can('purchase-payment-list') || this.$can('non-purchase-payment-list')) {
+          addRoute('purchasePayments.index', 'Purchase', 'fas fa-plane-departure');
+          addRoute('nonPurchasePayments.index', 'Non Purchase', 'fas fa-truck-pickup');
+        }
+      }
+
+      // Loan Management
+      if (!this.$isPOS() && (this.$can('loan-list') || this.$can('loan-authority-list'))) {
+        addRoute('authorities.index', 'Authorities', 'fas fa-building');
+        addRoute('loans.index', 'Loans', 'fas fa-list-ul');
+        addRoute('loanPayments.index', 'Payments', 'fas fa-receipt');
+      }
+
+      // Asset Management
+      if (!this.$isPOS() && (this.$can('asset-list') || this.$can('asset-type-list'))) {
+        addRoute('assetTypes.index', 'Types', 'fas fa-tags');
+        addRoute('assets.index', 'Assets', 'fas fa-list-ul');
+      }
+
+      // Payroll
+      if (!this.$isPOS() && this.$can('payroll-list')) {
+        addRoute('payroll.index', 'Payroll', 'fas fa-clipboard-list');
+      }
+
+      // Inventory
+      if (this.$can('product-create') || this.$can('product-category-create')) {
+        addRoute('productCats.index', 'Categories', 'fas fa-tags');
+        addRoute('productSubCats.index', 'Sub Categories', 'fas fa-code-branch');
+        addRoute('products.index', 'Item List', 'fas fa-list-ul');
+        if (this.$can('print-barcode')) {
+          addRoute('barcode.print', 'Barcode', 'fas fa-barcode');
+        }
+      }
+      if (this.$can('inventory') || this.$can('adjustment-create')) {
+        addRoute('inventory.index', 'View Inventory', 'fas fa-pallet');
+        addRoute('inventory.history-general', 'Inventory History', 'fas fa-history');
+        addRoute('inventory.count', 'Inventory Count', 'fas fa-clipboard-check');
+        addRoute('adjustments.index', 'Inventory Adjustment', 'fas fa-sliders-h');
+      }
+
+      // Reports
+      if (!this.$isPOS()) {
+        if (this.$can('account-statement')) {
+          addRoute('reports.accountStatement', 'Account Statement', 'fas fa-chart-bar');
+          addRoute('reports.groupAccountStatement', 'Group Account Statement', 'fas fa-chart-bar');
+          addRoute('reports.invoiceSummary', 'Invoice Summary', 'fas fa-chart-bar');
+          addRoute('reports.purchaseSummary', 'Purchase Summary', 'fas fa-chart-bar');
+        }
+        if (this.$can('balance-sheet') && (this.$canAccessModule('accounting') || this.$canAccessModule('both'))) {
+          addRoute('reports.balanceSheet', 'Balance Sheet', 'fas fa-chart-bar');
+          addRoute('reports.trialBalance', 'Trial Balance', 'fas fa-chart-bar');
+        }
+        if (this.$can('vat-report') && (this.$canAccessModule('accounting') || this.$canAccessModule('both'))) {
+          addRoute('reports.vatReport', 'VAT Report', 'fas fa-chart-bar');
+        }
+        if (this.$can('today-profit')) {
+          addRoute('reports.todayReport', 'Today Report', 'fas fa-chart-bar');
+        }
+        if (this.$can('summary-report') && (this.$canAccessModule('accounting') || this.$canAccessModule('both'))) {
+          addRoute('reports.summary', 'Summary Report', 'fas fa-chart-bar');
+        }
+        if (this.$can('profit-loss') && (this.$canAccessModule('accounting') || this.$canAccessModule('both'))) {
+          addRoute('reports.profitLoss', 'Profit/Loss Report', 'fas fa-chart-bar');
+        }
+        if (this.$can('expense-report')) {
+          addRoute('reports.expenses', 'Expense Report', 'fas fa-chart-bar');
+        }
+        if (this.$can('item-report')) {
+          addRoute('reports.items', 'Item Report', 'fas fa-chart-bar');
+        }
+        if (this.$can('inventory-report')) {
+          addRoute('reports.inventory', 'Inventory Report', 'fas fa-chart-bar');
+        }
+        if (this.$can('balance-sheet')) {
+          addRoute('reports.supplierPayableReport', 'Supplier Payable Report', 'fas fa-chart-bar');
+          addRoute('reports.clientReceivableReport', 'Client Receivable Report', 'fas fa-chart-bar');
+        }
+        if (this.$can('sales-by-user-report')) {
+          addRoute('reports.salesByUserReport', 'Sales By User Report', 'fas fa-chart-bar');
+        }
+        if (this.$can('collection-by-user-report')) {
+          addRoute('reports.collectionByUserReport', 'Collection By User Report', 'fas fa-chart-bar');
+        }
+      }
+
+      // Others
+      if (!this.$isPOS()) {
+        if (this.$can('branches-list') || this.$can('branches-create')) {
+          addRoute('branches.index', 'Branches', 'fas fa-sitemap');
+        }
+        if (this.$can('role-permissions') || this.$can('units') || this.$can('currencies') || this.$can('general-settings')) {
+          addRoute('setup.index', 'Setup', 'fas fa-cogs');
+        }
+        if (this.$can('print-templates')) {
+          addRoute('print-templates', 'Print Templates', 'fas fa-print');
+        }
+        addRoute('activity.log', 'Activity log', 'fa fa-bell');
+        addRoute('settings.billing', 'Billing', 'fas fa-money-check-alt');
+        addRoute('settings.profile', 'Profile', 'fas fa-user-circle');
+        if (this.$can('domain-management')) {
+          addRoute('domains.index', 'Domain Management', 'fas fa-server');
+          addRoute('domain-requests.index', 'Domain Request', 'fas fa-file-import');
+        }
+        if (this.$can('database-backup')) {
+          addRoute('backup', 'Database Backup', 'fas fa-download');
+        }
+      }
+      return routes;
+    },
+    // Helper to get translation in specific language (optimized)
+    getTranslation: function getTranslation(locale, key) {
+      try {
+        var i18n = this.$i18n;
+        // Access messages directly from i18n without switching locale
+        if (i18n && i18n.messages && i18n.messages[locale]) {
+          var messages = i18n.messages[locale];
+          if (messages && messages[key]) {
+            return messages[key];
+          }
+        }
+        // Fallback: return key if translation not found
+        return key;
+      } catch (error) {
+        return key;
+      }
+    },
+    // Search through routes with debouncing
+    searchMenu: function searchMenu() {
+      var _this6 = this;
+      // Clear existing timer
+      if (this.searchDebounceTimer) {
+        clearTimeout(this.searchDebounceTimer);
+      }
+
+      // Debounce the search to avoid running on every keystroke
+      this.searchDebounceTimer = setTimeout(function () {
+        _this6.performSearch();
+      }, 150); // 150ms delay
+    },
+    // Perform the actual search
+    performSearch: function performSearch() {
+      var menuSearchQuery = this.menuSearchQuery.trim().toLowerCase();
+      if (!menuSearchQuery) {
+        this.menuItems = [];
+        return;
+      }
+      try {
+        // Get cached routes or calculate them once
+        if (!this.cachedRoutes) {
+          this.cachedRoutes = this.getAllSidebarRoutes();
+        }
+        var allRoutes = this.cachedRoutes;
+
+        // Filter routes based on search query
+        var matchedRoutes = allRoutes.filter(function (route) {
+          // Search in English translation
+          var enMatch = route.enText && route.enText.toLowerCase().includes(menuSearchQuery);
+          // Search in Arabic translation
+          var arMatch = route.arText && route.arText.toLowerCase().includes(menuSearchQuery);
+          // Search in route name
+          var routeMatch = route.route && route.route.toLowerCase().includes(menuSearchQuery);
+          // Search in translation key
+          var keyMatch = route.text && route.text.toLowerCase().includes(menuSearchQuery);
+          return enMatch || arMatch || routeMatch || keyMatch;
+        });
+
+        // Format results
+        this.menuItems = matchedRoutes.map(function (route) {
+          return {
+            route: route.route,
+            text: route.text,
+            icon: route.icon
+          };
+        });
+      } catch (error) {
+        console.error('Search error:', error);
+        this.menuItems = [];
+      }
+    },
+    logout: function logout() {
+      var _this7 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.next = 2;
+              return _this7.$store.dispatch("auth/logout");
+            case 2:
+              // Redirect to login.
+              _this7.$router.push({
+                name: "login"
+              });
+            case 3:
+            case "end":
+              return _context3.stop();
+          }
+        }, _callee3);
+      }))();
+    },
+    sideBarControl: function sideBarControl() {
+      document.body.classList.toggle("control-sidebar-slide-open");
+    },
+    forceFullWidthNavbar: function forceFullWidthNavbar() {
+      // Only apply on select-branch page
+      if (!this.isSelectBranchPage) {
+        this.resetNavbarStyles();
+        return;
+      }
+
+      // Force navbar to full width by directly manipulating the DOM
+      var navbar = this.$el;
+      if (navbar) {
+        // Set styles with !important using setProperty
+        navbar.style.setProperty('margin-left', '0', 'important');
+        navbar.style.setProperty('margin-right', '0', 'important');
+        navbar.style.setProperty('left', '0', 'important');
+        navbar.style.setProperty('right', '0', 'important');
+        navbar.style.setProperty('width', '100%', 'important');
+        navbar.style.setProperty('max-width', '100%', 'important');
+
+        // Also set on content-wrapper and footer
+        var contentWrapper = document.querySelector('.content-wrapper');
+        var mainFooter = document.querySelector('.main-footer');
+        if (contentWrapper) {
+          contentWrapper.style.setProperty('margin-left', '0', 'important');
+          contentWrapper.style.setProperty('margin-right', '0', 'important');
+        }
+        if (mainFooter) {
+          mainFooter.style.setProperty('margin-left', '0', 'important');
+          mainFooter.style.setProperty('margin-right', '0', 'important');
+        }
+      }
+    },
+    resetNavbarStyles: function resetNavbarStyles() {
+      // Remove inline styles to let CSS take over (for other pages)
+      var navbar = this.$el;
+      if (navbar) {
+        navbar.style.removeProperty('margin-left');
+        navbar.style.removeProperty('margin-right');
+        navbar.style.removeProperty('left');
+        navbar.style.removeProperty('right');
+        navbar.style.removeProperty('width');
+        navbar.style.removeProperty('max-width');
+      }
+      var contentWrapper = document.querySelector('.content-wrapper');
+      var mainFooter = document.querySelector('.main-footer');
+      if (contentWrapper) {
+        contentWrapper.style.removeProperty('margin-left');
+        contentWrapper.style.removeProperty('margin-right');
+      }
+      if (mainFooter) {
+        mainFooter.style.removeProperty('margin-left');
+        mainFooter.style.removeProperty('margin-right');
+      }
+    }
+  },
+  beforeDestroy: function beforeDestroy() {
+    // Clean up interval
+    if (this.navbarEnforcerInterval) {
+      clearInterval(this.navbarEnforcerInterval);
+      this.navbarEnforcerInterval = null;
+    }
+    // Clean up debounce timer
+    if (this.searchDebounceTimer) {
+      clearTimeout(this.searchDebounceTimer);
+      this.searchDebounceTimer = null;
+    }
+    // Reset styles when component is destroyed
+    this.resetNavbarStyles();
+  }
+});
+;// ./resources/js/components/Navbar.vue?vue&type=script&lang=js
+ /* harmony default export */ const components_Navbarvue_type_script_lang_js = (Navbarvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__(85072);
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Navbar.vue?vue&type=style&index=0&id=05ba50bb&prod&scoped=true&lang=css
+var Navbarvue_type_style_index_0_id_05ba50bb_prod_scoped_true_lang_css = __webpack_require__(29329);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Navbar.vue?vue&type=style&index=0&id=05ba50bb&prod&scoped=true&lang=css
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = injectStylesIntoStyleTag_default()(Navbarvue_type_style_index_0_id_05ba50bb_prod_scoped_true_lang_css/* default */.A, options);
+
+
+
+/* harmony default export */ const components_Navbarvue_type_style_index_0_id_05ba50bb_prod_scoped_true_lang_css = (Navbarvue_type_style_index_0_id_05ba50bb_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/components/Navbar.vue?vue&type=style&index=0&id=05ba50bb&prod&scoped=true&lang=css
+
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(14486);
+;// ./resources/js/components/Navbar.vue
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,componentNormalizer/* default */.A)(
+  components_Navbarvue_type_script_lang_js,
+  Navbarvue_type_template_id_05ba50bb_scoped_true_render,
+  Navbarvue_type_template_id_05ba50bb_scoped_true_staticRenderFns,
+  false,
+  null,
+  "05ba50bb",
+  null
+  
+)
+
+/* harmony default export */ const Navbar = (component.exports);
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Sidebar.vue?vue&type=template&id=08b8c664
+var Sidebarvue_type_template_id_08b8c664_render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('aside', {
+    staticClass: "main-sidebar"
+  }, [_c('router-link', {
+    staticClass: "brand-link",
+    attrs: {
+      "to": {
+        name: 'home'
+      }
+    }
+  }, [_vm.appInfo ? _c('img', {
+    staticClass: "lg-logo light-logo",
+    attrs: {
+      "src": _vm.appInfo.blackLogo,
+      "alt": _vm.appInfo.companyName
+    }
+  }) : _vm._e(), _vm._v(" "), _vm.appInfo ? _c('img', {
+    staticClass: "lg-logo dark-logo",
+    attrs: {
+      "src": _vm.appInfo.logo,
+      "alt": _vm.appInfo.companyName
+    }
+  }) : _vm._e(), _vm._v(" "), _vm.appInfo ? _c('img', {
+    staticClass: "sm-logo",
+    attrs: {
+      "src": _vm.appInfo.smallLogo,
+      "alt": "appInfo.companyName"
+    }
+  }) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "sidebar custom-sidebar"
+  }, [_c('nav', {
+    staticClass: "custom-nav-padding"
+  }, [_c('ul', {
+    staticClass: "nav nav-pills nav-sidebar flex-column",
+    attrs: {
+      "data-widget": "treeview",
+      "role": "menu"
+    }
+  }, [_c('li', {
+    staticClass: "nav-header text-bold"
+  }, [_vm._v("\n          " + _vm._s(_vm.$t("Dashboard")) + "\n        ")]), _vm._v(" "), _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'home'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "nav-icon fas fa-home"
+  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Dashboard")))])])], 1), _vm._v(" "), _c('li', {
+    staticClass: "nav-header text-bold"
+  }, [_vm._v(_vm._s(_vm.$t("Sales")))]), _vm._v(" "), _vm.$isPOS() && (_vm.$can('invoice-list') || _vm.$can('invoice-create')) ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link pos-link",
+    attrs: {
+      "to": {
+        name: 'pos.create'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-cash-register nav-icon"
+  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("POS")))])])], 1) : _vm._e(), _vm._v(" "), !_vm.$isPOS() && (_vm.$can('quotation-list') || _vm.$can('quotation-create') || _vm.$can('quotation-view') || _vm.$can('quotation-edit') || _vm.$can('quotation-delete') || _vm.$can('quotation-to-invoice') || _vm.$can('invoice-list') || _vm.$can('invoice-create') || _vm.$can('invoice-view') || _vm.$can('invoice-edit') || _vm.$can('invoice-delete') || _vm.$can('invoice-return-list') || _vm.$can('invoice-return-create') || _vm.$can('invoice-return-view') || _vm.$can('invoice-return-edit') || _vm.$can('invoice-return-delete')) ? _c('li', {
+    staticClass: "nav-item has-treeview",
+    "class": _vm.menuOpen('quotations') || _vm.menuOpen('invoices') || _vm.menuOpen('invoiceReturns') || _vm.menuOpen('pos') || _vm.menuOpen('clients') ? 'menu-is-opening menu-open' : ''
+  }, [_c('a', {
+    staticClass: "nav-link",
+    attrs: {
+      "href": "#"
+    }
+  }, [_c('i', {
+    staticClass: "nav-icon fas fa-shopping-bag"
+  }), _vm._v(" "), _c('p', [_vm._v("\n              " + _vm._s(_vm.$t("Sales")) + "\n              "), _c('span', {
+    staticClass: "toggle-icon"
+  })])]), _vm._v(" "), _c('ul', {
+    staticClass: "nav nav-treeview",
+    style: _vm.menuOpen('quotations') || _vm.menuOpen('invoices') || _vm.menuOpen('invoiceReturns') || _vm.menuOpen('pos') || _vm.menuOpen('clients') ? 'display: block' : 'display: none'
+  }, [_vm.$can('quotation-list') || _vm.$can('quotation-create') || _vm.$can('quotation-view') || _vm.$can('quotation-edit') || _vm.$can('quotation-delete') || _vm.$can('quotation-to-invoice') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'quotations.index'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-th-list nav-icon"
+  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Quotations List")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('invoice-list') || _vm.$can('invoice-create') || _vm.$can('invoice-view') || _vm.$can('invoice-edit') || _vm.$can('invoice-delete') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'invoices.index'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-file-invoice nav-icon"
+  }), _vm._v(" "), _c('p', [_vm._v("\n                  " + _vm._s(_vm.$t("Invoices List")) + "\n                  "), _vm.$can('invoice-create') ? _c('router-link', {
+    staticClass: "add-btn-inline",
+    attrs: {
+      "to": {
+        name: 'invoices.create'
+      }
+    },
+    on: {
+      "click": function click($event) {
+        $event.stopPropagation();
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-plus"
+  })]) : _vm._e()], 1)])], 1) : _vm._e(), _vm._v(" "), (_vm.$can('invoice-list') || _vm.$can('invoice-create') || _vm.$can('invoice-view') || _vm.$can('invoice-edit') || _vm.$can('invoice-delete')) && (_vm.$canAccessModule('pos') || _vm.$canAccessModule('both')) ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link pos-link",
+    attrs: {
+      "to": {
+        name: 'pos.create'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-cash-register nav-icon"
+  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("POS")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('invoice-return-list') || _vm.$can('invoice-return-create') || _vm.$can('invoice-return-view') || _vm.$can('invoice-return-edit') || _vm.$can('invoice-return-delete') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'invoiceReturns.index'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-undo-alt nav-icon"
+  }), _vm._v(" "), _c('p', [_vm._v("\n                  " + _vm._s(_vm.isSaudiArabia ? _vm.$t("Credit notes") : _vm.$t("Returns List")) + "\n                ")])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('client-list') || _vm.$can('client-create') || _vm.$can('client-view') || _vm.$can('client-edit') || _vm.$can('client-delete') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'clients.index'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-users nav-icon"
+  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Clients")))])])], 1) : _vm._e()])]) : _vm._e(), _vm._v(" "), !_vm.$isPOS() ? _c('li', {
+    staticClass: "nav-header text-bold"
+  }, [_vm._v(_vm._s(_vm.$t("Purchases")))]) : _vm._e(), _vm._v(" "), _vm.$can('purchase-list') || _vm.$can('purchase-create') || _vm.$can('purchase-edit') || _vm.$can('purchase-view') || _vm.$can('purchase-delete') || _vm.$can('purchase-return-list') || _vm.$can('purchase-return-create') || _vm.$can('purchase-return-edit') || _vm.$can('purchase-return-view') || _vm.$can('purchase-return-delete') ? _c('li', {
+    staticClass: "nav-item has-treeview",
+    "class": _vm.menuOpen('purchases') || _vm.menuOpen('purchaseReturns') || _vm.menuOpen('purchase-order') || _vm.menuOpen('suppliers') ? 'menu-is-opening menu-open' : ''
+  }, [_c('a', {
+    staticClass: "nav-link",
+    attrs: {
+      "href": "#"
+    }
+  }, [_c('i', {
+    staticClass: "nav-icon fas fa-shopping-basket"
+  }), _vm._v(" "), _c('p', [_vm._v("\n              " + _vm._s(_vm.$t("Purchases")) + "\n              "), _c('span', {
+    staticClass: "toggle-icon"
+  })])]), _vm._v(" "), _c('ul', {
+    staticClass: "nav nav-treeview",
+    style: _vm.menuOpen('purchases') || _vm.menuOpen('purchaseReturns') || _vm.menuOpen('purchase-order') || _vm.menuOpen('suppliers') ? 'display: block' : 'display: none'
+  }, [_vm.$can('purchase-order-list') || _vm.$can('purchase-order-create') || _vm.$can('purchase-order-edit') || _vm.$can('purchase-order-view') || _vm.$can('purchase-order-delete') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'purchase-order.index'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-file-invoice nav-icon"
+  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Purchase Orders")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('purchase-list') || _vm.$can('purchase-create') || _vm.$can('purchase-edit') || _vm.$can('purchase-view') || _vm.$can('purchase-delete') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'purchases.index'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-truck-loading nav-icon"
+  }), _vm._v(" "), _c('p', [_vm._v("\n                  " + _vm._s(_vm.$t("Purchases List")) + "\n                  "), _vm.$can('purchase-create') ? _c('router-link', {
+    staticClass: "add-btn-inline",
+    attrs: {
+      "to": {
+        name: 'purchases.create'
+      }
+    },
+    on: {
+      "click": function click($event) {
+        $event.stopPropagation();
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-plus"
+  })]) : _vm._e()], 1)])], 1) : _vm._e(), _vm._v(" "), _vm.$can('purchase-return-list') || _vm.$can('purchase-return-create') || _vm.$can('purchase-return-edit') || _vm.$can('purchase-return-view') || _vm.$can('purchase-return-delete') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'purchaseReturns.index'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-undo-alt nav-icon"
+  }), _vm._v(" "), _c('p', [_vm._v("\n                  " + _vm._s(_vm.isSaudiArabia ? _vm.$t("Debit notes") : _vm.$t("Returns List")) + "\n                ")])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('supplier-list') || _vm.$can('supplier-create') || _vm.$can('supplier-view') || _vm.$can('supplier-edit') || _vm.$can('supplier-delete') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'suppliers.index'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-people-carry nav-icon"
+  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Suppliers")))])])], 1) : _vm._e()])]) : _vm._e(), _vm._v(" "), !_vm.$isPOS() ? _c('li', {
+    staticClass: "nav-header text-bold"
+  }, [_vm._v(_vm._s(_vm.$t("Employees")))]) : _vm._e(), _vm._v(" "), _vm.$can('department-list') || _vm.$can('department-create') || _vm.$can('department-edit') || _vm.$can('department-delete') || _vm.$can('employee-list') || _vm.$can('employee-create') || _vm.$can('employee-edit') || _vm.$can('employee-delete') || _vm.$can('employee-view') || _vm.$can('increment-list') || _vm.$can('increment-create') || _vm.$can('increment-edit') || _vm.$can('increment-view') || _vm.$can('increment-delete') ? _c('li', {
+    staticClass: "nav-item has-treeview",
+    "class": _vm.menuOpen('departments') || _vm.menuOpen('employees') || _vm.menuOpen('increments') ? 'menu-is-opening menu-open' : ''
+  }, [_c('a', {
+    staticClass: "nav-link",
+    attrs: {
+      "href": "#"
+    }
+  }, [_c('i', {
+    staticClass: "nav-icon fas fa-users-cog"
+  }), _vm._v(" "), _c('p', [_vm._v("\n              " + _vm._s(_vm.$t("Employees")) + "\n              "), _c('span', {
+    staticClass: "toggle-icon"
+  })])]), _vm._v(" "), _c('ul', {
+    staticClass: "nav nav-treeview",
+    style: _vm.menuOpen('departments') || _vm.menuOpen('employees') || _vm.menuOpen('increments') ? 'display: block' : 'display: none'
+  }, [_vm.$can('department-list') || _vm.$can('department-create') || _vm.$can('department-edit') || _vm.$can('department-delete') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'departments.index'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-server nav-icon"
+  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Departments")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('employee-list') || _vm.$can('employee-create') || _vm.$can('employee-edit') || _vm.$can('employee-delete') || _vm.$can('employee-view') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'employees.index'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-list-ul nav-icon"
+  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Employees List")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('increment-list') || _vm.$can('increment-create') || _vm.$can('increment-edit') || _vm.$can('increment-view') || _vm.$can('increment-delete') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'increments.index'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-list-ul nav-icon"
+  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Increments")))])])], 1) : _vm._e()])]) : _vm._e(), _vm._v(" "), _vm.$canAccessModule('accounting') || _vm.$canAccessModule('both') ? _c('li', {
+    staticClass: "nav-header text-bold"
+  }, [_vm._v(_vm._s(_vm.$t("ACCOUNTING")))]) : _vm._e(), _vm._v(" "), (_vm.$can('account-list') || _vm.$can('account-create') || _vm.$can('account-view') || _vm.$can('account-edit') || _vm.$can('account-delete') || _vm.$can('chart-of-account-list') || _vm.$can('chart-of-account-create') || _vm.$can('chart-of-account-edit') || _vm.$can('chart-of-account-view') || _vm.$can('chart-of-account-delete') || _vm.$can('account-balance-list') || _vm.$can('account-balance-create') || _vm.$can('account-balance-edit') || _vm.$can('account-balance-delete') || _vm.$can('account-transfer-balance-list') || _vm.$can('account-transfer-balance-create') || _vm.$can('account-transfer-balance-edit') || _vm.$can('account-transfer-balance-view') || _vm.$can('account-transfer-balance-delete') || _vm.$can('transaction-history')) && (_vm.$canAccessModule('accounting') || _vm.$canAccessModule('both')) ? _c('li', {
+    staticClass: "nav-item has-treeview",
+    "class": _vm.menuOpen('accounts') || _vm.menuOpen('balances') || _vm.menuOpen('transferBalances') || _vm.menuOpen('transactions') || _vm.menuOpen('chart-of-accounts') ? 'menu-is-opening menu-open' : ''
+  }, [_c('a', {
+    staticClass: "nav-link",
+    attrs: {
+      "href": "#"
+    }
+  }, [_c('i', {
+    staticClass: "nav-icon fas fa-book"
+  }), _vm._v(" "), _c('p', [_vm._v("\n              " + _vm._s(_vm.$t("Cashbook & Accounts")) + "\n              "), _c('span', {
+    staticClass: "toggle-icon"
+  })])]), _vm._v(" "), _c('ul', {
+    staticClass: "nav nav-treeview",
+    style: _vm.menuOpen('accounts') || _vm.menuOpen('balances') || _vm.menuOpen('transferBalances') || _vm.menuOpen('transactions') || _vm.menuOpen('chart-of-accounts') ? 'display: block' : 'display: none'
+  }, [_vm.$can('chart-of-account-list') || _vm.$can('chart-of-account-create') || _vm.$can('chart-of-account-edit') || _vm.$can('chart-of-account-view') || _vm.$can('chart-of-account-delete') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'chart-of-accounts.index'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-list nav-icon"
+  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Chart of Accounts")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('chart-of-account-list') || _vm.$can('chart-of-account-create') || _vm.$can('chart-of-account-edit') || _vm.$can('chart-of-account-view') || _vm.$can('chart-of-account-delete') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'chart-of-accounts.sub-accounts'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-code-branch nav-icon"
+  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Sub Accounts")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('account-list') || _vm.$can('account-create') || _vm.$can('account-view') || _vm.$can('account-edit') || _vm.$can('account-delete') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'accounts.index'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-university nav-icon"
+  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Bank Accounts")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('account-balance-list') || _vm.$can('account-balance-create') || _vm.$can('account-balance-edit') || _vm.$can('account-balance-delete') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'balances.index'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-sliders-h nav-icon"
+  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Balance Adjustments")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('account-transfer-balance-list') || _vm.$can('account-transfer-balance-create') || _vm.$can('account-transfer-balance-edit') || _vm.$can('account-transfer-balance-view') || _vm.$can('account-transfer-balance-delete') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'transferBalances.index'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-exchange-alt nav-icon"
+  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Balance Transfers")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('transaction-history') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'transactions.index'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-history nav-icon"
+  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Transaction History")))])])], 1) : _vm._e()])]) : _vm._e(), _vm._v(" "), (_vm.$can('view_cost_centers') || _vm.$can('create_cost_center') || _vm.$can('update_cost_center') || _vm.$can('delete_cost_center')) && (_vm.$canAccessModule('accounting') || _vm.$canAccessModule('both')) ? _c('li', {
+    staticClass: "nav-item has-treeview",
+    "class": _vm.menuOpen('cost-centers') ? 'menu-is-opening menu-open' : ''
+  }, [_c('a', {
+    staticClass: "nav-link",
+    attrs: {
+      "href": "#"
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-sitemap nav-icon"
+  }), _vm._v(" "), _c('p', [_vm._v("\n              " + _vm._s(_vm.$t("Cost Centers")) + "\n              "), _c('span', {
+    staticClass: "toggle-icon"
+  })])]), _vm._v(" "), _c('ul', {
+    staticClass: "nav nav-treeview",
+    style: _vm.menuOpen('cost-centers') ? 'display: block' : 'display: none'
+  }, [_vm.$can('view_cost_centers') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'cost-centers.index'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-list nav-icon"
+  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("All Cost Centers")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('view_cost_centers') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'cost-centers.tree'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-sitemap nav-icon"
+  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Tree View")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('create_cost_center') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'cost-centers.create'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-plus nav-icon"
+  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Create Cost Center")))])])], 1) : _vm._e()])]) : _vm._e(), _vm._v(" "), (_vm.$can('journal-entry-list') || _vm.$can('journal-entry-create') || _vm.$can('journal-entry-view') || _vm.$can('journal-entry-edit')) && (_vm.$canAccessModule('accounting') || _vm.$canAccessModule('both')) ? _c('li', {
+    staticClass: "nav-item has-treeview",
+    "class": _vm.menuOpen('journal-entries') ? 'menu-is-opening menu-open' : ''
+  }, [_c('a', {
+    staticClass: "nav-link",
+    attrs: {
+      "href": "#"
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-book nav-icon"
+  }), _vm._v(" "), _c('p', [_vm._v("\n              " + _vm._s(_vm.$t("Journal Entries")) + "\n              "), _c('span', {
+    staticClass: "toggle-icon"
+  })])]), _vm._v(" "), _c('ul', {
+    staticClass: "nav nav-treeview",
+    style: _vm.menuOpen('journal-entries') ? 'display: block' : 'display: none'
+  }, [_vm.$can('journal-entry-list') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'journal-entries.index'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-list nav-icon"
+  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("All Entries")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('journal-entry-create') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'journal-entries.create'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-plus nav-icon"
+  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("New Entry")))])])], 1) : _vm._e()])]) : _vm._e(), _vm._v(" "), !_vm.$isPOS() && (_vm.$can('expense-category-list') || _vm.$can('expense-category-create') || _vm.$can('expense-category-edit') || _vm.$can('expense-category-delete') || _vm.$can('expense-sub-category-list') || _vm.$can('expense-sub-category-create') || _vm.$can('expense-sub-category-edit') || _vm.$can('expense-sub-category-delete') || _vm.$can('expense-list') || _vm.$can('expense-create') || _vm.$can('expense-edit') || _vm.$can('expense-view') || _vm.$can('expense-delete')) ? _c('li', {
+    staticClass: "nav-item has-treeview",
+    "class": _vm.menuOpen('expenseCats') || _vm.menuOpen('expenseSubCats') || _vm.menuOpen('expenses') ? 'menu-is-opening menu-open' : ''
+  }, [_c('a', {
+    staticClass: "nav-link",
+    attrs: {
+      "href": "#"
+    }
+  }, [_c('i', {
+    staticClass: "nav-icon fas fa-calculator"
+  }), _vm._v(" "), _c('p', [_vm._v("\n              " + _vm._s(_vm.$t("Expenses")) + "\n              "), _c('span', {
+    staticClass: "toggle-icon"
+  })])]), _vm._v(" "), _c('ul', {
+    staticClass: "nav nav-treeview",
+    style: _vm.menuOpen('expenseCats') || _vm.menuOpen('expenseSubCats') || _vm.menuOpen('expenses') ? 'display: block' : 'display: none'
+  }, [_vm.$can('expense-category-list') || _vm.$can('expense-category-create') || _vm.$can('expense-category-edit') || _vm.$can('expense-category-delete') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'expenseCats.index'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-tags nav-icon"
+  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Categories")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('expense-sub-category-list') || _vm.$can('expense-sub-category-create') || _vm.$can('expense-sub-category-edit') || _vm.$can('expense-sub-category-delete') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'expenseSubCats.index'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-code-branch nav-icon"
+  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Sub Categories")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('expense-list') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'expenses.index'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-list-ul nav-icon"
+  }), _vm._v(" "), _c('p', [_vm._v("\n                  " + _vm._s(_vm.$t("Expenses List")) + "\n                  "), _vm.$can('expense-create') ? _c('router-link', {
+    staticClass: "add-btn-inline",
+    attrs: {
+      "to": {
+        name: 'expenses.create'
+      }
+    },
+    on: {
+      "click": function click($event) {
+        $event.stopPropagation();
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-plus"
+  })]) : _vm._e()], 1)])], 1) : _vm._e()])]) : _vm._e(), _vm._v(" "), !_vm.$isPOS() && (_vm.$can('payment-voucher-list') || _vm.$can('payment-voucher-create') || _vm.$can('payment-voucher-edit') || _vm.$can('payment-voucher-view') || _vm.$can('payment-voucher-delete')) ? _c('li', {
+    staticClass: "nav-item has-treeview",
+    "class": _vm.menuOpen('receiveVouchers') || _vm.menuOpen('sendVouchers') ? 'menu-is-opening menu-open' : ''
+  }, [_c('a', {
+    staticClass: "nav-link",
+    attrs: {
+      "href": "#"
+    }
+  }, [_c('i', {
+    staticClass: "nav-icon fas fa-file-invoice-dollar"
+  }), _vm._v(" "), _c('p', [_vm._v("\n              " + _vm._s(_vm.$t("Vouchers")) + "\n              "), _c('span', {
+    staticClass: "toggle-icon"
+  })])]), _vm._v(" "), _c('ul', {
+    staticClass: "nav nav-treeview",
+    style: _vm.menuOpen('receiveVouchers') || _vm.menuOpen('sendVouchers') ? 'display: block' : 'display: none'
+  }, [_vm.$can('payment-voucher-list') || _vm.$can('payment-voucher-create') || _vm.$can('payment-voucher-edit') || _vm.$can('payment-voucher-view') || _vm.$can('payment-voucher-delete') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'receiveVouchers.index'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-arrow-down nav-icon"
+  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Receive Vouchers")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('payment-voucher-list') || _vm.$can('payment-voucher-create') || _vm.$can('payment-voucher-edit') || _vm.$can('payment-voucher-view') || _vm.$can('payment-voucher-delete') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'sendVouchers.index'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-arrow-up nav-icon"
+  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Send Vouchers")))])])], 1) : _vm._e()])]) : _vm._e(), _vm._v(" "), !_vm.$isPOS() && (_vm.$can('loan-authority-list') || _vm.$can('loan-authority-create') || _vm.$can('loan-authority-view') || _vm.$can('loan-authority-edit') || _vm.$can('loan-authority-delete') || _vm.$can('loan-list') || _vm.$can('loan-create') || _vm.$can('loan-view') || _vm.$can('loan-edit') || _vm.$can('loan-delete') || _vm.$can('loan-payment-list') || _vm.$can('loan-payment-create') || _vm.$can('loan-payment-view') || _vm.$can('loan-payment-edit') || _vm.$can('loan-payment-delete')) ? _c('li', {
+    staticClass: "nav-item has-treeview",
+    "class": _vm.menuOpen('authorities') || _vm.menuOpen('loans') || _vm.menuOpen('loanPayments') ? 'menu-is-opening menu-open' : ''
+  }, [_c('a', {
+    staticClass: "nav-link",
+    attrs: {
+      "href": "#"
+    }
+  }, [_c('i', {
+    staticClass: "nav-icon fas fa-piggy-bank"
+  }), _vm._v(" "), _c('p', [_vm._v("\n              " + _vm._s(_vm.$t("Loan Management")) + "\n              "), _c('span', {
+    staticClass: "toggle-icon"
+  })])]), _vm._v(" "), _c('ul', {
+    staticClass: "nav nav-treeview",
+    style: _vm.menuOpen('authorities') || _vm.menuOpen('loans') || _vm.menuOpen('loanPayments') ? 'display: block' : 'display: none'
+  }, [_vm.$can('loan-authority-list') || _vm.$can('loan-authority-create') || _vm.$can('loan-authority-view') || _vm.$can('loan-authority-edit') || _vm.$can('loan-authority-delete') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'authorities.index'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-building nav-icon"
+  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Authorities")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('loan-list') || _vm.$can('loan-create') || _vm.$can('loan-view') || _vm.$can('loan-edit') || _vm.$can('loan-delete') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'loans.index'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-list-ul nav-icon"
+  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Loans")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('loan-payment-list') || _vm.$can('loan-payment-create') || _vm.$can('loan-payment-view') || _vm.$can('loan-payment-edit') || _vm.$can('loan-payment-delete') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'loanPayments.index'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-receipt nav-icon"
+  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Payments")))])])], 1) : _vm._e()])]) : _vm._e(), _vm._v(" "), !_vm.$isPOS() && (_vm.$can('asset-type-list') || _vm.$can('asset-type-create') || _vm.$can('asset-type-edit') || _vm.$can('asset-type-delete') || _vm.$can('asset-list') || _vm.$can('asset-create') || _vm.$can('asset-view') || _vm.$can('asset-edit') || _vm.$can('asset-delete')) ? _c('li', {
+    staticClass: "nav-item has-treeview",
+    "class": _vm.menuOpen('assetTypes') || _vm.menuOpen('assets') ? 'menu-is-opening menu-open' : ''
+  }, [_c('a', {
+    staticClass: "nav-link",
+    attrs: {
+      "href": "#"
+    }
+  }, [_c('i', {
+    staticClass: "nav-icon fas fa-couch"
+  }), _vm._v(" "), _c('p', [_vm._v("\n              " + _vm._s(_vm.$t("Asset Management")) + "\n              "), _c('span', {
+    staticClass: "toggle-icon"
+  })])]), _vm._v(" "), _c('ul', {
+    staticClass: "nav nav-treeview",
+    style: _vm.menuOpen('assetTypes') || _vm.menuOpen('assets') ? 'display: block' : 'display: none'
+  }, [_vm.$can('asset-type-list') || _vm.$can('asset-type-create') || _vm.$can('asset-type-edit') || _vm.$can('asset-type-delete') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'assetTypes.index'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-tags nav-icon"
+  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Types")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('asset-list') || _vm.$can('asset-create') || _vm.$can('asset-view') || _vm.$can('asset-edit') || _vm.$can('asset-delete') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'assets.index'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-list-ul nav-icon"
+  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Assets")))])])], 1) : _vm._e()])]) : _vm._e(), _vm._v(" "), !_vm.$isPOS() && (_vm.$can('payroll-list') || _vm.$can('payroll-create') || _vm.$can('payroll-view') || _vm.$can('payroll-edit') || _vm.$can('payroll-delete')) ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'payroll.index'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "nav-icon fas fa-clipboard-list"
+  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Payroll")))])])], 1) : _vm._e(), _vm._v(" "), _c('li', {
+    staticClass: "nav-header text-bold"
+  }, [_vm._v("\n          " + _vm._s(_vm.$t("Inventory Management")) + "\n        ")]), _vm._v(" "), _vm.$can('units-management') || _vm.$can('product-category-create') || _vm.$can('product-category-edit') || _vm.$can('product-category-delete') || _vm.$can('product-sub-category-create') || _vm.$can('product-sub-category-edit') || _vm.$can('product-sub-category-delete') || _vm.$can('product-create') || _vm.$can('product-view') || _vm.$can('product-edit') || _vm.$can('product-delete') || _vm.$can('inventory-view') ? _c('li', {
+    staticClass: "nav-item has-treeview",
+    "class": _vm.menuOpen('inventorySettings') || _vm.menuOpen('units') || _vm.menuOpen('warehouses') || _vm.menuOpen('productCats') || _vm.menuOpen('productSubCats') || _vm.menuOpen('products') || _vm.menuOpen('itemsDirectory') ? 'menu-is-opening menu-open' : ''
+  }, [_c('a', {
+    staticClass: "nav-link",
+    attrs: {
+      "href": "#"
+    }
+  }, [_c('i', {
+    staticClass: "nav-icon fas fa-cog"
+  }), _vm._v(" "), _c('p', [_vm._v("\n              " + _vm._s(_vm.$t("Settings")) + "\n              "), _c('span', {
+    staticClass: "toggle-icon"
+  })])]), _vm._v(" "), _c('ul', {
+    staticClass: "nav nav-treeview",
+    style: _vm.menuOpen('inventorySettings') || _vm.menuOpen('units') || _vm.menuOpen('warehouses') || _vm.menuOpen('productCats') || _vm.menuOpen('productSubCats') || _vm.menuOpen('products') || _vm.menuOpen('itemsDirectory') ? 'display: block' : 'display: none'
+  }, [_vm.$can('units-management') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'units.index'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-balance-scale nav-icon"
+  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Units of Measurement")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('inventory-view') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'inventory.warehouses.index'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-warehouse nav-icon"
+  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Warehouses")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('product-category-create') || _vm.$can('product-category-edit') || _vm.$can('product-category-delete') || _vm.$can('product-sub-category-create') || _vm.$can('product-sub-category-edit') || _vm.$can('product-sub-category-delete') ? _c('li', {
+    staticClass: "nav-item has-treeview",
+    "class": _vm.menuOpen('productCats') || _vm.menuOpen('productSubCats') ? 'menu-is-opening menu-open' : ''
+  }, [_c('a', {
+    staticClass: "nav-link",
+    attrs: {
+      "href": "#"
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-tags nav-icon"
+  }), _vm._v(" "), _c('p', [_vm._v("\n                  " + _vm._s(_vm.$t("Item Categories")) + "\n                  "), _c('span', {
+    staticClass: "toggle-icon"
+  })])]), _vm._v(" "), _c('ul', {
+    staticClass: "nav nav-treeview",
+    style: _vm.menuOpen('productCats') || _vm.menuOpen('productSubCats') ? 'display: block' : 'display: none'
+  }, [_vm.$can('product-category-create') || _vm.$can('product-category-edit') || _vm.$can('product-category-delete') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'productCats.index'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-tags nav-icon"
+  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Categories")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('product-sub-category-create') || _vm.$can('product-sub-category-edit') || _vm.$can('product-sub-category-delete') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'productSubCats.index'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-code-branch nav-icon"
+  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Sub Categories")))])])], 1) : _vm._e()])]) : _vm._e(), _vm._v(" "), _vm.$can('product-create') || _vm.$can('product-view') || _vm.$can('product-edit') || _vm.$can('product-delete') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'products.index'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-list-ul nav-icon"
+  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Items")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('inventory-view') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'inventory.itemsDirectory.index'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-book nav-icon"
+  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Items Directory")))])])], 1) : _vm._e()])]) : _vm._e(), _vm._v(" "), _vm.$can('inventory-view') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'inventory.operations.index'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "nav-icon fas fa-tasks"
+  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Operations")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('item-report') || _vm.$can('inventory-report') ? _c('li', {
+    staticClass: "nav-item has-treeview",
+    "class": _vm.menuOpen('inventoryReports') ? 'menu-is-opening menu-open' : ''
+  }, [_c('a', {
+    staticClass: "nav-link",
+    attrs: {
+      "href": "#"
+    }
+  }, [_c('i', {
+    staticClass: "nav-icon fas fa-chart-bar"
+  }), _vm._v(" "), _c('p', [_vm._v("\n              " + _vm._s(_vm.$t("Reports")) + "\n              "), _c('span', {
+    staticClass: "toggle-icon"
+  })])]), _vm._v(" "), _c('ul', {
+    staticClass: "nav nav-treeview",
+    style: _vm.menuOpen('inventoryReports') ? 'display: block' : 'display: none'
+  }, [_vm.$can('item-report') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'reports.items'
+      }
+    }
+  }, [_c('p', [_vm._v(_vm._s(_vm.$t("Item Report")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('inventory-report') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'reports.inventory'
+      }
+    }
+  }, [_c('p', [_vm._v(_vm._s(_vm.$t("Inventory Report")))])])], 1) : _vm._e()])]) : _vm._e(), _vm._v(" "), _vm.$can('inventory-view') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'inventory.count'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "nav-icon fas fa-clipboard-check"
+  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Inventory Count")))])])], 1) : _vm._e(), _vm._v(" "), !_vm.$isPOS() ? _c('li', {
+    staticClass: "nav-header text-bold"
+  }, [_vm._v(_vm._s(_vm.$t("REPORTS")))]) : _vm._e(), _vm._v(" "), !_vm.$isPOS() && (_vm.$can('account-statement') || _vm.$can('balance-sheet') || _vm.$can('vat-report') || _vm.$can('today-profit') || _vm.$can('summary-report') || _vm.$can('profit-loss') || _vm.$can('expense-report') || _vm.$can('sales-by-user-report') || _vm.$can('collection-by-user-report')) ? _c('li', {
+    staticClass: "nav-item has-treeview",
+    "class": _vm.menuOpen('reports') ? 'menu-is-opening menu-open' : ''
+  }, [_c('a', {
+    staticClass: "nav-link",
+    attrs: {
+      "href": "#"
+    }
+  }, [_c('i', {
+    staticClass: "nav-icon fas fa-chart-bar"
+  }), _vm._v(" "), _c('p', [_vm._v("\n              " + _vm._s(_vm.$t("Reports")) + "\n              "), _c('span', {
+    staticClass: "toggle-icon"
+  })])]), _vm._v(" "), _c('ul', {
+    staticClass: "nav nav-treeview",
+    style: _vm.menuOpen('reports') ? 'display: block' : 'display: none'
+  }, [_vm.$can('account-statement') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'reports.accountStatement'
+      }
+    }
+  }, [_c('p', [_vm._v(_vm._s(_vm.$t("Account Statement")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('account-statement') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'reports.groupAccountStatement'
+      }
+    }
+  }, [_c('p', [_vm._v(_vm._s(_vm.$t("Group Account Statement")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('account-statement') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'reports.invoiceSummary'
+      }
+    }
+  }, [_c('p', [_vm._v(_vm._s(_vm.$t("Invoice Summary")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('account-statement') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'reports.purchaseSummary'
+      }
+    }
+  }, [_c('p', [_vm._v(_vm._s(_vm.$t("Purchase Summary")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('balance-sheet') && (_vm.$canAccessModule('accounting') || _vm.$canAccessModule('both')) ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'reports.balanceSheet'
+      }
+    }
+  }, [_c('p', [_vm._v(_vm._s(_vm.$t("Balance Sheet")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('balance-sheet') && (_vm.$canAccessModule('accounting') || _vm.$canAccessModule('both')) ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'reports.trialBalance'
+      }
+    }
+  }, [_c('p', [_vm._v(_vm._s(_vm.$t("Trial Balance")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('vat-report') && (_vm.$canAccessModule('accounting') || _vm.$canAccessModule('both')) ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'reports.vatReport'
+      }
+    }
+  }, [_c('p', [_vm._v(_vm._s(_vm.$t("VAT Report")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('today-profit') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'reports.todayReport'
+      }
+    }
+  }, [_c('p', [_vm._v(_vm._s(_vm.$t("Today Report")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('summary-report') && (_vm.$canAccessModule('accounting') || _vm.$canAccessModule('both')) ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'reports.summary'
+      }
+    }
+  }, [_c('p', [_vm._v(_vm._s(_vm.$t("Summary Report")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('profit-loss') && (_vm.$canAccessModule('accounting') || _vm.$canAccessModule('both')) ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'reports.profitLoss'
+      }
+    }
+  }, [_c('p', [_vm._v(_vm._s(_vm.$t("Profit/Loss Report")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('expense-report') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'reports.expenses'
+      }
+    }
+  }, [_c('p', [_vm._v(_vm._s(_vm.$t("Expense Report")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('balance-sheet') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'reports.supplierPayableReport'
+      }
+    }
+  }, [_c('p', [_vm._v(_vm._s(_vm.$t("Supplier Payable Report")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('balance-sheet') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'reports.clientReceivableReport'
+      }
+    }
+  }, [_c('p', [_vm._v(_vm._s(_vm.$t("Client Receivable Report")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('sales-by-user-report') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'reports.salesByUserReport'
+      }
+    }
+  }, [_c('p', [_vm._v(_vm._s(_vm.$t("Sales By User Report")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('collection-by-user-report') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'reports.collectionByUserReport'
+      }
+    }
+  }, [_c('p', [_vm._v(_vm._s(_vm.$t("Collection By User Report")))])])], 1) : _vm._e()])]) : _vm._e(), _vm._v(" "), !_vm.$isPOS() ? _c('li', {
+    staticClass: "nav-header text-bold"
+  }, [_vm._v(_vm._s(_vm.$t("Others")))]) : _vm._e(), _vm._v(" "), !_vm.$isPOS() && (_vm.$can('branches-list') || _vm.$can('branches-create') || _vm.$can('branches-edit') || _vm.$can('branches-delete')) ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'branches.index'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "nav-icon fas fa-sitemap"
+  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t('Branches')))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('role-permissions') || _vm.$can('units') || _vm.$can('currencies') || _vm.$can('general-settings') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'setup.index'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "nav-icon fas fa-cogs"
+  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Setup")))])])], 1) : _vm._e(), _vm._v(" "), !_vm.$isPOS() && _vm.$can('print-templates') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'print-templates'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "nav-icon fas fa-print"
+  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Print Templates")))])])], 1) : _vm._e(), _vm._v(" "), !_vm.$isPOS() ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'activity.log'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "nav-icon fa fa-bell",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }), _vm._v("\n            " + _vm._s(_vm.$t("Activity log")) + "\n          ")])], 1) : _vm._e(), _vm._v(" "), !_vm.$isPOS() ? _c('li', {
+    staticClass: "nav-item has-treeview"
+  }, [_c('a', {
+    staticClass: "nav-link",
+    attrs: {
+      "href": "#"
+    }
+  }, [_c('i', {
+    staticClass: "nav-icon fas fa-user"
+  }), _vm._v(" "), _c('p', [_vm._v("\n              " + _vm._s(_vm.$t("Account")) + "\n              "), _c('span', {
+    staticClass: "toggle-icon"
+  })])]), _vm._v(" "), _c('ul', {
+    staticClass: "nav nav-treeview"
+  }, [_c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'settings.billing'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "nav-icon fas fa-money-check-alt"
+  }), _vm._v("\n                " + _vm._s(_vm.$t("Billing")) + "\n              ")])], 1), _vm._v(" "), _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'settings.profile'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "nav-icon fas fa-user-circle"
+  }), _vm._v("\n                " + _vm._s(_vm.$t("Profile")) + "\n              ")])], 1), _vm._v(" "), _c('li', {
+    staticClass: "nav-item"
+  }, [_c('a', {
+    staticClass: "nav-link admin-logout",
+    attrs: {
+      "href": "#"
+    },
+    on: {
+      "click": function click($event) {
+        $event.preventDefault();
+        return _vm.logout.apply(null, arguments);
+      }
+    }
+  }, [_c('i', {
+    staticClass: "nav-icon fas fa-power-off"
+  }), _vm._v("\n                " + _vm._s(_vm.$t("Logout")) + "\n              ")])])])]) : _vm._e(), _vm._v(" "), !_vm.$isPOS() && _vm.$can('domain-management') ? _c('li', {
+    staticClass: "nav-item has-treeview",
+    "class": _vm.menuOpen('domain') || _vm.menuOpen('domains') || _vm.menuOpen('domain-requests') ? 'menu-is-opening menu-open' : ''
+  }, [_c('a', {
+    staticClass: "nav-link",
+    attrs: {
+      "href": "#"
+    }
+  }, [_c('i', {
+    staticClass: "nav-icon fas fa-database"
+  }), _vm._v(" "), _c('p', [_vm._v("\n              " + _vm._s(_vm.$t("Domain")) + "\n              "), _c('span', {
+    staticClass: "toggle-icon"
+  })])]), _vm._v(" "), _c('ul', {
+    staticClass: "nav nav-treeview",
+    style: _vm.menuOpen('domain') || _vm.menuOpen('domains') || _vm.menuOpen('domain-requests') ? 'display: block' : 'display: none'
+  }, [_c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'domains.index'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "nav-icon fas fa-server"
+  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Domain Management")))])])], 1), _vm._v(" "), _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'domain-requests.index'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "nav-icon fas fa-file-import"
+  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Domain Request")))])])], 1)])]) : _vm._e(), _vm._v(" "), !_vm.$isPOS() ? _c('li', {
+    staticClass: "nav-item has-treeview",
+    "class": _vm.menuOpen('backup') ? 'menu-is-opening menu-open' : ''
+  }, [_c('a', {
+    staticClass: "nav-link",
+    attrs: {
+      "href": "#"
+    }
+  }, [_c('i', {
+    staticClass: "nav-icon fas fa-user"
+  }), _vm._v(" "), _c('p', [_vm._v("\n              " + _vm._s(_vm.$t("Resources")) + "\n              "), _c('span', {
+    staticClass: "toggle-icon"
+  })])]), _vm._v(" "), _c('ul', {
+    staticClass: "nav nav-treeview",
+    style: _vm.menuOpen('backup') ? 'display: block' : 'display: none'
+  }, [_vm.$can('database-backup') ? _c('li', {
+    staticClass: "nav-item"
+  }, [_c('router-link', {
+    staticClass: "nav-link",
+    attrs: {
+      "to": {
+        name: 'backup'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "nav-icon fas fa-download"
+  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Database Backup")))])])], 1) : _vm._e()])]) : _vm._e()])])])], 1);
+};
+var Sidebarvue_type_template_id_08b8c664_staticRenderFns = [];
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Sidebar.vue?vue&type=script&lang=js
+function Sidebarvue_type_script_lang_js_typeof(o) { "@babel/helpers - typeof"; return Sidebarvue_type_script_lang_js_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, Sidebarvue_type_script_lang_js_typeof(o); }
+function Sidebarvue_type_script_lang_js_regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ Sidebarvue_type_script_lang_js_regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == Sidebarvue_type_script_lang_js_typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(Sidebarvue_type_script_lang_js_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function Sidebarvue_type_script_lang_js_asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function Sidebarvue_type_script_lang_js_asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { Sidebarvue_type_script_lang_js_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { Sidebarvue_type_script_lang_js_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+function Sidebarvue_type_script_lang_js_ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function Sidebarvue_type_script_lang_js_objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? Sidebarvue_type_script_lang_js_ownKeys(Object(t), !0).forEach(function (r) { Sidebarvue_type_script_lang_js_defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : Sidebarvue_type_script_lang_js_ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function Sidebarvue_type_script_lang_js_defineProperty(obj, key, value) { key = Sidebarvue_type_script_lang_js_toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function Sidebarvue_type_script_lang_js_toPropertyKey(t) { var i = Sidebarvue_type_script_lang_js_toPrimitive(t, "string"); return "symbol" == Sidebarvue_type_script_lang_js_typeof(i) ? i : i + ""; }
+function Sidebarvue_type_script_lang_js_toPrimitive(t, r) { if ("object" != Sidebarvue_type_script_lang_js_typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != Sidebarvue_type_script_lang_js_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+
+/* harmony default export */ const Sidebarvue_type_script_lang_js = ({
+  data: function data() {
+    return {
+      appName: window.config.appName
+    };
+  },
+  // Map Getters
+  computed: Sidebarvue_type_script_lang_js_objectSpread(Sidebarvue_type_script_lang_js_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["appInfo"])), {}, {
+    // Check if the country is Saudi Arabia
+    isSaudiArabia: function isSaudiArabia() {
+      return this.appInfo && this.appInfo.country === "SA";
+    }
+  }),
+  mounted: function mounted() {
+    // Initialize AdminLTE 3.2.0 Treeview functionality
+    $('[data-widget="treeview"]').Treeview("init");
+  },
+  methods: {
+    menuOpen: function menuOpen(routeName) {
+      if (this.$route.name) {
+        return this.$route.name.indexOf(routeName) > -1 ? true : false;
+      }
+      return false;
+    },
+    logout: function logout() {
+      var _this = this;
+      return Sidebarvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/Sidebarvue_type_script_lang_js_regeneratorRuntime().mark(function _callee() {
+        return Sidebarvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return _this.$store.dispatch("auth/logout");
+            case 2:
+              // Redirect to login.
+              _this.$router.push({
+                name: "login"
+              });
+            case 3:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee);
+      }))();
+    }
+  }
+});
+;// ./resources/js/components/Sidebar.vue?vue&type=script&lang=js
+ /* harmony default export */ const components_Sidebarvue_type_script_lang_js = (Sidebarvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Sidebar.vue?vue&type=style&index=0&id=08b8c664&prod&lang=css
+var Sidebarvue_type_style_index_0_id_08b8c664_prod_lang_css = __webpack_require__(62732);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Sidebar.vue?vue&type=style&index=0&id=08b8c664&prod&lang=css
+
+            
+
+var Sidebarvue_type_style_index_0_id_08b8c664_prod_lang_css_options = {};
+
+Sidebarvue_type_style_index_0_id_08b8c664_prod_lang_css_options.insert = "head";
+Sidebarvue_type_style_index_0_id_08b8c664_prod_lang_css_options.singleton = false;
+
+var Sidebarvue_type_style_index_0_id_08b8c664_prod_lang_css_update = injectStylesIntoStyleTag_default()(Sidebarvue_type_style_index_0_id_08b8c664_prod_lang_css/* default */.A, Sidebarvue_type_style_index_0_id_08b8c664_prod_lang_css_options);
+
+
+
+/* harmony default export */ const components_Sidebarvue_type_style_index_0_id_08b8c664_prod_lang_css = (Sidebarvue_type_style_index_0_id_08b8c664_prod_lang_css/* default */.A.locals || {});
+;// ./resources/js/components/Sidebar.vue?vue&type=style&index=0&id=08b8c664&prod&lang=css
+
+;// ./resources/js/components/Sidebar.vue
+
+
+
+;
+
+
+/* normalize component */
+
+var Sidebar_component = (0,componentNormalizer/* default */.A)(
+  components_Sidebarvue_type_script_lang_js,
+  Sidebarvue_type_template_id_08b8c664_render,
+  Sidebarvue_type_template_id_08b8c664_staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* harmony default export */ const Sidebar = (Sidebar_component.exports);
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SidebarControll.vue?vue&type=template&id=d6112772
+var SidebarControllvue_type_template_id_d6112772_render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('aside', {
+    staticClass: "control-sidebar control-sidebar-dark px-3 py-4"
+  }, [_c('h5', {
+    staticClass: "mb-4"
+  }, [_vm._v(_vm._s(_vm.$t('Customize')))]), _vm._v(" "), _c('div', {
+    staticClass: "mb-4"
+  }, [_c('div', {
+    staticClass: "custom-control custom-checkbox"
+  }, [_c('input', {
+    staticClass: "custom-control-input",
+    attrs: {
+      "type": "checkbox",
+      "id": "dark-modee",
+      "value": "1"
+    },
+    domProps: {
+      "checked": _vm.isDark ? true : false
+    },
+    on: {
+      "click": function click($event) {
+        return _vm.addBodyClass('isDark', 'dark-mode');
+      }
+    }
+  }), _vm._v(" "), _c('label', {
+    staticClass: "custom-control-label",
+    attrs: {
+      "for": "dark-modee"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Dark Mode')))])])]), _vm._v(" "), _c('div', [_c('h6', [_vm._v(_vm._s(_vm.$t('Header Options')))]), _vm._v(" "), _c('div', {
+    staticClass: "custom-control custom-checkbox mb-1"
+  }, [_c('input', {
+    staticClass: "custom-control-input",
+    attrs: {
+      "type": "checkbox",
+      "id": "layout-navbar-fixed",
+      "value": "1"
+    },
+    domProps: {
+      "checked": _vm.isNavFixed ? true : false
+    },
+    on: {
+      "click": function click($event) {
+        return _vm.addBodyClass('isNavFixed', 'layout-navbar-fixed');
+      }
+    }
+  }), _vm._v(" "), _c('label', {
+    staticClass: "custom-control-label",
+    attrs: {
+      "for": "layout-navbar-fixed"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Fixed')))])]), _vm._v(" "), _c('div', {
+    staticClass: "custom-control custom-checkbox mb-4"
+  }, [_c('input', {
+    staticClass: "custom-control-input",
+    attrs: {
+      "type": "checkbox",
+      "id": "border-bottom-0",
+      "value": "1"
+    },
+    domProps: {
+      "checked": _vm.isBorderBtm ? true : false
+    },
+    on: {
+      "click": function click($event) {
+        return _vm.addBodyClass('isBorderBtm', 'border-bottom-0');
+      }
+    }
+  }), _vm._v(" "), _c('label', {
+    staticClass: "custom-control-label",
+    attrs: {
+      "for": "border-bottom-0"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('No border')))])])]), _vm._v(" "), _c('div', [_c('h6', [_vm._v(_vm._s(_vm.$t('Sidebar Options')))]), _vm._v(" "), _c('div', {
+    staticClass: "custom-control custom-checkbox mb-1"
+  }, [_c('input', {
+    staticClass: "custom-control-input",
+    attrs: {
+      "type": "checkbox",
+      "id": "sidebar-dark",
+      "value": "1"
+    },
+    domProps: {
+      "checked": _vm.isSidebarDark ? true : false
+    },
+    on: {
+      "click": function click($event) {
+        return _vm.addSidebarClass('isSidebarDark', 'dark-sidebar');
+      }
+    }
+  }), _vm._v(" "), _c('label', {
+    staticClass: "custom-control-label",
+    attrs: {
+      "for": "sidebar-dark"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Sidebar Dark')))])]), _vm._v(" "), _c('div', {
+    staticClass: "custom-control custom-checkbox mb-1"
+  }, [_c('input', {
+    staticClass: "custom-control-input",
+    attrs: {
+      "type": "checkbox",
+      "id": "collapsed",
+      "value": "1"
+    },
+    domProps: {
+      "checked": _vm.isSidebarCollasped ? true : false
+    },
+    on: {
+      "click": function click($event) {
+        return _vm.addBodyClass('isSidebarCollasped', 'sidebar-collapse');
+      }
+    }
+  }), _vm._v(" "), _c('label', {
+    staticClass: "custom-control-label",
+    attrs: {
+      "for": "collapsed"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Sidebar Collapsed')))])]), _vm._v(" "), _c('div', {
+    staticClass: "custom-control custom-checkbox mb-1"
+  }, [_c('input', {
+    staticClass: "custom-control-input",
+    attrs: {
+      "type": "checkbox",
+      "id": "layout-fixed",
+      "value": "1"
+    },
+    domProps: {
+      "checked": _vm.isLayoutFixed ? true : false
+    },
+    on: {
+      "click": function click($event) {
+        return _vm.addBodyClass('isLayoutFixed', 'layout-fixed');
+      }
+    }
+  }), _vm._v(" "), _c('label', {
+    staticClass: "custom-control-label",
+    attrs: {
+      "for": "layout-fixed"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Sidebar Fixed')))])]), _vm._v(" "), _c('div', {
+    staticClass: "custom-control custom-checkbox mb-1"
+  }, [_c('input', {
+    staticClass: "custom-control-input",
+    attrs: {
+      "type": "checkbox",
+      "id": "sidebar-mini",
+      "value": "1"
+    },
+    domProps: {
+      "checked": _vm.isSidebarMini ? true : false
+    },
+    on: {
+      "click": function click($event) {
+        return _vm.addBodyClass('isSidebarMini', 'sidebar-mini');
+      }
+    }
+  }), _vm._v(" "), _c('label', {
+    staticClass: "custom-control-label",
+    attrs: {
+      "for": "sidebar-mini"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Sidebar Mini')))])]), _vm._v(" "), _c('div', {
+    staticClass: "custom-control custom-checkbox mb-1"
+  }, [_c('input', {
+    staticClass: "custom-control-input",
+    attrs: {
+      "type": "checkbox",
+      "id": "nav-flat",
+      "value": "1"
+    },
+    domProps: {
+      "checked": _vm.isNavFlat ? true : false
+    },
+    on: {
+      "click": function click($event) {
+        return _vm.addNavSidebarClass('isNavFlat', 'nav-flat');
+      }
+    }
+  }), _vm._v(" "), _c('label', {
+    staticClass: "custom-control-label",
+    attrs: {
+      "for": "nav-flat"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Nav Flat Style')))])]), _vm._v(" "), _c('div', {
+    staticClass: "custom-control custom-checkbox mb-1"
+  }, [_c('input', {
+    staticClass: "custom-control-input",
+    attrs: {
+      "type": "checkbox",
+      "id": "nav-legacy",
+      "value": "1"
+    },
+    domProps: {
+      "checked": _vm.isNavLegacy ? true : false
+    },
+    on: {
+      "click": function click($event) {
+        return _vm.addNavSidebarClass('isNavLegacy', 'nav-legacy');
+      }
+    }
+  }), _vm._v(" "), _c('label', {
+    staticClass: "custom-control-label",
+    attrs: {
+      "for": "nav-legacy"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Nav Legacy Style')))])]), _vm._v(" "), _c('div', {
+    staticClass: "custom-control custom-checkbox mb-1"
+  }, [_c('input', {
+    staticClass: "custom-control-input",
+    attrs: {
+      "type": "checkbox",
+      "id": "nav-child-indent",
+      "value": "1"
+    },
+    domProps: {
+      "checked": _vm.isNavChildIndent ? true : false
+    },
+    on: {
+      "click": function click($event) {
+        return _vm.addNavSidebarClass('isNavChildIndent', 'nav-child-indent');
+      }
+    }
+  }), _vm._v(" "), _c('label', {
+    staticClass: "custom-control-label",
+    attrs: {
+      "for": "nav-child-indent"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Nav Child Indent')))])]), _vm._v(" "), _c('div', {
+    staticClass: "custom-control custom-checkbox mb-4"
+  }, [_c('input', {
+    staticClass: "custom-control-input",
+    attrs: {
+      "type": "checkbox",
+      "id": "disableHoverExpand",
+      "value": "1"
+    },
+    domProps: {
+      "checked": _vm.isDisableHoverExpand ? true : false
+    },
+    on: {
+      "click": function click($event) {
+        return _vm.addSidebarClass('isDisableHoverExpand', 'sidebar-no-expand');
+      }
+    }
+  }), _vm._v(" "), _c('label', {
+    staticClass: "custom-control-label",
+    attrs: {
+      "for": "disableHoverExpand"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Disable Hover/Focus Auto-Expand')))])])])]);
+};
+var SidebarControllvue_type_template_id_d6112772_staticRenderFns = [];
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SidebarControll.vue?vue&type=script&lang=js
+/* harmony default export */ const SidebarControllvue_type_script_lang_js = ({
+  name: 'sidebar-controll',
+  data: function data() {
+    return {
+      isDark: false,
+      isBorderBtm: false,
+      isNavFixed: false,
+      isSidebarCollasped: false,
+      isLayoutFixed: false,
+      isSidebarMini: false,
+      isNavFlat: false,
+      isSidebarDark: false,
+      isNavChildIndent: false,
+      isNavLegacy: false,
+      isDisableHoverExpand: false
+    };
+  },
+  mounted: function mounted() {
+    this.getLocalStorageData();
+  },
+  methods: {
+    // ADD OR REMOVE VALUE TO LOCALSTORAGE AND SET OR REMOVE IN BODY CLASS
+    addBodyClass: function addBodyClass(varVal, className) {
+      this[varVal] = !this[varVal];
+      if (this[varVal]) {
+        localStorage[varVal] = true;
+        document.body.classList.add(className);
+      } else {
+        localStorage.removeItem(varVal);
+        document.body.classList.remove(className);
+      }
+    },
+    // ADD OR REMOVE CLASS TO MAIN-SIDEBAR
+    addSidebarClass: function addSidebarClass(varVal, className) {
+      this[varVal] = !this[varVal];
+      if (this[varVal]) {
+        localStorage[varVal] = true;
+        var data = document.querySelector('.main-sidebar');
+        data.classList.add(className);
+      } else {
+        localStorage.removeItem(varVal);
+        data = document.querySelector('.main-sidebar');
+        data.classList.remove(className);
+      }
+    },
+    // ADD CLASS TO SIDEBAR NAV
+    addNavSidebarClass: function addNavSidebarClass(varVal, className) {
+      this[varVal] = !this[varVal];
+      if (this[varVal]) {
+        localStorage[varVal] = true;
+        var data = document.querySelector('.nav-sidebar');
+        data.classList.add(className);
+      } else {
+        localStorage.removeItem(varVal);
+        data = document.querySelector('.nav-sidebar');
+        data.classList.remove(className);
+      }
+    },
+    // Dark mode check from localstorage
+    getLocalStorageData: function getLocalStorageData() {
+      // Check if isDark true in localstorage
+      if (localStorage.isDark) {
+        document.body.classList.add('dark-mode');
+        this.isDark = true;
+      }
+
+      // Check if isDark true in localstorage
+      if (localStorage.isBorderBtm) {
+        document.body.classList.add('border-bottom-0');
+        this.isBorderBtm = true;
+      }
+
+      // Check if headerFixed true in localstorage
+      if (localStorage.isNavFixed) {
+        document.body.classList.add('layout-navbar-fixed');
+        this.isNavFixed = true;
+      }
+
+      // Check if headerFixed true in localstorage
+      if (localStorage.isSidebarCollasped) {
+        document.body.classList.add('sidebar-collapse');
+        this.isSidebarCollasped = true;
+      }
+
+      // Check if headerFixed true in localstorage
+      if (localStorage.isLayoutFixed) {
+        document.body.classList.add('layout-fixed');
+        this.isLayoutFixed = true;
+      }
+
+      // Check if headerFixed true in localstorage
+      if (localStorage.isSidebarMini) {
+        document.body.classList.add('sidebar-mini');
+        this.isSidebarMini = true;
+      }
+
+      // Check if headerFixed true in localstorage
+      if (localStorage.isNavFlat) {
+        this.isNavFlat = true;
+        var navSidebar = document.querySelector('.nav-sidebar');
+        navSidebar.classList.add('nav-flat');
+      }
+
+      // Check if headerFixed true in localstorage
+      if (localStorage.isSidebarDark) {
+        this.isSidebarDark = true;
+        var sideBarDark = document.querySelector('.main-sidebar');
+        sideBarDark.classList.add('dark-sidebar');
+      }
+
+      // Check if headerFixed true in localstorage
+      if (localStorage.isNavChildIndent) {
+        this.isNavChildIndent = true;
+        var navChildIndent = document.querySelector('.nav-sidebar');
+        navChildIndent.classList.add('nav-child-indent');
+      }
+
+      // Check if headerFixed true in localstorage
+      if (localStorage.isNavLegacy) {
+        this.isNavLegacy = true;
+        var navLegacy = document.querySelector('.nav-sidebar');
+        navLegacy.classList.add('nav-legacy');
+      }
+
+      // Check if headerFixed true in localstorage
+      if (localStorage.addSidebarClass) {
+        this.addSidebarClass = true;
+        var sidebarClass = document.querySelector('.main-sidebar');
+        sidebarClass.classList.add('sidebar-no-expand');
+      }
+    }
+  }
+});
+;// ./resources/js/components/SidebarControll.vue?vue&type=script&lang=js
+ /* harmony default export */ const components_SidebarControllvue_type_script_lang_js = (SidebarControllvue_type_script_lang_js); 
+;// ./resources/js/components/SidebarControll.vue
+
+
+
+
+
+/* normalize component */
+;
+var SidebarControll_component = (0,componentNormalizer/* default */.A)(
+  components_SidebarControllvue_type_script_lang_js,
+  SidebarControllvue_type_template_id_d6112772_render,
+  SidebarControllvue_type_template_id_d6112772_staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* harmony default export */ const SidebarControll = (SidebarControll_component.exports);
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/layouts/default.vue?vue&type=script&lang=js
+function defaultvue_type_script_lang_js_typeof(o) { "@babel/helpers - typeof"; return defaultvue_type_script_lang_js_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, defaultvue_type_script_lang_js_typeof(o); }
+function defaultvue_type_script_lang_js_ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function defaultvue_type_script_lang_js_objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? defaultvue_type_script_lang_js_ownKeys(Object(t), !0).forEach(function (r) { defaultvue_type_script_lang_js_defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : defaultvue_type_script_lang_js_ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function defaultvue_type_script_lang_js_defineProperty(obj, key, value) { key = defaultvue_type_script_lang_js_toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function defaultvue_type_script_lang_js_toPropertyKey(t) { var i = defaultvue_type_script_lang_js_toPrimitive(t, "string"); return "symbol" == defaultvue_type_script_lang_js_typeof(i) ? i : i + ""; }
+function defaultvue_type_script_lang_js_toPrimitive(t, r) { if ("object" != defaultvue_type_script_lang_js_typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != defaultvue_type_script_lang_js_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+
+
+
+
+/* harmony default export */ const defaultvue_type_script_lang_js = ({
+  name: 'MainLayout',
+  data: function data() {
+    return {
+      year: new Date().getFullYear()
+    };
+  },
+  components: {
+    Navbar: Navbar,
+    Sidebar: Sidebar,
+    SidebarControll: SidebarControll
+  },
+  // Map Getters
+  computed: defaultvue_type_script_lang_js_objectSpread(defaultvue_type_script_lang_js_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)('operations', ['appInfo', 'tenant', 'subscription_limit_message', 'demo_message'])), {}, {
+    showSidebar: function showSidebar() {
+      // Hide sidebar on select-branch page
+      return this.$route.name !== 'branches.select';
+    }
+  }),
+  created: function created() {
+    this.$store.dispatch('operations/fetchTenant');
+    // Add body class immediately if on select-branch page
+    if (!this.showSidebar) {
+      document.body.classList.add('no-sidebar-page');
+    }
+  },
+  watch: {
+    '$route': function $route(to) {
+      // Update body class when route changes
+      if (to.name === 'branches.select') {
+        document.body.classList.add('no-sidebar-page');
+      } else {
+        document.body.classList.remove('no-sidebar-page');
+      }
+    },
+    showSidebar: function showSidebar(newVal) {
+      if (!newVal) {
+        document.body.classList.add('no-sidebar-page');
+      } else {
+        document.body.classList.remove('no-sidebar-page');
+      }
+    }
+  },
+  mounted: function mounted() {
+    if (!this.showSidebar) {
+      document.body.classList.add('no-sidebar-page');
+    }
+  },
+  beforeDestroy: function beforeDestroy() {
+    document.body.classList.remove('no-sidebar-page');
+  },
+  methods: {
+    addBodyClass: function addBodyClass(className) {
+      document.body.classList.toggle(className);
+    },
+    getTrialDaysLeft: function getTrialDaysLeft(trialEndsAt) {
+      if (!trialEndsAt) return '';
+      // Calculate days left
+      var now = new Date();
+      var trialEnd = new Date(trialEndsAt);
+      var diffTime = trialEnd - now;
+      var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      return diffDays;
+    }
+  }
+});
+;// ./resources/js/layouts/default.vue?vue&type=script&lang=js
+ /* harmony default export */ const layouts_defaultvue_type_script_lang_js = (defaultvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/layouts/default.vue?vue&type=style&index=0&id=3d484f6a&prod&scoped=true&lang=css
+var defaultvue_type_style_index_0_id_3d484f6a_prod_scoped_true_lang_css = __webpack_require__(13962);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/layouts/default.vue?vue&type=style&index=0&id=3d484f6a&prod&scoped=true&lang=css
+
+            
+
+var defaultvue_type_style_index_0_id_3d484f6a_prod_scoped_true_lang_css_options = {};
+
+defaultvue_type_style_index_0_id_3d484f6a_prod_scoped_true_lang_css_options.insert = "head";
+defaultvue_type_style_index_0_id_3d484f6a_prod_scoped_true_lang_css_options.singleton = false;
+
+var defaultvue_type_style_index_0_id_3d484f6a_prod_scoped_true_lang_css_update = injectStylesIntoStyleTag_default()(defaultvue_type_style_index_0_id_3d484f6a_prod_scoped_true_lang_css/* default */.A, defaultvue_type_style_index_0_id_3d484f6a_prod_scoped_true_lang_css_options);
+
+
+
+/* harmony default export */ const layouts_defaultvue_type_style_index_0_id_3d484f6a_prod_scoped_true_lang_css = (defaultvue_type_style_index_0_id_3d484f6a_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/layouts/default.vue?vue&type=style&index=0&id=3d484f6a&prod&scoped=true&lang=css
+
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/layouts/default.vue?vue&type=style&index=1&id=3d484f6a&prod&lang=css
+var defaultvue_type_style_index_1_id_3d484f6a_prod_lang_css = __webpack_require__(75294);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/layouts/default.vue?vue&type=style&index=1&id=3d484f6a&prod&lang=css
+
+            
+
+var defaultvue_type_style_index_1_id_3d484f6a_prod_lang_css_options = {};
+
+defaultvue_type_style_index_1_id_3d484f6a_prod_lang_css_options.insert = "head";
+defaultvue_type_style_index_1_id_3d484f6a_prod_lang_css_options.singleton = false;
+
+var defaultvue_type_style_index_1_id_3d484f6a_prod_lang_css_update = injectStylesIntoStyleTag_default()(defaultvue_type_style_index_1_id_3d484f6a_prod_lang_css/* default */.A, defaultvue_type_style_index_1_id_3d484f6a_prod_lang_css_options);
+
+
+
+/* harmony default export */ const layouts_defaultvue_type_style_index_1_id_3d484f6a_prod_lang_css = (defaultvue_type_style_index_1_id_3d484f6a_prod_lang_css/* default */.A.locals || {});
+;// ./resources/js/layouts/default.vue?vue&type=style&index=1&id=3d484f6a&prod&lang=css
+
+;// ./resources/js/layouts/default.vue
+
+
+
+;
+
+
+
+/* normalize component */
+
+var default_component = (0,componentNormalizer/* default */.A)(
+  layouts_defaultvue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  "3d484f6a",
+  null
+  
+)
+
+/* harmony default export */ const layouts_default = (default_component.exports);
+
+/***/ }),
+
 /***/ 35155:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -32799,7 +35757,7 @@ module.exports = "/images/vendor/flag-icons/flags/4x3/ne.svg?82c3626f7a2a329d139
 var map = {
 	"./basic.vue": 13016,
 	"./central.vue": 94391,
-	"./default.vue": 99438,
+	"./default.vue": 35030,
 	"./template.vue": 8666
 };
 
@@ -33523,36 +36481,36 @@ var map = {
 		9355
 	],
 	"./cashbook/accounts": [
-		37839,
-		7839
+		72620,
+		2620
 	],
 	"./cashbook/accounts/": [
-		37839,
-		7839
+		72620,
+		2620
 	],
 	"./cashbook/accounts/create": [
-		85674,
-		5674
+		69838,
+		9838
 	],
 	"./cashbook/accounts/create.vue": [
-		85674,
-		5674
+		69838,
+		9838
 	],
 	"./cashbook/accounts/edit": [
-		82612,
-		2612
+		6409,
+		6409
 	],
 	"./cashbook/accounts/edit.vue": [
-		82612,
-		2612
+		6409,
+		6409
 	],
 	"./cashbook/accounts/index": [
-		37839,
-		7839
+		72620,
+		2620
 	],
 	"./cashbook/accounts/index.vue": [
-		37839,
-		7839
+		72620,
+		2620
 	],
 	"./cashbook/accounts/show": [
 		73601,
@@ -33595,20 +36553,20 @@ var map = {
 		5403
 	],
 	"./cashbook/chart-of-accounts": [
-		75041,
-		5041
+		13006,
+		3006
 	],
 	"./cashbook/chart-of-accounts/": [
-		75041,
-		5041
+		13006,
+		3006
 	],
 	"./cashbook/chart-of-accounts/create": [
-		80789,
-		789
+		35608,
+		5608
 	],
 	"./cashbook/chart-of-accounts/create.vue": [
-		80789,
-		789
+		35608,
+		5608
 	],
 	"./cashbook/chart-of-accounts/edit": [
 		30383,
@@ -33619,12 +36577,12 @@ var map = {
 		383
 	],
 	"./cashbook/chart-of-accounts/index": [
-		75041,
-		5041
+		13006,
+		3006
 	],
 	"./cashbook/chart-of-accounts/index.vue": [
-		75041,
-		5041
+		13006,
+		3006
 	],
 	"./cashbook/chart-of-accounts/show": [
 		34895,
@@ -33634,13 +36592,21 @@ var map = {
 		34895,
 		4895
 	],
+	"./cashbook/chart-of-accounts/sub-accounts": [
+		50367,
+		367
+	],
+	"./cashbook/chart-of-accounts/sub-accounts.vue": [
+		50367,
+		367
+	],
 	"./cashbook/chart-of-accounts/tree": [
-		56134,
-		6134
+		15729,
+		5729
 	],
 	"./cashbook/chart-of-accounts/tree.vue": [
-		56134,
-		6134
+		15729,
+		5729
 	],
 	"./cashbook/transactions": [
 		85439,
@@ -34739,12 +37705,12 @@ var map = {
 		4590
 	],
 	"./inventory/adjustments": [
-		94617,
-		4617
+		25044,
+		5044
 	],
 	"./inventory/adjustments/": [
-		94617,
-		4617
+		25044,
+		5044
 	],
 	"./inventory/adjustments/create": [
 		6024,
@@ -34763,12 +37729,12 @@ var map = {
 		7886
 	],
 	"./inventory/adjustments/index": [
-		94617,
-		4617
+		25044,
+		5044
 	],
 	"./inventory/adjustments/index.vue": [
-		94617,
-		4617
+		25044,
+		5044
 	],
 	"./inventory/adjustments/show": [
 		39635,
@@ -34779,12 +37745,12 @@ var map = {
 		9635
 	],
 	"./inventory/count": [
-		44559,
-		4559
+		39914,
+		9914
 	],
 	"./inventory/count.vue": [
-		44559,
-		4559
+		39914,
+		9914
 	],
 	"./inventory/history": [
 		56761,
@@ -35403,36 +38369,36 @@ var map = {
 		1848
 	],
 	"./purchases": [
-		33154,
-		3154
+		90399,
+		399
 	],
 	"./purchases/": [
-		33154,
-		3154
+		90399,
+		399
 	],
 	"./purchases/create": [
-		41757,
-		4138
+		7592,
+		5211
 	],
 	"./purchases/create.vue": [
-		41757,
-		4138
+		7592,
+		5211
 	],
 	"./purchases/edit": [
-		46389,
-		6389
+		92833,
+		2833
 	],
 	"./purchases/edit.vue": [
-		46389,
-		6389
+		92833,
+		2833
 	],
 	"./purchases/index": [
-		33154,
-		3154
+		90399,
+		399
 	],
 	"./purchases/index.vue": [
-		33154,
-		3154
+		90399,
+		399
 	],
 	"./purchases/returns": [
 		99658,
@@ -35443,20 +38409,20 @@ var map = {
 		9658
 	],
 	"./purchases/returns/create": [
-		69497,
-		9497
+		21314,
+		1314
 	],
 	"./purchases/returns/create.vue": [
-		69497,
-		9497
+		21314,
+		1314
 	],
 	"./purchases/returns/edit": [
-		8068,
-		8068
+		28505,
+		8505
 	],
 	"./purchases/returns/edit.vue": [
-		8068,
-		8068
+		28505,
+		8505
 	],
 	"./purchases/returns/index": [
 		99658,
@@ -35475,12 +38441,12 @@ var map = {
 		2880
 	],
 	"./purchases/show": [
-		90546,
-		546
+		15031,
+		5031
 	],
 	"./purchases/show.vue": [
-		90546,
-		546
+		15031,
+		5031
 	],
 	"./reports/account-statement": [
 		89861,
@@ -35627,20 +38593,20 @@ var map = {
 		6718
 	],
 	"./sales/invoices/create": [
-		26229,
-		6229
+		13918,
+		3918
 	],
 	"./sales/invoices/create.vue": [
-		26229,
-		6229
+		13918,
+		3918
 	],
 	"./sales/invoices/edit": [
-		4473,
-		4473
+		64373,
+		4373
 	],
 	"./sales/invoices/edit.vue": [
-		4473,
-		4473
+		64373,
+		4373
 	],
 	"./sales/invoices/index": [
 		26718,
@@ -35723,20 +38689,20 @@ var map = {
 		622
 	],
 	"./sales/returns/create": [
-		50971,
-		971
+		11386,
+		1386
 	],
 	"./sales/returns/create.vue": [
-		50971,
-		971
+		11386,
+		1386
 	],
 	"./sales/returns/edit": [
-		7151,
-		7151
+		65095,
+		5095
 	],
 	"./sales/returns/edit.vue": [
-		7151,
-		7151
+		65095,
+		5095
 	],
 	"./sales/returns/form": [
 		83648,
@@ -35947,43 +38913,43 @@ var map = {
 		7830
 	],
 	"./setup/payment-methods": [
-		18707,
-		8707
+		47415,
+		7415
 	],
 	"./setup/payment-methods/": [
-		18707,
-		8707
+		47415,
+		7415
 	],
 	"./setup/payment-methods/create": [
-		11429,
-		1429
+		12638,
+		2638
 	],
 	"./setup/payment-methods/create.vue": [
-		11429,
-		1429
+		12638,
+		2638
 	],
 	"./setup/payment-methods/edit": [
-		48091,
-		8091
+		97212,
+		7212
 	],
 	"./setup/payment-methods/edit.vue": [
-		48091,
-		8091
+		97212,
+		7212
 	],
 	"./setup/payment-methods/index": [
-		18707,
-		8707
+		47415,
+		7415
 	],
 	"./setup/payment-methods/index.vue": [
-		18707,
-		8707
+		47415,
+		7415
 	],
 	"./setup/permissions": [
-		86519,
+		41757,
 		1757
 	],
 	"./setup/permissions/": [
-		86519,
+		41757,
 		1757
 	],
 	"./setup/permissions/create": [
@@ -36003,11 +38969,11 @@ var map = {
 		5943
 	],
 	"./setup/permissions/index": [
-		86519,
+		41757,
 		1757
 	],
 	"./setup/permissions/index.vue": [
-		86519,
+		41757,
 		1757
 	],
 	"./setup/roles": [
@@ -50368,6 +53334,26 @@ var component = (0,componentNormalizer/* default */.A)(
 /***/ ((module) => {
 
 module.exports = "/images/vendor/flag-icons/flags/1x1/bj.svg?c1bc198cb05444a63756c251d8052e62";
+
+/***/ }),
+
+/***/ 62732:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".main-sidebar{font-family:DINNextLTArabic,sans-serif;max-height:100vh;overflow-y:auto}.sidebar{border-top:1px solid #dee2e6;padding:0}.main-sidebar .brand-link{border-bottom:0!important}.main-sidebar .nav-sidebar .nav-link{margin:0}.nav-link{padding:.5rem .75rem}.main-sidebar .nav-sidebar .nav-link i.nav-icon,.main-sidebar .nav-sidebar .nav-link svg{align-items:center;background-color:#0775af1a;border-radius:5px;color:#0775af;display:inline-flex;height:18px;justify-content:center;margin-right:8px;min-width:18px;padding:10px 6px;position:relative;top:0;vertical-align:middle;width:18px}[dir=rtl] .main-sidebar .nav-sidebar .nav-link i.nav-icon,[dir=rtl] .main-sidebar .nav-sidebar .nav-link svg{margin-left:8px;margin-right:0}.main-sidebar .nav-sidebar .nav-header:not(:first-child){border-top:1px solid #e6eaed;margin-top:20px;padding:10px 0!important}.nav-header{color:#212b36;font-size:16px}.main-sidebar .nav-sidebar .nav-header{text-transform:lowercase}.main-sidebar .nav-sidebar .nav-header:first-letter{text-transform:uppercase}.main-sidebar .nav-sidebar .nav-treeview{background-color:transparent;border:1px solid #e6eaed;border-radius:0 0 10px 10px;border-top:none;margin:0 0 0 20px;padding:10px 12px 10px 8px}[dir=rtl] .main-sidebar .nav-sidebar .nav-treeview{border:1px solid #e6eaed;border-radius:0 0 10px 10px;border-top:none;margin-left:0;margin-right:0;padding:10px 8px 10px 12px}.main-sidebar .nav-sidebar .nav-treeview .nav-item{margin:0;position:relative}.main-sidebar .nav-sidebar .nav-treeview .nav-link{color:#586687;font-size:13px;font-weight:400;margin:10px 0;padding:.5rem .75rem;position:relative;transition:all .2s ease}.main-sidebar .nav-sidebar .nav-treeview .nav-link:hover{background-color:#f8fafc;color:#374151}.main-sidebar .nav-sidebar .nav-treeview .nav-link i{font-size:12px;margin-top:2px;text-align:center;width:14px}.main-sidebar .nav-sidebar .nav-treeview .nav-link.active:before,.main-sidebar .nav-sidebar .nav-treeview .nav-link.router-link-exact-active:before{background-color:#fff}.custom-nav-padding{padding:12px}.main-sidebar .nav-sidebar .pos-link p{text-transform:uppercase!important}.main-sidebar .nav-sidebar .nav-link.active,.main-sidebar .nav-sidebar .nav-link.router-link-exact-active{background-color:#0775af!important;border-radius:10px;color:#fff!important}.main-sidebar .nav-sidebar .nav-treeview .nav-link.active,.main-sidebar .nav-sidebar .nav-treeview .nav-link.router-link-exact-active{background-color:#0775af!important;border-radius:10px;color:#fff!important;padding:6px 16px}.main-sidebar .nav-sidebar .nav-link,.main-sidebar .nav-sidebar .nav-treeview .nav-link{align-items:center;border-radius:10px;color:#586687;display:flex}.main-sidebar .nav-sidebar .nav-link.active i,.main-sidebar .nav-sidebar .nav-link.active p,.main-sidebar .nav-sidebar .nav-link.router-link-exact-active i,.main-sidebar .nav-sidebar .nav-link.router-link-exact-active p,.main-sidebar .nav-sidebar .nav-treeview .nav-link.active i,.main-sidebar .nav-sidebar .nav-treeview .nav-link.active p,.main-sidebar .nav-sidebar .nav-treeview .nav-link.router-link-exact-active i,.main-sidebar .nav-sidebar .nav-treeview .nav-link.router-link-exact-active p{color:#fff!important}.main-sidebar .nav-sidebar .nav-link.active i.nav-icon,.main-sidebar .nav-sidebar .nav-link.router-link-exact-active i.nav-icon,.main-sidebar .nav-sidebar .nav-treeview .nav-link.active i.nav-icon,.main-sidebar .nav-sidebar .nav-treeview .nav-link.router-link-exact-active i.nav-icon{background-color:#fff!important;color:#0775af!important}html[dir=ltr] .main-sidebar .nav-sidebar .fa-angle-left{display:inline-block;transform:scaleX(-1);transition:transform .2s ease}html[dir=ltr] .main-sidebar .nav-sidebar .menu-is-opening>a .fa-angle-left,html[dir=ltr] .main-sidebar .nav-sidebar .menu-open>a .fa-angle-left{transform:scaleX(-1) rotate(-90deg)}[dir=rtl] .main-sidebar .nav-sidebar .nav-link .fa-angle-left{left:0}.main-sidebar .nav-sidebar .toggle-icon{color:#0775af;font-family:Font Awesome\\ 7 Free,Font Awesome\\ 6 Free,Font Awesome\\ 5 Free,FontAwesome,sans-serif;font-size:11px;font-weight:400;height:20px;line-height:20px;position:absolute;right:10px;text-align:center;top:50%;transform:translateY(-50%);width:20px}:dir(rtl) .main-sidebar .nav-sidebar .toggle-icon{left:10px;right:auto}.main-sidebar .nav-sidebar .nav-item.has-treeview>a .toggle-icon:before{content:\"\\f077\";font-family:Font Awesome\\ 7 Free,Font Awesome\\ 6 Free,Font Awesome\\ 5 Free,FontAwesome,sans-serif;font-weight:900}.main-sidebar .nav-sidebar .nav-item.has-treeview.menu-is-opening>a .toggle-icon:before,.main-sidebar .nav-sidebar .nav-item.has-treeview.menu-open>a .toggle-icon:before{content:\"\\f078\";font-family:Font Awesome\\ 7 Free,Font Awesome\\ 6 Free,Font Awesome\\ 5 Free,FontAwesome,sans-serif;font-weight:900}.main-sidebar .nav-sidebar .menu-is-opening>a .toggle-icon,.main-sidebar .nav-sidebar .menu-open>a .toggle-icon{color:#fff!important}.main-sidebar .nav-sidebar .nav-item,.main-sidebar .nav-sidebar .nav-link,.main-sidebar .nav-sidebar .nav-treeview .nav-item,.main-sidebar .nav-sidebar .nav-treeview .nav-link{border:none!important}.main-sidebar .nav-sidebar .nav-link:hover{background-color:#f8fafc!important;border-radius:10px;color:#374151!important;transform:translateX(2px);transition:all .3s ease}[dir=rtl] .main-sidebar .nav-sidebar .nav-link:hover{transform:translateX(-2px)}.main-sidebar .nav-sidebar .nav-link:hover i{color:#0775af!important;transform:scale(1.1);transition:all .3s ease}.main-sidebar .nav-sidebar .nav-link:hover p{color:#374151!important;font-weight:500}.main-sidebar .nav-sidebar .nav-treeview .nav-link:hover{background-color:#fff!important;color:#0775af!important;transform:translateX(4px);transition:all .3s ease}[dir=rtl] .main-sidebar .nav-sidebar .nav-treeview .nav-link:hover{transform:translateX(-4px)}.main-sidebar .nav-sidebar .nav-treeview .nav-link:hover i{color:#0775af!important;transform:scale(1.05);transition:all .3s ease}.main-sidebar .nav-sidebar .nav-treeview .nav-link:hover:before{background-color:#0775af!important;transform:scale(1.2);transition:all .3s ease}.main-sidebar .nav-sidebar .nav-header:hover{color:#0775af;font-weight:600}.main-sidebar .brand-link:hover,.main-sidebar .nav-sidebar .nav-header:hover{background-color:#f8fafc;border-radius:8px;transition:all .3s ease}.main-sidebar .nav-sidebar .menu-is-opening,.main-sidebar .nav-sidebar .menu-open{background-color:transparent;border:none!important;border-radius:0}.main-sidebar .nav-sidebar .menu-is-opening>a,.main-sidebar .nav-sidebar .menu-open>a{background-color:#0775af!important;border:none!important;border-radius:10px;color:#fff!important}.main-sidebar .nav-sidebar .menu-is-opening>a i,.main-sidebar .nav-sidebar .menu-is-opening>a p,.main-sidebar .nav-sidebar .menu-open>a i,.main-sidebar .nav-sidebar .menu-open>a p{color:#fff!important}.main-sidebar .nav-sidebar .nav-item.has-treeview>a.nav-link{align-items:baseline;display:flex}.main-sidebar .nav-sidebar .nav-item.has-treeview>a.nav-link>p{align-items:center;display:flex;gap:8px;justify-content:space-between;margin:0;white-space:nowrap;width:100%}.main-sidebar .nav-sidebar .nav-item.has-treeview.menu-is-opening>a.nav-link,.main-sidebar .nav-sidebar .nav-item.has-treeview.menu-open>a.nav-link{align-items:center;display:flex}.main-sidebar .nav-sidebar .nav-item.has-treeview ul.nav-treeview a.nav-link.router-link-exact-active,.main-sidebar .nav-sidebar .nav-item.has-treeview.menu-is-opening ul.nav-treeview a.nav-link.active,.main-sidebar .nav-sidebar .nav-item.has-treeview.menu-open ul.nav-treeview a.nav-link.active{background-color:#d7dbdd59!important;color:#0775af!important}.main-sidebar .nav-sidebar .nav-item.has-treeview ul.nav-treeview a.nav-link.router-link-exact-active .toggle-icon,.main-sidebar .nav-sidebar .nav-item.has-treeview ul.nav-treeview a.nav-link.router-link-exact-active i,.main-sidebar .nav-sidebar .nav-item.has-treeview ul.nav-treeview a.nav-link.router-link-exact-active p,.main-sidebar .nav-sidebar .nav-item.has-treeview ul.nav-treeview a.nav-link.router-link-exact-active svg,.main-sidebar .nav-sidebar .nav-item.has-treeview.menu-is-opening ul.nav-treeview a.nav-link.active .toggle-icon,.main-sidebar .nav-sidebar .nav-item.has-treeview.menu-is-opening ul.nav-treeview a.nav-link.active i,.main-sidebar .nav-sidebar .nav-item.has-treeview.menu-is-opening ul.nav-treeview a.nav-link.active p,.main-sidebar .nav-sidebar .nav-item.has-treeview.menu-is-opening ul.nav-treeview a.nav-link.active svg,.main-sidebar .nav-sidebar .nav-item.has-treeview.menu-open ul.nav-treeview a.nav-link.active .toggle-icon,.main-sidebar .nav-sidebar .nav-item.has-treeview.menu-open ul.nav-treeview a.nav-link.active i,.main-sidebar .nav-sidebar .nav-item.has-treeview.menu-open ul.nav-treeview a.nav-link.active p,.main-sidebar .nav-sidebar .nav-item.has-treeview.menu-open ul.nav-treeview a.nav-link.active svg{color:#0775af!important}.nav-sidebar .nav-header{margin:0}[dir=ltr] .main-sidebar .nav-sidebar .nav-link .fa-angle-left{right:0}[dir=rtl] .main-sidebar{transition:transform .3s ease-in-out,margin-right .3s ease-in-out}.add-btn-inline,[dir=rtl] .main-sidebar .nav-sidebar .nav-link,[dir=rtl] .main-sidebar .nav-sidebar .nav-treeview .nav-link{transition:all .3s ease}.add-btn-inline{align-items:center;background-color:#0775af;border-radius:50%;color:#fff;display:inline-flex;font-size:12px;height:20px;justify-content:center;margin-left:8px;text-decoration:none;width:20px}[dir=rtl] .add-btn-inline{margin-left:0;margin-right:8px}.add-btn-inline:hover{background-color:#2a8bc7;color:#fff;transform:scale(1.1)}.add-btn-inline i{font-size:10px;line-height:1}.nav-link p{align-items:center;display:flex;width:100%}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
 
 /***/ }),
 
@@ -116047,2973 +119033,6 @@ module.exports = "/images/vendor/flag-icons/flags/4x3/it.svg?08db2cd122d5f99494d
 /***/ ((module) => {
 
 module.exports = "/images/vendor/flag-icons/flags/1x1/do.svg?584d4f9c7dc719a3c604ce2ff869db81";
-
-/***/ }),
-
-/***/ 99438:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  "default": () => (/* binding */ layouts_default)
-});
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/layouts/default.vue?vue&type=template&id=3d484f6a&scoped=true
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', [_c('div', {
-    staticClass: "wrapper",
-    "class": {
-      'no-sidebar': !_vm.showSidebar
-    }
-  }, [_c('navbar'), _vm._v(" "), _vm.showSidebar ? _c('sidebar') : _vm._e(), _vm._v(" "), _c('section', {
-    staticClass: "content-wrapper"
-  }, [_vm.demo_message ? _c('div', {
-    staticClass: "trial-alert"
-  }, [_c('i', {
-    staticClass: "fas fa-exclamation-circle"
-  }), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.demo_message))])]) : _vm._e(), _vm._v(" "), _vm.tenant && !_vm.tenant.is_subscribed ? _c('div', {
-    staticClass: "trial-alert"
-  }, [_c('i', {
-    staticClass: "fas fa-exclamation-circle"
-  }), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.$t('You are not subscribed yet please subscribe.')))]), _vm._v(" "), _c('router-link', {
-    attrs: {
-      "to": {
-        name: 'settings.billing'
-      }
-    }
-  }, [_vm._v("\n          " + _vm._s(_vm.$t('Billing Page')) + "\n        ")])], 1) : _vm._e(), _vm._v(" "), _vm.tenant && _vm.tenant.on_trial ? _c('div', {
-    staticClass: "trial-alert"
-  }, [_c('div', [_c('i', {
-    staticClass: "fas fa-exclamation-circle"
-  }), _vm._v(" "), _c('span', [_vm._v("\n            " + _vm._s(_vm.$t('You are on trial version! Your trial ends')) + "\n            " + _vm._s(_vm.$t('in')) + "\n            " + _vm._s(_vm.getTrialDaysLeft(_vm.tenant.trial_ends_at)) + "\n            " + _vm._s(_vm.$t('days')) + "!\n          ")])]), _vm._v(" "), _c('div', {
-    staticClass: "mt-3 mt-md-0 mb-2 mb-md-0 my-md-2"
-  }, [_c('router-link', {
-    attrs: {
-      "to": {
-        name: 'settings.billing'
-      }
-    }
-  }, [_vm._v("\n            " + _vm._s(_vm.$t('Billing Page')) + "\n          ")])], 1)]) : _vm._e(), _vm._v(" "), _vm.subscription_limit_message ? _c('div', {
-    staticClass: "trial-alert"
-  }, [_c('i', {
-    staticClass: "fas fa-exclamation-circle"
-  }), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.subscription_limit_message))])]) : _vm._e(), _vm._v(" "), _c('div', {
-    staticClass: "container-fluid"
-  }, [_c('child')], 1)]), _vm._v(" "), _c('footer', {
-    staticClass: "main-footer"
-  }, [_vm.appInfo ? _c('strong', [_vm._v(_vm._s(_vm.appInfo.copyright))]) : _vm._e(), _vm._v(" "), _vm.appInfo ? _c('div', {
-    staticClass: "float-right d-none d-sm-inline-block"
-  }, [_c('b', [_vm._v("Version")]), _vm._v(" " + _vm._s(_vm.appInfo.version))]) : _vm._e()]), _vm._v(" "), _c('sidebar-controll')], 1)]);
-};
-var staticRenderFns = [];
-
-// EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
-var vuex_esm = __webpack_require__(95353);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Navbar.vue?vue&type=template&id=05ba50bb&scoped=true
-var Navbarvue_type_template_id_05ba50bb_scoped_true_render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('nav', {
-    staticClass: "main-header navbar navbar-expand navbar-white navbar-light",
-    "class": {
-      'full-width-navbar': _vm.isSelectBranchPage
-    },
-    style: _vm.isSelectBranchPage ? {
-      marginLeft: '0',
-      marginRight: '0',
-      left: '0',
-      right: '0',
-      width: '100%',
-      maxWidth: '100%'
-    } : {}
-  }, [_c('ul', {
-    staticClass: "navbar-nav"
-  }, [_vm.showSidebarToggle ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('a', {
-    staticClass: "nav-link custom-nav-btn",
-    attrs: {
-      "data-widget": "pushmenu",
-      "href": "#",
-      "role": "button"
-    }
-  }, [_c('svg', {
-    staticClass: "h-6 w-6",
-    attrs: {
-      "xmlns": "http://www.w3.org/2000/svg",
-      "fill": "none",
-      "viewBox": "0 0 24 24",
-      "stroke": "currentColor",
-      "stroke-width": "2"
-    }
-  }, [_c('path', {
-    attrs: {
-      "stroke-linecap": "round",
-      "stroke-linejoin": "round",
-      "d": "M4 6h16M4 12h16M4 18h7"
-    }
-  })])])]) : _vm._e()]), _vm._v(" "), _c('div', {
-    staticClass: "navbar-search d-none d-md-block",
-    style: _vm.showSidebarToggle ? 'margin-left: 10px;' : 'margin-left: 0;'
-  }, [_c('div', {
-    staticClass: "search-area position-relative"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.menuSearchQuery,
-      expression: "menuSearchQuery"
-    }],
-    ref: "searchInput",
-    staticClass: "search-input",
-    attrs: {
-      "type": "text",
-      "placeholder": "".concat(_vm.$t('Search...'))
-    },
-    domProps: {
-      "value": _vm.menuSearchQuery
-    },
-    on: {
-      "input": [function ($event) {
-        if ($event.target.composing) return;
-        _vm.menuSearchQuery = $event.target.value;
-      }, _vm.searchMenu]
-    }
-  }), _vm._v(" "), _c('span', {
-    staticClass: "search-icon",
-    "class": [this.menuSearchQuery !== '' ? 'd-none' : '']
-  }, [_c('i', {
-    staticClass: "fas fa-search"
-  })]), _vm._v(" "), _vm.menuSearchQuery ? _c('button', {
-    staticClass: "btn btn-link p-0 clear-btn",
-    on: {
-      "click": _vm.clearMenuSearch
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-times"
-  })]) : _vm._e()]), _vm._v(" "), _vm.menuSearchQuery ? _c('div', {
-    staticClass: "dropdown-menu show w-100 mt-1 shadow",
-    staticStyle: {
-      "display": "block",
-      "max-height": "320px",
-      "overflow": "auto"
-    }
-  }, [_vm.menuItems.length ? _c('div', _vm._l(_vm.menuItems, function (menuItem, index) {
-    return _c('router-link', {
-      key: index,
-      staticClass: "dropdown-item d-flex align-items-center",
-      attrs: {
-        "to": {
-          name: menuItem.route
-        }
-      }
-    }, [menuItem.icon ? _c('i', {
-      "class": menuItem.icon + ' mr-2'
-    }) : _vm._e(), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.$t(menuItem.text)))])]);
-  }), 1) : _c('div', {
-    staticClass: "dropdown-item text-muted"
-  }, [_vm._v(_vm._s(_vm.$t('No matching items found')))])]) : _vm._e()]), _vm._v(" "), _c('ul', {
-    staticClass: "navbar-nav ml-auto"
-  }, [_vm.currentBranchName ? _c('li', {
-    directives: [{
-      name: "tooltip",
-      rawName: "v-tooltip",
-      value: _vm.displayBranchName,
-      expression: "displayBranchName"
-    }],
-    staticClass: "nav-item d-flex align-items-center mr-2"
-  }, [_c('span', {
-    staticClass: "branch-pill d-inline-flex align-items-center"
-  }, [_c('i', {
-    staticClass: "fas fa-code-branch mr-2"
-  }), _vm._v(" "), _c('a', {
-    staticClass: "text-truncate",
-    staticStyle: {
-      "max-width": "180px"
-    },
-    attrs: {
-      "href": "#"
-    },
-    on: {
-      "click": function click($event) {
-        $event.preventDefault();
-        return _vm.goSelectBranch.apply(null, arguments);
-      }
-    }
-  }, [_vm._v(_vm._s(_vm.displayBranchName))])])]) : _vm._e(), _vm._v(" "), _vm.$can('today-profit') ? _c('li', {
-    directives: [{
-      name: "tooltip",
-      rawName: "v-tooltip",
-      value: _vm.$t('Today Report'),
-      expression: "$t('Today Report')"
-    }],
-    staticClass: "nav-item"
-  }, [_c('a', {
-    staticClass: "nav-link custom-nav-btn",
-    attrs: {
-      "href": "#".concat(_vm.$route.name === 'reports.todayReport' ? '' : 'reports.todayReport')
-    },
-    on: {
-      "click": function click($event) {
-        $event.preventDefault();
-        return _vm.$router.push({
-          name: 'reports.todayReport'
-        });
-      }
-    }
-  }, [_c('svg', {
-    staticClass: "h-6 w-6",
-    attrs: {
-      "xmlns": "http://www.w3.org/2000/svg",
-      "fill": "none",
-      "viewBox": "0 0 24 24",
-      "stroke": "currentColor",
-      "stroke-width": "2"
-    }
-  }, [_c('path', {
-    attrs: {
-      "stroke-linecap": "round",
-      "stroke-linejoin": "round",
-      "d": "M12 1v22M17 5v14M7 5v14M5 10h14M5 14h14"
-    }
-  })])])]) : _vm._e(), _vm._v(" "), _vm.$can('lc-create') || _vm.$can('order-create') || _vm.$can('invoice-create') || _vm.$can('expense-create') || _vm.$can('international-purchase-create') ? _c('li', {
-    directives: [{
-      name: "tooltip",
-      rawName: "v-tooltip",
-      value: _vm.$t('Quick Add'),
-      expression: "$t('Quick Add')"
-    }],
-    staticClass: "nav-item dropdown"
-  }, [_c('a', {
-    staticClass: "nav-link custom-nav-btn",
-    attrs: {
-      "data-toggle": "dropdown",
-      "href": "#",
-      "aria-expanded": "true"
-    }
-  }, [_c('svg', {
-    staticClass: "h-6 w-6",
-    attrs: {
-      "xmlns": "http://www.w3.org/2000/svg",
-      "fill": "none",
-      "viewBox": "0 0 24 24",
-      "stroke": "currentColor",
-      "stroke-width": "2"
-    }
-  }, [_c('path', {
-    attrs: {
-      "stroke-linecap": "round",
-      "stroke-linejoin": "round",
-      "d": "M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-    }
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "dropdown-menu dropdown-menu-sm dropdown-menu-right"
-  }, [_vm.$can('invoice-create') ? _c('router-link', {
-    staticClass: "dropdown-item dropdown-icon-center",
-    attrs: {
-      "to": {
-        name: 'invoices.create'
-      }
-    }
-  }, [_c('svg', {
-    staticClass: "h-6 w-6",
-    attrs: {
-      "xmlns": "http://www.w3.org/2000/svg",
-      "fill": "none",
-      "viewBox": "0 0 24 24",
-      "stroke": "currentColor",
-      "stroke-width": "2"
-    }
-  }, [_c('path', {
-    attrs: {
-      "stroke-linecap": "round",
-      "stroke-linejoin": "round",
-      "d": "M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"
-    }
-  })]), _vm._v("\n          " + _vm._s(_vm.$t("New Invoice")) + "\n        ")]) : _vm._e(), _vm._v(" "), _c('div', {
-    staticClass: "dropdown-divider"
-  }), _vm._v(" "), _vm.$can('expense-create') ? _c('router-link', {
-    staticClass: "dropdown-item dropdown-icon-center",
-    attrs: {
-      "to": {
-        name: 'expenses.create'
-      }
-    }
-  }, [_c('svg', {
-    staticClass: "h-6 w-6",
-    attrs: {
-      "xmlns": "http://www.w3.org/2000/svg",
-      "fill": "none",
-      "viewBox": "0 0 24 24",
-      "stroke": "currentColor",
-      "stroke-width": "2"
-    }
-  }, [_c('path', {
-    attrs: {
-      "stroke-linecap": "round",
-      "stroke-linejoin": "round",
-      "d": "M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"
-    }
-  })]), _vm._v("\n          " + _vm._s(_vm.$t("New Expense")) + "\n        ")]) : _vm._e(), _vm._v(" "), _c('div', {
-    staticClass: "dropdown-divider"
-  }), _vm._v(" "), _vm.$can('purchase-create') ? _c('router-link', {
-    staticClass: "dropdown-item dropdown-icon-center",
-    attrs: {
-      "to": {
-        name: 'purchases.create'
-      }
-    }
-  }, [_c('svg', {
-    staticClass: "h-6 w-6",
-    attrs: {
-      "xmlns": "http://www.w3.org/2000/svg",
-      "fill": "none",
-      "viewBox": "0 0 24 24",
-      "stroke": "currentColor",
-      "stroke-width": "2"
-    }
-  }, [_c('path', {
-    attrs: {
-      "stroke-linecap": "round",
-      "stroke-linejoin": "round",
-      "d": "M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
-    }
-  })]), _vm._v("\n          " + _vm._s(_vm.$t("New Purchase")) + "\n        ")]) : _vm._e(), _vm._v(" "), _c('div', {
-    staticClass: "dropdown-divider"
-  }), _vm._v(" "), _vm.$can('quotation-create') ? _c('router-link', {
-    staticClass: "dropdown-item dropdown-icon-center",
-    attrs: {
-      "to": {
-        name: 'quotations.create'
-      }
-    }
-  }, [_c('svg', {
-    staticClass: "h-6 w-6",
-    attrs: {
-      "xmlns": "http://www.w3.org/2000/svg",
-      "fill": "none",
-      "viewBox": "0 0 24 24",
-      "stroke": "currentColor",
-      "stroke-width": "2"
-    }
-  }, [_c('path', {
-    attrs: {
-      "stroke-linecap": "round",
-      "stroke-linejoin": "round",
-      "d": "M4 6h16M4 10h16M4 14h16M4 18h16"
-    }
-  })]), _vm._v("\n          " + _vm._s(_vm.$t("New Quotation")) + "\n        ")]) : _vm._e()], 1)]) : _vm._e(), _vm._v(" "), _c('li', {
-    directives: [{
-      name: "tooltip",
-      rawName: "v-tooltip",
-      value: _vm.$t('Notifications'),
-      expression: "$t('Notifications')"
-    }],
-    staticClass: "nav-item dropdown"
-  }, [_c('a', {
-    staticClass: "nav-link custom-nav-btn",
-    attrs: {
-      "data-toggle": "dropdown",
-      "href": "#"
-    }
-  }, [_c('svg', {
-    staticClass: "h-6 w-6",
-    attrs: {
-      "xmlns": "http://www.w3.org/2000/svg",
-      "fill": "none",
-      "viewBox": "0 0 24 24",
-      "stroke": "currentColor",
-      "stroke-width": "2"
-    }
-  }, [_c('path', {
-    attrs: {
-      "stroke-linecap": "round",
-      "stroke-linejoin": "round",
-      "d": "M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-    }
-  })]), _vm._v(" "), _vm.notificationCount > 0 ? _c('span', {
-    staticClass: "badge badge-warning navbar-badge"
-  }, [_vm._v(_vm._s(_vm.notificationCount))]) : _vm._e()]), _vm._v(" "), _c('div', {
-    staticClass: "dropdown-menu dropdown-menu-lg dropdown-menu-right"
-  }, [_c('div', {
-    staticClass: "dropdown-divider"
-  }), _vm._v(" "), _vm.notificationCount > 0 ? _c('router-link', {
-    staticClass: "dropdown-item",
-    attrs: {
-      "to": {
-        name: 'stockAlertProducts'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-exclamation-circle mr-2 red"
-  }), _vm._v("\n          " + _vm._s(_vm.notificationCount) + " " + _vm._s(_vm.$t("Product Quantity Alert(s)")) + "\n        ")]) : _c('a', {
-    staticClass: "dropdown-item",
-    attrs: {
-      "href": "#"
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-check-circle mr-2 green"
-  }), _vm._v("\n          " + _vm._s(_vm.$t("No notification available")) + "\n        ")])], 1)]), _vm._v(" "), _c('locale-dropdown'), _vm._v(" "), _c('li', {
-    directives: [{
-      name: "tooltip",
-      rawName: "v-tooltip",
-      value: _vm.$t('Toggle Full Screen Mode'),
-      expression: "$t('Toggle Full Screen Mode')"
-    }],
-    staticClass: "nav-item"
-  }, [_c('a', {
-    staticClass: "nav-link custom-nav-btn",
-    attrs: {
-      "data-widget": "fullscreen",
-      "href": "#",
-      "role": "button"
-    }
-  }, [_c('svg', {
-    staticClass: "h-6 w-6",
-    attrs: {
-      "xmlns": "http://www.w3.org/2000/svg",
-      "fill": "none",
-      "viewBox": "0 0 24 24",
-      "stroke": "currentColor",
-      "stroke-width": "2"
-    }
-  }, [_c('path', {
-    attrs: {
-      "stroke-linecap": "round",
-      "stroke-linejoin": "round",
-      "d": "M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
-    }
-  })])])]), _vm._v(" "), _vm.user ? _c('li', {
-    staticClass: "nav-item dropdown"
-  }, [_c('a', {
-    staticClass: "nav-link user-profile",
-    attrs: {
-      "data-toggle": "dropdown",
-      "href": "#"
-    }
-  }, [_c('div', [!_vm.imageError ? _c('img', {
-    staticClass: "profile-avatar",
-    attrs: {
-      "src": _vm.user.photo_url,
-      "alt": _vm.user.name
-    },
-    on: {
-      "error": _vm.handleImageError
-    }
-  }) : _c('div', {
-    staticClass: "profile-avatar profile-avatar-fallback"
-  }, [_c('i', {
-    staticClass: "fas fa-user"
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "ml-2 d-none d-md-block"
-  }, [_c('div', {
-    staticClass: "welcome-text"
-  }, [_vm._v(_vm._s(_vm.$t('Welcome')))]), _vm._v(" "), _c('div', {
-    staticClass: "user-name"
-  }, [_vm._v(_vm._s(_vm.getFirstName(_vm.user.name)))])]), _vm._v(" "), _vm._m(0)]), _vm._v(" "), _c('div', {
-    staticClass: "dropdown-menu dropdown-menu-sm dropdown-menu-right"
-  }, [_c('router-link', {
-    staticClass: "dropdown-item dropdown-icon-center",
-    attrs: {
-      "to": {
-        name: 'settings.profile'
-      }
-    }
-  }, [_c('svg', {
-    staticClass: "h-6 w-6",
-    attrs: {
-      "xmlns": "http://www.w3.org/2000/svg",
-      "fill": "none",
-      "viewBox": "0 0 24 24",
-      "stroke": "currentColor",
-      "stroke-width": "2"
-    }
-  }, [_c('path', {
-    attrs: {
-      "stroke-linecap": "round",
-      "stroke-linejoin": "round",
-      "d": "M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-    }
-  })]), _vm._v("\n          " + _vm._s(_vm.$t("Profile")) + "\n        ")]), _vm._v(" "), _c('div', {
-    staticClass: "dropdown-divider"
-  }), _vm._v(" "), _c('router-link', {
-    staticClass: "dropdown-item dropdown-icon-center",
-    attrs: {
-      "to": {
-        name: 'settings.billing'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "pr-2 text-gray nav-icon fas fa-money-check-alt"
-  }), _vm._v(_vm._s(_vm.$t("Billing")) + "\n        ")]), _vm._v(" "), _c('div', {
-    staticClass: "dropdown-divider"
-  }), _vm._v(" "), _c('router-link', {
-    staticClass: "dropdown-item dropdown-icon-center",
-    attrs: {
-      "to": {
-        name: 'setup.general'
-      }
-    }
-  }, [_c('svg', {
-    staticClass: "h-6 w-6",
-    attrs: {
-      "xmlns": "http://www.w3.org/2000/svg",
-      "fill": "none",
-      "viewBox": "0 0 24 24",
-      "stroke": "currentColor",
-      "stroke-width": "2"
-    }
-  }, [_c('path', {
-    attrs: {
-      "stroke-linecap": "round",
-      "stroke-linejoin": "round",
-      "d": "M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-    }
-  }), _vm._v(" "), _c('path', {
-    attrs: {
-      "stroke-linecap": "round",
-      "stroke-linejoin": "round",
-      "d": "M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-    }
-  })]), _vm._v("\n          " + _vm._s(_vm.$t("Setup")) + "\n        ")]), _vm._v(" "), _c('div', {
-    staticClass: "dropdown-divider"
-  }), _vm._v(" "), _c('a', {
-    staticClass: "dropdown-item dropdown-icon-center",
-    attrs: {
-      "href": "#"
-    },
-    on: {
-      "click": function click($event) {
-        $event.preventDefault();
-        return _vm.logout.apply(null, arguments);
-      }
-    }
-  }, [_c('svg', {
-    staticClass: "h-6 w-6",
-    attrs: {
-      "xmlns": "http://www.w3.org/2000/svg",
-      "fill": "none",
-      "viewBox": "0 0 24 24",
-      "stroke": "currentColor",
-      "stroke-width": "2"
-    }
-  }, [_c('path', {
-    attrs: {
-      "stroke-linecap": "round",
-      "stroke-linejoin": "round",
-      "d": "M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-    }
-  })]), _vm._v("\n          " + _vm._s(_vm.$t("Logout")) + "\n        ")])], 1)]) : _vm._e()], 1)]);
-};
-var Navbarvue_type_template_id_05ba50bb_scoped_true_staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('span', {
-    staticClass: "mt-1 ml-1"
-  }, [_c('i', {
-    staticClass: "fas fa-angle-down"
-  })]);
-}];
-
-;// ./resources/js/components/Navbar.vue?vue&type=template&id=05ba50bb&scoped=true
-
-// EXTERNAL MODULE: ./node_modules/axios/index.js
-var axios = __webpack_require__(72505);
-var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
-// EXTERNAL MODULE: ./resources/js/components/LocaleDropdown.vue + 11 modules
-var LocaleDropdown = __webpack_require__(5531);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Navbar.vue?vue&type=script&lang=js
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-
-
-
-/* harmony default export */ const Navbarvue_type_script_lang_js = ({
-  components: {
-    LocaleDropdown: LocaleDropdown/* default */.A
-  },
-  data: function data() {
-    return {
-      appName: window.config.appName,
-      notificationCount: 0,
-      menuSearchQuery: "",
-      menuItems: [],
-      imageError: false,
-      currentBranchName: '',
-      navbarEnforcerInterval: null,
-      searchDebounceTimer: null,
-      cachedRoutes: null
-    };
-  },
-  computed: _objectSpread(_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)({
-    user: "auth/user",
-    appInfo: "operations/appInfo"
-  })), {}, {
-    searchPlaceholderText: function searchPlaceholderText() {
-      return this.$t('Search...');
-    },
-    displayBranchName: function displayBranchName() {
-      if (this.currentBranchName === 'Main Branch') {
-        var _this$appInfo;
-        return ((_this$appInfo = this.appInfo) === null || _this$appInfo === void 0 ? void 0 : _this$appInfo.companyName) || this.currentBranchName;
-      }
-      return this.currentBranchName;
-    },
-    showSidebarToggle: function showSidebarToggle() {
-      // Hide sidebar toggle on select-branch page
-      return this.$route.name !== 'branches.select';
-    },
-    isSelectBranchPage: function isSelectBranchPage() {
-      return this.$route.name === 'branches.select';
-    }
-  }),
-  created: function created() {
-    this.stockNotification();
-    this.loadCurrentBranch();
-  },
-  mounted: function mounted() {
-    var _this = this;
-    this.$nextTick(function () {
-      setTimeout(function () {
-        _this.setSearchPlaceholder();
-      }, 100);
-    });
-    // Force navbar full width ONLY on select-branch page
-    if (this.isSelectBranchPage) {
-      this.$nextTick(function () {
-        _this.forceFullWidthNavbar();
-        // Set up interval to continuously enforce styles (in case AdminLTE overrides)
-        // Only runs on select-branch page
-        _this.navbarEnforcerInterval = setInterval(function () {
-          if (_this.isSelectBranchPage) {
-            _this.forceFullWidthNavbar();
-          } else {
-            // If we're no longer on select-branch page, clear interval and reset
-            clearInterval(_this.navbarEnforcerInterval);
-            _this.navbarEnforcerInterval = null;
-            _this.resetNavbarStyles();
-          }
-        }, 100);
-      });
-    } else {
-      // Make sure styles are reset on other pages
-      this.$nextTick(function () {
-        _this.resetNavbarStyles();
-      });
-    }
-  },
-  watch: {
-    '$i18n.locale': function $i18nLocale() {
-      this.updateSearchPlaceholder();
-      // Clear cached routes when locale changes
-      this.cachedRoutes = null;
-    },
-    '$route': function $route(to, from) {
-      var _this2 = this;
-      // Clear any existing interval first
-      if (this.navbarEnforcerInterval) {
-        clearInterval(this.navbarEnforcerInterval);
-        this.navbarEnforcerInterval = null;
-      }
-
-      // Reset styles when leaving select-branch page
-      if (from && from.name === 'branches.select' && to.name !== 'branches.select') {
-        this.$nextTick(function () {
-          _this2.resetNavbarStyles();
-        });
-      }
-
-      // Force navbar full width when route changes to select-branch
-      if (to.name === 'branches.select') {
-        this.$nextTick(function () {
-          _this2.forceFullWidthNavbar();
-          // Set up interval to continuously enforce styles (only on select-branch page)
-          _this2.navbarEnforcerInterval = setInterval(function () {
-            if (_this2.isSelectBranchPage) {
-              _this2.forceFullWidthNavbar();
-            } else {
-              // If we're no longer on select-branch page, clear interval and reset
-              clearInterval(_this2.navbarEnforcerInterval);
-              _this2.navbarEnforcerInterval = null;
-              _this2.resetNavbarStyles();
-            }
-          }, 100);
-        });
-      }
-    },
-    user: {
-      handler: function handler() {
-        // Reload current branch when user changes (e.g., after selecting new default)
-        this.loadCurrentBranch();
-      },
-      deep: false
-    }
-  },
-  methods: {
-    goSelectBranch: function goSelectBranch() {
-      this.$router.push({
-        name: 'branches.select',
-        query: {
-          redirect: this.$route.fullPath
-        }
-      });
-    },
-    loadCurrentBranch: function loadCurrentBranch() {
-      var _this3 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var _data$branch, _yield$axios$get, data;
-        return _regeneratorRuntime().wrap(function _callee$(_context) {
-          while (1) switch (_context.prev = _context.next) {
-            case 0:
-              _context.prev = 0;
-              _context.next = 3;
-              return axios_default().get('/api/branches/current');
-            case 3:
-              _yield$axios$get = _context.sent;
-              data = _yield$axios$get.data;
-              _this3.currentBranchName = (data === null || data === void 0 || (_data$branch = data.branch) === null || _data$branch === void 0 ? void 0 : _data$branch.name) || '';
-              _context.next = 11;
-              break;
-            case 8:
-              _context.prev = 8;
-              _context.t0 = _context["catch"](0);
-              _this3.currentBranchName = '';
-            case 11:
-            case "end":
-              return _context.stop();
-          }
-        }, _callee, null, [[0, 8]]);
-      }))();
-    },
-    setSearchPlaceholder: function setSearchPlaceholder() {
-      if (this.$refs.searchInput) {
-        this.$refs.searchInput.setAttribute('placeholder', this.$t('Search...'));
-      }
-    },
-    updateSearchPlaceholder: function updateSearchPlaceholder() {
-      this.setSearchPlaceholder();
-    },
-    getPlaceholder: function getPlaceholder() {
-      return this.$t('Search...');
-    },
-    // get stock notification
-    stockNotification: function stockNotification() {
-      var _this4 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-        var _yield$axios$get2, data;
-        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-          while (1) switch (_context2.prev = _context2.next) {
-            case 0:
-              _context2.next = 2;
-              return axios_default().get(window.location.origin + "/api/dashboard/stock-notification");
-            case 2:
-              _yield$axios$get2 = _context2.sent;
-              data = _yield$axios$get2.data;
-              _this4.notificationCount = data;
-            case 5:
-            case "end":
-              return _context2.stop();
-          }
-        }, _callee2);
-      }))();
-    },
-    // handle image load error
-    handleImageError: function handleImageError(event) {
-      console.log('Profile image failed to load:', event.target.src);
-      this.imageError = true;
-      // Fallback to a default avatar or initials
-      event.target.style.display = 'none';
-    },
-    // get first name from full name
-    getFirstName: function getFirstName(fullName) {
-      if (!fullName) return '';
-      return fullName.split(' ')[0];
-    },
-    clearMenuSearch: function clearMenuSearch() {
-      // Clear debounce timer
-      if (this.searchDebounceTimer) {
-        clearTimeout(this.searchDebounceTimer);
-        this.searchDebounceTimer = null;
-      }
-      this.menuSearchQuery = "";
-      this.menuItems = [];
-    },
-    // Get all routes from Sidebar structure
-    getAllSidebarRoutes: function getAllSidebarRoutes() {
-      var _this5 = this;
-      var routes = [];
-
-      // Helper function to add route
-      var addRoute = function addRoute(routeName, translationKey) {
-        var icon = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
-        if (!routeName) return;
-
-        // Get translations in both languages
-        var enTranslation = _this5.getTranslation('en', translationKey);
-        var arTranslation = _this5.getTranslation('ar', translationKey);
-        routes.push({
-          route: routeName,
-          text: translationKey,
-          icon: icon,
-          enText: enTranslation,
-          arText: arTranslation
-        });
-      };
-
-      // Dashboard
-      addRoute('home', 'Dashboard', 'fas fa-home');
-
-      // Sales section
-      if (this.$can('invoice-list') || this.$can('invoice-create') || this.$can('quotation-list') || this.$can('quotation-create')) {
-        addRoute('pos.create', 'POS', 'fas fa-cash-register');
-        addRoute('quotations.index', 'Quotations List', 'fas fa-th-list');
-        addRoute('invoices.index', 'Invoices List', 'fas fa-file-invoice');
-        addRoute('invoiceReturns.index', 'Returns List', 'fas fa-undo-alt');
-        addRoute('clients.index', 'Clients', 'fas fa-users');
-      }
-
-      // Purchases section
-      if (this.$can('purchase-list') || this.$can('purchase-create') || this.$can('purchase-order-list')) {
-        addRoute('purchase-order.index', 'Purchase Orders', 'fas fa-file-invoice');
-        addRoute('purchases.index', 'Purchases List', 'fas fa-truck-loading');
-        addRoute('purchaseReturns.index', 'Returns List', 'fas fa-undo-alt');
-        addRoute('suppliers.index', 'Suppliers', 'fas fa-people-carry');
-      }
-
-      // Employees section
-      if (this.$can('employee-list') || this.$can('department-list') || this.$can('increment-list')) {
-        addRoute('departments.index', 'Departments', 'fas fa-server');
-        addRoute('employees.index', 'Employees List', 'fas fa-list-ul');
-        addRoute('increments.index', 'Increments', 'fas fa-list-ul');
-      }
-
-      // Accounting section
-      if ((this.$can('account-list') || this.$can('chart-of-account-list') || this.$can('account-balance-list')) && (this.$canAccessModule('accounting') || this.$canAccessModule('both'))) {
-        addRoute('chart-of-accounts.index', 'Chart of Accounts', 'fas fa-chart-line');
-        addRoute('accounts.index', 'Bank Accounts', 'fas fa-university');
-        addRoute('balances.index', 'Balance Adjustments', 'fas fa-sliders-h');
-        addRoute('transferBalances.index', 'Balance Transfers', 'fas fa-exchange-alt');
-        addRoute('transactions.index', 'Transaction History', 'fas fa-history');
-      }
-
-      // Cost Centers
-      if ((this.$can('view_cost_centers') || this.$can('create_cost_center')) && (this.$canAccessModule('accounting') || this.$canAccessModule('both'))) {
-        addRoute('cost-centers.index', 'All Cost Centers', 'fas fa-list');
-        addRoute('cost-centers.tree', 'Tree View', 'fas fa-sitemap');
-        addRoute('cost-centers.create', 'Create Cost Center', 'fas fa-plus');
-      }
-
-      // Cost Allocations
-      // Hidden for now
-      /*
-      if ((this.$can('view_cost_centers') || this.$can('create_cost_center')) && 
-          (this.$canAccessModule('accounting') || this.$canAccessModule('both'))) {
-        addRoute('cost-allocations.index', 'Allocation Rules', 'fas fa-list');
-        addRoute('cost-allocations.create', 'Create Rule', 'fas fa-plus');
-      }
-      */
-
-      // Journal Entries
-      if ((this.$can('journal-entry-list') || this.$can('journal-entry-create')) && (this.$canAccessModule('accounting') || this.$canAccessModule('both'))) {
-        addRoute('journal-entries.index', 'All Entries', 'fas fa-list');
-        addRoute('journal-entries.create', 'New Entry', 'fas fa-plus');
-      }
-
-      // Expenses
-      if (!this.$isPOS() && (this.$can('expense-list') || this.$can('expense-category-list'))) {
-        addRoute('expenseCats.index', 'Categories', 'fas fa-tags');
-        addRoute('expenseSubCats.index', 'Sub Categories', 'fas fa-code-branch');
-        addRoute('expenses.index', 'Expenses List', 'fas fa-list-ul');
-      }
-
-      // Vouchers
-      if (!this.$isPOS() && this.$can('payment-voucher-list')) {
-        addRoute('receiveVouchers.index', 'Receive Vouchers', 'fas fa-arrow-down');
-        addRoute('sendVouchers.index', 'Send Vouchers', 'fas fa-arrow-up');
-      }
-
-      // Payments
-      if (!this.$isPOS()) {
-        if (this.$can('invoice-payment-list') || this.$can('non-invoice-payment-list')) {
-          addRoute('invoicePayments.index', 'Invoice', 'fas fa-file-invoice');
-          addRoute('nonInvoicePayments.index', 'Non Invoice', 'fas fa-file-alt');
-        }
-        if (this.$can('purchase-payment-list') || this.$can('non-purchase-payment-list')) {
-          addRoute('purchasePayments.index', 'Purchase', 'fas fa-plane-departure');
-          addRoute('nonPurchasePayments.index', 'Non Purchase', 'fas fa-truck-pickup');
-        }
-      }
-
-      // Loan Management
-      if (!this.$isPOS() && (this.$can('loan-list') || this.$can('loan-authority-list'))) {
-        addRoute('authorities.index', 'Authorities', 'fas fa-building');
-        addRoute('loans.index', 'Loans', 'fas fa-list-ul');
-        addRoute('loanPayments.index', 'Payments', 'fas fa-receipt');
-      }
-
-      // Asset Management
-      if (!this.$isPOS() && (this.$can('asset-list') || this.$can('asset-type-list'))) {
-        addRoute('assetTypes.index', 'Types', 'fas fa-tags');
-        addRoute('assets.index', 'Assets', 'fas fa-list-ul');
-      }
-
-      // Payroll
-      if (!this.$isPOS() && this.$can('payroll-list')) {
-        addRoute('payroll.index', 'Payroll', 'fas fa-clipboard-list');
-      }
-
-      // Inventory
-      if (this.$can('product-create') || this.$can('product-category-create')) {
-        addRoute('productCats.index', 'Categories', 'fas fa-tags');
-        addRoute('productSubCats.index', 'Sub Categories', 'fas fa-code-branch');
-        addRoute('products.index', 'Item List', 'fas fa-list-ul');
-        if (this.$can('print-barcode')) {
-          addRoute('barcode.print', 'Barcode', 'fas fa-barcode');
-        }
-      }
-      if (this.$can('inventory') || this.$can('adjustment-create')) {
-        addRoute('inventory.index', 'View Inventory', 'fas fa-pallet');
-        addRoute('inventory.history-general', 'Inventory History', 'fas fa-history');
-        addRoute('inventory.count', 'Inventory Count', 'fas fa-clipboard-check');
-        addRoute('adjustments.index', 'Inventory Adjustment', 'fas fa-sliders-h');
-      }
-
-      // Reports
-      if (!this.$isPOS()) {
-        if (this.$can('account-statement')) {
-          addRoute('reports.accountStatement', 'Account Statement', 'fas fa-chart-bar');
-          addRoute('reports.groupAccountStatement', 'Group Account Statement', 'fas fa-chart-bar');
-          addRoute('reports.invoiceSummary', 'Invoice Summary', 'fas fa-chart-bar');
-          addRoute('reports.purchaseSummary', 'Purchase Summary', 'fas fa-chart-bar');
-        }
-        if (this.$can('balance-sheet') && (this.$canAccessModule('accounting') || this.$canAccessModule('both'))) {
-          addRoute('reports.balanceSheet', 'Balance Sheet', 'fas fa-chart-bar');
-          addRoute('reports.trialBalance', 'Trial Balance', 'fas fa-chart-bar');
-        }
-        if (this.$can('vat-report') && (this.$canAccessModule('accounting') || this.$canAccessModule('both'))) {
-          addRoute('reports.vatReport', 'VAT Report', 'fas fa-chart-bar');
-        }
-        if (this.$can('today-profit')) {
-          addRoute('reports.todayReport', 'Today Report', 'fas fa-chart-bar');
-        }
-        if (this.$can('summary-report') && (this.$canAccessModule('accounting') || this.$canAccessModule('both'))) {
-          addRoute('reports.summary', 'Summary Report', 'fas fa-chart-bar');
-        }
-        if (this.$can('profit-loss') && (this.$canAccessModule('accounting') || this.$canAccessModule('both'))) {
-          addRoute('reports.profitLoss', 'Profit/Loss Report', 'fas fa-chart-bar');
-        }
-        if (this.$can('expense-report')) {
-          addRoute('reports.expenses', 'Expense Report', 'fas fa-chart-bar');
-        }
-        if (this.$can('item-report')) {
-          addRoute('reports.items', 'Item Report', 'fas fa-chart-bar');
-        }
-        if (this.$can('inventory-report')) {
-          addRoute('reports.inventory', 'Inventory Report', 'fas fa-chart-bar');
-        }
-        if (this.$can('balance-sheet')) {
-          addRoute('reports.supplierPayableReport', 'Supplier Payable Report', 'fas fa-chart-bar');
-          addRoute('reports.clientReceivableReport', 'Client Receivable Report', 'fas fa-chart-bar');
-        }
-        if (this.$can('sales-by-user-report')) {
-          addRoute('reports.salesByUserReport', 'Sales By User Report', 'fas fa-chart-bar');
-        }
-        if (this.$can('collection-by-user-report')) {
-          addRoute('reports.collectionByUserReport', 'Collection By User Report', 'fas fa-chart-bar');
-        }
-      }
-
-      // Others
-      if (!this.$isPOS()) {
-        if (this.$can('branches-list') || this.$can('branches-create')) {
-          addRoute('branches.index', 'Branches', 'fas fa-sitemap');
-        }
-        if (this.$can('role-permissions') || this.$can('units') || this.$can('currencies') || this.$can('general-settings')) {
-          addRoute('setup.index', 'Setup', 'fas fa-cogs');
-        }
-        if (this.$can('print-templates')) {
-          addRoute('print-templates', 'Print Templates', 'fas fa-print');
-        }
-        addRoute('activity.log', 'Activity log', 'fa fa-bell');
-        addRoute('settings.billing', 'Billing', 'fas fa-money-check-alt');
-        addRoute('settings.profile', 'Profile', 'fas fa-user-circle');
-        if (this.$can('domain-management')) {
-          addRoute('domains.index', 'Domain Management', 'fas fa-server');
-          addRoute('domain-requests.index', 'Domain Request', 'fas fa-file-import');
-        }
-        if (this.$can('database-backup')) {
-          addRoute('backup', 'Database Backup', 'fas fa-download');
-        }
-      }
-      return routes;
-    },
-    // Helper to get translation in specific language (optimized)
-    getTranslation: function getTranslation(locale, key) {
-      try {
-        var i18n = this.$i18n;
-        // Access messages directly from i18n without switching locale
-        if (i18n && i18n.messages && i18n.messages[locale]) {
-          var messages = i18n.messages[locale];
-          if (messages && messages[key]) {
-            return messages[key];
-          }
-        }
-        // Fallback: return key if translation not found
-        return key;
-      } catch (error) {
-        return key;
-      }
-    },
-    // Search through routes with debouncing
-    searchMenu: function searchMenu() {
-      var _this6 = this;
-      // Clear existing timer
-      if (this.searchDebounceTimer) {
-        clearTimeout(this.searchDebounceTimer);
-      }
-
-      // Debounce the search to avoid running on every keystroke
-      this.searchDebounceTimer = setTimeout(function () {
-        _this6.performSearch();
-      }, 150); // 150ms delay
-    },
-    // Perform the actual search
-    performSearch: function performSearch() {
-      var menuSearchQuery = this.menuSearchQuery.trim().toLowerCase();
-      if (!menuSearchQuery) {
-        this.menuItems = [];
-        return;
-      }
-      try {
-        // Get cached routes or calculate them once
-        if (!this.cachedRoutes) {
-          this.cachedRoutes = this.getAllSidebarRoutes();
-        }
-        var allRoutes = this.cachedRoutes;
-
-        // Filter routes based on search query
-        var matchedRoutes = allRoutes.filter(function (route) {
-          // Search in English translation
-          var enMatch = route.enText && route.enText.toLowerCase().includes(menuSearchQuery);
-          // Search in Arabic translation
-          var arMatch = route.arText && route.arText.toLowerCase().includes(menuSearchQuery);
-          // Search in route name
-          var routeMatch = route.route && route.route.toLowerCase().includes(menuSearchQuery);
-          // Search in translation key
-          var keyMatch = route.text && route.text.toLowerCase().includes(menuSearchQuery);
-          return enMatch || arMatch || routeMatch || keyMatch;
-        });
-
-        // Format results
-        this.menuItems = matchedRoutes.map(function (route) {
-          return {
-            route: route.route,
-            text: route.text,
-            icon: route.icon
-          };
-        });
-      } catch (error) {
-        console.error('Search error:', error);
-        this.menuItems = [];
-      }
-    },
-    logout: function logout() {
-      var _this7 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
-        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-          while (1) switch (_context3.prev = _context3.next) {
-            case 0:
-              _context3.next = 2;
-              return _this7.$store.dispatch("auth/logout");
-            case 2:
-              // Redirect to login.
-              _this7.$router.push({
-                name: "login"
-              });
-            case 3:
-            case "end":
-              return _context3.stop();
-          }
-        }, _callee3);
-      }))();
-    },
-    sideBarControl: function sideBarControl() {
-      document.body.classList.toggle("control-sidebar-slide-open");
-    },
-    forceFullWidthNavbar: function forceFullWidthNavbar() {
-      // Only apply on select-branch page
-      if (!this.isSelectBranchPage) {
-        this.resetNavbarStyles();
-        return;
-      }
-
-      // Force navbar to full width by directly manipulating the DOM
-      var navbar = this.$el;
-      if (navbar) {
-        // Set styles with !important using setProperty
-        navbar.style.setProperty('margin-left', '0', 'important');
-        navbar.style.setProperty('margin-right', '0', 'important');
-        navbar.style.setProperty('left', '0', 'important');
-        navbar.style.setProperty('right', '0', 'important');
-        navbar.style.setProperty('width', '100%', 'important');
-        navbar.style.setProperty('max-width', '100%', 'important');
-
-        // Also set on content-wrapper and footer
-        var contentWrapper = document.querySelector('.content-wrapper');
-        var mainFooter = document.querySelector('.main-footer');
-        if (contentWrapper) {
-          contentWrapper.style.setProperty('margin-left', '0', 'important');
-          contentWrapper.style.setProperty('margin-right', '0', 'important');
-        }
-        if (mainFooter) {
-          mainFooter.style.setProperty('margin-left', '0', 'important');
-          mainFooter.style.setProperty('margin-right', '0', 'important');
-        }
-      }
-    },
-    resetNavbarStyles: function resetNavbarStyles() {
-      // Remove inline styles to let CSS take over (for other pages)
-      var navbar = this.$el;
-      if (navbar) {
-        navbar.style.removeProperty('margin-left');
-        navbar.style.removeProperty('margin-right');
-        navbar.style.removeProperty('left');
-        navbar.style.removeProperty('right');
-        navbar.style.removeProperty('width');
-        navbar.style.removeProperty('max-width');
-      }
-      var contentWrapper = document.querySelector('.content-wrapper');
-      var mainFooter = document.querySelector('.main-footer');
-      if (contentWrapper) {
-        contentWrapper.style.removeProperty('margin-left');
-        contentWrapper.style.removeProperty('margin-right');
-      }
-      if (mainFooter) {
-        mainFooter.style.removeProperty('margin-left');
-        mainFooter.style.removeProperty('margin-right');
-      }
-    }
-  },
-  beforeDestroy: function beforeDestroy() {
-    // Clean up interval
-    if (this.navbarEnforcerInterval) {
-      clearInterval(this.navbarEnforcerInterval);
-      this.navbarEnforcerInterval = null;
-    }
-    // Clean up debounce timer
-    if (this.searchDebounceTimer) {
-      clearTimeout(this.searchDebounceTimer);
-      this.searchDebounceTimer = null;
-    }
-    // Reset styles when component is destroyed
-    this.resetNavbarStyles();
-  }
-});
-;// ./resources/js/components/Navbar.vue?vue&type=script&lang=js
- /* harmony default export */ const components_Navbarvue_type_script_lang_js = (Navbarvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-var injectStylesIntoStyleTag = __webpack_require__(85072);
-var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Navbar.vue?vue&type=style&index=0&id=05ba50bb&prod&scoped=true&lang=css
-var Navbarvue_type_style_index_0_id_05ba50bb_prod_scoped_true_lang_css = __webpack_require__(29329);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Navbar.vue?vue&type=style&index=0&id=05ba50bb&prod&scoped=true&lang=css
-
-            
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = injectStylesIntoStyleTag_default()(Navbarvue_type_style_index_0_id_05ba50bb_prod_scoped_true_lang_css/* default */.A, options);
-
-
-
-/* harmony default export */ const components_Navbarvue_type_style_index_0_id_05ba50bb_prod_scoped_true_lang_css = (Navbarvue_type_style_index_0_id_05ba50bb_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/components/Navbar.vue?vue&type=style&index=0&id=05ba50bb&prod&scoped=true&lang=css
-
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/components/Navbar.vue
-
-
-
-;
-
-
-/* normalize component */
-
-var component = (0,componentNormalizer/* default */.A)(
-  components_Navbarvue_type_script_lang_js,
-  Navbarvue_type_template_id_05ba50bb_scoped_true_render,
-  Navbarvue_type_template_id_05ba50bb_scoped_true_staticRenderFns,
-  false,
-  null,
-  "05ba50bb",
-  null
-  
-)
-
-/* harmony default export */ const Navbar = (component.exports);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Sidebar.vue?vue&type=template&id=326f9278
-var Sidebarvue_type_template_id_326f9278_render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('aside', {
-    staticClass: "main-sidebar"
-  }, [_c('router-link', {
-    staticClass: "brand-link",
-    attrs: {
-      "to": {
-        name: 'home'
-      }
-    }
-  }, [_vm.appInfo ? _c('img', {
-    staticClass: "lg-logo light-logo",
-    attrs: {
-      "src": _vm.appInfo.blackLogo,
-      "alt": _vm.appInfo.companyName
-    }
-  }) : _vm._e(), _vm._v(" "), _vm.appInfo ? _c('img', {
-    staticClass: "lg-logo dark-logo",
-    attrs: {
-      "src": _vm.appInfo.logo,
-      "alt": _vm.appInfo.companyName
-    }
-  }) : _vm._e(), _vm._v(" "), _vm.appInfo ? _c('img', {
-    staticClass: "sm-logo",
-    attrs: {
-      "src": _vm.appInfo.smallLogo,
-      "alt": "appInfo.companyName"
-    }
-  }) : _vm._e()]), _vm._v(" "), _c('div', {
-    staticClass: "sidebar custom-sidebar"
-  }, [_c('nav', {
-    staticClass: "custom-nav-padding"
-  }, [_c('ul', {
-    staticClass: "nav nav-pills nav-sidebar flex-column",
-    attrs: {
-      "data-widget": "treeview",
-      "role": "menu"
-    }
-  }, [_c('li', {
-    staticClass: "nav-header text-bold"
-  }, [_vm._v("\n          " + _vm._s(_vm.$t("Dashboard")) + "\n        ")]), _vm._v(" "), _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'home'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "nav-icon fas fa-home"
-  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Dashboard")))])])], 1), _vm._v(" "), _c('li', {
-    staticClass: "nav-header text-bold"
-  }, [_vm._v(_vm._s(_vm.$t("Sales")))]), _vm._v(" "), _vm.$isPOS() && (_vm.$can('invoice-list') || _vm.$can('invoice-create')) ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link pos-link",
-    attrs: {
-      "to": {
-        name: 'pos.create'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-cash-register nav-icon"
-  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("POS")))])])], 1) : _vm._e(), _vm._v(" "), !_vm.$isPOS() && (_vm.$can('quotation-list') || _vm.$can('quotation-create') || _vm.$can('quotation-view') || _vm.$can('quotation-edit') || _vm.$can('quotation-delete') || _vm.$can('quotation-to-invoice') || _vm.$can('invoice-list') || _vm.$can('invoice-create') || _vm.$can('invoice-view') || _vm.$can('invoice-edit') || _vm.$can('invoice-delete') || _vm.$can('invoice-return-list') || _vm.$can('invoice-return-create') || _vm.$can('invoice-return-view') || _vm.$can('invoice-return-edit') || _vm.$can('invoice-return-delete')) ? _c('li', {
-    staticClass: "nav-item has-treeview",
-    "class": _vm.menuOpen('quotations') || _vm.menuOpen('invoices') || _vm.menuOpen('invoiceReturns') || _vm.menuOpen('pos') || _vm.menuOpen('clients') ? 'menu-is-opening menu-open' : ''
-  }, [_c('a', {
-    staticClass: "nav-link",
-    attrs: {
-      "href": "#"
-    }
-  }, [_c('i', {
-    staticClass: "nav-icon fas fa-shopping-bag"
-  }), _vm._v(" "), _c('p', [_vm._v("\n              " + _vm._s(_vm.$t("Sales")) + "\n              "), _c('span', {
-    staticClass: "toggle-icon"
-  })])]), _vm._v(" "), _c('ul', {
-    staticClass: "nav nav-treeview",
-    style: _vm.menuOpen('quotations') || _vm.menuOpen('invoices') || _vm.menuOpen('invoiceReturns') || _vm.menuOpen('pos') || _vm.menuOpen('clients') ? 'display: block' : 'display: none'
-  }, [_vm.$can('quotation-list') || _vm.$can('quotation-create') || _vm.$can('quotation-view') || _vm.$can('quotation-edit') || _vm.$can('quotation-delete') || _vm.$can('quotation-to-invoice') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'quotations.index'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-th-list nav-icon"
-  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Quotations List")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('invoice-list') || _vm.$can('invoice-create') || _vm.$can('invoice-view') || _vm.$can('invoice-edit') || _vm.$can('invoice-delete') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'invoices.index'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-file-invoice nav-icon"
-  }), _vm._v(" "), _c('p', [_vm._v("\n                  " + _vm._s(_vm.$t("Invoices List")) + "\n                  "), _vm.$can('invoice-create') ? _c('router-link', {
-    staticClass: "add-btn-inline",
-    attrs: {
-      "to": {
-        name: 'invoices.create'
-      }
-    },
-    on: {
-      "click": function click($event) {
-        $event.stopPropagation();
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-plus"
-  })]) : _vm._e()], 1)])], 1) : _vm._e(), _vm._v(" "), (_vm.$can('invoice-list') || _vm.$can('invoice-create') || _vm.$can('invoice-view') || _vm.$can('invoice-edit') || _vm.$can('invoice-delete')) && (_vm.$canAccessModule('pos') || _vm.$canAccessModule('both')) ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link pos-link",
-    attrs: {
-      "to": {
-        name: 'pos.create'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-cash-register nav-icon"
-  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("POS")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('invoice-return-list') || _vm.$can('invoice-return-create') || _vm.$can('invoice-return-view') || _vm.$can('invoice-return-edit') || _vm.$can('invoice-return-delete') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'invoiceReturns.index'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-undo-alt nav-icon"
-  }), _vm._v(" "), _c('p', [_vm._v("\n                  " + _vm._s(_vm.isSaudiArabia ? _vm.$t("Credit notes") : _vm.$t("Returns List")) + "\n                ")])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('client-list') || _vm.$can('client-create') || _vm.$can('client-view') || _vm.$can('client-edit') || _vm.$can('client-delete') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'clients.index'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-users nav-icon"
-  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Clients")))])])], 1) : _vm._e()])]) : _vm._e(), _vm._v(" "), !_vm.$isPOS() ? _c('li', {
-    staticClass: "nav-header text-bold"
-  }, [_vm._v(_vm._s(_vm.$t("Purchases")))]) : _vm._e(), _vm._v(" "), _vm.$can('purchase-list') || _vm.$can('purchase-create') || _vm.$can('purchase-edit') || _vm.$can('purchase-view') || _vm.$can('purchase-delete') || _vm.$can('purchase-return-list') || _vm.$can('purchase-return-create') || _vm.$can('purchase-return-edit') || _vm.$can('purchase-return-view') || _vm.$can('purchase-return-delete') ? _c('li', {
-    staticClass: "nav-item has-treeview",
-    "class": _vm.menuOpen('purchases') || _vm.menuOpen('purchaseReturns') || _vm.menuOpen('purchase-order') || _vm.menuOpen('suppliers') ? 'menu-is-opening menu-open' : ''
-  }, [_c('a', {
-    staticClass: "nav-link",
-    attrs: {
-      "href": "#"
-    }
-  }, [_c('i', {
-    staticClass: "nav-icon fas fa-shopping-basket"
-  }), _vm._v(" "), _c('p', [_vm._v("\n              " + _vm._s(_vm.$t("Purchases")) + "\n              "), _c('span', {
-    staticClass: "toggle-icon"
-  })])]), _vm._v(" "), _c('ul', {
-    staticClass: "nav nav-treeview",
-    style: _vm.menuOpen('purchases') || _vm.menuOpen('purchaseReturns') || _vm.menuOpen('purchase-order') || _vm.menuOpen('suppliers') ? 'display: block' : 'display: none'
-  }, [_vm.$can('purchase-order-list') || _vm.$can('purchase-order-create') || _vm.$can('purchase-order-edit') || _vm.$can('purchase-order-view') || _vm.$can('purchase-order-delete') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'purchase-order.index'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-file-invoice nav-icon"
-  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Purchase Orders")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('purchase-list') || _vm.$can('purchase-create') || _vm.$can('purchase-edit') || _vm.$can('purchase-view') || _vm.$can('purchase-delete') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'purchases.index'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-truck-loading nav-icon"
-  }), _vm._v(" "), _c('p', [_vm._v("\n                  " + _vm._s(_vm.$t("Purchases List")) + "\n                  "), _vm.$can('purchase-create') ? _c('router-link', {
-    staticClass: "add-btn-inline",
-    attrs: {
-      "to": {
-        name: 'purchases.create'
-      }
-    },
-    on: {
-      "click": function click($event) {
-        $event.stopPropagation();
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-plus"
-  })]) : _vm._e()], 1)])], 1) : _vm._e(), _vm._v(" "), _vm.$can('purchase-return-list') || _vm.$can('purchase-return-create') || _vm.$can('purchase-return-edit') || _vm.$can('purchase-return-view') || _vm.$can('purchase-return-delete') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'purchaseReturns.index'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-undo-alt nav-icon"
-  }), _vm._v(" "), _c('p', [_vm._v("\n                  " + _vm._s(_vm.isSaudiArabia ? _vm.$t("Debit notes") : _vm.$t("Returns List")) + "\n                ")])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('supplier-list') || _vm.$can('supplier-create') || _vm.$can('supplier-view') || _vm.$can('supplier-edit') || _vm.$can('supplier-delete') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'suppliers.index'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-people-carry nav-icon"
-  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Suppliers")))])])], 1) : _vm._e()])]) : _vm._e(), _vm._v(" "), !_vm.$isPOS() ? _c('li', {
-    staticClass: "nav-header text-bold"
-  }, [_vm._v(_vm._s(_vm.$t("Employees")))]) : _vm._e(), _vm._v(" "), _vm.$can('department-list') || _vm.$can('department-create') || _vm.$can('department-edit') || _vm.$can('department-delete') || _vm.$can('employee-list') || _vm.$can('employee-create') || _vm.$can('employee-edit') || _vm.$can('employee-delete') || _vm.$can('employee-view') || _vm.$can('increment-list') || _vm.$can('increment-create') || _vm.$can('increment-edit') || _vm.$can('increment-view') || _vm.$can('increment-delete') ? _c('li', {
-    staticClass: "nav-item has-treeview",
-    "class": _vm.menuOpen('departments') || _vm.menuOpen('employees') || _vm.menuOpen('increments') ? 'menu-is-opening menu-open' : ''
-  }, [_c('a', {
-    staticClass: "nav-link",
-    attrs: {
-      "href": "#"
-    }
-  }, [_c('i', {
-    staticClass: "nav-icon fas fa-users-cog"
-  }), _vm._v(" "), _c('p', [_vm._v("\n              " + _vm._s(_vm.$t("Employees")) + "\n              "), _c('span', {
-    staticClass: "toggle-icon"
-  })])]), _vm._v(" "), _c('ul', {
-    staticClass: "nav nav-treeview",
-    style: _vm.menuOpen('departments') || _vm.menuOpen('employees') || _vm.menuOpen('increments') ? 'display: block' : 'display: none'
-  }, [_vm.$can('department-list') || _vm.$can('department-create') || _vm.$can('department-edit') || _vm.$can('department-delete') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'departments.index'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-server nav-icon"
-  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Departments")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('employee-list') || _vm.$can('employee-create') || _vm.$can('employee-edit') || _vm.$can('employee-delete') || _vm.$can('employee-view') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'employees.index'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-list-ul nav-icon"
-  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Employees List")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('increment-list') || _vm.$can('increment-create') || _vm.$can('increment-edit') || _vm.$can('increment-view') || _vm.$can('increment-delete') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'increments.index'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-list-ul nav-icon"
-  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Increments")))])])], 1) : _vm._e()])]) : _vm._e(), _vm._v(" "), _vm.$canAccessModule('accounting') || _vm.$canAccessModule('both') ? _c('li', {
-    staticClass: "nav-header text-bold"
-  }, [_vm._v(_vm._s(_vm.$t("ACCOUNTING")))]) : _vm._e(), _vm._v(" "), (_vm.$can('account-list') || _vm.$can('account-create') || _vm.$can('account-view') || _vm.$can('account-edit') || _vm.$can('account-delete') || _vm.$can('chart-of-account-list') || _vm.$can('chart-of-account-create') || _vm.$can('chart-of-account-edit') || _vm.$can('chart-of-account-view') || _vm.$can('chart-of-account-delete') || _vm.$can('account-balance-list') || _vm.$can('account-balance-create') || _vm.$can('account-balance-edit') || _vm.$can('account-balance-delete') || _vm.$can('account-transfer-balance-list') || _vm.$can('account-transfer-balance-create') || _vm.$can('account-transfer-balance-edit') || _vm.$can('account-transfer-balance-view') || _vm.$can('account-transfer-balance-delete') || _vm.$can('transaction-history')) && (_vm.$canAccessModule('accounting') || _vm.$canAccessModule('both')) ? _c('li', {
-    staticClass: "nav-item has-treeview",
-    "class": _vm.menuOpen('accounts') || _vm.menuOpen('balances') || _vm.menuOpen('transferBalances') || _vm.menuOpen('transactions') || _vm.menuOpen('chart-of-accounts') ? 'menu-is-opening menu-open' : ''
-  }, [_c('a', {
-    staticClass: "nav-link",
-    attrs: {
-      "href": "#"
-    }
-  }, [_c('i', {
-    staticClass: "nav-icon fas fa-book"
-  }), _vm._v(" "), _c('p', [_vm._v("\n              " + _vm._s(_vm.$t("Cashbook & Accounts")) + "\n              "), _c('span', {
-    staticClass: "toggle-icon"
-  })])]), _vm._v(" "), _c('ul', {
-    staticClass: "nav nav-treeview",
-    style: _vm.menuOpen('accounts') || _vm.menuOpen('balances') || _vm.menuOpen('transferBalances') || _vm.menuOpen('transactions') || _vm.menuOpen('chart-of-accounts') ? 'display: block' : 'display: none'
-  }, [_vm.$can('chart-of-account-list') || _vm.$can('chart-of-account-create') || _vm.$can('chart-of-account-edit') || _vm.$can('chart-of-account-view') || _vm.$can('chart-of-account-delete') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'chart-of-accounts.index'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-chart-line nav-icon"
-  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Chart of Accounts")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('account-list') || _vm.$can('account-create') || _vm.$can('account-view') || _vm.$can('account-edit') || _vm.$can('account-delete') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'accounts.index'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-university nav-icon"
-  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Bank Accounts")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('account-balance-list') || _vm.$can('account-balance-create') || _vm.$can('account-balance-edit') || _vm.$can('account-balance-delete') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'balances.index'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-sliders-h nav-icon"
-  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Balance Adjustments")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('account-transfer-balance-list') || _vm.$can('account-transfer-balance-create') || _vm.$can('account-transfer-balance-edit') || _vm.$can('account-transfer-balance-view') || _vm.$can('account-transfer-balance-delete') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'transferBalances.index'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-exchange-alt nav-icon"
-  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Balance Transfers")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('transaction-history') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'transactions.index'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-history nav-icon"
-  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Transaction History")))])])], 1) : _vm._e()])]) : _vm._e(), _vm._v(" "), (_vm.$can('view_cost_centers') || _vm.$can('create_cost_center') || _vm.$can('update_cost_center') || _vm.$can('delete_cost_center')) && (_vm.$canAccessModule('accounting') || _vm.$canAccessModule('both')) ? _c('li', {
-    staticClass: "nav-item has-treeview",
-    "class": _vm.menuOpen('cost-centers') ? 'menu-is-opening menu-open' : ''
-  }, [_c('a', {
-    staticClass: "nav-link",
-    attrs: {
-      "href": "#"
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-sitemap nav-icon"
-  }), _vm._v(" "), _c('p', [_vm._v("\n              " + _vm._s(_vm.$t("Cost Centers")) + "\n              "), _c('span', {
-    staticClass: "toggle-icon"
-  })])]), _vm._v(" "), _c('ul', {
-    staticClass: "nav nav-treeview",
-    style: _vm.menuOpen('cost-centers') ? 'display: block' : 'display: none'
-  }, [_vm.$can('view_cost_centers') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'cost-centers.index'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-list nav-icon"
-  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("All Cost Centers")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('view_cost_centers') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'cost-centers.tree'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-sitemap nav-icon"
-  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Tree View")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('create_cost_center') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'cost-centers.create'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-plus nav-icon"
-  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Create Cost Center")))])])], 1) : _vm._e()])]) : _vm._e(), _vm._v(" "), (_vm.$can('journal-entry-list') || _vm.$can('journal-entry-create') || _vm.$can('journal-entry-view') || _vm.$can('journal-entry-edit')) && (_vm.$canAccessModule('accounting') || _vm.$canAccessModule('both')) ? _c('li', {
-    staticClass: "nav-item has-treeview",
-    "class": _vm.menuOpen('journal-entries') ? 'menu-is-opening menu-open' : ''
-  }, [_c('a', {
-    staticClass: "nav-link",
-    attrs: {
-      "href": "#"
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-book nav-icon"
-  }), _vm._v(" "), _c('p', [_vm._v("\n              " + _vm._s(_vm.$t("Journal Entries")) + "\n              "), _c('span', {
-    staticClass: "toggle-icon"
-  })])]), _vm._v(" "), _c('ul', {
-    staticClass: "nav nav-treeview",
-    style: _vm.menuOpen('journal-entries') ? 'display: block' : 'display: none'
-  }, [_vm.$can('journal-entry-list') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'journal-entries.index'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-list nav-icon"
-  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("All Entries")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('journal-entry-create') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'journal-entries.create'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-plus nav-icon"
-  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("New Entry")))])])], 1) : _vm._e()])]) : _vm._e(), _vm._v(" "), !_vm.$isPOS() && (_vm.$can('expense-category-list') || _vm.$can('expense-category-create') || _vm.$can('expense-category-edit') || _vm.$can('expense-category-delete') || _vm.$can('expense-sub-category-list') || _vm.$can('expense-sub-category-create') || _vm.$can('expense-sub-category-edit') || _vm.$can('expense-sub-category-delete') || _vm.$can('expense-list') || _vm.$can('expense-create') || _vm.$can('expense-edit') || _vm.$can('expense-view') || _vm.$can('expense-delete')) ? _c('li', {
-    staticClass: "nav-item has-treeview",
-    "class": _vm.menuOpen('expenseCats') || _vm.menuOpen('expenseSubCats') || _vm.menuOpen('expenses') ? 'menu-is-opening menu-open' : ''
-  }, [_c('a', {
-    staticClass: "nav-link",
-    attrs: {
-      "href": "#"
-    }
-  }, [_c('i', {
-    staticClass: "nav-icon fas fa-calculator"
-  }), _vm._v(" "), _c('p', [_vm._v("\n              " + _vm._s(_vm.$t("Expenses")) + "\n              "), _c('span', {
-    staticClass: "toggle-icon"
-  })])]), _vm._v(" "), _c('ul', {
-    staticClass: "nav nav-treeview",
-    style: _vm.menuOpen('expenseCats') || _vm.menuOpen('expenseSubCats') || _vm.menuOpen('expenses') ? 'display: block' : 'display: none'
-  }, [_vm.$can('expense-category-list') || _vm.$can('expense-category-create') || _vm.$can('expense-category-edit') || _vm.$can('expense-category-delete') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'expenseCats.index'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-tags nav-icon"
-  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Categories")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('expense-sub-category-list') || _vm.$can('expense-sub-category-create') || _vm.$can('expense-sub-category-edit') || _vm.$can('expense-sub-category-delete') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'expenseSubCats.index'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-code-branch nav-icon"
-  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Sub Categories")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('expense-list') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'expenses.index'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-list-ul nav-icon"
-  }), _vm._v(" "), _c('p', [_vm._v("\n                  " + _vm._s(_vm.$t("Expenses List")) + "\n                  "), _vm.$can('expense-create') ? _c('router-link', {
-    staticClass: "add-btn-inline",
-    attrs: {
-      "to": {
-        name: 'expenses.create'
-      }
-    },
-    on: {
-      "click": function click($event) {
-        $event.stopPropagation();
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-plus"
-  })]) : _vm._e()], 1)])], 1) : _vm._e()])]) : _vm._e(), _vm._v(" "), !_vm.$isPOS() && (_vm.$can('payment-voucher-list') || _vm.$can('payment-voucher-create') || _vm.$can('payment-voucher-edit') || _vm.$can('payment-voucher-view') || _vm.$can('payment-voucher-delete')) ? _c('li', {
-    staticClass: "nav-item has-treeview",
-    "class": _vm.menuOpen('receiveVouchers') || _vm.menuOpen('sendVouchers') ? 'menu-is-opening menu-open' : ''
-  }, [_c('a', {
-    staticClass: "nav-link",
-    attrs: {
-      "href": "#"
-    }
-  }, [_c('i', {
-    staticClass: "nav-icon fas fa-file-invoice-dollar"
-  }), _vm._v(" "), _c('p', [_vm._v("\n              " + _vm._s(_vm.$t("Vouchers")) + "\n              "), _c('span', {
-    staticClass: "toggle-icon"
-  })])]), _vm._v(" "), _c('ul', {
-    staticClass: "nav nav-treeview",
-    style: _vm.menuOpen('receiveVouchers') || _vm.menuOpen('sendVouchers') ? 'display: block' : 'display: none'
-  }, [_vm.$can('payment-voucher-list') || _vm.$can('payment-voucher-create') || _vm.$can('payment-voucher-edit') || _vm.$can('payment-voucher-view') || _vm.$can('payment-voucher-delete') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'receiveVouchers.index'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-arrow-down nav-icon"
-  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Receive Vouchers")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('payment-voucher-list') || _vm.$can('payment-voucher-create') || _vm.$can('payment-voucher-edit') || _vm.$can('payment-voucher-view') || _vm.$can('payment-voucher-delete') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'sendVouchers.index'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-arrow-up nav-icon"
-  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Send Vouchers")))])])], 1) : _vm._e()])]) : _vm._e(), _vm._v(" "), !_vm.$isPOS() && (_vm.$can('loan-authority-list') || _vm.$can('loan-authority-create') || _vm.$can('loan-authority-view') || _vm.$can('loan-authority-edit') || _vm.$can('loan-authority-delete') || _vm.$can('loan-list') || _vm.$can('loan-create') || _vm.$can('loan-view') || _vm.$can('loan-edit') || _vm.$can('loan-delete') || _vm.$can('loan-payment-list') || _vm.$can('loan-payment-create') || _vm.$can('loan-payment-view') || _vm.$can('loan-payment-edit') || _vm.$can('loan-payment-delete')) ? _c('li', {
-    staticClass: "nav-item has-treeview",
-    "class": _vm.menuOpen('authorities') || _vm.menuOpen('loans') || _vm.menuOpen('loanPayments') ? 'menu-is-opening menu-open' : ''
-  }, [_c('a', {
-    staticClass: "nav-link",
-    attrs: {
-      "href": "#"
-    }
-  }, [_c('i', {
-    staticClass: "nav-icon fas fa-piggy-bank"
-  }), _vm._v(" "), _c('p', [_vm._v("\n              " + _vm._s(_vm.$t("Loan Management")) + "\n              "), _c('span', {
-    staticClass: "toggle-icon"
-  })])]), _vm._v(" "), _c('ul', {
-    staticClass: "nav nav-treeview",
-    style: _vm.menuOpen('authorities') || _vm.menuOpen('loans') || _vm.menuOpen('loanPayments') ? 'display: block' : 'display: none'
-  }, [_vm.$can('loan-authority-list') || _vm.$can('loan-authority-create') || _vm.$can('loan-authority-view') || _vm.$can('loan-authority-edit') || _vm.$can('loan-authority-delete') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'authorities.index'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-building nav-icon"
-  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Authorities")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('loan-list') || _vm.$can('loan-create') || _vm.$can('loan-view') || _vm.$can('loan-edit') || _vm.$can('loan-delete') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'loans.index'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-list-ul nav-icon"
-  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Loans")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('loan-payment-list') || _vm.$can('loan-payment-create') || _vm.$can('loan-payment-view') || _vm.$can('loan-payment-edit') || _vm.$can('loan-payment-delete') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'loanPayments.index'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-receipt nav-icon"
-  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Payments")))])])], 1) : _vm._e()])]) : _vm._e(), _vm._v(" "), !_vm.$isPOS() && (_vm.$can('asset-type-list') || _vm.$can('asset-type-create') || _vm.$can('asset-type-edit') || _vm.$can('asset-type-delete') || _vm.$can('asset-list') || _vm.$can('asset-create') || _vm.$can('asset-view') || _vm.$can('asset-edit') || _vm.$can('asset-delete')) ? _c('li', {
-    staticClass: "nav-item has-treeview",
-    "class": _vm.menuOpen('assetTypes') || _vm.menuOpen('assets') ? 'menu-is-opening menu-open' : ''
-  }, [_c('a', {
-    staticClass: "nav-link",
-    attrs: {
-      "href": "#"
-    }
-  }, [_c('i', {
-    staticClass: "nav-icon fas fa-couch"
-  }), _vm._v(" "), _c('p', [_vm._v("\n              " + _vm._s(_vm.$t("Asset Management")) + "\n              "), _c('span', {
-    staticClass: "toggle-icon"
-  })])]), _vm._v(" "), _c('ul', {
-    staticClass: "nav nav-treeview",
-    style: _vm.menuOpen('assetTypes') || _vm.menuOpen('assets') ? 'display: block' : 'display: none'
-  }, [_vm.$can('asset-type-list') || _vm.$can('asset-type-create') || _vm.$can('asset-type-edit') || _vm.$can('asset-type-delete') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'assetTypes.index'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-tags nav-icon"
-  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Types")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('asset-list') || _vm.$can('asset-create') || _vm.$can('asset-view') || _vm.$can('asset-edit') || _vm.$can('asset-delete') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'assets.index'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-list-ul nav-icon"
-  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Assets")))])])], 1) : _vm._e()])]) : _vm._e(), _vm._v(" "), !_vm.$isPOS() && (_vm.$can('payroll-list') || _vm.$can('payroll-create') || _vm.$can('payroll-view') || _vm.$can('payroll-edit') || _vm.$can('payroll-delete')) ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'payroll.index'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "nav-icon fas fa-clipboard-list"
-  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Payroll")))])])], 1) : _vm._e(), _vm._v(" "), _c('li', {
-    staticClass: "nav-header text-bold"
-  }, [_vm._v("\n          " + _vm._s(_vm.$t("Inventory Management")) + "\n        ")]), _vm._v(" "), _vm.$can('units-management') || _vm.$can('product-category-create') || _vm.$can('product-category-edit') || _vm.$can('product-category-delete') || _vm.$can('product-sub-category-create') || _vm.$can('product-sub-category-edit') || _vm.$can('product-sub-category-delete') || _vm.$can('product-create') || _vm.$can('product-view') || _vm.$can('product-edit') || _vm.$can('product-delete') || _vm.$can('inventory-view') ? _c('li', {
-    staticClass: "nav-item has-treeview",
-    "class": _vm.menuOpen('inventorySettings') || _vm.menuOpen('units') || _vm.menuOpen('warehouses') || _vm.menuOpen('productCats') || _vm.menuOpen('productSubCats') || _vm.menuOpen('products') || _vm.menuOpen('itemsDirectory') ? 'menu-is-opening menu-open' : ''
-  }, [_c('a', {
-    staticClass: "nav-link",
-    attrs: {
-      "href": "#"
-    }
-  }, [_c('i', {
-    staticClass: "nav-icon fas fa-cog"
-  }), _vm._v(" "), _c('p', [_vm._v("\n              " + _vm._s(_vm.$t("Settings")) + "\n              "), _c('span', {
-    staticClass: "toggle-icon"
-  })])]), _vm._v(" "), _c('ul', {
-    staticClass: "nav nav-treeview",
-    style: _vm.menuOpen('inventorySettings') || _vm.menuOpen('units') || _vm.menuOpen('warehouses') || _vm.menuOpen('productCats') || _vm.menuOpen('productSubCats') || _vm.menuOpen('products') || _vm.menuOpen('itemsDirectory') ? 'display: block' : 'display: none'
-  }, [_vm.$can('units-management') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'units.index'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-balance-scale nav-icon"
-  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Units of Measurement")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('inventory-view') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'inventory.warehouses.index'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-warehouse nav-icon"
-  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Warehouses")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('product-category-create') || _vm.$can('product-category-edit') || _vm.$can('product-category-delete') || _vm.$can('product-sub-category-create') || _vm.$can('product-sub-category-edit') || _vm.$can('product-sub-category-delete') ? _c('li', {
-    staticClass: "nav-item has-treeview",
-    "class": _vm.menuOpen('productCats') || _vm.menuOpen('productSubCats') ? 'menu-is-opening menu-open' : ''
-  }, [_c('a', {
-    staticClass: "nav-link",
-    attrs: {
-      "href": "#"
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-tags nav-icon"
-  }), _vm._v(" "), _c('p', [_vm._v("\n                  " + _vm._s(_vm.$t("Item Categories")) + "\n                  "), _c('span', {
-    staticClass: "toggle-icon"
-  })])]), _vm._v(" "), _c('ul', {
-    staticClass: "nav nav-treeview",
-    style: _vm.menuOpen('productCats') || _vm.menuOpen('productSubCats') ? 'display: block' : 'display: none'
-  }, [_vm.$can('product-category-create') || _vm.$can('product-category-edit') || _vm.$can('product-category-delete') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'productCats.index'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-tags nav-icon"
-  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Categories")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('product-sub-category-create') || _vm.$can('product-sub-category-edit') || _vm.$can('product-sub-category-delete') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'productSubCats.index'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-code-branch nav-icon"
-  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Sub Categories")))])])], 1) : _vm._e()])]) : _vm._e(), _vm._v(" "), _vm.$can('product-create') || _vm.$can('product-view') || _vm.$can('product-edit') || _vm.$can('product-delete') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'products.index'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-list-ul nav-icon"
-  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Items")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('inventory-view') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'inventory.itemsDirectory.index'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-book nav-icon"
-  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Items Directory")))])])], 1) : _vm._e()])]) : _vm._e(), _vm._v(" "), _vm.$can('inventory-view') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'inventory.operations.index'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "nav-icon fas fa-tasks"
-  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Operations")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('item-report') || _vm.$can('inventory-report') ? _c('li', {
-    staticClass: "nav-item has-treeview",
-    "class": _vm.menuOpen('inventoryReports') ? 'menu-is-opening menu-open' : ''
-  }, [_c('a', {
-    staticClass: "nav-link",
-    attrs: {
-      "href": "#"
-    }
-  }, [_c('i', {
-    staticClass: "nav-icon fas fa-chart-bar"
-  }), _vm._v(" "), _c('p', [_vm._v("\n              " + _vm._s(_vm.$t("Reports")) + "\n              "), _c('span', {
-    staticClass: "toggle-icon"
-  })])]), _vm._v(" "), _c('ul', {
-    staticClass: "nav nav-treeview",
-    style: _vm.menuOpen('inventoryReports') ? 'display: block' : 'display: none'
-  }, [_vm.$can('item-report') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'reports.items'
-      }
-    }
-  }, [_c('p', [_vm._v(_vm._s(_vm.$t("Item Report")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('inventory-report') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'reports.inventory'
-      }
-    }
-  }, [_c('p', [_vm._v(_vm._s(_vm.$t("Inventory Report")))])])], 1) : _vm._e()])]) : _vm._e(), _vm._v(" "), _vm.$can('inventory-view') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'inventory.count'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "nav-icon fas fa-clipboard-check"
-  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Inventory Count")))])])], 1) : _vm._e(), _vm._v(" "), !_vm.$isPOS() ? _c('li', {
-    staticClass: "nav-header text-bold"
-  }, [_vm._v(_vm._s(_vm.$t("REPORTS")))]) : _vm._e(), _vm._v(" "), !_vm.$isPOS() && (_vm.$can('account-statement') || _vm.$can('balance-sheet') || _vm.$can('vat-report') || _vm.$can('today-profit') || _vm.$can('summary-report') || _vm.$can('profit-loss') || _vm.$can('expense-report') || _vm.$can('sales-by-user-report') || _vm.$can('collection-by-user-report')) ? _c('li', {
-    staticClass: "nav-item has-treeview",
-    "class": _vm.menuOpen('reports') ? 'menu-is-opening menu-open' : ''
-  }, [_c('a', {
-    staticClass: "nav-link",
-    attrs: {
-      "href": "#"
-    }
-  }, [_c('i', {
-    staticClass: "nav-icon fas fa-chart-bar"
-  }), _vm._v(" "), _c('p', [_vm._v("\n              " + _vm._s(_vm.$t("Reports")) + "\n              "), _c('span', {
-    staticClass: "toggle-icon"
-  })])]), _vm._v(" "), _c('ul', {
-    staticClass: "nav nav-treeview",
-    style: _vm.menuOpen('reports') ? 'display: block' : 'display: none'
-  }, [_vm.$can('account-statement') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'reports.accountStatement'
-      }
-    }
-  }, [_c('p', [_vm._v(_vm._s(_vm.$t("Account Statement")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('account-statement') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'reports.groupAccountStatement'
-      }
-    }
-  }, [_c('p', [_vm._v(_vm._s(_vm.$t("Group Account Statement")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('account-statement') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'reports.invoiceSummary'
-      }
-    }
-  }, [_c('p', [_vm._v(_vm._s(_vm.$t("Invoice Summary")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('account-statement') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'reports.purchaseSummary'
-      }
-    }
-  }, [_c('p', [_vm._v(_vm._s(_vm.$t("Purchase Summary")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('balance-sheet') && (_vm.$canAccessModule('accounting') || _vm.$canAccessModule('both')) ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'reports.balanceSheet'
-      }
-    }
-  }, [_c('p', [_vm._v(_vm._s(_vm.$t("Balance Sheet")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('balance-sheet') && (_vm.$canAccessModule('accounting') || _vm.$canAccessModule('both')) ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'reports.trialBalance'
-      }
-    }
-  }, [_c('p', [_vm._v(_vm._s(_vm.$t("Trial Balance")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('vat-report') && (_vm.$canAccessModule('accounting') || _vm.$canAccessModule('both')) ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'reports.vatReport'
-      }
-    }
-  }, [_c('p', [_vm._v(_vm._s(_vm.$t("VAT Report")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('today-profit') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'reports.todayReport'
-      }
-    }
-  }, [_c('p', [_vm._v(_vm._s(_vm.$t("Today Report")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('summary-report') && (_vm.$canAccessModule('accounting') || _vm.$canAccessModule('both')) ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'reports.summary'
-      }
-    }
-  }, [_c('p', [_vm._v(_vm._s(_vm.$t("Summary Report")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('profit-loss') && (_vm.$canAccessModule('accounting') || _vm.$canAccessModule('both')) ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'reports.profitLoss'
-      }
-    }
-  }, [_c('p', [_vm._v(_vm._s(_vm.$t("Profit/Loss Report")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('expense-report') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'reports.expenses'
-      }
-    }
-  }, [_c('p', [_vm._v(_vm._s(_vm.$t("Expense Report")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('balance-sheet') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'reports.supplierPayableReport'
-      }
-    }
-  }, [_c('p', [_vm._v(_vm._s(_vm.$t("Supplier Payable Report")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('balance-sheet') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'reports.clientReceivableReport'
-      }
-    }
-  }, [_c('p', [_vm._v(_vm._s(_vm.$t("Client Receivable Report")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('sales-by-user-report') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'reports.salesByUserReport'
-      }
-    }
-  }, [_c('p', [_vm._v(_vm._s(_vm.$t("Sales By User Report")))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('collection-by-user-report') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'reports.collectionByUserReport'
-      }
-    }
-  }, [_c('p', [_vm._v(_vm._s(_vm.$t("Collection By User Report")))])])], 1) : _vm._e()])]) : _vm._e(), _vm._v(" "), !_vm.$isPOS() ? _c('li', {
-    staticClass: "nav-header text-bold"
-  }, [_vm._v(_vm._s(_vm.$t("Others")))]) : _vm._e(), _vm._v(" "), !_vm.$isPOS() && (_vm.$can('branches-list') || _vm.$can('branches-create') || _vm.$can('branches-edit') || _vm.$can('branches-delete')) ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'branches.index'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "nav-icon fas fa-sitemap"
-  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t('Branches')))])])], 1) : _vm._e(), _vm._v(" "), _vm.$can('role-permissions') || _vm.$can('units') || _vm.$can('currencies') || _vm.$can('general-settings') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'setup.index'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "nav-icon fas fa-cogs"
-  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Setup")))])])], 1) : _vm._e(), _vm._v(" "), !_vm.$isPOS() && _vm.$can('print-templates') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'print-templates'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "nav-icon fas fa-print"
-  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Print Templates")))])])], 1) : _vm._e(), _vm._v(" "), !_vm.$isPOS() ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'activity.log'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "nav-icon fa fa-bell",
-    attrs: {
-      "aria-hidden": "true"
-    }
-  }), _vm._v("\n            " + _vm._s(_vm.$t("Activity log")) + "\n          ")])], 1) : _vm._e(), _vm._v(" "), !_vm.$isPOS() ? _c('li', {
-    staticClass: "nav-item has-treeview"
-  }, [_c('a', {
-    staticClass: "nav-link",
-    attrs: {
-      "href": "#"
-    }
-  }, [_c('i', {
-    staticClass: "nav-icon fas fa-user"
-  }), _vm._v(" "), _c('p', [_vm._v("\n              " + _vm._s(_vm.$t("Account")) + "\n              "), _c('span', {
-    staticClass: "toggle-icon"
-  })])]), _vm._v(" "), _c('ul', {
-    staticClass: "nav nav-treeview"
-  }, [_c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'settings.billing'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "nav-icon fas fa-money-check-alt"
-  }), _vm._v("\n                " + _vm._s(_vm.$t("Billing")) + "\n              ")])], 1), _vm._v(" "), _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'settings.profile'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "nav-icon fas fa-user-circle"
-  }), _vm._v("\n                " + _vm._s(_vm.$t("Profile")) + "\n              ")])], 1), _vm._v(" "), _c('li', {
-    staticClass: "nav-item"
-  }, [_c('a', {
-    staticClass: "nav-link admin-logout",
-    attrs: {
-      "href": "#"
-    },
-    on: {
-      "click": function click($event) {
-        $event.preventDefault();
-        return _vm.logout.apply(null, arguments);
-      }
-    }
-  }, [_c('i', {
-    staticClass: "nav-icon fas fa-power-off"
-  }), _vm._v("\n                " + _vm._s(_vm.$t("Logout")) + "\n              ")])])])]) : _vm._e(), _vm._v(" "), !_vm.$isPOS() && _vm.$can('domain-management') ? _c('li', {
-    staticClass: "nav-item has-treeview",
-    "class": _vm.menuOpen('domain') || _vm.menuOpen('domains') || _vm.menuOpen('domain-requests') ? 'menu-is-opening menu-open' : ''
-  }, [_c('a', {
-    staticClass: "nav-link",
-    attrs: {
-      "href": "#"
-    }
-  }, [_c('i', {
-    staticClass: "nav-icon fas fa-database"
-  }), _vm._v(" "), _c('p', [_vm._v("\n              " + _vm._s(_vm.$t("Domain")) + "\n              "), _c('span', {
-    staticClass: "toggle-icon"
-  })])]), _vm._v(" "), _c('ul', {
-    staticClass: "nav nav-treeview",
-    style: _vm.menuOpen('domain') || _vm.menuOpen('domains') || _vm.menuOpen('domain-requests') ? 'display: block' : 'display: none'
-  }, [_c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'domains.index'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "nav-icon fas fa-server"
-  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Domain Management")))])])], 1), _vm._v(" "), _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'domain-requests.index'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "nav-icon fas fa-file-import"
-  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Domain Request")))])])], 1)])]) : _vm._e(), _vm._v(" "), !_vm.$isPOS() ? _c('li', {
-    staticClass: "nav-item has-treeview",
-    "class": _vm.menuOpen('backup') ? 'menu-is-opening menu-open' : ''
-  }, [_c('a', {
-    staticClass: "nav-link",
-    attrs: {
-      "href": "#"
-    }
-  }, [_c('i', {
-    staticClass: "nav-icon fas fa-user"
-  }), _vm._v(" "), _c('p', [_vm._v("\n              " + _vm._s(_vm.$t("Resources")) + "\n              "), _c('span', {
-    staticClass: "toggle-icon"
-  })])]), _vm._v(" "), _c('ul', {
-    staticClass: "nav nav-treeview",
-    style: _vm.menuOpen('backup') ? 'display: block' : 'display: none'
-  }, [_vm.$can('database-backup') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link",
-    attrs: {
-      "to": {
-        name: 'backup'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "nav-icon fas fa-download"
-  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Database Backup")))])])], 1) : _vm._e()])]) : _vm._e()])])])], 1);
-};
-var Sidebarvue_type_template_id_326f9278_staticRenderFns = [];
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Sidebar.vue?vue&type=script&lang=js
-function Sidebarvue_type_script_lang_js_typeof(o) { "@babel/helpers - typeof"; return Sidebarvue_type_script_lang_js_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, Sidebarvue_type_script_lang_js_typeof(o); }
-function Sidebarvue_type_script_lang_js_regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ Sidebarvue_type_script_lang_js_regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == Sidebarvue_type_script_lang_js_typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(Sidebarvue_type_script_lang_js_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
-function Sidebarvue_type_script_lang_js_asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-function Sidebarvue_type_script_lang_js_asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { Sidebarvue_type_script_lang_js_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { Sidebarvue_type_script_lang_js_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-function Sidebarvue_type_script_lang_js_ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function Sidebarvue_type_script_lang_js_objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? Sidebarvue_type_script_lang_js_ownKeys(Object(t), !0).forEach(function (r) { Sidebarvue_type_script_lang_js_defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : Sidebarvue_type_script_lang_js_ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function Sidebarvue_type_script_lang_js_defineProperty(obj, key, value) { key = Sidebarvue_type_script_lang_js_toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function Sidebarvue_type_script_lang_js_toPropertyKey(t) { var i = Sidebarvue_type_script_lang_js_toPrimitive(t, "string"); return "symbol" == Sidebarvue_type_script_lang_js_typeof(i) ? i : i + ""; }
-function Sidebarvue_type_script_lang_js_toPrimitive(t, r) { if ("object" != Sidebarvue_type_script_lang_js_typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != Sidebarvue_type_script_lang_js_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-
-/* harmony default export */ const Sidebarvue_type_script_lang_js = ({
-  data: function data() {
-    return {
-      appName: window.config.appName
-    };
-  },
-  // Map Getters
-  computed: Sidebarvue_type_script_lang_js_objectSpread(Sidebarvue_type_script_lang_js_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["appInfo"])), {}, {
-    // Check if the country is Saudi Arabia
-    isSaudiArabia: function isSaudiArabia() {
-      return this.appInfo && this.appInfo.country === "SA";
-    }
-  }),
-  mounted: function mounted() {
-    // Initialize AdminLTE 3.2.0 Treeview functionality
-    $('[data-widget="treeview"]').Treeview("init");
-  },
-  methods: {
-    menuOpen: function menuOpen(routeName) {
-      if (this.$route.name) {
-        return this.$route.name.indexOf(routeName) > -1 ? true : false;
-      }
-      return false;
-    },
-    logout: function logout() {
-      var _this = this;
-      return Sidebarvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/Sidebarvue_type_script_lang_js_regeneratorRuntime().mark(function _callee() {
-        return Sidebarvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee$(_context) {
-          while (1) switch (_context.prev = _context.next) {
-            case 0:
-              _context.next = 2;
-              return _this.$store.dispatch("auth/logout");
-            case 2:
-              // Redirect to login.
-              _this.$router.push({
-                name: "login"
-              });
-            case 3:
-            case "end":
-              return _context.stop();
-          }
-        }, _callee);
-      }))();
-    }
-  }
-});
-;// ./resources/js/components/Sidebar.vue?vue&type=script&lang=js
- /* harmony default export */ const components_Sidebarvue_type_script_lang_js = (Sidebarvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Sidebar.vue?vue&type=style&index=0&id=326f9278&prod&lang=css
-var Sidebarvue_type_style_index_0_id_326f9278_prod_lang_css = __webpack_require__(6600);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Sidebar.vue?vue&type=style&index=0&id=326f9278&prod&lang=css
-
-            
-
-var Sidebarvue_type_style_index_0_id_326f9278_prod_lang_css_options = {};
-
-Sidebarvue_type_style_index_0_id_326f9278_prod_lang_css_options.insert = "head";
-Sidebarvue_type_style_index_0_id_326f9278_prod_lang_css_options.singleton = false;
-
-var Sidebarvue_type_style_index_0_id_326f9278_prod_lang_css_update = injectStylesIntoStyleTag_default()(Sidebarvue_type_style_index_0_id_326f9278_prod_lang_css/* default */.A, Sidebarvue_type_style_index_0_id_326f9278_prod_lang_css_options);
-
-
-
-/* harmony default export */ const components_Sidebarvue_type_style_index_0_id_326f9278_prod_lang_css = (Sidebarvue_type_style_index_0_id_326f9278_prod_lang_css/* default */.A.locals || {});
-;// ./resources/js/components/Sidebar.vue?vue&type=style&index=0&id=326f9278&prod&lang=css
-
-;// ./resources/js/components/Sidebar.vue
-
-
-
-;
-
-
-/* normalize component */
-
-var Sidebar_component = (0,componentNormalizer/* default */.A)(
-  components_Sidebarvue_type_script_lang_js,
-  Sidebarvue_type_template_id_326f9278_render,
-  Sidebarvue_type_template_id_326f9278_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* harmony default export */ const Sidebar = (Sidebar_component.exports);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SidebarControll.vue?vue&type=template&id=d6112772
-var SidebarControllvue_type_template_id_d6112772_render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('aside', {
-    staticClass: "control-sidebar control-sidebar-dark px-3 py-4"
-  }, [_c('h5', {
-    staticClass: "mb-4"
-  }, [_vm._v(_vm._s(_vm.$t('Customize')))]), _vm._v(" "), _c('div', {
-    staticClass: "mb-4"
-  }, [_c('div', {
-    staticClass: "custom-control custom-checkbox"
-  }, [_c('input', {
-    staticClass: "custom-control-input",
-    attrs: {
-      "type": "checkbox",
-      "id": "dark-modee",
-      "value": "1"
-    },
-    domProps: {
-      "checked": _vm.isDark ? true : false
-    },
-    on: {
-      "click": function click($event) {
-        return _vm.addBodyClass('isDark', 'dark-mode');
-      }
-    }
-  }), _vm._v(" "), _c('label', {
-    staticClass: "custom-control-label",
-    attrs: {
-      "for": "dark-modee"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Dark Mode')))])])]), _vm._v(" "), _c('div', [_c('h6', [_vm._v(_vm._s(_vm.$t('Header Options')))]), _vm._v(" "), _c('div', {
-    staticClass: "custom-control custom-checkbox mb-1"
-  }, [_c('input', {
-    staticClass: "custom-control-input",
-    attrs: {
-      "type": "checkbox",
-      "id": "layout-navbar-fixed",
-      "value": "1"
-    },
-    domProps: {
-      "checked": _vm.isNavFixed ? true : false
-    },
-    on: {
-      "click": function click($event) {
-        return _vm.addBodyClass('isNavFixed', 'layout-navbar-fixed');
-      }
-    }
-  }), _vm._v(" "), _c('label', {
-    staticClass: "custom-control-label",
-    attrs: {
-      "for": "layout-navbar-fixed"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Fixed')))])]), _vm._v(" "), _c('div', {
-    staticClass: "custom-control custom-checkbox mb-4"
-  }, [_c('input', {
-    staticClass: "custom-control-input",
-    attrs: {
-      "type": "checkbox",
-      "id": "border-bottom-0",
-      "value": "1"
-    },
-    domProps: {
-      "checked": _vm.isBorderBtm ? true : false
-    },
-    on: {
-      "click": function click($event) {
-        return _vm.addBodyClass('isBorderBtm', 'border-bottom-0');
-      }
-    }
-  }), _vm._v(" "), _c('label', {
-    staticClass: "custom-control-label",
-    attrs: {
-      "for": "border-bottom-0"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('No border')))])])]), _vm._v(" "), _c('div', [_c('h6', [_vm._v(_vm._s(_vm.$t('Sidebar Options')))]), _vm._v(" "), _c('div', {
-    staticClass: "custom-control custom-checkbox mb-1"
-  }, [_c('input', {
-    staticClass: "custom-control-input",
-    attrs: {
-      "type": "checkbox",
-      "id": "sidebar-dark",
-      "value": "1"
-    },
-    domProps: {
-      "checked": _vm.isSidebarDark ? true : false
-    },
-    on: {
-      "click": function click($event) {
-        return _vm.addSidebarClass('isSidebarDark', 'dark-sidebar');
-      }
-    }
-  }), _vm._v(" "), _c('label', {
-    staticClass: "custom-control-label",
-    attrs: {
-      "for": "sidebar-dark"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Sidebar Dark')))])]), _vm._v(" "), _c('div', {
-    staticClass: "custom-control custom-checkbox mb-1"
-  }, [_c('input', {
-    staticClass: "custom-control-input",
-    attrs: {
-      "type": "checkbox",
-      "id": "collapsed",
-      "value": "1"
-    },
-    domProps: {
-      "checked": _vm.isSidebarCollasped ? true : false
-    },
-    on: {
-      "click": function click($event) {
-        return _vm.addBodyClass('isSidebarCollasped', 'sidebar-collapse');
-      }
-    }
-  }), _vm._v(" "), _c('label', {
-    staticClass: "custom-control-label",
-    attrs: {
-      "for": "collapsed"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Sidebar Collapsed')))])]), _vm._v(" "), _c('div', {
-    staticClass: "custom-control custom-checkbox mb-1"
-  }, [_c('input', {
-    staticClass: "custom-control-input",
-    attrs: {
-      "type": "checkbox",
-      "id": "layout-fixed",
-      "value": "1"
-    },
-    domProps: {
-      "checked": _vm.isLayoutFixed ? true : false
-    },
-    on: {
-      "click": function click($event) {
-        return _vm.addBodyClass('isLayoutFixed', 'layout-fixed');
-      }
-    }
-  }), _vm._v(" "), _c('label', {
-    staticClass: "custom-control-label",
-    attrs: {
-      "for": "layout-fixed"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Sidebar Fixed')))])]), _vm._v(" "), _c('div', {
-    staticClass: "custom-control custom-checkbox mb-1"
-  }, [_c('input', {
-    staticClass: "custom-control-input",
-    attrs: {
-      "type": "checkbox",
-      "id": "sidebar-mini",
-      "value": "1"
-    },
-    domProps: {
-      "checked": _vm.isSidebarMini ? true : false
-    },
-    on: {
-      "click": function click($event) {
-        return _vm.addBodyClass('isSidebarMini', 'sidebar-mini');
-      }
-    }
-  }), _vm._v(" "), _c('label', {
-    staticClass: "custom-control-label",
-    attrs: {
-      "for": "sidebar-mini"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Sidebar Mini')))])]), _vm._v(" "), _c('div', {
-    staticClass: "custom-control custom-checkbox mb-1"
-  }, [_c('input', {
-    staticClass: "custom-control-input",
-    attrs: {
-      "type": "checkbox",
-      "id": "nav-flat",
-      "value": "1"
-    },
-    domProps: {
-      "checked": _vm.isNavFlat ? true : false
-    },
-    on: {
-      "click": function click($event) {
-        return _vm.addNavSidebarClass('isNavFlat', 'nav-flat');
-      }
-    }
-  }), _vm._v(" "), _c('label', {
-    staticClass: "custom-control-label",
-    attrs: {
-      "for": "nav-flat"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Nav Flat Style')))])]), _vm._v(" "), _c('div', {
-    staticClass: "custom-control custom-checkbox mb-1"
-  }, [_c('input', {
-    staticClass: "custom-control-input",
-    attrs: {
-      "type": "checkbox",
-      "id": "nav-legacy",
-      "value": "1"
-    },
-    domProps: {
-      "checked": _vm.isNavLegacy ? true : false
-    },
-    on: {
-      "click": function click($event) {
-        return _vm.addNavSidebarClass('isNavLegacy', 'nav-legacy');
-      }
-    }
-  }), _vm._v(" "), _c('label', {
-    staticClass: "custom-control-label",
-    attrs: {
-      "for": "nav-legacy"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Nav Legacy Style')))])]), _vm._v(" "), _c('div', {
-    staticClass: "custom-control custom-checkbox mb-1"
-  }, [_c('input', {
-    staticClass: "custom-control-input",
-    attrs: {
-      "type": "checkbox",
-      "id": "nav-child-indent",
-      "value": "1"
-    },
-    domProps: {
-      "checked": _vm.isNavChildIndent ? true : false
-    },
-    on: {
-      "click": function click($event) {
-        return _vm.addNavSidebarClass('isNavChildIndent', 'nav-child-indent');
-      }
-    }
-  }), _vm._v(" "), _c('label', {
-    staticClass: "custom-control-label",
-    attrs: {
-      "for": "nav-child-indent"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Nav Child Indent')))])]), _vm._v(" "), _c('div', {
-    staticClass: "custom-control custom-checkbox mb-4"
-  }, [_c('input', {
-    staticClass: "custom-control-input",
-    attrs: {
-      "type": "checkbox",
-      "id": "disableHoverExpand",
-      "value": "1"
-    },
-    domProps: {
-      "checked": _vm.isDisableHoverExpand ? true : false
-    },
-    on: {
-      "click": function click($event) {
-        return _vm.addSidebarClass('isDisableHoverExpand', 'sidebar-no-expand');
-      }
-    }
-  }), _vm._v(" "), _c('label', {
-    staticClass: "custom-control-label",
-    attrs: {
-      "for": "disableHoverExpand"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Disable Hover/Focus Auto-Expand')))])])])]);
-};
-var SidebarControllvue_type_template_id_d6112772_staticRenderFns = [];
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SidebarControll.vue?vue&type=script&lang=js
-/* harmony default export */ const SidebarControllvue_type_script_lang_js = ({
-  name: 'sidebar-controll',
-  data: function data() {
-    return {
-      isDark: false,
-      isBorderBtm: false,
-      isNavFixed: false,
-      isSidebarCollasped: false,
-      isLayoutFixed: false,
-      isSidebarMini: false,
-      isNavFlat: false,
-      isSidebarDark: false,
-      isNavChildIndent: false,
-      isNavLegacy: false,
-      isDisableHoverExpand: false
-    };
-  },
-  mounted: function mounted() {
-    this.getLocalStorageData();
-  },
-  methods: {
-    // ADD OR REMOVE VALUE TO LOCALSTORAGE AND SET OR REMOVE IN BODY CLASS
-    addBodyClass: function addBodyClass(varVal, className) {
-      this[varVal] = !this[varVal];
-      if (this[varVal]) {
-        localStorage[varVal] = true;
-        document.body.classList.add(className);
-      } else {
-        localStorage.removeItem(varVal);
-        document.body.classList.remove(className);
-      }
-    },
-    // ADD OR REMOVE CLASS TO MAIN-SIDEBAR
-    addSidebarClass: function addSidebarClass(varVal, className) {
-      this[varVal] = !this[varVal];
-      if (this[varVal]) {
-        localStorage[varVal] = true;
-        var data = document.querySelector('.main-sidebar');
-        data.classList.add(className);
-      } else {
-        localStorage.removeItem(varVal);
-        data = document.querySelector('.main-sidebar');
-        data.classList.remove(className);
-      }
-    },
-    // ADD CLASS TO SIDEBAR NAV
-    addNavSidebarClass: function addNavSidebarClass(varVal, className) {
-      this[varVal] = !this[varVal];
-      if (this[varVal]) {
-        localStorage[varVal] = true;
-        var data = document.querySelector('.nav-sidebar');
-        data.classList.add(className);
-      } else {
-        localStorage.removeItem(varVal);
-        data = document.querySelector('.nav-sidebar');
-        data.classList.remove(className);
-      }
-    },
-    // Dark mode check from localstorage
-    getLocalStorageData: function getLocalStorageData() {
-      // Check if isDark true in localstorage
-      if (localStorage.isDark) {
-        document.body.classList.add('dark-mode');
-        this.isDark = true;
-      }
-
-      // Check if isDark true in localstorage
-      if (localStorage.isBorderBtm) {
-        document.body.classList.add('border-bottom-0');
-        this.isBorderBtm = true;
-      }
-
-      // Check if headerFixed true in localstorage
-      if (localStorage.isNavFixed) {
-        document.body.classList.add('layout-navbar-fixed');
-        this.isNavFixed = true;
-      }
-
-      // Check if headerFixed true in localstorage
-      if (localStorage.isSidebarCollasped) {
-        document.body.classList.add('sidebar-collapse');
-        this.isSidebarCollasped = true;
-      }
-
-      // Check if headerFixed true in localstorage
-      if (localStorage.isLayoutFixed) {
-        document.body.classList.add('layout-fixed');
-        this.isLayoutFixed = true;
-      }
-
-      // Check if headerFixed true in localstorage
-      if (localStorage.isSidebarMini) {
-        document.body.classList.add('sidebar-mini');
-        this.isSidebarMini = true;
-      }
-
-      // Check if headerFixed true in localstorage
-      if (localStorage.isNavFlat) {
-        this.isNavFlat = true;
-        var navSidebar = document.querySelector('.nav-sidebar');
-        navSidebar.classList.add('nav-flat');
-      }
-
-      // Check if headerFixed true in localstorage
-      if (localStorage.isSidebarDark) {
-        this.isSidebarDark = true;
-        var sideBarDark = document.querySelector('.main-sidebar');
-        sideBarDark.classList.add('dark-sidebar');
-      }
-
-      // Check if headerFixed true in localstorage
-      if (localStorage.isNavChildIndent) {
-        this.isNavChildIndent = true;
-        var navChildIndent = document.querySelector('.nav-sidebar');
-        navChildIndent.classList.add('nav-child-indent');
-      }
-
-      // Check if headerFixed true in localstorage
-      if (localStorage.isNavLegacy) {
-        this.isNavLegacy = true;
-        var navLegacy = document.querySelector('.nav-sidebar');
-        navLegacy.classList.add('nav-legacy');
-      }
-
-      // Check if headerFixed true in localstorage
-      if (localStorage.addSidebarClass) {
-        this.addSidebarClass = true;
-        var sidebarClass = document.querySelector('.main-sidebar');
-        sidebarClass.classList.add('sidebar-no-expand');
-      }
-    }
-  }
-});
-;// ./resources/js/components/SidebarControll.vue?vue&type=script&lang=js
- /* harmony default export */ const components_SidebarControllvue_type_script_lang_js = (SidebarControllvue_type_script_lang_js); 
-;// ./resources/js/components/SidebarControll.vue
-
-
-
-
-
-/* normalize component */
-;
-var SidebarControll_component = (0,componentNormalizer/* default */.A)(
-  components_SidebarControllvue_type_script_lang_js,
-  SidebarControllvue_type_template_id_d6112772_render,
-  SidebarControllvue_type_template_id_d6112772_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* harmony default export */ const SidebarControll = (SidebarControll_component.exports);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/layouts/default.vue?vue&type=script&lang=js
-function defaultvue_type_script_lang_js_typeof(o) { "@babel/helpers - typeof"; return defaultvue_type_script_lang_js_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, defaultvue_type_script_lang_js_typeof(o); }
-function defaultvue_type_script_lang_js_ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function defaultvue_type_script_lang_js_objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? defaultvue_type_script_lang_js_ownKeys(Object(t), !0).forEach(function (r) { defaultvue_type_script_lang_js_defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : defaultvue_type_script_lang_js_ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function defaultvue_type_script_lang_js_defineProperty(obj, key, value) { key = defaultvue_type_script_lang_js_toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function defaultvue_type_script_lang_js_toPropertyKey(t) { var i = defaultvue_type_script_lang_js_toPrimitive(t, "string"); return "symbol" == defaultvue_type_script_lang_js_typeof(i) ? i : i + ""; }
-function defaultvue_type_script_lang_js_toPrimitive(t, r) { if ("object" != defaultvue_type_script_lang_js_typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != defaultvue_type_script_lang_js_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-
-
-
-
-/* harmony default export */ const defaultvue_type_script_lang_js = ({
-  name: 'MainLayout',
-  data: function data() {
-    return {
-      year: new Date().getFullYear()
-    };
-  },
-  components: {
-    Navbar: Navbar,
-    Sidebar: Sidebar,
-    SidebarControll: SidebarControll
-  },
-  // Map Getters
-  computed: defaultvue_type_script_lang_js_objectSpread(defaultvue_type_script_lang_js_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)('operations', ['appInfo', 'tenant', 'subscription_limit_message', 'demo_message'])), {}, {
-    showSidebar: function showSidebar() {
-      // Hide sidebar on select-branch page
-      return this.$route.name !== 'branches.select';
-    }
-  }),
-  created: function created() {
-    this.$store.dispatch('operations/fetchTenant');
-    // Add body class immediately if on select-branch page
-    if (!this.showSidebar) {
-      document.body.classList.add('no-sidebar-page');
-    }
-  },
-  watch: {
-    '$route': function $route(to) {
-      // Update body class when route changes
-      if (to.name === 'branches.select') {
-        document.body.classList.add('no-sidebar-page');
-      } else {
-        document.body.classList.remove('no-sidebar-page');
-      }
-    },
-    showSidebar: function showSidebar(newVal) {
-      if (!newVal) {
-        document.body.classList.add('no-sidebar-page');
-      } else {
-        document.body.classList.remove('no-sidebar-page');
-      }
-    }
-  },
-  mounted: function mounted() {
-    if (!this.showSidebar) {
-      document.body.classList.add('no-sidebar-page');
-    }
-  },
-  beforeDestroy: function beforeDestroy() {
-    document.body.classList.remove('no-sidebar-page');
-  },
-  methods: {
-    addBodyClass: function addBodyClass(className) {
-      document.body.classList.toggle(className);
-    },
-    getTrialDaysLeft: function getTrialDaysLeft(trialEndsAt) {
-      if (!trialEndsAt) return '';
-      // Calculate days left
-      var now = new Date();
-      var trialEnd = new Date(trialEndsAt);
-      var diffTime = trialEnd - now;
-      var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-      return diffDays;
-    }
-  }
-});
-;// ./resources/js/layouts/default.vue?vue&type=script&lang=js
- /* harmony default export */ const layouts_defaultvue_type_script_lang_js = (defaultvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/layouts/default.vue?vue&type=style&index=0&id=3d484f6a&prod&scoped=true&lang=css
-var defaultvue_type_style_index_0_id_3d484f6a_prod_scoped_true_lang_css = __webpack_require__(13962);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/layouts/default.vue?vue&type=style&index=0&id=3d484f6a&prod&scoped=true&lang=css
-
-            
-
-var defaultvue_type_style_index_0_id_3d484f6a_prod_scoped_true_lang_css_options = {};
-
-defaultvue_type_style_index_0_id_3d484f6a_prod_scoped_true_lang_css_options.insert = "head";
-defaultvue_type_style_index_0_id_3d484f6a_prod_scoped_true_lang_css_options.singleton = false;
-
-var defaultvue_type_style_index_0_id_3d484f6a_prod_scoped_true_lang_css_update = injectStylesIntoStyleTag_default()(defaultvue_type_style_index_0_id_3d484f6a_prod_scoped_true_lang_css/* default */.A, defaultvue_type_style_index_0_id_3d484f6a_prod_scoped_true_lang_css_options);
-
-
-
-/* harmony default export */ const layouts_defaultvue_type_style_index_0_id_3d484f6a_prod_scoped_true_lang_css = (defaultvue_type_style_index_0_id_3d484f6a_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/layouts/default.vue?vue&type=style&index=0&id=3d484f6a&prod&scoped=true&lang=css
-
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/layouts/default.vue?vue&type=style&index=1&id=3d484f6a&prod&lang=css
-var defaultvue_type_style_index_1_id_3d484f6a_prod_lang_css = __webpack_require__(75294);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/layouts/default.vue?vue&type=style&index=1&id=3d484f6a&prod&lang=css
-
-            
-
-var defaultvue_type_style_index_1_id_3d484f6a_prod_lang_css_options = {};
-
-defaultvue_type_style_index_1_id_3d484f6a_prod_lang_css_options.insert = "head";
-defaultvue_type_style_index_1_id_3d484f6a_prod_lang_css_options.singleton = false;
-
-var defaultvue_type_style_index_1_id_3d484f6a_prod_lang_css_update = injectStylesIntoStyleTag_default()(defaultvue_type_style_index_1_id_3d484f6a_prod_lang_css/* default */.A, defaultvue_type_style_index_1_id_3d484f6a_prod_lang_css_options);
-
-
-
-/* harmony default export */ const layouts_defaultvue_type_style_index_1_id_3d484f6a_prod_lang_css = (defaultvue_type_style_index_1_id_3d484f6a_prod_lang_css/* default */.A.locals || {});
-;// ./resources/js/layouts/default.vue?vue&type=style&index=1&id=3d484f6a&prod&lang=css
-
-;// ./resources/js/layouts/default.vue
-
-
-
-;
-
-
-
-/* normalize component */
-
-var default_component = (0,componentNormalizer/* default */.A)(
-  layouts_defaultvue_type_script_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  "3d484f6a",
-  null
-  
-)
-
-/* harmony default export */ const layouts_default = (default_component.exports);
 
 /***/ }),
 

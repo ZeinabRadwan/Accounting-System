@@ -14,6 +14,18 @@ class ProductSelectReource extends JsonResource
      */
     public function toArray($request)
     {
+        // Get supplier_id from request query parameter
+        $supplierId = $request->input('supplier_id');
+
+        // Calculate average purchase price for the supplier if supplier_id is provided
+        $avgPurchasePriceBySupplier = $this->purchase_price;
+        if ($supplierId) {
+            $avgPurchasePriceBySupplier = $this->getAveragePurchasePriceBySupplier($supplierId);
+        }
+
+        // Get last purchase price
+        $lastPurchasePrice = $this->last_purchase_price ?? $this->purchase_price;
+
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -22,6 +34,8 @@ class ProductSelectReource extends JsonResource
             'code' => $this->code,
             'itemModel' => $this->model,
             'avgPurchasePrice' => $this->purchase_price,
+            'lastPurchasePrice' => $lastPurchasePrice,
+            'avgPurchasePriceBySupplier' => $avgPurchasePriceBySupplier,
             'regularPrice' => $this->regular_price,
             'priceWithDiscount' => $this->priceWithDiscount(),
             'sellingPrice' => $this->sellingPrice(),
@@ -30,6 +44,22 @@ class ProductSelectReource extends JsonResource
             'taxRate' => $this->productTax?->rate,
             'inventoryCount' => $this->inventory_count > 0 ? $this->inventory_count : 0,
             'image' => $this->image_path ? $this->image_path : '',
+            'productTax' => $this->productTax,
+            'sales_account_id' => $this->sales_account_id,
+            'purchase_account_id' => $this->purchase_account_id,
+            // Unit of measure information
+            'itemUnit' => $this->whenLoaded('productUnit', function () {
+                return [
+                    'id' => $this->productUnit->id,
+                    'name' => $this->productUnit->name,
+                    'code' => $this->productUnit->code,
+                ];
+            }),
+            'unitName' => $this->productUnit?->name ?? '',
+            'unitCode' => $this->productUnit?->code ?? '',
+            // Alert quantity for low stock indication
+            'alertQty' => $this->alert_qty ?? 0,
+            'isLowStock' => $this->inventory_count > 0 && $this->alert_qty > 0 && $this->inventory_count <= $this->alert_qty,
         ];
     }
 }

@@ -159,7 +159,36 @@
                       <div class="d-flex w-100">
                         <v-select class="flex-grow-1" v-model="form.product" :options="products" label="label" :class="{
                           'is-invalid': form.errors.has('selectedProducts'),
-                        }" name="product" :placeholder="$t('Search Items')" @input="storeProduct(form.product)" />
+                        }" name="product" :placeholder="$t('Search Items')" @input="storeProduct(form.product)">
+                          <template #option="{ name, code, unitName, unitCode, inventoryCount, avgPurchasePrice, regularPrice, isLowStock }">
+                            <div class="product-option">
+                              <div class="product-option-header">
+                                <strong>{{ name }}</strong>
+                                <span class="product-code">[{{ code }}]</span>
+                                <span v-if="isLowStock" class="badge badge-warning badge-sm ml-2">
+                                  <i class="fas fa-exclamation-triangle"></i> {{ $t('Low Stock') }}
+                                </span>
+                              </div>
+                              <div class="product-option-details">
+                                <span class="product-detail-item">
+                                  <i class="fas fa-ruler"></i> {{ unitName || unitCode || $t('N/A') }}
+                                </span>
+                                <span class="product-detail-item">
+                                  <i class="fas fa-boxes"></i> {{ $t('Stock') }}: {{ inventoryCount || 0 }}
+                                </span>
+                                <span class="product-detail-item">
+                                  <i class="fas fa-dollar-sign"></i> {{ $t('Cost') }}: {{ formatToTwoDecimals(avgPurchasePrice || 0) }} <span class="saudi-riyal">ê</span>
+                                </span>
+                                <span class="product-detail-item">
+                                  <i class="fas fa-tag"></i> {{ $t('Price') }}: {{ formatToTwoDecimals(regularPrice || 0) }} <span class="saudi-riyal">ê</span>
+                                </span>
+                              </div>
+                            </div>
+                          </template>
+                          <template #selected-option="{ name, code }">
+                            <span>{{ name }} [{{ code }}]</span>
+                          </template>
+                        </v-select>
                         <ProductCreateModal @reloadProducts="getProducts" @productCreated="handleProductCreated">
                           <div class="input-group-text create-btn">
                             <i class="fas fa-solid fa-plus-circle"></i>
@@ -944,16 +973,7 @@ export default {
       representatives: [],
       cashiers: [],
       branches: [],
-      paymentMethods: [
-        { id: 'cash', name: 'نقدي (Cash)' },
-        { id: 'visa_mastercard', name: 'فيزا / ماستركارد (Visa / Mastercard)' },
-        { id: 'bank_transfer', name: 'تحويل بنكي (Bank Transfer)' },
-        { id: 'cheque', name: 'شيك (Cheque)' },
-        { id: 'cod', name: 'دفع عند الاستلام (Cash on Delivery)' },
-        { id: 'ewallet', name: 'محفظة إلكترونية / دفع إلكتروني (E‑wallet / Digital Wallet)' },
-        { id: 'credit_debit_card', name: 'بطاقة ائتمان/خصم (Credit / Debit Card)' },
-        { id: 'other', name: 'أي وسيلة دفع أخرى (Other / Misc)' }
-      ],
+      paymentMethods: [],
       prefix: "",
       isUpdatingChartOfAccount: false, // Flag to prevent form submission during chart of account updates
 
@@ -1337,6 +1357,7 @@ export default {
     this.getCostCenters();
     this.getEmployees();
     this.getBranches();
+    this.getPaymentMethods();
     this.loadCommunicationConfigStatus();
     this.prefix = this.appInfo.productPrefix;
     this.ensureDiscountProperties();
@@ -1875,6 +1896,18 @@ export default {
     },
 
     // get all branches
+    async getPaymentMethods() {
+      try {
+        const response = await axios.get(window.location.origin + '/api/payment-methods/all');
+        if (response.data && response.data.data) {
+          this.paymentMethods = response.data.data;
+        }
+      } catch (error) {
+        console.error('Error loading payment methods:', error);
+        // Fallback to empty array if API fails
+        this.paymentMethods = [];
+      }
+    },
     async getBranches() {
       try {
         const user = this.$store.getters['auth/user'];
@@ -5108,5 +5141,77 @@ export default {
 .custom-qty-input input.button-plus,
 .custom-qty-input input.button-minus {
   margin: 0 5px;
+}
+
+/* Enhanced Product Option Display */
+.product-option {
+  padding: 8px 12px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.product-option:last-child {
+  border-bottom: none;
+}
+
+.product-option-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 6px;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.product-option-header strong {
+  color: #333;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.product-code {
+  color: #6c757d;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.product-option-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 12px;
+  color: #6c757d;
+  margin-top: 4px;
+}
+
+.product-detail-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.product-detail-item i {
+  color: #33a0d9;
+  font-size: 11px;
+}
+
+.badge-sm {
+  font-size: 10px;
+  padding: 2px 6px;
+  font-weight: 500;
+}
+
+.badge-warning {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
+}
+
+/* Hover effect for product options */
+.v-select .vs__dropdown-option:hover .product-option {
+  background-color: #f8f9fa;
+}
+
+/* Selected option styling */
+.v-select .vs__dropdown-option--selected .product-option {
+  background-color: #e3f2fd;
 }
 </style>

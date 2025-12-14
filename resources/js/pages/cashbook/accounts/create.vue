@@ -88,14 +88,32 @@
                     name="chartOfAccountId"
                     :placeholder="$t('Select a Chart of Account')"
                   >
-                    <template #option="{ name, code, type }">
+                    <template #option="{ name, code, type, parent }">
                       <div>
                         <strong>{{ name }}</strong>
                         <br>
-                        <small class="text-muted">{{ code }} - {{ type }}</small>
+                        <small class="text-muted">
+                          {{ code }} - {{ type }}
+                          <span v-if="parent" class="text-info">
+                            <i class="fas fa-level-up-alt"></i> {{ $t('Parent') }}: {{ parent.name }}
+                          </span>
+                        </small>
                       </div>
                     </template>
                   </v-select>
+                  <div class="mt-2">
+                    <small class="text-muted d-block mb-2">
+                      <i class="fas fa-info-circle"></i>
+                      {{ $t('You can create a sub-account from Chart of Accounts page') }}
+                    </small>
+                    <router-link 
+                      v-if="form.chartOfAccountId && $can('chart-of-account-create')" 
+                      :to="{ name: 'chart-of-accounts.create', query: { parent_id: form.chartOfAccountId } }"
+                      class="btn btn-sm btn-outline-primary">
+                      <i class="fas fa-plus"></i>
+                      {{ $t('Create Sub Account for this Chart of Account') }}
+                    </router-link>
+                  </div>
                   <has-error :form="form" field="chartOfAccountId" />
                 </div>
                 <div class="form-group col-md-6">

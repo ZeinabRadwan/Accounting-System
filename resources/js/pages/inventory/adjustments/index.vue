@@ -103,8 +103,14 @@
                         <!-- Product specific columns -->
                         <td>{{ product.productCode | withPrefix(productPrefix) }}</td>
                         <td>{{ product.productName }}</td>
-                        <td>{{ product.avgPurchasePrice === 0 || product.avgPurchasePrice ? product.avgPurchasePrice : 0
-                          }} <span class="saudi-riyal">ê</span></td>
+                        <td>
+                          <span v-if="product.avgPurchasePrice !== null && product.avgPurchasePrice !== undefined">
+                            {{ formatToTwoDecimals(product.avgPurchasePrice) }} <span class="saudi-riyal">ê</span>
+                          </span>
+                          <span v-else class="text-muted">
+                            {{ $t("N/A") }}
+                          </span>
+                        </td>
                         <td>
                           <span v-if="product.type == 1">+</span>
                           <span v-else>-</span>
@@ -525,6 +531,18 @@ export default {
     // print table
     async print() {
       await this.$htmlToPaper("printMe");
+    },
+
+    // Format number to display with exactly 2 decimal places
+    formatToTwoDecimals(value) {
+      if (value === null || value === undefined || value === '') {
+        return '0.00';
+      }
+      const numValue = Number(value);
+      if (isNaN(numValue)) {
+        return '0.00';
+      }
+      return numValue.toFixed(2);
     },
 
     // delete data

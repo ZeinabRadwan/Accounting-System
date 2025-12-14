@@ -140,7 +140,36 @@
                     <div class="d-flex w-100">
                       <v-select v-model="form.product" :options="products" label="label" class="flex-grow-1" :class="{
                         'is-invalid': form.errors.has('selectedProducts'),
-                      }" name="product" :placeholder="$t('Search products')" @input="storeProduct(form.product)" />
+                      }" name="product" :placeholder="$t('Search products')" @input="storeProduct(form.product)">
+                        <template #option="{ name, code, unitName, unitCode, inventoryCount, avgPurchasePriceBySupplier, avgPurchasePrice, regularPrice, isLowStock }">
+                          <div class="product-option">
+                            <div class="product-option-header">
+                              <strong>{{ name }}</strong>
+                              <span class="product-code">[{{ code }}]</span>
+                              <span v-if="isLowStock" class="badge badge-warning badge-sm ml-2">
+                                <i class="fas fa-exclamation-triangle"></i> {{ $t('Low Stock') }}
+                              </span>
+                            </div>
+                            <div class="product-option-details">
+                              <span class="product-detail-item">
+                                <i class="fas fa-ruler"></i> {{ unitName || unitCode || $t('N/A') }}
+                              </span>
+                              <span class="product-detail-item">
+                                <i class="fas fa-boxes"></i> {{ $t('Stock') }}: {{ inventoryCount || 0 }}
+                              </span>
+                              <span class="product-detail-item">
+                                <i class="fas fa-dollar-sign"></i> {{ $t('Avg Cost') }}: {{ formatToTwoDecimals(avgPurchasePriceBySupplier || avgPurchasePrice || 0) }} <span class="saudi-riyal">ê</span>
+                              </span>
+                              <span class="product-detail-item">
+                                <i class="fas fa-tag"></i> {{ $t('Price') }}: {{ formatToTwoDecimals(regularPrice || 0) }} <span class="saudi-riyal">ê</span>
+                              </span>
+                            </div>
+                          </div>
+                        </template>
+                        <template #selected-option="{ name, code }">
+                          <span>{{ name }} [{{ code }}]</span>
+                        </template>
+                      </v-select>
                       <ProductCreateModal @reloadProducts="getProducts" @productCreated="handleProductCreated">
                         <div class="input-group-text create-btn">
                           <i class="fas fa-solid fa-plus-circle"></i>
@@ -585,15 +614,7 @@ export default {
     taxes: "",
     costCenters: [],
     branches: [],
-    paymentMethods: [
-      { id: 'cash', name: 'نقدي (Cash)' },
-      { id: 'visa', name: 'فيزا (Visa)' },
-      { id: 'mada', name: 'مدى (Mada)' },
-      { id: 'mastercard', name: 'ماستركارد (Mastercard)' },
-      { id: 'bank_transfer', name: 'تحويل بنكي (Bank Transfer)' },
-      { id: 'stc_pay', name: 'STC Pay' },
-      { id: 'amex', name: 'أمريكان إكسبريس (American Express)' }
-    ],
+    paymentMethods: [],
 
     // Communication configuration status
     communicationConfig: {
@@ -739,6 +760,7 @@ export default {
       this.getTaxes(),
       this.getCostCenters(),
       this.getBranches(),
+      this.getPaymentMethods(),
       this.loadCommunicationConfigStatus()
     ]);
 
@@ -796,8 +818,15 @@ export default {
       // Store the current selected products IDs
       const currentProductIds = this.form.selectedProducts ? this.form.selectedProducts.map(p => p.id) : [];
 
+      // Build query parameters with supplier_id if supplier is selected
+      const params = {};
+      if (this.form.supplier && this.form.supplier.id) {
+        params.supplier_id = this.form.supplier.id;
+      }
+
       const { data } = await axios.get(
-        window.location.origin + "/api/all-products-not-service"
+        window.location.origin + "/api/all-products-not-service",
+        { params }
       );
       this.products = data.data;
       this.products.sort(this.sortProducts);
@@ -885,8 +914,11 @@ export default {
       );
       let quantity = 1;
       if (index === -1) {
-        let purchasePrice =
-          product.avgPurchasePrice > 0 ? product.avgPurchasePrice : 1;
+        // Use average purchase price by supplier if available, otherwise fall back to avgPurchasePrice or regularPrice
+        let purchasePrice = product.avgPurchasePriceBySupplier && product.avgPurchasePriceBySupplier > 0
+          ? product.avgPurchasePriceBySupplier
+          : (product.avgPurchasePrice > 0 ? product.avgPurchasePrice : (product.regularPrice > 0 ? product.regularPrice : 1));
+        
         // store product
         this.form.selectedProducts.unshift({
           id: product.id,
@@ -894,18 +926,18 @@ export default {
           name: product.name,
           code: product.code,
           qty: quantity,
-          unitPrice: product.regularPrice,
-          originalPrice: product.regularPrice, // Align calculations with unitPrice
+          unitPrice: purchasePrice,
+          originalPrice: purchasePrice, // Align calculations with unitPrice
           discount: 0,
           discountType: "fixed",
           discountAmount: 0,
           selectedVatRate: this.findMatchingVatRate(product.productTax) || (this.taxes && this.taxes.length > 0 ? this.taxes[0] : null),
           productTax: 0,
           totalTax: 0,
-          unitCost: product.regularPrice,
-          totalPrice: product.regularPrice * quantity,
-          totalBeforeDiscount: product.regularPrice * quantity, // For ItemsTable component
-          totalAfterDiscount: product.regularPrice * quantity, // For ItemsTable component
+          unitCost: purchasePrice,
+          totalPrice: purchasePrice * quantity,
+          totalBeforeDiscount: purchasePrice * quantity, // For ItemsTable component
+          totalAfterDiscount: purchasePrice * quantity, // For ItemsTable component
           // Include chart of account IDs for validation
           sales_account_id: product.sales_account_id,
           purchase_account_id: product.purchase_account_id,
@@ -1836,7 +1868,7 @@ export default {
     },
 
     // Handle supplier change
-    onSupplierChange() {
+    async onSupplierChange() {
       // Clear any previous errors
       this.form.errors.clear('supplier');
 
@@ -1848,6 +1880,29 @@ export default {
           // Update the form supplier with all the latest data
           this.form.supplier = { ...updatedSupplier };
         }
+
+        // Reload products with supplier_id to get average purchase prices per supplier
+        await this.getProducts();
+
+        // Update existing selected products with new average purchase prices
+        if (this.form.selectedProducts && this.form.selectedProducts.length > 0) {
+          this.form.selectedProducts.forEach((selectedProduct, index) => {
+            const freshProduct = this.products.find(p => p.id === selectedProduct.id);
+            if (freshProduct) {
+              // Update unitPrice with average purchase price by supplier if available
+              if (freshProduct.avgPurchasePriceBySupplier && freshProduct.avgPurchasePriceBySupplier > 0) {
+                selectedProduct.unitPrice = freshProduct.avgPurchasePriceBySupplier;
+                selectedProduct.originalPrice = freshProduct.avgPurchasePriceBySupplier;
+                // Recalculate totals for this product
+                this.generateItemTotalPrice(index);
+              }
+            }
+          });
+          this.calculateSum();
+        }
+      } else {
+        // If no supplier selected, reload products without supplier filter
+        await this.getProducts();
       }
     },
 
@@ -1881,6 +1936,18 @@ export default {
     },
 
     // get all branches
+    async getPaymentMethods() {
+      try {
+        const response = await axios.get(window.location.origin + '/api/payment-methods/all');
+        if (response.data && response.data.data) {
+          this.paymentMethods = response.data.data;
+        }
+      } catch (error) {
+        console.error('Error loading payment methods:', error);
+        // Fallback to empty array if API fails
+        this.paymentMethods = [];
+      }
+    },
     async getBranches() {
       try {
         let branchesData = [];
@@ -2782,5 +2849,77 @@ textarea.form-control {
   .grand-total-value {
     font-size: 14px;
   }
+}
+
+/* Enhanced Product Option Display */
+.product-option {
+  padding: 8px 12px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.product-option:last-child {
+  border-bottom: none;
+}
+
+.product-option-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 6px;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.product-option-header strong {
+  color: #333;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.product-code {
+  color: #6c757d;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.product-option-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 12px;
+  color: #6c757d;
+  margin-top: 4px;
+}
+
+.product-detail-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.product-detail-item i {
+  color: #33a0d9;
+  font-size: 11px;
+}
+
+.badge-sm {
+  font-size: 10px;
+  padding: 2px 6px;
+  font-weight: 500;
+}
+
+.badge-warning {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
+}
+
+/* Hover effect for product options */
+.v-select .vs__dropdown-option:hover .product-option {
+  background-color: #f8f9fa;
+}
+
+/* Selected option styling */
+.v-select .vs__dropdown-option--selected .product-option {
+  background-color: #e3f2fd;
 }
 </style>

@@ -52,6 +52,7 @@ class ChartOfAccountController extends Controller
         $branchId = Auth::user()->default_branch_id ?? null;
 
         $accounts = ChartOfAccount::with(['type', 'parent'])
+            ->withCount('children')
             ->forBranch($branchId)
             ->ordered()
             ->paginate($perPage);
@@ -271,6 +272,25 @@ class ChartOfAccountController extends Controller
             //     'timestamp' => now()
             // ]);
 
+            // Additional validation: prevent circular references during creation
+            if ($request->parent_id) {
+                // This check is mainly for future updates, but good to have here too
+                $parent = ChartOfAccount::find($request->parent_id);
+                if (! $parent) {
+                    return response()->json([
+                        'message' => 'The selected parent account does not exist.',
+                        'errors' => ['parent_id' => ['The selected parent account does not exist']],
+                    ], 422);
+                }
+
+                if (! $parent->is_active) {
+                    return response()->json([
+                        'message' => 'The selected parent account is not active.',
+                        'errors' => ['parent_id' => ['The selected parent account is not active']],
+                    ], 422);
+                }
+            }
+
             $chartOfAccount = ChartOfAccount::create([
                 'name' => $request->name,
                 'code' => $request->code,
@@ -343,6 +363,25 @@ class ChartOfAccountController extends Controller
             $chartOfAccount = ChartOfAccount::forBranch($branchId)
                 ->where('code', $slug)
                 ->firstOrFail();
+
+            // Additional validation: prevent circular references
+            if ($request->parent_id) {
+                $allDescendants = ChartOfAccount::getAllDescendantIds($chartOfAccount->id);
+                if (in_array($request->parent_id, $allDescendants)) {
+                    return response()->json([
+                        'message' => 'Cannot set parent to a descendant account. This would create a circular reference.',
+                        'errors' => ['parent_id' => ['Cannot set parent to a descendant account']],
+                    ], 422);
+                }
+
+                if ($request->parent_id == $chartOfAccount->id) {
+                    return response()->json([
+                        'message' => 'An account cannot be its own parent.',
+                        'errors' => ['parent_id' => ['An account cannot be its own parent']],
+                    ], 422);
+                }
+            }
+
             $chartOfAccount->update($request->validated());
 
             return response()->json([
@@ -656,9 +695,20 @@ class ChartOfAccountController extends Controller
             }
         }
 
+        // Load parent if requested
+        if ($request->has('include') && str_contains($request->get('include'), 'parent')) {
+            $with[] = 'parent';
+        }
+
         // Build query
         $query = ChartOfAccount::with($with)
+            ->withCount('children')
             ->forBranch($branchId);
+
+        // Filter to show only sub-accounts (accounts with parent_id) if requested
+        if ($request->get('sub_accounts_only', false)) {
+            $query->whereNotNull('parent_id');
+        }
 
         // Apply type filter if provided
         if ($request->has('type_id') && $request->type_id) {
@@ -809,7 +859,13 @@ class ChartOfAccountController extends Controller
             $branchId = Auth::user()->default_branch_id ?? null;
 
             $query = ChartOfAccount::with(['type', 'parent', 'translations'])
+                ->withCount('children')
                 ->forBranch($branchId);
+
+            // Filter to show only sub-accounts (accounts with parent_id) if requested
+            if ($request->get('sub_accounts_only', false)) {
+                $query->whereNotNull('parent_id');
+            }
 
             if ($searchTerm) {
                 if ($field === 'name') {

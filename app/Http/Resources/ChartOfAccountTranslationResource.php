@@ -37,8 +37,29 @@ class ChartOfAccountTranslationResource extends JsonResource
                 return $payload;
             }),
             'parent_id' => $this->parent_id,
+            'parent' => $this->whenLoaded('parent', function () use ($request) {
+                $parent = $this->parent;
+                $locale = $request->get('locale', app()->getLocale());
+
+                return [
+                    'id' => $parent->id,
+                    'name' => method_exists($parent, 'getTranslatedField') ? $parent->getTranslatedField('name', $locale) : $parent->name,
+                    'code' => $parent->code,
+                    'original_name' => $parent->name,
+                ];
+            }),
             'order' => $this->order,
             'is_active' => $this->is_active,
+            'children_count' => $this->when(isset($this->children_count), function () {
+                return $this->children_count;
+            }, function () {
+                return $this->children()->count();
+            }),
+            'has_children' => $this->when(isset($this->children_count), function () {
+                return $this->children_count > 0;
+            }, function () {
+                return $this->children()->exists();
+            }),
             'translations' => $this->when($request->get('include_translations', false), function () {
                 return $this->getAllTranslations();
             }),

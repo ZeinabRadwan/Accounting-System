@@ -346,6 +346,7 @@ export default {
     products: '',
     accounts: '',
     taxes: '',
+    paymentMethods: [],
     prefix: '',
     purchasePrefix: '',
     isAutoAssigningSupplier: false,
@@ -418,6 +419,7 @@ export default {
     this.getSuppliers()
     this.getProducts()
     this.getTaxes()
+    this.getPaymentMethods()
     this.prefix = this.appInfo.productPrefix
     this.purchasePrefix = this.appInfo.purchasePrefix
   },
@@ -487,6 +489,19 @@ export default {
         window.location.origin + '/api/all-vat-rates'
       )
       this.taxes = data.data
+    },
+
+    // get payment methods
+    async getPaymentMethods() {
+      try {
+        const response = await axios.get(window.location.origin + '/api/payment-methods/all');
+        if (response.data && response.data.data) {
+          this.paymentMethods = response.data.data;
+        }
+      } catch (error) {
+        console.error('Error loading payment methods:', error);
+        this.paymentMethods = [];
+      }
     },
 
     // store item in array

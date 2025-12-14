@@ -268,12 +268,26 @@ class AccountController extends Controller
                         ? $account->getTranslatedField('name')
                         : $account->name;
 
+                    // Get parent information if available
+                    $parentInfo = null;
+                    if ($account->parent) {
+                        $parentTranslatedName = method_exists($account->parent, 'getTranslatedField')
+                            ? $account->parent->getTranslatedField('name')
+                            : $account->parent->name;
+                        $parentInfo = [
+                            'id' => $account->parent->id,
+                            'name' => $parentTranslatedName,
+                            'code' => $account->parent->code,
+                        ];
+                    }
+
                     return [
                         'id' => $account->id,
                         'name' => $translatedName,
                         'code' => $account->code,
                         'type' => $account->type ? $account->type->name : 'Unknown',
                         'level' => $level,
+                        'parent' => $parentInfo,
                     ];
                 })
                 ->filter(function ($account) {

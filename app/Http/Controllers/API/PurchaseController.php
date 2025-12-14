@@ -349,17 +349,14 @@ class PurchaseController extends Controller
                 $lineTax = $lineCalc['tax'];
                 $lineTotal = $lineCalc['total'];
 
-                // Calculate unit cost for stock: ((purchase_price * quantity - discount_amount) + tax_amount) / quantity
-                // Note: tax_amount here is total tax for the line, so we divide by quantity to get per-unit
-                $taxPerUnit = $selectedProduct['qty'] > 0 ? ($lineTax / $selectedProduct['qty']) : 0;
-                $calculatedUnitCost = (($selectedProduct['unitPrice'] * $selectedProduct['qty'] - $discountAmount) + $lineTax) / $selectedProduct['qty'];
-
-                // calculate new purchase price for stock
-                $currentStockPrice = $product->inventory_count * $product->purchase_price;
-                $newStockPrice = $selectedProduct['qty'] * $calculatedUnitCost;
-                $totalStockPrice = $currentStockPrice + $newStockPrice;
+                // Calculate weighted average purchase price (using purchase_price, NOT unit_cost which includes tax)
+                // Weighted average = (current_quantity * current_price + new_quantity * new_price) / (current_quantity + new_quantity)
+                $currentStockValue = $product->inventory_count * $product->purchase_price;
+                // Use unitPrice (purchase price before tax), NOT unit_cost (which includes tax)
+                $newStockValue = $selectedProduct['qty'] * $selectedProduct['unitPrice'];
+                $totalStockValue = $currentStockValue + $newStockValue;
                 $totalQty = $product->inventory_count + $selectedProduct['qty'];
-                $newPurchasePrice = $totalQty > 0 ? ($totalStockPrice / $totalQty) : $product->purchase_price;
+                $newPurchasePrice = $totalQty > 0 ? ($totalStockValue / $totalQty) : $product->purchase_price;
 
                 // update product stock purchase price
                 $product->update([
@@ -700,16 +697,14 @@ class PurchaseController extends Controller
                 $lineTax = $lineCalc['tax'];
                 $lineTotal = $lineCalc['total'];
 
-                // Calculate unit cost for stock: ((purchase_price * quantity - discount_amount) + tax_amount) / quantity
-                // Note: tax_amount here is total tax for the line, so we divide by quantity to get per-unit
-                $calculatedUnitCost = (($selectedProduct['unitPrice'] * $selectedProduct['qty'] - $discountAmount) + $lineTax) / $selectedProduct['qty'];
-
-                // calculate new purchase price for stock
-                $currentStockPrice = $product->inventory_count * $product->purchase_price;
-                $newStockPrice = $selectedProduct['qty'] * $calculatedUnitCost;
-                $totalStockPrice = $currentStockPrice + $newStockPrice;
+                // Calculate weighted average purchase price (using purchase_price, NOT unit_cost which includes tax)
+                // Weighted average = (current_quantity * current_price + new_quantity * new_price) / (current_quantity + new_quantity)
+                $currentStockValue = $product->inventory_count * $product->purchase_price;
+                // Use unitPrice (purchase price before tax), NOT unit_cost (which includes tax)
+                $newStockValue = $selectedProduct['qty'] * $selectedProduct['unitPrice'];
+                $totalStockValue = $currentStockValue + $newStockValue;
                 $totalQty = $product->inventory_count + $selectedProduct['qty'];
-                $newPurchasePrice = $totalQty > 0 ? ($totalStockPrice / $totalQty) : $product->purchase_price;
+                $newPurchasePrice = $totalQty > 0 ? ($totalStockValue / $totalQty) : $product->purchase_price;
 
                 $newInventory = $product->inventory_count - ($selectedProduct['oldQty'] ?? 0) + $selectedProduct['qty'];
 

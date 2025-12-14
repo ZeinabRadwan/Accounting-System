@@ -34,6 +34,7 @@ export default {
         routes: {
           list: () => buildRoute("chart-of-accounts.index"),
           create: () => buildRoute("chart-of-accounts.create"),
+          createMain: () => buildRoute("chart-of-accounts.create", {}, {}),
           view: (item) => buildRoute("chart-of-accounts.show", { slug: item.code }),
           edit: (item) => buildRoute("chart-of-accounts.edit", { slug: item.code }),
           createChild: (item) => buildRoute("chart-of-accounts.create", {}, { parent_id: item.id }),
@@ -74,7 +75,11 @@ export default {
           }
           return entity.name || entity.original_name || "";
         },
-        canDelete: () => true,
+        canDelete: (item) => {
+          // Prevent deletion if account has child accounts
+          const childrenCount = item.children_count || 0;
+          return childrenCount === 0;
+        },
         canAddChild: (item) => {
           // Only allow adding children to accounts at level 4 and below (level <= 4)
           const level = item.level || 0;

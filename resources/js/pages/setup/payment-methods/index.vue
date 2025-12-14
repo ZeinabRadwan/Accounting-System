@@ -43,6 +43,12 @@
                 <span v-if="row.status === 1" class="badge bg-success">{{ $t("Active") }}</span>
                 <span v-else class="badge bg-danger">{{ $t("Inactive") }}</span>
               </template>
+              <template #cell-chart_of_account="{ row }">
+                <span v-if="row.chart_of_account">
+                  {{ row.chart_of_account.code }} - {{ row.chart_of_account.name }}
+                </span>
+                <span v-else class="text-muted">{{ $t("Not linked") }}</span>
+              </template>
               <template #actions="{ row, index }">
                 <div class="action-dropdown" :class="{ open: openActionIndex === index }">
                   <button type="button" class="action-icon-btn" :data-action-index="index"
@@ -146,6 +152,7 @@ export default {
         { key: "index", label: this.$t("#"), sortable: false },
         { key: "name", label: this.$t("Name") },
         { key: "code", label: this.$t("Short Code") },
+        { key: "chart_of_account", label: this.$t("Accounting Guide / Ledger Account") },
         { key: "note", label: this.$t("Note") },
         { key: "status", label: this.$t("Status") },
       ];

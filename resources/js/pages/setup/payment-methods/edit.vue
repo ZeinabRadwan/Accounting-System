@@ -81,6 +81,28 @@
                   :class="{ 'is-invalid': form.errors.has('note') }" :placeholder="$t('Write your note here!')" />
                 <has-error :form="form" field="note" />
               </div>
+
+              <div class="form-group">
+                <label for="chartOfAccountId">{{ $t("Accounting Guide / Ledger Account") }}</label>
+                <v-select
+                  v-model="form.chartOfAccountId"
+                  :options="chartOfAccounts"
+                  label="name"
+                  :reduce="option => option.id"
+                  :class="{ 'is-invalid': form.errors.has('chartOfAccountId') }"
+                  name="chartOfAccountId"
+                  :placeholder="$t('Select a Chart of Account')"
+                >
+                  <template #option="{ name, code, type }">
+                    <div>
+                      <strong>{{ name }}</strong>
+                      <br>
+                      <small class="text-muted">{{ code }} - {{ type }}</small>
+                    </div>
+                  </template>
+                </v-select>
+                <has-error :form="form" field="chartOfAccountId" />
+              </div>
             </div>
             <div class="card-footer">
               <v-button :loading="form.busy" class="btn btn-success">
@@ -128,14 +150,34 @@ export default {
       shortCode: "",
       status: 1,
       code: "",
+      chartOfAccountId: null,
     }),
     loading: true,
+    chartOfAccounts: [],
   }),
 
   mounted() {
+    this.loadChartOfAccounts();
     this.getMethod();
   },
   methods: {
+    // load chart of accounts
+    async loadChartOfAccounts() {
+      try {
+        const response = await axios.get('/api/accounts/chart-of-accounts');
+        if (response.data && response.data.success) {
+          this.chartOfAccounts = response.data.data || [];
+        } else {
+          this.chartOfAccounts = [];
+        }
+      } catch (error) {
+        console.error('Error loading chart of accounts:', error);
+        toast.fire({
+          type: 'error',
+          title: this.$t('Failed to load chart of accounts')
+        });
+      }
+    },
     // get payment method
     async getMethod() {
       const { data } = await axios.get(
@@ -147,10 +189,14 @@ export default {
       this.form.shortCode = data.code;
       this.form.note = data.note;
       this.form.status = data.status;
+      this.form.chartOfAccountId = data.chart_of_account_id || null;
     },
 
     // update payment method
     async updateMethod() {
+      // Set chart_of_account_id in form
+      this.form.chart_of_account_id = this.form.chartOfAccountId || null;
+
       await this.form
         .patch(
           window.location.origin +

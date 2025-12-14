@@ -323,6 +323,7 @@ export default {
     prefix: '',
     purchasePrefix: '',
     purchaseReturnPrefix: '',
+    paymentMethods: [],
   }),
   computed: {
     ...mapGetters('operations', ['items', 'appInfo']),
@@ -330,6 +331,7 @@ export default {
   created() {
     this.getInvoiceReturn()
     this.getAccounts()
+    this.getPaymentMethods()
     this.prefix = this.appInfo.productPrefix
     this.purchasePrefix = this.appInfo.purchasePrefix
     this.purchaseReturnPrefix = this.appInfo.purchaseReturnPrefix
@@ -341,6 +343,19 @@ export default {
         window.location.origin + '/api/all-accounts'
       )
       this.accounts = data.data
+    },
+
+    // get payment methods
+    async getPaymentMethods() {
+      try {
+        const response = await axios.get(window.location.origin + '/api/payment-methods/all');
+        if (response.data && response.data.data) {
+          this.paymentMethods = response.data.data;
+        }
+      } catch (error) {
+        console.error('Error loading payment methods:', error);
+        this.paymentMethods = [];
+      }
     },
     // update available balance
     updateBalance() {

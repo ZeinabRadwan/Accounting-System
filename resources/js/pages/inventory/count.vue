@@ -77,6 +77,7 @@
                   <th>{{ $t("Code") }}</th>
                   <th>{{ $t("Name") }}</th>
                   <th>{{ $t("Current Stock") }}</th>
+                  <th>{{ $t("Purchase Price") }}</th>
                   <th>{{ $t("Status") }}</th>
                   <th>{{ $t("Actions") }}</th>
                 </thead>
@@ -113,6 +114,14 @@
                       </span>
                     </td>
                     <td>
+                      <span v-if="data.avgPurchasePrice">
+                        {{ formatToTwoDecimals(data.avgPurchasePrice) }} <span class="saudi-riyal">ê</span>
+                      </span>
+                      <span v-else class="text-muted">
+                        {{ $t("N/A") }}
+                      </span>
+                    </td>
+                    <td>
                       <span v-if="data.status === 1" class="badge bg-success">{{
                         $t("Active")
                         }}</span>
@@ -128,7 +137,7 @@
                     </td>
                   </tr>
                   <tr v-show="!loading && !items.length">
-                    <td colspan="6">
+                    <td colspan="7">
                       <EmptyTable />
                     </td>
                   </tr>
@@ -327,6 +336,18 @@ export default {
       } catch (error) {
         this.toast.fire({ type: "error", title: this.$t("There was something wrong.") });
       }
+    },
+
+    // Format number to display with exactly 2 decimal places
+    formatToTwoDecimals(value) {
+      if (value === null || value === undefined || value === '') {
+        return '0.00';
+      }
+      const numValue = Number(value);
+      if (isNaN(numValue)) {
+        return '0.00';
+      }
+      return numValue.toFixed(2);
     },
 
     // export Excel without navigation and show toast on errors

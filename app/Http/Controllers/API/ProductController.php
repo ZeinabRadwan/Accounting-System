@@ -641,10 +641,11 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function allProductsNotService()
+    public function allProductsNotService(Request $request)
     {
         $user = Auth::user();
         $branchIds = $this->getUserBranchIds($user);
+        $supplierId = $request->input('supplier_id');
 
         $products = Product::where('is_service', false)->with(
             'purchaseProducts',
@@ -652,6 +653,7 @@ class ProductController extends Controller
             'invoiceProducts',
             'invoiceReturnProducts',
             'productTax',
+            'productUnit',
             'salesAccount',
             'purchaseAccount'
         )->where('status', 1)
@@ -659,7 +661,9 @@ class ProductController extends Controller
             ->latest()
             ->get();
 
-        return ProductSelectResource::collection($products);
+        return ProductSelectResource::collection($products)->additional([
+            'supplier_id' => $supplierId,
+        ]);
     }
 
     /**
@@ -691,10 +695,11 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function allProductsForSelect()
+    public function allProductsForSelect(Request $request)
     {
         $user = Auth::user();
         $branchIds = $this->getUserBranchIds($user);
+        $supplierId = $request->input('supplier_id');
 
         $products = Product::with(
             'purchaseProducts',
@@ -709,7 +714,9 @@ class ProductController extends Controller
             ->latest()
             ->get();
 
-        return ProductSelectResource::collection($products);
+        return ProductSelectResource::collection($products)->additional([
+            'supplier_id' => $supplierId,
+        ]);
     }
 
     // generate item code

@@ -306,6 +306,7 @@ export default {
     accounts: '',
     supplierPurchases: '',
     taxes: '',
+    paymentMethods: [],
   }),
   computed: {
     ...mapGetters('operations', ['items', 'appInfo']),
@@ -399,6 +400,7 @@ export default {
     this.getProducts()
     this.getAccounts()
     this.getTaxes()
+    this.getPaymentMethods()
     this.prefix = this.appInfo.productPrefix
     // default status by country
     this.form.status = this.isSaudiArabia ? 0 : 1
@@ -439,6 +441,19 @@ export default {
         this.taxes = data.data
       } catch (e) {
         this.taxes = []
+      }
+    },
+
+    // get payment methods
+    async getPaymentMethods() {
+      try {
+        const response = await axios.get(window.location.origin + '/api/payment-methods/all');
+        if (response.data && response.data.data) {
+          this.paymentMethods = response.data.data;
+        }
+      } catch (error) {
+        console.error('Error loading payment methods:', error);
+        this.paymentMethods = [];
       }
     },
 
@@ -489,9 +504,8 @@ export default {
         } catch (error) {
           console.warn('Could not fetch product data for:', purchaseItem.productSlug)
         }
-        const availableQty = Number(purchaseItem.quantity) - Number(purchaseItem.returnQty)
-        const presetReturnQty = availableQty // Default to remaining quantity (like sales returns)
-        const maxQty = availableQty
+        // No quantity check needed - purchases increase quantity, not decrease it
+        const presetReturnQty = Number(purchaseItem.quantity) // Default to full quantity
         // Try to find matching VAT rate, fallback to 15% VAT rate, then first available
         let selectedVatRate = this.findMatchingVatRate(purchaseItem.productTax)
         if (!selectedVatRate) {
@@ -531,9 +545,7 @@ export default {
           unit: purchaseItem.productUnit,
           oldQty: purchaseItem.quantity, // Original quantity from purchase
           qty: purchaseItem.quantity, // Original quantity from purchase
-          returnQty: availableQty, // Default to remaining quantity (like sales returns)
-          totalReturnQty: availableQty, // Total quantity that can be returned
-          maxQty: maxQty, // Maximum quantity that can be returned
+          returnQty: presetReturnQty, // Default to full quantity (no limit check needed)
           purchasePrice: purchaseItem.purchasePrice,
           unitCost: purchaseItem.purchasePrice,
           totalPrice: totalPrice,
@@ -571,9 +583,8 @@ export default {
           qty = Number(value)
         }
 
-        // Clamp between 0 and maxQty
+        // Only ensure qty is not negative (no max limit check - purchases increase quantity)
         if (qty < 0) qty = 0
-        if (item.maxQty != null && qty > item.maxQty) qty = item.maxQty
 
         item.returnQty = qty
         this.$set(this.form.selectedProducts, index, item)

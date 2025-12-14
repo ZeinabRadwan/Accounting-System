@@ -91,6 +91,9 @@
               <template #cell-purchaseTotal="{ row }">
                 {{ parseFloat(row.purchaseTotal).toFixed(2) }} <span class="saudi-riyal">ê</span>
               </template>
+              <template #cell-discount="{ row }">
+                <span v-html="formatCurrency(calculateDiscountAmount(row))"></span>
+              </template>
               <template #cell-totalPaid="{ row }">
                 {{ parseFloat(row.totalPaid).toFixed(2) }} <span class="saudi-riyal">ê</span>
               </template>
@@ -427,6 +430,7 @@ export default {
         { key: "purchaseDate", label: this.$t("Date") },
         { key: "supplierName", label: this.$t("Supplier") },
         { key: "purchaseTotal", label: this.$t("Net Total") },
+        { key: "discount", label: this.$t("Discount"), align: "text-right" },
         { key: "totalPaid", label: this.$t("Total Paid") },
         { key: "due", label: this.$t("Total Due") },
         { key: "journalEntry", label: this.$t("Journal Entry"), sortable: false },
@@ -726,6 +730,48 @@ export default {
         this.$t("Cannot Add Payment"),
         this.$t("You have to send the purchase first before adding payments.")
       );
+    },
+
+    // Format currency with 2 decimal places
+    formatCurrency(amount) {
+      if (amount === null || amount === undefined) {
+        return '0.00';
+      }
+
+      const numValue = Number(amount);
+      const formatted = numValue.toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+
+      return formatted + ' <span class="saudi-riyal">ê</span>';
+    },
+
+    // Calculate discount amount from purchase data (supports both old and new format)
+    calculateDiscountAmount(data) {
+      if (!data) return 0;
+
+      // Check new format first (discount_type/discount_value)
+      if (data.discount_type && data.discount_value && data.discount_value > 0) {
+        if (data.discount_type === 'percentage') {
+          return (data.discount_value / 100) * (data.subTotal || 0);
+        } else {
+          return data.discount_value;
+        }
+      }
+
+      // Check old format (discount/discountType)
+      if (data.discount && data.discount > 0) {
+        // If discountType is 1 (percentage), calculate percentage of subtotal
+        // If discountType is 0 (fixed), use discount value directly
+        if (data.discountType === 1) {
+          return (data.discount / 100) * (data.subTotal || 0);
+        } else {
+          return data.discount;
+        }
+      }
+
+      return 0;
     },
   },
 };

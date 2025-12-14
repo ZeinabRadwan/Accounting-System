@@ -728,6 +728,15 @@ export default {
   color: #1B5E20;
 }
 
+.tree-item-actions :deep(.tree-action-add-main) {
+  color: #2AB930;
+}
+
+.tree-item-actions :deep(.tree-action-add-main:hover) {
+  background: #E8F5E9;
+  color: #1B5E20;
+}
+
 .tree-item-actions :deep(.tree-action-delete) {
   color: #F44336;
 }

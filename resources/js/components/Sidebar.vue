@@ -374,8 +374,20 @@
                 $can('chart-of-account-delete')
               " class="nav-item">
                 <router-link :to="{ name: 'chart-of-accounts.index' }" class="nav-link">
-                  <i class="fas fa-chart-line nav-icon" />
+                  <i class="fas fa-list nav-icon" />
                   <p>{{ $t("Chart of Accounts") }}</p>
+                </router-link>
+              </li>
+              <li v-if="
+                $can('chart-of-account-list') ||
+                $can('chart-of-account-create') ||
+                $can('chart-of-account-edit') ||
+                $can('chart-of-account-view') ||
+                $can('chart-of-account-delete')
+              " class="nav-item">
+                <router-link :to="{ name: 'chart-of-accounts.sub-accounts' }" class="nav-link">
+                  <i class="fas fa-code-branch nav-icon" />
+                  <p>{{ $t("Sub Accounts") }}</p>
                 </router-link>
               </li>
               <li v-if="
