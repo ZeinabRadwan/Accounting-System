@@ -36553,12 +36553,12 @@ var map = {
 		5403
 	],
 	"./cashbook/chart-of-accounts": [
-		13006,
-		3006
+		98540,
+		8540
 	],
 	"./cashbook/chart-of-accounts/": [
-		13006,
-		3006
+		98540,
+		8540
 	],
 	"./cashbook/chart-of-accounts/create": [
 		35608,
@@ -36577,12 +36577,12 @@ var map = {
 		383
 	],
 	"./cashbook/chart-of-accounts/index": [
-		13006,
-		3006
+		98540,
+		8540
 	],
 	"./cashbook/chart-of-accounts/index.vue": [
-		13006,
-		3006
+		98540,
+		8540
 	],
 	"./cashbook/chart-of-accounts/show": [
 		34895,

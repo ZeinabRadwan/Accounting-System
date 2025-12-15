@@ -36596,12 +36596,12 @@ var map = {
 		5403
 	],
 	"./cashbook/chart-of-accounts": [
-		13006,
-		3006
+		98540,
+		8540
 	],
 	"./cashbook/chart-of-accounts/": [
-		13006,
-		3006
+		98540,
+		8540
 	],
 	"./cashbook/chart-of-accounts/create": [
 		35608,
@@ -36620,12 +36620,12 @@ var map = {
 		383
 	],
 	"./cashbook/chart-of-accounts/index": [
-		13006,
-		3006
+		98540,
+		8540
 	],
 	"./cashbook/chart-of-accounts/index.vue": [
-		13006,
-		3006
+		98540,
+		8540
 	],
 	"./cashbook/chart-of-accounts/show": [
 		34895,
@@ -113711,6 +113711,14 @@ function page(path) {
   path: '/chart-of-accounts',
   name: 'chart-of-accounts.index',
   component: page('cashbook/chart-of-accounts/index.vue'),
+  meta: {
+    permissions: ['chart-of-account-list'],
+    systemType: ['accounting', 'both']
+  }
+}, {
+  path: '/chart-of-accounts/tree',
+  name: 'chart-of-accounts.tree',
+  component: page('cashbook/chart-of-accounts/tree.vue'),
   meta: {
     permissions: ['chart-of-account-list'],
     systemType: ['accounting', 'both']

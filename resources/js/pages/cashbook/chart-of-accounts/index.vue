@@ -26,7 +26,7 @@
                     v-tooltip="$t('Tree View')"
                     class="btn btn-success refresh-btn"
                   >
-                    <i class="fas fa-sitemap"></i>
+                    <i class="fas fa-sitemap mr-1"></i>
                   </router-link>
                   <a
                     @click="refreshTable()"

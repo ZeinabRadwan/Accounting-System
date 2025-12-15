@@ -607,6 +607,15 @@ export default [
       systemType: ['accounting', 'both']
     },
   },
+  {
+    path: '/chart-of-accounts/tree',
+    name: 'chart-of-accounts.tree',
+    component: page('cashbook/chart-of-accounts/tree.vue'),
+    meta: {
+      permissions: ['chart-of-account-list'],
+      systemType: ['accounting', 'both']
+    },
+  },
    {
     path: '/chart-of-accounts/sub-accounts',
     name: 'chart-of-accounts.sub-accounts',
