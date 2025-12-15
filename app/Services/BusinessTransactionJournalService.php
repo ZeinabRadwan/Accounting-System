@@ -257,32 +257,67 @@ class BusinessTransactionJournalService
             $totalSalesAmount = 0;
             $totalVatAmount = 0;
 
-            // Calculate sales and VAT amounts (after discounts)
+            // Calculate sales and VAT amounts (after line-level discounts)
             foreach ($invoiceProducts as $invoiceProduct) {
                 $originalAmount = $invoiceProduct->sale_price * $invoiceProduct->quantity;
-                $discountAmount = $invoiceProduct->discount_amount ?? 0;
-                $netAmount = $originalAmount - $discountAmount;
+                $lineDiscountAmount = $invoiceProduct->discount_amount ?? 0;
+                $netAmount = $originalAmount - $lineDiscountAmount;
 
                 $totalSalesAmount += $netAmount;
                 $totalVatAmount += $invoiceProduct->tax_amount;
             }
 
-            // The total amount should be net sales + VAT
-            $totalAmount = $totalSalesAmount + $totalVatAmount;
+            // Calculate bill-level (invoice-level) discount amount, if any
+            $billDiscountAmount = 0;
+
+            if ($invoice->discount_type !== null && $invoice->discount !== null && (float) $invoice->discount > 0) {
+                $discountValue = (float) $invoice->discount;
+
+                if ((int) $invoice->discount_type === 1) {
+                    // Percentage discount based on net sales after line-level discounts
+                    $billDiscountAmount = round($totalSalesAmount * ($discountValue / 100), 2);
+                } else {
+                    // Fixed amount discount
+                    $billDiscountAmount = round($discountValue, 2);
+                }
+
+                // Cap discount so it never exceeds total sales amount
+                if ($billDiscountAmount > $totalSalesAmount) {
+                    $billDiscountAmount = $totalSalesAmount;
+                }
+            }
+
+            // Get Discount Allowed account if we have a bill-level discount
+            $discountAccount = null;
+            if ($billDiscountAmount > 0) {
+                $discountAccount = $this->getDiscountAllowedAccount($invoice->branch_id);
+                if (! $discountAccount) {
+                    throw new Exception('Discount Allowed account must be configured in account routing settings to process bill-level discounts on invoices.');
+                }
+            }
+
+            // Header totals (sum of all debits / credits) = net sales + VAT
+            $headerTotalAmount = $totalSalesAmount + $totalVatAmount;
+
+            // Accounts Receivable is reduced by the bill-level discount
+            $accountsReceivableAmount = $headerTotalAmount;
+            if ($billDiscountAmount > 0) {
+                $accountsReceivableAmount = max(0, $headerTotalAmount - $billDiscountAmount);
+            }
 
             // Get default fiscal year and accounting period
             $defaults = $this->getDefaultFiscalYearAndPeriod();
             // Note: branchId is already defined earlier in the function
 
-            // Create journal entry for the invoice itself (AR, Sales, VAT)
+            // Create journal entry for the invoice itself (AR, Sales, VAT, Discount)
             // Reference must contain invoice number for matching JE ⇄ invoice
             $journalEntry = JournalEntry::create([
                 'entry_number' => JournalEntry::generateEntryNumber(),
                 'entry_date' => $invoice->invoice_date,
                 'reference' => $invoice->invoice_no, // Invoice number for matching
                 'description' => __('journal.sale_invoice', ['number' => $invoice->invoice_no]),
-                'total_debit' => $totalAmount,
-                'total_credit' => $totalAmount,
+                'total_debit' => $headerTotalAmount,
+                'total_credit' => $headerTotalAmount,
                 'status' => 'posted', // Auto-post for system-generated entries
                 'created_by' => $userId,
                 'posted_by' => $userId,
@@ -294,8 +329,8 @@ class BusinessTransactionJournalService
                 'branch_id' => $branchId,
             ]);
 
-            // Line 1: Debit to Client's Accounts Receivable
-            $this->createJournalEntryLine($journalEntry, $clientAccountsReceivableAccount->id, $totalAmount, 0, 1, __('journal.accounts_receivable'));
+            // Line 1: Debit to Client's Accounts Receivable (net of bill-level discount)
+            $this->createJournalEntryLine($journalEntry, $clientAccountsReceivableAccount->id, $accountsReceivableAmount, 0, 1, __('journal.accounts_receivable'));
 
             $lineNumber = 2;
 
@@ -352,8 +387,22 @@ class BusinessTransactionJournalService
                 }
             }
 
+            // Create bill-level discount line if applicable (Discount Allowed – contra revenue)
+            if ($billDiscountAmount > 0 && $discountAccount) {
+                Log::info("Creating Discount Allowed journal line: Account ID {$discountAccount->id}, Amount: {$billDiscountAmount}");
+                $this->createJournalEntryLine(
+                    $journalEntry,
+                    $discountAccount->id,
+                    $billDiscountAmount,
+                    0,
+                    $lineNumber,
+                    __('journal.discount_allowed_for_invoice', ['number' => $invoice->invoice_no])
+                );
+                $lineNumber++;
+            }
+
             // Log the final totals for debugging
-            Log::info("Journal entry totals - Debit: {$totalAmount}, Credit: {$totalAmount}");
+            Log::info("Journal entry totals - Debit: {$headerTotalAmount}, Credit: {$headerTotalAmount}");
             Log::info('Sales accounts: '.json_encode($salesByAccount));
             Log::info('VAT accounts: '.json_encode($vatByAccount));
 
@@ -691,28 +740,26 @@ class BusinessTransactionJournalService
                 Log::info("Product: {$productName}, Gross: {$gross}, Discount: {$discountAmount}, Net: {$lineNet}, Quantity: {$quantity}, VAT: {$productVatAmount}");
             }
 
-            // Apply purchase-level (bill-level) discount to inventory amount
-            // This mirrors how invoice-level discounts reduce net sales for invoices:
-            // the discount reduces the inventory cost (not the VAT), so the journal
-            // entries reflect the final net amount after all discounts.
-            $invoiceLevelDiscountAmount = 0;
+            // Calculate purchase-level (bill-level) discount amount, if any
+            $billDiscountAmount = 0;
+
             if (! empty($purchase->discount_type) && (float) $purchase->discount_value > 0) {
                 $discountBase = $totalInventoryAmount;
                 $discountValue = (float) $purchase->discount_value;
 
                 if ($purchase->discount_type === 'percentage') {
-                    $invoiceLevelDiscountAmount = round($discountBase * ($discountValue / 100), 2);
+                    $billDiscountAmount = round($discountBase * ($discountValue / 100), 2);
                 } else {
                     // Fixed discount amount – cap it to the base to avoid negatives
-                    $invoiceLevelDiscountAmount = round($discountValue, 2);
-                    if ($invoiceLevelDiscountAmount > $discountBase) {
-                        $invoiceLevelDiscountAmount = $discountBase;
-                    }
+                    $billDiscountAmount = round($discountValue, 2);
                 }
 
-                if ($invoiceLevelDiscountAmount > 0) {
-                    $totalInventoryAmount = max(0, $totalInventoryAmount - $invoiceLevelDiscountAmount);
-                    Log::info("Applied purchase-level discount for PO {$purchase->purchase_no}: Type={$purchase->discount_type}, Value={$discountValue}, Calculated Amount={$invoiceLevelDiscountAmount}, New Inventory Total={$totalInventoryAmount}");
+                if ($billDiscountAmount > $discountBase) {
+                    $billDiscountAmount = $discountBase;
+                }
+
+                if ($billDiscountAmount > 0) {
+                    Log::info("Calculated purchase-level discount for PO {$purchase->purchase_no}: Type={$purchase->discount_type}, Value={$discountValue}, Calculated Amount={$billDiscountAmount}");
                 }
             }
 
@@ -781,9 +828,35 @@ class BusinessTransactionJournalService
                 $lineNumber++;
             }
 
-            // Line 3: Credit Cash/Bank/Supplier
-            Log::info("Creating journal line {$lineNumber}: Credit Payment Account - Account ID: {$creditAccount->id}, Amount: {$totalAmount}");
-            $this->createJournalEntryLine($journalEntry, $creditAccount->id, 0, $totalAmount, $lineNumber, __('journal.payment_for_purchase', ['number' => $purchase->purchase_no]));
+            // Calculate credit amount for AP / cash-bank after bill-level discount
+            $creditAccountAmount = $totalInventoryAmount - $billDiscountAmount + $totalVatAmount;
+            if ($creditAccountAmount < 0) {
+                $creditAccountAmount = 0;
+            }
+
+            // Line 3: Credit Cash/Bank/Supplier (net of bill-level discount)
+            Log::info("Creating journal line {$lineNumber}: Credit Payment Account - Account ID: {$creditAccount->id}, Amount: {$creditAccountAmount}");
+            $this->createJournalEntryLine($journalEntry, $creditAccount->id, 0, $creditAccountAmount, $lineNumber, __('journal.payment_for_purchase', ['number' => $purchase->purchase_no]));
+            $lineNumber++;
+
+            // Line 4: Credit Discount Received (bill-level discount), if applicable
+            if ($billDiscountAmount > 0) {
+                $discountReceivedAccount = $this->getDiscountReceivedAccount($purchase->branch_id);
+                if (! $discountReceivedAccount) {
+                    throw new Exception('Discount Received account must be configured in account routing settings to process bill-level discounts on purchases.');
+                }
+
+                Log::info("Creating journal line {$lineNumber}: Credit Discount Received - Account ID: {$discountReceivedAccount->id}, Amount: {$billDiscountAmount}");
+                $this->createJournalEntryLine(
+                    $journalEntry,
+                    $discountReceivedAccount->id,
+                    0,
+                    $billDiscountAmount,
+                    $lineNumber,
+                    __('journal.discount_received_for_purchase', ['number' => $purchase->purchase_no])
+                );
+                $lineNumber++;
+            }
 
             // Create bridge table record
             Log::info("Creating purchase journal bridge record for purchase ID: {$purchase->id}, journal entry ID: {$journalEntry->id}");
