@@ -16,12 +16,6 @@ return new class extends Migration
         }
 
         Schema::table('expenses', function (Blueprint $table) {
-            // Add branch_id if it doesn't exist
-            if (! Schema::hasColumn('expenses', 'branch_id')) {
-                $table->unsignedBigInteger('branch_id')->nullable()->after('status');
-                $table->foreign('branch_id')->references('id')->on('branches')->onDelete('set null')->onUpdate('no action');
-            }
-
             // Add cost_center_id if it doesn't exist
             if (! Schema::hasColumn('expenses', 'cost_center_id')) {
                 if (Schema::hasColumn('expenses', 'branch_id')) {
@@ -78,8 +72,6 @@ return new class extends Migration
                 $table->dropForeign(['cost_center_id']);
                 $table->dropColumn('cost_center_id');
             }
-            // Note: branch_id might be used elsewhere, so we'll only drop it if it was added by this migration
-            // In practice, you might want to keep branch_id
         });
     }
 };
