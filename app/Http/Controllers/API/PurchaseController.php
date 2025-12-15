@@ -582,6 +582,10 @@ class PurchaseController extends Controller
         try {
             DB::beginTransaction();
 
+            // Get current user id for journal entries
+            $user = auth()->user();
+            $userId = $user->id;
+
             // add activity log
             activity()
                 ->causedBy(Auth::user())
@@ -784,6 +788,45 @@ class PurchaseController extends Controller
                 'fiscal_year_id' => $currentFiscalYearId,
                 'accounting_period_id' => $currentAccountingPeriodId,
             ]);
+
+            // Recreate purchase journal so changes (including bill-level discounts) are reflected
+            try {
+                $journalService = new BusinessTransactionJournalService;
+
+                // Try to preserve the original credit account (cash/bank vs supplier) if a journal exists
+                $existingJournalEntry = \App\Models\JournalEntry::where('source_type', Purchase::class)
+                    ->where('source_id', $purchase->id)
+                    ->first();
+
+                $paymentAccountChart = null;
+
+                if ($existingJournalEntry) {
+                    $creditLine = $existingJournalEntry->lines()
+                        ->where('credit_amount', '>', 0)
+                        ->orderByDesc('line_number')
+                        ->first();
+
+                    $supplierAccountId = $purchase->supplier?->chart_of_account_id;
+
+                    // If the credit line account is not the supplier's account, treat it as a cash/bank payment account
+                    if ($creditLine && $creditLine->chart_of_account_id && $creditLine->chart_of_account_id !== $supplierAccountId) {
+                        $paymentAccountChart = \App\Models\ChartOfAccount::find($creditLine->chart_of_account_id);
+                    }
+                }
+
+                // Reload products with product relations for accurate journal calculations
+                $freshPurchase = $purchase->fresh('purchaseProducts.product');
+
+                if ($freshPurchase) {
+                    if ($paymentAccountChart) {
+                        $journalService->recreatePurchaseJournal($freshPurchase, $userId, $paymentAccountChart);
+                    } else {
+                        $journalService->recreatePurchaseJournal($freshPurchase, $userId, null);
+                    }
+                }
+            } catch (Exception $e) {
+                Log::error('Failed to recreate journal entry for purchase update: '.$e->getMessage());
+            }
 
             DB::commit();
 

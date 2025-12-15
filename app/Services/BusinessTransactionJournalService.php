@@ -652,7 +652,6 @@ class BusinessTransactionJournalService
             if (! $purchaseProducts || $purchaseProducts->count() === 0) {
                 throw new Exception('No products found for this purchase.');
             }
-
             Log::info("Found {$purchaseProducts->count()} purchase products for PO {$purchase->purchase_no}");
 
             // Calculate inventory amount = sum of line_net (after discount, before tax) for all products with inventory tracking
@@ -690,6 +689,31 @@ class BusinessTransactionJournalService
                 $productName = $product->name ?? 'Unknown';
                 $quantity = $purchaseProduct->quantity ?? 0;
                 Log::info("Product: {$productName}, Gross: {$gross}, Discount: {$discountAmount}, Net: {$lineNet}, Quantity: {$quantity}, VAT: {$productVatAmount}");
+            }
+
+            // Apply purchase-level (bill-level) discount to inventory amount
+            // This mirrors how invoice-level discounts reduce net sales for invoices:
+            // the discount reduces the inventory cost (not the VAT), so the journal
+            // entries reflect the final net amount after all discounts.
+            $invoiceLevelDiscountAmount = 0;
+            if (! empty($purchase->discount_type) && (float) $purchase->discount_value > 0) {
+                $discountBase = $totalInventoryAmount;
+                $discountValue = (float) $purchase->discount_value;
+
+                if ($purchase->discount_type === 'percentage') {
+                    $invoiceLevelDiscountAmount = round($discountBase * ($discountValue / 100), 2);
+                } else {
+                    // Fixed discount amount – cap it to the base to avoid negatives
+                    $invoiceLevelDiscountAmount = round($discountValue, 2);
+                    if ($invoiceLevelDiscountAmount > $discountBase) {
+                        $invoiceLevelDiscountAmount = $discountBase;
+                    }
+                }
+
+                if ($invoiceLevelDiscountAmount > 0) {
+                    $totalInventoryAmount = max(0, $totalInventoryAmount - $invoiceLevelDiscountAmount);
+                    Log::info("Applied purchase-level discount for PO {$purchase->purchase_no}: Type={$purchase->discount_type}, Value={$discountValue}, Calculated Amount={$invoiceLevelDiscountAmount}, New Inventory Total={$totalInventoryAmount}");
+                }
             }
 
             // Skip journal entry if no products have inventory tracking (all are services)
@@ -776,6 +800,42 @@ class BusinessTransactionJournalService
         } catch (Exception $e) {
             DB::rollBack();
             Log::error('Purchase journal creation failed: '.$e->getMessage());
+            throw $e;
+        }
+    }
+
+    /**
+     * Recreate journal entry for a purchase after it has been updated.
+     *
+     * This will remove any existing purchase journal (and its bridge records)
+     * and then call createPurchaseJournal() with the provided payment account,
+     * ensuring the latest purchase totals and discounts are reflected.
+     */
+    public function recreatePurchaseJournal(Purchase $purchase, int $userId, ?ChartOfAccount $paymentAccount = null): JournalEntry
+    {
+        DB::beginTransaction();
+
+        try {
+            // Delete existing journal entries for this purchase (including lines via cascade)
+            $existingEntries = JournalEntry::where('source_type', Purchase::class)
+                ->where('source_id', $purchase->id)
+                ->get();
+
+            foreach ($existingEntries as $entry) {
+                Log::info("Deleting existing purchase journal entry ID {$entry->id} for purchase {$purchase->purchase_no}");
+                $entry->delete();
+            }
+
+            // Delete bridge records
+            \App\Models\PurchaseJournal::where('purchase_id', $purchase->id)->delete();
+
+            DB::commit();
+
+            // Now recreate a fresh journal entry using the standard logic
+            return $this->createPurchaseJournal($purchase, $userId, $paymentAccount);
+        } catch (Exception $e) {
+            DB::rollBack();
+            Log::error('Failed to recreate purchase journal: '.$e->getMessage());
             throw $e;
         }
     }
