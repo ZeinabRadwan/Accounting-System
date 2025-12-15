@@ -467,14 +467,6 @@ class BusinessTransactionJournalService
                     );
                 }
 
-                // Log COGS calculation details for debugging
-                Log::info(
-                    "Invoice {$invoice->invoice_no} - COGS Calculation: ".
-                    "Total COGS Amount = {$totalCogsAmount} (net amount only, excluding VAT). ".
-                    "Invoice Total = {$totalAmount} (sales + VAT). ".
-                    'COGS should be less than invoice total.'
-                );
-
                 // Create COGS journal entry with invoice number in reference for matching
                 $cogsJournalEntry = JournalEntry::create([
                     'entry_number' => JournalEntry::generateEntryNumber(),
