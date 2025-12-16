@@ -288,6 +288,92 @@
                 </div>
               </div>
             </div>
+
+            <!-- Purchase Cost Breakdown Section -->
+            <div v-if="!allData.itemType || allData.itemType === 'product'" class="row mt-4">
+              <div class="col-12">
+                <div class="card custom-card">
+                  <div class="card-header setings-header">
+                    <h3 class="card-title">{{ $t("Purchase Cost Breakdown") }}</h3>
+                  </div>
+                  <div class="card-body">
+                    <div v-if="purchaseHistory && purchaseHistory.length > 0">
+                      <div class="table-responsive">
+                        <table class="table table-bordered table-hover table-sm">
+                          <thead class="thead-light">
+                            <tr>
+                              <th>{{ $t("Date") }}</th>
+                              <th>{{ $t("Purchase No") }}</th>
+                              <th>{{ $t("Reference") }}</th>
+                              <th class="text-right">{{ $t("Quantity") }}</th>
+                              <th class="text-right">{{ $t("Unit Price") }}</th>
+                              <th class="text-right">{{ $t("Line Total") }}</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr v-for="(purchase, index) in purchaseHistory" :key="purchase.id || index" :class="{'table-info': purchase.type === 'opening_stock'}">
+                              <td>
+                                <span v-if="purchase.purchase_date">{{ formatDate(purchase.purchase_date) }}</span>
+                                <span v-else-if="purchase.type === 'opening_stock'" class="text-muted">{{ $t("Opening Stock") }}</span>
+                                <span v-else class="text-muted">-</span>
+                              </td>
+                              <td>
+                                <span v-if="purchase.purchase_no">
+                                  {{ formatPurchaseNumber(purchase.purchase_no) }}
+                                </span>
+                                <span v-else-if="purchase.type === 'opening_stock'" class="text-muted">-</span>
+                                <span v-else class="text-muted">-</span>
+                              </td>
+                              <td>
+                                <span v-if="purchase.purchase_reference">
+                                  {{ purchase.purchase_reference }}
+                                </span>
+                                <span v-else class="text-muted">-</span>
+                              </td>
+                              <td class="text-right">
+                                {{ formatNumber(purchase.quantity) }}
+                                <span v-if="allData.itemUnit">{{ allData.itemUnit.code }}</span>
+                              </td>
+                              <td class="text-right">
+                                {{ formatCurrency(purchase.purchase_price) }} <span class="saudi-riyal">ê</span>
+                              </td>
+                              <td class="text-right">
+                                <strong>{{ formatCurrency(purchase.line_total) }} <span class="saudi-riyal">ê</span></strong>
+                              </td>
+                            </tr>
+                          </tbody>
+                          <tfoot class="thead-light">
+                            <tr>
+                              <th colspan="3" class="text-right">{{ $t("Totals") }}:</th>
+                              <th class="text-right">
+                                {{ formatNumber(totalPurchaseQuantity) }}
+                                <span v-if="allData.itemUnit">{{ allData.itemUnit.code }}</span>
+                              </th>
+                              <th class="text-right">-</th>
+                              <th class="text-right">
+                                <strong>{{ formatCurrency(totalPurchaseValue) }} <span class="saudi-riyal">ê</span></strong>
+                              </th>
+                            </tr>
+                            <tr v-if="totalPurchaseQuantity > 0" class="bg-light">
+                              <th colspan="5" class="text-right">
+                                <strong>{{ $t("Average Cost") }}:</strong>
+                              </th>
+                              <th class="text-right">
+                                <strong class="text-primary">{{ formatCurrency(calculatedAverageCost) }} <span class="saudi-riyal">ê</span></strong>
+                              </th>
+                            </tr>
+                          </tfoot>
+                        </table>
+                      </div>
+                    </div>
+                    <div v-else class="alert alert-info">
+                      <i class="fas fa-info-circle"></i>
+                      {{ $t("No purchase history available for this product.") }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -466,6 +552,79 @@ export default {
       const stockQty = parseFloat(this.allData.availableQty) || 0;
       return this.calculatedSellingPrice * stockQty;
     },
+    // Get purchase history from allData (including opening stock)
+    purchaseHistory() {
+      const history = [];
+      
+      // Add opening stock if it exists
+      if (this.allData && this.allData.openingStockData) {
+        const openingStock = this.allData.openingStockData;
+        if (openingStock.quantity > 0 && openingStock.unit_price > 0) {
+          history.push({
+            id: 'opening',
+            type: 'opening_stock',
+            purchase_date: null,
+            purchase_no: null,
+            purchase_reference: this.$t('Opening Stock'),
+            quantity: parseFloat(openingStock.quantity) || 0,
+            purchase_price: parseFloat(openingStock.unit_price) || 0,
+            line_total: parseFloat(openingStock.total_value) || 0,
+          });
+        }
+      }
+      
+      // Add purchase products
+      if (this.allData && this.allData.purchaseProducts) {
+        const purchaseProducts = this.allData.purchaseProducts
+          .filter(pp => pp && pp.purchase_price !== null && pp.purchase_price !== undefined)
+          .map(pp => ({
+            id: pp.id,
+            type: 'purchase',
+            purchase_date: pp.purchase_date,
+            purchase_no: pp.purchase_no,
+            purchase_reference: pp.purchase_reference,
+            quantity: parseFloat(pp.quantity) || 0,
+            purchase_price: parseFloat(pp.purchase_price) || 0,
+            line_total: (parseFloat(pp.quantity) || 0) * (parseFloat(pp.purchase_price) || 0),
+          }));
+        
+        history.push(...purchaseProducts);
+      }
+      
+      // Sort by date (oldest first, opening stock first if no date)
+      return history.sort((a, b) => {
+        if (a.type === 'opening_stock') return -1;
+        if (b.type === 'opening_stock') return 1;
+        const dateA = a.purchase_date ? new Date(a.purchase_date) : new Date(0);
+        const dateB = b.purchase_date ? new Date(b.purchase_date) : new Date(0);
+        return dateA - dateB; // Oldest first
+      });
+    },
+    // Calculate total purchase quantity
+    totalPurchaseQuantity() {
+      if (!this.purchaseHistory || this.purchaseHistory.length === 0) {
+        return 0;
+      }
+      return this.purchaseHistory.reduce((sum, purchase) => {
+        return sum + (parseFloat(purchase.quantity) || 0);
+      }, 0);
+    },
+    // Calculate total purchase value
+    totalPurchaseValue() {
+      if (!this.purchaseHistory || this.purchaseHistory.length === 0) {
+        return 0;
+      }
+      return this.purchaseHistory.reduce((sum, purchase) => {
+        return sum + purchase.line_total;
+      }, 0);
+    },
+    // Calculate weighted average cost
+    calculatedAverageCost() {
+      if (this.totalPurchaseQuantity > 0) {
+        return this.totalPurchaseValue / this.totalPurchaseQuantity;
+      }
+      return 0;
+    },
   },
 
   watch: {
@@ -581,6 +740,43 @@ export default {
     // reset pagination
     async resetPagination() {
       this.pagination.current_page = 1;
+    },
+    // Format currency
+    formatCurrency(value) {
+      if (value === null || value === undefined || isNaN(value)) {
+        return "0.00";
+      }
+      return parseFloat(value).toFixed(2);
+    },
+    // Format number
+    formatNumber(value) {
+      if (value === null || value === undefined || isNaN(value)) {
+        return "0";
+      }
+      return parseFloat(value).toLocaleString('en-US', {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 2
+      });
+    },
+    // Format date
+    formatDate(dateString) {
+      if (!dateString) return "-";
+      try {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric'
+        });
+      } catch (e) {
+        return dateString;
+      }
+    },
+    // Format purchase number with prefix
+    formatPurchaseNumber(purchaseNo) {
+      if (!purchaseNo) return "-";
+      const prefix = this.appInfo?.purchasePrefix || "PUR";
+      return `${prefix}-${String(purchaseNo).padStart(5, '0')}`;
     },
   },
 };

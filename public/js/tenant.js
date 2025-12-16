@@ -37756,12 +37756,12 @@ var map = {
 		5044
 	],
 	"./inventory/adjustments/create": [
-		6024,
-		6024
+		62338,
+		2338
 	],
 	"./inventory/adjustments/create.vue": [
-		6024,
-		6024
+		62338,
+		2338
 	],
 	"./inventory/adjustments/edit": [
 		67886,
@@ -37788,12 +37788,12 @@ var map = {
 		9635
 	],
 	"./inventory/count": [
-		39914,
-		9914
+		719,
+		719
 	],
 	"./inventory/count.vue": [
-		39914,
-		9914
+		719,
+		719
 	],
 	"./inventory/history": [
 		56761,
@@ -38332,12 +38332,12 @@ var map = {
 		1094
 	],
 	"./products/show": [
-		11373,
-		1373
+		57527,
+		7527
 	],
 	"./products/show.vue": [
-		11373,
-		1373
+		57527,
+		7527
 	],
 	"./products/sub-categories": [
 		41856,
@@ -38420,12 +38420,12 @@ var map = {
 		399
 	],
 	"./purchases/create": [
-		7592,
-		5211
+		8641,
+		8641
 	],
 	"./purchases/create.vue": [
-		7592,
-		5211
+		8641,
+		8641
 	],
 	"./purchases/edit": [
 		92833,

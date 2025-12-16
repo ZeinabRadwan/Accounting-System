@@ -349,19 +349,23 @@ class PurchaseController extends Controller
                 $lineTax = $lineCalc['tax'];
                 $lineTotal = $lineCalc['total'];
 
-                // Calculate weighted average purchase price (using purchase_price, NOT unit_cost which includes tax)
-                // Weighted average = (current_quantity * current_price + new_quantity * new_price) / (current_quantity + new_quantity)
-                $currentStockValue = $product->inventory_count * $product->purchase_price;
-                // Use unitPrice (purchase price before tax), NOT unit_cost (which includes tax)
-                $newStockValue = $selectedProduct['qty'] * $selectedProduct['unitPrice'];
-                $totalStockValue = $currentStockValue + $newStockValue;
-                $totalQty = $product->inventory_count + $selectedProduct['qty'];
-                $newPurchasePrice = $totalQty > 0 ? ($totalStockValue / $totalQty) : $product->purchase_price;
+                // Update product inventory count only.
+                // IMPORTANT:
+                // - Do NOT recalculate purchase_price using quantity.
+                // - purchase_price must remain the original unit purchase price
+                //   entered or fetched the first time the product was purchased.
+                $newInventoryCount = $product->inventory_count + $selectedProduct['qty'];
 
-                // update product stock purchase price
+                // If this is the first time the product is being purchased (or price not set),
+                // initialize purchase_price with the current unit purchase price.
+                $currentPurchasePrice = $product->purchase_price;
+                if ($currentPurchasePrice === null || (float) $currentPurchasePrice <= 0) {
+                    $currentPurchasePrice = $selectedProduct['unitPrice'];
+                }
+
                 $product->update([
-                    'purchase_price' => round($newPurchasePrice, 2),
-                    'inventory_count' => $product->inventory_count + $selectedProduct['qty'],
+                    'purchase_price' => round($currentPurchasePrice, 2),
+                    'inventory_count' => $newInventoryCount,
                 ]);
 
                 // Calculate unit cost: ((purchase_price * quantity - discount_amount) + tax_amount) / quantity
@@ -701,20 +705,22 @@ class PurchaseController extends Controller
                 $lineTax = $lineCalc['tax'];
                 $lineTotal = $lineCalc['total'];
 
-                // Calculate weighted average purchase price (using purchase_price, NOT unit_cost which includes tax)
-                // Weighted average = (current_quantity * current_price + new_quantity * new_price) / (current_quantity + new_quantity)
-                $currentStockValue = $product->inventory_count * $product->purchase_price;
-                // Use unitPrice (purchase price before tax), NOT unit_cost (which includes tax)
-                $newStockValue = $selectedProduct['qty'] * $selectedProduct['unitPrice'];
-                $totalStockValue = $currentStockValue + $newStockValue;
-                $totalQty = $product->inventory_count + $selectedProduct['qty'];
-                $newPurchasePrice = $totalQty > 0 ? ($totalStockValue / $totalQty) : $product->purchase_price;
-
+                // Update product inventory count only.
+                // IMPORTANT:
+                // - Do NOT recalculate purchase_price using quantity.
+                // - purchase_price must remain the original unit purchase price
+                //   entered or fetched the first time the product was purchased.
                 $newInventory = $product->inventory_count - ($selectedProduct['oldQty'] ?? 0) + $selectedProduct['qty'];
 
-                // update product purchase price
+                // If purchase_price was never initialized, set it from this unit price.
+                $currentPurchasePrice = $product->purchase_price;
+                if ($currentPurchasePrice === null || (float) $currentPurchasePrice <= 0) {
+                    $currentPurchasePrice = $selectedProduct['unitPrice'];
+                }
+
+                // update product purchase price (only if not set before) and inventory count
                 $product->update([
-                    'purchase_price' => round($newPurchasePrice, 2),
+                    'purchase_price' => round($currentPurchasePrice, 2),
                     'inventory_count' => $newInventory,
                 ]);
 

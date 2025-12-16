@@ -293,9 +293,35 @@ class ProductController extends Controller
     {
         try {
             // Try to find product by slug first, then by ID if slug lookup fails
-            $product = Product::where('slug', $identifier)->with('proSubCategory.category', 'salesAccount.type', 'purchaseAccount.type')->first();
+            $product = Product::where('slug', $identifier)
+                ->with([
+                    'proSubCategory.category',
+                    'salesAccount.type',
+                    'purchaseAccount.type',
+                    'purchaseProducts' => function ($query) {
+                        // Get all non-deleted purchase products (including inactive purchases for history display)
+                        // No status filter - we want to show all purchase history
+                    },
+                    'purchaseProducts.purchase' => function ($query) {
+                        // Load purchase relationship without status filter
+                    }
+                ])
+                ->first();
             if (! $product && is_numeric($identifier)) {
-                $product = Product::where('id', $identifier)->with('proSubCategory.category', 'salesAccount.type', 'purchaseAccount.type')->first();
+                $product = Product::where('id', $identifier)
+                    ->with([
+                        'proSubCategory.category',
+                        'salesAccount.type',
+                        'purchaseAccount.type',
+                        'purchaseProducts' => function ($query) {
+                            // Get all non-deleted purchase products (including inactive purchases for history display)
+                            // No status filter - we want to show all purchase history
+                        },
+                        'purchaseProducts.purchase' => function ($query) {
+                            // Load purchase relationship without status filter
+                        }
+                    ])
+                    ->first();
             }
 
             if (! $product) {
@@ -615,7 +641,39 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function allProducts()
+    /**
+     * Get weighted average cost for a product
+     * 
+     * @param int $id Product ID
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getWeightedAverageCost($id, Request $request)
+    {
+        try {
+            $product = Product::find($id);
+            if (!$product) {
+                return $this->responseWithError('Product not found');
+            }
+
+            $branchId = $request->branch_id ?? (Auth::user()->default_branch_id ?? null);
+            $asOfDate = $request->as_of_date ?? null;
+
+            $costService = new \App\Services\InventoryCostService();
+            $weightedAvgCost = $costService->getWeightedAverageCost($product->id, $branchId, $asOfDate);
+
+            return $this->responseWithSuccess('Weighted average cost calculated', [
+                'product_id' => $product->id,
+                'weighted_average_cost' => round($weightedAvgCost, 2),
+                'branch_id' => $branchId,
+                'as_of_date' => $asOfDate ?? now()->format('Y-m-d'),
+            ]);
+        } catch (Exception $e) {
+            return $this->responseWithError($e->getMessage());
+        }
+    }
+
+    public function allProducts(Request $request)
     {
         $user = Auth::user();
         $branchIds = $this->getUserBranchIds($user);
@@ -632,6 +690,11 @@ class ProductController extends Controller
             ->whereIn('branch_id', $branchIds)
             ->latest()
             ->get();
+
+        // Include weighted average cost in response for inventory pages
+        // Note: purchaseProducts are already eager loaded above, which includes all purchases
+        // (no status filter) to match Product Show page calculation
+        $request->merge(['include_weighted_avg_cost' => true]);
 
         return ProductSelectResource::collection($products);
     }

@@ -73,11 +73,15 @@
                           <th>{{ $t("#") }}</th>
                           <th>{{ $t("Code") }}</th>
                           <th>{{ $t("Name") }}</th>
-                          <th>{{ $t("Stock") }}</th>
+                          <th>{{ $t("Current Count") }}</th>
                           <th class="w-200px">
                             {{ $t("Adjustment Type") }}
                           </th>
                           <th class="w-250px">{{ $t("Quantity") }}</th>
+                          <th class="text-right">{{ $t("New Count") }}</th>
+                          <th class="text-right">{{ $t("Qty Difference") }}</th>
+                          <th class="text-right">{{ $t("Average Cost") }}</th>
+                          <th class="text-right">{{ $t("Adjustment Value") }}</th>
                           <th class="text-right">{{ $t("Action") }}</th>
                       </thead>
                     <tbody>
@@ -137,6 +141,36 @@
                                 )
                                 " />
                           </div>
+                        </td>
+                        <td class="text-right">
+                          <strong>{{ calculateNewCount(item) }}</strong>
+                        </td>
+                        <td class="text-right">
+                          <span :class="getQtyDifferenceClass(item)">
+                            {{ formatQtyDifference(item) }}
+                          </span>
+                        </td>
+                        <td class="text-right">
+                          <span v-if="item.weightedAverageCost !== undefined && item.weightedAverageCost !== null && item.weightedAverageCost > 0">
+                            {{ formatCurrency(item.weightedAverageCost) }} <span class="saudi-riyal">ê</span>
+                          </span>
+                          <span v-else-if="item.purchasePrice">
+                            {{ formatCurrency(item.purchasePrice) }} <span class="saudi-riyal">ê</span>
+                            <small class="text-muted d-block">({{ $t("Original") }})</small>
+                          </span>
+                          <span v-else class="text-muted">
+                            <i class="fas fa-spinner fa-spin"></i> {{ $t("Loading...") }}
+                          </span>
+                        </td>
+                        <td class="text-right">
+                          <strong v-if="item.weightedAverageCost !== undefined && item.weightedAverageCost !== null && item.weightedAverageCost > 0">
+                            {{ formatCurrency(calculateAdjustmentValue(item)) }} <span class="saudi-riyal">ê</span>
+                          </strong>
+                          <span v-else-if="item.purchasePrice">
+                            {{ formatCurrency(calculateAdjustmentValueWithPurchasePrice(item)) }} <span class="saudi-riyal">ê</span>
+                            <small class="text-muted d-block">({{ $t("Using Original") }})</small>
+                          </span>
+                          <span v-else class="text-muted">-</span>
                         </td>
                         <td class="text-right">
                           <button type="button" class="btn btn-danger" @click="removeItem(item)">
@@ -278,23 +312,34 @@ export default {
     },
 
     // store item in array
-    storeProduct(product) {
+    async storeProduct(product) {
       var index = this.form.selectedProducts.findIndex(
         (x) => x.id == product.id
       );
       let quantity = 1;
       if (index === -1) {
+        // Use weighted average cost directly from product object (already calculated in ProductSelectResource)
+        // This matches the Product Show page calculation (opening stock + all purchase lines)
+        let weightedAverageCost = null;
+        if (product.weightedAverageCost !== undefined && product.weightedAverageCost !== null && product.weightedAverageCost > 0) {
+          weightedAverageCost = parseFloat(product.weightedAverageCost) || 0;
+        } else {
+          // Fallback to purchase price if weighted average cost is not available
+          weightedAverageCost = parseFloat(product.avgPurchasePrice) || 0;
+        }
+
         // store product
         this.form.selectedProducts.unshift({
           id: product.id,
           slug: product.slug,
           name: product.name,
           itemCode: product.code,
-          purchasePrice: product.avgPurchasePrice,
+          purchasePrice: product.avgPurchasePrice, // Keep original for reference
           stockQty: product.inventoryCount,
           adjustType: "Increment",
           adjustQty: quantity,
           maxQty: 9999,
+          weightedAverageCost: weightedAverageCost, // Use weighted average cost for calculations
         });
       } else {
         // update qty
@@ -426,7 +471,7 @@ export default {
     },
     
     // handle product pre-selection from query parameter
-    handleProductPreSelection() {
+    async handleProductPreSelection() {
       // Prevent multiple calls
       if (this.productPreSelected) {
         return;
@@ -446,7 +491,7 @@ export default {
           
           if (existingIndex === -1) {
             // Pre-select the product
-            this.storeProduct(product);
+            await this.storeProduct(product);
             this.productPreSelected = true;
           } else {
             this.productPreSelected = true;
@@ -454,6 +499,61 @@ export default {
         }  
       } else {
       }
+    },
+    // Calculate new count after adjustment
+    calculateNewCount(item) {
+      const currentCount = parseFloat(item.stockQty) || 0;
+      const adjustQty = parseFloat(item.adjustQty) || 0;
+      if (item.adjustType === 'Increment') {
+        return currentCount + adjustQty;
+      } else {
+        return Math.max(0, currentCount - adjustQty);
+      }
+    },
+    // Calculate quantity difference
+    calculateQtyDifference(item) {
+      const currentCount = parseFloat(item.stockQty) || 0;
+      const newCount = this.calculateNewCount(item);
+      return newCount - currentCount;
+    },
+    // Format quantity difference
+    formatQtyDifference(item) {
+      const diff = this.calculateQtyDifference(item);
+      return diff > 0 ? `+${diff}` : `${diff}`;
+    },
+    // Get CSS class for quantity difference
+    getQtyDifferenceClass(item) {
+      const diff = this.calculateQtyDifference(item);
+      if (diff > 0) {
+        return 'text-success font-weight-bold';
+      } else if (diff < 0) {
+        return 'text-danger font-weight-bold';
+      }
+      return 'text-muted';
+    },
+    // Calculate adjustment value using weighted average cost
+    calculateAdjustmentValue(item) {
+      // Use weighted average cost if available
+      if (item.weightedAverageCost && item.weightedAverageCost !== null && item.weightedAverageCost > 0) {
+        const qtyDifference = Math.abs(this.calculateQtyDifference(item));
+        return qtyDifference * parseFloat(item.weightedAverageCost);
+      }
+      return 0;
+    },
+    // Calculate adjustment value using purchase price (fallback)
+    calculateAdjustmentValueWithPurchasePrice(item) {
+      if (!item.purchasePrice || item.purchasePrice === null) {
+        return 0;
+      }
+      const qtyDifference = Math.abs(this.calculateQtyDifference(item));
+      return qtyDifference * parseFloat(item.purchasePrice);
+    },
+    // Format currency
+    formatCurrency(value) {
+      if (value === null || value === undefined || isNaN(value)) {
+        return "0.00";
+      }
+      return parseFloat(value).toFixed(2);
     },
   },
 };

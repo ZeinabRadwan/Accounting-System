@@ -248,9 +248,21 @@ class InventoryController extends Controller
         $user = Auth::user();
         $branchIds = $this->getUserBranchIds($user);
         
-        $query = Product::with('proSubCategory.category', 'productUnit', 'productTax', 'productBrand')
+        // Eager load purchase products for weighted average calculation
+        $query = Product::with([
+            'proSubCategory.category',
+            'productUnit',
+            'productTax',
+            'productBrand',
+            'purchaseProducts.purchase' => function ($q) {
+                // Only load active purchases
+            }
+        ])
             ->whereIn('branch_id', $branchIds)
             ->orderBy('code', 'ASC');
+        
+        // Include weighted average cost in response for inventory count page
+        $request->merge(['include_weighted_avg_cost' => true]);
             
         return ProductResource::collection($query->paginate($request->perPage));
     }
@@ -322,9 +334,21 @@ class InventoryController extends Controller
             $query->orderBy('code', 'ASC');
         }
 
+        // Include weighted average cost in response for inventory count page
+        $request->merge(['include_weighted_avg_cost' => true]);
+
+        // Eager load purchase products for weighted average calculation
         // Return the filtered and paginated results
         return ProductResource::collection(
-            $query->with('proSubCategory.category', 'productUnit', 'productTax', 'productBrand')
+            $query->with([
+                'proSubCategory.category',
+                'productUnit',
+                'productTax',
+                'productBrand',
+                'purchaseProducts.purchase' => function ($q) {
+                    // Only load active purchases
+                }
+            ])
                 ->paginate($request->perPage)
         );
     }

@@ -77,7 +77,7 @@
                   <th>{{ $t("Code") }}</th>
                   <th>{{ $t("Name") }}</th>
                   <th>{{ $t("Current Stock") }}</th>
-                  <th>{{ $t("Purchase Price") }}</th>
+                  <th>{{ $t("Average Cost") }}</th>
                   <th>{{ $t("Status") }}</th>
                   <th>{{ $t("Actions") }}</th>
                 </thead>
@@ -114,8 +114,14 @@
                       </span>
                     </td>
                     <td>
-                      <span v-if="data.avgPurchasePrice">
+                      <!-- Prefer unit_price (weighted average cost), then weightedAverageCost, then avgPurchasePrice -->
+                      <span v-if="(data.unit_price !== undefined && data.unit_price !== null && data.unit_price > 0) || 
+                                   (data.weightedAverageCost !== undefined && data.weightedAverageCost !== null && data.weightedAverageCost > 0)">
+                        {{ formatToTwoDecimals(data.unit_price || data.weightedAverageCost) }} <span class="saudi-riyal">ê</span>
+                      </span>
+                      <span v-else-if="data.avgPurchasePrice">
                         {{ formatToTwoDecimals(data.avgPurchasePrice) }} <span class="saudi-riyal">ê</span>
+                        <small class="text-muted d-block">({{ $t("Original") }})</small>
                       </span>
                       <span v-else class="text-muted">
                         {{ $t("N/A") }}

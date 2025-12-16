@@ -588,6 +588,7 @@ Route::middleware([
         Route::post('/products/{slug}/{type}/auto-assign-chart-of-account', [ProductController::class, 'autoAssignChartOfAccount']);
         Route::get('/all-products-not-service', [ProductController::class, 'allProductsNotService']);
         Route::get('/all-products', [ProductController::class, 'allProducts']);
+        Route::get('/products/{id}/weighted-average-cost', [ProductController::class, 'getWeightedAverageCost']);
         Route::get('/all-products-paginated', [ProductController::class, 'allProductsPaginated']);
         Route::get('/all-products-for-select', [ProductController::class, 'allProductsForSelect']);
         Route::get('/generate-itemcode', [ProductController::class, 'generateItemCode']);

@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\AdjustmentResource;
 use App\Http\Resources\AdjustmentListResource;
 use App\Http\Requests\InventoryAdjustment\StoreInventoryAdjustmentRequest;
+use App\Services\InventoryCostService;
 
 class InventoryAdjustmentController extends Controller
 {
@@ -83,32 +84,55 @@ class InventoryAdjustmentController extends Controller
                 'branch_id' => $branchId,
             ]);
 
+            // Initialize cost service
+            $costService = new InventoryCostService();
+
             // store adjustment products
             foreach ($request->selectedProducts as $key => $selectedProduct) {
                 // get the product
                 $product = Product::where('slug', $selectedProduct['slug'])->first();
 
-                // update inventory count
-                if ($selectedProduct['adjustType'] == 'Increment') {
-                    $stock = $product->inventory_count + $selectedProduct['adjustQty'];
-                } else {
-                    $stock = $product->inventory_count - $selectedProduct['adjustQty'];
+                if (!$product) {
+                    throw new Exception('Product not found: '.$selectedProduct['slug']);
                 }
-                $purchasePrice = ($product->purchase_price * $stock) / $stock;
 
-                // update product purchase price
+                // Calculate weighted average cost BEFORE the adjustment
+                // This ensures we use the correct cost for the adjustment
+                $weightedAvgCost = $costService->getWeightedAverageCost(
+                    $product->id,
+                    $branchId,
+                    $request->adjustmentDate ?? now()->format('Y-m-d')
+                );
+
+                // Calculate quantity difference
+                $adjustQty = (float) ($selectedProduct['adjustQty'] ?? 0);
+                $qtyDifference = $selectedProduct['adjustType'] == 'Increment' ? $adjustQty : -$adjustQty;
+
+                // Calculate adjustment value using weighted average cost
+                $adjustmentValue = abs($qtyDifference) * $weightedAvgCost;
+
+                // Update inventory count
+                if ($selectedProduct['adjustType'] == 'Increment') {
+                    $stock = $product->inventory_count + $adjustQty;
+                } else {
+                    $stock = max(0, $product->inventory_count - $adjustQty);
+                }
+
+                // IMPORTANT: Do NOT modify purchase_price
+                // purchase_price must remain the original unit purchase price
+                // Only update inventory_count
                 $product->update([
-                    'purchase_price' => $purchasePrice,
                     'inventory_count' => $stock,
                 ]);
 
-                // store product
+                // Store adjustment product with weighted average cost
                 AdjustmentProduct::create([
                     'adjustment_id' => $adjustment->id,
                     'product_id' => $product->id,
                     'type' => $selectedProduct['adjustType'] == 'Increment' ? 1 : 0,
-                    'purchase_price' => $selectedProduct['purchasePrice'],
-                    'quantity' => $selectedProduct['adjustQty'],
+                    'purchase_price' => $weightedAvgCost, // Store weighted average cost used for this adjustment
+                    'quantity' => $adjustQty,
+                    'branch_id' => $branchId,
                 ]);
             }
 
@@ -192,11 +216,21 @@ class InventoryAdjustmentController extends Controller
             // delete the product adjustmens
             $adjustment->adjustmentProducts->each->delete();
 
+            // Initialize cost service
+            $costService = new InventoryCostService();
+            $user = Auth::user();
+            $branchId = (int) ($user->default_branch_id ?? 0);
+
             // store purchase products
             foreach ($request->selectedProducts as $key => $selectedProduct) {
                 // get the product
                 $product = Product::where('slug', $selectedProduct['slug'])->first();
 
+                if (!$product) {
+                    throw new Exception('Product not found: '.$selectedProduct['slug']);
+                }
+
+                // Reverse the original adjustment
                 $productStock = $product->inventory_count;
                 if ($request->oriAdjustType == 'Increment') {
                     $productStock = $product->inventory_count - $request->oriAdjustQty;
@@ -204,27 +238,42 @@ class InventoryAdjustmentController extends Controller
                     $productStock = $product->inventory_count + $request->oriAdjustQty;
                 }
 
+                // Calculate weighted average cost BEFORE the new adjustment
+                $weightedAvgCost = $costService->getWeightedAverageCost(
+                    $product->id,
+                    $branchId,
+                    $request->adjustmentDate ?? now()->format('Y-m-d')
+                );
+
+                // Calculate quantity difference for new adjustment
+                $adjustQty = (float) ($selectedProduct['adjustQty'] ?? 0);
+                $qtyDifference = $selectedProduct['adjustType'] == 'Increment' ? $adjustQty : -$adjustQty;
+
+                // Calculate adjustment value using weighted average cost
+                $adjustmentValue = abs($qtyDifference) * $weightedAvgCost;
+
                 // update inventory count
                 if ($selectedProduct['adjustType'] == 'Increment') {
-                    $productStock = $productStock + $selectedProduct['adjustQty'];
+                    $productStock = $productStock + $adjustQty;
                 } else {
-                    $productStock = $productStock - $selectedProduct['adjustQty'];
+                    $productStock = max(0, $productStock - $adjustQty);
                 }
-                $purchasePrice = ($product->purchase_price * $productStock) / $productStock;
 
-                // update product purchase price
+                // IMPORTANT: Do NOT modify purchase_price
+                // purchase_price must remain the original unit purchase price
+                // Only update inventory_count
                 $product->update([
-                    'purchase_price' => $purchasePrice,
                     'inventory_count' => $productStock,
                 ]);
 
-                // store product
+                // store product with weighted average cost
                 AdjustmentProduct::create([
                     'adjustment_id' => $adjustment->id,
                     'product_id' => $product->id,
                     'type' => $selectedProduct['adjustType'] == 'Increment' ? 1 : 0,
-                    'purchase_price' => $selectedProduct['purchasePrice'],
-                    'quantity' => $selectedProduct['adjustQty'],
+                    'purchase_price' => $weightedAvgCost, // Store weighted average cost used for this adjustment
+                    'quantity' => $adjustQty,
+                    'branch_id' => $branchId,
                 ]);
             }
 

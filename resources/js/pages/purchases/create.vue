@@ -2240,11 +2240,20 @@ export default {
             const product = this.products.find(p => p.id === poProduct.product_id || (poProduct.product && p.id === poProduct.product.id));
 
             if (product) {
+              // Determine the base unit cost for this purchase line.
+              // Prefer explicit unit_cost (cost price for this purchase),
+              // fall back to stored purchase_price (original purchase price),
+              // and finally to the current regular price.
+              const quantity = poProduct.quantity || 1;
+              const baseUnitCost = poProduct.unit_cost || poProduct.purchase_price || product.regularPrice || 0;
+
               // Find matching VAT rate
               let selectedVatRate = null;
               if (poProduct.tax_amount && poProduct.tax_amount > 0 && this.taxes && this.taxes.length > 0) {
                 // Try to find VAT rate by rate value (calculate from tax_amount)
-                const lineTotal = poProduct.quantity * poProduct.purchase_price;
+                // Use cost price (baseUnitCost) for the line total so that
+                // quantity only affects the total amount, not the stored purchase price.
+                const lineTotal = quantity * baseUnitCost;
                 const discountAmount = poProduct.discount_amount || 0;
                 const totalAfterDiscount = lineTotal - discountAmount;
                 const calculatedVatRate = totalAfterDiscount > 0 ? (poProduct.tax_amount / totalAfterDiscount) * 100 : 0;
@@ -2261,7 +2270,8 @@ export default {
               }
 
               // Calculate total before discount
-              const lineTotal = (poProduct.purchase_price || product.regularPrice) * (poProduct.quantity || 1);
+              // Use the cost price (baseUnitCost) for quantity-based totals.
+              const lineTotal = baseUnitCost * quantity;
               const discountAmount = poProduct.discount_amount || 0;
               const totalAfterDiscount = lineTotal - discountAmount;
 
@@ -2271,17 +2281,22 @@ export default {
                 slug: product.slug,
                 name: product.name,
                 code: product.code,
-                qty: poProduct.quantity || 1,
-                unitPrice: poProduct.purchase_price || product.regularPrice,
-                originalPrice: poProduct.purchase_price || product.regularPrice,
+                qty: quantity,
+                // For this purchase entry, use the cost price (baseUnitCost)
+                // as the unit price used in calculations. The original purchase
+                // price remains stored separately in the backend and is not
+                // recalculated here.
+                unitPrice: baseUnitCost,
+                originalPrice: baseUnitCost,
                 discount: poProduct.discount || 0,
                 discountType: poProduct.discount_type || 'fixed',
                 discountAmount: discountAmount,
                 selectedVatRate: selectedVatRate || (this.taxes && this.taxes.length > 0 ? this.taxes[0] : null),
                 productTax: poProduct.tax_amount || 0,
                 totalTax: poProduct.tax_amount || 0,
-                unitCost: poProduct.unit_cost || poProduct.purchase_price || product.regularPrice,
-                totalPrice: (poProduct.purchase_price || product.regularPrice) * (poProduct.quantity || 1),
+                // unitCost is the cost price actually used for this purchase line.
+                unitCost: baseUnitCost,
+                totalPrice: baseUnitCost * quantity,
                 totalBeforeDiscount: lineTotal, // For ItemsTable component
                 totalAfterDiscount: totalAfterDiscount, // For ItemsTable component
                 sales_account_id: product.sales_account_id,

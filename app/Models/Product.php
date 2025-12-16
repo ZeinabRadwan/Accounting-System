@@ -406,4 +406,237 @@ class Product extends Model implements HasMedia
 
         return (float) ($this->purchase_price ?? 0);
     }
+
+    /**
+     * Calculate purchase-history based average cost (same as Product Show page)
+     * 
+     * This method calculates the average cost based ONLY on:
+     * - Opening stock (opening_stock_count × opening_stock_unit_price)
+     * - All purchase lines (quantity × purchase_price from each PurchaseProduct)
+     * 
+     * IMPORTANT: This does NOT consider sales, returns, or branch filters.
+     * This matches the calculation shown on the Product Show page and Inventory Count page.
+     * 
+     * @param string|null $asOfDate Optional date to filter purchases (Y-m-d format, null = all purchases)
+     * @return float Average cost per unit
+     */
+    public function calculatePurchaseHistoryAverageCost(?string $asOfDate = null): float
+    {
+        $openingQty = (float) ($this->opening_stock_count ?? 0);
+        $openingPrice = (float) ($this->opening_stock_unit_price ?? 0);
+
+        $totalQuantity = $openingQty;
+        $totalValue = $openingQty * $openingPrice;
+
+        // Get all purchase products (no branch filter, no status filter for history)
+        $purchaseProductsQuery = $this->purchaseProducts();
+
+        // If date is specified, filter purchases up to that date
+        if ($asOfDate !== null) {
+            $purchaseProductsQuery->whereHas('purchase', function ($query) use ($asOfDate) {
+                $query->where('purchase_date', '<=', $asOfDate);
+            });
+        }
+
+        $purchaseProducts = $purchaseProductsQuery->get();
+
+        // Add all purchase lines (using purchase_price, not unit_cost)
+        foreach ($purchaseProducts as $purchaseProduct) {
+            $qty = (float) ($purchaseProduct->quantity ?? 0);
+            $price = (float) ($purchaseProduct->purchase_price ?? 0);
+            $totalQuantity += $qty;
+            $totalValue += $qty * $price;
+        }
+
+        if ($totalQuantity <= 0) {
+            // Fallback to stored purchase_price if we cannot compute
+            return round((float) ($this->purchase_price ?? 0), 2);
+        }
+
+        return round($totalValue / $totalQuantity, 2);
+    }
+
+    /**
+     * Calculate weighted average cost for this product at a specific point in time
+     * 
+     * This method calculates the weighted average cost using the weighted average costing method (WAC).
+     * It considers all inventory movements (purchases, sales, returns) up to the specified date.
+     * 
+     * Formula: weighted_avg_cost = total_inventory_value / total_inventory_quantity
+     * 
+     * @param int|null $branchId Branch ID to filter by (null = all branches)
+     * @param string|null $asOfDate Date to calculate as of (Y-m-d format, null = current date)
+     * @param int|null $excludeInvoiceId Invoice ID to exclude from calculation (useful when calculating COGS for a sale)
+     * @return float Weighted average cost per unit
+     */
+    public function calculateWeightedAverageCost(?int $branchId = null, ?string $asOfDate = null, ?int $excludeInvoiceId = null): float
+    {
+        // Use current date if not specified
+        if ($asOfDate === null) {
+            $asOfDate = now()->format('Y-m-d');
+        }
+
+        // Initialize running totals with opening stock
+        // Opening stock is the starting inventory before any purchases
+        $openingStockQty = (float) ($this->opening_stock_count ?? 0);
+        $openingStockPrice = (float) ($this->opening_stock_unit_price ?? 0);
+        $totalQuantity = $openingStockQty;
+        $totalValue = $openingStockQty * $openingStockPrice;
+        $weightedAvgCost = 0;
+
+        // Get all purchase products (inventory additions) up to the date, filtered by branch
+        $purchaseProductsQuery = PurchaseProduct::where('product_id', $this->id)
+            ->whereHas('purchase', function ($query) use ($asOfDate) {
+                $query->where('purchase_date', '<=', $asOfDate)
+                    ->where('status', 1); // Only active purchases
+            })
+            ->orderBy('created_at', 'asc');
+
+        if ($branchId !== null) {
+            $purchaseProductsQuery->where('branch_id', $branchId);
+        }
+
+        $purchaseProducts = $purchaseProductsQuery->get();
+
+        // Get all invoice products (inventory reductions from sales) up to the date, filtered by branch
+        $invoiceProductsQuery = InvoiceProduct::where('product_id', $this->id)
+            ->whereHas('invoice', function ($query) use ($asOfDate, $excludeInvoiceId) {
+                $query->where('invoice_date', '<=', $asOfDate)
+                    ->where('status', 1); // Only active invoices
+                // Exclude the specified invoice (for COGS calculation, exclude the current sale)
+                if ($excludeInvoiceId !== null) {
+                    $query->where('id', '!=', $excludeInvoiceId);
+                }
+            })
+            ->orderBy('created_at', 'asc');
+
+        if ($branchId !== null) {
+            $invoiceProductsQuery->where('branch_id', $branchId);
+        }
+
+        $invoiceProducts = $invoiceProductsQuery->get();
+
+        // Get all purchase return products (inventory reductions) up to the date, filtered by branch
+        $purchaseReturnProductsQuery = PurchaseReturnProduct::where('product_id', $this->id)
+            ->whereHas('purchaseReturn', function ($query) use ($asOfDate) {
+                $query->where('date', '<=', $asOfDate)
+                    ->where('status', 1); // Only active returns
+            })
+            ->orderBy('created_at', 'asc');
+
+        if ($branchId !== null) {
+            $purchaseReturnProductsQuery->where('branch_id', $branchId);
+        }
+
+        $purchaseReturnProducts = $purchaseReturnProductsQuery->get();
+
+        // Get all invoice return products (inventory additions back) up to the date, filtered by branch
+        $invoiceReturnProductsQuery = InvoiceReturnProduct::where('product_id', $this->id)
+            ->whereHas('invoiceReturn', function ($query) use ($asOfDate) {
+                $query->where('date', '<=', $asOfDate)
+                    ->where('status', 1); // Only active returns
+            })
+            ->orderBy('created_at', 'asc');
+
+        if ($branchId !== null) {
+            $invoiceReturnProductsQuery->where('branch_id', $branchId);
+        }
+
+        $invoiceReturnProducts = $invoiceReturnProductsQuery->get();
+
+        // Combine all transactions and sort chronologically
+        $transactions = [];
+
+        // Add purchases
+        foreach ($purchaseProducts as $pp) {
+            $transactions[] = [
+                'type' => 'purchase',
+                'date' => $pp->purchase->purchase_date ?? $pp->created_at->format('Y-m-d'),
+                'quantity' => (float) $pp->quantity,
+                'unit_cost' => (float) $pp->unit_cost,
+                'created_at' => $pp->created_at,
+            ];
+        }
+
+        // Add sales (we'll need to calculate weighted avg at time of sale)
+        foreach ($invoiceProducts as $ip) {
+            $transactions[] = [
+                'type' => 'sale',
+                'date' => $ip->invoice->invoice_date ?? $ip->created_at->format('Y-m-d'),
+                'quantity' => (float) $ip->quantity,
+                'unit_cost' => null, // Will be calculated using weighted avg at that time
+                'created_at' => $ip->created_at,
+            ];
+        }
+
+        // Add purchase returns
+        foreach ($purchaseReturnProducts as $prp) {
+            $transactions[] = [
+                'type' => 'purchase_return',
+                'date' => $prp->purchaseReturn->date ?? $prp->created_at->format('Y-m-d'),
+                'quantity' => (float) $prp->quantity,
+                'unit_cost' => null, // Will be calculated using weighted avg at that time
+                'created_at' => $prp->created_at,
+            ];
+        }
+
+        // Add invoice returns
+        foreach ($invoiceReturnProducts as $irp) {
+            $transactions[] = [
+                'type' => 'invoice_return',
+                'date' => $irp->invoiceReturn->date ?? $irp->created_at->format('Y-m-d'),
+                'quantity' => (float) $irp->quantity,
+                'unit_cost' => null, // Will use weighted avg at time of original sale
+                'created_at' => $irp->created_at,
+            ];
+        }
+
+        // Sort by date and created_at
+        usort($transactions, function ($a, $b) {
+            $dateCompare = strcmp($a['date'], $b['date']);
+            if ($dateCompare !== 0) {
+                return $dateCompare;
+            }
+            return $a['created_at'] <=> $b['created_at'];
+        });
+
+        // Process transactions chronologically
+        foreach ($transactions as $transaction) {
+            if ($transaction['type'] === 'purchase') {
+                // Add inventory: quantity * unit_cost
+                $totalQuantity += $transaction['quantity'];
+                $totalValue += $transaction['quantity'] * $transaction['unit_cost'];
+            } elseif ($transaction['type'] === 'sale' || $transaction['type'] === 'purchase_return') {
+                // Reduce inventory using current weighted average
+                if ($totalQuantity > 0) {
+                    $currentWeightedAvg = $totalValue / $totalQuantity;
+                    $reductionValue = $transaction['quantity'] * $currentWeightedAvg;
+                    $totalQuantity -= $transaction['quantity'];
+                    $totalValue -= $reductionValue;
+                }
+            } elseif ($transaction['type'] === 'invoice_return') {
+                // Add inventory back using weighted average at time of original sale
+                // For simplicity, we'll use the current weighted average (this is an approximation)
+                // In a perfect system, we'd track the cost at the time of original sale
+                if ($totalQuantity > 0) {
+                    $currentWeightedAvg = $totalValue / $totalQuantity;
+                } else {
+                    // If no inventory, use purchase_price as fallback
+                    $currentWeightedAvg = (float) ($this->purchase_price ?? 0);
+                }
+                $totalQuantity += $transaction['quantity'];
+                $totalValue += $transaction['quantity'] * $currentWeightedAvg;
+            }
+        }
+
+        // Calculate final weighted average
+        if ($totalQuantity > 0) {
+            $weightedAvgCost = $totalValue / $totalQuantity;
+        } else {
+            // If no inventory, return purchase_price as fallback
+            $weightedAvgCost = (float) ($this->purchase_price ?? 0);
+        }
+
+        return round($weightedAvgCost, 2);
+    }
 }

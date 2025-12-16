@@ -422,8 +422,16 @@ class BusinessTransactionJournalService
              *   Cr Inventory
              *
              * Skip products without inventory tracking (is_service = true)
+             *
+             * COGS Calculation: Uses Weighted Average Cost (WAC) method
+             * Formula: COGS = quantity_sold × weighted_average_cost
+             * 
+             * Weighted average cost is calculated from all inventory movements
+             * (purchases, sales, returns) up to the invoice date.
              */
             $totalCogsAmount = 0;
+            $cogsDetails = [];
+
             foreach ($invoiceProducts as $invoiceProduct) {
                 $product = $invoiceProduct->product;
 
@@ -432,14 +440,34 @@ class BusinessTransactionJournalService
                     continue;
                 }
 
-                // COGS must use sale_price (net amount without VAT) only
-                // sale_price = net amount per unit (without VAT - CORRECT for COGS)
-                // purchase_price = purchase cost (WRONG for COGS)
-                // unit_cost = (sale_price * quantity - discount + tax) / quantity (includes VAT - WRONG for COGS)
-                $lineCost = ($invoiceProduct->sale_price ?? 0) * ($invoiceProduct->quantity ?? 0);
+                // Calculate purchase-history based average cost (same as Product Show page)
+                // This uses ONLY opening stock + all purchase lines up to invoice date
+                // (using purchase_price from each purchase line, not unit_cost)
+                // IMPORTANT: This does NOT consider sales, returns, or branch filters
+                // This matches the calculation shown on Product Show page and Inventory Count page
+                $quantity = (float) ($invoiceProduct->quantity ?? 0);
+                $invoiceDate = $invoice->invoice_date ?? now()->format('Y-m-d');
+
+                // Get purchase-history based average cost for this product up to invoice date
+                // This matches the Product Show page calculation exactly
+                $weightedAvgCost = $product->calculatePurchaseHistoryAverageCost($invoiceDate);
+
+                // COGS = quantity_sold × weighted_average_cost
+                $lineCost = round($quantity * $weightedAvgCost, 2);
                 $totalCogsAmount += $lineCost;
 
-                Log::info("COGS calculation for product {$product->name}: sale_price={$invoiceProduct->sale_price}, quantity={$invoiceProduct->quantity}, lineCost={$lineCost}");
+                $cogsDetails[] = [
+                    'product' => $product->name,
+                    'quantity' => $quantity,
+                    'weighted_avg_cost' => $weightedAvgCost,
+                    'line_cost' => $lineCost,
+                ];
+
+                Log::info(
+                    "COGS calculation for product {$product->name}: ".
+                    "quantity={$quantity}, purchase_history_avg_cost={$weightedAvgCost}, lineCost={$lineCost} ".
+                    "(calculated using purchase-history method: opening stock + all purchases up to invoice date: {$invoiceDate})"
+                );
             }
 
             // Always create COGS journal entry if there are inventory products (non-service products)
@@ -517,8 +545,8 @@ class BusinessTransactionJournalService
 
                 Log::info(
                     "COGS journal entry created for invoice {$invoice->invoice_no}: ".
-                    "Amount = {$totalCogsAmount} (net amount only, excluding VAT). ".
-                    'This is calculated as sum(sale_price * quantity) for all inventory products.'
+                    "Amount = {$totalCogsAmount} (calculated using Purchase-History Average Cost method, same as Product Show page). ".
+                    "Details: ".json_encode($cogsDetails)
                 );
             } else {
                 // Log when COGS is skipped (only service products or no inventory products)
@@ -695,7 +723,9 @@ class BusinessTransactionJournalService
             }
             Log::info("Found {$purchaseProducts->count()} purchase products for PO {$purchase->purchase_no}");
 
-            // Calculate inventory amount = sum of line_net (after discount, before tax) for all products with inventory tracking
+            // Calculate inventory amount for all products with inventory tracking
+            // Inventory value MUST be based on quantity × unit_cost (full inventory cost),
+            // not on purchase_price or quantity-based recalculations of purchase_price.
             $totalInventoryAmount = 0;
             $totalVatAmount = 0;
 
@@ -712,24 +742,20 @@ class BusinessTransactionJournalService
                     continue;
                 }
 
-                // Calculate line net (after discount, before tax)
-                // gross = purchase_price × quantity
-                $gross = ($purchaseProduct->purchase_price ?? 0) * ($purchaseProduct->quantity ?? 0);
+                // Calculate line inventory value using stored unit_cost (includes
+                // discounts, taxes and any additional costs allocated to this line).
+                $quantity = (float) ($purchaseProduct->quantity ?? 0);
+                $unitCost = (float) ($purchaseProduct->unit_cost ?? 0);
+                $lineInventoryAmount = round($quantity * $unitCost, 2);
+                $totalInventoryAmount += $lineInventoryAmount;
 
-                // discount_amount is already calculated and stored
-                $discountAmount = $purchaseProduct->discount_amount ?? 0;
-
-                // line_net = gross - discount
-                $lineNet = round($gross - $discountAmount, 2);
-                $totalInventoryAmount += $lineNet;
-
-                // Add VAT amount from product (already stored as total tax for the line)
+                // For inventory-tracked products, VAT is already included in unit_cost,
+                // so we MUST NOT add tax_amount again to a separate VAT input total
+                // to avoid double-counting VAT in the journals.
                 $productVatAmount = $purchaseProduct->tax_amount ?? 0;
-                $totalVatAmount += $productVatAmount;
 
                 $productName = $product->name ?? 'Unknown';
-                $quantity = $purchaseProduct->quantity ?? 0;
-                Log::info("Product: {$productName}, Gross: {$gross}, Discount: {$discountAmount}, Net: {$lineNet}, Quantity: {$quantity}, VAT: {$productVatAmount}");
+                Log::info("Product: {$productName}, Quantity: {$quantity}, UnitCost: {$unitCost}, LineInventoryAmount: {$lineInventoryAmount}, VAT (for reporting only): {$productVatAmount}");
             }
 
             // Calculate purchase-level (bill-level) discount amount, if any
@@ -774,7 +800,10 @@ class BusinessTransactionJournalService
                 throw new Exception('VAT Input account must be configured in account routing settings to create purchase journal entry with VAT.');
             }
 
-            // Calculate total amount = inventory + VAT
+            // Calculate total amount.
+            // For inventory items, the full cost (including VAT and other costs)
+            // is already captured in totalInventoryAmount via unit_cost, so
+            // $totalVatAmount only represents VAT for non-inventory/service lines.
             $totalAmount = $totalInventoryAmount + $totalVatAmount;
 
             // Validate balance
