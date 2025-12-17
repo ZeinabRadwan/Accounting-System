@@ -425,7 +425,7 @@ class BusinessTransactionJournalService
              *
              * COGS Calculation: Uses Weighted Average Cost (WAC) method
              * Formula: COGS = quantity_sold × weighted_average_cost
-             * 
+             *
              * Weighted average cost is calculated from all inventory movements
              * (purchases, sales, returns) up to the invoice date.
              */
@@ -546,7 +546,7 @@ class BusinessTransactionJournalService
                 Log::info(
                     "COGS journal entry created for invoice {$invoice->invoice_no}: ".
                     "Amount = {$totalCogsAmount} (calculated using Purchase-History Average Cost method, same as Product Show page). ".
-                    "Details: ".json_encode($cogsDetails)
+                    'Details: '.json_encode($cogsDetails)
                 );
             } else {
                 // Log when COGS is skipped (only service products or no inventory products)
@@ -724,8 +724,9 @@ class BusinessTransactionJournalService
             Log::info("Found {$purchaseProducts->count()} purchase products for PO {$purchase->purchase_no}");
 
             // Calculate inventory amount for all products with inventory tracking
-            // Inventory value MUST be based on quantity × unit_cost (full inventory cost),
-            // not on purchase_price or quantity-based recalculations of purchase_price.
+            // CRITICAL FIX: Inventory value MUST be based on quantity × purchase_price (NET amount, EXCLUDING VAT)
+            // VAT must be posted to a separate Purchase VAT (Input VAT) account
+            // This follows standard accounting principles and VAT compliance requirements
             $totalInventoryAmount = 0;
             $totalVatAmount = 0;
 
@@ -742,20 +743,20 @@ class BusinessTransactionJournalService
                     continue;
                 }
 
-                // Calculate line inventory value using stored unit_cost (includes
-                // discounts, taxes and any additional costs allocated to this line).
+                // Calculate line inventory value using purchase_price (NET amount, EXCLUDING VAT)
+                // This is the correct accounting treatment: inventory is valued at net cost
                 $quantity = (float) ($purchaseProduct->quantity ?? 0);
-                $unitCost = (float) ($purchaseProduct->unit_cost ?? 0);
-                $lineInventoryAmount = round($quantity * $unitCost, 2);
+                $purchasePrice = (float) ($purchaseProduct->purchase_price ?? 0); // Net price per unit (before VAT)
+                $lineInventoryAmount = round($quantity * $purchasePrice, 2);
                 $totalInventoryAmount += $lineInventoryAmount;
 
-                // For inventory-tracked products, VAT is already included in unit_cost,
-                // so we MUST NOT add tax_amount again to a separate VAT input total
-                // to avoid double-counting VAT in the journals.
-                $productVatAmount = $purchaseProduct->tax_amount ?? 0;
+                // Collect VAT separately - this will be debited to Purchase VAT (Input VAT) account
+                // VAT is recoverable/deductible and should NOT be included in inventory cost
+                $productVatAmount = (float) ($purchaseProduct->tax_amount ?? 0);
+                $totalVatAmount += $productVatAmount;
 
                 $productName = $product->name ?? 'Unknown';
-                Log::info("Product: {$productName}, Quantity: {$quantity}, UnitCost: {$unitCost}, LineInventoryAmount: {$lineInventoryAmount}, VAT (for reporting only): {$productVatAmount}");
+                Log::info("Product: {$productName}, Quantity: {$quantity}, PurchasePrice (net): {$purchasePrice}, LineInventoryAmount (net): {$lineInventoryAmount}, VAT: {$productVatAmount}");
             }
 
             // Calculate purchase-level (bill-level) discount amount, if any
@@ -800,10 +801,9 @@ class BusinessTransactionJournalService
                 throw new Exception('VAT Input account must be configured in account routing settings to create purchase journal entry with VAT.');
             }
 
-            // Calculate total amount.
-            // For inventory items, the full cost (including VAT and other costs)
-            // is already captured in totalInventoryAmount via unit_cost, so
-            // $totalVatAmount only represents VAT for non-inventory/service lines.
+            // Calculate total amount for journal entry
+            // Total = Net Inventory Amount + VAT
+            // This represents the total invoice amount (what we owe to supplier or pay in cash)
             $totalAmount = $totalInventoryAmount + $totalVatAmount;
 
             // Validate balance
