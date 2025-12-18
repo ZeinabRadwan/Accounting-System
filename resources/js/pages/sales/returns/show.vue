@@ -168,7 +168,7 @@
                         </th>
                         <th v-if="allData.note">{{ $t("Note") }}</th>
                         <th>{{ $t("Status") }}</th>
-                        <th v-if="allData.journalEntry">{{ $t("Journal Entry") }}</th>
+                        <th v-if="allData.journalEntry || (allData.journalEntries && allData.journalEntries.length > 0)">{{ $t("Journal Entries") }}</th>
                         <th v-if="allData.createdBy" class="text-right">
                           {{ $t("Created By") }}
                         </th>
@@ -205,13 +205,19 @@
                             $t("Inactive")
                           }}</span>
                         </td>
-                        <td v-if="allData.journalEntry">
-                          <router-link 
-                            :to="{ name: 'journal-entries.show', params: { id: allData.journalEntry.id } }" 
-                            class="badge bg-info text-white" 
-                            style="text-decoration: none;">
-                            {{ allData.journalEntry.entry_number || `#${allData.journalEntry.id}` }}
-                          </router-link>
+                        <td v-if="allData.journalEntry || (allData.journalEntries && allData.journalEntries.length > 0)">
+                          <div v-if="computedJournalEntries && computedJournalEntries.length > 0" class="d-flex flex-wrap justify-content-center" style="gap: 4px;">
+                            <router-link
+                              v-for="(entry, idx) in computedJournalEntries"
+                              :key="entry.id"
+                              :to="{ name: 'journal-entries.show', params: { id: entry.id } }"
+                              class="badge bg-info text-white"
+                              style="text-decoration: none; margin: 2px;">
+                              {{ entry.entry_number || `#${entry.id}` }}
+                              <span v-if="entry.type === 'cogs_reversal'" class="ml-1">(COGS)</span>
+                            </router-link>
+                          </div>
+                          <span v-else class="text-muted">-</span>
                         </td>
                         <td v-if="allData.createdBy" class="text-right">
                           {{ allData.createdBy }}
@@ -818,6 +824,21 @@ export default {
       return this.isSaudiArabia
         ? this.$t("Credit Note Details")
         : this.$t("Invoice Return Details");
+    },
+
+    // Computed journal entries - converts singular to array and handles both formats
+    computedJournalEntries() {
+      if (this.allData.journalEntries && this.allData.journalEntries.length > 0) {
+        return this.allData.journalEntries;
+      }
+      if (this.allData.journalEntry) {
+        return [{
+          id: this.allData.journalEntry.id,
+          entry_number: this.allData.journalEntry.entry_number,
+          type: 'sale_return',
+        }];
+      }
+      return [];
     },
 
     // Filter products that have return quantities > 0

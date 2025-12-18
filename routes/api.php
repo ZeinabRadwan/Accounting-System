@@ -33,12 +33,39 @@ use App\Http\Controllers\TenantDomainFindController;
 use App\Http\Controllers\TenantRegisterController;
 use App\Http\Controllers\VersionController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
 
 /*
  * API Routes for central part of the application.
  */
+
+// Scheduler endpoint for external cron services
+Route::get('/run-scheduler/{token}', function ($token) {
+    // Verify the secret token
+    if ($token !== config('app.scheduler_token')) {
+        return response()->json(['error' => 'Unauthorized'], 403);
+    }
+
+    try {
+        // Run the scheduler
+        Artisan::call('schedule:run');
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Scheduler executed successfully',
+            'output' => Artisan::output(),
+            'timestamp' => now()->toDateTimeString(),
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Failed to run scheduler',
+            'error' => $e->getMessage(),
+        ], 500);
+    }
+})->middleware('throttle:60,1')->name('run.scheduler');
 
 Route::post('/newsletter-send-confirmation', [NewsletterSubscriptionController::class, 'sendConfirmation'])
     ->name('newsletter-send-confirmation')

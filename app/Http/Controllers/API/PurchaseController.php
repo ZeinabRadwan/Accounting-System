@@ -368,15 +368,19 @@ class PurchaseController extends Controller
                     'inventory_count' => $newInventoryCount,
                 ]);
 
-                // Calculate unit cost: ((purchase_price * quantity - discount_amount) + tax_amount) / quantity
-                $unitCost = $selectedProduct['qty'] > 0 ? (($selectedProduct['unitPrice'] * $selectedProduct['qty'] - $discountAmount) + $lineTax) / $selectedProduct['qty'] : $selectedProduct['unitPrice'];
+                // Calculate unit cost: NET of VAT = (purchase_price * quantity - discount_amount) / quantity
+                // CRITICAL: unit_cost must EXCLUDE VAT for proper inventory valuation
+                // VAT is recoverable/deductible and should NOT be included in inventory cost
+                $unitCost = $selectedProduct['qty'] > 0
+                    ? ($selectedProduct['unitPrice'] * $selectedProduct['qty'] - $discountAmount) / $selectedProduct['qty']
+                    : $selectedProduct['unitPrice'];
 
                 PurchaseProduct::create([
                     'purchase_id' => $purchase->id,
                     'product_id' => $product->id,
                     'quantity' => $selectedProduct['qty'],
                     'purchase_price' => $selectedProduct['unitPrice'],
-                    'unit_cost' => round($unitCost, 2),
+                    'unit_cost' => round($unitCost, 4), // VAT-exclusive unit cost
                     'tax_amount' => round($lineTax, 2), // Total tax for the line (not per-unit)
                     'discount' => round($discountValue, 2), // Discount value (percentage or fixed amount)
                     'discount_type' => $discountType, // 'percentage' or 'fixed'
@@ -724,8 +728,11 @@ class PurchaseController extends Controller
                     'inventory_count' => $newInventory,
                 ]);
 
-                // Calculate unit cost: ((purchase_price * quantity - discount_amount) + tax_amount) / quantity
-                $unitCost = $selectedProduct['qty'] > 0 ? (($selectedProduct['unitPrice'] * $selectedProduct['qty'] - $discountAmount) + $lineTax) / $selectedProduct['qty'] : $selectedProduct['unitPrice'];
+                // Calculate unit cost: NET of VAT = (purchase_price * quantity - discount_amount) / quantity
+                // CRITICAL: unit_cost must EXCLUDE VAT for proper inventory valuation
+                $unitCost = $selectedProduct['qty'] > 0
+                    ? ($selectedProduct['unitPrice'] * $selectedProduct['qty'] - $discountAmount) / $selectedProduct['qty']
+                    : $selectedProduct['unitPrice'];
 
                 // store products
                 PurchaseProduct::create([
@@ -733,7 +740,7 @@ class PurchaseController extends Controller
                     'product_id' => $product->id,
                     'quantity' => $selectedProduct['qty'],
                     'purchase_price' => $selectedProduct['unitPrice'],
-                    'unit_cost' => round($unitCost, 2),
+                    'unit_cost' => round($unitCost, 4), // VAT-exclusive unit cost
                     'tax_amount' => round($lineTax, 2), // Total tax for the line (not per-unit)
                     'discount' => round($discountValue, 2), // Discount value (percentage or fixed amount)
                     'discount_type' => $discountType, // 'percentage' or 'fixed'

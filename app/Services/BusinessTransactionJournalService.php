@@ -30,6 +30,29 @@ use Illuminate\Support\Facades\Schema;
 class BusinessTransactionJournalService
 {
     /**
+     * Reverse journal entry lines - swap debit and credit amounts
+     * This helper ensures returns use exact same amounts as original transactions
+     * but with reversed accounting directions (Dr ↔ Cr)
+     *
+     * @param  array  $lines  Array of journal line data with 'account_id', 'debit', 'credit', 'description'
+     * @return array Reversed lines with debits and credits swapped
+     */
+    private function reverseJournalLines(array $lines): array
+    {
+        $reversedLines = [];
+        foreach ($lines as $line) {
+            $reversedLines[] = [
+                'account_id' => $line['account_id'],
+                'debit' => $line['credit'],      // Original credit becomes debit
+                'credit' => $line['debit'],      // Original debit becomes credit
+                'description' => $line['description'],
+            ];
+        }
+
+        return $reversedLines;
+    }
+
+    /**
      * Get default fiscal year and accounting period from settings
      *
      * @throws Exception
@@ -1853,36 +1876,38 @@ class BusinessTransactionJournalService
 
         try {
             // Load the invoice return with its relationships
-            $invoiceReturn->load(['invoice.client', 'invoiceReturnProducts.product']);
+            $invoiceReturn->load(['invoice.client.chartOfAccount', 'invoiceReturnProducts.product.productTax']);
 
             // Validate client has chart of account
             if (! $invoiceReturn->invoice || ! $invoiceReturn->invoice->client || ! $invoiceReturn->invoice->client->isChartOfAccountConnected()) {
                 throw new Exception('Client must have a Chart of Account assigned for journal entries.');
             }
 
-            // Get client-specific accounts receivable account
-            $clientAccountsReceivableAccount = $invoiceReturn->invoice->client->chartOfAccount;
+            $client = $invoiceReturn->invoice->client;
+            $clientAccountsReceivableAccount = $client->chartOfAccount;
 
             if (! $clientAccountsReceivableAccount) {
                 throw new Exception('Client Chart of Account not found.');
             }
 
-            // Calculate return amounts from return items
             $returnProducts = $invoiceReturn->invoiceReturnProducts;
+            $branchId = $invoiceReturn->branch_id ?? (int) (Auth::user()->default_branch_id ?? 0);
 
-            // Debug: Log the return products count
-            \Illuminate\Support\Facades\Log::info('Invoice Return Journal Creation - Return Products Count: '.$returnProducts->count());
+            Log::info('Invoice Return Journal Creation - Return Products Count: '.$returnProducts->count());
 
-            // If no return products, skip journal creation
             if ($returnProducts->count() === 0) {
-                \Illuminate\Support\Facades\Log::info('No return products found, skipping journal entry creation');
                 DB::rollBack();
                 throw new Exception('No return products found for invoice return journal entry creation.');
             }
 
-            $totalReturnAmount = 0;
-            $totalReturnVat = 0;
-            $totalReturnDiscount = 0;
+            // ============================================================
+            // CALCULATE AMOUNTS USING SAME LOGIC AS INVOICE SALE JOURNAL
+            // These amounts will be REVERSED (Dr ↔ Cr) but values stay same
+            // ============================================================
+
+            $totalSalesAmount = 0;  // Net sales (after line discounts)
+            $totalVatAmount = 0;
+            $totalCogsAmount = 0;
             $salesByAccount = [];
             $vatByAccount = [];
 
@@ -1896,23 +1921,24 @@ class BusinessTransactionJournalService
                     continue;
                 }
 
-                // Calculate amounts based on returned quantity
                 $returnQty = $returnProduct->quantity;
+                $originalQty = $invoiceProduct->quantity ?: 1;
+
+                // Calculate per-unit amounts from original invoice (same as sale journal)
                 $unitPrice = $invoiceProduct->sale_price;
-                $unitDiscount = $invoiceProduct->discount_amount / $invoiceProduct->quantity;
-                $unitVat = $invoiceProduct->tax_amount / $invoiceProduct->quantity;
+                $unitDiscount = $originalQty > 0 ? ($invoiceProduct->discount_amount / $originalQty) : 0;
+                $unitVat = $originalQty > 0 ? ($invoiceProduct->tax_amount / $originalQty) : 0;
 
-                // Calculate return amounts
-                $returnSubtotal = $unitPrice * $returnQty;
-                $returnDiscount = $unitDiscount * $returnQty;
-                $returnVat = $unitVat * $returnQty;
-                $returnNet = $returnSubtotal - $returnDiscount;
+                // Calculate return amounts (proportional to returned qty)
+                $returnGross = $unitPrice * $returnQty;
+                $returnDiscount = round($unitDiscount * $returnQty, 2);
+                $returnNet = $returnGross - $returnDiscount;
+                $returnVat = round($unitVat * $returnQty, 2);
 
-                $totalReturnAmount += $returnNet + $returnVat;
-                $totalReturnVat += $returnVat;
-                $totalReturnDiscount += $returnDiscount;
+                $totalSalesAmount += $returnNet;
+                $totalVatAmount += $returnVat;
 
-                // Group by sales account
+                // Group by sales account (same as sale journal)
                 if ($product->sales_account_id) {
                     if (! isset($salesByAccount[$product->sales_account_id])) {
                         $salesByAccount[$product->sales_account_id] = 0;
@@ -1920,10 +1946,9 @@ class BusinessTransactionJournalService
                     $salesByAccount[$product->sales_account_id] += $returnNet;
                 }
 
-                // Group by VAT account
+                // Group by VAT account (same as sale journal)
                 if ($invoiceProduct->vatRate && $returnVat > 0) {
-                    // Pass branch_id to get the correct VAT account from account routing settings
-                    $vatAccount = $invoiceProduct->vatRate->getSalesVatAccount($invoiceReturn->invoice->branch_id ?? null);
+                    $vatAccount = $invoiceProduct->vatRate->getSalesVatAccount($branchId);
                     if ($vatAccount) {
                         if (! isset($vatByAccount[$vatAccount->id])) {
                             $vatByAccount[$vatAccount->id] = 0;
@@ -1931,24 +1956,37 @@ class BusinessTransactionJournalService
                         $vatByAccount[$vatAccount->id] += $returnVat;
                     }
                 }
+
+                // COGS: Use exact original unit_cost (NO recalculation)
+                if ($product && ! $product->is_service) {
+                    $originalUnitCost = $returnProduct->unit_cost ?? $invoiceProduct->unit_cost ?? $returnProduct->purchase_price ?? 0;
+                    $lineCogs = round($originalUnitCost * $returnQty, 2);
+                    $totalCogsAmount += $lineCogs;
+
+                    Log::info("Invoice Return COGS for {$product->name}: qty={$returnQty}, unit_cost={$originalUnitCost}, line_cogs={$lineCogs}");
+                }
             }
 
-            // Debug: Log the calculated amounts
-            \Illuminate\Support\Facades\Log::info('Invoice Return Journal - Total Return Amount: '.$totalReturnAmount);
-            \Illuminate\Support\Facades\Log::info('Invoice Return Journal - Sales Accounts: '.json_encode($salesByAccount));
-            \Illuminate\Support\Facades\Log::info('Invoice Return Journal - VAT Accounts: '.json_encode($vatByAccount));
+            // Total amount = net sales + VAT (same as sale journal total)
+            $totalAmount = $totalSalesAmount + $totalVatAmount;
 
-            // Get default fiscal year and accounting period
+            Log::info("Invoice Return Journal Amounts - Sales: {$totalSalesAmount}, VAT: {$totalVatAmount}, Total: {$totalAmount}, COGS: {$totalCogsAmount}");
+
             $defaults = $this->getDefaultFiscalYearAndPeriod();
 
-            // Create journal entry
+            // ============================================================
+            // REVENUE REVERSAL JOURNAL (Reverse of Sale Invoice Journal)
+            // Sale Invoice:  Dr AR, Cr Sales, Cr VAT
+            // Sale Return:   Dr Sales, Dr VAT, Cr AR (REVERSED)
+            // ============================================================
+
             $journalEntry = JournalEntry::create([
                 'entry_number' => JournalEntry::generateEntryNumber(),
                 'entry_date' => $invoiceReturn->date,
-                'reference' => $invoiceReturn->return_no.'-RET-'.time(), // Make reference unique
+                'reference' => $invoiceReturn->return_no,
                 'description' => __('journal.invoice_return', ['number' => $invoiceReturn->return_no]),
-                'total_debit' => $totalReturnAmount,
-                'total_credit' => $totalReturnAmount,
+                'total_debit' => $totalAmount,
+                'total_credit' => $totalAmount,
                 'status' => 'posted',
                 'created_by' => $userId,
                 'posted_by' => $userId,
@@ -1957,34 +1995,110 @@ class BusinessTransactionJournalService
                 'source_id' => $invoiceReturn->id,
                 'fiscal_year_id' => $defaults['fiscal_year_id'],
                 'accounting_period_id' => $defaults['accounting_period_id'],
-                'branch_id' => $invoiceReturn->branch_id ?? (int) (Auth::user()->default_branch_id ?? 0),
+                'branch_id' => $branchId,
             ]);
 
             $lineNumber = 1;
 
-            // Create sales revenue reversal lines (Credit to reverse sales)
+            // Dr Sales Revenue (reverse of Cr Sales in sale invoice)
             foreach ($salesByAccount as $accountId => $amount) {
-                $this->createJournalEntryLine($journalEntry, $accountId, 0, $amount, $lineNumber, __('journal.sales_revenue_reversal_for_return', ['number' => $invoiceReturn->return_no]));
+                $this->createJournalEntryLine(
+                    $journalEntry,
+                    $accountId,
+                    $amount, // DEBIT (reversed from credit)
+                    0,
+                    $lineNumber,
+                    __('journal.sales_revenue_reversal_for_return', ['number' => $invoiceReturn->return_no])
+                );
                 $lineNumber++;
             }
 
-            // Create VAT reversal lines (Credit to reverse VAT payable)
+            // Dr VAT Payable (reverse of Cr VAT in sale invoice)
             foreach ($vatByAccount as $accountId => $amount) {
-                $this->createJournalEntryLine($journalEntry, $accountId, 0, $amount, $lineNumber, __('journal.vat_payable_reversal_for_return', ['number' => $invoiceReturn->return_no]));
+                $this->createJournalEntryLine(
+                    $journalEntry,
+                    $accountId,
+                    $amount, // DEBIT (reversed from credit)
+                    0,
+                    $lineNumber,
+                    __('journal.vat_payable_reversal_for_return', ['number' => $invoiceReturn->return_no])
+                );
                 $lineNumber++;
             }
 
-            // Create discount reversal line if applicable
-            if ($totalReturnDiscount > 0) {
-                $discountAccount = $this->getDiscountAllowedAccount($invoiceReturn->invoice->branch_id ?? null);
-                if ($discountAccount) {
-                    $this->createJournalEntryLine($journalEntry, $discountAccount->id, 0, $totalReturnDiscount, $lineNumber, __('journal.discount_allowed_reversal_for_return', ['number' => $invoiceReturn->return_no]));
-                    $lineNumber++;
+            // Cr Accounts Receivable (reverse of Dr AR in sale invoice)
+            $this->createJournalEntryLine(
+                $journalEntry,
+                $clientAccountsReceivableAccount->id,
+                0,
+                $totalAmount, // CREDIT (reversed from debit)
+                $lineNumber,
+                __('journal.accounts_receivable_reduction_for_return', ['number' => $invoiceReturn->return_no])
+            );
+
+            // ============================================================
+            // COGS REVERSAL JOURNAL (Reverse of COGS Journal from Sale)
+            // Sale COGS:   Dr COGS, Cr Inventory
+            // Return COGS: Dr Inventory, Cr COGS (REVERSED)
+            // ============================================================
+
+            if ($totalCogsAmount > 0) {
+                $inventoryAccount = $this->getInventoryAccount($branchId);
+                $costOfSalesAccount = $this->getCostOfSalesAccount($branchId);
+
+                if ($inventoryAccount && $costOfSalesAccount) {
+                    $cogsJournalEntry = JournalEntry::create([
+                        'entry_number' => JournalEntry::generateEntryNumber(),
+                        'entry_date' => $invoiceReturn->date,
+                        'reference' => $invoiceReturn->return_no.'-COGS',
+                        'description' => __('journal.cogs_reversal_for_return', ['number' => $invoiceReturn->return_no]),
+                        'total_debit' => $totalCogsAmount,
+                        'total_credit' => $totalCogsAmount,
+                        'status' => 'posted',
+                        'created_by' => $userId,
+                        'posted_by' => $userId,
+                        'posted_at' => now(),
+                        'source_type' => \App\Models\InvoiceReturn::class,
+                        'source_id' => $invoiceReturn->id,
+                        'fiscal_year_id' => $defaults['fiscal_year_id'],
+                        'accounting_period_id' => $defaults['accounting_period_id'],
+                        'branch_id' => $branchId,
+                    ]);
+
+                    // Dr Inventory (reverse of Cr Inventory in COGS journal)
+                    $this->createJournalEntryLine(
+                        $cogsJournalEntry,
+                        $inventoryAccount->id,
+                        $totalCogsAmount, // DEBIT (reversed from credit)
+                        0,
+                        1,
+                        __('journal.inventory_increase_for_return', ['number' => $invoiceReturn->return_no])
+                    );
+
+                    // Cr COGS (reverse of Dr COGS in COGS journal)
+                    $this->createJournalEntryLine(
+                        $cogsJournalEntry,
+                        $costOfSalesAccount->id,
+                        0,
+                        $totalCogsAmount, // CREDIT (reversed from debit)
+                        2,
+                        __('journal.cogs_reversal_for_return', ['number' => $invoiceReturn->return_no])
+                    );
+
+                    Log::info("COGS reversal journal created for return {$invoiceReturn->return_no}: Amount={$totalCogsAmount}");
+
+                    // Link COGS journal to invoice return
+                    if (class_exists('\\App\\Models\\InvoiceReturnJournal')) {
+                        \App\Models\InvoiceReturnJournal::create([
+                            'invoice_return_id' => $invoiceReturn->id,
+                            'journal_entry_id' => $cogsJournalEntry->id,
+                            'type' => 'cogs_reversal',
+                        ]);
+                    }
+                } else {
+                    Log::warning("COGS reversal skipped for return {$invoiceReturn->return_no}: Missing inventory or COGS account");
                 }
             }
-
-            // Create accounts receivable reduction line (Debit to reduce client balance)
-            $this->createJournalEntryLine($journalEntry, $clientAccountsReceivableAccount->id, $totalReturnAmount, 0, $lineNumber, __('journal.accounts_receivable_reduction_for_return', ['number' => $invoiceReturn->return_no]));
 
             DB::commit();
 
@@ -2288,117 +2402,135 @@ class BusinessTransactionJournalService
 
         try {
             // Load the purchase return with its relationships
-            $purchaseReturn->load(['purchase.supplier', 'purchase.purchaseTax', 'purchaseReturnProducts.product.productTax']);
+            $purchaseReturn->load(['purchase.supplier.chartOfAccount', 'purchase.purchaseTax', 'purchaseReturnProducts.product.productTax']);
 
             // Validate supplier has chart of account
             if (! $purchaseReturn->purchase || ! $purchaseReturn->purchase->supplier || ! $purchaseReturn->purchase->supplier->isChartOfAccountConnected()) {
                 throw new Exception('Supplier must have a Chart of Account assigned for journal entries.');
             }
 
-            // Get supplier-specific accounts payable account
-            $supplierAccountsPayableAccount = $purchaseReturn->purchase->supplier->chartOfAccount;
+            $supplier = $purchaseReturn->purchase->supplier;
+            $supplierAccountsPayableAccount = $supplier->chartOfAccount;
 
             if (! $supplierAccountsPayableAccount) {
                 throw new Exception('Supplier Chart of Account not found.');
             }
 
-            // Calculate return amounts from return items
             $returnProducts = $purchaseReturn->purchaseReturnProducts;
+            $branchId = $purchaseReturn->branch_id ?? (int) (Auth::user()->default_branch_id ?? 0);
 
-            // Debug: Log the return products count
-            \Illuminate\Support\Facades\Log::info('Purchase Return Journal Creation - Return Products Count: '.$returnProducts->count());
+            Log::info('Purchase Return Journal Creation - Return Products Count: '.$returnProducts->count());
 
-            // If no return products, skip journal creation
             if ($returnProducts->count() === 0) {
-                \Illuminate\Support\Facades\Log::info('No return products found, skipping journal entry creation');
                 DB::rollBack();
                 throw new Exception('No return products found for purchase return journal entry creation.');
             }
 
-            $totalReturnAmount = 0;
-            $totalInventoryAmount = 0;
+            // ============================================================
+            // CALCULATE AMOUNTS USING SAME LOGIC AS PURCHASE JOURNAL
+            // These amounts will be REVERSED (Dr ↔ Cr) but values stay same
+            // ============================================================
+
+            $totalInventoryAmount = 0;  // Net inventory (VAT-exclusive)
             $totalVatAmount = 0;
+            $purchase = $purchaseReturn->purchase;
+
+            // Get VAT rate from purchase-level tax (fallback if line-level tax_amount is 0)
+            $purchaseVatRate = 0;
+            if ($purchase->purchaseTax) {
+                $purchaseVatRate = (float) $purchase->purchaseTax->rate;
+            }
 
             foreach ($returnProducts as $returnProduct) {
                 $product = $returnProduct->product;
 
                 if (! $product) {
-                    \Illuminate\Support\Facades\Log::warning('Product not found for return product ID: '.$returnProduct->id);
+                    Log::warning('Product not found for return product ID: '.$returnProduct->id);
 
                     continue;
                 }
 
-                // Skip service products (products without inventory tracking)
+                $returnQty = $returnProduct->quantity ?? 0;
+
+                // Get original purchase product for exact amounts
+                $purchaseProduct = \App\Models\PurchaseProduct::where('purchase_id', $purchaseReturn->purchase_id)
+                    ->where('product_id', $returnProduct->product_id)
+                    ->first();
+
+                // Calculate VAT for this line
+                $lineVatAmount = 0;
+                if ($purchaseProduct) {
+                    $originalQty = $purchaseProduct->quantity ?: 1;
+
+                    // Priority 1: Use stored tax_amount from purchase product (exact value)
+                    if ($purchaseProduct->tax_amount > 0) {
+                        $unitVat = $originalQty > 0 ? ($purchaseProduct->tax_amount / $originalQty) : 0;
+                        $lineVatAmount = round($unitVat * $returnQty, 2);
+                    }
+                    // Priority 2: Calculate from purchase-level VAT rate if line tax is 0
+                    elseif ($purchaseVatRate > 0) {
+                        $unitPrice = $returnProduct->unit_cost ?? $returnProduct->purchase_price ?? $purchaseProduct->purchase_price ?? 0;
+                        $lineVatAmount = round(($unitPrice * $returnQty * $purchaseVatRate) / 100, 2);
+                    }
+                }
+
+                // Skip service products from inventory but still include VAT
                 if ($product->is_service) {
-                    \Illuminate\Support\Facades\Log::info("Skipping service product '{$product->name}' from purchase return journal entry (no inventory tracking)");
-                    // Still include VAT for service products
-                    $returnAmount = $this->calculateReturnAmountWithVat($returnProduct, $purchaseReturn);
-                    $totalReturnAmount += $returnAmount;
-                    // Calculate VAT amount for service products
-                    $vatAmount = $this->calculateVatAmountForReturn($returnProduct, $purchaseReturn);
-                    $totalVatAmount += $vatAmount;
+                    Log::info("Skipping service product '{$product->name}' from inventory (no inventory tracking)");
+                    $totalVatAmount += $lineVatAmount;
 
                     continue;
                 }
 
-                // Calculate inventory amount: product cost × quantity (without VAT)
-                $productCost = $returnProduct->purchase_price ?? 0;
-                $quantity = $returnProduct->quantity ?? 0;
-                $lineInventoryAmount = $productCost * $quantity;
+                // INVENTORY: Use exact stored unit_cost (NO recalculation)
+                // Same logic as purchase journal: inventory = qty × purchase_price (net, VAT-exclusive)
+                $originalUnitCost = $returnProduct->unit_cost ?? $returnProduct->purchase_price ?? 0;
+                $lineInventoryAmount = round($originalUnitCost * $returnQty, 2);
                 $totalInventoryAmount += $lineInventoryAmount;
 
-                // Calculate return amount with VAT for total
-                $returnAmount = $this->calculateReturnAmountWithVat($returnProduct, $purchaseReturn);
-                $totalReturnAmount += $returnAmount;
+                // Add VAT for this product
+                $totalVatAmount += $lineVatAmount;
 
-                // Calculate VAT amount
-                $vatAmount = $this->calculateVatAmountForReturn($returnProduct, $purchaseReturn);
-                $totalVatAmount += $vatAmount;
+                Log::info("Purchase return: {$product->name}, qty={$returnQty}, unit_cost={$originalUnitCost}, inventory={$lineInventoryAmount}, vat={$lineVatAmount}");
             }
 
-            // Skip journal entry if no products have inventory tracking (all are services)
+            // Skip if no products with inventory tracking
             if ($totalInventoryAmount == 0 && $totalVatAmount == 0) {
-                \Illuminate\Support\Facades\Log::info("Skipping journal entry creation for purchase return {$purchaseReturn->code}: No products with inventory tracking found.");
                 DB::rollBack();
-                throw new Exception('Cannot create journal entry: All products in this purchase return are services and do not have inventory tracking.');
+                throw new Exception('Cannot create journal entry: All products are services with no inventory tracking.');
             }
 
-            // Get Inventory account from routing settings
-            $inventoryAccount = $this->getInventoryAccount($purchaseReturn->branch_id);
+            // Get accounts from routing settings (same as purchase journal)
+            $inventoryAccount = $this->getInventoryAccount($branchId);
             if ($totalInventoryAmount > 0 && ! $inventoryAccount) {
-                throw new Exception('Inventory account must be configured in account routing settings to create purchase return journal entry.');
+                throw new Exception('Inventory account must be configured in account routing settings.');
             }
 
-            // Get VAT Input account if VAT exists
             $vatAccount = null;
             if ($totalVatAmount > 0) {
                 $vatAccount = $this->getVatAccountForPurchase($purchaseReturn->purchase);
                 if (! $vatAccount) {
-                    throw new Exception('VAT Input account must be configured in account routing settings to create purchase return journal entry with VAT.');
+                    throw new Exception('VAT Input account must be configured in account routing settings.');
                 }
             }
 
-            // Debug: Log the calculated amounts
-            \Illuminate\Support\Facades\Log::info('Purchase Return Journal - Total Return Amount: '.$totalReturnAmount);
-            \Illuminate\Support\Facades\Log::info('Purchase Return Journal - Total Inventory Amount: '.$totalInventoryAmount);
-            \Illuminate\Support\Facades\Log::info('Purchase Return Journal - Total VAT Amount: '.$totalVatAmount);
-
-            // Get default fiscal year and accounting period
-            $defaults = $this->getDefaultFiscalYearAndPeriod();
-
-            // Calculate total amount = inventory + VAT
+            // Total amount = inventory + VAT (same as purchase journal)
             $totalAmount = $totalInventoryAmount + $totalVatAmount;
 
-            // Validate balance
-            if (abs($totalAmount - ($totalInventoryAmount + $totalVatAmount)) > 0.01) {
-                throw new Exception('Journal entry calculation error: Total amount does not match inventory + VAT.');
-            }
+            Log::info("Purchase Return Journal Amounts - Inventory: {$totalInventoryAmount}, VAT: {$totalVatAmount}, Total: {$totalAmount}");
 
-            // Create journal entry
+            $defaults = $this->getDefaultFiscalYearAndPeriod();
+
+            // ============================================================
+            // PURCHASE RETURN JOURNAL (Reverse of Purchase Journal)
+            // Purchase:        Dr Inventory, Dr VAT Input, Cr Supplier/AP
+            // Purchase Return: Dr Supplier/AP, Cr Inventory, Cr VAT Input (REVERSED)
+            // ============================================================
+
             $journalEntry = JournalEntry::create([
                 'entry_number' => JournalEntry::generateEntryNumber(),
                 'entry_date' => $purchaseReturn->date,
-                'reference' => 'PR-'.$purchaseReturn->code.'-'.time(), // Make reference unique
+                'reference' => 'PR-'.$purchaseReturn->code,
                 'description' => __('journal.purchase_return', ['code' => $purchaseReturn->code]),
                 'total_debit' => $totalAmount,
                 'total_credit' => $totalAmount,
@@ -2410,53 +2542,53 @@ class BusinessTransactionJournalService
                 'source_id' => $purchaseReturn->id,
                 'fiscal_year_id' => $defaults['fiscal_year_id'],
                 'accounting_period_id' => $defaults['accounting_period_id'],
-                'branch_id' => $purchaseReturn->branch_id ?? (int) (Auth::user()->default_branch_id ?? 0),
+                'branch_id' => $branchId,
             ]);
 
             $lineNumber = 1;
 
-            // Line 1: Debit Inventory (to reduce inventory for returned items)
+            // Dr Supplier/AP (reverse of Cr Supplier in purchase journal)
+            Log::info("Line {$lineNumber}: Dr Supplier/AP - Account: {$supplierAccountsPayableAccount->id}, Amount: {$totalAmount}");
+            $this->createJournalEntryLine(
+                $journalEntry,
+                $supplierAccountsPayableAccount->id,
+                $totalAmount, // DEBIT (reversed from credit)
+                0,
+                $lineNumber,
+                __('journal.purchase_return_reduce_payable', ['code' => $purchaseReturn->code])
+            );
+            $lineNumber++;
+
+            // Cr Inventory (reverse of Dr Inventory in purchase journal)
             if ($totalInventoryAmount > 0 && $inventoryAccount) {
-                \Illuminate\Support\Facades\Log::info("Creating journal line {$lineNumber}: Debit Inventory - Account ID: {$inventoryAccount->id}, Amount: {$totalInventoryAmount}");
+                Log::info("Line {$lineNumber}: Cr Inventory - Account: {$inventoryAccount->id}, Amount: {$totalInventoryAmount}");
                 $this->createJournalEntryLine(
                     $journalEntry,
                     $inventoryAccount->id,
-                    $totalInventoryAmount, // debit (to reduce inventory)
-                    0, // credit
+                    0,
+                    $totalInventoryAmount, // CREDIT (reversed from debit)
                     $lineNumber,
                     __('journal.inventory_reduction_for_purchase_return', ['code' => $purchaseReturn->code])
                 );
                 $lineNumber++;
             }
 
-            // Line 2: Debit VAT Input (if applicable) - to reverse VAT input
+            // Cr VAT Input (reverse of Dr VAT in purchase journal)
             if ($totalVatAmount > 0 && $vatAccount) {
-                \Illuminate\Support\Facades\Log::info("Creating journal line {$lineNumber}: Debit VAT Input - Account ID: {$vatAccount->id}, Amount: {$totalVatAmount}");
+                Log::info("Line {$lineNumber}: Cr VAT Input - Account: {$vatAccount->id}, Amount: {$totalVatAmount}");
                 $this->createJournalEntryLine(
                     $journalEntry,
                     $vatAccount->id,
-                    $totalVatAmount, // debit (to reverse VAT input)
-                    0, // credit
+                    0,
+                    $totalVatAmount, // CREDIT (reversed from debit)
                     $lineNumber,
                     __('journal.vat_input_reversal_for_purchase_return', ['code' => $purchaseReturn->code])
                 );
-                $lineNumber++;
             }
 
-            // Line 3: Credit Supplier Account (to reduce what we owe the supplier)
-            $this->createJournalEntryLine(
-                $journalEntry,
-                $supplierAccountsPayableAccount->id,
-                0, // debit
-                $totalAmount, // credit (to reduce payable)
-                $lineNumber,
-                __('journal.purchase_return_reduce_payable', ['code' => $purchaseReturn->code])
-            );
-
             // Create bridge table record if PurchaseReturnJournal model exists
-            $bridgeModelPath = '\\App\\Models\\PurchaseReturnJournal';
-            if (class_exists($bridgeModelPath)) {
-                $bridgeModelPath::create([
+            if (class_exists('\\App\\Models\\PurchaseReturnJournal')) {
+                \App\Models\PurchaseReturnJournal::create([
                     'purchase_return_id' => $purchaseReturn->id,
                     'journal_entry_id' => $journalEntry->id,
                     'type' => 'return',
@@ -2469,103 +2601,6 @@ class BusinessTransactionJournalService
         } catch (Exception $e) {
             DB::rollBack();
             throw $e;
-        }
-    }
-
-    /**
-     * Calculate return amount with VAT for a purchase return product
-     */
-    private function calculateReturnAmountWithVat($returnProduct, $purchaseReturn)
-    {
-        $returnQty = $returnProduct->quantity;
-        $purchasePrice = $returnProduct->purchase_price;
-
-        // Get the original purchase product to get tax information
-        $originalProduct = \App\Models\PurchaseProduct::where('purchase_id', $purchaseReturn->purchase_id)
-            ->where('product_id', $returnProduct->product_id)
-            ->first();
-
-        if ($originalProduct) {
-            // Calculate unit discount
-            $unitDiscount = $originalProduct->discount_amount > 0 && $originalProduct->quantity > 0
-                ? $originalProduct->discount_amount / $originalProduct->quantity
-                : 0;
-
-            // Calculate unit net (price after discount)
-            $unitNet = $purchasePrice - $unitDiscount;
-
-            // Get VAT rate from the product's tax information or use default
-            $vatRate = 15; // Default VAT rate for purchases
-            if ($returnProduct->product && $returnProduct->product->productTax) {
-                $vatRate = $returnProduct->product->productTax->rate;
-            } elseif ($purchaseReturn->purchase && $purchaseReturn->purchase->purchaseTax) {
-                $vatRate = $purchaseReturn->purchase->purchaseTax->rate;
-            }
-
-            // Calculate unit VAT
-            $unitVat = ($unitNet * $vatRate) / 100;
-
-            // Calculate unit total (net + VAT)
-            $unitTotal = $unitNet + $unitVat;
-
-            // Calculate return total for this product
-            $productReturnTotal = $unitTotal * $returnQty;
-
-            return round($productReturnTotal, 2);
-        } else {
-            // Fallback: if original product not found, use simple calculation
-            return round($returnQty * $purchasePrice, 2);
-        }
-    }
-
-    /**
-     * Calculate VAT amount for a purchase return product
-     */
-    private function calculateVatAmountForReturn($returnProduct, $purchaseReturn)
-    {
-        $returnQty = $returnProduct->quantity;
-        $purchasePrice = $returnProduct->purchase_price;
-
-        // Get the original purchase product to get tax information
-        $originalProduct = \App\Models\PurchaseProduct::where('purchase_id', $purchaseReturn->purchase_id)
-            ->where('product_id', $returnProduct->product_id)
-            ->first();
-
-        if ($originalProduct) {
-            // Calculate unit discount
-            $unitDiscount = $originalProduct->discount_amount > 0 && $originalProduct->quantity > 0
-                ? $originalProduct->discount_amount / $originalProduct->quantity
-                : 0;
-
-            // Calculate unit net (price after discount)
-            $unitNet = $purchasePrice - $unitDiscount;
-
-            // Get VAT rate from the product's tax information or use default
-            $vatRate = 15; // Default VAT rate for purchases
-            if ($returnProduct->product && $returnProduct->product->productTax) {
-                $vatRate = $returnProduct->product->productTax->rate;
-            } elseif ($purchaseReturn->purchase && $purchaseReturn->purchase->purchaseTax) {
-                $vatRate = $purchaseReturn->purchase->purchaseTax->rate;
-            }
-
-            // Calculate unit VAT
-            $unitVat = ($unitNet * $vatRate) / 100;
-
-            // Calculate total VAT for returned quantity
-            $totalVat = $unitVat * $returnQty;
-
-            return round($totalVat, 2);
-        } else {
-            // Fallback: if original product not found, calculate VAT from price
-            $vatRate = 15; // Default VAT rate
-            if ($returnProduct->product && $returnProduct->product->productTax) {
-                $vatRate = $returnProduct->product->productTax->rate;
-            } elseif ($purchaseReturn->purchase && $purchaseReturn->purchase->purchaseTax) {
-                $vatRate = $purchaseReturn->purchase->purchaseTax->rate;
-            }
-            $unitVat = ($purchasePrice * $vatRate) / 100;
-
-            return round($unitVat * $returnQty, 2);
         }
     }
 }

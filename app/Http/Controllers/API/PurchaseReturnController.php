@@ -121,6 +121,7 @@ class PurchaseReturnController extends Controller
             }
 
             // store return products
+            // CRITICAL: Use original unit_cost from purchase, do NOT recalculate or modify product.purchase_price
             foreach ($request->selectedProducts as $key => $selectedProduct) {
                 $returnQty = (int) $selectedProduct['returnQty'];
                 if ($returnQty > 0) {
@@ -135,29 +136,29 @@ class PurchaseReturnController extends Controller
                         throw new \Exception('Return quantity ('.$returnQty.') cannot exceed available inventory ('.$product->inventory_count.') for product: '.$product->name);
                     }
 
-                    // calculate new purchase price
-                    $currentStockPrice = $product->inventory_count * $product->purchase_price;
+                    // Get the original purchase product to retrieve the exact unit_cost used at time of purchase
+                    $originalPurchaseProduct = \App\Models\PurchaseProduct::where('purchase_id', $request->purchase['id'])
+                        ->where('product_id', $selectedProduct['id'])
+                        ->first();
 
-                    // purchase stock price
-                    $purchaseStockPrice = $returnQty * $selectedProduct['purchasePrice'];
-                    $totalStockPrice = $currentStockPrice - $purchaseStockPrice;
+                    // Use the original unit_cost from the purchase (VAT-exclusive)
+                    // This ensures exact reversal without recalculation
+                    $originalUnitCost = $originalPurchaseProduct ? $originalPurchaseProduct->unit_cost : $selectedProduct['purchasePrice'];
+
+                    // Update ONLY inventory count - do NOT modify product.purchase_price
+                    // Returns should not affect weighted average cost calculations
                     $totalQty = $product->inventory_count - $returnQty;
-
-                    // Prevent division by zero - if totalQty is zero, set unitCost to 0
-                    $unitCost = $totalQty > 0 ? $totalStockPrice / $totalQty : 0;
-
-                    // update product purchase price
                     $product->update([
-                        'purchase_price' => $unitCost,
                         'inventory_count' => $totalQty,
                     ]);
 
-                    \Illuminate\Support\Facades\Log::info('Creating purchase return product with return_id: '.$purchaseReturn->id.', product_id: '.$selectedProduct['id']);
+                    \Illuminate\Support\Facades\Log::info('Creating purchase return product with return_id: '.$purchaseReturn->id.', product_id: '.$selectedProduct['id'].', original_unit_cost: '.$originalUnitCost);
 
                     $returnProduct = PurchaseReturnProduct::create([
                         'return_id' => $purchaseReturn->id,
                         'product_id' => $selectedProduct['id'],
                         'purchase_price' => $selectedProduct['purchasePrice'],
+                        'unit_cost' => round($originalUnitCost, 4), // Store exact original unit_cost for journal reversal
                         'quantity' => $returnQty,
                     ]);
 
@@ -296,6 +297,7 @@ class PurchaseReturnController extends Controller
             ]);
 
             // delete return products and store new return products
+            // CRITICAL: Use original unit_cost from purchase, do NOT recalculate or modify product.purchase_price
             $purchaseReturn->purchaseReturnProducts->each->delete();
             foreach ($request->selectedProducts as $key => $selectedProduct) {
 
@@ -310,31 +312,32 @@ class PurchaseReturnController extends Controller
                     throw new \Exception('Product not found: '.$selectedProduct['slug']);
                 }
 
-                // Validate that return quantity doesn't exceed available inventory
-                if ($returnedQty > $product->inventory_count) {
-                    throw new \Exception('Return quantity ('.$returnedQty.') cannot exceed available inventory ('.$product->inventory_count.') for product: '.$product->name);
+                // Validate that return quantity doesn't exceed available inventory (accounting for old qty being restored)
+                $availableForReturn = $product->inventory_count + $oldQty;
+                if ($returnedQty > $availableForReturn) {
+                    throw new \Exception('Return quantity ('.$returnedQty.') cannot exceed available inventory ('.$availableForReturn.') for product: '.$product->name);
                 }
 
-                // calculate new purchase price
-                $currentStockPrice = $product->inventory_count * $product->purchase_price;
+                // Get the original purchase product to retrieve the exact unit_cost
+                $originalPurchaseProduct = \App\Models\PurchaseProduct::where('purchase_id', $purchaseReturn->purchase_id)
+                    ->where('product_id', $selectedProduct['id'])
+                    ->first();
 
-                // purchase stock price
-                $returnedStockPrice = ($oldQty - $returnedQty) * $purchasePrice;
-                $totalStockPrice = $currentStockPrice + $returnedStockPrice;
+                // Use the original unit_cost from the purchase (VAT-exclusive)
+                $originalUnitCost = $originalPurchaseProduct ? $originalPurchaseProduct->unit_cost : $purchasePrice;
+
+                // Update ONLY inventory count - do NOT modify product.purchase_price
+                // Restore old qty then subtract new return qty
                 $totalQty = $product->inventory_count + $oldQty - $returnedQty;
-
-                // Prevent division by zero - if totalQty is zero, set unitCost to 0
-                $unitCost = $totalQty > 0 ? $totalStockPrice / $totalQty : 0;
-                // update product purchase price
                 $product->update([
-                    'purchase_price' => $unitCost,
                     'inventory_count' => $totalQty,
                 ]);
 
                 PurchaseReturnProduct::create([
                     'return_id' => $purchaseReturn->id,
                     'product_id' => $selectedProduct['id'],
-                    'purchase_price' => $selectedProduct['price'],
+                    'purchase_price' => $purchasePrice,
+                    'unit_cost' => round($originalUnitCost, 4), // Store exact original unit_cost for journal reversal
                     'quantity' => $returnedQty,
                 ]);
             }

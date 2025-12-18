@@ -38724,12 +38724,12 @@ var map = {
 		8532
 	],
 	"./sales/returns": [
-		90622,
-		622
+		50207,
+		207
 	],
 	"./sales/returns/": [
-		90622,
-		622
+		50207,
+		207
 	],
 	"./sales/returns/create": [
 		11386,
@@ -38756,20 +38756,20 @@ var map = {
 		3648
 	],
 	"./sales/returns/index": [
-		90622,
-		622
+		50207,
+		207
 	],
 	"./sales/returns/index.vue": [
-		90622,
-		622
+		50207,
+		207
 	],
 	"./sales/returns/show": [
-		44791,
-		4791
+		3224,
+		3224
 	],
 	"./sales/returns/show.vue": [
-		44791,
-		4791
+		3224,
+		3224
 	],
 	"./settings": [
 		67241,

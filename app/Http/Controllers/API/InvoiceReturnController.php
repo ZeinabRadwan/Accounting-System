@@ -172,6 +172,7 @@ class InvoiceReturnController extends Controller
             ]);
 
             // store invoice products
+            // CRITICAL: Store original unit_cost from InvoiceProduct for exact COGS reversal
             foreach ($request->selectedProducts as $key => $selectedProduct) {
                 // update product inventory
                 $product = Product::where('slug', $selectedProduct['slug'])->first();
@@ -181,11 +182,21 @@ class InvoiceReturnController extends Controller
 
                 // store return product
                 if ($selectedProduct['returnQty'] > 0) {
+                    // Get the original invoice product to retrieve the exact unit_cost used for COGS
+                    $originalInvoiceProduct = \App\Models\InvoiceProduct::where('invoice_id', $request->invoice['id'])
+                        ->where('product_id', $selectedProduct['id'])
+                        ->first();
+
+                    // Use the original unit_cost from the invoice product (the cost used in original COGS entry)
+                    // This ensures exact reversal without recalculation
+                    $originalUnitCost = $originalInvoiceProduct ? $originalInvoiceProduct->unit_cost : $selectedProduct['avgPurchasePrice'];
+
                     InvoiceReturnProduct::create([
                         'return_id' => $invoiceReturn->id,
                         'product_id' => $selectedProduct['id'],
                         'sale_price' => $selectedProduct['unitCost'],
                         'purchase_price' => $selectedProduct['avgPurchasePrice'],
+                        'unit_cost' => $originalUnitCost ? round($originalUnitCost, 4) : null, // Store exact original unit_cost for COGS reversal
                         'quantity' => $selectedProduct['returnQty'],
                     ]);
                 }
@@ -359,6 +370,7 @@ class InvoiceReturnController extends Controller
             ]);
 
             // delete return products and store new return products
+            // CRITICAL: Store original unit_cost from InvoiceProduct for exact COGS reversal
             $invoiceReturn->invoiceReturnProducts->each->delete();
             foreach ($request->selectedProducts as $key => $selectedProduct) {
                 // update product inventory
@@ -369,11 +381,20 @@ class InvoiceReturnController extends Controller
 
                 // store product
                 if ($selectedProduct['returnQty']) {
+                    // Get the original invoice product to retrieve the exact unit_cost used for COGS
+                    $originalInvoiceProduct = \App\Models\InvoiceProduct::where('invoice_id', $invoiceReturn->invoice_id)
+                        ->where('product_id', $selectedProduct['id'])
+                        ->first();
+
+                    // Use the original unit_cost from the invoice product
+                    $originalUnitCost = $originalInvoiceProduct ? $originalInvoiceProduct->unit_cost : $selectedProduct['purchasePrice'];
+
                     InvoiceReturnProduct::create([
                         'return_id' => $invoiceReturn->id,
                         'product_id' => $selectedProduct['id'],
                         'sale_price' => $selectedProduct['unitCost'],
                         'purchase_price' => $selectedProduct['purchasePrice'],
+                        'unit_cost' => $originalUnitCost ? round($originalUnitCost, 4) : null, // Store exact original unit_cost for COGS reversal
                         'quantity' => $selectedProduct['returnQty'],
                     ]);
                 }

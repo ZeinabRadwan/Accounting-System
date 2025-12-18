@@ -12,7 +12,6 @@ return [
     |
     */
 
-
     /*
     |--------------------------------------------------------------------------
     | Application Name
@@ -26,7 +25,7 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
     'is_demo_mode' => env('IS_DEMO_MODE', false),
-    'version' =>  env('VERSION', '4.0.1'),
+    'version' => env('VERSION', '4.0.1'),
     'nextAppVersion' => '4.0.1',
     /*
     |--------------------------------------------------------------------------
@@ -103,7 +102,7 @@ return [
         // 'es' => ['ES', 'Spanish'],
         // 'de' => ['DE', 'German'],
         // 'fr' => ['FR', 'French'],
-       
+
         // 'id' => ['ID', 'Indonesian'],
         // 'nl' => ['NL', 'Dutch'],
         // 'ms' => ['MS', 'Malay'],
@@ -157,6 +156,19 @@ return [
     'key' => env('APP_KEY'),
 
     'cipher' => 'AES-256-CBC',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Scheduler Token
+    |--------------------------------------------------------------------------
+    |
+    | This token is used to secure the scheduler endpoint that can be called
+    | by external cron services. Set this to a random, secure string in your
+    | .env file as SCHEDULER_TOKEN.
+    |
+    */
+
+    'scheduler_token' => env('SCHEDULER_TOKEN', 'your-secret-scheduler-token-change-this'),
 
     /*
     |--------------------------------------------------------------------------

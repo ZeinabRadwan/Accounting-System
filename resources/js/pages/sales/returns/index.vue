@@ -112,7 +112,18 @@
                   <span v-html="formatCurrency(row.netTotal || row.totalReturn || 0)"></span>
                 </template>
                 <template #cell-journalEntry="{ row }">
-                  <span v-if="row.journalEntry">
+                  <div v-if="row.journalEntries && row.journalEntries.length > 0" class="d-flex flex-wrap justify-content-center" style="gap: 4px;">
+                    <router-link
+                      v-for="(entry, index) in row.journalEntries"
+                      :key="entry.id"
+                      :to="{ name: 'journal-entries.show', params: { id: entry.id } }"
+                      class="badge bg-info text-white"
+                      style="text-decoration: none; margin: 2px;">
+                      {{ entry.entry_number || `#${entry.id}` }}
+                      <span v-if="entry.type === 'cogs_reversal'" class="ml-1">(COGS)</span>
+                    </router-link>
+                  </div>
+                  <span v-else-if="row.journalEntry">
                     <router-link :to="{ name: 'journal-entries.show', params: { id: row.journalEntry.id } }" 
                       class="badge bg-info text-white" 
                       style="text-decoration: none;">
@@ -323,12 +334,25 @@ export default {
       ];
     },
     invoiceReturnsWithIndex() {
-      return this.items.map((item, index) => ({
-        ...item,
-        index: this.pagination && this.pagination.current_page > 1
-          ? this.pagination.per_page * (this.pagination.current_page - 1) + (index + 1)
-          : index + 1,
-      }));
+      return this.items.map((item, index) => {
+        // Convert singular journalEntry to journalEntries array if needed
+        let journalEntries = item.journalEntries || [];
+        if (!journalEntries.length && item.journalEntry) {
+          journalEntries = [{
+            id: item.journalEntry.id,
+            entry_number: item.journalEntry.entry_number,
+            type: 'sale_return',
+          }];
+        }
+        
+        return {
+          ...item,
+          index: this.pagination && this.pagination.current_page > 1
+            ? this.pagination.per_page * (this.pagination.current_page - 1) + (index + 1)
+            : index + 1,
+          journalEntries: journalEntries,
+        };
+      });
     },
     // Calculate total subtotal for all returns in current page
     totalSubtotal() {
