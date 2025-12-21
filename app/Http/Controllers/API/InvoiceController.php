@@ -244,13 +244,18 @@ class InvoiceController extends Controller
                     'inventory_count' => $product->inventory_count - $selectedProduct['qty'],
                 ]);
 
-                // Calculate discount amount
+                // Calculate discount amount (includes product-level + proportional invoice-level discount)
+                // The frontend sends discountAmount which already includes proportional allocation
                 $discountAmount = 0;
-                if (isset($selectedProduct['discount']) && $selectedProduct['discount'] > 0) {
+                if (isset($selectedProduct['discountAmount']) && $selectedProduct['discountAmount'] > 0) {
+                    // Use the discountAmount from frontend (includes proportional discount)
+                    $discountAmount = (float) $selectedProduct['discountAmount'];
+                } elseif (isset($selectedProduct['discount']) && $selectedProduct['discount'] > 0) {
+                    // Fallback: calculate if discountAmount not provided (backward compatibility)
                     if (isset($selectedProduct['discountType']) && $selectedProduct['discountType'] === 'percentage') {
                         $discountAmount = ($selectedProduct['unitPrice'] * $selectedProduct['qty'] * $selectedProduct['discount']) / 100;
                     } else {
-                        $discountAmount = $selectedProduct['discount'];
+                        $discountAmount = (float) $selectedProduct['discount'];
                     }
                 }
 
@@ -642,13 +647,18 @@ class InvoiceController extends Controller
                     'inventory_count' => $totalQty,
                 ]);
 
-                // Calculate discount amount
+                // Calculate discount amount (includes product-level + proportional invoice-level discount)
+                // The frontend sends discountAmount which already includes proportional allocation
                 $discountAmount = 0;
-                if (isset($selectedProduct['discount']) && $selectedProduct['discount'] > 0) {
+                if (isset($selectedProduct['discountAmount']) && $selectedProduct['discountAmount'] > 0) {
+                    // Use the discountAmount from frontend (includes proportional discount)
+                    $discountAmount = (float) $selectedProduct['discountAmount'];
+                } elseif (isset($selectedProduct['discount']) && $selectedProduct['discount'] > 0) {
+                    // Fallback: calculate if discountAmount not provided (backward compatibility)
                     if (isset($selectedProduct['discountType']) && $selectedProduct['discountType'] === 'percentage') {
                         $discountAmount = ($selectedProduct['unitPrice'] * $selectedProduct['qty'] * $selectedProduct['discount']) / 100;
                     } else {
-                        $discountAmount = $selectedProduct['discount'];
+                        $discountAmount = (float) $selectedProduct['discount'];
                     }
                 }
 

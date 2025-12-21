@@ -280,53 +280,32 @@ class BusinessTransactionJournalService
             $totalSalesAmount = 0;
             $totalVatAmount = 0;
 
-            // Calculate sales and VAT amounts (after line-level discounts)
+            // Calculate sales and VAT amounts (after all discounts including proportional invoice-level discount)
+            // Note: discount_amount on each line item already includes:
+            // 1. Product-level discount
+            // 2. Proportional invoice-level discount allocation
+            // This is a trade discount, so we record sales at net amount (no separate discount entry)
+            // VAT is calculated on net_total (after discount), NOT including transport
+            // Transport is added at invoice level, not per line item
+            
             foreach ($invoiceProducts as $invoiceProduct) {
                 $originalAmount = $invoiceProduct->sale_price * $invoiceProduct->quantity;
+                // discount_amount already includes product-level + proportional invoice-level discount
                 $lineDiscountAmount = $invoiceProduct->discount_amount ?? 0;
+                // Net amount = line_total - discount (this is what goes to sales account)
                 $netAmount = $originalAmount - $lineDiscountAmount;
 
                 $totalSalesAmount += $netAmount;
+                // VAT is calculated on net_total (after discount), NOT including transport (already done in frontend)
                 $totalVatAmount += $invoiceProduct->tax_amount;
             }
 
-            // Calculate bill-level (invoice-level) discount amount, if any
-            $billDiscountAmount = 0;
-
-            if ($invoice->discount_type !== null && $invoice->discount !== null && (float) $invoice->discount > 0) {
-                $discountValue = (float) $invoice->discount;
-
-                if ((int) $invoice->discount_type === 1) {
-                    // Percentage discount based on net sales after line-level discounts
-                    $billDiscountAmount = round($totalSalesAmount * ($discountValue / 100), 2);
-                } else {
-                    // Fixed amount discount
-                    $billDiscountAmount = round($discountValue, 2);
-                }
-
-                // Cap discount so it never exceeds total sales amount
-                if ($billDiscountAmount > $totalSalesAmount) {
-                    $billDiscountAmount = $totalSalesAmount;
-                }
-            }
-
-            // Get Discount Allowed account if we have a bill-level discount
-            $discountAccount = null;
-            if ($billDiscountAmount > 0) {
-                $discountAccount = $this->getDiscountAllowedAccount($invoice->branch_id);
-                if (! $discountAccount) {
-                    throw new Exception('Discount Allowed account must be configured in account routing settings to process bill-level discounts on invoices.');
-                }
-            }
-
-            // Header totals (sum of all debits / credits) = net sales + VAT
-            $headerTotalAmount = $totalSalesAmount + $totalVatAmount;
-
-            // Accounts Receivable is reduced by the bill-level discount
+            // Header totals (sum of all debits / credits) = net sales + VAT + transport
+            // No separate discount entry - trade discount is already reflected in net sales amounts
+            // Transport is added at invoice level (grand_total = subtotal + total_vat + transport)
+            $transportCost = (float) ($invoice->transport ?? 0);
+            $headerTotalAmount = $totalSalesAmount + $totalVatAmount + $transportCost;
             $accountsReceivableAmount = $headerTotalAmount;
-            if ($billDiscountAmount > 0) {
-                $accountsReceivableAmount = max(0, $headerTotalAmount - $billDiscountAmount);
-            }
 
             // Get default fiscal year and accounting period
             $defaults = $this->getDefaultFiscalYearAndPeriod();
@@ -352,12 +331,14 @@ class BusinessTransactionJournalService
                 'branch_id' => $branchId,
             ]);
 
-            // Line 1: Debit to Client's Accounts Receivable (net of bill-level discount)
+            // Line 1: Debit to Client's Accounts Receivable (net amount after all discounts)
             $this->createJournalEntryLine($journalEntry, $clientAccountsReceivableAccount->id, $accountsReceivableAmount, 0, 1, __('journal.accounts_receivable'));
 
             $lineNumber = 2;
 
-            // Note: Discounts are handled by reducing the sales amount, not as separate entries
+            // Note: Trade discounts (product-level + proportional invoice-level) are already included
+            // in the discount_amount of each line item. We record sales at net amount after discount.
+            // No separate discount accounting entry is created for trade discounts.
 
             // Group by sales account to handle multiple products with different accounts
             $salesByAccount = [];
@@ -367,20 +348,23 @@ class BusinessTransactionJournalService
                 $product = $invoiceProduct->product;
                 $accountId = $product->sales_account_id;
 
-                // Calculate amount after discount
+                // Calculate net amount after discount (discount_amount includes product-level + proportional invoice-level discount)
                 $originalAmount = $invoiceProduct->sale_price * $invoiceProduct->quantity;
+                // discount_amount already includes proportional invoice-level discount allocation
                 $discountAmount = $invoiceProduct->discount_amount ?? 0;
+                // Net amount = line_total - discount (this is what goes to sales account, NOT including transport)
                 $netAmount = $originalAmount - $discountAmount;
 
-                // Add to sales account (net amount after discount)
+                // Add to sales account (net amount after discount, transport handled separately at invoice level)
                 if (! isset($salesByAccount[$accountId])) {
                     $salesByAccount[$accountId] = 0;
                 }
                 $salesByAccount[$accountId] += $netAmount;
 
-                // Handle VAT account
+                // Handle VAT account (VAT is calculated on net_total after discount, NOT including transport)
                 if (isset($vatAccountsByProduct[$invoiceProduct->product_id])) {
                     $vatAccountId = $vatAccountsByProduct[$invoiceProduct->product_id]->id;
+                    // tax_amount is already calculated on net_total (after discount), NOT including transport (done in frontend)
                     $productVatAmount = $invoiceProduct->tax_amount;
 
                     if ($productVatAmount > 0) {
@@ -392,16 +376,17 @@ class BusinessTransactionJournalService
                 }
             }
 
-            // Create separate journal entry lines for each sales account (net amount after discount)
+            // Create separate journal entry lines for each sales account (net amount after discount, NOT including transport)
             foreach ($salesByAccount as $accountId => $amount) {
                 if ($amount > 0) { // Only create line if amount is greater than 0
-                    Log::info("Creating sales journal line: Account ID {$accountId}, Amount: {$amount}");
+                    Log::info("Creating sales journal line: Account ID {$accountId}, Amount: {$amount} (net amount after discount)");
                     $this->createJournalEntryLine($journalEntry, $accountId, 0, $amount, $lineNumber, __('journal.sales_revenue_for_invoice', ['number' => $invoice->invoice_no]));
                     $lineNumber++;
                 }
             }
 
             // Create VAT journal entries (grouped by account)
+            // VAT is calculated on net_total (after discount), NOT including transport
             foreach ($vatByAccount as $vatAccountId => $totalVatAmount) {
                 if ($totalVatAmount > 0) { // Only create line if amount is greater than 0
                     Log::info("Creating VAT journal line: Account ID {$vatAccountId}, Amount: {$totalVatAmount}");
@@ -410,19 +395,29 @@ class BusinessTransactionJournalService
                 }
             }
 
-            // Create bill-level discount line if applicable (Discount Allowed – contra revenue)
-            if ($billDiscountAmount > 0 && $discountAccount) {
-                Log::info("Creating Discount Allowed journal line: Account ID {$discountAccount->id}, Amount: {$billDiscountAmount}");
-                $this->createJournalEntryLine(
-                    $journalEntry,
-                    $discountAccount->id,
-                    $billDiscountAmount,
-                    0,
-                    $lineNumber,
-                    __('journal.discount_allowed_for_invoice', ['number' => $invoice->invoice_no])
-                );
-                $lineNumber++;
+            // Create transport entry if transport cost exists
+            // Note: Transport is allocated proportionally to items for display/reporting purposes only
+            // In journal entries, transport is posted as a separate line item (not allocated to sales)
+            if ($transportCost > 0) {
+                // Get transport expense/revenue account from routing settings
+                $transportAccount = $this->getTransportExpenseAccount($invoice->branch_id);
+                if ($transportAccount) {
+                    Log::info("Creating transport journal line: Account ID {$transportAccount->id}, Amount: {$transportCost}");
+                    // Credit transport account (transport is additional revenue)
+                    $this->createJournalEntryLine($journalEntry, $transportAccount->id, 0, $transportCost, $lineNumber, __('journal.transport_cost_for_invoice', ['number' => $invoice->invoice_no]));
+                    $lineNumber++;
+                } else {
+                    // If no transport account configured, throw error to ensure proper accounting
+                    throw new Exception(
+                        'Transport cost of '.$transportCost.' exists on invoice '.$invoice->invoice_no.' but Transport Expense/Revenue account must be configured in Account Routing Settings. '.
+                        'Please go to Settings > Account Routing and configure the transport_expense_account.'
+                    );
+                }
             }
+
+            // Note: No separate discount entry is created for trade discounts.
+            // Trade discounts (product-level + proportional invoice-level) are already reflected
+            // in the net sales amounts. We record sales and purchases at net amount after discount.
 
             // Log the final totals for debugging
             Log::info("Journal entry totals - Debit: {$headerTotalAmount}, Credit: {$headerTotalAmount}");
@@ -463,33 +458,43 @@ class BusinessTransactionJournalService
                     continue;
                 }
 
-                // Calculate purchase-history based average cost (same as Product Show page)
-                // This uses ONLY opening stock + all purchase lines up to invoice date
-                // (using purchase_price from each purchase line, not unit_cost)
-                // IMPORTANT: This does NOT consider sales, returns, or branch filters
-                // This matches the calculation shown on Product Show page and Inventory Count page
+                // Calculate inventory cost using unit_cost from invoice_products if available
+                // Otherwise fall back to weighted average cost method
                 $quantity = (float) ($invoiceProduct->quantity ?? 0);
-                $invoiceDate = $invoice->invoice_date ?? now()->format('Y-m-d');
+                
+                // Use unit_cost from invoice_products if available (stored at invoice creation)
+                // This represents the actual cost basis used when the invoice was created
+                $unitCost = null;
+                if ($invoiceProduct->unit_cost && $invoiceProduct->unit_cost > 0) {
+                    $unitCost = (float) $invoiceProduct->unit_cost;
+                    Log::info(
+                        "Using stored unit_cost for product {$product->name}: ".
+                        "unit_cost={$unitCost} (from invoice_products table)"
+                    );
+                } else {
+                    // Fallback to weighted average cost if unit_cost not available
+                    $invoiceDate = $invoice->invoice_date ?? now()->format('Y-m-d');
+                    $unitCost = $product->calculatePurchaseHistoryAverageCost($invoiceDate);
+                    Log::info(
+                        "Using weighted average cost for product {$product->name}: ".
+                        "weighted_avg_cost={$unitCost} (calculated from purchase history)"
+                    );
+                }
 
-                // Get purchase-history based average cost for this product up to invoice date
-                // This matches the Product Show page calculation exactly
-                $weightedAvgCost = $product->calculatePurchaseHistoryAverageCost($invoiceDate);
-
-                // COGS = quantity_sold × weighted_average_cost
-                $lineCost = round($quantity * $weightedAvgCost, 2);
+                // COGS = quantity_sold × unit_cost
+                $lineCost = round($quantity * $unitCost, 2);
                 $totalCogsAmount += $lineCost;
 
                 $cogsDetails[] = [
                     'product' => $product->name,
                     'quantity' => $quantity,
-                    'weighted_avg_cost' => $weightedAvgCost,
+                    'unit_cost' => $unitCost,
                     'line_cost' => $lineCost,
                 ];
 
                 Log::info(
                     "COGS calculation for product {$product->name}: ".
-                    "quantity={$quantity}, purchase_history_avg_cost={$weightedAvgCost}, lineCost={$lineCost} ".
-                    "(calculated using purchase-history method: opening stock + all purchases up to invoice date: {$invoiceDate})"
+                    "quantity={$quantity}, unit_cost={$unitCost}, lineCost={$lineCost}"
                 );
             }
 
@@ -537,8 +542,8 @@ class BusinessTransactionJournalService
                     'branch_id' => $branchId,
                 ]);
 
-                // Dr Cost of Sales (using net amount only, excluding VAT)
-                // This is based on sale_price, not the invoice total
+                // Dr Cost of Sales (using unit_cost × quantity for each product)
+                // This reflects the actual cost basis of inventory sold
                 $this->createJournalEntryLine(
                     $cogsJournalEntry,
                     $costOfSalesAccount->id,
@@ -548,8 +553,8 @@ class BusinessTransactionJournalService
                     __('journal.cost_of_sales_for_invoice', ['number' => $invoice->invoice_no])
                 );
 
-                // Cr Inventory (using net amount only, excluding VAT)
-                // This reduces inventory by the sale_price amount, not the invoice total
+                // Cr Inventory (using unit_cost × quantity for each product)
+                // This reduces inventory by the actual cost basis, not the sale price
                 $this->createJournalEntryLine(
                     $cogsJournalEntry,
                     $inventoryAccount->id,
@@ -568,7 +573,7 @@ class BusinessTransactionJournalService
 
                 Log::info(
                     "COGS journal entry created for invoice {$invoice->invoice_no}: ".
-                    "Amount = {$totalCogsAmount} (calculated using Purchase-History Average Cost method, same as Product Show page). ".
+                    "Amount = {$totalCogsAmount} (calculated using unit_cost × quantity for each product). ".
                     'Details: '.json_encode($cogsDetails)
                 );
             } else {
