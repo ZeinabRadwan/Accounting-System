@@ -1070,18 +1070,18 @@ export default {
         const lineTotalAfterVat = netPrice + productTax;
         
         return {
-          index: index + 1,
-          code: product.productCode,
-          name: product.productName,
-          quantity: `${product.quantity} ${product.productUnit}`,
-          returnQty: this.allData && this.allData.totalInvoiceReturn ? `${product.returnQty} ${product.productUnit}` : null,
-          price: product.salePrice,
+        index: index + 1,
+        code: product.productCode,
+        name: product.productName,
+        quantity: `${product.quantity} ${product.productUnit}`,
+        returnQty: this.allData && this.allData.totalInvoiceReturn ? `${product.returnQty} ${product.productUnit}` : null,
+        price: product.salePrice,
           total: lineTotal, // Line Total = quantity × unit_price
-          discount: product,
+        discount: product,
           totalAfterDiscount: netPrice, // Net Price After Discount (stored value)
-          vat: product,
+        vat: product,
           totalWithVat: lineTotalAfterVat, // Line Total After VAT (stored calculation)
-          _raw: product,
+        _raw: product,
         };
       });
     },

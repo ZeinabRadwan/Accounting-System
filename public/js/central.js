@@ -38593,12 +38593,12 @@ var map = {
 		6718
 	],
 	"./sales/invoices/create": [
-		89333,
-		9333
+		64911,
+		4911
 	],
 	"./sales/invoices/create.vue": [
-		89333,
-		9333
+		64911,
+		4911
 	],
 	"./sales/invoices/edit": [
 		64373,
@@ -38617,12 +38617,12 @@ var map = {
 		6718
 	],
 	"./sales/invoices/show": [
-		27264,
-		7264
+		94978,
+		4978
 	],
 	"./sales/invoices/show.vue": [
-		27264,
-		7264
+		94978,
+		4978
 	],
 	"./sales/pos/create": [
 		28046,

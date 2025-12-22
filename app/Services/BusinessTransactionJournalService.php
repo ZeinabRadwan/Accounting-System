@@ -285,26 +285,29 @@ class BusinessTransactionJournalService
             // 1. Product-level discount
             // 2. Proportional invoice-level discount allocation
             // This is a trade discount, so we record sales at net amount (no separate discount entry)
-            // VAT is calculated on net_total (after discount), NOT including transport
-            // Transport is added at invoice level, not per line item
-            
+            // VAT (tax_amount) is calculated on:
+            //   net_total_after_discount + allocated_transport_share (shipping),
+            // so tax_amount already includes VAT on transport.
             foreach ($invoiceProducts as $invoiceProduct) {
                 $originalAmount = $invoiceProduct->sale_price * $invoiceProduct->quantity;
                 // discount_amount already includes product-level + proportional invoice-level discount
                 $lineDiscountAmount = $invoiceProduct->discount_amount ?? 0;
-                // Net amount = line_total - discount (this is what goes to sales account)
+                // Net amount = line_total - discount (this is what goes to sales account, BEFORE adding transport)
                 $netAmount = $originalAmount - $lineDiscountAmount;
 
                 $totalSalesAmount += $netAmount;
-                // VAT is calculated on net_total (after discount), NOT including transport (already done in frontend)
+                // tax_amount already includes VAT on (net amount after discount + allocated transport share)
                 $totalVatAmount += $invoiceProduct->tax_amount;
             }
 
-            // Header totals (sum of all debits / credits) = net sales + VAT + transport
-            // No separate discount entry - trade discount is already reflected in net sales amounts
-            // Transport is added at invoice level (grand_total = subtotal + total_vat + transport)
+            // Transport cost from invoice header
             $transportCost = (float) ($invoice->transport ?? 0);
-            $headerTotalAmount = $totalSalesAmount + $totalVatAmount + $transportCost;
+
+            // Header totals (sum of all debits / credits) = net sales + transport + VAT
+            // No separate discount entry - trade discount is already reflected in net sales amounts
+            // Transport is INCLUDED in revenue (sales) line(s), not as a separate journal line.
+            // Accounts receivable = net sales after discount + transport + VAT.
+            $headerTotalAmount = $totalSalesAmount + $transportCost + $totalVatAmount;
             $accountsReceivableAmount = $headerTotalAmount;
 
             // Get default fiscal year and accounting period
@@ -355,7 +358,7 @@ class BusinessTransactionJournalService
                 // Net amount = line_total - discount (this is what goes to sales account, NOT including transport)
                 $netAmount = $originalAmount - $discountAmount;
 
-                // Add to sales account (net amount after discount, transport handled separately at invoice level)
+                // Add to sales account (net amount after discount, BEFORE adding transport)
                 if (! isset($salesByAccount[$accountId])) {
                     $salesByAccount[$accountId] = 0;
                 }
@@ -376,7 +379,36 @@ class BusinessTransactionJournalService
                 }
             }
 
-            // Create separate journal entry lines for each sales account (net amount after discount, NOT including transport)
+            // Allocate transport cost proportionally across sales accounts and include it in revenue
+            // Business rule: transport should NOT be a separate journal line; it must be merged into revenue.
+            if ($transportCost > 0 && ! empty($salesByAccount)) {
+                $totalNetSalesForAllocation = array_sum($salesByAccount);
+
+                if ($totalNetSalesForAllocation > 0) {
+                    $allocatedTransportTotal = 0.0;
+                    $lastAccountId = null;
+
+                    foreach ($salesByAccount as $accountId => $amount) {
+                        $lastAccountId = $accountId;
+
+                        // Proportional share of transport: (accountNet / totalNetSales) * transportCost
+                        $proportion = $amount / $totalNetSalesForAllocation;
+                        $allocatedShare = round($transportCost * $proportion, 2);
+
+                        $salesByAccount[$accountId] += $allocatedShare;
+                        $allocatedTransportTotal += $allocatedShare;
+                    }
+
+                    // Handle rounding difference by adjusting the last account
+                    $roundingDifference = round($transportCost - $allocatedTransportTotal, 2);
+                    if ($lastAccountId !== null && abs($roundingDifference) >= 0.01) {
+                        $salesByAccount[$lastAccountId] += $roundingDifference;
+                    }
+                }
+            }
+
+            // Create journal entry lines for each sales account:
+            // net amount after discount + allocated share of transport
             foreach ($salesByAccount as $accountId => $amount) {
                 if ($amount > 0) { // Only create line if amount is greater than 0
                     Log::info("Creating sales journal line: Account ID {$accountId}, Amount: {$amount} (net amount after discount)");
@@ -386,32 +418,12 @@ class BusinessTransactionJournalService
             }
 
             // Create VAT journal entries (grouped by account)
-            // VAT is calculated on net_total (after discount), NOT including transport
+            // VAT (tax_amount) is calculated on net_total_after_discount + allocated_transport_share
             foreach ($vatByAccount as $vatAccountId => $totalVatAmount) {
                 if ($totalVatAmount > 0) { // Only create line if amount is greater than 0
                     Log::info("Creating VAT journal line: Account ID {$vatAccountId}, Amount: {$totalVatAmount}");
                     $this->createJournalEntryLine($journalEntry, $vatAccountId, 0, $totalVatAmount, $lineNumber, __('journal.vat_payable_for_invoice', ['number' => $invoice->invoice_no]));
                     $lineNumber++;
-                }
-            }
-
-            // Create transport entry if transport cost exists
-            // Note: Transport is allocated proportionally to items for display/reporting purposes only
-            // In journal entries, transport is posted as a separate line item (not allocated to sales)
-            if ($transportCost > 0) {
-                // Get transport expense/revenue account from routing settings
-                $transportAccount = $this->getTransportExpenseAccount($invoice->branch_id);
-                if ($transportAccount) {
-                    Log::info("Creating transport journal line: Account ID {$transportAccount->id}, Amount: {$transportCost}");
-                    // Credit transport account (transport is additional revenue)
-                    $this->createJournalEntryLine($journalEntry, $transportAccount->id, 0, $transportCost, $lineNumber, __('journal.transport_cost_for_invoice', ['number' => $invoice->invoice_no]));
-                    $lineNumber++;
-                } else {
-                    // If no transport account configured, throw error to ensure proper accounting
-                    throw new Exception(
-                        'Transport cost of '.$transportCost.' exists on invoice '.$invoice->invoice_no.' but Transport Expense/Revenue account must be configured in Account Routing Settings. '.
-                        'Please go to Settings > Account Routing and configure the transport_expense_account.'
-                    );
                 }
             }
 
@@ -473,7 +485,7 @@ class BusinessTransactionJournalService
                     );
                 } else {
                     // Fallback to weighted average cost if unit_cost not available
-                    $invoiceDate = $invoice->invoice_date ?? now()->format('Y-m-d');
+                $invoiceDate = $invoice->invoice_date ?? now()->format('Y-m-d');
                     $unitCost = $product->calculatePurchaseHistoryAverageCost($invoiceDate);
                     Log::info(
                         "Using weighted average cost for product {$product->name}: ".
@@ -1535,6 +1547,10 @@ class BusinessTransactionJournalService
 
     /**
      * Create a journal entry line
+     *
+     * Business rule update:
+     * - Cost center (cost_center_id) is no longer stored on journal entry lines for invoices.
+     *   We keep the optional parameter in the signature for backward compatibility, but ignore it.
      */
     private function createJournalEntryLine(JournalEntry $journalEntry, int $accountId, float $debitAmount, float $creditAmount, int $lineNumber, string $description, ?int $costCenterId = null): JournalEntryLine
     {
@@ -1547,13 +1563,7 @@ class BusinessTransactionJournalService
             'line_number' => $lineNumber,
         ];
 
-        // Only include cost_center_id if it's not null and the column exists
-        if ($costCenterId !== null) {
-            // Check if the column exists in the database
-            if (Schema::hasColumn('journal_entry_lines', 'cost_center_id')) {
-                $data['cost_center_id'] = $costCenterId;
-            }
-        }
+        // Intentionally do NOT set cost_center_id anymore to remove the Cost Center column from journal entries
 
         return JournalEntryLine::create($data);
     }
