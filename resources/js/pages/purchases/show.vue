@@ -369,25 +369,26 @@
                     <tbody>
                       <tr class="bg-sub-light text-bold">
                         <th>{{ $t("Subtotal") }}:</th>
-                        <td>{{ formatNumber(totalPrice) }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ formatNumber(subtotal) }} <span class="saudi-riyal">ê</span></td>
                       </tr>
-                      <tr>
-                        <th>{{ $t("Product Discount") }}:</th>
+                      <tr v-if="totalDiscount > 0">
+                        <th>{{ $t("Total Discount") }}:</th>
                         <td>
-                          {{ formatNumber(totalProductDiscount) }} <span class="saudi-riyal">ê</span>
+                          <span class="minus-sign">-</span>
+                          {{ formatNumber(totalDiscount) }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
 
                       <tr class="bg-green-light text-bold">
                         <th>{{ $t("Total After Discount") }}:</th>
-                        <td>{{ formatNumber(totalPrice - totalProductDiscount) }} <span class="saudi-riyal">ê</span>
+                        <td>{{ formatNumber(subtotal) }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
 
                       <tr>
-                        <th>{{ $t("Product VAT") }}:</th>
+                        <th>{{ $t("Total Tax") }}:</th>
                         <td>
-                          {{ formatNumber(totalProductVat) }} <span class="saudi-riyal">ê</span>
+                          {{ formatNumber(totalTax) }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
 
@@ -399,48 +400,17 @@
                           }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
-                      <!-- Purchase-Level Discount (for all countries) -->
-                      <tr v-if="hasPurchaseDiscount">
-                        <th>
-                          {{ $t("Purchase Discount") }}
-                          <span v-if="purchaseDiscountType === 'percentage'">({{ formatNumber(purchaseDiscountValue) }}%)</span>
-                          :
-                        </th>
-                        <td>
-                          <span class="minus-sign">-</span>
-                          {{ formatNumber(globalDiscountAmount) }} <span class="saudi-riyal">ê</span>
-                        </td>
-                      </tr>
-                      <tr v-if="!isSaudiArabia && allData.discount > 0 && !allData.discount_type">
-                        <th>
-                          {{ $t("Discount") }}
-                          <span v-if="allData.discountType == 1">({{ allData.discount }}%)</span>
-                          :
-                        </th>
-                        <td>
-                          {{ formatNumber(allData.discount) }} <span class="saudi-riyal">ê</span>
-                        </td>
-                      </tr>
-                      <tr v-if="!isSaudiArabia && allData.transport > 0">
+                      <tr v-if="allData.transport > 0">
                         <th>{{ $t("Transport") }}:</th>
                         <td>
                           {{ formatNumber(allData.transport) }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
-                      <tr v-if="!isSaudiArabia && allData.tax > 0">
-                        <th>
-                          {{ $t("Tax") }}
-                          <span v-if="allData.taxRate">({{ allData.taxRate }}%)</span>:
-                        </th>
-                        <td>
-                          {{ formatNumber(allData.tax) }} <span class="saudi-riyal">ê</span>
-                        </td>
-                      </tr>
-                      <tr class="bg-indigo-light">
-                        <th>{{ $t("Total with VAT") }}:</th>
+                      <tr class="bg-indigo-light text-bold">
+                        <th>{{ $t("Grand Total") }}:</th>
                         <td>
                           <span class="equal-sign">=</span>
-                          {{ formatNumber(netTotal) }} <span
+                          {{ formatNumber(grandTotal) }} <span
                             class="saudi-riyal">ê</span>
                         </td>
                       </tr>
@@ -609,7 +579,7 @@ export default {
       return this.appInfo && this.appInfo.country === 'SA'
     },
 
-    // Calculate total price (sum of Total column in items table)
+    // Calculate total price (sum of Total column in items table) - stored value
     totalPrice() {
       if (!this.purchaseProducts) return 0;
       return this.purchaseProducts.reduce((total, product) => {
@@ -617,20 +587,47 @@ export default {
       }, 0);
     },
 
-    // Calculate total product discount
-    totalProductDiscount() {
-      if (!this.purchaseProducts) return 0;
-      return this.purchaseProducts.reduce((total, product) => {
-        return total + (parseFloat(product.discountAmount) || 0);
-      }, 0);
+    // Subtotal = sum of item net prices (after all discounts) - use stored values only
+    // Net price = (quantity × purchase_price) - discount_amount (stored in database)
+    subtotal() {
+      if (!this.purchaseProducts || this.purchaseProducts.length === 0) return 0;
+      
+      let subtotal = 0;
+      this.purchaseProducts.forEach((product) => {
+        // Use stored values: line_total - discount_amount = net_price
+        const lineTotal = parseFloat(product.grossTotal || 0);
+        const discountAmount = parseFloat(product.discountAmount || 0); // Stored discount_amount
+        const netPrice = lineTotal - discountAmount;
+        subtotal += netPrice;
+      });
+      
+      return this.roundToTwoDecimals(subtotal);
     },
 
-    // Calculate total product VAT
+    // Total discount = sum of stored discount_amount values (display-only, not applied again)
+    totalProductDiscount() {
+      if (!this.purchaseProducts) return 0;
+      const total = this.purchaseProducts.reduce((sum, product) => {
+        return sum + (parseFloat(product.discountAmount || 0)); // Stored discount_amount
+      }, 0);
+      return this.roundToTwoDecimals(total);
+    },
+
+    // Total tax = sum of stored tax_amount values + invoice-level tax (if any)
     totalProductVat() {
       if (!this.purchaseProducts) return 0;
-      return this.purchaseProducts.reduce((total, product) => {
-        return total + (parseFloat(product.taxTotal) || 0);
+      
+      // Sum of stored VAT values (already calculated on net prices after discount + transport)
+      let totalVat = this.purchaseProducts.reduce((sum, product) => {
+        return sum + (parseFloat(product.taxTotal || 0)); // Stored tax_amount
       }, 0);
+      
+      // Add invoice-level tax if any (for non-Saudi Arabia)
+      if (!this.isSaudiArabia && this.allData && this.allData.tax) {
+        totalVat += parseFloat(this.allData.tax);
+      }
+      
+      return this.roundToTwoDecimals(totalVat);
     },
 
     // Calculate due amount
@@ -683,42 +680,33 @@ export default {
       return 0;
     },
 
-    // Calculate global discount amount (handles both percentage and fixed)
-    globalDiscountAmount() {
-      if (!this.allData) return 0;
-      
-      const discountType = this.purchaseDiscountType;
-      const discountValue = this.purchaseDiscountValue;
-      
-      if (!discountType || !discountValue || discountValue <= 0) return 0;
-
-      // Calculate discount amount based on type
-      if (discountType === 'percentage') {
-        // For percentage, calculate from subtotal after product discounts
-        const baseAmount = this.totalPrice - this.totalProductDiscount;
-        return (baseAmount * discountValue) / 100;
-      } else {
-        // For fixed, return the discount value directly
-        return discountValue;
-      }
+    // Total discount (display-only info, not applied again)
+    // Note: discount_amount in database already includes product-level + proportional invoice-level discount
+    totalDiscount() {
+      return this.totalProductDiscount;
     },
 
-    // Calculate net total (subtotal - product discounts + product VAT - purchase discount + transport + tax)
-    netTotal() {
+    // Total tax = sum of stored tax_amount values + invoice-level tax (if any)
+    totalTax() {
+      return this.totalProductVat;
+    },
+
+    // Grand total = subtotal + VAT + transport (simple addition of stored values)
+    // Always use: subtotal_after_discount + vat_total + transport_cost
+    grandTotal() {
       if (!this.allData) return 0;
       
-      let total = this.totalPrice - this.totalProductDiscount + this.totalProductVat;
+      // Always calculate: subtotal + VAT + transport
+      // This matches the create page exactly
+      const transportCost = parseFloat(this.allData.transport || 0);
+      const grandTotal = this.subtotal + this.totalTax + transportCost;
       
-      // Subtract purchase-level discount
-      total -= this.globalDiscountAmount;
-      
-      // Add transport and tax for non-Saudi Arabia countries
-      if (!this.isSaudiArabia) {
-        total += (this.allData.transport || 0);
-        total += (this.allData.tax || 0);
-      }
-      
-      return Math.max(0, total); // Ensure non-negative
+      return this.roundToTwoDecimals(Math.max(0, grandTotal));
+    },
+
+    // Calculate net total (for backward compatibility - same as grandTotal)
+    netTotal() {
+      return this.grandTotal;
     },
 
     // Purchase header columns
@@ -895,6 +883,11 @@ export default {
     formatNumber(value) {
       if (value === null || value === undefined || value === '') return '0.00';
       return parseFloat(value).toFixed(2);
+    },
+
+    // Helper method to round to 2 decimal places (for calculations in computed props)
+    roundToTwoDecimals(value) {
+      return Math.round((Number(value) + Number.EPSILON) * 100) / 100;
     },
 
     // Get payment method name by ID

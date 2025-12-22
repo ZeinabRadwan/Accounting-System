@@ -799,22 +799,34 @@ class BusinessTransactionJournalService
                 Log::info("Product: {$productName}, Quantity: {$quantity}, PurchasePrice (net): {$purchasePrice}, LineInventoryAmount (net): {$lineInventoryAmount}, VAT: {$productVatAmount}");
             }
 
+            // Transport cost from purchase header
+            // Use transportTaxableCost if supplier is taxable, otherwise transportCost
+            $transportCost = 0;
+            if ($purchase->supplier && $purchase->supplier->tax_status === 'taxable' && $purchase->supplier->tax_registration_number) {
+                $transportCost = (float) ($purchase->transport_taxable_cost ?? $purchase->transport ?? 0);
+            } else {
+                $transportCost = (float) ($purchase->transport ?? 0);
+            }
+
             // Calculate purchase-level (bill-level) discount amount, if any
+            // Business rule: invoice-level discount is applied on the INVOICE SUBTOTAL (sum of qty × unit_price),
+            // not on a single line or on net/after-tax amounts.
             $billDiscountAmount = 0;
+            $invoiceSubtotal = $totalInventoryAmount; // Base for discount calculation
 
             if (! empty($purchase->discount_type) && (float) $purchase->discount_value > 0) {
-                $discountBase = $totalInventoryAmount;
                 $discountValue = (float) $purchase->discount_value;
 
                 if ($purchase->discount_type === 'percentage') {
-                    $billDiscountAmount = round($discountBase * ($discountValue / 100), 2);
+                    // Percentage discount on invoice subtotal
+                    $billDiscountAmount = round($invoiceSubtotal * ($discountValue / 100), 2);
                 } else {
                     // Fixed discount amount – cap it to the base to avoid negatives
                     $billDiscountAmount = round($discountValue, 2);
                 }
 
-                if ($billDiscountAmount > $discountBase) {
-                    $billDiscountAmount = $discountBase;
+                if ($billDiscountAmount > $invoiceSubtotal) {
+                    $billDiscountAmount = $invoiceSubtotal;
                 }
 
                 if ($billDiscountAmount > 0) {
@@ -836,19 +848,22 @@ class BusinessTransactionJournalService
             }
 
             // Get VAT Input account
+            // Note: tax_amount already includes VAT on (net amount after discount + allocated transport share)
             $vatAccount = $totalVatAmount > 0 ? $this->getVatAccountForPurchase($purchase) : null;
             if ($totalVatAmount > 0 && ! $vatAccount) {
                 throw new Exception('VAT Input account must be configured in account routing settings to create purchase journal entry with VAT.');
             }
 
             // Calculate total amount for journal entry
-            // Total = Net Inventory Amount + VAT
+            // Total = Net Inventory Amount (after discount) + Transport + VAT
             // This represents the total invoice amount (what we owe to supplier or pay in cash)
-            $totalAmount = $totalInventoryAmount + $totalVatAmount;
+            // Transport is INCLUDED in inventory/purchase line(s), not as a separate journal line.
+            $totalAmount = ($totalInventoryAmount - $billDiscountAmount) + $transportCost + $totalVatAmount;
 
-            // Validate balance
-            if (abs($totalAmount - ($totalInventoryAmount + $totalVatAmount)) > 0.01) {
-                throw new Exception('Journal entry calculation error: Total amount does not match inventory + VAT.');
+            // Validate balance (defensive check against internal inconsistencies)
+            $expectedTotal = ($totalInventoryAmount - $billDiscountAmount) + $transportCost + $totalVatAmount;
+            if (abs($totalAmount - $expectedTotal) > 0.01) {
+                throw new Exception('Journal entry calculation error: Total amount does not match inventory + transport + VAT.');
             }
 
             // Get default fiscal year and accounting period
@@ -877,25 +892,29 @@ class BusinessTransactionJournalService
 
             $lineNumber = 1;
 
-            // Line 1: Debit Inventory
-            Log::info("Creating journal line {$lineNumber}: Debit Inventory - Account ID: {$inventoryAccount->id}, Amount: {$totalInventoryAmount}");
-            $this->createJournalEntryLine($journalEntry, $inventoryAccount->id, $totalInventoryAmount, 0, $lineNumber, __('journal.inventory_for_purchase', ['number' => $purchase->purchase_no]));
+            // Line 1: Debit Inventory (net amount after discount + transport)
+            // Business rule: transport should NOT be a separate journal line; it must be merged into inventory.
+            $inventoryAmount = ($totalInventoryAmount - $billDiscountAmount) + $transportCost;
+            Log::info("Creating journal line {$lineNumber}: Debit Inventory (including transport) - Account ID: {$inventoryAccount->id}, Amount: {$inventoryAmount}");
+            $this->createJournalEntryLine($journalEntry, $inventoryAccount->id, $inventoryAmount, 0, $lineNumber, __('journal.inventory_for_purchase', ['number' => $purchase->purchase_no]));
             $lineNumber++;
 
             // Line 2: Debit VAT Input (if applicable)
+            // VAT (tax_amount) is calculated on net_total_after_discount + allocated_transport_share
             if ($totalVatAmount > 0 && $vatAccount) {
                 Log::info("Creating journal line {$lineNumber}: Debit VAT Input - Account ID: {$vatAccount->id}, Amount: {$totalVatAmount}");
                 $this->createJournalEntryLine($journalEntry, $vatAccount->id, $totalVatAmount, 0, $lineNumber, __('journal.vat_input_for_purchase', ['number' => $purchase->purchase_no]));
                 $lineNumber++;
             }
 
-            // Calculate credit amount for AP / cash-bank after bill-level discount
-            $creditAccountAmount = $totalInventoryAmount - $billDiscountAmount + $totalVatAmount;
+            // Calculate credit amount for AP / cash-bank
+            // Credit = Inventory (after discount + transport) + VAT
+            $creditAccountAmount = $inventoryAmount + $totalVatAmount;
             if ($creditAccountAmount < 0) {
                 $creditAccountAmount = 0;
             }
 
-            // Line 3: Credit Cash/Bank/Supplier (net of bill-level discount)
+            // Line 3: Credit Cash/Bank/Supplier
             Log::info("Creating journal line {$lineNumber}: Credit Payment Account - Account ID: {$creditAccount->id}, Amount: {$creditAccountAmount}");
             $this->createJournalEntryLine($journalEntry, $creditAccount->id, 0, $creditAccountAmount, $lineNumber, __('journal.payment_for_purchase', ['number' => $purchase->purchase_no]));
             $lineNumber++;
