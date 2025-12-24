@@ -695,6 +695,7 @@ Route::middleware([
         // Route::apiResource('payment-methods', \App\Http\Controllers\API\SubscriptionPaymentMethodController::class)->only('index', 'store');
 
         Route::get('server', [ServerController::class, 'runCommand']);
+        Route::post('clear-cache', [ServerController::class, 'clearCache']);
 
         Route::post('/rich-editor-file-upload', [RichEditorController::class, 'handleUpload']);
 

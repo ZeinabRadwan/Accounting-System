@@ -206,6 +206,15 @@
             {{ $t("Setup") }}
           </router-link>
           <div class="dropdown-divider" />
+          <a href="#" class="dropdown-item dropdown-icon-center" @click.prevent="clearCache">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
+            {{ $t("Clear Cache") }}
+          </a>
+          <div class="dropdown-divider" />
           <a href="#" class="dropdown-item dropdown-icon-center" @click.prevent="logout">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
               stroke="currentColor" stroke-width="2">
@@ -691,6 +700,113 @@ export default {
       } catch (error) {
         console.error('Search error:', error);
         this.menuItems = [];
+      }
+    },
+
+    /**
+     * Clear all frontend and backend caches
+     * Clears: localStorage, sessionStorage, Vuex store, cached routes,
+     * service workers, and Cache Storage API
+     */
+    async clearCache() {
+      try {
+        // Show loading notification
+        if (typeof toast !== 'undefined' && toast.fire) {
+          toast.fire({
+            type: 'info',
+            title: this.$t('Clearing Cache'),
+            text: this.$t('Please wait...'),
+            timer: 3000,
+            timerProgressBar: true,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+          });
+        }
+
+        // 1. Clear browser storage
+        localStorage.clear();
+        sessionStorage.clear();
+
+        // 2. Clear Vuex store state (reset cached data in modules)
+        // Note: We preserve auth state to avoid logging out the user
+        if (this.$store) {
+          // Clear operations module cached data
+          if (this.$store.state.operations) {
+            // Reset operations module state to initial values
+            this.$store.commit('operations/FETCH_APPINFO', { appInfo: null });
+            this.$store.commit('operations/FETCH_TENANT', { tenant: null });
+          }
+          // Note: Other modules will be reloaded on page refresh
+        }
+
+        // 3. Clear component-level cached data
+        this.cachedRoutes = null;
+        this.menuItems = [];
+        this.menuSearchQuery = '';
+
+        // 4. Unregister all service workers (if any exist)
+        if ('serviceWorker' in navigator) {
+          try {
+            const registrations = await navigator.serviceWorker.getRegistrations();
+            for (const registration of registrations) {
+              await registration.unregister();
+            }
+          } catch (swError) {
+            console.warn('Service worker unregistration failed:', swError);
+          }
+        }
+
+        // 5. Clear Cache Storage API (caches.keys() and caches.delete())
+        if ('caches' in window) {
+          try {
+            const cacheNames = await caches.keys();
+            await Promise.all(
+              cacheNames.map((cacheName) => caches.delete(cacheName))
+            );
+          } catch (cacheError) {
+            console.warn('Cache Storage API cleanup failed:', cacheError);
+          }
+        }
+
+        // 6. Call Laravel API to clear server-side cache
+        const { data } = await axios.post('/api/clear-cache');
+
+        if (data.success) {
+          // Show success message
+          if (typeof toast !== 'undefined' && toast.fire) {
+            toast.fire({
+              type: 'success',
+              title: this.$t('Success'),
+              text: this.$t('Cache cleared successfully!'),
+              timer: 2000,
+              timerProgressBar: true,
+            });
+          }
+
+          // Force a full page reload after a short delay
+          // This ensures all caches are cleared and new assets are loaded
+          // The page reload will fetch fresh assets with new hashes (if build was updated)
+          setTimeout(() => {
+            window.location.reload();
+          }, 1500);
+        } else {
+          if (typeof toast !== 'undefined' && toast.fire) {
+            toast.fire({
+              type: 'error',
+              title: this.$t('Error'),
+              text: data.message || this.$t('Failed to clear cache'),
+            });
+          }
+        }
+      } catch (error) {
+        console.error('Error clearing cache:', error);
+        if (typeof toast !== 'undefined' && toast.fire) {
+          toast.fire({
+            type: 'error',
+            title: this.$t('Error'),
+            text: this.$t('Failed to clear cache'),
+          });
+        }
       }
     },
 
