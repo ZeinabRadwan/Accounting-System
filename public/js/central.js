@@ -38467,12 +38467,12 @@ var map = {
 		1094
 	],
 	"./products/show": [
-		57527,
-		7527
+		23111,
+		3111
 	],
 	"./products/show.vue": [
-		57527,
-		7527
+		23111,
+		3111
 	],
 	"./products/sub-categories": [
 		41856,

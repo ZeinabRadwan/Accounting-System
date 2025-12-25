@@ -857,7 +857,8 @@ class BusinessTransactionJournalService
             // Calculate total amount for journal entry
             // Total = Net Inventory Amount (after discount) + Transport + VAT
             // This represents the total invoice amount (what we owe to supplier or pay in cash)
-            // Transport is INCLUDED in inventory/purchase line(s), not as a separate journal line.
+            // Note: Discounts reduce inventory cost, freight adds to inventory cost
+            // Both are included in inventory valuation, not as separate revenue/expense accounts
             $totalAmount = ($totalInventoryAmount - $billDiscountAmount) + $transportCost + $totalVatAmount;
 
             // Validate balance (defensive check against internal inconsistencies)
@@ -893,7 +894,10 @@ class BusinessTransactionJournalService
             $lineNumber = 1;
 
             // Line 1: Debit Inventory (net amount after discount + transport)
-            // Business rule: transport should NOT be a separate journal line; it must be merged into inventory.
+            // Business rule: 
+            // - Discounts reduce inventory cost (not revenue)
+            // - Transport/freight is added to inventory cost (not expenses)
+            // - Both are merged into inventory, not separate journal lines
             $inventoryAmount = ($totalInventoryAmount - $billDiscountAmount) + $transportCost;
             Log::info("Creating journal line {$lineNumber}: Debit Inventory (including transport) - Account ID: {$inventoryAccount->id}, Amount: {$inventoryAmount}");
             $this->createJournalEntryLine($journalEntry, $inventoryAccount->id, $inventoryAmount, 0, $lineNumber, __('journal.inventory_for_purchase', ['number' => $purchase->purchase_no]));
@@ -915,28 +919,12 @@ class BusinessTransactionJournalService
             }
 
             // Line 3: Credit Cash/Bank/Supplier
+            // Credit amount = Inventory (after discount + transport) + VAT
+            // This represents the total invoice amount payable to supplier
+            // Note: Discounts are already accounted for in inventory cost reduction, not as separate revenue
             Log::info("Creating journal line {$lineNumber}: Credit Payment Account - Account ID: {$creditAccount->id}, Amount: {$creditAccountAmount}");
             $this->createJournalEntryLine($journalEntry, $creditAccount->id, 0, $creditAccountAmount, $lineNumber, __('journal.payment_for_purchase', ['number' => $purchase->purchase_no]));
             $lineNumber++;
-
-            // Line 4: Credit Discount Received (bill-level discount), if applicable
-            if ($billDiscountAmount > 0) {
-                $discountReceivedAccount = $this->getDiscountReceivedAccount($purchase->branch_id);
-                if (! $discountReceivedAccount) {
-                    throw new Exception('Discount Received account must be configured in account routing settings to process bill-level discounts on purchases.');
-                }
-
-                Log::info("Creating journal line {$lineNumber}: Credit Discount Received - Account ID: {$discountReceivedAccount->id}, Amount: {$billDiscountAmount}");
-                $this->createJournalEntryLine(
-                    $journalEntry,
-                    $discountReceivedAccount->id,
-                    0,
-                    $billDiscountAmount,
-                    $lineNumber,
-                    __('journal.discount_received_for_purchase', ['number' => $purchase->purchase_no])
-                );
-                $lineNumber++;
-            }
 
             // Create bridge table record
             Log::info("Creating purchase journal bridge record for purchase ID: {$purchase->id}, journal entry ID: {$journalEntry->id}");

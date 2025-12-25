@@ -297,7 +297,7 @@
                     <h3 class="card-title">{{ $t("Purchase Cost Breakdown") }}</h3>
                   </div>
                   <div class="card-body">
-                    <div v-if="purchaseHistory && purchaseHistory.length > 0">
+                    <div v-if="(purchaseHistory && purchaseHistory.length > 0) || openingQuantity > 0 || totalPurchasedQuantity > 0">
                       <div class="table-responsive">
                         <table class="table table-bordered table-hover table-sm">
                           <thead class="thead-light">
@@ -311,34 +311,63 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr v-for="(purchase, index) in purchaseHistory" :key="purchase.id || index" :class="{'table-info': purchase.type === 'opening_stock'}">
+                            <tr v-for="(purchase, index) in purchaseHistory" :key="purchase.id || index" :class="{
+                              'table-info': purchase.type === 'opening_stock',
+                              'table-warning': purchase.type === 'purchase_return',
+                              'table-success': purchase.type === 'discount' || purchase.type === 'freight'
+                            }">
                               <td>
                                 <span v-if="purchase.purchase_date">{{ formatDate(purchase.purchase_date) }}</span>
                                 <span v-else-if="purchase.type === 'opening_stock'" class="text-muted">{{ $t("Opening Stock") }}</span>
+                                <span v-else-if="purchase.type === 'purchase_return'" class="text-muted">{{ $t("Purchase Return") }}</span>
+                                <span v-else-if="purchase.type === 'discount'" class="text-muted">{{ $t("Discount") }}</span>
+                                <span v-else-if="purchase.type === 'freight'" class="text-muted">{{ $t("Freight") }}</span>
                                 <span v-else class="text-muted">-</span>
                               </td>
                               <td>
                                 <span v-if="purchase.purchase_no">
                                   {{ formatPurchaseNumber(purchase.purchase_no) }}
                                 </span>
-                                <span v-else-if="purchase.type === 'opening_stock'" class="text-muted">-</span>
+                                <span v-else-if="purchase.type === 'opening_stock' || purchase.type === 'discount' || purchase.type === 'freight'" class="text-muted">-</span>
+                                <span v-else-if="purchase.return_no">
+                                  {{ formatPurchaseNumber(purchase.return_no) }}
+                                </span>
                                 <span v-else class="text-muted">-</span>
                               </td>
                               <td>
                                 <span v-if="purchase.purchase_reference">
                                   {{ purchase.purchase_reference }}
                                 </span>
+                                <span v-else-if="purchase.return_reference">
+                                  {{ purchase.return_reference }}
+                                </span>
+                                <span v-else-if="purchase.type === 'discount'">{{ $t("Purchase Discount") }}</span>
+                                <span v-else-if="purchase.type === 'freight'">{{ $t("Freight Cost") }}</span>
                                 <span v-else class="text-muted">-</span>
                               </td>
                               <td class="text-right">
-                                {{ formatNumber(purchase.quantity) }}
-                                <span v-if="allData.itemUnit">{{ allData.itemUnit.code }}</span>
+                                <span v-if="purchase.type === 'discount' || purchase.type === 'freight'">-</span>
+                                <span v-else>
+                                  <span v-if="purchase.type === 'purchase_return'" class="text-danger">-</span>
+                                  {{ formatNumber(Math.abs(purchase.quantity)) }}
+                                  <span v-if="allData.itemUnit">{{ allData.itemUnit.code }}</span>
+                                </span>
                               </td>
                               <td class="text-right">
-                                {{ formatCurrency(purchase.purchase_price) }} <span class="saudi-riyal">ê</span>
+                                <span v-if="purchase.type === 'discount' || purchase.type === 'freight'">-</span>
+                                <span v-else>
+                                  {{ formatCurrency(purchase.purchase_price) }} <span class="saudi-riyal">ê</span>
+                                </span>
                               </td>
                               <td class="text-right">
-                                <strong>{{ formatCurrency(purchase.line_total) }} <span class="saudi-riyal">ê</span></strong>
+                                <strong :class="{
+                                  'text-danger': purchase.type === 'purchase_return' || purchase.type === 'discount',
+                                  'text-success': purchase.type === 'freight'
+                                }">
+                                  <span v-if="purchase.type === 'purchase_return' || purchase.type === 'discount'">-</span>
+                                  <span v-else-if="purchase.type === 'freight'">+</span>
+                                  {{ formatCurrency(Math.abs(purchase.line_total)) }} <span class="saudi-riyal">ê</span>
+                                </strong>
                               </td>
                             </tr>
                           </tbody>
@@ -354,9 +383,42 @@
                                 <strong>{{ formatCurrency(totalPurchaseValue) }} <span class="saudi-riyal">ê</span></strong>
                               </th>
                             </tr>
-                            <tr v-if="totalPurchaseQuantity > 0" class="bg-light">
+                            <tr v-if="totalPurchaseDiscounts > 0" class="table-warning">
+                              <th colspan="3" class="text-right">
+                                <strong class="text-danger">{{ $t("Total Discounts") }}:</strong>
+                              </th>
+                              <th class="text-right">-</th>
+                              <th class="text-right">-</th>
+                              <th class="text-right">
+                                <strong class="text-danger">-{{ formatCurrency(totalPurchaseDiscounts) }} <span class="saudi-riyal">ê</span></strong>
+                              </th>
+                            </tr>
+                            <tr v-if="totalFreightCosts > 0" class="table-success">
+                              <th colspan="3" class="text-right">
+                                <strong class="text-success">{{ $t("Total Freight Cost") }}:</strong>
+                              </th>
+                              <th class="text-right">-</th>
+                              <th class="text-right">-</th>
+                              <th class="text-right">
+                                <strong class="text-success">+{{ formatCurrency(totalFreightCosts) }} <span class="saudi-riyal">ê</span></strong>
+                              </th>
+                            </tr>
+                            <tr v-if="totalPurchaseReturnsValue > 0" class="table-warning">
+                              <th colspan="3" class="text-right">
+                                <strong class="text-danger">{{ $t("Total Purchase Returns") }}:</strong>
+                              </th>
+                              <th class="text-right">
+                                <span class="text-danger">-{{ formatNumber(totalPurchaseReturnsQuantity) }}</span>
+                                <span v-if="allData.itemUnit">{{ allData.itemUnit.code }}</span>
+                              </th>
+                              <th class="text-right">-</th>
+                              <th class="text-right">
+                                <strong class="text-danger">-{{ formatCurrency(totalPurchaseReturnsValue) }} <span class="saudi-riyal">ê</span></strong>
+                              </th>
+                            </tr>
+                            <tr v-if="netQuantity > 0" class="bg-light">
                               <th colspan="5" class="text-right">
-                                <strong>{{ $t("Average Cost") }}:</strong>
+                                <strong>{{ $t("Weighted Average Cost") }}:</strong>
                               </th>
                               <th class="text-right">
                                 <strong class="text-primary">{{ formatCurrency(calculatedAverageCost) }} <span class="saudi-riyal">ê</span></strong>
@@ -552,7 +614,7 @@ export default {
       const stockQty = parseFloat(this.allData.availableQty) || 0;
       return this.calculatedSellingPrice * stockQty;
     },
-    // Get purchase history from allData (including opening stock)
+    // Get purchase history from allData (including opening stock, purchases, returns, discounts, freight)
     purchaseHistory() {
       const history = [];
       
@@ -569,6 +631,23 @@ export default {
             quantity: parseFloat(openingStock.quantity) || 0,
             purchase_price: parseFloat(openingStock.unit_price) || 0,
             line_total: parseFloat(openingStock.total_value) || 0,
+          });
+        }
+      }
+      
+      // Add opening inventory if provided separately
+      if (this.allData && this.allData.opening_inventory) {
+        const openingInv = this.allData.opening_inventory;
+        if (openingInv.quantity > 0 && openingInv.unit_price > 0) {
+          history.push({
+            id: 'opening_inv',
+            type: 'opening_stock',
+            purchase_date: null,
+            purchase_no: null,
+            purchase_reference: this.$t('Opening Inventory'),
+            quantity: parseFloat(openingInv.quantity) || 0,
+            purchase_price: parseFloat(openingInv.unit_price) || 0,
+            line_total: (parseFloat(openingInv.quantity) || 0) * (parseFloat(openingInv.unit_price) || 0),
           });
         }
       }
@@ -591,6 +670,78 @@ export default {
         history.push(...purchaseProducts);
       }
       
+      // Add purchases from purchases array if provided
+      if (this.allData && this.allData.purchases && Array.isArray(this.allData.purchases)) {
+        const purchases = this.allData.purchases
+          .filter(p => p && p.quantity > 0 && p.unit_price > 0)
+          .map(p => ({
+            id: p.id || `purchase-${p.purchase_no}`,
+            type: 'purchase',
+            purchase_date: p.purchase_date || p.date,
+            purchase_no: p.purchase_no,
+            purchase_reference: p.reference || p.purchase_reference,
+            quantity: parseFloat(p.quantity) || 0,
+            purchase_price: parseFloat(p.unit_price) || 0,
+            line_total: (parseFloat(p.quantity) || 0) * (parseFloat(p.unit_price) || 0),
+          }));
+        
+        history.push(...purchases);
+      }
+      
+      // Add purchase returns
+      if (this.allData && this.allData.purchase_returns && Array.isArray(this.allData.purchase_returns)) {
+        const returns = this.allData.purchase_returns
+          .filter(pr => pr && pr.quantity > 0 && pr.unit_cost > 0)
+          .map(pr => ({
+            id: pr.id || `return-${pr.return_no}`,
+            type: 'purchase_return',
+            purchase_date: pr.return_date || pr.date,
+            return_no: pr.return_no,
+            return_reference: pr.reference || pr.return_reference,
+            quantity: parseFloat(pr.quantity) || 0,
+            purchase_price: parseFloat(pr.unit_cost) || 0,
+            line_total: (parseFloat(pr.quantity) || 0) * (parseFloat(pr.unit_cost) || 0),
+          }));
+        
+        history.push(...returns);
+      }
+      
+      // Add discounts
+      if (this.allData && this.allData.discounts && Array.isArray(this.allData.discounts)) {
+        const discounts = this.allData.discounts
+          .filter(d => d && d.amount > 0)
+          .map(d => ({
+            id: d.id || `discount-${d.purchase_no || Date.now()}`,
+            type: 'discount',
+            purchase_date: d.purchase_date || d.date,
+            purchase_no: d.purchase_no,
+            purchase_reference: d.reference || d.purchase_reference,
+            quantity: 0,
+            purchase_price: 0,
+            line_total: parseFloat(d.amount) || 0,
+          }));
+        
+        history.push(...discounts);
+      }
+      
+      // Add freight costs
+      if (this.allData && this.allData.freight_costs && Array.isArray(this.allData.freight_costs)) {
+        const freight = this.allData.freight_costs
+          .filter(f => f && f.amount > 0)
+          .map(f => ({
+            id: f.id || `freight-${f.purchase_no || Date.now()}`,
+            type: 'freight',
+            purchase_date: f.purchase_date || f.date,
+            purchase_no: f.purchase_no,
+            purchase_reference: f.reference || f.purchase_reference,
+            quantity: 0,
+            purchase_price: 0,
+            line_total: parseFloat(f.amount) || 0,
+          }));
+        
+        history.push(...freight);
+      }
+      
       // Sort by date (oldest first, opening stock first if no date)
       return history.sort((a, b) => {
         if (a.type === 'opening_stock') return -1;
@@ -600,29 +751,203 @@ export default {
         return dateA - dateB; // Oldest first
       });
     },
-    // Calculate total purchase quantity
-    totalPurchaseQuantity() {
+    // Calculate opening inventory quantity
+    openingQuantity() {
+      if (!this.allData) return 0;
+      
+      let quantity = 0;
+      
+      // From openingStockData
+      if (this.allData.openingStockData) {
+        quantity += parseFloat(this.allData.openingStockData.quantity) || 0;
+      }
+      
+      // From opening_inventory array
+      if (this.allData.opening_inventory) {
+        quantity += parseFloat(this.allData.opening_inventory.quantity) || 0;
+      }
+      
+      return quantity;
+    },
+    // Calculate opening inventory value
+    openingInventoryValue() {
+      if (!this.allData) return 0;
+      
+      let value = 0;
+      
+      // From openingStockData
+      if (this.allData.openingStockData) {
+        value += parseFloat(this.allData.openingStockData.total_value) || 0;
+      }
+      
+      // From opening_inventory array
+      if (this.allData.opening_inventory) {
+        const qty = parseFloat(this.allData.opening_inventory.quantity) || 0;
+        const price = parseFloat(this.allData.opening_inventory.unit_price) || 0;
+        value += qty * price;
+      }
+      
+      return value;
+    },
+    // Calculate total purchased quantity (excluding returns)
+    totalPurchasedQuantity() {
       if (!this.purchaseHistory || this.purchaseHistory.length === 0) {
         return 0;
       }
-      return this.purchaseHistory.reduce((sum, purchase) => {
-        return sum + (parseFloat(purchase.quantity) || 0);
-      }, 0);
+      return this.purchaseHistory
+        .filter(p => p.type === 'purchase')
+        .reduce((sum, purchase) => {
+          return sum + (parseFloat(purchase.quantity) || 0);
+        }, 0);
     },
-    // Calculate total purchase value
+    // Calculate total purchase value (excluding returns, discounts, freight)
     totalPurchaseValue() {
       if (!this.purchaseHistory || this.purchaseHistory.length === 0) {
         return 0;
       }
-      return this.purchaseHistory.reduce((sum, purchase) => {
-        return sum + purchase.line_total;
-      }, 0);
+      return this.purchaseHistory
+        .filter(p => p.type === 'purchase')
+        .reduce((sum, purchase) => {
+          return sum + (parseFloat(purchase.line_total) || 0);
+        }, 0);
     },
-    // Calculate weighted average cost
-    calculatedAverageCost() {
-      if (this.totalPurchaseQuantity > 0) {
-        return this.totalPurchaseValue / this.totalPurchaseQuantity;
+    // Calculate total purchase quantity (including opening stock and purchases, excluding returns)
+    totalPurchaseQuantity() {
+      return this.openingQuantity + this.totalPurchasedQuantity;
+    },
+    // Calculate total purchase discounts
+    totalPurchaseDiscounts() {
+      if (!this.allData) return 0;
+      
+      let total = 0;
+      
+      // From discounts array
+      if (this.allData.discounts && Array.isArray(this.allData.discounts)) {
+        total = this.allData.discounts.reduce((sum, discount) => {
+          return sum + (parseFloat(discount.amount) || 0);
+        }, 0);
       }
+      
+      // Also from purchaseHistory for display
+      if (this.purchaseHistory) {
+        const discountTotal = this.purchaseHistory
+          .filter(p => p.type === 'discount')
+          .reduce((sum, discount) => {
+            return sum + (parseFloat(discount.line_total) || 0);
+          }, 0);
+        
+        if (discountTotal > total) {
+          total = discountTotal;
+        }
+      }
+      
+      return total;
+    },
+    // Calculate total freight costs
+    totalFreightCosts() {
+      if (!this.allData) return 0;
+      
+      let total = 0;
+      
+      // From freight_costs array
+      if (this.allData.freight_costs && Array.isArray(this.allData.freight_costs)) {
+        total = this.allData.freight_costs.reduce((sum, freight) => {
+          return sum + (parseFloat(freight.amount) || 0);
+        }, 0);
+      }
+      
+      // Also from purchaseHistory for display
+      if (this.purchaseHistory) {
+        const freightTotal = this.purchaseHistory
+          .filter(p => p.type === 'freight')
+          .reduce((sum, freight) => {
+            return sum + (parseFloat(freight.line_total) || 0);
+          }, 0);
+        
+        if (freightTotal > total) {
+          total = freightTotal;
+        }
+      }
+      
+      return total;
+    },
+    // Calculate total purchase returns quantity
+    totalPurchaseReturnsQuantity() {
+      if (!this.allData) return 0;
+      
+      let total = 0;
+      
+      // From purchase_returns array
+      if (this.allData.purchase_returns && Array.isArray(this.allData.purchase_returns)) {
+        total = this.allData.purchase_returns.reduce((sum, ret) => {
+          return sum + (parseFloat(ret.quantity) || 0);
+        }, 0);
+      }
+      
+      // Also from purchaseHistory for display
+      if (this.purchaseHistory) {
+        const returnTotal = this.purchaseHistory
+          .filter(p => p.type === 'purchase_return')
+          .reduce((sum, ret) => {
+            return sum + (parseFloat(ret.quantity) || 0);
+          }, 0);
+        
+        if (returnTotal > total) {
+          total = returnTotal;
+        }
+      }
+      
+      return total;
+    },
+    // Calculate total purchase returns value
+    totalPurchaseReturnsValue() {
+      if (!this.allData) return 0;
+      
+      let total = 0;
+      
+      // From purchase_returns array
+      if (this.allData.purchase_returns && Array.isArray(this.allData.purchase_returns)) {
+        total = this.allData.purchase_returns.reduce((sum, ret) => {
+          const qty = parseFloat(ret.quantity) || 0;
+          const cost = parseFloat(ret.unit_cost) || 0;
+          return sum + (qty * cost);
+        }, 0);
+      }
+      
+      // Also from purchaseHistory for display
+      if (this.purchaseHistory) {
+        const returnTotal = this.purchaseHistory
+          .filter(p => p.type === 'purchase_return')
+          .reduce((sum, ret) => {
+            return sum + (parseFloat(ret.line_total) || 0);
+          }, 0);
+        
+        if (returnTotal > total) {
+          total = returnTotal;
+        }
+      }
+      
+      return total;
+    },
+    // Calculate net quantity (opening + purchased - returned)
+    netQuantity() {
+      return this.openingQuantity + this.totalPurchasedQuantity - this.totalPurchaseReturnsQuantity;
+    },
+    // Calculate weighted average cost using the formula:
+    // (Opening Inventory Value + Total Purchases Value - Total Purchase Discounts + Total Freight Cost - Purchase Returns Value) / (Opening Quantity + Purchased Quantity - Returned Quantity)
+    calculatedAverageCost() {
+      const numerator = this.openingInventoryValue 
+        + this.totalPurchaseValue 
+        - this.totalPurchaseDiscounts 
+        + this.totalFreightCosts 
+        - this.totalPurchaseReturnsValue;
+      
+      const denominator = this.netQuantity;
+      
+      if (denominator > 0) {
+        return numerator / denominator;
+      }
+      
       return 0;
     },
   },
