@@ -7,7 +7,6 @@ use App\Models\User;
 use App\Rules\FindDomainValidation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
@@ -48,34 +47,13 @@ class TenantDomainFindController extends Controller
         // Find user in tenant database
         $user = User::where('email', $request->input('email'))->first();
 
-        Log::info('TenantDomainFindController: Login attempt', [
-            'email' => $request->input('email'),
-            'user_found' => $user !== null,
-            'user_id' => $user?->id,
-            'has_password' => ! empty($user?->password),
-        ]);
-
         if (! $user) {
-            Log::warning('TenantDomainFindController: User not found', [
-                'email' => $request->input('email'),
-                'tenant_id' => $tenant->id,
-            ]);
-
             return $this->responseWithError(__('The provided credentials are incorrect.'), [], 401);
         }
 
         $passwordCheck = Hash::check($request->input('password'), $user->password);
-        Log::info('TenantDomainFindController: Password check result', [
-            'email' => $request->input('email'),
-            'password_match' => $passwordCheck,
-        ]);
 
         if (! $passwordCheck) {
-            Log::warning('TenantDomainFindController: Password mismatch', [
-                'email' => $request->input('email'),
-                'tenant_id' => $tenant->id,
-            ]);
-
             return $this->responseWithError(__('The provided credentials are incorrect.'), [], 401);
         }
 
@@ -99,31 +77,13 @@ class TenantDomainFindController extends Controller
                 'email='.$encodedEmail.
                 '&password='.$encodedPassword;
 
-            Log::info('TenantDomainFindController: Successfully generated login URL', [
-                'tenant_domain' => $tenantDomain,
-                'login_url_length' => strlen($loginUrl),
-                'login_url_preview' => substr($loginUrl, 0, 100).'...',
-            ]);
-
-            $response = $this->responseWithSuccess('Domain found successfully', [
+            return $this->responseWithSuccess('Domain found successfully', [
                 'domain' => $tenantDomain,
                 'login_url' => $loginUrl,
                 'tenant_id' => $tenant->id,
                 'tenant_name' => $tenant->name,
             ]);
-
-            Log::info('TenantDomainFindController: Response prepared', [
-                'response_status' => $response->getStatusCode(),
-                'response_has_success' => true,
-            ]);
-
-            return $response;
         } catch (\Exception $e) {
-            Log::error('TenantDomainFindController: Error generating login URL', [
-                'error' => $e->getMessage(),
-                'trace' => $e->getTraceAsString(),
-            ]);
-
             return $this->responseWithError('Failed to generate login URL. Please try again.', [], 500);
         }
     }
