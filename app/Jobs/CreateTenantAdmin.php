@@ -4,12 +4,16 @@ namespace App\Jobs;
 
 use App\Models\Tenant;
 use App\Models\User;
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 
-class CreateTenantAdmin
+class CreateTenantAdmin implements ShouldQueue
 {
-    use Dispatchable;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     /** @var Tenant */
     protected $tenant;
@@ -24,6 +28,12 @@ class CreateTenantAdmin
      */
     public function handle(): void
     {
+        // Log that the job is being executed
+        Log::info('CreateTenantAdmin: Job handle() method called', [
+            'tenant_id' => $this->tenant->id,
+            'tenant_email' => $this->tenant->email,
+        ]);
+
         try {
             // Refresh tenant to ensure we have the latest data including password
             $this->tenant->refresh();
