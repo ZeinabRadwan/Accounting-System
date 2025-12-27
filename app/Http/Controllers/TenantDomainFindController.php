@@ -87,19 +87,33 @@ class TenantDomainFindController extends Controller
         $protocol = request()->secure() ? 'https' : 'http';
 
         // Encrypt the credentials for secure transmission
-        $encryptedEmail = encrypt($request->input('email'));
-        $encryptedPassword = encrypt($request->input('password'));
+        try {
+            $encryptedEmail = encrypt($request->input('email'));
+            $encryptedPassword = encrypt($request->input('password'));
 
-        $loginUrl = $protocol.'://'.$tenantDomain.'/cross-domain-login?'.
-            'email='.urlencode($encryptedEmail).
-            '&password='.urlencode($encryptedPassword);
+            $loginUrl = $protocol.'://'.$tenantDomain.'/cross-domain-login?'.
+                'email='.urlencode($encryptedEmail).
+                '&password='.urlencode($encryptedPassword);
 
-        return $this->responseWithSuccess('Domain found successfully', [
-            'domain' => $tenantDomain,
-            'login_url' => $loginUrl,
-            'tenant_id' => $tenant->id,
-            'tenant_name' => $tenant->name,
-        ]);
+            Log::info('TenantDomainFindController: Successfully generated login URL', [
+                'tenant_domain' => $tenantDomain,
+                'login_url_length' => strlen($loginUrl),
+            ]);
+
+            return $this->responseWithSuccess('Domain found successfully', [
+                'domain' => $tenantDomain,
+                'login_url' => $loginUrl,
+                'tenant_id' => $tenant->id,
+                'tenant_name' => $tenant->name,
+            ]);
+        } catch (\Exception $e) {
+            Log::error('TenantDomainFindController: Error generating login URL', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+            ]);
+
+            return $this->responseWithError('Failed to generate login URL. Please try again.', [], 500);
+        }
     }
 
     /**
