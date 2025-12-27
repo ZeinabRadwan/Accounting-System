@@ -91,9 +91,13 @@ class TenantDomainFindController extends Controller
             $encryptedEmail = encrypt($request->input('email'));
             $encryptedPassword = encrypt($request->input('password'));
 
+            // Use rawurlencode for proper URL encoding (handles special characters better)
+            $encodedEmail = rawurlencode($encryptedEmail);
+            $encodedPassword = rawurlencode($encryptedPassword);
+
             $loginUrl = $protocol.'://'.$tenantDomain.'/cross-domain-login?'.
-                'email='.urlencode($encryptedEmail).
-                '&password='.urlencode($encryptedPassword);
+                'email='.$encodedEmail.
+                '&password='.$encodedPassword;
 
             Log::info('TenantDomainFindController: Successfully generated login URL', [
                 'tenant_domain' => $tenantDomain,
