@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TenantRegisterRequest;
-use App\Services\TenantService;
-use App\Rules\DomainValidation;
 use App\Rules\CustomDomainValidation;
+use App\Rules\DomainValidation;
+use App\Services\TenantService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Stancl\Tenancy\Database\Models\Domain;
 
 class TenantRegisterController extends Controller
@@ -17,6 +16,10 @@ class TenantRegisterController extends Controller
     */
     public function store(TenantRegisterRequest $request, TenantService $tenantService)
     {
+        // Increase execution time limit for tenant registration
+        // This process involves creating database, running migrations, and seeding
+        set_time_limit(300); // 5 minutes should be enough for tenant setup
+
         return $tenantService->createTenantAndSendVerificationNotification($request, now());
     }
 
@@ -32,25 +35,25 @@ class TenantRegisterController extends Controller
         } else {
             app()->setLocale('en');
         }
-        
+
         // Also check for locale in the request data
         if ($request->has('locale') && $request->input('locale') === 'ar') {
             app()->setLocale('ar');
         }
 
         $request->validate([
-            'domain' => ['required', 'string', 'max:255', 'alpha_dash']
+            'domain' => ['required', 'string', 'max:255', 'alpha_dash'],
         ]);
 
         $domain = $request->input('domain');
-        
+
         // Check domain format validation
-        $customDomainValidation = new CustomDomainValidation();
+        $customDomainValidation = new CustomDomainValidation;
         $isValidFormat = true;
         $formatError = null;
-        
+
         try {
-            $customDomainValidation->__invoke('domain', $domain, function($message) use (&$isValidFormat, &$formatError) {
+            $customDomainValidation->__invoke('domain', $domain, function ($message) use (&$isValidFormat, &$formatError) {
                 $isValidFormat = false;
                 $formatError = $message;
             });
@@ -59,22 +62,22 @@ class TenantRegisterController extends Controller
             $formatError = __('validation.domain_format', ['attribute' => __('validation.attributes.domain')]);
         }
 
-        if (!$isValidFormat) {
+        if (! $isValidFormat) {
             return response()->json([
                 'valid' => false,
                 'available' => false,
-                'message' => $formatError
+                'message' => $formatError,
             ], 422);
         }
 
         // Check if domain is available
-        $domainValidation = new DomainValidation();
+        $domainValidation = new DomainValidation;
         $isAvailable = $domainValidation->passes('domain', $domain);
 
         return response()->json([
             'valid' => true,
             'available' => $isAvailable,
-            'message' => $isAvailable ? __('Domain is available') : __('This domain has already been taken')
+            'message' => $isAvailable ? __('Domain is available') : __('This domain has already been taken'),
         ]);
     }
 }

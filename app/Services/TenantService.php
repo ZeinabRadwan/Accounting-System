@@ -2,32 +2,25 @@
 
 namespace App\Services;
 
-use Carbon\Carbon;
-use App\Models\User;
-use App\Models\Tenant;
-use App\Traits\ApiResponse;
-use Illuminate\Http\Request;
-use App\Models\GeneralSetting;
-use Stancl\Tenancy\Database\Models\Domain;
 use App\Http\Requests\TenantRegisterRequest;
-use Illuminate\Support\Facades\Notification;
-use Illuminate\Support\Facades\Log;
+use App\Models\GeneralSetting;
+use App\Models\Tenant;
+use App\Models\User;
 use App\Notifications\NewSubscriptionNotification;
 use App\Notifications\TenantRegisterNotifyForAdmin;
 use App\Notifications\TenantVerificationNotification;
+use App\Traits\ApiResponse;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Mail\Message;
+use Illuminate\Support\Facades\Notification;
+use Stancl\Tenancy\Database\Models\Domain;
 
 class TenantService
 {
     use ApiResponse;
 
-    /**
-     * @param $request
-     * @param $trialDayCount
-     * @param $emailVerifiedAt
-     * @return array
-     */
     protected function tenantData($request, $trialDayCount, $emailVerifiedAt): array
     {
         return [
@@ -46,16 +39,12 @@ class TenantService
     /**
      * Create Tenant and Domain
      * Then send email to user and get the domain with host.
-     *
-     * @param  TenantRegisterRequest  $request
-     * @param  Carbon|null  $emailVerifiedAt
-     * @return \Illuminate\Http\JsonResponse
      */
-    public function createTenantAndSendVerificationNotification(TenantRegisterRequest $request, Carbon $emailVerifiedAt = null): \Illuminate\Http\JsonResponse
+    public function createTenantAndSendVerificationNotification(TenantRegisterRequest $request, ?Carbon $emailVerifiedAt = null): \Illuminate\Http\JsonResponse
     {
         // Check SMTP configuration before proceeding with registration
         $smtpValidation = $this->validateSMTPConfiguration();
-        if (!$smtpValidation['is_valid']) {
+        if (! $smtpValidation['is_valid']) {
             return $this->responseWithError(
                 'SMTP configuration is not properly set up. Please contact the administrator to configure email settings before registration.',
                 ['smtp_error' => $smtpValidation['error']],
@@ -80,25 +69,27 @@ class TenantService
             'fallback_domain_id' => $domain->id,
         ]);
 
-        // Set up print templates for the new tenant
-        $this->setupPrintTemplatesForTenant($tenant);
+        // Note: Print templates and admin user are set up by the TenantCreated event pipeline
+        // (see TenancyServiceProvider) which runs CreateTenantAdmin and SeedDatabase jobs.
+        // We only need to set up print templates here if they're not included in the seeder.
+        // The admin user is already created by CreateTenantAdmin job in the pipeline.
 
-        // Create the admin user in the tenant database
-        $this->createTenantAdminUser($tenant, $request);
+        // Set up print templates for the new tenant (these are not in the main seeder)
+        $this->setupPrintTemplatesForTenant($tenant);
 
         // get host name
         $host = request()->getHttpHost();
-        $domainWithHost = $request->domain . '.' . $host;
+        $domainWithHost = $request->domain.'.'.$host;
         $protocol = request()->secure() ? 'https' : 'http';
-        $fullDomainWithHost = $protocol . '://' . $domainWithHost;
+        $fullDomainWithHost = $protocol.'://'.$domainWithHost;
 
         // Create login URL with encrypted credentials for automatic login
         $encryptedEmail = encrypt($request->input('email'));
         $encryptedPassword = encrypt($request->input('password'));
-        
-        $loginUrl = $fullDomainWithHost . '/cross-domain-login?' .
-            'email=' . urlencode($encryptedEmail) .
-            '&password=' . urlencode($encryptedPassword);
+
+        $loginUrl = $fullDomainWithHost.'/cross-domain-login?'.
+            'email='.urlencode($encryptedEmail).
+            '&password='.urlencode($encryptedPassword);
 
         // Create impersonation token for direct access
         $impersonateToken = tenancy()->impersonate(
@@ -106,36 +97,31 @@ class TenantService
         )->token;
 
         // tenant verification mail
-        $tenant->notify(new TenantVerificationNotification());
+        $tenant->notify(new TenantVerificationNotification);
         $host = env('CENTRAL_DOMAIN');
-        $domainTenant =  $tenant->domain . '.' . $host;
+        $domainTenant = $tenant->domain.'.'.$host;
         windowsTestSubHostReg($domainTenant);
-        
+
         return $this->responseWithSuccess(
             'Registration successful. You will be automatically logged in.', [
                 'tenant' => $tenant,
                 'domain' => $domainWithHost,
                 'login_url' => $loginUrl,
-                'impersonate_url' => $fullDomainWithHost . '/impersonate/' . $impersonateToken,
-                'token' => $impersonateToken
+                'impersonate_url' => $fullDomainWithHost.'/impersonate/'.$impersonateToken,
+                'token' => $impersonateToken,
             ]
         );
     }
 
-    /**
-     * @param  Request  $request
-     * @return array
-     */
     public function createTenantAndDomainThenGetDomainWithHost(Request $request): array
     {
         $trialDayCount = GeneralSetting::where('key', 'trial_day_count')
-                ->first()?->value ?? 14;
+            ->first()?->value ?? 14;
 
         $tenant = Tenant::create(
             $request->safe()->except('password') +
             $this->tenantData($request, $trialDayCount, now()),
         );
-
 
         // demo
 
@@ -154,9 +140,9 @@ class TenantService
 
         // get host name
         $host = request()->getHttpHost();
-        $domainWithHost = request()->getScheme() . '://' . $request->domain . '.' . $host;
+        $domainWithHost = request()->getScheme().'://'.$request->domain.'.'.$host;
         $token = tenancy()->impersonate(
-            $tenant, 1, $request->domain . '.' . $host
+            $tenant, 1, $request->domain.'.'.$host
         )->token;
 
         // demo
@@ -173,7 +159,6 @@ class TenantService
     }
 
     /**
-     * @param  Tenant  $tenant
      * @return array|void
      */
     public function createDomainAndLogin(Tenant $tenant)
@@ -199,14 +184,14 @@ class TenantService
         // get host name
         [$host, $domainWithHost] = $this->getDomainWithHost($domain);
         $token = tenancy()->impersonate(
-            $tenant, 1, $domain->domain . '.' . $host
+            $tenant, 1, $domain->domain.'.'.$host
         )->token;
 
         // notify tenant
         $tenant->notify(new NewSubscriptionNotification($domainWithHost));
         // notify admin
         $admins = User::where('account_role', 1)->get();
-        Notification::send($admins , new TenantRegisterNotifyForAdmin($tenant, $domainWithHost));
+        Notification::send($admins, new TenantRegisterNotifyForAdmin($tenant, $domainWithHost));
 
         return [
             'domainWithHost' => $domainWithHost,
@@ -214,20 +199,15 @@ class TenantService
         ];
     }
 
-    /**
-     * @param $tenant
-     * @return array
-     */
     public function getDomainWithHost($tenant): array
     {
         $host = request()->getHttpHost();
-        $domainWithHost = request()->getScheme() . '://' . $tenant->domain . '.' . $host;
+        $domainWithHost = request()->getScheme().'://'.$tenant->domain.'.'.$host;
 
         return [$host, $domainWithHost];
     }
 
     /**
-     * @param  Tenant  $tenant
      * @return \Illuminate\Http\JsonResponse
      */
     public function impersonateAsTenant(Tenant $tenant)
@@ -239,80 +219,47 @@ class TenantService
         // get host name
         [$host, $domainWithHost] = $this->getDomainWithHost($domain);
         $token = tenancy()->impersonate(
-            $tenant, 1, $domain->domain . '.' . $host, 'web',
+            $tenant, 1, $domain->domain.'.'.$host, 'web',
         )->token;
 
         return $this->responseWithSuccess(
             'Login successful.', [
-                'redirect_url' => $domainWithHost.'/impersonate/'.$token
+                'redirect_url' => $domainWithHost.'/impersonate/'.$token,
             ]
         );
     }
 
     /**
-     * Create admin user for the tenant
-     *
-     * @param  Tenant  $tenant
-     * @param  TenantRegisterRequest  $request
-     * @return void
-     */
-    private function createTenantAdminUser($tenant, $request)
-    {
-        try {
-            // Initialize the tenant context
-            tenancy()->initialize($tenant);
-            
-            Log::info("Creating admin user for new tenant: {$tenant->id} ({$tenant->getTenantKey()})");
-            
-            // Create the admin user in the tenant database
-            User::create([
-                'name' => $request->input('name'),
-                'email' => $request->input('email'),
-                'password' => bcrypt($request->input('password')),
-                'locale' => 'en', // Set default locale for new users
-                'account_role' => 1, // Admin role
-            ]);
-            
-            Log::info("✅ Admin user created successfully for tenant: {$tenant->getTenantKey()}");
-            
-        } catch (\Exception $e) {
-            Log::error("❌ Error creating admin user for tenant {$tenant->id}: " . $e->getMessage());
-        }
-    }
-
-    /**
      * Set up print templates for a tenant
      *
-     * @param  Tenant  $tenant
      * @return void
      */
     private function setupPrintTemplatesForTenant(Tenant $tenant)
     {
         try {
-            // Initialize the tenant context
-            tenancy()->initialize($tenant);
-            
-            Log::info("Setting up print templates for new tenant: {$tenant->id} ({$tenant->getTenantKey()})");
-            
-            // Run PrintTemplateSeeder
-            $printTemplateSeeder = new \Database\Seeders\PrintTemplateSeeder();
-            $printTemplateSeeder->run();
-            
-            // Run PrintTemplatePermissionsSeeder
-            $printTemplatePermissionsSeeder = new \Database\Seeders\PrintTemplatePermissionsSeeder();
-            $printTemplatePermissionsSeeder->run();
-            
-            Log::info("✅ Print templates setup completed for tenant: {$tenant->getTenantKey()}");
-            
+            // Use tenant->run() which handles context initialization and cleanup automatically
+            $tenant->run(function () {
+                Log::info('Setting up print templates for new tenant');
+
+                // Run PrintTemplateSeeder
+                $printTemplateSeeder = new \Database\Seeders\PrintTemplateSeeder;
+                $printTemplateSeeder->run();
+
+                // Run PrintTemplatePermissionsSeeder
+                $printTemplatePermissionsSeeder = new \Database\Seeders\PrintTemplatePermissionsSeeder;
+                $printTemplatePermissionsSeeder->run();
+
+                Log::info('✅ Print templates setup completed');
+            });
+
         } catch (\Exception $e) {
-            Log::error("❌ Error setting up print templates for tenant {$tenant->id}: " . $e->getMessage());
+            Log::error("❌ Error setting up print templates for tenant {$tenant->id}: ".$e->getMessage());
+            // Don't throw - allow registration to continue even if print templates fail
         }
     }
 
     /**
      * Validate SMTP configuration
-     *
-     * @return array
      */
     private function validateSMTPConfiguration(): array
     {
@@ -330,14 +277,14 @@ class TenantService
             if (empty($mailHost) || empty($mailPort) || empty($mailUsername) || empty($mailPassword)) {
                 return [
                     'is_valid' => false,
-                    'error' => 'SMTP host, port, username, or password is not configured'
+                    'error' => 'SMTP host, port, username, or password is not configured',
                 ];
             }
 
             if (empty($mailFromAddress) || empty($mailFromName)) {
                 return [
                     'is_valid' => false,
-                    'error' => 'Mail from address or name is not configured'
+                    'error' => 'Mail from address or name is not configured',
                 ];
             }
 
@@ -345,12 +292,12 @@ class TenantService
             $defaultHosts = ['smtp.mailgun.org', 'smtp.mailtrap.io', 'smtp.gmail.com', 'localhost', '127.0.0.1'];
             $defaultUsernames = ['null', 'your-username', 'your_email@gmail.com', 'test@example.com'];
             $defaultPasswords = ['null', 'your-password', 'your_password', 'password'];
-            
-            if (in_array($mailHost, $defaultHosts) && 
+
+            if (in_array($mailHost, $defaultHosts) &&
                 (in_array($mailUsername, $defaultUsernames) || in_array($mailPassword, $defaultPasswords))) {
                 return [
                     'is_valid' => false,
-                    'error' => 'SMTP configuration appears to be using default/placeholder values. Please configure proper SMTP settings.'
+                    'error' => 'SMTP configuration appears to be using default/placeholder values. Please configure proper SMTP settings.',
                 ];
             }
 
@@ -358,14 +305,14 @@ class TenantService
             if ($mailHost === 'smtp.mailgun.org' && empty(env('MAILGUN_DOMAIN'))) {
                 return [
                     'is_valid' => false,
-                    'error' => 'SMTP configuration appears to be using default values. Please configure proper SMTP settings.'
+                    'error' => 'SMTP configuration appears to be using default values. Please configure proper SMTP settings.',
                 ];
             }
 
             if ($mailHost === 'smtp.mailtrap.io' && empty(env('MAILTRAP_USERNAME'))) {
                 return [
                     'is_valid' => false,
-                    'error' => 'SMTP configuration appears to be using default values. Please configure proper SMTP settings.'
+                    'error' => 'SMTP configuration appears to be using default values. Please configure proper SMTP settings.',
                 ];
             }
 
@@ -374,13 +321,13 @@ class TenantService
             // to avoid delays during user registration
             return [
                 'is_valid' => true,
-                'error' => null
+                'error' => null,
             ];
 
         } catch (\Exception $e) {
             return [
                 'is_valid' => false,
-                'error' => 'SMTP configuration validation failed: ' . $e->getMessage()
+                'error' => 'SMTP configuration validation failed: '.$e->getMessage(),
             ];
         }
     }

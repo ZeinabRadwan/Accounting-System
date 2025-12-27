@@ -34,7 +34,8 @@ class CreateTenantAdmin implements ShouldQueue
                 'name' => $tenant->name,
                 'email' => $tenant->email,
                 'password' => $tenant->password,
-                'locale' => 'ar', // Set default locale for new users
+                'locale' => 'en', // Set default locale for new users
+                'account_role' => 1, // Admin role
             ]);
         });
     }
