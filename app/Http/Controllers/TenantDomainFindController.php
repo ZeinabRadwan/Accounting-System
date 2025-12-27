@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Rules\FindDomainValidation;
 use App\Models\Tenant;
 use App\Models\User;
+use App\Rules\FindDomainValidation;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
@@ -19,7 +18,7 @@ class TenantDomainFindController extends Controller
     public function findDomain(Request $request)
     {
         $request->validate([
-            'domain' => ['required', 'string', 'max:255', 'alpha_dash', new FindDomainValidation()],
+            'domain' => ['required', 'string', 'max:255', 'alpha_dash', new FindDomainValidation],
             'email' => ['required', 'email'],
             'password' => ['required', 'string', 'min:6'],
         ]);
@@ -33,9 +32,9 @@ class TenantDomainFindController extends Controller
             $query->where('domain', $domain);
         })->first();
 
-        if (!$tenant) {
+        if (! $tenant) {
 
-        return $this->responseWithError(__('Tenant not found for this domain.'), [], 404);
+            return $this->responseWithError(__('Tenant not found for this domain.'), [], 404);
 
             throw ValidationException::withMessages([
                 'domain' => [__('Tenant not found for this domain.')],
@@ -48,27 +47,51 @@ class TenantDomainFindController extends Controller
         // Find user in tenant database
         $user = User::where('email', $request->input('email'))->first();
 
-        if (!$user || !Hash::check($request->input('password'), $user->password)) {
-            return $this->responseWithError(__('The provided credentials are incorrect.'), [], 401);
-            throw ValidationException::withMessages([
-                'email' => [__('The provided credentials are incorrect.')],
+        Log::info('TenantDomainFindController: Login attempt', [
+            'email' => $request->input('email'),
+            'user_found' => $user !== null,
+            'user_id' => $user?->id,
+            'has_password' => ! empty($user?->password),
+        ]);
+
+        if (! $user) {
+            Log::warning('TenantDomainFindController: User not found', [
+                'email' => $request->input('email'),
+                'tenant_id' => $tenant->id,
             ]);
+
+            return $this->responseWithError(__('The provided credentials are incorrect.'), [], 401);
+        }
+
+        $passwordCheck = Hash::check($request->input('password'), $user->password);
+        Log::info('TenantDomainFindController: Password check result', [
+            'email' => $request->input('email'),
+            'password_match' => $passwordCheck,
+        ]);
+
+        if (! $passwordCheck) {
+            Log::warning('TenantDomainFindController: Password mismatch', [
+                'email' => $request->input('email'),
+                'tenant_id' => $tenant->id,
+            ]);
+
+            return $this->responseWithError(__('The provided credentials are incorrect.'), [], 401);
         }
 
         // Set user locale
         app()->setLocale($user->locale);
 
         // Create a special login URL for the tenant domain with encrypted credentials
-        $tenantDomain = $domain . '.' . $host;
+        $tenantDomain = $domain.'.'.$host;
         $protocol = request()->secure() ? 'https' : 'http';
 
         // Encrypt the credentials for secure transmission
         $encryptedEmail = encrypt($request->input('email'));
         $encryptedPassword = encrypt($request->input('password'));
 
-        $loginUrl = $protocol . '://' . $tenantDomain . '/cross-domain-login?' .
-            'email=' . urlencode($encryptedEmail) .
-            '&password=' . urlencode($encryptedPassword);
+        $loginUrl = $protocol.'://'.$tenantDomain.'/cross-domain-login?'.
+            'email='.urlencode($encryptedEmail).
+            '&password='.urlencode($encryptedPassword);
 
         return $this->responseWithSuccess('Domain found successfully', [
             'domain' => $tenantDomain,
@@ -91,7 +114,7 @@ class TenantDomainFindController extends Controller
 
         // Find tenant
         $tenant = Tenant::find($request->tenant_id);
-        if (!$tenant) {
+        if (! $tenant) {
             return $this->responseWithError('Tenant not found.', [], 404);
         }
 
@@ -101,7 +124,7 @@ class TenantDomainFindController extends Controller
         // Find user in tenant database
         $user = User::where('email', $request->input('email'))->first();
 
-        if (!$user || !Hash::check($request->input('password'), $user->password)) {
+        if (! $user || ! Hash::check($request->input('password'), $user->password)) {
             return $this->responseWithError(__('The provided credentials are incorrect.'), [], 401);
         }
 

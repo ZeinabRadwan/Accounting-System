@@ -63,6 +63,12 @@ class CreateTenantAdmin implements ShouldQueue
                     throw new \Exception("Password is empty for tenant {$tenant->id}");
                 }
 
+                // Log password hash info (first 20 chars for debugging)
+                Log::info('CreateTenantAdmin: Password hash info', [
+                    'password_hash_prefix' => substr($password, 0, 20).'...',
+                    'password_hash_length' => strlen($password),
+                ]);
+
                 // Create the admin user
                 $user = User::create([
                     'name' => $tenant->name,
@@ -75,6 +81,7 @@ class CreateTenantAdmin implements ShouldQueue
                 Log::info("CreateTenantAdmin: User created successfully for tenant {$tenant->id}", [
                     'user_id' => $user->id,
                     'email' => $user->email,
+                    'stored_password_hash_prefix' => substr($user->password, 0, 20).'...',
                 ]);
             });
         } catch (\Exception $e) {
