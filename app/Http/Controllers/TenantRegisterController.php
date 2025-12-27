@@ -16,10 +16,6 @@ class TenantRegisterController extends Controller
     */
     public function store(TenantRegisterRequest $request, TenantService $tenantService)
     {
-        // Increase execution time limit for tenant registration
-        // This process involves creating database, running migrations, and seeding
-        set_time_limit(300); // 5 minutes should be enough for tenant setup
-
         return $tenantService->createTenantAndSendVerificationNotification($request, now());
     }
 

@@ -42,6 +42,9 @@ class TenantService
      */
     public function createTenantAndSendVerificationNotification(TenantRegisterRequest $request, ?Carbon $emailVerifiedAt = null): \Illuminate\Http\JsonResponse
     {
+        // Increase execution time limit for tenant registration (database creation, migrations, seeding)
+        set_time_limit(300); // 5 minutes should be enough for tenant setup
+
         // Check SMTP configuration before proceeding with registration
         $smtpValidation = $this->validateSMTPConfiguration();
         if (! $smtpValidation['is_valid']) {
@@ -69,13 +72,11 @@ class TenantService
             'fallback_domain_id' => $domain->id,
         ]);
 
-        // Note: Print templates and admin user are set up by the TenantCreated event pipeline
-        // (see TenancyServiceProvider) which runs CreateTenantAdmin and SeedDatabase jobs.
-        // We only need to set up print templates here if they're not included in the seeder.
-        // The admin user is already created by CreateTenantAdmin job in the pipeline.
-
-        // Set up print templates for the new tenant (these are not in the main seeder)
+        // Set up print templates for the new tenant
         $this->setupPrintTemplatesForTenant($tenant);
+
+        // Note: Admin user is created by CreateTenantAdmin job in TenancyServiceProvider
+        // No need to create it here to avoid duplication
 
         // get host name
         $host = request()->getHttpHost();
@@ -237,24 +238,23 @@ class TenantService
     private function setupPrintTemplatesForTenant(Tenant $tenant)
     {
         try {
-            // Use tenant->run() which handles context initialization and cleanup automatically
-            $tenant->run(function () {
-                Log::info('Setting up print templates for new tenant');
+            // Initialize the tenant context
+            tenancy()->initialize($tenant);
 
-                // Run PrintTemplateSeeder
-                $printTemplateSeeder = new \Database\Seeders\PrintTemplateSeeder;
-                $printTemplateSeeder->run();
+            Log::info("Setting up print templates for new tenant: {$tenant->id} ({$tenant->getTenantKey()})");
 
-                // Run PrintTemplatePermissionsSeeder
-                $printTemplatePermissionsSeeder = new \Database\Seeders\PrintTemplatePermissionsSeeder;
-                $printTemplatePermissionsSeeder->run();
+            // Run PrintTemplateSeeder
+            $printTemplateSeeder = new \Database\Seeders\PrintTemplateSeeder;
+            $printTemplateSeeder->run();
 
-                Log::info('✅ Print templates setup completed');
-            });
+            // Run PrintTemplatePermissionsSeeder
+            $printTemplatePermissionsSeeder = new \Database\Seeders\PrintTemplatePermissionsSeeder;
+            $printTemplatePermissionsSeeder->run();
+
+            Log::info("✅ Print templates setup completed for tenant: {$tenant->getTenantKey()}");
 
         } catch (\Exception $e) {
             Log::error("❌ Error setting up print templates for tenant {$tenant->id}: ".$e->getMessage());
-            // Don't throw - allow registration to continue even if print templates fail
         }
     }
 
