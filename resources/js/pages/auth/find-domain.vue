@@ -148,7 +148,18 @@ export default {
         if (domainResponse && domainResponse.data.success) {
           // Redirect directly to the tenant domain using the special login URL
           // This will complete the login process on the tenant domain
-          window.location.href = domainResponse.data.data.login_url
+          const loginUrl = domainResponse.data.data.login_url
+          
+          // Validate URL before redirecting
+          try {
+            // Use URL constructor to validate the URL
+            new URL(loginUrl)
+            // Use replace instead of href to avoid back button issues
+            window.location.replace(loginUrl)
+          } catch (urlError) {
+            console.error('Invalid login URL:', urlError, loginUrl)
+            this.$toast.error(this.$t('Invalid login URL generated. Please try again.'))
+          }
         } else {
           // Handle case where response is successful but no login URL provided
           this.$toast.error(this.$t('Domain found but login failed. Please check your credentials'))
