@@ -98,14 +98,22 @@ class TenantDomainFindController extends Controller
             Log::info('TenantDomainFindController: Successfully generated login URL', [
                 'tenant_domain' => $tenantDomain,
                 'login_url_length' => strlen($loginUrl),
+                'login_url_preview' => substr($loginUrl, 0, 100).'...',
             ]);
 
-            return $this->responseWithSuccess('Domain found successfully', [
+            $response = $this->responseWithSuccess('Domain found successfully', [
                 'domain' => $tenantDomain,
                 'login_url' => $loginUrl,
                 'tenant_id' => $tenant->id,
                 'tenant_name' => $tenant->name,
             ]);
+
+            Log::info('TenantDomainFindController: Response prepared', [
+                'response_status' => $response->getStatusCode(),
+                'response_has_success' => true,
+            ]);
+
+            return $response;
         } catch (\Exception $e) {
             Log::error('TenantDomainFindController: Error generating login URL', [
                 'error' => $e->getMessage(),

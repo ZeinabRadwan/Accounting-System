@@ -16,6 +16,12 @@ class CrossDomainAuthController extends Controller
      */
     public function crossDomainLogin(Request $request)
     {
+        Log::info('Cross-domain login: Request received', [
+            'has_email' => $request->has('email'),
+            'has_password' => $request->has('password'),
+            'method' => $request->method(),
+        ]);
+
         $encryptedEmail = $request->input('email');
         $encryptedPassword = $request->input('password');
 
