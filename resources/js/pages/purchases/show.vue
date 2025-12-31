@@ -196,7 +196,7 @@
                           <span v-else class="saudi-riyal">ê</span>
                         </td>
                         <td>
-                          {{ formatNumber(globalDiscountAmount) }} <span class="saudi-riyal">ê</span>
+                          {{ formatNumber(invoiceLevelDiscountAmount) }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                     </tbody>
@@ -294,7 +294,7 @@
                   </template>
                 </GeneralTable>
                 <div class="mt-2 text-center">
-                  <strong>{{ $t("Subtotal") }}: {{ formatNumber(allData.subTotal) }} <span
+                  <strong>{{ $t("Subtotal") }}: {{ formatNumber(invoiceSubtotal) }} <span
                       class="saudi-riyal">ê</span></strong>
                 </div>
               </div>
@@ -367,31 +367,40 @@
                 <div class="table-responsive table-custom table-border-y-0" v-if="allData.supplier">
                   <table class="table">
                     <tbody>
+                      <!-- Subtotal: Sum of all item totals before discount (qty × unit_price) -->
                       <tr class="bg-sub-light text-bold">
-                        <th>{{ $t("Subtotal") }}:</th>
-                        <td>{{ formatNumber(subtotal) }} <span class="saudi-riyal">ê</span></td>
+                        <th>{{ $t("Subtotal") }} ({{ $t("المجموع الفرعي") }}):</th>
+                        <td>{{ formatNumber(invoiceSubtotal) }} <span class="saudi-riyal">ê</span></td>
                       </tr>
-                      <tr v-if="totalDiscount > 0">
-                        <th>{{ $t("Total Discount") }}:</th>
+                      <!-- Total Discount: Invoice-level discount distributed proportionally across items -->
+                      <tr v-if="invoiceLevelDiscountAmount > 0">
+                        <th>{{ $t("Total Discount") }} ({{ $t("إجمالي الخصم") }}):</th>
                         <td>
                           <span class="minus-sign">-</span>
-                          {{ formatNumber(totalDiscount) }} <span class="saudi-riyal">ê</span>
+                          {{ formatNumber(invoiceLevelDiscountAmount) }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
-
-                      <tr class="bg-green-light text-bold">
-                        <th>{{ $t("Total After Discount") }}:</th>
-                        <td>{{ formatNumber(subtotal) }} <span class="saudi-riyal">ê</span>
-                        </td>
-                      </tr>
-
-                      <tr>
-                        <th>{{ $t("Total Tax") }}:</th>
+                      <!-- Total Shipping Cost: Distributed proportionally across items -->
+                      <tr v-if="shippingCostTotal > 0">
+                        <th>{{ $t("Total Shipping Cost") }} ({{ $t("إجمالي تكلفة الشحن") }}):</th>
                         <td>
-                          {{ formatNumber(totalTax) }} <span class="saudi-riyal">ê</span>
+                          {{ formatNumber(shippingCostTotal) }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
-
+                      <!-- Net Amount: Subtotal - Discount + Shipping (before VAT) -->
+                      <tr class="bg-green-light text-bold">
+                        <th>{{ $t("Net Amount") }} ({{ $t("المبلغ الصافي") }}):</th>
+                        <td>{{ formatNumber(netAmountBeforeVAT) }} <span class="saudi-riyal">ê</span>
+                        </td>
+                      </tr>
+                      <!-- VAT: Calculated on Net Amount (Subtotal - Discount + Shipping) -->
+                      <tr>
+                        <th>{{ $t("VAT") }} ({{ $t("الضريبة") }}):</th>
+                        <td>
+                          {{ formatNumber(vatAmount) }} <span class="saudi-riyal">ê</span>
+                        </td>
+                      </tr>
+                      <!-- Purchase Return (if any) -->
                       <tr v-if="allData.purchaseReturn">
                         <th>{{ $t("Cost of Return Products") }}:</th>
                         <td>
@@ -400,14 +409,9 @@
                           }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
-                      <tr v-if="allData.transport > 0">
-                        <th>{{ $t("Transport") }}:</th>
-                        <td>
-                          {{ formatNumber(allData.transport) }} <span class="saudi-riyal">ê</span>
-                        </td>
-                      </tr>
+                      <!-- Grand Total: Net Amount + VAT -->
                       <tr class="bg-indigo-light text-bold">
-                        <th>{{ $t("Grand Total") }}:</th>
+                        <th>{{ $t("Grand Total") }} ({{ $t("الإجمالي الكلي") }}):</th>
                         <td>
                           <span class="equal-sign">=</span>
                           {{ formatNumber(grandTotal) }} <span
@@ -422,7 +426,7 @@
                       </tr>
                       <tr class="bg-red-light">
                         <th>{{ $t("Due") }}:</th>
-                        <td>{{ formatNumber(netTotal - (parseFloat(allData.totalPaid) || 0)) }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ formatNumber(grandTotal - (parseFloat(allData.totalPaid) || 0)) }} <span class="saudi-riyal">ê</span></td>
                       </tr>
                       <tr class="bg-green-light" v-if="allData.accountReceivable">
                         <th>{{ $t("Account Receivable") }}:</th>
@@ -579,55 +583,68 @@ export default {
       return this.appInfo && this.appInfo.country === 'SA'
     },
 
-    // Calculate total price (sum of Total column in items table) - stored value
-    totalPrice() {
-      if (!this.purchaseProducts) return 0;
-      return this.purchaseProducts.reduce((total, product) => {
-        return total + (parseFloat(product.grossTotal) || 0);
-      }, 0);
-    },
-
-    // Subtotal = sum of item net prices (after all discounts) - use stored values only
-    // Net price = (quantity × purchase_price) - discount_amount (stored in database)
-    subtotal() {
+    // Invoice Subtotal: Sum of all item totals BEFORE discount (qty × unit_price)
+    // This matches the create page logic: Subtotal = sum(item.grossTotal)
+    invoiceSubtotal() {
       if (!this.purchaseProducts || this.purchaseProducts.length === 0) return 0;
-      
-      let subtotal = 0;
-      this.purchaseProducts.forEach((product) => {
-        // Use stored values: line_total - discount_amount = net_price
-        const lineTotal = parseFloat(product.grossTotal || 0);
-        const discountAmount = parseFloat(product.discountAmount || 0); // Stored discount_amount
-        const netPrice = lineTotal - discountAmount;
-        subtotal += netPrice;
-      });
-      
-      return this.roundToTwoDecimals(subtotal);
+      return this.roundToTwoDecimals(
+        this.purchaseProducts.reduce((total, product) => {
+          return total + (parseFloat(product.grossTotal || 0));
+        }, 0)
+      );
     },
 
-    // Total discount = sum of stored discount_amount values (display-only, not applied again)
-    totalProductDiscount() {
-      if (!this.purchaseProducts) return 0;
-      const total = this.purchaseProducts.reduce((sum, product) => {
-        return sum + (parseFloat(product.discountAmount || 0)); // Stored discount_amount
-      }, 0);
-      return this.roundToTwoDecimals(total);
-    },
-
-    // Total tax = sum of stored tax_amount values + invoice-level tax (if any)
-    totalProductVat() {
-      if (!this.purchaseProducts) return 0;
+    // Invoice-Level Discount Amount: Calculated from discount_type and discount_value
+    // This matches the create page logic
+    invoiceLevelDiscountAmount() {
+      if (!this.allData || !this.hasPurchaseDiscount) return 0;
       
-      // Sum of stored VAT values (already calculated on net prices after discount + transport)
-      let totalVat = this.purchaseProducts.reduce((sum, product) => {
-        return sum + (parseFloat(product.taxTotal || 0)); // Stored tax_amount
-      }, 0);
+      const discountType = this.purchaseDiscountType;
+      const discountValue = this.purchaseDiscountValue;
+      const subtotal = this.invoiceSubtotal;
       
-      // Add invoice-level tax if any (for non-Saudi Arabia)
-      if (!this.isSaudiArabia && this.allData && this.allData.tax) {
-        totalVat += parseFloat(this.allData.tax);
+      if (!discountType || !discountValue || discountValue <= 0 || subtotal <= 0) {
+        return 0;
       }
       
-      return this.roundToTwoDecimals(totalVat);
+      let discountAmount = 0;
+      if (discountType === 'percentage') {
+        discountAmount = this.roundToTwoDecimals((subtotal * discountValue) / 100);
+      } else {
+        discountAmount = this.roundToTwoDecimals(parseFloat(discountValue));
+      }
+      
+      // Ensure discount doesn't exceed the subtotal
+      return discountAmount > subtotal ? this.roundToTwoDecimals(subtotal) : discountAmount;
+    },
+
+    // Subtotal: Same as invoiceSubtotal (for backward compatibility)
+    subtotal() {
+      return this.invoiceSubtotal;
+    },
+
+    // Total Discount: Invoice-level discount amount (distributed proportionally across items)
+    // This matches the create page: discount is applied at invoice level
+    totalDiscount() {
+      return this.invoiceLevelDiscountAmount;
+    },
+
+    // Shipping Cost Total: Invoice-level shipping cost
+    shippingCostTotal() {
+      if (!this.allData) return 0;
+      // Use transportTaxableCost if supplier is taxable, otherwise transportCost
+      // For show page, we use the stored transport value
+      const transportCost = parseFloat(this.allData.transport || 0);
+      return this.roundToTwoDecimals(transportCost);
+    },
+
+    // Net Amount Before VAT: Subtotal - Discount + Shipping
+    // This is the amount on which VAT is calculated
+    netAmountBeforeVAT() {
+      const subtotal = this.invoiceSubtotal;
+      const discount = this.invoiceLevelDiscountAmount;
+      const shipping = this.shippingCostTotal;
+      return this.roundToTwoDecimals(subtotal - discount + shipping);
     },
 
     // Calculate due amount
@@ -680,28 +697,83 @@ export default {
       return 0;
     },
 
-    // Total discount (display-only info, not applied again)
-    // Note: discount_amount in database already includes product-level + proportional invoice-level discount
-    totalDiscount() {
-      return this.totalProductDiscount;
+    // VAT Amount: Calculated on Net Amount (Subtotal - Discount + Shipping)
+    // CRITICAL: VAT must be calculated on Net Amount, NOT on Subtotal
+    // This matches the create page logic exactly
+    // Formula: VAT = Net Amount × Weighted Average VAT Rate
+    vatAmount() {
+      if (!this.purchaseProducts || this.purchaseProducts.length === 0) {
+        return 0;
+      }
+
+      // Get the Net Amount (Subtotal - Discount + Shipping)
+      const netAmount = this.netAmountBeforeVAT;
+      if (netAmount <= 0) {
+        return 0;
+      }
+
+      // Calculate weighted average VAT rate from all items
+      // We use items' net amounts (after discount) as weights
+      let totalNetAmountForWeighting = 0;
+      let weightedVatRateSum = 0;
+
+      this.purchaseProducts.forEach((product) => {
+        // Get item's net amount after discount (before shipping allocation)
+        const itemGrossTotal = parseFloat(product.grossTotal || 0);
+        const itemDiscountAmount = parseFloat(product.discountAmount || 0);
+        const itemNetAmount = itemGrossTotal - itemDiscountAmount;
+        
+        if (itemNetAmount > 0) {
+          // Get item's VAT rate from stored tax data
+          // Try to calculate VAT rate from stored taxTotal and totalAfterDiscount
+          const itemTotalAfterDiscount = parseFloat(product.totalAfterDiscount || 0);
+          const itemTaxTotal = parseFloat(product.taxTotal || 0);
+          
+          let vatRate = 0;
+          if (itemTotalAfterDiscount > 0 && itemTaxTotal > 0) {
+            // Calculate rate: VAT = Net × Rate, so Rate = VAT / Net
+            vatRate = (itemTaxTotal / itemTotalAfterDiscount) * 100;
+          } else if (product.vatRate) {
+            // Use stored VAT rate if available
+            vatRate = parseFloat(product.vatRate);
+          }
+
+          // Ensure vatRate is valid
+          if (!isNaN(vatRate) && vatRate >= 0) {
+            totalNetAmountForWeighting += itemNetAmount;
+            // Weighted contribution: itemNetAmount × (vatRate / 100)
+            weightedVatRateSum += itemNetAmount * (vatRate / 100);
+          }
+        }
+      });
+
+      // If no valid net amount for weighting, return 0
+      if (totalNetAmountForWeighting <= 0) {
+        return 0;
+      }
+
+      // Calculate weighted average VAT rate as percentage
+      const weightedAverageVatRate = (weightedVatRateSum / totalNetAmountForWeighting) * 100;
+
+      // Calculate VAT on the Net Amount using weighted average rate
+      const vat = this.roundToTwoDecimals(netAmount * (weightedAverageVatRate / 100));
+
+      return vat;
     },
 
-    // Total tax = sum of stored tax_amount values + invoice-level tax (if any)
+    // Total Tax: Same as vatAmount (for backward compatibility)
     totalTax() {
-      return this.totalProductVat;
+      return this.vatAmount;
     },
 
-    // Grand total = subtotal + VAT + transport (simple addition of stored values)
-    // Always use: subtotal_after_discount + vat_total + transport_cost
+    // Grand Total: Net Amount + VAT
+    // CRITICAL: Grand Total must be calculated as Net Amount + VAT, NOT Subtotal + VAT
+    // This matches the create page logic exactly
+    // Formula: Grand Total = Net Amount + VAT
     grandTotal() {
-      if (!this.allData) return 0;
-      
-      // Always calculate: subtotal + VAT + transport
-      // This matches the create page exactly
-      const transportCost = parseFloat(this.allData.transport || 0);
-      const grandTotal = this.subtotal + this.totalTax + transportCost;
-      
-      return this.roundToTwoDecimals(Math.max(0, grandTotal));
+      const netAmount = this.netAmountBeforeVAT;
+      const vat = this.vatAmount;
+      return this.roundToTwoDecimals(netAmount + vat);
     },
 
     // Calculate net total (for backward compatibility - same as grandTotal)
