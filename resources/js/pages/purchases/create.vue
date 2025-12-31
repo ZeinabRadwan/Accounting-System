@@ -208,7 +208,13 @@
               :amount-in-words="toWord()" table-class="invoices-create-table" @item-change="handleItemChange"
               @discount-change="calculateProductDiscount" @vat-change="calculateProductVat" @remove-item="removeItem" />
 
-            <!-- Summary Footer -->
+            <!-- Financial Breakdown Section -->
+            <!-- 
+              This section displays the invoice financial breakdown clearly:
+              - Discount and shipping are applied at invoice level and distributed proportionally across items
+              - The "After Discount" column per item already includes its share of discount and shipping
+              - Totals shown here are calculated from invoice-level inputs, not per-item inputs
+            -->
             <div v-if="form.selectedProducts && form.selectedProducts.length > 0" class="summary-footer-wrapper mt-2 mb-3">
               <div class="table-responsive table-custom w-100 m-auto" style="max-width: 100%;">
                 <table class="table table-sm text-center invoices-create-table">
@@ -222,30 +228,77 @@
                       </td>
                       <td colspan="6"></td>
                     </tr>
+                    <!-- Subtotal: Sum of all item totals before discount (qty × unit_price) -->
                     <tr class="summary-footer-row">
                       <td colspan="6" class="text-right summary-label">
-                        <strong>{{ $t("Total Tax") }} (إجمالي الضريبة):</strong>
+                        <strong>{{ $t("Subtotal") }} (المجموع الفرعي):</strong>
                       </td>
                       <td class="summary-value">
-                        {{ formatToTwoDecimals(totalProductTax) }} <span class="saudi-riyal">ê</span>
+                        {{ formatToTwoDecimals(invoiceSubtotal) }} <span class="saudi-riyal">ê</span>
                       </td>
                       <td colspan="6"></td>
                     </tr>
-                    <tr class="summary-footer-row">
+                    <!-- Total Discount: Invoice-level discount distributed proportionally across items -->
+                    <!-- 
+                      Discount Distribution Logic:
+                      - Invoice-level discount is applied on the invoice subtotal
+                      - Discount is distributed proportionally: itemDiscount = (itemSubtotal / invoiceSubtotal) * invoiceDiscount
+                      - Each item's "After Discount" column already includes its proportional share
+                      - This total shows the sum of all distributed discount amounts
+                    -->
+                    <tr v-if="invoiceLevelDiscountTotal > 0" class="summary-footer-row">
                       <td colspan="6" class="text-right summary-label">
                         <strong>{{ $t("Total Discount") }} (إجمالي الخصم):</strong>
                       </td>
-                      <td class="summary-value">
-                        {{ formatToTwoDecimals(totalProductDiscount) }} <span class="saudi-riyal">ê</span>
+                      <td class="summary-value text-danger">
+                        -{{ formatToTwoDecimals(invoiceLevelDiscountTotal) }} <span class="saudi-riyal">ê</span>
                       </td>
                       <td colspan="6"></td>
                     </tr>
+                    <!-- Total Shipping Cost: Distributed proportionally across items -->
+                    <!-- 
+                      Shipping Distribution Logic:
+                      - Shipping cost is applied at invoice level
+                      - Shipping is distributed proportionally: itemShipping = (itemSubtotal / invoiceSubtotal) * shippingCost
+                      - Each item's "After Discount" column already includes its proportional share of shipping
+                      - This total shows the sum of all distributed shipping amounts
+                    -->
+                    <tr v-if="shippingCostTotal > 0" class="summary-footer-row">
+                      <td colspan="6" class="text-right summary-label">
+                        <strong>{{ $t("Total Shipping Cost") }} (إجمالي تكلفة الشحن):</strong>
+                      </td>
+                      <td class="summary-value">
+                        {{ formatToTwoDecimals(shippingCostTotal) }} <span class="saudi-riyal">ê</span>
+                      </td>
+                      <td colspan="6"></td>
+                    </tr>
+                    <!-- Net Amount: Subtotal - Discount + Shipping (before VAT) -->
+                    <tr class="summary-footer-row">
+                      <td colspan="6" class="text-right summary-label">
+                        <strong>{{ $t("Net Amount") }} (المبلغ الصافي):</strong>
+                      </td>
+                      <td class="summary-value">
+                        {{ formatToTwoDecimals(netAmountBeforeVAT) }} <span class="saudi-riyal">ê</span>
+                      </td>
+                      <td colspan="6"></td>
+                    </tr>
+                    <!-- VAT: Calculated on Net Amount (Subtotal - Discount + Shipping) -->
+                    <tr class="summary-footer-row">
+                      <td colspan="6" class="text-right summary-label">
+                        <strong>{{ $t("VAT") }} (الضريبة):</strong>
+                      </td>
+                      <td class="summary-value">
+                        {{ formatToTwoDecimals(vatAmount) }} <span class="saudi-riyal">ê</span>
+                      </td>
+                      <td colspan="6"></td>
+                    </tr>
+                    <!-- Grand Total: Net Amount + VAT -->
                     <tr class="summary-footer-row grand-total-row">
                       <td colspan="6" class="text-right summary-label">
-                        <strong>{{ $t("Grand Total") }} (المجموع):</strong>
+                        <strong>{{ $t("Grand Total") }} (الإجمالي الكلي):</strong>
                       </td>
                       <td class="summary-value grand-total-value">
-                        <strong>{{ formatToTwoDecimals(form.netTotal) }} <span class="saudi-riyal">ê</span></strong>
+                        <strong>{{ formatToTwoDecimals(grandTotal) }} <span class="saudi-riyal">ê</span></strong>
                       </td>
                       <td colspan="6"></td>
                     </tr>
@@ -309,8 +362,10 @@
                 </div>
               </div>
               <div class="form-group col-md-6">
+                <!-- Amount (المبلغ): Final payable amount, always equals Grand Total -->
+                <!-- This represents the total amount due after all calculations: Net Amount + VAT -->
                 <label for="total_amount">{{ $t("Amount") }}</label>
-                <input id="total_amount" v-model="form.netTotal" type="number" step="any" class="form-control"
+                <input id="total_amount" :value="grandTotal" type="number" step="any" class="form-control"
                   name="total_amount" readonly />
               </div>
             </div>
@@ -420,6 +475,25 @@
                   :class="{ 'is-invalid': form.errors.has('receiptNo') }" name="receiptNo"
                   :placeholder="$t('Enter a receipt no')" />
                 <has-error :form="form" field="receiptNo" />
+              </div>
+              <div class="form-group col-md-4" v-if="form.addPayment == 1">
+                <label for="payment_method_id">{{ $t("Payment Method") }} ({{ $t("وسيلة الدفع") }})</label>
+                <select id="payment_method_id" v-model="form.payment_method_id" class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('payment_method_id') }" name="payment_method_id"
+                  :disabled="loadingPaymentMethods"
+                  @change="clearFieldError('payment_method_id')">
+                  <option value="">{{ loadingPaymentMethods ? $t("Loading...") : $t("Select") }}</option>
+                  <option v-if="!loadingPaymentMethods && paymentMethods.length === 0" value="" disabled>
+                    {{ $t("No payment methods available") }}
+                  </option>
+                  <option v-for="method in paymentMethods" :key="method.id" :value="method.id">
+                    {{ method.name }}
+                  </option>
+                </select>
+                <has-error :form="form" field="payment_method_id" />
+                <small v-if="loadingPaymentMethods" class="form-text text-muted">
+                  <i class="fas fa-spinner fa-spin"></i> {{ $t("Loading payment methods...") }}
+                </small>
               </div>
             </div>
 
@@ -595,6 +669,7 @@ export default {
       addPayment: "0", // Default to "No" (field is hidden)
       chequeNo: "",
       receiptNo: "",
+      payment_method_id: null,
       poDate: new Date().toISOString().slice(0, 10),
       purchaseDate: new Date().toISOString().slice(0, 10),
       purchase_status: "",
@@ -615,6 +690,7 @@ export default {
     costCenters: [],
     branches: [],
     paymentMethods: [],
+    loadingPaymentMethods: false,
 
     // Communication configuration status
     communicationConfig: {
@@ -699,6 +775,144 @@ export default {
       return this.form.supplier &&
         this.form.selectedProducts &&
         this.form.selectedProducts.length > 0;
+    },
+
+    // Invoice Subtotal: Sum of all item subtotals before discount (qty × unit_price)
+    invoiceSubtotal() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        return 0;
+      }
+      return this.roundToTwoDecimals(
+        this.form.selectedProducts.reduce((total, item) => {
+          const unitPriceNumber = Number(item.originalPrice || item.unitPrice) || 0;
+          const qtyNumber = Number(item.qty) || 0;
+          return total + (unitPriceNumber * qtyNumber);
+        }, 0)
+      );
+    },
+
+    // Invoice-Level Discount Total: Total discount applied at invoice level and distributed across items
+    // This is calculated from invoice-level discount inputs (discount_type and discount_value)
+    invoiceLevelDiscountTotal() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        return 0;
+      }
+
+      const subtotal = this.invoiceSubtotal;
+      if (subtotal <= 0 || !this.form.discount_value || this.form.discount_value <= 0) {
+        return 0;
+      }
+
+      let discountAmount = 0;
+      if (this.form.discount_type === 'percentage') {
+        discountAmount = this.roundToTwoDecimals((subtotal * this.form.discount_value) / 100);
+      } else {
+        discountAmount = this.roundToTwoDecimals(Number(this.form.discount_value));
+      }
+
+      // Ensure discount doesn't exceed the subtotal
+      return discountAmount > subtotal ? this.roundToTwoDecimals(subtotal) : discountAmount;
+    },
+
+    // Shipping Cost Total: Total shipping cost distributed proportionally across items
+    shippingCostTotal() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        return 0;
+      }
+      // Use transportTaxableCost if supplier is taxable, otherwise transportCost
+      const transportCost = this.isSupplierTaxable
+        ? Number(this.form.transportTaxableCost || 0)
+        : Number(this.form.transportCost || 0);
+      return this.roundToTwoDecimals(transportCost);
+    },
+
+    // Net Amount Before VAT: Subtotal - Discount + Shipping
+    // This is the amount on which VAT is calculated
+    netAmountBeforeVAT() {
+      const subtotal = this.invoiceSubtotal;
+      const discount = this.invoiceLevelDiscountTotal;
+      const shipping = this.shippingCostTotal;
+      return this.roundToTwoDecimals(subtotal - discount + shipping);
+    },
+
+    // VAT Amount: Calculated on Net Amount (Subtotal - Discount + Shipping)
+    // CRITICAL: VAT must be calculated on Net Amount, NOT on Subtotal
+    // This ensures accounting accuracy: VAT is applied after discount and shipping adjustments
+    // 
+    // Why VAT is calculated on Net Amount (not Subtotal):
+    // - Discount reduces the taxable base, so VAT should be calculated after discount
+    // - Shipping is part of the transaction value and should be included in VAT base
+    // - This matches standard accounting practices: VAT = (Subtotal - Discount + Shipping) × VAT Rate
+    //
+    // Formula: VAT = Net Amount × Weighted Average VAT Rate
+    // Where: Net Amount = Subtotal - Discount + Shipping
+    vatAmount() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        return 0;
+      }
+
+      // Get the Net Amount (Subtotal - Discount + Shipping)
+      // This is the correct base for VAT calculation
+      const netAmount = this.netAmountBeforeVAT;
+      if (netAmount <= 0) {
+        return 0;
+      }
+
+      // Calculate weighted average VAT rate from all items
+      // We use items' net amounts (after discount) as weights, not their VAT bases
+      // This ensures the rate reflects the actual distribution of value across items
+      let totalNetAmountForWeighting = 0;
+      let weightedVatRateSum = 0;
+
+      this.form.selectedProducts.forEach((item) => {
+        // Use item's net amount after discount (before shipping allocation for weighting)
+        // Shipping is included in the invoice-level Net Amount, so we weight by net amount
+        const itemNetAmount = item.netTotal || 0;
+        
+        if (itemNetAmount > 0) {
+          // Get item's VAT rate
+          let vatRate = 0;
+          if (item.selectedVatRate && item.selectedVatRate.rate !== undefined && item.selectedVatRate.rate !== null) {
+            vatRate = Number(item.selectedVatRate.rate);
+          } else if (item.taxRate !== undefined && item.taxRate !== null) {
+            vatRate = Number(item.taxRate);
+          }
+
+          // Ensure vatRate is valid
+          if (!isNaN(vatRate) && vatRate >= 0) {
+            totalNetAmountForWeighting += itemNetAmount;
+            // Weighted contribution: itemNetAmount × (vatRate / 100)
+            weightedVatRateSum += itemNetAmount * (vatRate / 100);
+          }
+        }
+      });
+
+      // If no valid net amount for weighting, return 0
+      if (totalNetAmountForWeighting <= 0) {
+        return 0;
+      }
+
+      // Calculate weighted average VAT rate as percentage
+      // Formula: weightedAverageRate = (sum(itemNetAmount × itemVatRate) / sum(itemNetAmount)) × 100
+      const weightedAverageVatRate = (weightedVatRateSum / totalNetAmountForWeighting) * 100;
+
+      // Calculate VAT on the Net Amount using weighted average rate
+      // This is the correct accounting calculation: VAT = Net Amount × VAT Rate
+      const vat = this.roundToTwoDecimals(netAmount * (weightedAverageVatRate / 100));
+
+      return vat;
+    },
+
+    // Grand Total: Net Amount + VAT
+    // CRITICAL: Grand Total must be calculated as Net Amount + VAT, NOT Subtotal + VAT
+    // This ensures the discount and shipping are properly reflected in the final amount
+    // Formula: Grand Total = Net Amount + VAT
+    // Where: Net Amount = Subtotal - Discount + Shipping
+    //        VAT = Net Amount × Weighted Average VAT Rate
+    grandTotal() {
+      const netAmount = this.netAmountBeforeVAT;
+      const vat = this.vatAmount;
+      return this.roundToTwoDecimals(netAmount + vat);
     },
   },
   watch: {
@@ -1192,16 +1406,11 @@ export default {
 
     // Update Net Total when Total with VAT or Transport Cost changes
     updateNetTotal() {
-      // Calculate Total with VAT (sum of all individual "Total with VAT" values)
-      let totalWithVAT = this.getTotalWithVATSum();
-
-      // Calculate transport costs (NO separate VAT here - VAT on transport is already included in item.totalTax when taxable)
-      // Business rule: total_invoice = sum(after_discount_per_item + VAT_per_item) + transport_total
-      const transportTotal = Number(this.form.transportTaxableCost || this.form.transportCost || 0);
+      // Update form.netTotal to match the computed grandTotal
+      // This ensures backend submission uses the correct final amount
+      // Grand Total = Net Amount + VAT (calculated correctly on Net Amount, not Subtotal)
+      this.form.netTotal = this.grandTotal;
       this.form.transportVatAmount = 0;
-
-      // Net Total = Total with VAT (items) + Transport cost
-      this.form.netTotal = Number((totalWithVAT + transportTotal).toFixed(2));
     },
 
     // Helper method to find matching VAT rate
@@ -2100,17 +2309,35 @@ export default {
       this.clearFieldError('cost_center_id');
     },
 
-    // get all branches
+    // get all payment methods
     async getPaymentMethods() {
+      this.loadingPaymentMethods = true;
       try {
-        const response = await axios.get(window.location.origin + '/api/payment-methods/all');
-        if (response.data && response.data.data) {
-          this.paymentMethods = response.data.data;
+        const response = await axios.get(window.location.origin + '/api/payment-methods', {
+          params: { perPage: 1000 } // Get all payment methods
+        });
+        // Handle both paginated and non-paginated responses
+        if (response.data) {
+          if (Array.isArray(response.data)) {
+            this.paymentMethods = response.data;
+          } else if (response.data.data && Array.isArray(response.data.data)) {
+            this.paymentMethods = response.data.data;
+          } else {
+            this.paymentMethods = [];
+          }
+        } else {
+          this.paymentMethods = [];
         }
       } catch (error) {
         console.error('Error loading payment methods:', error);
-        // Fallback to empty array if API fails
         this.paymentMethods = [];
+        toast.fire({
+          type: 'error',
+          title: this.$t('Error'),
+          text: this.$t('Failed to load payment methods'),
+        });
+      } finally {
+        this.loadingPaymentMethods = false;
       }
     },
     async getBranches() {
