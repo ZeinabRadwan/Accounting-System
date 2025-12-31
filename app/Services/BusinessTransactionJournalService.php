@@ -834,6 +834,68 @@ class BusinessTransactionJournalService
                 }
             }
 
+            // CRITICAL FIX: Recalculate VAT on Net Amount (Subtotal - Discount + Shipping)
+            // The stored tax_amount values may have been calculated incorrectly (on Subtotal instead of Net Amount)
+            // We recalculate here to ensure journal entry accuracy
+            $netAmountBeforeVAT = ($totalInventoryAmount - $billDiscountAmount) + $transportCost;
+            
+            // Calculate weighted average VAT rate from all products
+            $totalNetAmountForWeighting = 0;
+            $weightedVatRateSum = 0;
+            
+            foreach ($purchaseProducts as $purchaseProduct) {
+                $product = $purchaseProduct->product;
+                if ($product && $product->is_service) {
+                    continue; // Skip services for inventory-based weighting
+                }
+                
+                // Get item's net amount (after product-level discount, before invoice-level discount)
+                $quantity = (float) ($purchaseProduct->quantity ?? 0);
+                $purchasePrice = (float) ($purchaseProduct->purchase_price ?? 0);
+                $lineGross = $quantity * $purchasePrice;
+                $productDiscountAmount = (float) ($purchaseProduct->discount_amount ?? 0);
+                $itemNetAmount = $lineGross - $productDiscountAmount;
+                
+                if ($itemNetAmount > 0) {
+                    // Get VAT rate from stored data or calculate from tax_amount
+                    $vatRate = 0;
+                    $itemTaxAmount = (float) ($purchaseProduct->tax_amount ?? 0);
+                    $itemTotalAfterDiscount = (float) ($purchaseProduct->total_after_discount ?? $itemNetAmount);
+                    
+                    if ($itemTotalAfterDiscount > 0 && $itemTaxAmount > 0) {
+                        // Calculate rate: VAT = Net × Rate, so Rate = VAT / Net
+                        // But this might be wrong if VAT was calculated on wrong base
+                        // Try to get rate from vat_rate field if available
+                        if (isset($purchaseProduct->vat_rate) && $purchaseProduct->vat_rate > 0) {
+                            $vatRate = (float) $purchaseProduct->vat_rate;
+                        } else {
+                            // Fallback: calculate from stored tax_amount (may be inaccurate)
+                            $vatRate = ($itemTaxAmount / $itemTotalAfterDiscount) * 100;
+                        }
+                    }
+                    
+                    if ($vatRate > 0) {
+                        $totalNetAmountForWeighting += $itemNetAmount;
+                        $weightedVatRateSum += $itemNetAmount * ($vatRate / 100);
+                    }
+                }
+            }
+            
+            // Recalculate total VAT on Net Amount using weighted average rate
+            if ($totalNetAmountForWeighting > 0 && $netAmountBeforeVAT > 0) {
+                $weightedAverageVatRate = ($weightedVatRateSum / $totalNetAmountForWeighting) * 100;
+                $recalculatedTotalVatAmount = round($netAmountBeforeVAT * ($weightedAverageVatRate / 100), 2);
+                
+                Log::info("Recalculated VAT for PO {$purchase->purchase_no}: Net Amount={$netAmountBeforeVAT}, Weighted Avg Rate={$weightedAverageVatRate}%, Recalculated VAT={$recalculatedTotalVatAmount}, Original VAT={$totalVatAmount}");
+                
+                // Use recalculated VAT if it's significantly different (more than 0.01 difference)
+                // This ensures we use the correct calculation even if stored values are wrong
+                if (abs($recalculatedTotalVatAmount - $totalVatAmount) > 0.01) {
+                    Log::warning("VAT amount mismatch for PO {$purchase->purchase_no}: Using recalculated value {$recalculatedTotalVatAmount} instead of stored {$totalVatAmount}");
+                    $totalVatAmount = $recalculatedTotalVatAmount;
+                }
+            }
+
             // Skip journal entry if no products have inventory tracking (all are services)
             if ($totalInventoryAmount == 0) {
                 Log::info("Skipping journal entry creation for purchase {$purchase->purchase_no}: No products with inventory tracking found.");
