@@ -369,6 +369,25 @@
                     :placeholder="$t('Enter a receipt no')" @input="clearFieldError('receiptNo')" />
                   <has-error :form="form" field="receiptNo" />
                 </div>
+                <div class="form-group col-md-3" v-if="form.addPayment == 1">
+                  <label for="payment_method_id">{{ $t("Payment Method") }} ({{ $t("وسيلة الدفع") }})</label>
+                  <select id="payment_method_id" v-model="form.payment_method_id" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('payment_method_id') }" name="payment_method_id"
+                    :disabled="loadingPaymentMethods"
+                    @change="clearFieldError('payment_method_id')">
+                    <option value="">{{ loadingPaymentMethods ? $t("Loading...") : $t("Select") }}</option>
+                    <option v-if="!loadingPaymentMethods && paymentMethods.length === 0" value="" disabled>
+                      {{ $t("No payment methods available") }}
+                    </option>
+                    <option v-for="method in paymentMethods" :key="method.id" :value="method.id">
+                      {{ method.name }}
+                    </option>
+                  </select>
+                  <has-error :form="form" field="payment_method_id" />
+                  <small v-if="loadingPaymentMethods" class="form-text text-muted">
+                    <i class="fas fa-spinner fa-spin"></i> {{ $t("Loading payment methods...") }}
+                  </small>
+                </div>
               </div>
               <div class="row">
                 <div class="form-group col-md-4" style="display: none;">
@@ -539,11 +558,13 @@ export default {
         discount: 0,
         totalDiscount: 0,
         paidAmount: "",
+        payment_method_id: null,
       }),
       products: [],
       accounts: [],
       taxes: [],
       paymentMethods: [],
+      loadingPaymentMethods: false,
       prefix: "",
       isUpdatingChartOfAccount: false,
       isAutoAssigningClient: false,
@@ -898,14 +919,33 @@ export default {
     },
 
     async getPaymentMethods() {
+      this.loadingPaymentMethods = true;
       try {
-        const response = await axios.get(window.location.origin + '/api/payment-methods/all');
-        if (response.data && response.data.data) {
-          this.paymentMethods = response.data.data;
+        const response = await axios.get(window.location.origin + '/api/payment-methods', {
+          params: { perPage: 1000 } // Get all payment methods
+        });
+        // Handle both paginated and non-paginated responses
+        if (response.data) {
+          if (Array.isArray(response.data)) {
+            this.paymentMethods = response.data;
+          } else if (response.data.data && Array.isArray(response.data.data)) {
+            this.paymentMethods = response.data.data;
+          } else {
+            this.paymentMethods = [];
+          }
+        } else {
+          this.paymentMethods = [];
         }
       } catch (error) {
         console.error('Error loading payment methods:', error);
         this.paymentMethods = [];
+        toast.fire({
+          type: 'error',
+          title: this.$t('Error'),
+          text: this.$t('Failed to load payment methods'),
+        });
+      } finally {
+        this.loadingPaymentMethods = false;
       }
     },
 
@@ -939,6 +979,13 @@ export default {
           this.form.paidAmount = data.data.payment.amount;
           this.form.chequeNo = data.data.payment.chequeNo;
           this.form.receiptNo = data.data.payment.receiptNo;
+        }
+        
+        // Preselect payment method if available
+        if (data.data.payment_method_id) {
+          this.form.payment_method_id = data.data.payment_method_id;
+        } else if (data.data.paymentMethod && data.data.paymentMethod.id) {
+          this.form.payment_method_id = data.data.paymentMethod.id;
         }
         
         this.form.isSendEmail = data.data.isSendEmail || false;

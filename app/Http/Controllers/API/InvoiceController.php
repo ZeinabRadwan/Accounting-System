@@ -193,9 +193,11 @@ class InvoiceController extends Controller
             // Set status based on country
             $invoiceStatus = $isSaudiArabia ? 0 : $request->status; // 0 = Inactive for KSA, use request value for others
 
-            // calculate is paid
+            // calculate is paid - use isPaid from request if provided, otherwise calculate from payment amount
             $isPaid = 0;
-            if ($request->netTotal == $request->paidAmount) {
+            if (isset($request->isPaid) && $request->isPaid == 1) {
+                $isPaid = 1;
+            } elseif ($request->netTotal == $request->paidAmount) {
                 $isPaid = 1;
             }
 
@@ -220,6 +222,7 @@ class InvoiceController extends Controller
                 'note' => clean($request->note),
                 'status' => $invoiceStatus,
                 'is_paid' => $isPaid,
+                'payment_method_id' => $request->payment_method_id ?? null,
                 'created_by' => $userId,
                 'fiscal_year_id' => $currentFiscalYearId,
                 'accounting_period_id' => $currentAccountingPeriodId,
@@ -295,70 +298,100 @@ class InvoiceController extends Controller
                 }
             }
 
-            // store transaction (only if invoice is active)
-            if ($request->addPayment == 1) {
-                if ($invoiceStatus !== 1) {
-                    DB::rollBack();
+            // Handle payment creation when isPaid is true or addPayment is 1
+            $shouldCreatePayment = ($isPaid == 1 && $request->payment_method_id) || ($request->addPayment == 1);
+            
+            if ($shouldCreatePayment) {
+                // Note: We allow payment creation even for inactive invoices (status 0) during invoice creation
+                // This is especially important for KSA where invoices start as inactive
 
-                    return $this->responseWithError('Cannot add payment to an inactive invoice.');
-                }
-
-                // Get account
-                $account = Account::findOrFail($request->account['id']);
-
-                // Prepare voucher data for invoice payment
-                $voucherData = [
-                    'slug' => uniqid(),
-                    'voucher_type' => 1, // Receive (قبض)
-                    'entity_type' => 'client',
-                    'client_id' => $invoice->client_id,
-                    'payment_method' => 'invoice',
-                    'invoice_id' => $invoice->id,
-                    'amount' => $request->paidAmount,
-                    'account_id' => $account->id,
-                    'date' => $request->date,
-                    'cheque_no' => $request->chequeNo ?? null,
-                    'receipt_no' => $request->receiptNo ?? null,
-                    'note' => clean($request->note),
-                    'status' => $invoiceStatus,
-                    'created_by' => $userId,
-                    'branch_id' => $branchId,
-                ];
-
-                // Generate transaction reason
-                $reason = '['.config('config.invoicePrefix').'-'.$invoice->invoice_no.'] Invoice Payment added to ['.$account->account_number.']';
-
-                // create transaction
-                $transaction = AccountTransaction::create([
-                    'account_id' => $account->id,
-                    'amount' => $request->paidAmount,
-                    'reason' => $reason,
-                    'type' => 1,
-                    'transaction_date' => $request->date,
-                    'cheque_no' => $request->chequeNo,
-                    'receipt_no' => $request->receiptNo,
-                    'created_by' => $userId,
-                    'status' => $invoiceStatus,
-                    'branch_id' => $branchId,
-                ]);
-
-                $voucherData['transaction_id'] = $transaction->id;
-
-                // Create payment voucher instead of invoice payment
-                $voucher = PaymentVoucher::create($voucherData);
-
-                // Create journal entry for payment voucher if status is active
-                if ($invoiceStatus == 1) {
-                    try {
-                        $journalService = new BusinessTransactionJournalService;
-                        $voucher->load(['client.chartOfAccount', 'transaction.account.chartOfAccount']);
-                        $paymentJournalEntry = $journalService->createPaymentVoucherJournal($voucher, $userId);
-                    } catch (\Exception $e) {
-                        // Log the error but don't fail the payment creation
-                        Log::error('Failed to create payment journal entry for voucher: '.$e->getMessage());
+                // Get account - prefer account from request, otherwise try to find from payment method
+                $account = null;
+                if ($request->addPayment == 1 && isset($request->account['id'])) {
+                    $account = Account::findOrFail($request->account['id']);
+                } elseif ($isPaid == 1 && $request->payment_method_id) {
+                    // Try to find an account that uses the payment method's chart of account
+                    $paymentMethod = \App\Models\PaymentMethod::find($request->payment_method_id);
+                    if ($paymentMethod && $paymentMethod->chart_of_account_id) {
+                        // Find an account that uses this chart of account and belongs to the branch
+                        $account = Account::withoutGlobalScopes()
+                            ->where('chart_of_account_id', $paymentMethod->chart_of_account_id)
+                            ->where('branch_id', $branchId)
+                            ->where('status', 1)
+                            ->first();
+                    }
+                    
+                    // If still no account found, try to get a default account for the branch
+                    if (! $account) {
+                        $account = Account::withoutGlobalScopes()
+                            ->where('branch_id', $branchId)
+                            ->where('status', 1)
+                            ->first();
                     }
                 }
 
+                // Only create payment voucher if we have an account
+                if ($account) {
+                    // Use netTotal as payment amount when isPaid is true, otherwise use paidAmount
+                    $paymentAmount = ($isPaid == 1 && ! $request->addPayment) ? $request->netTotal : ($request->paidAmount ?? $request->netTotal);
+
+                    // Prepare voucher data for invoice payment
+                    $voucherData = [
+                        'slug' => uniqid(),
+                        'voucher_type' => 1, // Receive (قبض)
+                        'entity_type' => 'client',
+                        'client_id' => $invoice->client_id,
+                        'payment_method' => 'invoice',
+                        'invoice_id' => $invoice->id,
+                        'amount' => $paymentAmount,
+                        'account_id' => $account->id,
+                        'date' => $request->date,
+                        'cheque_no' => $request->chequeNo ?? null,
+                        'receipt_no' => $request->receiptNo ?? null,
+                        'note' => clean($request->note),
+                        'status' => $invoiceStatus,
+                        'created_by' => $userId,
+                        'branch_id' => $branchId,
+                    ];
+
+                    // Generate transaction reason
+                    $reason = '['.config('config.invoicePrefix').'-'.$invoice->invoice_no.'] Invoice Payment added to ['.$account->account_number.']';
+
+                    // create transaction
+                    $transaction = AccountTransaction::create([
+                        'account_id' => $account->id,
+                        'amount' => $paymentAmount,
+                        'reason' => $reason,
+                        'type' => 1,
+                        'transaction_date' => $request->date,
+                        'cheque_no' => $request->chequeNo ?? null,
+                        'receipt_no' => $request->receiptNo ?? null,
+                        'created_by' => $userId,
+                        'status' => $invoiceStatus,
+                        'branch_id' => $branchId,
+                    ]);
+
+                    $voucherData['transaction_id'] = $transaction->id;
+
+                    // Create payment voucher instead of invoice payment
+                    $voucher = PaymentVoucher::create($voucherData);
+
+                    // Create journal entry for payment voucher if status is active
+                    // Note: Journal entries are only created for active vouchers (status 1)
+                    if ($invoiceStatus == 1) {
+                        try {
+                            $journalService = new BusinessTransactionJournalService;
+                            $voucher->load(['client.chartOfAccount', 'transaction.account.chartOfAccount']);
+                            $paymentJournalEntry = $journalService->createPaymentVoucherJournal($voucher, $userId);
+                        } catch (\Exception $e) {
+                            // Log the error but don't fail the payment creation
+                            Log::error('Failed to create payment journal entry for voucher: '.$e->getMessage());
+                        }
+                    }
+                } elseif ($isPaid == 1 && $request->payment_method_id) {
+                    // Log warning if payment method is set but no account found
+                    Log::warning('Invoice created as paid with payment method but no account found for payment voucher creation. Invoice ID: '.$invoice->id);
+                }
             }
 
             // send notification
@@ -497,6 +530,7 @@ class InvoiceController extends Controller
                 'delivery_place' => $request->deliveryPlace,
                 'invoice_date' => $request->date,
                 'is_paid' => $isPaid,
+                'payment_method_id' => $request->payment_method_id ?? $invoice->payment_method_id,
                 'note' => clean($request->note),
             ]);
 
@@ -633,6 +667,7 @@ class InvoiceController extends Controller
                 'note' => clean($request->note),
                 'status' => $request->status,
                 'is_paid' => $isPaid,
+                'payment_method_id' => $request->payment_method_id ?? $invoice->payment_method_id,
                 'fiscal_year_id' => $currentFiscalYearId,
                 'accounting_period_id' => $currentAccountingPeriodId,
             ]);

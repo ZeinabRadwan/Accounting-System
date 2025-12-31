@@ -16,7 +16,7 @@ class Invoice extends Model
      * @var array
      */
     protected $fillable = [
-        'invoice_no', 'slug', 'reference', 'client_id', 'discount_type', 'discount', 'transport', 'sub_total', 'po_reference', 'payment_terms', 'delivery_place', 'tax_id', 'invoice_date', 'created_by', 'note', 'status', 'is_paid', 'fiscal_year_id', 'accounting_period_id', 'branch_id', 'cost_center_id', 'sale_status', 'representative_id', 'cashier_id',
+        'invoice_no', 'slug', 'reference', 'client_id', 'discount_type', 'discount', 'transport', 'sub_total', 'po_reference', 'payment_terms', 'delivery_place', 'tax_id', 'invoice_date', 'created_by', 'note', 'status', 'is_paid', 'fiscal_year_id', 'accounting_period_id', 'branch_id', 'cost_center_id', 'sale_status', 'representative_id', 'cashier_id', 'payment_method_id',
     ];
 
     protected $appends = ['calculated_due', 'calculated_tax', 'calculated_total'];

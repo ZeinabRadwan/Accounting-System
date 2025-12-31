@@ -155,6 +155,25 @@
                       " />
                   <has-error :form="form" field="paymentTerms" />
                 </div>
+                <div class="form-group col-md-6 col-xl-3">
+                  <label for="payment_method_id">{{ $t("Payment Method") }} ({{ $t("وسيلة الدفع") }})</label>
+                  <select id="payment_method_id" v-model="form.payment_method_id" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('payment_method_id') }" name="payment_method_id"
+                    :disabled="loadingPaymentMethods"
+                    @change="clearFieldError('payment_method_id')">
+                    <option value="">{{ loadingPaymentMethods ? $t("Loading...") : $t("Select") }}</option>
+                    <option v-if="!loadingPaymentMethods && paymentMethods.length === 0" value="" disabled>
+                      {{ $t("No payment methods available") }}
+                    </option>
+                    <option v-for="method in paymentMethods" :key="method.id" :value="method.id">
+                      {{ method.name }}
+                    </option>
+                  </select>
+                  <has-error :form="form" field="payment_method_id" />
+                  <small v-if="loadingPaymentMethods" class="form-text text-muted">
+                    <i class="fas fa-spinner fa-spin"></i> {{ $t("Loading payment methods...") }}
+                  </small>
+                </div>
                 <div v-if="taxes" class="form-group col-md-6 col-xl-3">
                   <label for="orderTax">{{ $t('Purchase Tax') }}
                     <span class="required">*</span></label>
@@ -334,6 +353,7 @@ export default {
       netTotal: 0,
       poReference: '',
       paymentTerms: '',
+      payment_method_id: null,
       totalProductTax: 0,
       poDate: new Date().toISOString().slice(0, 10),
       purchaseDate: new Date().toISOString().slice(0, 10),
@@ -347,6 +367,7 @@ export default {
     accounts: '',
     taxes: '',
     paymentMethods: [],
+    loadingPaymentMethods: false,
     prefix: '',
     purchasePrefix: '',
     isAutoAssigningSupplier: false,
@@ -453,6 +474,13 @@ export default {
       this.form.status = data.data.status
       this.form.note = data.data.note
       this.form.selectedProducts = this.assignProducts(data.data.products)
+      
+      // Preselect payment method if available
+      if (data.data.payment_method_id) {
+        this.form.payment_method_id = data.data.payment_method_id;
+      } else if (data.data.paymentMethod && data.data.paymentMethod.id) {
+        this.form.payment_method_id = data.data.paymentMethod.id;
+      }
     },
 
     // get all local suppliers
@@ -493,14 +521,33 @@ export default {
 
     // get payment methods
     async getPaymentMethods() {
+      this.loadingPaymentMethods = true;
       try {
-        const response = await axios.get(window.location.origin + '/api/payment-methods/all');
-        if (response.data && response.data.data) {
-          this.paymentMethods = response.data.data;
+        const response = await axios.get(window.location.origin + '/api/payment-methods', {
+          params: { perPage: 1000 } // Get all payment methods
+        });
+        // Handle both paginated and non-paginated responses
+        if (response.data) {
+          if (Array.isArray(response.data)) {
+            this.paymentMethods = response.data;
+          } else if (response.data.data && Array.isArray(response.data.data)) {
+            this.paymentMethods = response.data.data;
+          } else {
+            this.paymentMethods = [];
+          }
+        } else {
+          this.paymentMethods = [];
         }
       } catch (error) {
         console.error('Error loading payment methods:', error);
         this.paymentMethods = [];
+        toast.fire({
+          type: 'error',
+          title: this.$t('Error'),
+          text: this.$t('Failed to load payment methods'),
+        });
+      } finally {
+        this.loadingPaymentMethods = false;
       }
     },
 

@@ -557,16 +557,122 @@
                   </div>
                 </div>
                 <div class="form-group col-md-6" v-if="form.isPaid">
-                  <label for="payment_method_id">{{ $t("Payment Method") }}</label>
+                  <label for="payment_method_id">{{ $t("Payment Method") }} ({{ $t("وسيلة الدفع") }})</label>
                   <select id="payment_method_id" v-model="form.payment_method_id" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('payment_method_id') }" name="payment_method_id"
-                    @change="clearFieldError('payment_method_id')">
-                    <option value="">{{ $t("Select") }}</option>
+                    :disabled="loadingPaymentMethods"
+                    @change="onPaymentMethodChange">
+                    <option value="">{{ loadingPaymentMethods ? $t("Loading...") : $t("Select") }}</option>
+                    <option v-if="!loadingPaymentMethods && paymentMethods.length === 0" value="" disabled>
+                      {{ $t("No payment methods available") }}
+                    </option>
                     <option v-for="method in paymentMethods" :key="method.id" :value="method.id">
                       {{ method.name }}
                     </option>
                   </select>
                   <has-error :form="form" field="payment_method_id" />
+                  <small v-if="loadingPaymentMethods" class="form-text text-muted">
+                    <i class="fas fa-spinner fa-spin"></i> {{ $t("Loading payment methods...") }}
+                  </small>
+                  <!-- Payment Method Status Indicator -->
+                  <div v-if="selectedPaymentMethod && !selectedPaymentMethod.status" class="mt-2">
+                    <small class="text-warning">
+                      <i class="fas fa-exclamation-triangle"></i> {{ $t("Payment method is inactive") }}
+                    </small>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Payment Fields - Show when Payment Type is Paid and Payment Method is selected -->
+              <div class="row" v-if="form.isPaid && form.payment_method_id">
+                <!-- Account Field - Always shown when payment method is selected -->
+                <div class="form-group col-md-4">
+                  <label for="account">
+                    {{ $t("Account") }} ({{ $t("الحساب") }})
+                    <span v-if="selectedPaymentMethod && selectedPaymentMethod.status" class="required">*</span>
+                  </label>
+                  <v-select 
+                    v-model="form.account" 
+                    :options="accounts" 
+                    label="label"
+                    :class="{ 'is-invalid': form.errors.has('account') }" 
+                    name="account"
+                    :placeholder="$t('Select an account')" 
+                    :disabled="!selectedPaymentMethod || !selectedPaymentMethod.status"
+                    @input="onAccountChange">
+                    <template slot="option" slot-scope="option">
+                      <img v-if="option.image" :src="option.image" style="width: 30px; height: 30px;" />
+                      {{ option.label }}
+                    </template>
+                  </v-select>
+                  <has-error :form="form" field="account" />
+                  
+                  <!-- Account validation hint -->
+                  <div v-if="selectedPaymentMethod && selectedPaymentMethod.status && !form.account" class="text-warning mt-1">
+                    <small><i class="fas fa-exclamation-triangle"></i> {{ $t("Please choose a bank account") }}</small>
+                  </div>
+                  
+                  <!-- Bank Account Chart of Account Status -->
+                  <div class="account-status mt-2" v-if="form.account">
+                    <div v-if="!form.account.chartOfAccountId" class="account-warning">
+                      <i class="fas fa-exclamation-triangle text-warning"></i>
+                      <span class="ml-2">{{ $t('Bank Account needs Chart of Account') }}</span>
+                      <button type="button" class="btn btn-sm btn-outline-warning ml-2" @click="goToBankAccounts">
+                        <i class="fas fa-external-link-alt"></i>
+                        {{ $t('Go to Bank Accounts') }}
+                      </button>
+                    </div>
+                    <div v-else class="account-success">
+                      <i class="fas fa-check-circle text-success"></i>
+                      <span class="ml-2">{{ $t('Bank Account Chart of Account ready') }}</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Cheque Number Field - Only shown when payment method is inactive -->
+                <div class="form-group col-md-4" v-if="selectedPaymentMethod && !selectedPaymentMethod.status">
+                  <label for="chequeNo">
+                    {{ $t("Cheque No") }} ({{ $t("رقم الشيك") }})
+                  </label>
+                  <input 
+                    id="chequeNo" 
+                    v-model="form.chequeNo" 
+                    type="text" 
+                    class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('chequeNo') }" 
+                    name="chequeNo"
+                    :placeholder="$t('Enter a cheque number')" 
+                    :disabled="true"
+                    readonly
+                    style="background-color: #e9ecef; cursor: not-allowed;" />
+                  <has-error :form="form" field="chequeNo" />
+                  <small class="form-text text-muted">
+                    <i class="fas fa-info-circle"></i> {{ $t("Read-only field for inactive payment method") }}
+                  </small>
+                </div>
+                
+                <!-- Receipt Number Field - Always shown when payment method is selected -->
+                <div class="form-group col-md-4">
+                  <label for="receiptNo">
+                    {{ $t("Receipt No") }} ({{ $t("رقم الإيصال") }})
+                    <span v-if="selectedPaymentMethod && selectedPaymentMethod.status" class="required">*</span>
+                  </label>
+                  <input 
+                    id="receiptNo" 
+                    v-model="form.receiptNo" 
+                    type="text" 
+                    class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('receiptNo') }" 
+                    name="receiptNo"
+                    :placeholder="$t('Enter a receipt no')" 
+                    :disabled="!selectedPaymentMethod || !selectedPaymentMethod.status"
+                    :readonly="!selectedPaymentMethod || !selectedPaymentMethod.status"
+                    :style="(!selectedPaymentMethod || !selectedPaymentMethod.status) ? 'background-color: #e9ecef; cursor: not-allowed;' : ''"
+                    @input="clearFieldError('receiptNo')" />
+                  <has-error :form="form" field="receiptNo" />
+                  <small v-if="selectedPaymentMethod && !selectedPaymentMethod.status" class="form-text text-muted">
+                    <i class="fas fa-info-circle"></i> {{ $t("Read-only field for inactive payment method") }}
+                  </small>
                 </div>
               </div>
 
@@ -974,6 +1080,7 @@ export default {
       cashiers: [],
       branches: [],
       paymentMethods: [],
+      loadingPaymentMethods: false,
       prefix: "",
       isUpdatingChartOfAccount: false, // Flag to prevent form submission during chart of account updates
 
@@ -1139,6 +1246,19 @@ export default {
       return this.form.account &&
         this.form.paidAmount &&
         Number(this.form.paidAmount) > 0;
+    },
+
+    // Get the selected payment method object
+    selectedPaymentMethod() {
+      if (!this.form.payment_method_id || !this.paymentMethods || this.paymentMethods.length === 0) {
+        return null;
+      }
+      return this.paymentMethods.find(method => method.id == this.form.payment_method_id) || null;
+    },
+
+    // Check if payment method is active
+    isPaymentMethodActive() {
+      return this.selectedPaymentMethod && this.selectedPaymentMethod.status === 1;
     },
 
     // Check if payment fields are filled (for warning hints)
@@ -1902,17 +2022,35 @@ export default {
       this.clearFieldError('cashier_id');
     },
 
-    // get all branches
+    // get all payment methods
     async getPaymentMethods() {
+      this.loadingPaymentMethods = true;
       try {
-        const response = await axios.get(window.location.origin + '/api/payment-methods/all');
-        if (response.data && response.data.data) {
-          this.paymentMethods = response.data.data;
+        const response = await axios.get(window.location.origin + '/api/payment-methods', {
+          params: { perPage: 1000 } // Get all payment methods
+        });
+        // Handle both paginated and non-paginated responses
+        if (response.data) {
+          if (Array.isArray(response.data)) {
+            this.paymentMethods = response.data;
+          } else if (response.data.data && Array.isArray(response.data.data)) {
+            this.paymentMethods = response.data.data;
+          } else {
+            this.paymentMethods = [];
+          }
+        } else {
+          this.paymentMethods = [];
         }
       } catch (error) {
         console.error('Error loading payment methods:', error);
-        // Fallback to empty array if API fails
         this.paymentMethods = [];
+        toast.fire({
+          type: 'error',
+          title: this.$t('Error'),
+          text: this.$t('Failed to load payment methods'),
+        });
+      } finally {
+        this.loadingPaymentMethods = false;
       }
     },
     async getBranches() {
@@ -2002,7 +2140,18 @@ export default {
       // Clear payment method when switching to credit
       if (!value) {
         this.form.payment_method_id = null;
+        this.form.account = null;
+        this.form.chequeNo = null;
+        this.form.receiptNo = null;
       }
+    },
+
+    // handle payment method change
+    onPaymentMethodChange() {
+      this.clearFieldError('payment_method_id');
+      // Clear payment fields when payment method changes (user can re-enter)
+      // Only clear if switching to a different method
+      // Note: We keep account, chequeNo, and receiptNo to allow user to edit if needed
     },
 
     async getTaxes() {

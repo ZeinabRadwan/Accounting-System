@@ -26,7 +26,7 @@
 
     <div class="row sm-col-reverse">
       <!-- pos left area start -->
-      <div class="col-12 col-md-5">
+      <div class="col-12 col-md-7">
         <div class="card">
           <div class="card-body-l p-0">
             <div class="form-group pl-3 pt-3 pr-3">
@@ -320,24 +320,11 @@
       <!-- pos left area end -->
 
       <!-- POS Right area start -->
-      <div class="col-12 col-md-7">
+      <div class="col-12 col-md-5">
         <div class="card bg-transparent">
           <div class="pos-r-head bg-white">
-            <div class="row">
-              <div v-if="categories" class="form-group col-md-6">
-                <v-select v-model="form.category" :options="categories" label="name"
-                  :class="{ 'is-invalid': form.errors.has('category') }" name="category"
-                  :placeholder="$t('Select a category')" @input="getSubCategoriesByCategory" />
-                <has-error :form="form" field="category" />
-              </div>
-              <div v-if="subCategories" class="form-group col-md-6">
-                <v-select v-model="form.subCategory" :options="subCategories" label="name"
-                  :class="{ 'is-invalid': form.errors.has('subCategory') }" name="subCategory"
-                  :placeholder="$t('Select a category')" @input="getProductsBySubCategory" />
-                <has-error :form="form" field="subCategory" />
-              </div>
-              <div v-if="products" class="col-md-12 form-group">
-                <div class="d-flex w-100">
+            <div class="pos-r-head-row">
+              <div v-if="products" class="pos-r-head-search">
                   <search class="flex-grow-1" :isPosSearch="true" v-model="query" @reset-pagination="resetPagination()"
                     @reload="reload" />
                   <ProductCreateModal @reloadProducts="getProducts">
@@ -345,8 +332,19 @@
                       <i class="fas fa-solid fa-plus-circle"></i>
                     </div>
                   </ProductCreateModal>
-                </div>
                 <has-error :form="form" field="selectedProducts" />
+              </div>
+              <div v-if="categories" class="pos-r-head-dropdown">
+                <v-select v-model="form.category" :options="categories" label="name"
+                  :class="{ 'is-invalid': form.errors.has('category') }" name="category"
+                  :placeholder="$t('Select a category')" @input="getSubCategoriesByCategory" />
+                <has-error :form="form" field="category" />
+              </div>
+              <div v-if="subCategories" class="pos-r-head-dropdown">
+                <v-select v-model="form.subCategory" :options="subCategories" label="name"
+                  :class="{ 'is-invalid': form.errors.has('subCategory') }" name="subCategory"
+                  :placeholder="$t('Select a category')" @input="getProductsBySubCategory" />
+                <has-error :form="form" field="subCategory" />
               </div>
             </div>
           </div>
@@ -2065,13 +2063,65 @@ export default {
   border-bottom: 1px solid #f3f3f3;
 }
 
+.pos-r-head-row {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.pos-r-head-dropdown {
+  width: 23%;
+  flex: 0 0 23%;
+  min-width: 0;
+}
+
+.pos-r-head-search {
+  width: 50%;
+  flex: 0 0 50%;
+  min-width: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 5px;
+}
+
+.pos-r-head-search > .search,
+.pos-r-head-search > search {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+@media only screen and (max-width: 991px) {
+  .pos-r-head-dropdown {
+    width: 23%;
+    flex: 0 0 23%;
+  }
+
+  .pos-r-head-search {
+    width: 50%;
+    flex: 0 0 50%;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .pos-r-head-row {
+    flex-direction: column;
+  }
+
+  .pos-r-head-dropdown,
+  .pos-r-head-search {
+    width: 100%;
+    flex: 0 0 100%;
+  }
+}
+
 .pos-logo {
   text-align: center;
 }
 
 .pos-item-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-gap: 10px;
 }
 
