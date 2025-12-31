@@ -18,7 +18,8 @@
                         </div>
                     </th>
                     <th v-if="(actions && actions.length > 0) || showActions" class="text-right">
-                        {{ $t("Action") }}
+                        <i v-if="actionHeaderIcon" :class="actionHeaderIcon"></i>
+                        <span v-else>{{ $t("Action") }}</span>
                     </th>
                 </tr>
             </thead>
@@ -48,7 +49,7 @@
                 </template>
                 <tr v-if="!loading && !sortedRows.length">
                     <td :colspan="columns.length + ((actions && actions.length > 0) || showActions ? 1 : 0)">
-                        <EmptyTable />
+                        <EmptyTable :custom-message="emptyMessage" :custom-image="emptyImage" />
                     </td>
                 </tr>
             </tbody>
@@ -105,6 +106,18 @@ export default {
         showActions: {
             type: Boolean,
             default: false,
+        },
+        actionHeaderIcon: {
+            type: String,
+            default: null,
+        },
+        emptyMessage: {
+            type: String,
+            default: null,
+        },
+        emptyImage: {
+            type: String,
+            default: null,
         },
         dir: {
             type: String,
