@@ -8,9 +8,10 @@
     <div class="row sm-col-reverse">
       <!-- pos left area start -->
       <div class="col-12 col-md-7">
-        <div class="card">
+        <div class="card pos-main-card">
           <div class="card-body-l p-0">
-            <div class="form-group pl-3 pt-3 pr-3">
+            <div class="form-group pl-3 pt-3 pr-3 pos-client-section">
+              <label class="pos-section-label">{{ $t("Client") }}</label>
               <div class="d-flex w-100">
                 <v-select class="flex-grow-1" v-model="form.client" :options="clients" label="name"
                   :class="{ 'is-invalid': form.errors.has('client') }" name="client"
@@ -67,7 +68,7 @@
                     <input
                       type="button"
                       value="-"
-                      class="button-minus icon-shape icon-sm btn-danger"
+                      class="pos-qty-btn-minus"
                       data-field="quantity"
                       @click="generateItemTotal(row.qty, 'qty', getProductIndex(row), 'decrement')"
                     />
@@ -88,7 +89,7 @@
                     <input
                       type="button"
                       value="+"
-                      class="button-plus icon-shape icon-sm btn-primary"
+                      class="pos-qty-btn-plus"
                       data-field="quantity"
                       @click="generateItemTotal(row.qty, 'qty', getProductIndex(row), 'increment')"
                     />
@@ -211,10 +212,10 @@
 
         <div class="pos-card-footer bg-white">
           <div>
-            <div class="row pt-3 pl-3 pr-3">
+            <div class="row pt-3 pl-3 pr-3 pos-footer-inputs">
               <div class="form-group col-md-4">
-                <label for="discountType">{{ $t("Discount Type") }}</label>
-                <select id="discountType" v-model="form.discountType" class="form-control"
+                <label for="discountType" class="pos-input-label">{{ $t("Discount Type") }}</label>
+                <select id="discountType" v-model="form.discountType" class="form-control pos-input"
                   :class="{ 'is-invalid': form.errors.has('discountType') }" name="discountType"
                   @change="calculateSum" @keyup="calculateSum">
                   <option value="0">{{ $t("Fixed") }}</option>
@@ -223,24 +224,24 @@
                 <has-error :form="form" field="discountType" />
               </div>
               <div class="form-group col-md-4">
-                <label for="discount">{{ $t("Discount") }}
+                <label for="discount" class="pos-input-label">{{ $t("Discount") }}
                   <span v-if="form.discountType == 1">(%)</span></label>
                 <div class="input-group">
                   <input id="discount" v-model="form.discount" type="number" step="any" min="0"
-                    :max="form.discountType == 1 ? 100 : totalSubtotalSummary" class="form-control"
+                    :max="form.discountType == 1 ? 100 : totalSubtotalSummary" class="form-control pos-input"
                     :class="{ 'is-invalid': form.errors.has('discount') }" name="discount"
                     :placeholder="$t('Enter discount')" @change="calculateSum" @keyup="calculateSum" />
                   <div v-if="form.discountType == 1" class="input-group-append">
-                    <span class="input-group-text">{{
+                    <span class="input-group-text pos-input-append">{{
                       form.totalDiscount }}<span class="saudi-riyal">ê</span></span>
                   </div>
                 </div>
                 <has-error :form="form" field="discount" />
               </div>
               <div class="form-group col-md-4">
-                <label for="transportCost">{{ $t("Transport Cost") }}</label>
+                <label for="transportCost" class="pos-input-label">{{ $t("Transport Cost") }}</label>
                 <input id="transportCost" v-model="form.transportCost" type="number" step="any" min="0"
-                  class="form-control" :class="{ 'is-invalid': form.errors.has('transportCost') }" name="transportCost"
+                  class="form-control pos-input" :class="{ 'is-invalid': form.errors.has('transportCost') }" name="transportCost"
                   :placeholder="$t('Enter transport cost')" @change="calculateSum" @keyup="calculateSum" />
                 <has-error :form="form" field="transportCost" />
               </div>
@@ -248,59 +249,53 @@
               <!-- Summary Values -->
               <div v-if="form.selectedProducts && form.selectedProducts.length > 0" class="col-12">
                 <div class="pos-summary-values">
-                  <div class="row">
-                    <div class="col-md-2 col-sm-6 mb-2">
-                      <div class="summary-item">
-                        <label class="summary-label">الإجمالي:</label>
-                        <div class="summary-value">
-                          {{ totalSubtotalSummary.toFixed(2) }}
-                          <span class="saudi-riyal">ê</span>
-                        </div>
+                  <div class="pos-summary-items-inline">
+                    <div class="summary-item">
+                      <label class="summary-label">الإجمالي:</label>
+                      <div class="summary-value">
+                        {{ totalSubtotalSummary.toFixed(2) }}
+                        <span class="saudi-riyal">ê</span>
                       </div>
                     </div>
-                    <div class="col-md-2 col-sm-6 mb-2">
-                      <div class="summary-item">
-                        <label class="summary-label">{{ $t("Total Discount") }}:</label>
-                        <div class="summary-value">
-                          {{ totalProportionalDiscount.toFixed(2) }}
-                          <span class="saudi-riyal">ê</span>
-                        </div>
+                    <div class="summary-item">
+                      <label class="summary-label">{{ $t("Quantity") }}:</label>
+                      <div class="summary-value">
+                        {{ totalQuantitySummary }}
                       </div>
                     </div>
-                    <div class="col-md-2 col-sm-6 mb-2">
-                      <div class="summary-item">
-                        <label class="summary-label">{{ $t("Total Shipping Cost") }}:</label>
-                        <div class="summary-value">
-                          {{ totalProportionalTransport.toFixed(2) }}
-                          <span class="saudi-riyal">ê</span>
-                        </div>
+                    <div class="summary-item">
+                      <label class="summary-label">{{ $t("Total Discount") }}:</label>
+                      <div class="summary-value">
+                        {{ totalProportionalDiscount.toFixed(2) }}
+                        <span class="saudi-riyal">ê</span>
                       </div>
                     </div>
-                    <div class="col-md-2 col-sm-6 mb-2">
-                      <div class="summary-item">
-                        <label class="summary-label">{{ $t("Net Amount") }}:</label>
-                        <div class="summary-value">
-                          {{ netAmountSummary.toFixed(2) }}
-                          <span class="saudi-riyal">ê</span>
-                        </div>
+                    <div class="summary-item">
+                      <label class="summary-label">{{ $t("Total Shipping Cost") }}:</label>
+                      <div class="summary-value">
+                        {{ totalProportionalTransport.toFixed(2) }}
+                        <span class="saudi-riyal">ê</span>
                       </div>
                     </div>
-                    <div class="col-md-2 col-sm-6 mb-2">
-                      <div class="summary-item">
-                        <label class="summary-label">{{ $t("Tax") }}:</label>
-                        <div class="summary-value">
-                          {{ form.totalTax.toFixed(2) }}
-                          <span class="saudi-riyal">ê</span>
-                        </div>
+                    <div class="summary-item">
+                      <label class="summary-label">{{ $t("Net Amount") }}:</label>
+                      <div class="summary-value">
+                        {{ netAmountSummary.toFixed(2) }}
+                        <span class="saudi-riyal">ê</span>
                       </div>
                     </div>
-                    <div class="col-md-2 col-sm-6 mb-2">
-                      <div class="summary-item">
-                        <label class="summary-label">{{ $t("Grand Total") }}:</label>
-                        <div class="summary-value">
-                          {{ form.netTotal.toFixed(2) }}
-                          <span class="saudi-riyal">ê</span>
-                        </div>
+                    <div class="summary-item">
+                      <label class="summary-label">{{ $t("Tax") }}:</label>
+                      <div class="summary-value">
+                        {{ form.totalTax.toFixed(2) }}
+                        <span class="saudi-riyal">ê</span>
+                      </div>
+                    </div>
+                    <div class="summary-item">
+                      <label class="summary-label">{{ $t("Grand Total") }}:</label>
+                      <div class="summary-value">
+                        {{ form.netTotal.toFixed(2) }}
+                        <span class="saudi-riyal">ê</span>
                       </div>
                     </div>
                   </div>
@@ -331,29 +326,29 @@
           </div>
         </div>
 
-        <div class="row no-print">
-          <div class="col-12 col-lg-3 mb-1">
-            <button class="btn btn-primary btn-block" @click="saveInvoice" @keydown="form.onKeydown($event)">
+        <div class="row no-print pos-action-buttons">
+          <div class="col-12 col-lg-3 mb-2">
+            <button class="btn btn-primary btn-block pos-btn" @click="saveInvoice" @keydown="form.onKeydown($event)">
               <i class="fas fa-save" /> {{ $t("Save") }}
             </button>
           </div>
-          <div class="col-12 col-lg-3 mb-1">
-            <button class="btn btn-primary btn-block" @click="completeOrderAndAddPayment">
+          <div class="col-12 col-lg-3 mb-2">
+            <button class="btn btn-primary btn-block pos-btn" @click="completeOrderAndAddPayment">
               <i class="fas fa-credit-card" />
               {{ $t("Save & Payment") }}
             </button>
           </div>
-          <div class="col-12 col-lg-3 mb-1">
+          <div class="col-12 col-lg-3 mb-2">
             <button
               @click="openInvoicesPage"
               :title="$t('Open Invoices Page')"
-              class="btn btn-info btn-block">
+              class="btn btn-info btn-block pos-btn">
               <i class="fas fa-file-invoice" />
               {{ $t('Invoices') }}
             </button>
           </div>
-          <div class="col-12 col-lg-3 mb-1">
-            <button type="reset" class="btn btn-info btn-block" @click="form.reset()">
+          <div class="col-12 col-lg-3 mb-2">
+            <button type="reset" class="btn btn-info btn-block pos-btn" @click="form.reset()">
               <i class="fas fa-power-off" /> {{ $t("Reset") }}
             </button>
           </div>
@@ -364,45 +359,72 @@
       <!-- POS Right area start -->
       <div class="col-12 col-md-5">
         <div class="card bg-transparent">
-          <div class="pos-r-head bg-white">
-            <div class="pos-r-head-row">
-              <div v-if="products" class="pos-r-head-search">
-                  <search class="flex-grow-1" :isPosSearch="true" v-model="query" @reset-pagination="resetPagination()"
-                    @reload="reload" />
-                  <ProductCreateModal @reloadProducts="getProducts">
-                  </ProductCreateModal>
-                <has-error :form="form" field="selectedProducts" />
+          <div class="bg-white">
+            <div v-if="products" class="pos-r-head-search">
+              <search class="flex-grow-1" :isPosSearch="true" v-model="query" @reset-pagination="resetPagination()"
+                @reload="reload" />
+              <button 
+                type="button" 
+                class="btn pos-filter-toggle-btn"
+                :class="{ 'pos-filter-toggle-btn-active': showFilters }"
+                @click="toggleFilters"
+                :title="showFilters ? $t('Hide Filters') : $t('Show Filters')">
+                <i class="fas fa-filter"></i>
+              </button>
+              <ProductCreateModal @reloadProducts="getProducts">
+              </ProductCreateModal>
+              <has-error :form="form" field="selectedProducts" />
+            </div>
+            <div v-show="showFilters">
+              <div v-if="categories && categories.length > 0" class="pos-filter-categories">
+                <label class="pos-filter-label">{{ $t('Categories') }}</label>
+                <ul class="pos-filter-card-list">
+                  <li v-for="category in categories" :key="category.id" 
+                      class="pos-filter-card"
+                      :class="{ 'pos-filter-card-active': form.category && form.category.id === category.id }"
+                      @click="selectCategory(category)">
+                    <div class="pos-filter-card-content">
+                      <i class="fas fa-folder pos-filter-card-icon"></i>
+                      <span class="pos-filter-card-name">{{ category.name }}</span>
+                    </div>
+                  </li>
+                </ul>
               </div>
-              <div v-if="categories" class="pos-r-head-dropdown">
-                <v-select v-model="form.category" :options="categories" label="name"
-                  :class="{ 'is-invalid': form.errors.has('category') }" name="category"
-                  :placeholder="$t('Select a category')" @input="getSubCategoriesByCategory" />
-                <has-error :form="form" field="category" />
-              </div>
-              <div v-if="subCategories" class="pos-r-head-dropdown">
-                <v-select v-model="form.subCategory" :options="subCategories" label="name"
-                  :class="{ 'is-invalid': form.errors.has('subCategory') }" name="subCategory"
-                  :placeholder="$t('Select a category')" @input="getProductsBySubCategory" />
-                <has-error :form="form" field="subCategory" />
+              <div v-if="subCategories && subCategories.length > 0" class="pos-filter-subcategories">
+                <label class="pos-filter-label">{{ $t('Sub Categories') }}</label>
+                <ul class="pos-filter-card-list">
+                  <li v-for="subCategory in subCategories" :key="subCategory.id" 
+                      class="pos-filter-card"
+                      :class="{ 'pos-filter-card-active': form.subCategory && form.subCategory.id === subCategory.id }"
+                      @click="selectSubCategory(subCategory)">
+                    <div class="pos-filter-card-content">
+                      <i class="fas fa-folder-open pos-filter-card-icon"></i>
+                      <span class="pos-filter-card-name">{{ subCategory.name }}</span>
+                    </div>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
 
           <div class="card-body bg-white mt-3 pos-body">
             <div class="pos-item-grid">
-              <div v-for="product in products" :key="product.id" @click="storeProduct(product)" :class="Number(product.inventoryCount) < 1 ? 'pos-item-grid-red' : ''
+              <div v-for="product in products" :key="product.id" @click="storeProduct(product)" :class="Number(product.inventoryCount || 0) < 1 ? 'pos-item-grid-red' : ''
                 ">
                 <div class="pos-box">
                   <div class="relative">
-                    <div class="pos-box-img">
-                      <div v-if="product.image">
-                        <img class="pos-box-icon" :src="product.image" alt="product image" />
-                      </div>
-                      <div v-else>{{ $t("No Preview") }}</div>
+                    <div class="pos-box-hover-icon">
+                      <i class="fas fa-plus"></i>
                     </div>
-                    <span class="box-qty" :class="Number(product.inventoryCount) < 1 ? 'qty-red' : ''
-                      ">{{ product.inventoryCount }}</span>
-                    <span v-if="Number(product.inventoryCount) < 1 && product.itemType !== 'service'"
+                    <div class="pos-box-img">
+                      <div v-if="hasValidImage(product)" class="pos-box-image-wrapper">
+                        <img class="pos-box-icon" :src="product.image" :data-product-id="product.id" alt="product image" @error="handleImageError($event)" />
+                      </div>
+                      <div v-else class="pos-box-no-preview">{{ $t("No Preview") }}</div>
+                    </div>
+                    <span class="box-qty" :class="Number(product.inventoryCount || 0) < 1 ? 'qty-red' : ''
+                      ">{{ product.inventoryCount || 0 }}</span>
+                    <span v-if="Number(product.inventoryCount || 0) < 1 && product.itemType !== 'service'"
                       class="stock-warning-icon-pos" v-tooltip="$t('Click to manage stock')"
                       @click.stop="openStockAdjustmentModal(product)">
                       <i class="fas fa-exclamation-triangle"></i>
@@ -410,11 +432,13 @@
                   </div>
                   <div class="pos-box-content">
                     <span>{{ product.code | withPrefix(productPrefix) }}</span>
-                    <p class="pos-box-text">{{ product.name }}</p>
-                    <p class="pos-box-price">
-                      {{ (product.regularPrice || 0).toFixed(2) }}
-                      <span class="saudi-riyal">ê</span>
-                    </p>
+                    <div class="pos-box-name-price">
+                      <p class="pos-box-text">{{ product.name }}</p>
+                      <p class="pos-box-price">
+                        {{ (product.regularPrice || 0).toFixed(2) }}
+                        <span class="saudi-riyal">ê</span>
+                      </p>
+                    </div>
                   </div>
                   <!-- Product Chart of Account Status -->
                   <div v-if="product && !product.sales_account_id && product.itemType !== 'service'"
@@ -432,14 +456,7 @@
               </div>
             </div>
 
-            <div class="row">
-              <div class="col-12 d-flex justify-content-center">
-                <!-- pagination-start -->
-                <pagination v-if="pagination && pagination.last_page > 1" :pagination="pagination" :offset="5"
-                  class="justify-flex-end mt-3" @paginate="paginate" />
-                <!-- pagination-end -->
-              </div>
-            </div>
+            
           </div>
         </div>
       </div>
@@ -788,6 +805,7 @@ export default {
     showModal: false,
     allData: {},
     showSmallInvoiceModal: false,
+    showFilters: false,
     printMe: false,
     perPage: 10,
     pagination: "",
@@ -1072,6 +1090,56 @@ export default {
     },
   },
   methods: {
+    // Toggle filter visibility
+    toggleFilters() {
+      this.showFilters = !this.showFilters;
+    },
+    
+    // Check if product has a valid image (not empty, null, undefined, or default avatar)
+    hasValidImage(product) {
+      if (!product || !product.image) {
+        return false;
+      }
+      const imageUrl = product.image.trim();
+      if (!imageUrl || imageUrl === '') {
+        return false;
+      }
+      // Check if it's a default avatar URL
+      if (imageUrl.includes('default-avatar') || imageUrl.includes('default_avatar')) {
+        return false;
+      }
+      return true;
+    },
+    
+    // Handle image loading errors
+    handleImageError(event) {
+      const imgElement = event.target;
+      // Set the product's image to null to trigger Vue's reactivity and show "No Preview"
+      const productId = imgElement.getAttribute('data-product-id');
+      if (productId) {
+        const product = this.products.find(p => p.id == productId);
+        if (product) {
+          // Use Vue.set or direct assignment to ensure reactivity
+          this.$set(product, 'image', null);
+        }
+      } else {
+        // Fallback: hide image and show no preview
+        imgElement.style.display = 'none';
+        const parentDiv = imgElement.closest('.pos-box-img');
+        if (parentDiv) {
+          const noPreviewDiv = parentDiv.querySelector('.pos-box-no-preview');
+          if (!noPreviewDiv) {
+            const noPreview = document.createElement('div');
+            noPreview.className = 'pos-box-no-preview';
+            noPreview.textContent = this.$t("No Preview");
+            parentDiv.appendChild(noPreview);
+          } else {
+            noPreviewDiv.style.display = 'block';
+          }
+        }
+      }
+    },
+    
     // get all clients
     async getClients(selectedClient = "default") {
       await axios
@@ -1194,66 +1262,97 @@ export default {
       return 0;
     },
 
-    // get sub categories for a category
-    async getSubCategoriesByCategory() {
-      let currentPage = this.pagination ? this.pagination.current_page : 1;
-
-      this.subCategories = [];
-      this.form.subCategory = "";
-
-      let slug = this.form.category?.slug;
-      if (slug) {
-        const { data } = await axios.get(
-          window.location.origin +
-          "/api/all-pro-sub-categories-by-category/" +
-          slug +
-          "?page=" +
-          currentPage
-        );
-        this.subCategories = data.cats;
-        this.products = data.products;
+    // Select category from card
+    selectCategory(category) {
+      // Toggle selection: if same category clicked, deselect it
+      if (this.form.category && this.form.category.id === category.id) {
+        this.form.category = null;
+        // Filter products based on remaining filters (subcategory if selected)
+        this.filterProducts();
       } else {
-        await this.getSubCategories();
-        await this.getProducts();
+        this.form.category = category;
+        // Filter products by category only (subcategories remain visible)
+        this.filterProducts();
       }
     },
 
-    // get products for a sub category
-    async getProductsBySubCategory() {
-      let currentPage = this.pagination ? this.pagination.current_page : 1;
+    // Select subcategory from card
+    selectSubCategory(subCategory) {
+      // Toggle selection: if same subcategory clicked, deselect it
+      if (this.form.subCategory && this.form.subCategory.id === subCategory.id) {
+        this.form.subCategory = null;
+        // Filter products based on remaining filters (category if selected)
+        this.filterProducts();
+      } else {
+        this.form.subCategory = subCategory;
+        // Filter products by subcategory (can combine with category if selected)
+        this.filterProducts();
+      }
+    },
+
+    // Filter products based on selected category and/or subcategory
+    async filterProducts() {
       this.products = [];
       this.form.itemName = "";
-      let catSlug = this.form.category?.slug;
-      let subCatSlug = this.form.subCategory?.slug;
+      this.pagination = null;
+
+      const catSlug = this.form.category?.slug;
+      const subCatSlug = this.form.subCategory?.slug;
+
       if (catSlug && subCatSlug) {
+        // Both category and subcategory selected - filter by both
         const { data } = await axios.get(
           window.location.origin +
           "/api/all-products-by-sub-categories/" +
           catSlug +
           "/" +
           subCatSlug +
-          "?page=" +
-          currentPage
+          "?perPage=10000"
         );
-        this.products = data.data;
-        this.pagination = data.meta;
-
-        // Ensure all products have proper VAT rate information
-        this.processProductsVatRates();
+        this.products = data.data || [];
+      } else if (catSlug) {
+        // Only category selected - filter by category
+        const { data } = await axios.get(
+          window.location.origin +
+          "/api/all-pro-sub-categories-by-category/" +
+          catSlug +
+          "?perPage=10000"
+        );
+        this.products = data.products || [];
+      } else if (subCatSlug) {
+        // Only subcategory selected - find its parent category from subcategories list
+        const subCat = this.subCategories.find(sc => sc.slug === subCatSlug || sc.id === this.form.subCategory?.id);
+        if (subCat && subCat.category_slug) {
+          // Use the parent category slug to filter
+          const { data } = await axios.get(
+            window.location.origin +
+            "/api/all-products-by-sub-categories/" +
+            subCat.category_slug +
+            "/" +
+            subCatSlug +
+            "?perPage=10000"
+          );
+          this.products = data.data || [];
+        } else {
+          // If we can't find the category, show all products
+          // User can select a category to narrow down
+          await this.getProducts();
+        }
       } else {
+        // No filters selected - show all products
         await this.getProducts();
+        return;
       }
+
+      // Ensure all products have proper VAT rate information
+      this.processProductsVatRates();
     },
+
 
     // pagination
     async paginate() {
-      let catSlug = this.form.category?.slug;
       if (this.query === "") {
-        if (catSlug) {
-          await this.getSubCategoriesByCategory();
-        } else {
-          await this.getProducts();
-        }
+        await this.filterProducts();
       } else {
         await this.searchProducts();
       }
@@ -2446,34 +2545,14 @@ export default {
   text-overflow: ellipsis;
 }
 
-.pos-r-head {
-  box-shadow: 0px 0px 3px #0003;
-  padding: 20px;
-  box-sizing: border-box;
-  border-radius: 5px;
-  border-bottom: 1px solid #f3f3f3;
-}
-
-.pos-r-head-row {
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: flex-start;
-  gap: 15px;
-}
-
-.pos-r-head-dropdown {
-  width: 23%;
-  flex: 0 0 23%;
-  min-width: 0;
-}
-
 .pos-r-head-search {
-  width: 50%;
-  flex: 0 0 50%;
+  width: 100%;
+  flex: 0 0 100%;
   min-width: 0;
   display: flex;
   align-items: flex-start;
-  gap: 5px;
+  gap: 10px;
+  padding: 0 20px;
 }
 
 .pos-r-head-search > .search,
@@ -2482,27 +2561,176 @@ export default {
   min-width: 0;
 }
 
-@media only screen and (max-width: 991px) {
-  .pos-r-head-dropdown {
-    width: 23%;
-    flex: 0 0 23%;
-  }
+.pos-filter-toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  background: #ffffff;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  color: #6c757d;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  flex-shrink: 0;
+}
 
-  .pos-r-head-search {
-    width: 50%;
-    flex: 0 0 50%;
-  }
+.pos-filter-toggle-btn:hover {
+  background: linear-gradient(135deg, #33a0d9 0%, #2a8bc7 100%);
+  border-color: #33a0d9;
+  color: #ffffff;
+  box-shadow: 0 4px 8px rgba(51, 160, 217, 0.25);
+  transform: translateY(-1px);
+}
+
+.pos-filter-toggle-btn-active {
+  background: linear-gradient(135deg, #33a0d9 0%, #2a8bc7 100%);
+  border-color: #33a0d9;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(51, 160, 217, 0.3);
+}
+
+.pos-filter-toggle-btn-active:hover {
+  background: linear-gradient(135deg, #2a8bc7 0%, #2280b3 100%);
+  box-shadow: 0 6px 16px rgba(51, 160, 217, 0.35);
 }
 
 @media only screen and (max-width: 767px) {
-  .pos-r-head-row {
-    flex-direction: column;
+  .pos-r-head-search {
+    padding: 0 15px;
   }
 
-  .pos-r-head-dropdown,
-  .pos-r-head-search {
-    width: 100%;
-    flex: 0 0 100%;
+  .pos-filter-toggle-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 14px;
+  }
+}
+
+/* Category and Subcategory Filter Cards */
+.pos-filter-categories,
+.pos-filter-subcategories {
+  width: 100%;
+  margin: 0px 20px;
+}
+
+.pos-filter-categories:first-of-type {
+  margin-top: 15px;
+}
+
+.pos-filter-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #2f3541;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.pos-filter-card-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 10px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: #33a0d9 #f8f9fa;
+}
+
+.pos-filter-card-list::-webkit-scrollbar {
+  height: 6px;
+}
+
+.pos-filter-card-list::-webkit-scrollbar-track {
+  background: #f8f9fa;
+  border-radius: 3px;
+}
+
+.pos-filter-card-list::-webkit-scrollbar-thumb {
+  background: #33a0d9;
+  border-radius: 3px;
+}
+
+.pos-filter-card-list::-webkit-scrollbar-thumb:hover {
+  background: #2a8bc7;
+}
+
+.pos-filter-card {
+  flex: 0 0 auto;
+  min-width: 120px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.pos-filter-card-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: #ffffff;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.pos-filter-card:hover .pos-filter-card-content {
+  border-color: #33a0d9;
+  box-shadow: 0 4px 8px rgba(51, 160, 217, 0.15);
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+}
+
+.pos-filter-card-active .pos-filter-card-content {
+  background: linear-gradient(135deg, #33a0d9 0%, #2a8bc7 100%);
+  border-color: #33a0d9;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(51, 160, 217, 0.3);
+}
+
+.pos-filter-card-active .pos-filter-card-icon,
+.pos-filter-card-active .pos-filter-card-name {
+  color: #ffffff;
+}
+
+.pos-filter-card-icon {
+  font-size: 16px;
+  color: #33a0d9;
+  flex-shrink: 0;
+  transition: color 0.3s ease;
+}
+
+.pos-filter-card-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: #2f3541;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.3s ease;
+}
+
+@media only screen and (max-width: 767px) {
+  .pos-filter-card {
+    min-width: 100px;
+    flex: 1 1 calc(50% - 5px);
+  }
+  
+  .pos-filter-card-content {
+    padding: 8px 12px;
+  }
+  
+  .pos-filter-card-name {
+    font-size: 12px;
   }
 }
 
@@ -2512,22 +2740,26 @@ export default {
 
 .pos-item-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 10px;
 }
 
 .pos-item-grid>div {
   border: 0;
-  border-radius: 10px;
-  box-shadow: 0 4px 20px 1px rgb(0 0 0 / 6%), 0 1px 4px rgb(0 0 0 / 8%);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
   overflow: hidden;
   cursor: pointer;
-  border: 1px solid #fff;
+  border: 1px solid #e9ecef;
   position: relative;
+  background: #ffffff;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .pos-item-grid>div:hover {
   border-color: #33a0d9;
+  box-shadow: 0 4px 16px rgba(51, 160, 217, 0.2), 0 2px 8px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
 }
 
 .pos-item-grid>div .box-qty {
@@ -2535,7 +2767,7 @@ export default {
   width: 50px;
   height: 30px;
   display: block;
-  background: #33a0d9;
+  background: linear-gradient(135deg, #33a0d9 0%, #2a8bc7 100%);
   top: 0;
   left: 0px;
   text-align: center;
@@ -2543,7 +2775,9 @@ export default {
   font-size: 12px;
   font-weight: bold;
   color: #fff;
-  border-bottom-right-radius: 10px;
+  border-bottom-right-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 2;
 }
 
 .qty-red {
@@ -2555,44 +2789,121 @@ export default {
   min-height: 240px;
 }
 
+.pos-box-hover-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  background: rgba(51, 160, 217, 0.95);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(51, 160, 217, 0.4);
+  pointer-events: none;
+}
+
+.pos-box-hover-icon i {
+  font-size: 28px;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.pos-item-grid>div:hover .pos-box-hover-icon {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.pos-item-grid>div .pos-box-hover-icon {
+  transform: translate(-50%, -50%) scale(0.8);
+}
+
 .pos-box-img {
   width: 100%;
-  height: 100px;
-  border-bottom: 1px solid #f1f1f1;
-  background: #ebebeb;
-  line-height: 100px;
+  height: 200px;
+  border-bottom: 1px solid #e9ecef;
+  background: linear-gradient(to bottom, #f8f9fa, #e9ecef);
+  line-height: 200px;
   text-align: center;
   font-size: 13px;
   font-weight: bold;
+  color: #6c757d;
+  transition: background 0.3s ease;
+  position: relative;
+}
+
+.pos-box-image-wrapper {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
 }
 
 .pos-box-img img {
   width: 100%;
-  height: 100px;
+  height: 200px;
   object-fit: cover;
+  display: block;
 }
 
-.pos-box-content p {
-  font-size: 14px;
+.pos-box-no-preview {
+  width: 100%;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
   font-weight: bold;
-  margin-bottom: 0px;
+  color: #6c757d;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.pos-box-content {
+  padding: 10px 12px;
+  background: #ffffff;
 }
 
 .pos-box-content span {
-  font-size: 12px;
-  margin-bottom: 2px;
+  color: #0775af;
+  display: block;
+}
+
+.pos-box-name-price {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.pos-box-text {
+  flex: 1;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #2f3541;
+  line-height: 1.4;
+  text-align: left;
 }
 
 .pos-box-price {
   font-size: 16px;
-  font-weight: bold;
+  font-weight: 700;
   color: #33a0d9;
-  margin-top: 5px;
-  margin-bottom: 0px;
-}
-
-.pos-box-content {
-  padding: 5px 10px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+  white-space: nowrap;
+  flex-direction: row-reverse;
 }
 
 .pos-item-grid-red {
@@ -2601,11 +2912,29 @@ export default {
 
 .card-client-search {
   padding: 20px;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #e9ecef;
+  background: #ffffff;
+}
+
+.pos-main-card {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e9ecef;
+  overflow: hidden;
 }
 
 .table-wrap {
-  padding: 15px;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 8px;
+}
+
+.table-wrap .general-table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.table-wrap .general-table tbody tr:hover {
+  background-color: #f8f9fa;
 }
 
 .table-responsive.table-wrap>table {
@@ -2623,7 +2952,17 @@ export default {
 
 .table-wrap .general-table thead tr {
   border-bottom: 0;
-  background: #33a0d91f !important;
+  background: linear-gradient(to bottom, rgba(51, 160, 217, 0.12), rgba(51, 160, 217, 0.08)) !important;
+}
+
+.table-wrap .general-table thead th {
+  font-weight: 600;
+  color: #2f3541;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  padding: 12px 8px;
+  border-bottom: 2px solid #33a0d9;
 }
 
 .table-wrap .table thead tr {
@@ -2635,38 +2974,69 @@ export default {
 .pos-summary-values {
   margin-top: 15px;
   margin-bottom: 15px;
-  padding: 15px;
-  background: #f8f9fa;
-  border: 1px solid #e3e7ea;
-  border-radius: 4px;
+  padding: 20px;
+  background: linear-gradient(to bottom, #f8f9fa, #ffffff);
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
-.pos-summary-values .row {
+.pos-summary-items-inline {
+  display: flex;
+  flex-wrap: wrap;
   justify-content: center;
+  align-items: flex-start;
+  gap: 15px;
 }
 
 .summary-item {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  padding: 10px;
+  background: #ffffff;
+  border-radius: 6px;
+  border: 1px solid #e9ecef;
+  transition: all 0.2s ease;
+  flex: 0 0 auto;
+  min-width: 120px;
+}
+
+.summary-item:hover {
+  border-color: #33a0d9;
+  box-shadow: 0 2px 8px rgba(51, 160, 217, 0.1);
 }
 
 .summary-label {
   font-size: 13px;
   font-weight: 600;
   color: #6c757d;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .summary-value {
-  font-size: 16px;
-  font-weight: bold;
+  font-size: 18px;
+  font-weight: 700;
   color: #2f3541;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 @media only screen and (max-width: 767px) {
   .pos-summary-values {
     padding: 12px;
+  }
+
+  .pos-summary-items-inline {
+    gap: 10px;
+  }
+
+  .summary-item {
+    min-width: 100px;
+    padding: 8px;
   }
 
   .summary-label {
@@ -2691,39 +3061,65 @@ export default {
   /* background: #ddd; */
 }
 
-.table-wrap .btn-danger {
-  width: 25px;
-  height: 25px;
-  font-size: 10px;
-  padding: 0px;
+.pos-qty-btn-minus {
+  border: none;
+  border-radius: 0 16px 16px 0;
+  padding: 10px;
+  background: #c82333;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-.table-wrap .icon-sm {
-  width: 25px;
-  height: 25px;
-  line-height: 23px;
+.pos-qty-btn-minus:hover {
+  background: #a01e2a;
+}
+
+.pos-qty-btn-plus {
+  border: none;
+  border-radius: 16px 0 0 16px;
+  padding: 10px;
+  background: #2ab930;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.pos-qty-btn-plus:hover {
+  background: #229a26;
 }
 
 .pos-card-footer {
-  border: 1px solid #ddd;
-  background: #fff;
-  border-radius: 4px;
+  border: 1px solid #e9ecef;
+  background: #ffffff;
+  border-radius: 8px;
   margin-bottom: 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
 }
 
 .pos-net-total {
-  background: #33a0d933;
+  background: linear-gradient(135deg, rgba(51, 160, 217, 0.15) 0%, rgba(42, 139, 199, 0.15) 100%);
   width: 100%;
-  padding: 10px 10px;
+  padding: 15px 20px;
   text-align: center;
   font-size: 18px;
-  font-weight: normal;
+  font-weight: 600;
+  color: #2f3541;
+  border-top: 2px solid #33a0d9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
 .pos-net-total .net-total-value {
-  font-size: 28px;
-  font-weight: bold;
-  margin-left: 5px;
+  font-size: 32px;
+  font-weight: 700;
+  color: #33a0d9;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 @media only screen and (max-width: 767px) {
@@ -2847,12 +3243,6 @@ span.pqty {
   margin-bottom: 5px;
 }
 
-@media only screen and (max-width: 1250px) {
-  .pos-item-grid {
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-  }
-}
-
 @media only screen and (max-width: 991px) {
   .pos-item-grid {
     grid-template-columns: 1fr 1fr 1fr;
@@ -2865,12 +3255,59 @@ span.pqty {
   }
 
   .pos-item-grid {
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .pos-item-grid {
+    grid-template-columns: 1fr;
   }
 }
 
 .create-btn {
   padding: 11px;
+  background: #33a0d9;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.create-btn:hover {
+  background: #2a8bc7;
+  transform: scale(1.05);
+}
+
+.pos-section-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: #2f3541;
+  display: block;
+}
+
+.pos-client-section {
+  margin: 0px 20px;
+}
+
+.pos-client-section .d-flex {
+  gap: 10px;
+  align-items: stretch;
+}
+
+.pos-client-section .v-select {
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.pos-client-section .create-btn {
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.pos-client-section .create-btn:hover {
+  transform: translateY(-1px);
 }
 
 .create-btn-2 {
@@ -2879,18 +3316,95 @@ span.pqty {
 
 .btn-primary {
   background: #2ab930 !important;
+  border: none;
+  box-shadow: 0 2px 4px rgba(42, 185, 48, 0.2);
+  transition: all 0.3s ease;
 }
 
 .btn-primary:hover {
   background: #229a26 !important;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(42, 185, 48, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(42, 185, 48, 0.4);
+}
+
+.pos-btn {
+  padding: 12px 20px;
+  font-weight: 600;
+  border-radius: 6px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.pos-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.pos-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.pos-action-buttons {
+  margin-top: 15px;
+}
+
+.pos-input-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #495057;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.pos-input {
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  padding: 8px 12px;
+  transition: all 0.3s ease;
+}
+
+.pos-input:focus {
+  border-color: #33a0d9;
+  box-shadow: 0 0 0 0.2rem rgba(51, 160, 217, 0.15);
+  outline: none;
+}
+
+.pos-input-append {
+  background: #f8f9fa;
+  border-color: #ced4da;
+  color: #495057;
+  font-weight: 600;
+}
+
+.pos-footer-inputs {
+  background: #f8f9fa;
+  border-radius: 6px;
+  margin: 15px;
+  padding: 20px !important;
+}
+
+.pos-footer-inputs .form-group {
+  margin-bottom: 0;
+}
+
+/* Enhanced RTL support */
+[dir="rtl"] .pos-box-price {
+  text-align: right;
+}
+
+[dir="rtl"] .summary-value {
+  text-align: right;
+}
+
+[dir="rtl"] .pos-net-total {
+  text-align: center;
 }
 
 /* Stock warning icon in POS */
 .stock-warning-icon-pos {
   position: absolute;
-  top: 35px;
+  top: 100px;
   right: 5px;
   background: #dc3545;
   color: #fff;
@@ -2942,21 +3456,31 @@ span.pqty {
 .product-warning {
   display: flex;
   align-items: center;
-  padding: 8px 12px;
-  background-color: #fff3cd;
+  padding: 10px 14px;
+  background: linear-gradient(135deg, #fff3cd 0%, #ffe69c 100%);
   border: 1px solid #ffc107;
-  border-radius: 4px;
+  border-radius: 8px;
   font-size: 13px;
+  font-weight: 500;
+  box-shadow: 0 2px 4px rgba(255, 193, 7, 0.15);
+  transition: all 0.3s ease;
+}
+
+.client-warning:hover,
+.product-warning:hover {
+  box-shadow: 0 4px 8px rgba(255, 193, 7, 0.25);
+  transform: translateY(-1px);
 }
 
 .client-warning i,
 .product-warning i {
   margin-right: 8px;
+  font-size: 16px;
 }
 
 .client-status,
 .product-status {
-  margin-top: 8px;
+  margin-top: 12px;
 }
 
 /* Badge styling for product warnings in table */
@@ -3082,7 +3606,6 @@ span.pqty {
 
 [dir="rtl"] #pos .pr-3 {
   padding-right: 0 !important;
-  padding-left: 1rem !important;
 }
 
 /* RTL POS Grid Item positioning */
@@ -3112,6 +3635,7 @@ span.pqty {
 [dir="rtl"] #pos .input-group-text {
   border-left: 1px solid #ced4da;
   border-right: none;
+  line-height: 2;
 }
 
 [dir="rtl"] #pos .input-group>.form-control:not(:last-child) {
@@ -3144,6 +3668,10 @@ span.pqty {
 /* RTL POS Product grid */
 [dir="rtl"] #pos .pos-item-grid {
   direction: rtl;
+}
+
+[dir="rtl"] .pos-box-text {
+  text-align: right;
 }
 
 /* RTL POS Modal footer */
