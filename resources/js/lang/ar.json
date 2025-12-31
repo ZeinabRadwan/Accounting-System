@@ -1901,6 +1901,7 @@
     "Save": "حفظ",
     "Complete Process": "إتمام العملية",
     "Close": "إغلاق",
+    "Do you want to close this invoice? Unsaved changes will be lost.": "هل تريد إغلاق هذه الفاتورة؟ سيتم فقدان التغييرات غير المحفوظة.",
     "Ban failed": "فشل الحظر",
     "Subscription Invoices": "فواتير الاشتراك",
     "Select a status": "اختر حالة",

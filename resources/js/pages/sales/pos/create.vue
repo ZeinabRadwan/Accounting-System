@@ -4,16 +4,83 @@
     <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
     <!-- breadcrumbs end -->
 
-
     <div class="row sm-col-reverse">
       <!-- pos left area start -->
       <div class="col-12 col-md-7">
+        <!-- Invoice Session Controls -->
+        <div class="invoice-session-controls-wrapper">
+          <div class="invoice-session-controls">
+            <!-- Invoice Pagination / Tabs -->
+            <div class="invoice-tabs-wrapper">
+              <!-- Previous Button -->
+              <button
+                v-if="totalTabsPages > 1"
+                type="button"
+                class="invoice-tabs-nav-btn invoice-tabs-nav-prev"
+                @click="previousTabsPage"
+                :disabled="currentTabsPage === 0"
+                :title="$t('Previous')">
+                <i class="fas fa-chevron-left"></i>
+              </button>
+
+              <!-- Tabs Container -->
+              <div class="invoice-tabs-container">
+                <div
+                  v-for="(invoice, index) in visibleInvoices"
+                  :key="invoice.id"
+                  class="invoice-tab"
+                  :class="{ 'invoice-tab-active': visibleInvoiceIndices[index] === currentInvoiceIndex }"
+                  @click="switchInvoice(visibleInvoiceIndices[index])"
+                  :title="invoice.reference || `Invoice ${visibleInvoiceIndices[index] + 1}`">
+                  <div class="invoice-tab-content">
+                    <div class="invoice-tab-header">
+                      <i class="fas fa-file-invoice invoice-tab-icon"></i>
+                      <span class="invoice-tab-number">{{ invoice.reference || `#${visibleInvoiceIndices[index] + 1}` }}</span>
+                    </div>
+                    <div class="invoice-tab-time" v-if="invoice.openedTime">
+                      <i class="fas fa-clock"></i>
+                      <span>{{ formatInvoiceTime(invoice.openedTime) }}</span>
+                    </div>
+                  </div>
+                  <button
+                    v-if="invoices.length > 1"
+                    type="button"
+                    class="invoice-tab-close"
+                    @click.stop.prevent="removeInvoice(visibleInvoiceIndices[index])"
+                    :title="$t('Remove Invoice')">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Next Button -->
+              <button
+                v-if="totalTabsPages > 1"
+                type="button"
+                class="invoice-tabs-nav-btn invoice-tabs-nav-next"
+                @click="nextTabsPage"
+                :disabled="currentTabsPage >= totalTabsPages - 1"
+                :title="$t('Next')">
+                <i class="fas fa-chevron-right"></i>
+              </button>
+
+              <!-- Create New Invoice Button -->
+              <button
+                type="button"
+                class="invoice-create-btn"
+                @click="createNewInvoice"
+                :title="$t('Create New Invoice')">
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
         <div class="card pos-main-card">
           <div class="card-body-l p-0">
             <div class="form-group pl-3 pt-3 pr-3 pos-client-section">
               <label class="pos-section-label">{{ $t("Client") }}</label>
               <div class="d-flex w-100">
-                <v-select class="flex-grow-1" v-model="form.client" :options="clients" label="name"
+                <v-select class="flex-grow-1" v-model="form.client" :options="Array.isArray(clients) ? clients : []" label="name"
                   :class="{ 'is-invalid': form.errors.has('client') }" name="client"
                   :placeholder="$t('Select a client')" />
                 <ClientCreateModal @reloadClients="getClients('latest')">
@@ -38,15 +105,9 @@
             </div>
 
             <div class="table-wrap">
-              <GeneralTable
-                :columns="tableColumns"
-                :rows="form.selectedProducts || []"
-                :show-actions="true"
-                action-header-icon="fas fa-trash"
-                :empty-message="$t('Your shopping cart is empty')"
-                empty-image="/images/cart.png"
-                wrapper-class="table-wrap"
-              >
+              <GeneralTable :columns="tableColumns" :rows="form.selectedProducts || []" :show-actions="true"
+                action-header-icon="fas fa-trash" :empty-message="$t('Your shopping cart is empty')"
+                empty-image="/images/cart.png" wrapper-class="table-wrap">
                 <!-- Product Name -->
                 <template #cell-name="{ row }">
                   <span class="table-product-title" v-tooltip="row.name">
@@ -65,34 +126,15 @@
                 <!-- Quantity -->
                 <template #cell-qty="{ row }">
                   <div class="d-flex custom-qty-input">
-                    <input
-                      type="button"
-                      value="-"
-                      class="pos-qty-btn-minus"
-                      data-field="quantity"
-                      @click="generateItemTotal(row.qty, 'qty', getProductIndex(row), 'decrement')"
-                    />
-                    <input
-                      type="number"
-                      step="any"
-                      :id="`Qty-${getProductIndex(row)}`"
-                      :value="row.qty"
-                      name="quantity"
-                      class="quantity-field border-0 incrementor"
-                      required
-                      min="1"
-                      :max="row.inventoryCount"
+                    <input type="button" value="-" class="pos-qty-btn-minus" data-field="quantity"
+                      @click="generateItemTotal(row.qty, 'qty', getProductIndex(row), 'decrement')" />
+                    <input type="number" step="any" :id="`Qty-${getProductIndex(row)}`" :value="row.qty" name="quantity"
+                      class="quantity-field border-0 incrementor" required min="1" :max="row.inventoryCount"
                       @change="generateItemTotal($event.target.value, 'qty', getProductIndex(row), '')"
                       @keyup="generateItemTotal($event.target.value, 'qty', getProductIndex(row), '')"
-                      :placeholder="$t('Quantity')"
-                    />
-                    <input
-                      type="button"
-                      value="+"
-                      class="pos-qty-btn-plus"
-                      data-field="quantity"
-                      @click="generateItemTotal(row.qty, 'qty', getProductIndex(row), 'increment')"
-                    />
+                      :placeholder="$t('Quantity')" />
+                    <input type="button" value="+" class="pos-qty-btn-plus" data-field="quantity"
+                      @click="generateItemTotal(row.qty, 'qty', getProductIndex(row), 'increment')" />
                   </div>
                 </template>
 
@@ -105,51 +147,29 @@
                 <!-- Discount -->
                 <template #cell-discount="{ row }">
                   <div class="d-flex align-items-center gap-1">
-                    <select
-                      v-model="row.discountType"
-                      class="form-control form-control-sm"
-                      style="width: 85px; flex-shrink: 0"
-                      :class="{
+                    <select v-model="row.discountType" class="form-control form-control-sm"
+                      style="width: 85px; flex-shrink: 0" :class="{
                         'is-invalid': form.errors.has(`selectedProducts.${getProductIndex(row)}.discountType`),
-                      }"
-                      @change="calculateProductDiscount(getProductIndex(row))"
-                    >
+                      }" @change="calculateProductDiscount(getProductIndex(row))">
                       <option value="fixed">{{ $t("Fixed") }}</option>
                       <option value="percentage">{{ $t("%") }}</option>
                     </select>
-                    <input
-                      type="number"
-                      v-model="row.discount"
-                      class="form-control form-control-sm"
-                      style="width: 90px; flex-shrink: 0"
-                      step="any"
-                      min="0"
-                      :max="row.discountType == 'percentage' ? 100 : row.unitPrice * row.qty"
-                      :class="{
+                    <input type="number" v-model="row.discount" class="form-control form-control-sm"
+                      style="width: 90px; flex-shrink: 0" step="any" min="0"
+                      :max="row.discountType == 'percentage' ? 100 : row.unitPrice * row.qty" :class="{
                         'is-invalid': form.errors.has(`selectedProducts.${getProductIndex(row)}.discount`),
-                      }"
-                      :placeholder="$t('0')"
-                      @change="calculateProductDiscount(getProductIndex(row))"
-                      @keyup="calculateProductDiscount(getProductIndex(row))"
-                    />
+                      }" :placeholder="$t('0')" @change="calculateProductDiscount(getProductIndex(row))"
+                      @keyup="calculateProductDiscount(getProductIndex(row))" />
                   </div>
-                  <div
-                    v-if="
-                      form.errors.has(`selectedProducts.${getProductIndex(row)}.discount`) ||
-                      form.errors.has(`selectedProducts.${getProductIndex(row)}.discountType`)
-                    "
-                    class="invalid-feedback d-block"
-                  >
-                    <span
-                      v-if="form.errors.has(`selectedProducts.${getProductIndex(row)}.discount`)"
-                      class="d-block"
-                    >
+                  <div v-if="
+                    form.errors.has(`selectedProducts.${getProductIndex(row)}.discount`) ||
+                    form.errors.has(`selectedProducts.${getProductIndex(row)}.discountType`)
+                  " class="invalid-feedback d-block">
+                    <span v-if="form.errors.has(`selectedProducts.${getProductIndex(row)}.discount`)" class="d-block">
                       {{ form.errors.get(`selectedProducts.${getProductIndex(row)}.discount`) }}
                     </span>
-                    <span
-                      v-if="form.errors.has(`selectedProducts.${getProductIndex(row)}.discountType`)"
-                      class="d-block"
-                    >
+                    <span v-if="form.errors.has(`selectedProducts.${getProductIndex(row)}.discountType`)"
+                      class="d-block">
                       {{ form.errors.get(`selectedProducts.${getProductIndex(row)}.discountType`) }}
                     </span>
                   </div>
@@ -163,24 +183,16 @@
 
                 <!-- VAT Type -->
                 <template #cell-vatType="{ row }">
-                  <select
-                    v-model="row.selectedVatRate"
-                    class="form-control form-control-sm"
-                    :class="{
-                      'is-invalid': form.errors.has(`selectedProducts.${getProductIndex(row)}.selectedVatRate`),
-                    }"
-                    @change="calculateProductVat(getProductIndex(row))"
-                    style="min-width: 120px"
-                  >
+                  <select v-model="row.selectedVatRate" class="form-control form-control-sm" :class="{
+                    'is-invalid': form.errors.has(`selectedProducts.${getProductIndex(row)}.selectedVatRate`),
+                  }" @change="calculateProductVat(getProductIndex(row))" style="min-width: 120px">
                     <option value="">{{ $t("Select VAT") }}</option>
                     <option v-for="tax in taxes" :key="tax.id" :value="tax">
                       {{ tax.code }} ({{ tax.rate }}%)
                     </option>
                   </select>
-                  <div
-                    v-if="form.errors.has(`selectedProducts.${getProductIndex(row)}.selectedVatRate`)"
-                    class="invalid-feedback d-block"
-                  >
+                  <div v-if="form.errors.has(`selectedProducts.${getProductIndex(row)}.selectedVatRate`)"
+                    class="invalid-feedback d-block">
                     {{ form.errors.get(`selectedProducts.${getProductIndex(row)}.selectedVatRate`) }}
                   </div>
                 </template>
@@ -216,8 +228,8 @@
               <div class="form-group col-md-4">
                 <label for="discountType" class="pos-input-label">{{ $t("Discount Type") }}</label>
                 <select id="discountType" v-model="form.discountType" class="form-control pos-input"
-                  :class="{ 'is-invalid': form.errors.has('discountType') }" name="discountType"
-                  @change="calculateSum" @keyup="calculateSum">
+                  :class="{ 'is-invalid': form.errors.has('discountType') }" name="discountType" @change="calculateSum"
+                  @keyup="calculateSum">
                   <option value="0">{{ $t("Fixed") }}</option>
                   <option value="1">{{ $t("Percentage") }}(%)</option>
                 </select>
@@ -241,8 +253,9 @@
               <div class="form-group col-md-4">
                 <label for="transportCost" class="pos-input-label">{{ $t("Transport Cost") }}</label>
                 <input id="transportCost" v-model="form.transportCost" type="number" step="any" min="0"
-                  class="form-control pos-input" :class="{ 'is-invalid': form.errors.has('transportCost') }" name="transportCost"
-                  :placeholder="$t('Enter transport cost')" @change="calculateSum" @keyup="calculateSum" />
+                  class="form-control pos-input" :class="{ 'is-invalid': form.errors.has('transportCost') }"
+                  name="transportCost" :placeholder="$t('Enter transport cost')" @change="calculateSum"
+                  @keyup="calculateSum" />
                 <has-error :form="form" field="transportCost" />
               </div>
 
@@ -305,7 +318,7 @@
               <div v-if="taxes && !isSaudiArabia" class="form-group col-md-6 col-lg-6">
                 <label for="orderTax">{{ $t("Invoice Tax") }} </label>
                 <div class="input-group select-input-group">
-                  <v-select class="w-85" v-model="form.orderTax" :options="taxes" label="code"
+                  <v-select class="w-85" v-model="form.orderTax" :options="Array.isArray(taxes) ? taxes : []" label="code"
                     :class="{ 'is-invalid': form.errors.has('orderTax') }" name="orderTax"
                     :placeholder="$t('Select a tax type')" @input="calculateSum" />
                   <div class="input-group-prepend input-c-margin">
@@ -339,10 +352,7 @@
             </button>
           </div>
           <div class="col-12 col-lg-3 mb-2">
-            <button
-              @click="openInvoicesPage"
-              :title="$t('Open Invoices Page')"
-              class="btn btn-info btn-block pos-btn">
+            <button @click="openInvoicesPage" :title="$t('Open Invoices Page')" class="btn btn-info btn-block pos-btn">
               <i class="fas fa-file-invoice" />
               {{ $t('Invoices') }}
             </button>
@@ -363,11 +373,8 @@
             <div v-if="products" class="pos-r-head-search">
               <search class="flex-grow-1" :isPosSearch="true" v-model="query" @reset-pagination="resetPagination()"
                 @reload="reload" />
-              <button 
-                type="button" 
-                class="btn pos-filter-toggle-btn"
-                :class="{ 'pos-filter-toggle-btn-active': showFilters }"
-                @click="toggleFilters"
+              <button type="button" class="btn pos-filter-toggle-btn"
+                :class="{ 'pos-filter-toggle-btn-active': showFilters }" @click="toggleFilters"
                 :title="showFilters ? $t('Hide Filters') : $t('Show Filters')">
                 <i class="fas fa-filter"></i>
               </button>
@@ -379,10 +386,9 @@
               <div v-if="categories && categories.length > 0" class="pos-filter-categories">
                 <label class="pos-filter-label">{{ $t('Categories') }}</label>
                 <ul class="pos-filter-card-list">
-                  <li v-for="category in categories" :key="category.id" 
-                      class="pos-filter-card"
-                      :class="{ 'pos-filter-card-active': form.category && form.category.id === category.id }"
-                      @click="selectCategory(category)">
+                  <li v-for="category in categories" :key="category.id" class="pos-filter-card"
+                    :class="{ 'pos-filter-card-active': form.category && form.category.id === category.id }"
+                    @click="selectCategory(category)">
                     <div class="pos-filter-card-content">
                       <i class="fas fa-folder pos-filter-card-icon"></i>
                       <span class="pos-filter-card-name">{{ category.name }}</span>
@@ -393,10 +399,9 @@
               <div v-if="subCategories && subCategories.length > 0" class="pos-filter-subcategories">
                 <label class="pos-filter-label">{{ $t('Sub Categories') }}</label>
                 <ul class="pos-filter-card-list">
-                  <li v-for="subCategory in subCategories" :key="subCategory.id" 
-                      class="pos-filter-card"
-                      :class="{ 'pos-filter-card-active': form.subCategory && form.subCategory.id === subCategory.id }"
-                      @click="selectSubCategory(subCategory)">
+                  <li v-for="subCategory in subCategories" :key="subCategory.id" class="pos-filter-card"
+                    :class="{ 'pos-filter-card-active': form.subCategory && form.subCategory.id === subCategory.id }"
+                    @click="selectSubCategory(subCategory)">
                     <div class="pos-filter-card-content">
                       <i class="fas fa-folder-open pos-filter-card-icon"></i>
                       <span class="pos-filter-card-name">{{ subCategory.name }}</span>
@@ -418,7 +423,8 @@
                     </div>
                     <div class="pos-box-img">
                       <div v-if="hasValidImage(product)" class="pos-box-image-wrapper">
-                        <img class="pos-box-icon" :src="product.image" :data-product-id="product.id" alt="product image" @error="handleImageError($event)" />
+                        <img class="pos-box-icon" :src="product.image" :data-product-id="product.id" alt="product image"
+                          @error="handleImageError($event)" />
                       </div>
                       <div v-else class="pos-box-no-preview">{{ $t("No Preview") }}</div>
                     </div>
@@ -456,7 +462,7 @@
               </div>
             </div>
 
-            
+
           </div>
         </div>
       </div>
@@ -475,7 +481,7 @@
           ">
             <div class="form-group col-md-8">
               <label for="account">{{ $t("Account") }} <span class="required">*</span></label>
-              <v-select v-model="form.account" :options="accounts" label="label"
+              <v-select v-model="form.account" :options="Array.isArray(accounts) ? accounts : []" label="label"
                 :class="{ 'is-invalid': form.errors.has('account') }" name="account"
                 :placeholder="$t('Select an account')">
                 <template slot="option" slot-scope="option">
@@ -797,7 +803,7 @@ export default {
     taxes: [],
     audio: "",
     products: "",
-    accounts: "",
+    accounts: [],
     categories: [],
     subCategories: [],
     productPrefix: "",
@@ -819,6 +825,13 @@ export default {
     // Chart of account auto-assign
     isAutoAssigningClient: false,
     isAutoAssigningProduct: null,
+    // Invoice session management
+    invoices: [],
+    currentInvoiceIndex: 0,
+    invoiceCounter: 0,
+    // Invoice tabs pagination
+    tabsPerPage: 6,
+    currentTabsPage: 0,
   }),
   computed: {
     ...mapGetters("operations", ["items", "appInfo"]),
@@ -991,6 +1004,29 @@ export default {
       const totalTransport = this.totalProportionalTransport;
       return this.roundToTwoDecimals(subtotal - totalDiscount + totalTransport);
     },
+
+    // Check if there is an active invoice
+    hasActiveInvoice() {
+      return this.invoices.length > 0 && this.invoices[this.currentInvoiceIndex]?.invoiceStatus === 'active';
+    },
+
+    // Calculate total pages for invoice tabs
+    totalTabsPages() {
+      return Math.ceil(this.invoices.length / this.tabsPerPage);
+    },
+
+    // Get visible invoices for current page
+    visibleInvoices() {
+      const start = this.currentTabsPage * this.tabsPerPage;
+      const end = start + this.tabsPerPage;
+      return this.invoices.slice(start, end);
+    },
+
+    // Get actual indices for visible invoices
+    visibleInvoiceIndices() {
+      const start = this.currentTabsPage * this.tabsPerPage;
+      return this.visibleInvoices.map((_, i) => start + i);
+    },
   },
   mounted() {
     window.addEventListener("keypress", (e) => {
@@ -1021,6 +1057,7 @@ export default {
         }
       }
     });
+    this.loadTemporaryData();
   },
   async created() {
     this.getClients();
@@ -1035,6 +1072,14 @@ export default {
     if (this.appInfo) {
       this.productPrefix = this.appInfo.productPrefix;
       this.invoicePrefix = this.appInfo.invoicePrefix;
+    }
+
+    // Try to load suspended invoices from localStorage
+    const loaded = this.loadSuspendedInvoices();
+    
+    // If no suspended invoices were loaded, initialize first invoice
+    if (!loaded || this.invoices.length === 0) {
+      this.initializeFirstInvoice();
     }
 
     document.body.classList.add("sidebar-collapse");
@@ -1088,13 +1133,69 @@ export default {
       },
       deep: true
     },
+
+    // Auto-save invoice state when form data changes
+    'form.selectedProducts': {
+      handler() {
+        if (this.invoices.length > 0 && this.currentInvoiceIndex >= 0) {
+          // Debounce the save to avoid excessive updates
+          clearTimeout(this._saveInvoiceStateTimeout);
+          this._saveInvoiceStateTimeout = setTimeout(() => {
+            this.saveInvoiceState();
+          }, 500);
+        }
+      },
+      deep: true
+    },
+
+    // Watch other form fields for auto-save
+    'form.client': {
+      handler() {
+        if (this.invoices.length > 0 && this.currentInvoiceIndex >= 0) {
+          this.saveInvoiceState();
+        }
+      },
+      deep: true
+    },
+
+    'form.discount': {
+      handler() {
+        if (this.invoices.length > 0 && this.currentInvoiceIndex >= 0) {
+          clearTimeout(this._saveInvoiceStateTimeout);
+          this._saveInvoiceStateTimeout = setTimeout(() => {
+            this.saveInvoiceState();
+          }, 500);
+        }
+      }
+    },
+
+    'form.transportCost': {
+      handler() {
+        if (this.invoices.length > 0 && this.currentInvoiceIndex >= 0) {
+          clearTimeout(this._saveInvoiceStateTimeout);
+          this._saveInvoiceStateTimeout = setTimeout(() => {
+            this.saveInvoiceState();
+          }, 500);
+        }
+      }
+    },
+
+    // Watch current invoice index to update pagination
+    currentInvoiceIndex: {
+      handler(newIndex) {
+        if (newIndex >= 0 && newIndex < this.invoices.length) {
+          this.updateTabsPageForInvoice(newIndex);
+        }
+      },
+      immediate: false
+    },
   },
   methods: {
     // Toggle filter visibility
     toggleFilters() {
       this.showFilters = !this.showFilters;
     },
-    
+
     // Check if product has a valid image (not empty, null, undefined, or default avatar)
     hasValidImage(product) {
       if (!product || !product.image) {
@@ -1110,7 +1211,7 @@ export default {
       }
       return true;
     },
-    
+
     // Handle image loading errors
     handleImageError(event) {
       const imgElement = event.target;
@@ -1139,13 +1240,14 @@ export default {
         }
       }
     },
-    
+
     // get all clients
     async getClients(selectedClient = "default") {
       await axios
         .get("/api/all-clients")
         .then(({ data }) => {
-          this.clients = data.data;
+          // Ensure clients is always an array
+          this.clients = Array.isArray(data.data) ? data.data : (data.data ? Object.values(data.data) : []);
           // assign default client
           if (this.clients && this.clients.length > 0) {
             let defaultClientSlug = this.appInfo.defaultClientSlug;
@@ -1165,7 +1267,8 @@ export default {
       const { data } = await axios.get(
         window.location.origin + "/api/all-accounts"
       );
-      this.accounts = data.data;
+      // Ensure accounts is always an array
+      this.accounts = Array.isArray(data.data) ? data.data : (data.data ? Object.values(data.data) : []);
 
       // assign default account
       if (this.accounts && this.accounts.length > 0) {
@@ -1181,7 +1284,8 @@ export default {
       const { data } = await axios.get(
         window.location.origin + "/api/all-vat-rates"
       );
-      this.taxes = data.data;
+      // Ensure taxes is always an array
+      this.taxes = Array.isArray(data.data) ? data.data : (data.data ? Object.values(data.data) : []);
 
       // assign default
       if (this.taxes && this.taxes.length > 0) {
@@ -1662,8 +1766,8 @@ export default {
       const discountAmount = this.roundToTwoDecimals(productDiscountAmount + proportionalDiscount);
 
       // Ensure total discount doesn't exceed the total before discount
-      const finalDiscountAmount = discountAmount > totalBeforeDiscount 
-        ? this.roundToTwoDecimals(totalBeforeDiscount) 
+      const finalDiscountAmount = discountAmount > totalBeforeDiscount
+        ? this.roundToTwoDecimals(totalBeforeDiscount)
         : discountAmount;
 
       // Calculate net total after discount (this is what VAT is calculated on)
@@ -1772,7 +1876,7 @@ export default {
       const netAmount = this.roundToTwoDecimals(
         this.form.subTotal - totalProportionalDiscount + totalProportionalTransport
       );
-      
+
       let invoiceTax = 0;
       if (!this.isSaudiArabia && this.form.orderTax) {
         invoiceTax = this.roundToTwoDecimals(
@@ -1880,7 +1984,7 @@ export default {
         const unitPriceNumber = Number(item.unitPrice) || 0;
         const qtyNumber = Number(item.qty) || 0;
         const itemSubtotal = unitPriceNumber * qtyNumber; // Item subtotal = qty × unit_price
-        
+
         itemSubtotals.push(itemSubtotal);
         invoiceSubtotal += itemSubtotal;
       });
@@ -1930,6 +2034,9 @@ export default {
 
     // save invoice
     async saveInvoice(isDirect = true) {
+      // Save current invoice state before saving
+      this.saveInvoiceState();
+
       // Ensure appInfo is loaded before proceeding
       await this.ensureAppInfoLoaded();
 
@@ -1964,7 +2071,7 @@ export default {
       this.form.subTotal = this.roundToTwoDecimals(this.totalSubtotalSummary);
       this.form.totalDiscount = this.roundToTwoDecimals(totalProportionalDiscount);
       this.form.productTotalTax = this.roundToTwoDecimals(totalProductTax);
-      
+
       // Calculate invoice-level tax if applicable
       const netAmount = this.roundToTwoDecimals(
         this.form.subTotal - totalProportionalDiscount + totalProportionalTransport
@@ -1975,11 +2082,11 @@ export default {
           (this.form.orderTax.rate / 100) * netAmount
         );
       }
-      
+
       this.form.totalTax = this.roundToTwoDecimals(totalProductTax + invoiceTax);
       // Net total = net amount + invoice tax (product tax is already included in product totals)
       this.form.netTotal = this.roundToTwoDecimals(netAmount + invoiceTax);
-      
+
       // Ensure transportCost is set
       this.form.transportCost = this.form.transportCost || 0;
 
@@ -1989,6 +2096,48 @@ export default {
           this.form.invoice_id = data.data.invoice_id;
           this.form.invoice_slug = data.data.invoice_slug;
           this.clearTemporaryData();
+
+          // Remove saved invoice from tabs
+          if (this.invoices.length > 0 && this.currentInvoiceIndex >= 0) {
+            const savedIndex = this.currentInvoiceIndex;
+            
+            // Determine which invoice to switch to after removing
+            let targetIndex = -1;
+            if (this.invoices.length > 1) {
+              // If there are other invoices, switch to the next available one
+              if (savedIndex > 0) {
+                // Switch to previous invoice
+                targetIndex = savedIndex - 1;
+              } else {
+                // Switch to next invoice (index 1, since we're removing index 0)
+                targetIndex = 0; // Will become 0 after removal
+              }
+            }
+
+            // Remove the saved invoice from the array
+            this.invoices.splice(savedIndex, 1);
+
+            // Switch to target invoice or create new one
+            if (this.invoices.length > 0 && targetIndex >= 0) {
+              // Adjust index if needed
+              if (targetIndex >= this.invoices.length) {
+                targetIndex = this.invoices.length - 1;
+              }
+              this.currentInvoiceIndex = targetIndex;
+              this.restoreInvoiceState(this.invoices[targetIndex]);
+            } else {
+              // No invoices remain, create a new empty invoice
+              this.initializeFirstInvoice();
+            }
+
+            // Persist updated invoice state (without the saved invoice)
+            this.persistSuspendedInvoices();
+          } else {
+            // If no invoices in session, ensure we have at least one
+            if (this.invoices.length === 0) {
+              this.initializeFirstInvoice();
+            }
+          }
 
           if (isDirect) {
             // Send to ZATCA if in Saudi Arabia and this is a direct save
@@ -2132,6 +2281,15 @@ export default {
       this.form.reset();
       this.againDefaultSettings();
       this.clickCount = 0; // reset click count
+      
+      // Ensure we have at least one invoice after closing receipt
+      if (this.invoices.length === 0) {
+        this.initializeFirstInvoice();
+      } else if (this.currentInvoiceIndex >= 0 && this.currentInvoiceIndex < this.invoices.length) {
+        // Restore the current invoice state
+        this.restoreInvoiceState(this.invoices[this.currentInvoiceIndex]);
+      }
+      
       console.log("from close" + this.clickCount);
     },
 
@@ -2295,6 +2453,597 @@ export default {
     // clear temporary data
     clearTemporaryData() {
       localStorage.removeItem("posTempData");
+    },
+
+    // Format invoice opened time for display
+    formatInvoiceTime(timeString) {
+      if (!timeString) {
+        return '';
+      }
+
+      try {
+        const date = new Date(timeString);
+        const now = new Date();
+        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        const invoiceDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+        
+        // Check if invoice was opened today
+        const isToday = invoiceDate.getTime() === today.getTime();
+        
+        // Format time (12-hour format with AM/PM)
+        const hours = date.getHours();
+        const minutes = date.getMinutes();
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        const displayHours = hours % 12 || 12;
+        const displayMinutes = minutes.toString().padStart(2, '0');
+        
+        const timeStr = `${displayHours}:${displayMinutes} ${ampm}`;
+        
+        // If not today, include date
+        if (!isToday) {
+          const day = date.getDate();
+          const month = date.toLocaleString('default', { month: 'short' });
+          return `${day} ${month}, ${timeStr}`;
+        }
+        
+        return timeStr;
+      } catch (error) {
+        console.error('Error formatting invoice time:', error);
+        return '';
+      }
+    },
+
+    // Persist suspended invoices to localStorage
+    persistSuspendedInvoices() {
+      try {
+        const sessionData = {
+          invoices: this.invoices.map(invoice => {
+            // Deep clone to avoid reference issues
+            return JSON.parse(JSON.stringify({
+              id: invoice.id,
+              createdAt: invoice.createdAt,
+              openedTime: invoice.openedTime || invoice.createdAt, // Preserve opened time
+              invoiceStatus: invoice.invoiceStatus,
+              reference: invoice.reference,
+              client: invoice.client,
+              selectedProducts: invoice.selectedProducts || [],
+              subTotal: invoice.subTotal || 0,
+              netTotal: invoice.netTotal || 0,
+              transportCost: invoice.transportCost || "",
+              orderTax: invoice.orderTax || null,
+              productTotalTax: invoice.productTotalTax || 0,
+              totalTax: invoice.totalTax || 0,
+              discount: invoice.discount || "",
+              discountType: invoice.discountType || 0,
+              poReference: invoice.poReference || "",
+              paymentTerms: invoice.paymentTerms || "",
+              deliveryPlace: invoice.deliveryPlace || "",
+              date: invoice.date || new Date().toISOString().slice(0, 10),
+              note: invoice.note || "",
+              status: invoice.status !== undefined ? invoice.status : 1,
+              account: invoice.account || "",
+              totalPaid: invoice.totalPaid || "",
+              dueAmount: invoice.dueAmount || "",
+              addPayment: invoice.addPayment || "",
+              chequeNo: invoice.chequeNo || "",
+              receiptNo: invoice.receiptNo || "",
+              category: invoice.category || "",
+              invoice_id: invoice.invoice_id || null,
+              invoice_slug: invoice.invoice_slug || null,
+              // Note: attachment cannot be stored in localStorage, so we skip it
+            }));
+          }),
+          currentInvoiceIndex: this.currentInvoiceIndex,
+          invoiceCounter: this.invoiceCounter,
+          lastSaved: new Date().toISOString(),
+        };
+        localStorage.setItem("posSuspendedInvoices", JSON.stringify(sessionData));
+      } catch (error) {
+        console.error("Error persisting suspended invoices:", error);
+      }
+    },
+
+    // Load suspended invoices from localStorage
+    loadSuspendedInvoices() {
+      try {
+        const savedData = localStorage.getItem("posSuspendedInvoices");
+        if (!savedData) {
+          return false;
+        }
+
+        const sessionData = JSON.parse(savedData);
+        
+        // Validate data structure
+        if (!sessionData.invoices || !Array.isArray(sessionData.invoices)) {
+          return false;
+        }
+
+        // Restore invoices
+        this.invoices = sessionData.invoices.map(invoice => {
+          // Ensure all required fields are present
+          return {
+            id: invoice.id || `inv_${Date.now()}_${Math.random()}`,
+            createdAt: invoice.createdAt || new Date().toISOString(),
+            openedTime: invoice.openedTime || invoice.createdAt || new Date().toISOString(), // Restore opened time
+            invoiceStatus: invoice.invoiceStatus || 'suspended',
+            reference: invoice.reference || `INV-${this.invoiceCounter}`,
+            client: invoice.client || null,
+            selectedProducts: invoice.selectedProducts || [],
+            subTotal: invoice.subTotal || 0,
+            netTotal: invoice.netTotal || 0,
+            transportCost: invoice.transportCost || "",
+            orderTax: invoice.orderTax || null,
+            productTotalTax: invoice.productTotalTax || 0,
+            totalTax: invoice.totalTax || 0,
+            discount: invoice.discount || "",
+            discountType: invoice.discountType || 0,
+            poReference: invoice.poReference || "",
+            paymentTerms: invoice.paymentTerms || "",
+            deliveryPlace: invoice.deliveryPlace || "",
+            date: invoice.date || new Date().toISOString().slice(0, 10),
+            note: invoice.note || "",
+            status: invoice.status !== undefined ? invoice.status : 1,
+            account: invoice.account || "",
+            totalPaid: invoice.totalPaid || "",
+            dueAmount: invoice.dueAmount || "",
+            addPayment: invoice.addPayment || "",
+            chequeNo: invoice.chequeNo || "",
+            receiptNo: invoice.receiptNo || "",
+            category: invoice.category || "",
+            invoice_id: invoice.invoice_id || null,
+            invoice_slug: invoice.invoice_slug || null,
+            attachment: null, // Cannot restore file attachments
+          };
+        });
+
+        // Restore counter
+        if (sessionData.invoiceCounter) {
+          this.invoiceCounter = sessionData.invoiceCounter;
+        }
+
+        // Restore current invoice index (ensure it's valid)
+        let targetIndex = sessionData.currentInvoiceIndex || 0;
+        if (targetIndex < 0 || targetIndex >= this.invoices.length) {
+          // Find the last active invoice, or default to first
+          const activeIndex = this.invoices.findIndex(inv => inv.invoiceStatus === 'active');
+          targetIndex = activeIndex >= 0 ? activeIndex : 0;
+        }
+
+        this.currentInvoiceIndex = targetIndex;
+
+        // Update pagination to show the current invoice
+        this.updateTabsPageForInvoice(this.currentInvoiceIndex);
+
+        // Restore the current invoice state
+        if (this.invoices.length > 0 && this.currentInvoiceIndex >= 0) {
+          const currentInvoice = this.invoices[this.currentInvoiceIndex];
+          this.restoreInvoiceState(currentInvoice);
+        }
+
+        return true;
+      } catch (error) {
+        console.error("Error loading suspended invoices:", error);
+        // Clear corrupted data
+        this.clearSuspendedInvoices();
+        return false;
+      }
+    },
+
+    // Clear suspended invoices from localStorage
+    clearSuspendedInvoices() {
+      try {
+        localStorage.removeItem("posSuspendedInvoices");
+      } catch (error) {
+        console.error("Error clearing suspended invoices:", error);
+      }
+    },
+
+    // Initialize first invoice
+    initializeFirstInvoice() {
+      if (this.invoices.length === 0) {
+        const firstInvoice = this.createEmptyInvoice();
+        this.invoices.push(firstInvoice);
+        this.currentInvoiceIndex = 0;
+        this.currentTabsPage = 0;
+        this.restoreInvoiceState(firstInvoice);
+      }
+    },
+
+    // Create empty invoice object
+    createEmptyInvoice() {
+      return {
+        id: `inv_${Date.now()}_${++this.invoiceCounter}`,
+        createdAt: new Date().toISOString(),
+        openedTime: new Date().toISOString(), // Track when invoice was opened
+        invoiceStatus: 'active',
+        reference: `INV-${this.invoiceCounter}`,
+        client: null,
+        selectedProducts: [],
+        subTotal: 0,
+        netTotal: 0,
+        transportCost: "",
+        orderTax: null,
+        productTotalTax: 0,
+        totalTax: 0,
+        discount: "",
+        discountType: 0,
+        poReference: "",
+        paymentTerms: "",
+        deliveryPlace: "",
+        date: new Date().toISOString().slice(0, 10),
+        note: "",
+        status: 1,
+        account: "",
+        totalPaid: "",
+        dueAmount: "",
+        addPayment: "",
+        chequeNo: "",
+        receiptNo: "",
+        category: "",
+        invoice_id: null,
+        invoice_slug: null,
+        attachment: null,
+      };
+    },
+
+    // Save current invoice state
+    saveInvoiceState() {
+      if (this.invoices.length === 0 || this.currentInvoiceIndex < 0 || this.currentInvoiceIndex >= this.invoices.length) {
+        return;
+      }
+
+      const currentInvoice = this.invoices[this.currentInvoiceIndex];
+
+      // Deep clone selectedProducts to avoid reference issues
+      const clonedProducts = JSON.parse(JSON.stringify(this.form.selectedProducts || []));
+
+      // Update invoice state with current form data
+      currentInvoice.client = this.form.client;
+      currentInvoice.selectedProducts = clonedProducts;
+      currentInvoice.subTotal = this.form.subTotal || 0;
+      currentInvoice.netTotal = this.form.netTotal || 0;
+      currentInvoice.transportCost = this.form.transportCost || "";
+      currentInvoice.orderTax = this.form.orderTax || null;
+      currentInvoice.productTotalTax = this.form.productTotalTax || 0;
+      currentInvoice.totalTax = this.form.totalTax || 0;
+      currentInvoice.discount = this.form.discount || "";
+      currentInvoice.discountType = this.form.discountType || 0;
+      currentInvoice.poReference = this.form.poReference || "";
+      currentInvoice.paymentTerms = this.form.paymentTerms || "";
+      currentInvoice.deliveryPlace = this.form.deliveryPlace || "";
+      currentInvoice.date = this.form.date || new Date().toISOString().slice(0, 10);
+      currentInvoice.note = this.form.note || "";
+      currentInvoice.status = this.form.status !== undefined ? this.form.status : 1;
+      currentInvoice.account = this.form.account || "";
+      currentInvoice.totalPaid = this.form.totalPaid || "";
+      currentInvoice.dueAmount = this.form.dueAmount || "";
+      currentInvoice.addPayment = this.form.addPayment || "";
+      currentInvoice.chequeNo = this.form.chequeNo || "";
+      currentInvoice.receiptNo = this.form.receiptNo || "";
+      currentInvoice.category = this.form.category || "";
+      currentInvoice.invoice_id = this.form.invoice_id || null;
+      currentInvoice.invoice_slug = this.form.invoice_slug || null;
+      currentInvoice.attachment = this.form.attachment || null;
+
+      // Persist suspended invoices after saving state
+      this.persistSuspendedInvoices();
+    },
+
+    // Restore invoice state to form
+    restoreInvoiceState(invoice) {
+      if (!invoice) {
+        return;
+      }
+
+      // Deep clone to avoid reference issues
+      const clonedProducts = JSON.parse(JSON.stringify(invoice.selectedProducts || []));
+
+      this.form.client = invoice.client || null;
+      this.form.selectedProducts = clonedProducts;
+      this.form.subTotal = invoice.subTotal || 0;
+      this.form.netTotal = invoice.netTotal || 0;
+      this.form.transportCost = invoice.transportCost || "";
+      this.form.orderTax = invoice.orderTax || null;
+      this.form.productTotalTax = invoice.productTotalTax || 0;
+      this.form.totalTax = invoice.totalTax || 0;
+      this.form.discount = invoice.discount || "";
+      this.form.discountType = invoice.discountType || 0;
+      this.form.poReference = invoice.poReference || "";
+      this.form.paymentTerms = invoice.paymentTerms || "";
+      this.form.deliveryPlace = invoice.deliveryPlace || "";
+      this.form.date = invoice.date || new Date().toISOString().slice(0, 10);
+      this.form.note = invoice.note || "";
+      this.form.status = invoice.status !== undefined ? invoice.status : 1;
+      this.form.account = invoice.account || "";
+      this.form.totalPaid = invoice.totalPaid || "";
+      this.form.dueAmount = invoice.dueAmount || "";
+      this.form.addPayment = invoice.addPayment || "";
+      this.form.chequeNo = invoice.chequeNo || "";
+      this.form.receiptNo = invoice.receiptNo || "";
+      this.form.category = invoice.category || "";
+      this.form.invoice_id = invoice.invoice_id || null;
+      this.form.invoice_slug = invoice.invoice_slug || null;
+      this.form.attachment = invoice.attachment || null;
+
+      // Recalculate totals after restoring
+      this.$nextTick(() => {
+        this.recalculateAllItemsWithProportionalDiscount();
+        this.calculateSum();
+      });
+    },
+
+    // Create new invoice
+    createNewInvoice() {
+      // Save current invoice state before switching (if there is an active invoice)
+      if (this.invoices.length > 0 && this.currentInvoiceIndex >= 0 && this.currentInvoiceIndex < this.invoices.length) {
+        // Save current invoice state (products, quantities, discounts, transport, taxes, totals)
+        this.saveInvoiceState();
+        
+        // Automatically suspend the current invoice
+        const currentInvoice = this.invoices[this.currentInvoiceIndex];
+        currentInvoice.invoiceStatus = 'suspended';
+      }
+
+      // Create new invoice
+      const newInvoice = this.createEmptyInvoice();
+      this.invoices.push(newInvoice);
+      this.currentInvoiceIndex = this.invoices.length - 1;
+      this.restoreInvoiceState(newInvoice);
+
+      // Update pagination to show the new invoice
+      this.updateTabsPageForInvoice(this.currentInvoiceIndex);
+
+      // Persist suspended invoices after creating new invoice
+      this.persistSuspendedInvoices();
+    },
+
+    // Switch to a different invoice
+    switchInvoice(index) {
+      if (index < 0 || index >= this.invoices.length) {
+        return;
+      }
+
+      // Save current invoice state
+      if (this.currentInvoiceIndex >= 0 && this.currentInvoiceIndex < this.invoices.length) {
+        this.saveInvoiceState();
+      }
+
+      // Switch to new invoice
+      this.currentInvoiceIndex = index;
+      const targetInvoice = this.invoices[index];
+      this.restoreInvoiceState(targetInvoice);
+
+      // Update pagination to show the active invoice
+      this.updateTabsPageForInvoice(index);
+
+      // Persist suspended invoices after switching
+      this.persistSuspendedInvoices();
+    },
+
+    // Update tabs page to show the specified invoice
+    updateTabsPageForInvoice(invoiceIndex) {
+      const page = Math.floor(invoiceIndex / this.tabsPerPage);
+      if (page !== this.currentTabsPage) {
+        this.currentTabsPage = page;
+      }
+    },
+
+    // Navigate to previous tabs page
+    previousTabsPage() {
+      if (this.currentTabsPage > 0) {
+        this.currentTabsPage--;
+      }
+    },
+
+    // Navigate to next tabs page
+    nextTabsPage() {
+      if (this.currentTabsPage < this.totalTabsPages - 1) {
+        this.currentTabsPage++;
+      }
+    },
+
+    // Remove invoice from session
+    async removeInvoice(index) {
+      // Ensure index is a number
+      const invoiceIndex = typeof index === 'number' ? index : parseInt(index);
+      
+      if (this.invoices.length <= 1) {
+        this.$toast.warning(
+          this.$t("Cannot Remove"),
+          this.$t("You must have at least one invoice in the session")
+        );
+        return;
+      }
+
+      if (invoiceIndex < 0 || invoiceIndex >= this.invoices.length) {
+        console.warn('Invalid invoice index:', invoiceIndex, 'Total invoices:', this.invoices.length);
+        return;
+      }
+
+      try {
+        // Show confirmation popup - use type instead of icon
+        const result = await this.$swal.fire({
+          title: this.$t("Are you sure?"),
+          text: this.$t("Do you want to close this invoice? Unsaved changes will be lost."),
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonText: this.$t("Close"),
+          cancelButtonText: this.$t("Cancel"),
+        });
+
+        // Check if user confirmed - handle both isConfirmed and value properties
+        const isConfirmed = result && (result.isConfirmed === true || result.value === true);
+
+        // If user cancelled, do nothing
+        if (!isConfirmed) {
+          return;
+        }
+
+        // Save current invoice state if removing the active invoice
+        const isRemovingCurrent = invoiceIndex === this.currentInvoiceIndex;
+        
+        if (isRemovingCurrent) {
+          this.saveInvoiceState();
+        }
+
+        // Determine which invoice to switch to after removing
+        let newCurrentIndex = this.currentInvoiceIndex;
+        
+        if (isRemovingCurrent) {
+          // We're removing the current invoice, need to switch to another
+          if (this.invoices.length > 1) {
+            if (invoiceIndex > 0) {
+              // Switch to previous invoice (index - 1)
+              newCurrentIndex = invoiceIndex - 1;
+            } else {
+              // We're removing index 0, switch to what's currently at index 1
+              // After removal, index 1 becomes index 0
+              newCurrentIndex = 0;
+            }
+          }
+        } else if (invoiceIndex < this.currentInvoiceIndex) {
+          // We're removing an invoice before the current one
+          // After removal, current index needs to be decremented
+          newCurrentIndex = this.currentInvoiceIndex - 1;
+        }
+        // If removing an invoice after current, no change needed
+
+        // Remove invoice from array (splice is reactive in Vue)
+        this.invoices.splice(invoiceIndex, 1);
+
+        // Update current index
+        this.currentInvoiceIndex = newCurrentIndex;
+        
+        // Ensure we have a valid invoices array
+        if (!Array.isArray(this.invoices)) {
+          console.error('Invoices is not an array after removal!');
+          this.invoices = [];
+        }
+
+        // Ensure current index is valid
+        if (this.currentInvoiceIndex < 0) {
+          this.currentInvoiceIndex = 0;
+        }
+        if (this.currentInvoiceIndex >= this.invoices.length && this.invoices.length > 0) {
+          this.currentInvoiceIndex = this.invoices.length - 1;
+        }
+
+        // If no invoices remain, create a new empty invoice
+        if (this.invoices.length === 0) {
+          this.initializeFirstInvoice();
+          this.currentTabsPage = 0;
+        } else {
+          // Restore the current invoice state
+          if (this.currentInvoiceIndex >= 0 && this.currentInvoiceIndex < this.invoices.length) {
+            this.restoreInvoiceState(this.invoices[this.currentInvoiceIndex]);
+            // Update pagination to show the current invoice
+            this.updateTabsPageForInvoice(this.currentInvoiceIndex);
+          }
+          
+          // Adjust pagination if needed
+          const maxPage = Math.max(0, Math.ceil(this.invoices.length / this.tabsPerPage) - 1);
+          if (this.currentTabsPage > maxPage) {
+            this.currentTabsPage = maxPage;
+          }
+        }
+
+        // Persist suspended invoices after removing
+        this.persistSuspendedInvoices();
+
+        // Force Vue to update the view
+        this.$nextTick(() => {
+          this.$forceUpdate();
+        });
+      } catch (error) {
+        console.error('Error removing invoice:', error);
+        this.$toast.error(
+          this.$t("Error"),
+          this.$t("Failed to remove invoice. Please try again.")
+        );
+      }
+    },
+
+    // Close POS session
+    async closeSession() {
+      // Check if there's an active invoice with data
+      const hasActiveData = this.invoices.some(inv =>
+        inv.invoiceStatus === 'active' &&
+        inv.selectedProducts &&
+        inv.selectedProducts.length > 0
+      );
+
+      if (hasActiveData) {
+        const confirmed = await this.$swal({
+          title: this.$t("Close Session?"),
+          text: this.$t("You have an active invoice with items. What would you like to do?"),
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: this.$t("Save & Close"),
+          cancelButtonText: this.$t("Discard & Close"),
+          showDenyButton: true,
+          denyButtonText: this.$t("Cancel"),
+        });
+
+        if (confirmed.isConfirmed) {
+          // Save current invoice state
+          this.saveInvoiceState();
+
+          // Clear all invoices and reset
+          this.invoices = [];
+          this.currentInvoiceIndex = 0;
+          this.invoiceCounter = 0;
+          this.form.reset();
+          this.againDefaultSettings();
+          this.clearSuspendedInvoices(); // Clear persisted suspended invoices
+          this.initializeFirstInvoice();
+
+          this.$toast.success(
+            this.$t("Session Closed"),
+            this.$t("POS session has been closed successfully")
+          );
+        } else if (confirmed.isDenied === false) {
+          // User clicked "Discard & Close"
+          // Clear all invoices and reset
+          this.invoices = [];
+          this.currentInvoiceIndex = 0;
+          this.invoiceCounter = 0;
+          this.form.reset();
+          this.againDefaultSettings();
+          this.clearSuspendedInvoices(); // Clear persisted suspended invoices
+          this.initializeFirstInvoice();
+
+          this.$toast.info(
+            this.$t("Session Closed"),
+            this.$t("POS session has been closed and all data discarded")
+          );
+        }
+        // If user clicked Cancel, do nothing
+      } else {
+        // No active data, just close
+        const confirmed = await this.$swal({
+          title: this.$t("Close Session?"),
+          text: this.$t("Are you sure you want to close the POS session?"),
+          icon: "question",
+          showCancelButton: true,
+          confirmButtonText: this.$t("Yes, Close"),
+          cancelButtonText: this.$t("Cancel"),
+        });
+
+        if (confirmed.isConfirmed) {
+          this.invoices = [];
+          this.currentInvoiceIndex = 0;
+          this.invoiceCounter = 0;
+          this.form.reset();
+          this.againDefaultSettings();
+          this.clearSuspendedInvoices(); // Clear persisted suspended invoices
+          this.initializeFirstInvoice();
+
+          this.$toast.success(
+            this.$t("Session Closed"),
+            this.$t("POS session has been closed successfully")
+          );
+        }
+      }
     },
 
     // open invoices page in new tab
@@ -2521,9 +3270,6 @@ export default {
       }
     },
   },
-  mounted() {
-    this.loadTemporaryData();
-  },
 };
 </script>
 
@@ -2555,8 +3301,8 @@ export default {
   padding: 0 20px;
 }
 
-.pos-r-head-search > .search,
-.pos-r-head-search > search {
+.pos-r-head-search>.search,
+.pos-r-head-search>search {
   flex: 1 1 auto;
   min-width: 0;
 }
@@ -2724,11 +3470,11 @@ export default {
     min-width: 100px;
     flex: 1 1 calc(50% - 5px);
   }
-  
+
   .pos-filter-card-content {
     padding: 8px 12px;
   }
-  
+
   .pos-filter-card-name {
     font-size: 12px;
   }
@@ -3634,13 +4380,11 @@ span.pqty {
 /* RTL POS Input groups */
 [dir="rtl"] #pos .input-group-text {
   border-left: 1px solid #ced4da;
-  border-right: none;
   line-height: 2;
 }
 
 [dir="rtl"] #pos .input-group>.form-control:not(:last-child) {
   border-right: 1px solid #ced4da;
-  border-left: none;
 }
 
 /* RTL POS Buttons alignment */
@@ -3692,4 +4436,348 @@ span.pqty {
 [dir="rtl"] #invoice-POS .table_data td[style*="text-align: left"] {
   text-align: right !important;
 }
+
+/* Invoice Session Controls */
+.invoice-session-controls-wrapper {
+  margin-bottom: 1.5rem;
+}
+
+.invoice-session-controls {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  border: 1px solid #e0e6ed;
+  border-radius: 12px;
+  padding: 12px 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+}
+
+.invoice-session-controls:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+.invoice-tabs-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: nowrap;
+  width: 100%;
+}
+
+.invoice-tabs-wrapper .invoice-tabs-nav-next {
+  margin-right: 4px;
+}
+
+.invoice-tabs-container {
+  display: flex;
+  gap: 8px;
+  padding: 4px 0;
+  overflow: hidden;
+  flex-wrap: nowrap;
+  flex: 1;
+  min-width: 0;
+  scroll-behavior: smooth;
+}
+
+.invoice-tabs-nav-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  padding: 0;
+  background: #ffffff;
+  border: 1.5px solid #d1d9e0;
+  border-radius: 8px;
+  color: #5a6c7d;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.invoice-tabs-nav-btn:hover:not(:disabled) {
+  background: #f0f4f8;
+  border-color: #33a0d9;
+  color: #33a0d9;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(51, 160, 217, 0.15);
+}
+
+.invoice-tabs-nav-btn:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.invoice-tabs-nav-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  background: #f5f7fa;
+}
+
+.invoice-create-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 19px 19px;
+  background: linear-gradient(135deg, #33a0d9 0%, #2a8bc7 100%);
+  border: none;
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(51, 160, 217, 0.25);
+  white-space: nowrap;
+  margin-left: 4px;
+}
+
+.invoice-create-btn:hover {
+  background: linear-gradient(135deg, #2a8bc7 0%, #2280b3 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(51, 160, 217, 0.35);
+}
+
+.invoice-create-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(51, 160, 217, 0.25);
+}
+
+.invoice-create-btn i {
+  font-size: 14px;
+}
+
+.invoice-create-btn-text {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.invoice-tab {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  background: #ffffff;
+  border: 1.5px solid #e0e6ed;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+  flex-shrink: 0;
+  min-width: 140px;
+  position: relative;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.invoice-tab-content {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1;
+  min-width: 0;
+}
+
+.invoice-tab-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: nowrap;
+}
+
+.invoice-tab-icon {
+  font-size: 14px;
+  color: #6c757d;
+  opacity: 0.7;
+  transition: all 0.2s ease;
+}
+
+.invoice-tab:hover {
+  background: #f8f9fa;
+  border-color: #d1d9e0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.invoice-tab:hover .invoice-tab-icon {
+  color: #33a0d9;
+  opacity: 1;
+}
+
+.invoice-tab-active {
+  background: linear-gradient(135deg, #33a0d9 0%, #2a8bc7 100%);
+  border-color: #33a0d9;
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(51, 160, 217, 0.35);
+  transform: translateY(-1px);
+}
+
+.invoice-tab-active .invoice-tab-icon {
+  color: #ffffff;
+  opacity: 1;
+}
+
+.invoice-tab-active:hover {
+  background: linear-gradient(135deg, #2a8bc7 0%, #2280b3 100%);
+  box-shadow: 0 6px 18px rgba(51, 160, 217, 0.4);
+  transform: translateY(-2px);
+}
+
+.invoice-tab-number {
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.2px;
+}
+
+.invoice-tab-close {
+  margin-left: auto;
+  background: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 5px;
+  opacity: 0.6;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+.invoice-tab-close:hover {
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.08);
+  transform: scale(1.15);
+}
+
+.invoice-tab-active .invoice-tab-close {
+  opacity: 0.8;
+}
+
+.invoice-tab-active .invoice-tab-close:hover {
+  background: rgba(255, 255, 255, 0.25);
+  opacity: 1;
+}
+
+.invoice-tab-time {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: #6c757d;
+  opacity: 0.75;
+  margin-top: 1px;
+  font-weight: 500;
+}
+
+.invoice-tab-active .invoice-tab-time {
+  color: rgba(255, 255, 255, 0.95);
+  opacity: 0.9;
+}
+
+.invoice-tab-time i {
+  font-size: 10px;
+}
+
+@media only screen and (max-width: 767px) {
+  .invoice-session-controls {
+    padding: 10px 12px;
+    border-radius: 10px;
+  }
+
+  .invoice-tabs-wrapper {
+    gap: 8px;
+  }
+
+  .invoice-tab {
+    min-width: 110px;
+    padding: 8px 12px;
+    gap: 8px;
+  }
+
+  .invoice-tab-number {
+    font-size: 13px;
+  }
+
+  .invoice-tab-time {
+    font-size: 10px;
+  }
+
+  .invoice-tab-time i {
+    font-size: 9px;
+  }
+
+  .invoice-tab-icon {
+    font-size: 12px;
+  }
+
+  .invoice-create-btn {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  .invoice-create-btn-text {
+    display: none;
+  }
+
+  .invoice-create-btn i {
+    font-size: 14px;
+  }
+}
+
+/* RTL Invoice Tab Time */
+[dir="rtl"] .invoice-tab-time {
+  direction: rtl;
+  text-align: right;
+}
+
+[dir="rtl"] .invoice-tab-header {
+  direction: rtl;
+}
+
+/* RTL Invoice Tabs Navigation */
+[dir="rtl"] .invoice-tabs-nav-prev {
+  order: 3;
+  margin-left: 8px;
+  margin-right: 0;
+}
+
+[dir="rtl"] .invoice-tabs-nav-next {
+  order: 1;
+  margin-right: 8px;
+  margin-left: 0;
+}
+
+[dir="rtl"] .invoice-create-btn {
+  order: 0;
+  margin-left: 0;
+}
+
+[dir="rtl"] .invoice-tabs-wrapper .invoice-tabs-nav-next {
+  margin-right: 0;
+}
+
+[dir="rtl"] .invoice-tab-close {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+@media only screen and (max-width: 767px) {
+  .invoice-tabs-nav-btn {
+    width: 52px;
+    height: 52px;
+    font-size: 12px;
+  }
+
+  .invoice-create-btn {
+    padding: 19px 19px;
+    margin-left: 4px;
+  }
+}
 </style>
+

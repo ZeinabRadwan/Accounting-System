@@ -2083,6 +2083,7 @@
 "Save": "Save",
 "Complete Process": "Complete Process",
 "Close": "Close",
+"Do you want to close this invoice? Unsaved changes will be lost.": "Do you want to close this invoice? Unsaved changes will be lost.",
 "Ban failed": "Ban failed",
 "Subscription Invoices": "Subscription Invoices",
 "Select a status": "Select a status",
