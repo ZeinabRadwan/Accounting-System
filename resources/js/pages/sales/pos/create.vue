@@ -53,22 +53,12 @@
                   </span>
                 </template>
 
-                <!-- Price -->
-                <template #cell-unitPrice="{ row }">
-                  <div class="input-group custom-qty-input table-price-counter-nowrap">
-                    <input
-                      type="number"
-                      step="any"
-                      :id="`unitPrice-${getProductIndex(row)}`"
-                      :value="row.unitPrice"
-                      name="unitPrice"
-                      class="quantity-field border-0"
-                      required
-                      min="0"
-                      @change="generateItemTotal($event.target.value, 'price', getProductIndex(row), '')"
-                      @keyup="generateItemTotal($event.target.value, 'price', getProductIndex(row), '')"
-                    />
-                  </div>
+                <!-- Base Price (Read-only) -->
+                <template #cell-basePrice="{ row }">
+                  <span class="table-price-display">
+                    {{ (row.unitPrice || 0).toFixed(2) }}
+                    <span class="saudi-riyal">ê</span>
+                  </span>
                 </template>
 
                 <!-- Quantity -->
@@ -421,6 +411,10 @@
                   <div class="pos-box-content">
                     <span>{{ product.code | withPrefix(productPrefix) }}</span>
                     <p class="pos-box-text">{{ product.name }}</p>
+                    <p class="pos-box-price">
+                      {{ (product.regularPrice || 0).toFixed(2) }}
+                      <span class="saudi-riyal">ê</span>
+                    </p>
                   </div>
                   <!-- Product Chart of Account Status -->
                   <div v-if="product && !product.sales_account_id && product.itemType !== 'service'"
@@ -903,7 +897,7 @@ export default {
     tableColumns() {
       return [
         { key: "name", label: this.$t("Product") },
-        { key: "unitPrice", label: this.$t("Price") },
+        { key: "basePrice", label: this.$t("Price") },
         { key: "qty", label: this.$t("Quantity"), align: "text-center" },
         { key: "subtotal", label: this.$t("Subtotal"), align: "text-center" },
         { key: "discount", label: this.$t("Discount") },
@@ -2587,6 +2581,14 @@ export default {
 .pos-box-content span {
   font-size: 12px;
   margin-bottom: 2px;
+}
+
+.pos-box-price {
+  font-size: 16px;
+  font-weight: bold;
+  color: #33a0d9;
+  margin-top: 5px;
+  margin-bottom: 0px;
 }
 
 .pos-box-content {
