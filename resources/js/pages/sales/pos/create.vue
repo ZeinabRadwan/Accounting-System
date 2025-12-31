@@ -4559,7 +4559,7 @@ span.pqty {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 10px 16px;
+  padding: 10px 0px;
   background: #ffffff;
   border: 1.5px solid #e0e6ed;
   border-radius: 10px;
@@ -4567,7 +4567,7 @@ span.pqty {
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   white-space: nowrap;
   flex-shrink: 0;
-  min-width: 140px;
+  min-width: 135px;
   position: relative;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
