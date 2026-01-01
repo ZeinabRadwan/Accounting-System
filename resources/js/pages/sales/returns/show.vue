@@ -478,7 +478,6 @@
                       <tr class="bg-indigo-light">
                         <th>{{ $t("Total with VAT") }}:</th>
                         <td>
-                          <span class="equal-sign">=</span>
                           {{ formatToTwoDecimals(calculateTotalReturnedProductCost() - calculateTotalReturnDiscount() + calculateTotalReturnTax()) }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
@@ -1524,11 +1523,6 @@ export default {
 
 /* Calculation Summary Styles */
 
-.equal-sign {
-  color: #007bff;
-  font-weight: bold;
-  margin-right: 5px;
-}
 
 .bg-indigo-light {
   background-color: #e3f2fd !important;

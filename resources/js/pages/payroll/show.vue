@@ -268,7 +268,7 @@
                       <tr v-if="allData.transaction" class="bg-indigo-light">
                         <th>{{ $t("Total") }}:</th>
                         <td>
-                          <span class="equal-sign">=</span>
+                           
                           {{ allData.transaction.amount }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>

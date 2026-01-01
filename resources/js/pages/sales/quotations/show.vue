@@ -214,41 +214,15 @@
             <!-- /.row -->
             <div class="row mt-4">
               <div class="col-lg-12 col-xl-4 text-lg-right mt-4">
-                <div class="table-responsive table-custom table-border-y-0">
-                  <table class="table">
-                    <tbody>
-                      <tr class="bg-sub-light text-bold">
-                        <th>{{ $t("Total Price") }}:</th>
-                        <td>{{ formatNumber(totalPrice) }} <span class="saudi-riyal">ê</span></td>
-                      </tr>
-                      <tr>
-                        <th>{{ $t("Product Discount") }}:</th>
-                        <td>
-                          {{ formatNumber(totalProductDiscount) }} <span class="saudi-riyal">ê</span>
-                        </td>
-                      </tr>
-                      <tr class="bg-green-light text-bold">
-                        <th>{{ $t("Total After Discount") }}:</th>
-                        <td>{{ formatNumber(totalPrice - totalProductDiscount) }} <span class="saudi-riyal">ê</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th>{{ $t("Product VAT") }}:</th>
-                        <td>
-                          {{ formatNumber(totalProductVat) }} <span class="saudi-riyal">ê</span>
-                        </td>
-                      </tr>
-                      <tr class="bg-indigo-light">
-                        <th>{{ $t("Total with VAT") }}:</th>
-                        <td>
-                          <span class="equal-sign">=</span>
-                          {{ formatNumber(totalPrice - totalProductDiscount + totalProductVat) }} <span
-                            class="saudi-riyal">ê</span>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+                <InvoiceSummaryTable
+                  :subtotal="totalPrice"
+                  :after-discount="totalPrice - totalProductDiscount"
+                  :total-tax="totalProductVat"
+                  :transport="0"
+                  :grand-total="totalPrice - totalProductDiscount + totalProductVat"
+                  :paid-amount="0"
+                  :due-amount="0"
+                />
               </div>
             </div>
             <!-- /.row -->
@@ -346,6 +320,7 @@ import axios from "axios";
 import { mapGetters } from "vuex";
 import iziToast from "izitoast";
 import GeneralTable from "~/components/GeneralTable";
+import InvoiceSummaryTable from "~/components/sales/InvoiceSummaryTable";
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -354,6 +329,7 @@ export default {
   },
   components: {
     GeneralTable,
+    InvoiceSummaryTable,
   },
   data: () => ({
     allData: "",

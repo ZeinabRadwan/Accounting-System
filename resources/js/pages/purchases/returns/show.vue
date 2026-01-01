@@ -264,47 +264,15 @@
                 <!-- Empty space for left side content if needed -->
               </div>
               <div class="col-lg-12 col-xl-4 text-lg-right mt-4">
-                <div class="table-responsive table-custom table-border-y-0">
-                  <table class="table">
-                    <tbody>
-                      <tr class="bg-sub-light text-bold">
-                        <th>{{ $t("Subtotal") }}:</th>
-                        <td>{{ formatToTwoDecimals(calculateTotalReturnedProductCost()) }} <span
-                            class="saudi-riyal">ê</span></td>
-                      </tr>
-                      <tr>
-                        <th>{{ $t("Product Discount") }}:</th>
-                        <td>
-                          {{ formatToTwoDecimals(calculateTotalReturnDiscount()) }} <span class="saudi-riyal">ê</span>
-                        </td>
-                      </tr>
-
-                      <tr class="bg-green-light text-bold">
-                        <th>{{ $t("Total After Discount") }}:</th>
-                        <td>{{ formatToTwoDecimals(calculateTotalReturnedProductCost() - calculateTotalReturnDiscount())
-                          }}
-                          <span class="saudi-riyal">ê</span>
-                        </td>
-                      </tr>
-
-                      <tr>
-                        <th>{{ $t("Product VAT") }}:</th>
-                        <td>
-                          {{ formatToTwoDecimals(calculateTotalReturnTax()) }} <span class="saudi-riyal">ê</span>
-                        </td>
-                      </tr>
-
-                      <tr class="bg-indigo-light">
-                        <th>{{ $t("Total with VAT") }}:</th>
-                        <td>
-                          <span class="equal-sign">=</span>
-                          {{ formatToTwoDecimals(calculateTotalReturnedProductCost() - calculateTotalReturnDiscount() +
-                            calculateTotalReturnTax()) }} <span class="saudi-riyal">ê</span>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+                <InvoiceSummaryTable
+                  :subtotal="calculateTotalReturnedProductCost()"
+                  :after-discount="calculateTotalReturnedProductCost() - calculateTotalReturnDiscount()"
+                  :total-tax="calculateTotalReturnTax()"
+                  :transport="0"
+                  :grand-total="calculateTotalReturnedProductCost() - calculateTotalReturnDiscount() + calculateTotalReturnTax()"
+                  :paid-amount="0"
+                  :due-amount="0"
+                />
               </div>
             </div>
             <!-- /.row -->
@@ -400,6 +368,7 @@
 import axios from "axios";
 import { mapGetters } from "vuex";
 import GeneralTable from "~/components/GeneralTable";
+import InvoiceSummaryTable from "~/components/sales/InvoiceSummaryTable";
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -412,6 +381,7 @@ export default {
   },
   components: {
     GeneralTable,
+    InvoiceSummaryTable,
   },
   data: () => ({
     breadcrumbs: [
@@ -793,12 +763,7 @@ export default {
   border-radius: 0.25rem;
 }
 
-/* Calculation Summary Styles */
-.equal-sign {
-  color: #007bff;
-  font-weight: bold;
-  margin-right: 5px;
-}
+  
 
 .bg-indigo-light {
   background-color: #e3f2fd !important;

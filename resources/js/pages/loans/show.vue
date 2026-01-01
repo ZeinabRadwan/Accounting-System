@@ -222,11 +222,11 @@
                       <tr class="bg-indigo-light">
                         <th>{{ $t("Payable") }}:</th>
                         <td v-if="allData.loanType == 1">
-                          <span class="equal-sign">=</span>
+                           
                           {{ allData.payable }} <span class="saudi-riyal">ê</span>
                         </td>
                         <td v-else>
-                          <span class="equal-sign">=</span>
+                           
                           {{
                             (allData.payable + allData.interestAmount)
                           }} <span class="saudi-riyal">ê</span>

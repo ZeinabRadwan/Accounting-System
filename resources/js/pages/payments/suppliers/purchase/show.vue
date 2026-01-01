@@ -264,7 +264,7 @@
                       <tr class="bg-indigo-light">
                         <th>{{ $t("Total") }}:</th>
                         <td>
-                          <span class="equal-sign">=</span>
+                           
                           {{ allData.purchase.purchaseTotal  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>

@@ -413,74 +413,15 @@
                 </div>
               </div>
               <div class="col-lg-12 col-xl-4 text-lg-right mt-4">
-                <div class="table-responsive table-custom table-border-y-0">
-                  <table class="table invoices-table">
-                    <tbody>
-
-
-                      <tr class="bg-sub-light text-bold">
-                        <th>{{ $t("Subtotal") }}:</th>
-                        <td>{{ formatNumber(subtotal) }} <span class="saudi-riyal">ê</span></td>
-                      </tr>
-                      <tr v-if="totalDiscount > 0">
-                        <th>{{ $t("Total Discount") }}:</th>
-                        <td>
-                          <span class="minus-sign">-</span>
-                          {{ formatNumber(totalDiscount) }} <span class="saudi-riyal">ê</span>
-                        </td>
-                      </tr>
-
-                      <tr class="bg-green-light text-bold">
-                        <th>{{ $t("Total After Discount") }}:</th>
-                        <td>{{ formatNumber(subtotal) }} <span class="saudi-riyal">ê</span>
-                        </td>
-                      </tr>
-
-                      <tr>
-                        <th>{{ $t("Total Tax") }}:</th>
-                        <td>
-                          {{ formatNumber(totalTax) }} <span class="saudi-riyal">ê</span>
-                        </td>
-                      </tr>
-
-                      <!-- <tr v-if="allData.totalInvoiceReturn">
-                        <th>{{ $t("Cost of Return Products") }}:</th>
-                        <td>
-                          <span class="minus-sign">-</span>
-                          {{ allData.totalInvoiceReturn  }} <span class="saudi-riyal">ê</span>
-                        </td>
-                      </tr> -->
-                      <tr v-if="allData.transport > 0">
-                        <th>{{ $t("Transport") }}:</th>
-                        <td>
-                          {{ formatNumber(allData.transport) }} <span class="saudi-riyal">ê</span>
-                        </td>
-                      </tr>
-                      <tr class="bg-indigo-light text-bold">
-                        <th>{{ $t("Grand Total") }}:</th>
-                        <td>
-                          <span class="equal-sign">=</span>
-                          {{ formatNumber(grandTotal) }} <span
-                            class="saudi-riyal">ê</span>
-                        </td>
-                      </tr>
-                      <tr v-if="allData.invoicePayments">
-                        <th>{{ $t("Total Paid") }}:</th>
-                        <td>
-                          {{ formatNumber(allData.totalPaid) }} <span class="saudi-riyal">ê</span>
-                        </td>
-                      </tr>
-                      <tr class="bg-red-light">
-                        <th>{{ $t("Due") }}:</th>
-                        <td>{{ formatNumber(netTotal - (allData.totalPaid || 0)) }} <span class="saudi-riyal">ê</span></td>
-                      </tr>
-                      <tr class="bg-green-light" v-if="allData.accountPayable">
-                        <th>{{ $t("Account Payable") }}:</th>
-                        <td>{{ formatNumber(allData.accountPayable) }}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+                <InvoiceSummaryTable
+                  :subtotal="subtotal"
+                  :after-discount="subtotal"
+                  :total-tax="totalTax"
+                  :transport="allData.transport || 0"
+                  :grand-total="grandTotal"
+                  :paid-amount="allData.totalPaid || 0"
+                  :due-amount="calculateDueAmount"
+                />
               </div>
             </div>
             <!-- /.row -->
@@ -694,6 +635,7 @@ import SwalOriginal from "sweetalert2/dist/sweetalert2";
 import { ToggleButton } from "vue-js-toggle-button";
 import AccountCreateModal from "~/components/AccountCreateModal";
 import GeneralTable from "~/components/GeneralTable";
+import InvoiceSummaryTable from "~/components/sales/InvoiceSummaryTable";
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -704,6 +646,7 @@ export default {
     ToggleButton,
     AccountCreateModal,
     GeneralTable,
+    InvoiceSummaryTable,
   },
   data: () => ({
     allData: "",

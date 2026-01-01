@@ -180,7 +180,7 @@
                       <tr class="bg-indigo-light">
                         <th>{{ $t("Available CC Loan") }}:</th>
                         <td>
-                          <span class="equal-sign">=</span>
+                           
                           {{ allData.availableAmount }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>

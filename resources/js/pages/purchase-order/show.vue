@@ -233,53 +233,15 @@
             <!-- /.row -->
             <div class="row mt-4">
               <div class="col-lg-12 col-xl-4 text-lg-right mt-4">
-                <div class="table-responsive table-custom table-border-y-0">
-                  <table class="table">
-                    <tbody>
-                      <tr class="bg-sub-light text-bold">
-                        <th>{{ $t("Total Price") }}:</th>
-                        <td>{{ formatNumber(getTotalPrice()) }} <span class="saudi-riyal">ê</span></td>
-                      </tr>
-                      <tr>
-                        <th>{{ $t("Product Discount") }}:</th>
-                        <td>
-                          {{ formatNumber(getTotalProductDiscount()) }} <span class="saudi-riyal">ê</span>
-                        </td>
-                      </tr>
-                      <tr class="bg-green-light text-bold">
-                        <th>{{ $t("Total After Discount") }}:</th>
-                        <td>{{ formatNumber(getTotalPrice() - getTotalProductDiscount()) }} <span
-                            class="saudi-riyal">ê</span></td>
-                      </tr>
-                      <tr>
-                        <th>{{ $t("Product VAT") }}:</th>
-                        <td>
-                          {{ formatNumber(allData.total_tax || allData.totalTax || 0) }} <span
-                            class="saudi-riyal">ê</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th>{{ $t("Transport") }}:</th>
-                        <td>
-                          {{ formatNumber(allData.transport || 0) }} <span class="saudi-riyal">ê</span>
-                        </td>
-                      </tr>
-                      <tr class="bg-indigo-light">
-                        <th>{{ $t("Total with VAT") }}:</th>
-                        <td>
-                          <span class="equal-sign">=</span>
-                          {{ formatNumber(
-                            allData.net_total ||
-                            allData.netTotal ||
-                            (getTotalPrice() - getTotalProductDiscount() + (allData.total_tax || 0) + (allData.transport
-                              ||
-                              0))
-                          ) }} <span class="saudi-riyal">ê</span>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+                <InvoiceSummaryTable
+                  :subtotal="getTotalPrice()"
+                  :after-discount="getTotalPrice() - getTotalProductDiscount()"
+                  :total-tax="allData.total_tax || allData.totalTax || 0"
+                  :transport="allData.transport || 0"
+                  :grand-total="allData.net_total || allData.netTotal || (getTotalPrice() - getTotalProductDiscount() + (allData.total_tax || 0) + (allData.transport || 0))"
+                  :paid-amount="0"
+                  :due-amount="0"
+                />
               </div>
             </div>
             <!-- /.row -->
@@ -376,6 +338,7 @@ import axios from "axios";
 import { mapGetters } from "vuex";
 // import html2pdf from "html2pdf.js";
 import GeneralTable from "~/components/GeneralTable";
+import InvoiceSummaryTable from "~/components/sales/InvoiceSummaryTable";
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -384,6 +347,7 @@ export default {
   },
   components: {
     GeneralTable,
+    InvoiceSummaryTable,
   },
   data: () => ({
     breadcrumbsCurrent: "",

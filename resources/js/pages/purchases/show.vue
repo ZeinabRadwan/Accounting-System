@@ -364,77 +364,16 @@
                 </div>
               </div>
               <div class="col-lg-12 col-xl-4 text-lg-right mt-4 pt-2">
-                <div class="table-responsive table-custom table-border-y-0" v-if="allData.supplier">
-                  <table class="table">
-                    <tbody>
-                      <!-- Subtotal: Sum of all item totals before discount (qty × unit_price) -->
-                      <tr class="bg-sub-light text-bold">
-                        <th>{{ $t("Subtotal") }} ({{ $t("المجموع الفرعي") }}):</th>
-                        <td>{{ formatNumber(invoiceSubtotal) }} <span class="saudi-riyal">ê</span></td>
-                      </tr>
-                      <!-- Total Discount: Invoice-level discount distributed proportionally across items -->
-                      <tr v-if="invoiceLevelDiscountAmount > 0">
-                        <th>{{ $t("Total Discount") }} ({{ $t("إجمالي الخصم") }}):</th>
-                        <td>
-                          <span class="minus-sign">-</span>
-                          {{ formatNumber(invoiceLevelDiscountAmount) }} <span class="saudi-riyal">ê</span>
-                        </td>
-                      </tr>
-                      <!-- Total Shipping Cost: Distributed proportionally across items -->
-                      <tr v-if="shippingCostTotal > 0">
-                        <th>{{ $t("Total Shipping Cost") }} ({{ $t("إجمالي تكلفة الشحن") }}):</th>
-                        <td>
-                          {{ formatNumber(shippingCostTotal) }} <span class="saudi-riyal">ê</span>
-                        </td>
-                      </tr>
-                      <!-- Net Amount: Subtotal - Discount + Shipping (before VAT) -->
-                      <tr class="bg-green-light text-bold">
-                        <th>{{ $t("Net Amount") }} ({{ $t("المبلغ الصافي") }}):</th>
-                        <td>{{ formatNumber(netAmountBeforeVAT) }} <span class="saudi-riyal">ê</span>
-                        </td>
-                      </tr>
-                      <!-- VAT: Calculated on Net Amount (Subtotal - Discount + Shipping) -->
-                      <tr>
-                        <th>{{ $t("VAT") }} ({{ $t("الضريبة") }}):</th>
-                        <td>
-                          {{ formatNumber(vatAmount) }} <span class="saudi-riyal">ê</span>
-                        </td>
-                      </tr>
-                      <!-- Purchase Return (if any) -->
-                      <tr v-if="allData.purchaseReturn">
-                        <th>{{ $t("Cost of Return Products") }}:</th>
-                        <td>
-                          {{
-                            allData.purchaseReturn.totalReturn
-                          }} <span class="saudi-riyal">ê</span>
-                        </td>
-                      </tr>
-                      <!-- Grand Total: Net Amount + VAT -->
-                      <tr class="bg-indigo-light text-bold">
-                        <th>{{ $t("Grand Total") }} ({{ $t("الإجمالي الكلي") }}):</th>
-                        <td>
-                          <span class="equal-sign">=</span>
-                          {{ formatNumber(grandTotal) }} <span
-                            class="saudi-riyal">ê</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th>{{ $t("Total Paid") }}:</th>
-                        <td>
-                          {{ formatNumber(allData.totalPaid) }} <span class="saudi-riyal">ê</span>
-                        </td>
-                      </tr>
-                      <tr class="bg-red-light">
-                        <th>{{ $t("Due") }}:</th>
-                        <td>{{ formatNumber(grandTotal - (parseFloat(allData.totalPaid) || 0)) }} <span class="saudi-riyal">ê</span></td>
-                      </tr>
-                      <tr class="bg-green-light" v-if="allData.accountReceivable">
-                        <th>{{ $t("Account Receivable") }}:</th>
-                        <td>{{ formatNumber(allData.accountReceivable) }} <span class="saudi-riyal">ê</span></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+                <InvoiceSummaryTable
+                  v-if="allData.supplier"
+                  :subtotal="invoiceSubtotal"
+                  :after-discount="netAmountBeforeVAT"
+                  :total-tax="vatAmount"
+                  :transport="shippingCostTotal"
+                  :grand-total="grandTotal"
+                  :paid-amount="allData.totalPaid || 0"
+                  :due-amount="calculateDueAmount"
+                />
               </div>
             </div>
             <!-- /.row -->
@@ -530,6 +469,7 @@ import axios from "axios";
 import { mapGetters } from "vuex";
 import SwalOriginal from "sweetalert2/dist/sweetalert2";
 import GeneralTable from "~/components/GeneralTable";
+import InvoiceSummaryTable from "~/components/sales/InvoiceSummaryTable";
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -538,6 +478,7 @@ export default {
   },
   components: {
     GeneralTable,
+    InvoiceSummaryTable,
   },
   data: () => ({
     breadcrumbsCurrent: "Purchase Details",

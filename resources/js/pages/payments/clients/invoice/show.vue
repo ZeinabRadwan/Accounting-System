@@ -247,7 +247,7 @@
                       <tr class="bg-indigo-light">
                         <th>{{ $t("Total") }}:</th>
                         <td>
-                          <span class="equal-sign">=</span>
+                           
 
                           {{
                             (allData.invoice.subTotal -
