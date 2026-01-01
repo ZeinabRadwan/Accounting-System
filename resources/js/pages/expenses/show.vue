@@ -3,17 +3,18 @@
     <!-- breadcrumbs Start -->
     <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
     <!-- breadcrumbs end -->
-    <div class="row no-print mb-2">
+    <div class="row no-print tabs-header-row">
       <div class="w-100 text-right float-right">
-        <div class="d-flex justify-content-between" v-if="allData">
+        <div class="d-flex justify-content-between align-items-center" v-if="allData">
           <div class="btn-group">
-            <ul class="nav nav-pills">
+            <ul class="nav nav-tabs">
               <li class="nav-item">
                 <a
-                  class="nav-link active"
+                  class="nav-link"
+                  :class="{ active: activeTab === 'details' }"
                   href="#details"
                   data-toggle="tab"
-                  @click="getExpense"
+                  @click="handleTabClick('details')"
                 >
                   <i class="fa fa-info"></i>
                   {{ $t("Details") }}</a
@@ -21,8 +22,9 @@
               </li>
               <li class="nav-item">
                 <a
-                  @click="getActivity"
+                  @click="handleTabClick('activity-log')"
                   class="nav-link"
+                  :class="{ active: activeTab === 'activity-log' }"
                   href="#activity-log"
                   data-toggle="tab"
                 >
@@ -32,8 +34,9 @@
               </li>
               <li class="nav-item">
                 <a
-                  @click="getJournalEntry"
+                  @click="handleTabClick('journal-entry')"
                   class="nav-link"
+                  :class="{ active: activeTab === 'journal-entry' }"
                   href="#journal-entry"
                   data-toggle="tab"
                 >
@@ -95,7 +98,7 @@
     </div>
 
     <div class="tab-content">
-      <div class="tab-pane active" id="details">
+      <div class="tab-pane" :class="{ active: activeTab === 'details' }" id="details">
         <div class="row">
           <!-- Main content -->
           <div class="invoice p-3 mb-3 w-100" id="content-to-pdf">
@@ -208,7 +211,7 @@
       </div>
 
       <!--  activity logs -->
-      <div class="tab-pane" id="activity-log">
+      <div class="tab-pane" :class="{ active: activeTab === 'activity-log' }" id="activity-log">
         <div class="card custom-card w-100 mt-5 no-print">
           <div class="card-header setings-header">
             <div class="col-xl-4 col-4">
@@ -322,7 +325,7 @@
       </div>
 
       <!-- Journal Entry Tab -->
-      <div class="tab-pane" id="journal-entry">
+      <div class="tab-pane" :class="{ active: activeTab === 'journal-entry' }" id="journal-entry">
         <div class="row">
           <div class="col-12">
             <div class="card">
@@ -478,6 +481,7 @@ export default {
     perPage: 10,
     journalEntry: null,
     journalEntryLoading: false,
+    activeTab: "details",
   }),
 
   computed: {
@@ -518,7 +522,34 @@ export default {
     this.catPrefix = this.appInfo.expCatPrefix;
     this.subCatPrefix = this.appInfo.expSubCatPrefix;
   },
+  mounted() {
+    // Listen for Bootstrap tab events to keep state in sync
+    if (typeof $ !== "undefined") {
+      $('a[data-toggle="tab"]').on("shown.bs.tab", (e) => {
+        const target = $(e.target).attr("href");
+        if (target === "#details") {
+          this.activeTab = "details";
+        } else if (target === "#activity-log") {
+          this.activeTab = "activity-log";
+        } else if (target === "#journal-entry") {
+          this.activeTab = "journal-entry";
+        }
+      });
+    }
+  },
   methods: {
+    // Handle tab click
+    handleTabClick(tab) {
+      this.activeTab = tab;
+      if (tab === "details") {
+        this.getExpense();
+      } else if (tab === "activity-log") {
+        this.getActivity();
+      } else if (tab === "journal-entry") {
+        this.getJournalEntry();
+      }
+    },
+
     // get the expense
     async getExpense() {
       const { data } = await axios.get(
@@ -676,10 +707,62 @@ export default {
 };
 </script>
 <style scoped>
-.nav-pills .nav-item {
-  background: #ddd;
-  margin: 2px;
-  border-radius: 0.25rem;
+.tabs-header-row {
+  margin-bottom: 1.5rem;
+}
+
+.nav-tabs {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  border: none;
+  margin-bottom: 0;
+  background: #0775AF1A;
+  padding: 10px;
+  border-radius: 10px;
+  align-self: center;
+}
+
+.nav-item {
+  flex: 1 1 0;
+}
+
+.nav-link {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: none;
+  color: #000000;
+  font-family: DINNextLTArabic;
+  font-weight: 400;
+  font-size: 0.95rem;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.nav-link.active {
+  background: #0775AF;
+  color: #FFFFFF !important;
+}
+
+.nav-link:hover {
+  filter: brightness(0.96);
+}
+
+@media (max-width: 576px) {
+  .nav-tabs {
+    gap: 6px;
+  }
+
+  .nav-link {
+    padding: 8px 10px;
+    font-size: 0.85rem;
+  }
 }
 
 .table-custom {

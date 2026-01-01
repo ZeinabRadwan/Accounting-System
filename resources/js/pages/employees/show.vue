@@ -4,41 +4,14 @@
     <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
     <!-- breadcrumbs end -->
 
-    <div class="row no-print mb-2">
-      <div class="w-100 text-right float-right">
-        <div class="d-flex justify-content-between" v-if="allData">
-          <div class="btn-group">
-            <ul class="nav nav-pills">
-              <li class="nav-item">
-                <a
-                  class="nav-link active"
-                  href="#details"
-                  data-toggle="tab"
-                  @click="loadInitialData"
-                >
-                  <i class="fa fa-info"></i>
-                  {{ $t("Details") }}</a
-                >
-              </li>
-              <li class="nav-item">
-                <a
-                  @click="getActivity"
-                  class="nav-link"
-                  href="#activity-log"
-                  data-toggle="tab"
-                >
-                  <i class="nav-icon fa fa-bell" aria-hidden="true"></i>
-                  {{ $t("Activity log") }}</a
-                >
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="tab-content">
-      <div class="tab-pane active" id="details">
+    <DetailsActivityTabs
+      v-if="allData"
+      :show-tabs="!!allData"
+      default-tab="details"
+      @details-clicked="loadInitialData"
+      @activity-clicked="getActivity"
+    >
+      <template #details>
         <div class="row">
           <div
             class="col-md-12 m-auto"
@@ -423,10 +396,9 @@
           </div>
           <!-- /.col -->
         </div>
-      </div>
+      </template>
 
-      <!--  activity logs -->
-      <div class="tab-pane" id="activity-log">
+      <template #activity-log>
         <div class="card custom-card w-100 mt-5 no-print">
           <div class="card-header setings-header">
             <div class="col-xl-4 col-4">
@@ -547,8 +519,8 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </template>
+    </DetailsActivityTabs>
 
     <!-- use the modal component, pass in the prop -->
     <Modal v-if="showModal" @close="previewModal()">
@@ -565,6 +537,7 @@ import axios from "axios";
 import { mapGetters } from "vuex";
 import avatarMixin from "~/mixins/avatarMixin";
 import GeneralTable from "~/components/GeneralTable";
+import DetailsActivityTabs from "~/components/DetailsActivityTabs";
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -574,6 +547,7 @@ export default {
   mixins: [avatarMixin],
   components: {
     GeneralTable,
+    DetailsActivityTabs,
   },
   data: () => ({
     breadcrumbsCurrent: "Employee Details",
@@ -1102,12 +1076,6 @@ export default {
 </script>
 
 <style scoped>
-.nav-pills .nav-item {
-  background: #ddd;
-  margin: 2px;
-  border-radius: 0.25rem;
-}
-
 .invoices-table {
   border-collapse: separate;
   border-spacing: 0;

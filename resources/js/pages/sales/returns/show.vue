@@ -3,18 +3,18 @@
     <!-- breadcrumbs Start -->
     <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
     <!-- breadcrumbs end -->
-
-    <div class="row no-print mb-2">
+    <div class="row no-print tabs-header-row">
       <div class="w-100 text-right float-right">
-        <div class="d-flex justify-content-between" v-if="allData">
+        <div class="d-flex justify-content-between align-items-center" v-if="allData">
           <div class="btn-group">
-            <ul class="nav nav-pills">
+            <ul class="nav nav-tabs">
               <li class="nav-item">
                 <a
-                  class="nav-link active"
+                  class="nav-link"
+                  :class="{ active: activeTab === 'details' }"
                   href="#details"
                   data-toggle="tab"
-                  @click="getInvoiceReturn"
+                  @click="handleTabClick('details')"
                 >
                   <i class="fa fa-info"></i>
                   {{ $t("Details") }}</a
@@ -22,8 +22,9 @@
               </li>
               <li class="nav-item">
                 <a
-                  @click="getActivity"
+                  @click="handleTabClick('activity-log')"
                   class="nav-link"
+                  :class="{ active: activeTab === 'activity-log' }"
                   href="#activity-log"
                   data-toggle="tab"
                 >
@@ -33,8 +34,9 @@
               </li>
               <li class="nav-item">
                 <a 
-                  @click="getJournalEntries"
+                  @click="handleTabClick('journal-entry')"
                   class="nav-link" 
+                  :class="{ active: activeTab === 'journal-entry' }"
                   href="#journal-entry" 
                   data-toggle="tab"
                 >
@@ -102,7 +104,7 @@
     </div>
 
     <div class="tab-content">
-      <div class="tab-pane active" id="details">
+      <div class="tab-pane" :class="{ active: activeTab === 'details' }" id="details">
         <div class="row">
           <!-- Main content -->
           <div class="invoice p-3 mb-3 w-100" id="content-to-pdf">
@@ -449,41 +451,15 @@
                 <!-- Empty space for left side content if needed -->
               </div>
               <div class="col-lg-12 col-xl-4 text-lg-right mt-4">
-                <div class="table-responsive table-custom table-border-y-0">
-                  <table class="table">
-                    <tbody>
-                      <tr class="bg-sub-light text-bold">
-                        <th>{{ $t("Subtotal") }}:</th>
-                        <td>{{ formatToTwoDecimals(calculateTotalReturnedProductCost()) }} <span class="saudi-riyal">ê</span></td>
-                      </tr>
-                      <tr>
-                        <th>{{ $t("Product Discount") }}:</th>
-                        <td>
-                          {{ formatToTwoDecimals(calculateTotalReturnDiscount()) }} <span class="saudi-riyal">ê</span>
-                        </td>
-                      </tr>
-
-                      <tr class="bg-green-light text-bold">
-                        <th>{{ $t("Total After Discount") }}:</th>
-                        <td>{{ formatToTwoDecimals(calculateTotalReturnedProductCost() - calculateTotalReturnDiscount()) }} <span class="saudi-riyal">ê</span></td>
-                      </tr>
-
-                      <tr>
-                        <th>{{ $t("Product VAT") }}:</th>
-                        <td>
-                          {{ formatToTwoDecimals(calculateTotalReturnTax()) }} <span class="saudi-riyal">ê</span>
-                        </td>
-                      </tr>
-
-                      <tr class="bg-indigo-light">
-                        <th>{{ $t("Total with VAT") }}:</th>
-                        <td>
-                          {{ formatToTwoDecimals(calculateTotalReturnedProductCost() - calculateTotalReturnDiscount() + calculateTotalReturnTax()) }} <span class="saudi-riyal">ê</span>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+                <InvoiceSummaryTable
+                  :subtotal="calculateTotalReturnedProductCost()"
+                  :after-discount="calculateTotalReturnedProductCost() - calculateTotalReturnDiscount()"
+                  :total-tax="calculateTotalReturnTax()"
+                  :transport="0"
+                  :grand-total="calculateTotalReturnedProductCost() - calculateTotalReturnDiscount() + calculateTotalReturnTax()"
+                  :paid-amount="0"
+                  :due-amount="0"
+                />
               </div>
             </div>
             <!-- /.row -->
@@ -495,7 +471,7 @@
       </div>
 
       <!--  activity logs -->
-      <div class="tab-pane" id="activity-log">
+      <div class="tab-pane" :class="{ active: activeTab === 'activity-log' }" id="activity-log">
         <div class="card custom-card w-100 mt-5 no-print">
           <div class="card-header setings-header">
             <div class="col-xl-4 col-4">
@@ -611,7 +587,7 @@
       </div>
 
       <!-- Journal Entry Section -->
-      <div class="tab-pane" id="journal-entry">
+      <div class="tab-pane" :class="{ active: activeTab === 'journal-entry' }" id="journal-entry">
         <div class="card custom-card w-100 mt-5 no-print">
           <div class="card-header setings-header">
             <div class="col-xl-4 col-4">
@@ -749,10 +725,8 @@
                 </div>
               </div>
             </div>
-            <div v-else class="text-center text-muted">
-              <p>
-                {{ $t("No journal entries found for this invoice return.") }}
-              </p>
+            <div v-else>
+              <InfoAlert :message="$t('No journal entries found for this invoice return.')" />
             </div>
           </div>
         </div>
@@ -768,6 +742,8 @@ import html2pdf from "html2pdf.js";
 import SwalOriginal from "sweetalert2/dist/sweetalert2";
 import iziToast from "izitoast";
 import GeneralTable from "~/components/GeneralTable";
+import InvoiceSummaryTable from "~/components/sales/InvoiceSummaryTable";
+import InfoAlert from "~/components/shared/InfoAlert";
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -781,6 +757,8 @@ export default {
   components: {
     CurrencyDisplay: () => import('~/components/CurrencyDisplay'),
     GeneralTable,
+    InvoiceSummaryTable,
+    InfoAlert,
   },
   data: () => ({
     breadcrumbs: [
@@ -808,6 +786,7 @@ export default {
     loading: false,
     query: "",
     perPage: 10,
+    activeTab: "details",
   }),
 
   computed: {
@@ -916,6 +895,17 @@ export default {
     this.clientPrefix = this.appInfo.clientPrefix;
   },
   methods: {
+    // Handle tab click
+    handleTabClick(tab) {
+      this.activeTab = tab;
+      if (tab === "details") {
+        this.getInvoiceReturn();
+      } else if (tab === "activity-log") {
+        this.getActivity();
+      } else if (tab === "journal-entry") {
+        this.getJournalEntries();
+      }
+    },
     // Format number to two decimal places
     formatToTwoDecimals(value) {
       // Handle null, undefined, or non-numeric values
@@ -1443,10 +1433,63 @@ export default {
 </script>
 
 <style scoped>
-.nav-pills .nav-item {
-  background: #ddd;
-  margin: 2px;
-  border-radius: 0.25rem;
+.tabs-header-row {
+  margin-bottom: 1.5rem;
+}
+
+.nav-tabs {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  border: none;
+  margin-bottom: 0;
+  background: #0775AF1A;
+  padding: 10px;
+  border-radius: 10px;
+  width: 20%;
+  align-self: center;
+}
+
+.nav-item {
+  flex: 1 1 0;
+}
+
+.nav-link {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: none;
+  color: #000000;
+  font-family: DINNextLTArabic;
+  font-weight: 400;
+  font-size: 0.95rem;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.nav-link.active {
+  background: #0775AF;
+  color: #FFFFFF !important;
+}
+
+.nav-link:hover {
+  filter: brightness(0.96);
+}
+
+@media (max-width: 576px) {
+  .nav-tabs {
+    gap: 6px;
+  }
+
+  .nav-link {
+    padding: 8px 10px;
+    font-size: 0.85rem;
+  }
 }
 
 .info-box {

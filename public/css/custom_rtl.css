@@ -66096,10 +66096,6 @@ label:not(.form-check-label):not(.custom-file-label) {
   margin-top: 8px;
 }
 
-.card.permission-card {
-  border: 1px solid rgba(0, 0, 0, 0.125);
-}
-
 .card.permission-card .card-title {
   margin: 0;
 }

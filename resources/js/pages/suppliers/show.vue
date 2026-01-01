@@ -4,49 +4,14 @@
     <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
     <!-- breadcrumbs end -->
 
-    <div class="row no-print mb-2">
-      <div class="w-100 text-right float-right">
-        <div class="d-flex justify-content-between" v-if="allData">
-          <div class="btn-group">
-            <ul class="nav nav-tabs" id="supplier-main-tabs" role="tablist">
-              <li class="nav-item">
-                <a
-                  class="nav-link active"
-                  id="details-tab"
-                  data-toggle="pill"
-                  href="#details"
-                  role="tab"
-                  aria-controls="details-tab"
-                  aria-selected="true"
-                  @click="loadInitialData"
-                >
-                  <i class="fa fa-info"></i>
-                  {{ $t("Details") }}</a
-                >
-              </li>
-              <li class="nav-item">
-                <a
-                  @click="getActivity"
-                  class="nav-link"
-                  id="activity-log-tab"
-                  data-toggle="pill"
-                  href="#activity-log"
-                  role="tab"
-                  aria-controls="activity-log-tab"
-                  aria-selected="false"
-                >
-                  <i class="nav-icon fa fa-bell" aria-hidden="true"></i>
-                  {{ $t("Activity log") }}</a
-                >
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="tab-content" id="supplier-main-tabContent">
-      <div class="tab-pane fade active show" id="details" role="tabpanel" aria-labelledby="details-tab">
+    <DetailsActivityTabs
+      v-if="allData"
+      :show-tabs="!!allData"
+      default-tab="details"
+      @details-clicked="loadInitialData"
+      @activity-clicked="getActivity"
+    >
+      <template #details>
         <div class="row">
           <div class="col-md-12 col-lg-3">
             <div>
@@ -1263,10 +1228,9 @@
             </div>
           </div>
         </div>
-      </div>
+      </template>
 
-      <!--  activity logs -->
-      <div class="tab-pane fade" id="activity-log" role="tabpanel" aria-labelledby="activity-log-tab">
+      <template #activity-log>
         <div class="custom-card w-100 mt-5 no-print">
           <div class="card-header setings-header">
             <div class="col-xl-12">
@@ -1301,11 +1265,13 @@
             <div id="printMe" class="table-responsive table-custom mt-3">
               <table class="table invoices-table">
                 <thead>
+                  <tr>
                     <th>{{ $t("#") }}</th>
                     <th>{{ $t("Event") }}</th>
                     <th>{{ $t("User") }}</th>
                     <th>{{ $t("Description") }}</th>
                     <th>{{ $t("Date") }}</th>
+                  </tr>
                 </thead>
                 <tbody>
                   <tr
@@ -1391,8 +1357,8 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </template>
+    </DetailsActivityTabs>
 
     <!-- use the modal component, pass in the prop -->
     <Modal v-if="showModal" @close="previewModal()">
@@ -1413,6 +1379,7 @@ import html2pdf from "html2pdf.js";
 import DateRangePicker from "vue2-daterange-picker";
 import avatarMixin from "~/mixins/avatarMixin";
 import GeneralTable from "~/components/GeneralTable";
+import DetailsActivityTabs from "~/components/DetailsActivityTabs";
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -1423,6 +1390,7 @@ export default {
   components: {
     DateRangePicker,
     GeneralTable,
+    DetailsActivityTabs,
   },
   data: () => ({
     breadcrumbsCurrent: "Supplier Details",

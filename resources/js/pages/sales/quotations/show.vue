@@ -3,26 +3,14 @@
     <!-- breadcrumbs Start -->
     <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
     <!-- breadcrumbs end -->
-
-    <div class="row no-print mb-2">
-      <div class="w-100 text-right float-right">
-        <div class="d-flex justify-content-between" v-if="allData">
-          <div class="btn-group">
-            <ul class="nav nav-pills">
-              <li class="nav-item">
-                <a class="nav-link active" href="#details" data-toggle="tab" @click="getQuotation">
-                  <i class="fa fa-info"></i>
-                  {{ $t("Details") }}</a>
-              </li>
-              <li class="nav-item">
-                <a @click="getActivity" class="nav-link" href="#activity-log" data-toggle="tab">
-                  <i class="nav-icon fa fa-bell" aria-hidden="true"></i>
-                  {{ $t("Activity log") }}</a>
-              </li>
-            </ul>
-          </div>
-
-          <div class="btn-group">
+    <DetailsActivityTabs 
+      :show-tabs="!!allData" 
+      default-tab="details"
+      @details-clicked="getQuotation"
+      @activity-clicked="getActivity"
+      @tab-changed="handleTabChange">
+      <template #actions>
+        <div class="btn-group">
             <a @click="communicationConfig.sms_configured ? notify((form.isSendSMS = true)) : null" href="#" :class="[
               'btn',
               communicationConfig.sms_configured ? 'btn-secondary' : 'btn-secondary disabled'
@@ -61,13 +49,9 @@
                 <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
               </template>
             </router-link>
-          </div>
         </div>
-      </div>
-    </div>
-
-    <div class="tab-content">
-      <div class="tab-pane active" id="details">
+      </template>
+      <template #details>
         <div class="row">
           <!-- Main content -->
           <div class="invoice p-3 mb-3 w-100" id="content-to-pdf">
@@ -229,10 +213,8 @@
           </div>
           <!-- /.invoice -->
         </div>
-      </div>
-
-      <!--  activity logs -->
-      <div class="tab-pane" id="activity-log">
+      </template>
+      <template #activity-log>
         <div class="card custom-card w-100 mt-5 no-print">
           <div class="card-header setings-header">
             <div class="col-xl-4 col-4">
@@ -309,8 +291,8 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </template>
+    </DetailsActivityTabs>
   </div>
 </template>
 
@@ -321,6 +303,7 @@ import { mapGetters } from "vuex";
 import iziToast from "izitoast";
 import GeneralTable from "~/components/GeneralTable";
 import InvoiceSummaryTable from "~/components/sales/InvoiceSummaryTable";
+import DetailsActivityTabs from "~/components/DetailsActivityTabs";
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -330,6 +313,7 @@ export default {
   components: {
     GeneralTable,
     InvoiceSummaryTable,
+    DetailsActivityTabs,
   },
   data: () => ({
     allData: "",
@@ -473,6 +457,10 @@ export default {
   },
 
   methods: {
+    // Handle tab change (optional, for additional logic if needed)
+    handleTabChange(tab) {
+      // Tab-specific actions are handled by details-clicked and activity-clicked events
+    },
     smsNotConfiguredText() {
       if (this.$te && this.$te('SMS settings not configured')) {
         const translated = this.$t('SMS settings not configured');
@@ -701,10 +689,3 @@ export default {
   },
 };
 </script>
-<style scoped>
-.nav-pills .nav-item {
-  background: #ddd;
-  margin: 2px;
-  border-radius: 0.25rem;
-}
-</style>

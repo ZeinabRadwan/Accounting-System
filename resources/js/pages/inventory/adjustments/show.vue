@@ -3,24 +3,14 @@
     <!-- breadcrumbs Start -->
     <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
     <!-- breadcrumbs end -->
-    <div class="row no-print mb-2">
-      <div class="w-100 text-right float-right">
-        <div class="d-flex justify-content-between" v-if="allData">
-          <div class="btn-group">
-            <ul class="nav nav-pills">
-              <li class="nav-item">
-                <a class="nav-link active" href="#details" data-toggle="tab" @click="getAdjustment">
-                  <i class="fa fa-info"></i>
-                  {{ $t("Details") }}</a>
-              </li>
-              <li class="nav-item">
-                <a @click="getActivity" class="nav-link" href="#activity-log" data-toggle="tab">
-                  <i class="nav-icon fa fa-bell" aria-hidden="true"></i>
-                  {{ $t("Activity log") }}</a>
-              </li>
-            </ul>
-          </div>
-          <div class="btn-group">
+    <DetailsActivityTabs
+      v-if="allData"
+      default-tab="details"
+      @details-clicked="getAdjustment"
+      @activity-clicked="getActivity"
+    >
+      <template #actions>
+        <div class="btn-group">
             <a @click="generatePDF()" href="#" class="btn btn-info">
               <i class="fas fa-download"></i> {{ $t("download") }}
             </a>
@@ -61,12 +51,9 @@
               </template>
             </router-link>
           </div>
-        </div>
-      </div>
-    </div>
+        </template>
 
-    <div class="tab-content">
-      <div class="tab-pane active" id="details">
+      <template #details>
         <div class="row">
           <!-- Main content -->
           <div class="invoice p-3 mb-3 w-100" id="content-to-pdf">
@@ -158,10 +145,9 @@
             </div>
           </div>
         </div>
-      </div>
+      </template>
 
-      <!--  activity logs -->
-      <div class="tab-pane" id="activity-log">
+      <template #activity-log>
         <div class="card custom-card w-100 mt-5 no-print">
           <div class="card-header setings-header">
             <div class="col-xl-4 col-4">
@@ -236,8 +222,8 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </template>
+    </DetailsActivityTabs>
   </div>
 </template>
 
@@ -246,6 +232,7 @@ import axios from "axios";
 import { mapGetters } from "vuex";
 import html2pdf from "html2pdf.js";
 import GeneralTable from "~/components/GeneralTable";
+import DetailsActivityTabs from "~/components/DetailsActivityTabs";
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -254,6 +241,7 @@ export default {
   },
   components: {
     GeneralTable,
+    DetailsActivityTabs,
   },
   data: () => ({
     breadcrumbsCurrent: "Adjustment Details",
@@ -439,12 +427,6 @@ export default {
 };
 </script>
 <style scoped>
-.nav-pills .nav-item {
-  background: #ddd;
-  margin: 2px;
-  border-radius: 0.25rem;
-}
-
 .table-custom {
   border: none !important;
 }

@@ -3,107 +3,93 @@
     <!-- breadcrumbs Start -->
     <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
     <!-- breadcrumbs end -->
-    <div class="row no-print mb-2">
-      <div class="w-100 text-right float-right">
-        <div class="d-flex justify-content-between" v-if="allData">
-          <div class="btn-group">
-            <ul class="nav nav-pills">
-              <li class="nav-item">
-                <a class="nav-link active" href="#details" data-toggle="tab" @click="getInvoice">
-                  <i class="fa fa-info"></i>
-                  {{ $t("Details") }}</a>
-              </li>
-              <li class="nav-item">
-                <a @click="getActivity" class="nav-link" href="#activity-log" data-toggle="tab">
-                  <i class="nav-icon fa fa-bell" aria-hidden="true"></i>
-                  {{ $t("Activity log") }}</a>
-              </li>
-            </ul>
-          </div>
-          <div class="btn-group">
-            <a @click="communicationConfig.sms_configured ? notify((form.isSendSMS = true)) : null" href="#" :class="[
-              'btn',
-              communicationConfig.sms_configured ? 'btn-secondary' : 'btn-secondary disabled'
-            ]" :disabled="!communicationConfig.sms_configured"
-              :title="!communicationConfig.sms_configured ? $t('SMS settings not configured') : ''"
-              v-tooltip="!communicationConfig.sms_configured ? $t('SMS settings not configured') : ''">
-              <i class="fas fa-sms"></i> {{ $t("SMS") }}
-            </a>
-            <a @click="notify((form.isSendEmail = true))" href="#" class="btn btn-success"><i
-                class="fas fa-paper-plane"></i> {{ $t("email") }}</a>
-            <!-- Commented out old download and print buttons -->
-            <!-- <a @click="generatePDF()" href="#" class="btn btn-info">
-              <i class="fas fa-download"></i> {{ $t("download") }}
-            </a>
-            <!-- New preview and download PDF buttons -->
-            <a @click="previewPDF" href="#" class="btn btn-info">
-              <i class="fas fa-eye"></i> {{ $t("Preview PDF") }}
-            </a>
-            <a @click="downloadPDF" href="#" class="btn btn-info">
-              <i class="fas fa-download"></i> {{ $t("download") }}
-            </a>
-            <a v-if="isSaudiArabia && allData && allData.status === 0" @click="sendInvoice(allData)" href="#"
-              class="btn btn-success">
-              <i class="fas fa-paper-plane"></i> {{ $t("Send Invoice to ZATCA") }}
-            </a>
+    <DetailsActivityTabs 
+      :show-tabs="!!allData" 
+      default-tab="details"
+      @details-clicked="getInvoice"
+      @activity-clicked="getActivity"
+      @tab-changed="handleTabChange">
+      <template #actions>
+        <div class="btn-group">
+          <a @click="communicationConfig.sms_configured ? notify((form.isSendSMS = true)) : null" href="#" :class="[
+            'btn',
+            communicationConfig.sms_configured ? 'btn-secondary' : 'btn-secondary disabled'
+          ]" :disabled="!communicationConfig.sms_configured"
+            :title="!communicationConfig.sms_configured ? $t('SMS settings not configured') : ''"
+            v-tooltip="!communicationConfig.sms_configured ? $t('SMS settings not configured') : ''">
+            <i class="fas fa-sms"></i> {{ $t("SMS") }}
+          </a>
+          <a @click="notify((form.isSendEmail = true))" href="#" class="btn btn-success"><i
+              class="fas fa-paper-plane"></i> {{ $t("email") }}</a>
+          <!-- Commented out old download and print buttons -->
+          <!-- <a @click="generatePDF()" href="#" class="btn btn-info">
+            <i class="fas fa-download"></i> {{ $t("download") }}
+          </a>
+          <!-- New preview and download PDF buttons -->
+          <a @click="previewPDF" href="#" class="btn btn-info">
+            <i class="fas fa-eye"></i> {{ $t("Preview PDF") }}
+          </a>
+          <a @click="downloadPDF" href="#" class="btn btn-info">
+            <i class="fas fa-download"></i> {{ $t("download") }}
+          </a>
+          <a v-if="isSaudiArabia && allData && allData.status === 0" @click="sendInvoice(allData)" href="#"
+            class="btn btn-success">
+            <i class="fas fa-paper-plane"></i> {{ $t("Send Invoice to ZATCA") }}
+          </a>
 
-            <router-link v-if="$can('invoice-edit') && !(isSaudiArabia && allData && allData.status === 1)" :to="{
-              name: 'invoices.edit',
-              params: { slug: allData.slug },
-            }" class="btn btn-info">
-              <i class="fas fa-edit" /> {{ $t("Edit") }}
-            </router-link>
-            <a v-if="allData && allData.status === 1 && calculateDueAmount > 0" @click.prevent="addPayment()" href="#"
-              class="btn btn-primary">
-              <i class="fas fa-money-bill" /> {{ $t("Add Payment") }}
-            </a>
-            <a v-if="$can('invoice-return-create') && allData && allData.status === 1"
-              @click.prevent="returnInvoice(allData)" href="#" class="btn btn-warning">
-              <i class="fas fa-undo" /> {{ $t("Return Invoice") }}
-            </a>
-            <router-link :to="{ name: 'invoices.index' }" class="btn btn-info float-right">
+          <router-link v-if="$can('invoice-edit') && !(isSaudiArabia && allData && allData.status === 1)" :to="{
+            name: 'invoices.edit',
+            params: { slug: allData.slug },
+          }" class="btn btn-info">
+            <i class="fas fa-edit" /> {{ $t("Edit") }}
+          </router-link>
+          <a v-if="allData && allData.status === 1 && calculateDueAmount > 0" @click.prevent="addPayment()" href="#"
+            class="btn btn-primary">
+            <i class="fas fa-money-bill" /> {{ $t("Add Payment") }}
+          </a>
+          <a v-if="$can('invoice-return-create') && allData && allData.status === 1"
+            @click.prevent="returnInvoice(allData)" href="#" class="btn btn-warning">
+            <i class="fas fa-undo" /> {{ $t("Return Invoice") }}
+          </a>
+          <router-link :to="{ name: 'invoices.index' }" class="btn btn-info float-right">
+            <template
+              v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+              {{ $t("Back") }} <i class="fas fa-long-arrow-alt-left" />
+            </template>
+            <template v-else>
               <template
                 v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
-                {{ $t("Back") }} <i class="fas fa-long-arrow-alt-left" />
+
+                {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
+
               </template>
+
               <template v-else>
+
                 <template
                   v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
 
+
                   {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
 
+
                 </template>
+
 
                 <template v-else>
 
-                  <template
-                    v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
 
+                  <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
 
-                    {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
-
-
-                  </template>
-
-
-                  <template v-else>
-
-
-                    <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
-
-
-                  </template>
 
                 </template>
-              </template>
-            </router-link>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <div class="tab-content">
-      <div class="tab-pane active" id="details">
+              </template>
+            </template>
+          </router-link>
+        </div>
+      </template>
+      <template #details>
         <div class="row">
           <!-- Main content -->
           <div class="invoice p-3 mb-3 w-100" id="content-to-pdf">
@@ -426,10 +412,8 @@
           </div>
           <!-- /.invoice -->
         </div>
-      </div>
-
-      <!--  activity logs -->
-      <div class="tab-pane" id="activity-log">
+      </template>
+      <template #activity-log>
         <div class="card custom-card w-100 mt-5 no-print">
           <div class="card-header setings-header">
             <div class="col-xl-4 col-4">
@@ -504,8 +488,8 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </template>
+    </DetailsActivityTabs>
     <Modal v-if="showPaymentModal" @close="showPaymentModal = false">
       <h5 slot="header">
         {{ $t("Create invoice payment") }} :
@@ -635,6 +619,7 @@ import AccountCreateModal from "~/components/AccountCreateModal";
 import GeneralTable from "~/components/GeneralTable";
 import InvoiceSummaryTable from "~/components/sales/InvoiceSummaryTable";
 import InfoAlert from "~/components/shared/InfoAlert";
+import DetailsActivityTabs from "~/components/DetailsActivityTabs";
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -647,6 +632,7 @@ export default {
     GeneralTable,
     InvoiceSummaryTable,
     InfoAlert,
+    DetailsActivityTabs,
   },
   data: () => ({
     allData: "",
@@ -1050,6 +1036,10 @@ export default {
     this.invoicePrefix = this.appInfo.invoicePrefix;
   },
   methods: {
+    // Handle tab change (optional, for additional logic if needed)
+    handleTabChange(tab) {
+      // Tab-specific actions are handled by details-clicked and activity-clicked events
+    },
     // Format number to 2 decimal places
     formatNumber(value) {
       if (value === null || value === undefined || isNaN(value)) return '0.00';
