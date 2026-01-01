@@ -166,7 +166,7 @@
 
                   <!-- Total Sales -->
                   <template #cell-total_sales="{ row }">
-                    {{ formatCurrency(row.total_sales) }}
+                    <span v-html="formatCurrency(row.total_sales)"></span>
                   </template>
 
                   <!-- Actions -->
@@ -298,7 +298,7 @@
                 <p v-if="selectedSession.closed_at_formatted">
                   <strong>{{ $t('Closed At') }}:</strong> {{ selectedSession.closed_at_formatted }}
                 </p>
-                <p><strong>{{ $t('Total Sales') }}:</strong> {{ formatCurrency(selectedSession.total_sales) }}</p>
+                <p><strong>{{ $t('Total Sales') }}:</strong> <span v-html="formatCurrency(selectedSession.total_sales)"></span></p>
                 <p><strong>{{ $t('Invoice Count') }}:</strong> {{ selectedSession.invoice_count }}</p>
               </div>
             </div>

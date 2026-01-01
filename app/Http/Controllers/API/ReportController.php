@@ -5339,27 +5339,30 @@ class ReportController extends Controller
                 $totalSales = 0;
                 $invoiceCount = 0;
 
-                // Calculate total sales from finalized invoices (those with invoice_id)
-                if (is_array($invoiceData)) {
-                    // Check if invoice_data is an array of invoices (from POS session)
-                    if (isset($invoiceData[0]) && is_array($invoiceData[0])) {
+                // Calculate total sales from invoices
+                if (is_array($invoiceData) && ! empty($invoiceData)) {
+                    // Check if invoice_data is an array of invoices (multiple invoices in one session)
+                    // This happens when a session contains multiple invoice tabs
+                    // Check if first element is numeric key and is an array (indicating array of invoices)
+                    $keys = array_keys($invoiceData);
+                    $isNumericArray = ! empty($keys) && is_numeric($keys[0]) && isset($invoiceData[0]) && is_array($invoiceData[0]);
+
+                    if ($isNumericArray) {
                         // Array of invoices
                         foreach ($invoiceData as $invoice) {
-                            if (isset($invoice['invoice_id']) && $invoice['invoice_id']) {
-                                $totalSales += (float) ($invoice['netTotal'] ?? 0);
+                            if (is_array($invoice)) {
+                                // Sum netTotal from all invoices (including drafts)
+                                $netTotal = (float) ($invoice['netTotal'] ?? 0);
+                                $totalSales += $netTotal;
                                 $invoiceCount++;
                             }
                         }
-                    } elseif (isset($invoiceData['invoice_id']) && $invoiceData['invoice_id']) {
-                        // Single invoice object
-                        $totalSales += (float) ($invoiceData['netTotal'] ?? 0);
+                    } else {
+                        // Single invoice object (most common case - one invoice per session)
+                        // Get netTotal directly from the invoice object
+                        $netTotal = (float) ($invoiceData['netTotal'] ?? 0);
+                        $totalSales = $netTotal;
                         $invoiceCount = 1;
-                    } elseif (is_array($invoiceData) && !empty($invoiceData)) {
-                        // Check if it's a single invoice stored as array structure
-                        if (isset($invoiceData['invoice_id']) && $invoiceData['invoice_id']) {
-                            $totalSales += (float) ($invoiceData['netTotal'] ?? 0);
-                            $invoiceCount = 1;
-                        }
                     }
                 }
 
