@@ -42,6 +42,7 @@ use App\Http\Controllers\API\PaymentMethodController;
 use App\Http\Controllers\API\PaymentVoucherController;
 use App\Http\Controllers\API\PayrollController;
 use App\Http\Controllers\API\PermissionController;
+use App\Http\Controllers\API\POSInvoiceSessionController;
 use App\Http\Controllers\API\ProductCategoryController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\ProSubCatController;
@@ -601,6 +602,14 @@ Route::middleware([
         Route::delete('/products/{slug}/force-delete', [ProductController::class, 'forceDelete']);
         Route::post('/product-import', [ProductController::class, 'import']);
 
+        // POS Invoice Session routes
+        Route::get('/pos/sessions', [POSInvoiceSessionController::class, 'index']);
+        Route::post('/pos/sessions', [POSInvoiceSessionController::class, 'store']);
+        Route::put('/pos/sessions/{id}', [POSInvoiceSessionController::class, 'update']);
+        Route::post('/pos/sessions/{id}/close', [POSInvoiceSessionController::class, 'close']);
+        Route::post('/pos/sessions/{id}/save', [POSInvoiceSessionController::class, 'save']);
+        Route::delete('/pos/sessions/{id}', [POSInvoiceSessionController::class, 'destroy']);
+
         // Inventory route
         Route::get('/inventory', [InventoryController::class, 'allInventory']);
         Route::get('/inventory/search', [InventoryController::class, 'searchInventory']);
@@ -638,6 +647,7 @@ Route::middleware([
         Route::get('/reports/todayReport', [ReportController::class, 'todayReport']);
         Route::get('/reports/cost-center-statement', [ReportController::class, 'costCenterStatement']);
         Route::get('/reports/cost-allocation-report', [ReportController::class, 'costAllocationReport']);
+        Route::get('/reports/pos-sessions', [ReportController::class, 'posSessionsReport']);
 
         // update profile
         Route::post('/update-profile', [DashboardController::class, 'updateProfile']);

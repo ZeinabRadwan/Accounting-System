@@ -1074,13 +1074,17 @@ export default {
       this.invoicePrefix = this.appInfo.invoicePrefix;
     }
 
-    // Try to load suspended invoices from localStorage
-    const loaded = this.loadSuspendedInvoices();
-    
-    // If no suspended invoices were loaded, initialize first invoice
-    if (!loaded || this.invoices.length === 0) {
+    // Try to load suspended invoices from database
+    this.loadSuspendedInvoices().then(loaded => {
+      // If no suspended invoices were loaded, initialize first invoice
+      if (!loaded || this.invoices.length === 0) {
+        this.initializeFirstInvoice();
+      }
+    }).catch(error => {
+      console.error('Error loading invoice sessions:', error);
+      // Initialize first invoice on error
       this.initializeFirstInvoice();
-    }
+    });
 
     document.body.classList.add("sidebar-collapse");
   },
@@ -2100,6 +2104,16 @@ export default {
           // Remove saved invoice from tabs
           if (this.invoices.length > 0 && this.currentInvoiceIndex >= 0) {
             const savedIndex = this.currentInvoiceIndex;
+            const invoiceToSave = this.invoices[savedIndex];
+            
+            // Close session via API BEFORE removing from array
+            if (invoiceToSave?.session_id) {
+              try {
+                await axios.post(`/api/pos/sessions/${invoiceToSave.session_id}/save`);
+              } catch (error) {
+                console.error('Error saving session:', error);
+              }
+            }
             
             // Determine which invoice to switch to after removing
             let targetIndex = -1;
@@ -2129,9 +2143,6 @@ export default {
               // No invoices remain, create a new empty invoice
               this.initializeFirstInvoice();
             }
-
-            // Persist updated invoice state (without the saved invoice)
-            this.persistSuspendedInvoices();
           } else {
             // If no invoices in session, ensure we have at least one
             if (this.invoices.length === 0) {
@@ -2493,81 +2504,18 @@ export default {
       }
     },
 
-    // Persist suspended invoices to localStorage
-    persistSuspendedInvoices() {
+    // Persist suspended invoices to database via API
+    async persistSuspendedInvoices() {
       try {
-        const sessionData = {
-          invoices: this.invoices.map(invoice => {
-            // Deep clone to avoid reference issues
-            return JSON.parse(JSON.stringify({
-              id: invoice.id,
-              createdAt: invoice.createdAt,
-              openedTime: invoice.openedTime || invoice.createdAt, // Preserve opened time
-              invoiceStatus: invoice.invoiceStatus,
-              reference: invoice.reference,
-              client: invoice.client,
-              selectedProducts: invoice.selectedProducts || [],
-              subTotal: invoice.subTotal || 0,
-              netTotal: invoice.netTotal || 0,
-              transportCost: invoice.transportCost || "",
-              orderTax: invoice.orderTax || null,
-              productTotalTax: invoice.productTotalTax || 0,
-              totalTax: invoice.totalTax || 0,
-              discount: invoice.discount || "",
-              discountType: invoice.discountType || 0,
-              poReference: invoice.poReference || "",
-              paymentTerms: invoice.paymentTerms || "",
-              deliveryPlace: invoice.deliveryPlace || "",
-              date: invoice.date || new Date().toISOString().slice(0, 10),
-              note: invoice.note || "",
-              status: invoice.status !== undefined ? invoice.status : 1,
-              account: invoice.account || "",
-              totalPaid: invoice.totalPaid || "",
-              dueAmount: invoice.dueAmount || "",
-              addPayment: invoice.addPayment || "",
-              chequeNo: invoice.chequeNo || "",
-              receiptNo: invoice.receiptNo || "",
-              category: invoice.category || "",
-              invoice_id: invoice.invoice_id || null,
-              invoice_slug: invoice.invoice_slug || null,
-              // Note: attachment cannot be stored in localStorage, so we skip it
-            }));
-          }),
-          currentInvoiceIndex: this.currentInvoiceIndex,
-          invoiceCounter: this.invoiceCounter,
-          lastSaved: new Date().toISOString(),
-        };
-        localStorage.setItem("posSuspendedInvoices", JSON.stringify(sessionData));
-      } catch (error) {
-        console.error("Error persisting suspended invoices:", error);
-      }
-    },
-
-    // Load suspended invoices from localStorage
-    loadSuspendedInvoices() {
-      try {
-        const savedData = localStorage.getItem("posSuspendedInvoices");
-        if (!savedData) {
-          return false;
-        }
-
-        const sessionData = JSON.parse(savedData);
-        
-        // Validate data structure
-        if (!sessionData.invoices || !Array.isArray(sessionData.invoices)) {
-          return false;
-        }
-
-        // Restore invoices
-        this.invoices = sessionData.invoices.map(invoice => {
-          // Ensure all required fields are present
-          return {
-            id: invoice.id || `inv_${Date.now()}_${Math.random()}`,
-            createdAt: invoice.createdAt || new Date().toISOString(),
-            openedTime: invoice.openedTime || invoice.createdAt || new Date().toISOString(), // Restore opened time
-            invoiceStatus: invoice.invoiceStatus || 'suspended',
-            reference: invoice.reference || `INV-${this.invoiceCounter}`,
-            client: invoice.client || null,
+        // Update all invoices as sessions
+        const updatePromises = this.invoices.map(async (invoice, index) => {
+          const invoiceData = {
+            id: invoice.id,
+            createdAt: invoice.createdAt,
+            openedTime: invoice.openedTime || invoice.createdAt,
+            invoiceStatus: invoice.invoiceStatus,
+            reference: invoice.reference,
+            client: invoice.client,
             selectedProducts: invoice.selectedProducts || [],
             subTotal: invoice.subTotal || 0,
             netTotal: invoice.netTotal || 0,
@@ -2592,22 +2540,99 @@ export default {
             category: invoice.category || "",
             invoice_id: invoice.invoice_id || null,
             invoice_slug: invoice.invoice_slug || null,
+          };
+
+          // If invoice has a session_id, update it; otherwise create new
+          if (invoice.session_id) {
+            await axios.put(`/api/pos/sessions/${invoice.session_id}`, {
+              invoice_data: invoiceData,
+              status: invoice.invoiceStatus,
+            });
+          } else {
+            // Create new session
+            const response = await axios.post('/api/pos/sessions', {
+              invoice_data: invoiceData,
+              status: invoice.invoiceStatus,
+            });
+            // Store session_id in invoice object
+            this.$set(invoice, 'session_id', response.data.data.id);
+          }
+        });
+
+        await Promise.all(updatePromises);
+      } catch (error) {
+        console.error("Error persisting suspended invoices:", error);
+      }
+    },
+
+    // Load suspended invoices from database via API
+    async loadSuspendedInvoices() {
+      try {
+        const response = await axios.get('/api/pos/sessions');
+        
+        if (!response.data.success || !response.data.data || !Array.isArray(response.data.data)) {
+          return false;
+        }
+
+        const sessions = response.data.data;
+
+        if (sessions.length === 0) {
+          return false;
+        }
+
+        // Restore invoices from sessions
+        this.invoices = sessions.map(session => {
+          const invoiceData = session.invoice_data;
+          return {
+            session_id: session.id,
+            id: invoiceData.id || `inv_${Date.now()}_${Math.random()}`,
+            createdAt: invoiceData.createdAt || session.opened_at,
+            openedTime: invoiceData.openedTime || session.opened_at,
+            invoiceStatus: session.status,
+            reference: invoiceData.reference || `INV-${this.invoiceCounter}`,
+            client: invoiceData.client || null,
+            selectedProducts: invoiceData.selectedProducts || [],
+            subTotal: invoiceData.subTotal || 0,
+            netTotal: invoiceData.netTotal || 0,
+            transportCost: invoiceData.transportCost || "",
+            orderTax: invoiceData.orderTax || null,
+            productTotalTax: invoiceData.productTotalTax || 0,
+            totalTax: invoiceData.totalTax || 0,
+            discount: invoiceData.discount || "",
+            discountType: invoiceData.discountType || 0,
+            poReference: invoiceData.poReference || "",
+            paymentTerms: invoiceData.paymentTerms || "",
+            deliveryPlace: invoiceData.deliveryPlace || "",
+            date: invoiceData.date || new Date().toISOString().slice(0, 10),
+            note: invoiceData.note || "",
+            status: invoiceData.status !== undefined ? invoiceData.status : 1,
+            account: invoiceData.account || "",
+            totalPaid: invoiceData.totalPaid || "",
+            dueAmount: invoiceData.dueAmount || "",
+            addPayment: invoiceData.addPayment || "",
+            chequeNo: invoiceData.chequeNo || "",
+            receiptNo: invoiceData.receiptNo || "",
+            category: invoiceData.category || "",
+            invoice_id: invoiceData.invoice_id || null,
+            invoice_slug: invoiceData.invoice_slug || null,
             attachment: null, // Cannot restore file attachments
           };
         });
 
-        // Restore counter
-        if (sessionData.invoiceCounter) {
-          this.invoiceCounter = sessionData.invoiceCounter;
-        }
+        // Update invoice counter based on highest reference number
+        const maxCounter = this.invoices.reduce((max, inv) => {
+          const match = inv.reference?.match(/INV-(\d+)/);
+          if (match) {
+            const num = parseInt(match[1]);
+            return Math.max(max, num);
+          }
+          return max;
+        }, 0);
+        this.invoiceCounter = maxCounter;
 
-        // Restore current invoice index (ensure it's valid)
-        let targetIndex = sessionData.currentInvoiceIndex || 0;
-        if (targetIndex < 0 || targetIndex >= this.invoices.length) {
-          // Find the last active invoice, or default to first
-          const activeIndex = this.invoices.findIndex(inv => inv.invoiceStatus === 'active');
-          targetIndex = activeIndex >= 0 ? activeIndex : 0;
-        }
+        // Find active invoice or default to first
+        const activeIndex = this.invoices.findIndex(inv => inv.invoiceStatus === 'active');
+        const targetIndex = activeIndex >= 0 ? activeIndex : 0;
 
         this.currentInvoiceIndex = targetIndex;
 
@@ -2623,25 +2648,33 @@ export default {
         return true;
       } catch (error) {
         console.error("Error loading suspended invoices:", error);
-        // Clear corrupted data
-        this.clearSuspendedInvoices();
         return false;
       }
     },
 
-    // Clear suspended invoices from localStorage
+    // Clear suspended invoices - no longer needed as sessions are managed via API
     clearSuspendedInvoices() {
-      try {
-        localStorage.removeItem("posSuspendedInvoices");
-      } catch (error) {
-        console.error("Error clearing suspended invoices:", error);
-      }
+      // Sessions are now managed via API, no local cleanup needed
     },
 
     // Initialize first invoice
-    initializeFirstInvoice() {
+    async initializeFirstInvoice() {
       if (this.invoices.length === 0) {
         const firstInvoice = this.createEmptyInvoice();
+        
+        // Create session via API
+        try {
+          const invoiceData = this.getInvoiceData(firstInvoice);
+          const response = await axios.post('/api/pos/sessions', {
+            invoice_data: invoiceData,
+            status: 'active',
+          });
+          firstInvoice.session_id = response.data.data.id;
+        } catch (error) {
+          console.error('Error creating first invoice session:', error);
+          // Continue anyway, session will be created on next save
+        }
+        
         this.invoices.push(firstInvoice);
         this.currentInvoiceIndex = 0;
         this.currentTabsPage = 0;
@@ -2686,6 +2719,42 @@ export default {
       };
     },
 
+    // Get invoice data object for API
+    getInvoiceData(invoice) {
+      return {
+        id: invoice.id,
+        createdAt: invoice.createdAt,
+        openedTime: invoice.openedTime || invoice.createdAt,
+        invoiceStatus: invoice.invoiceStatus,
+        reference: invoice.reference,
+        client: invoice.client,
+        selectedProducts: invoice.selectedProducts || [],
+        subTotal: invoice.subTotal || 0,
+        netTotal: invoice.netTotal || 0,
+        transportCost: invoice.transportCost || "",
+        orderTax: invoice.orderTax || null,
+        productTotalTax: invoice.productTotalTax || 0,
+        totalTax: invoice.totalTax || 0,
+        discount: invoice.discount || "",
+        discountType: invoice.discountType || 0,
+        poReference: invoice.poReference || "",
+        paymentTerms: invoice.paymentTerms || "",
+        deliveryPlace: invoice.deliveryPlace || "",
+        date: invoice.date || new Date().toISOString().slice(0, 10),
+        note: invoice.note || "",
+        status: invoice.status !== undefined ? invoice.status : 1,
+        account: invoice.account || "",
+        totalPaid: invoice.totalPaid || "",
+        dueAmount: invoice.dueAmount || "",
+        addPayment: invoice.addPayment || "",
+        chequeNo: invoice.chequeNo || "",
+        receiptNo: invoice.receiptNo || "",
+        category: invoice.category || "",
+        invoice_id: invoice.invoice_id || null,
+        invoice_slug: invoice.invoice_slug || null,
+      };
+    },
+
     // Save current invoice state
     saveInvoiceState() {
       if (this.invoices.length === 0 || this.currentInvoiceIndex < 0 || this.currentInvoiceIndex >= this.invoices.length) {
@@ -2725,8 +2794,15 @@ export default {
       currentInvoice.invoice_slug = this.form.invoice_slug || null;
       currentInvoice.attachment = this.form.attachment || null;
 
-      // Persist suspended invoices after saving state
-      this.persistSuspendedInvoices();
+      // Update session via API (async, but don't wait)
+      if (currentInvoice.session_id) {
+        axios.put(`/api/pos/sessions/${currentInvoice.session_id}`, {
+          invoice_data: this.getInvoiceData(currentInvoice),
+          status: currentInvoice.invoiceStatus,
+        }).catch(error => {
+          console.error('Error updating invoice session:', error);
+        });
+      }
     },
 
     // Restore invoice state to form
@@ -2773,32 +2849,57 @@ export default {
     },
 
     // Create new invoice
-    createNewInvoice() {
+    async createNewInvoice() {
       // Save current invoice state before switching (if there is an active invoice)
       if (this.invoices.length > 0 && this.currentInvoiceIndex >= 0 && this.currentInvoiceIndex < this.invoices.length) {
         // Save current invoice state (products, quantities, discounts, transport, taxes, totals)
         this.saveInvoiceState();
         
-        // Automatically suspend the current invoice
+        // Automatically suspend the current invoice via API
         const currentInvoice = this.invoices[this.currentInvoiceIndex];
-        currentInvoice.invoiceStatus = 'suspended';
+        if (currentInvoice.session_id) {
+          try {
+            await axios.put(`/api/pos/sessions/${currentInvoice.session_id}`, {
+              invoice_data: this.getInvoiceData(currentInvoice),
+              status: 'suspended',
+            });
+            currentInvoice.invoiceStatus = 'suspended';
+          } catch (error) {
+            console.error('Error suspending current invoice:', error);
+          }
+        }
       }
 
       // Create new invoice
       const newInvoice = this.createEmptyInvoice();
+      
+      // Create session via API
+      try {
+        const invoiceData = this.getInvoiceData(newInvoice);
+        const response = await axios.post('/api/pos/sessions', {
+          invoice_data: invoiceData,
+          status: 'active',
+        });
+        newInvoice.session_id = response.data.data.id;
+      } catch (error) {
+        console.error('Error creating new invoice session:', error);
+        this.$toast.error(
+          this.$t("Error"),
+          this.$t("Failed to create new invoice session. Please try again.")
+        );
+        return;
+      }
+
       this.invoices.push(newInvoice);
       this.currentInvoiceIndex = this.invoices.length - 1;
       this.restoreInvoiceState(newInvoice);
 
       // Update pagination to show the new invoice
       this.updateTabsPageForInvoice(this.currentInvoiceIndex);
-
-      // Persist suspended invoices after creating new invoice
-      this.persistSuspendedInvoices();
     },
 
     // Switch to a different invoice
-    switchInvoice(index) {
+    async switchInvoice(index) {
       if (index < 0 || index >= this.invoices.length) {
         return;
       }
@@ -2806,18 +2907,43 @@ export default {
       // Save current invoice state
       if (this.currentInvoiceIndex >= 0 && this.currentInvoiceIndex < this.invoices.length) {
         this.saveInvoiceState();
+        
+        // Suspend current invoice via API
+        const currentInvoice = this.invoices[this.currentInvoiceIndex];
+        if (currentInvoice.session_id) {
+          try {
+            await axios.put(`/api/pos/sessions/${currentInvoice.session_id}`, {
+              invoice_data: this.getInvoiceData(currentInvoice),
+              status: 'suspended',
+            });
+            currentInvoice.invoiceStatus = 'suspended';
+          } catch (error) {
+            console.error('Error suspending current invoice:', error);
+          }
+        }
       }
 
       // Switch to new invoice
       this.currentInvoiceIndex = index;
       const targetInvoice = this.invoices[index];
+      
+      // Activate target invoice via API
+      if (targetInvoice.session_id) {
+        try {
+          await axios.put(`/api/pos/sessions/${targetInvoice.session_id}`, {
+            invoice_data: this.getInvoiceData(targetInvoice),
+            status: 'active',
+          });
+          targetInvoice.invoiceStatus = 'active';
+        } catch (error) {
+          console.error('Error activating invoice:', error);
+        }
+      }
+
       this.restoreInvoiceState(targetInvoice);
 
       // Update pagination to show the active invoice
       this.updateTabsPageForInvoice(index);
-
-      // Persist suspended invoices after switching
-      this.persistSuspendedInvoices();
     },
 
     // Update tabs page to show the specified invoice
@@ -2881,9 +3007,19 @@ export default {
 
         // Save current invoice state if removing the active invoice
         const isRemovingCurrent = invoiceIndex === this.currentInvoiceIndex;
+        const invoiceToRemove = this.invoices[invoiceIndex];
         
         if (isRemovingCurrent) {
           this.saveInvoiceState();
+        }
+
+        // Close session via API BEFORE removing from array
+        if (invoiceToRemove?.session_id) {
+          try {
+            await axios.post(`/api/pos/sessions/${invoiceToRemove.session_id}/close`);
+          } catch (error) {
+            console.error('Error closing session:', error);
+          }
         }
 
         // Determine which invoice to switch to after removing
@@ -2946,9 +3082,6 @@ export default {
             this.currentTabsPage = maxPage;
           }
         }
-
-        // Persist suspended invoices after removing
-        this.persistSuspendedInvoices();
 
         // Force Vue to update the view
         this.$nextTick(() => {

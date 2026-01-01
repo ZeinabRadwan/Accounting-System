@@ -1438,6 +1438,12 @@ export default [
     meta: {permissions: ['vat-report']},
   },
   {
+    path: '/reports/pos-sessions',
+    name: 'reports.posSessions',
+    component: page('reports/pos-sessions.vue'),
+    meta: {permissions: ['invoice-list']},
+  },
+  {
     path: "/activity-log",
     name: "activity.log",
     component: page("activity-log.vue"),

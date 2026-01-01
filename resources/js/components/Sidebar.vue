@@ -1187,7 +1187,8 @@
             $can('profit-loss') ||
             $can('expense-report') ||
             $can('sales-by-user-report') ||
-            $can('collection-by-user-report')
+            $can('collection-by-user-report') ||
+            $can('invoice-list')
           )" class="nav-item has-treeview" :class="menuOpen('reports') ? 'menu-is-opening menu-open' : ''">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-chart-bar" />
@@ -1275,6 +1276,11 @@
               <li v-if="$can('collection-by-user-report')" class="nav-item">
                 <router-link :to="{ name: 'reports.collectionByUserReport' }" class="nav-link">
                   <p>{{ $t("Collection By User Report") }}</p>
+                </router-link>
+              </li>
+              <li v-if="$can('invoice-list')" class="nav-item">
+                <router-link :to="{ name: 'reports.posSessions' }" class="nav-link">
+                  <p>{{ $t("POS Sessions") }}</p>
                 </router-link>
               </li>
             </ul>

@@ -22,6 +22,7 @@ use App\Models\InvoiceReturn;
 use App\Models\InvoiceReturnProduct;
 use App\Models\LoanPayment;
 use App\Models\Payroll;
+use App\Models\POSInvoiceSession;
 use App\Models\Product;
 use App\Models\Purchase;
 use App\Models\PurchaseProduct;
@@ -48,6 +49,7 @@ class ReportController extends Controller
         $this->middleware('can:expense-report', ['only' => ['expenseReport']]);
         $this->middleware('can:item-report', ['only' => ['itemsReport']]);
         $this->middleware('can:inventory-report', ['only' => ['inventoryReport']]);
+        $this->middleware('can:invoice-list', ['only' => ['posSessionsReport']]);
     }
 
     // return balance sheet data based on chart of accounts and journal entries - OPTIMIZED
@@ -5243,5 +5245,164 @@ class ReportController extends Controller
 
         // If no branches found, return [0] to prevent empty array issues
         return ! empty($branchIds) ? array_values($branchIds) : [0];
+    }
+
+    /**
+     * POS Sessions Report
+     */
+    public function posSessionsReport(Request $request)
+    {
+        try {
+            $this->validate($request, [
+                'status' => 'nullable|in:active,suspended,closed',
+                'user_id' => 'nullable|exists:users,id',
+                'opened_from' => 'nullable|date',
+                'opened_to' => 'nullable|date|after_or_equal:opened_from',
+                'closed_from' => 'nullable|date',
+                'closed_to' => 'nullable|date|after_or_equal:closed_from',
+                'search' => 'nullable|string|max:255',
+                'page' => 'nullable|integer|min:1',
+                'per_page' => 'nullable|integer|min:1|max:100',
+            ]);
+
+            $user = Auth::user();
+            $query = POSInvoiceSession::with('user');
+
+            // Apply status filter
+            if ($request->has('status') && $request->status !== '') {
+                $query->where('status', $request->status);
+            }
+
+            // Apply user filter
+            if ($request->has('user_id') && $request->user_id) {
+                $query->where('user_id', $request->user_id);
+            }
+
+            // Apply opened date range filter
+            if ($request->opened_from) {
+                $query->whereDate('opened_at', '>=', $request->opened_from);
+            }
+            if ($request->opened_to) {
+                $query->whereDate('opened_at', '<=', $request->opened_to);
+            }
+
+            // Apply closed date range filter
+            if ($request->closed_from) {
+                $query->whereDate('closed_at', '>=', $request->closed_from);
+            }
+            if ($request->closed_to) {
+                $query->whereDate('closed_at', '<=', $request->closed_to);
+            }
+
+            // Apply search filter (session key)
+            if ($request->has('search') && $request->search) {
+                $search = $request->search;
+                $query->where(function ($q) use ($search) {
+                    $q->where('session_key', 'like', "%{$search}%")
+                        ->orWhere('id', 'like', "%{$search}%");
+                });
+            }
+
+            // Get all users for filter dropdown (only if user has permission)
+            $users = [];
+            if ((int) $user->account_role === 1) {
+                // Super admin can see all users
+                $users = \App\Models\User::select('id', 'name', 'email')
+                    ->where('is_active', 1)
+                    ->orderBy('name')
+                    ->get()
+                    ->map(function ($u) {
+                        return [
+                            'id' => $u->id,
+                            'name' => $u->name,
+                            'email' => $u->email,
+                        ];
+                    });
+            } else {
+                // Regular users can only see themselves
+                $users = [
+                    [
+                        'id' => $user->id,
+                        'name' => $user->name,
+                        'email' => $user->email,
+                    ],
+                ];
+            }
+
+            // Pagination
+            $perPage = $request->per_page ?? 25;
+            $sessions = $query->orderBy('opened_at', 'desc')->paginate($perPage);
+
+            // Process sessions to calculate total sales
+            $processedSessions = $sessions->map(function ($session) {
+                $invoiceData = $session->invoice_data ?? [];
+                $totalSales = 0;
+                $invoiceCount = 0;
+
+                // Calculate total sales from finalized invoices (those with invoice_id)
+                if (is_array($invoiceData)) {
+                    // Check if invoice_data is an array of invoices (from POS session)
+                    if (isset($invoiceData[0]) && is_array($invoiceData[0])) {
+                        // Array of invoices
+                        foreach ($invoiceData as $invoice) {
+                            if (isset($invoice['invoice_id']) && $invoice['invoice_id']) {
+                                $totalSales += (float) ($invoice['netTotal'] ?? 0);
+                                $invoiceCount++;
+                            }
+                        }
+                    } elseif (isset($invoiceData['invoice_id']) && $invoiceData['invoice_id']) {
+                        // Single invoice object
+                        $totalSales += (float) ($invoiceData['netTotal'] ?? 0);
+                        $invoiceCount = 1;
+                    } elseif (is_array($invoiceData) && !empty($invoiceData)) {
+                        // Check if it's a single invoice stored as array structure
+                        if (isset($invoiceData['invoice_id']) && $invoiceData['invoice_id']) {
+                            $totalSales += (float) ($invoiceData['netTotal'] ?? 0);
+                            $invoiceCount = 1;
+                        }
+                    }
+                }
+
+                return [
+                    'id' => $session->id,
+                    'session_key' => $session->session_key,
+                    'session_number' => 'SESS-'.str_pad($session->id, 6, '0', STR_PAD_LEFT),
+                    'user_id' => $session->user_id,
+                    'user_name' => $session->user->name ?? 'N/A',
+                    'user_email' => $session->user->email ?? 'N/A',
+                    'status' => $session->status,
+                    'opened_at' => $session->opened_at->format('Y-m-d H:i:s'),
+                    'opened_at_formatted' => $session->opened_at->format('d/m/Y H:i'),
+                    'closed_at' => $session->closed_at ? $session->closed_at->format('Y-m-d H:i:s') : null,
+                    'closed_at_formatted' => $session->closed_at ? $session->closed_at->format('d/m/Y H:i') : null,
+                    'total_sales' => round($totalSales, 2),
+                    'invoice_count' => $invoiceCount,
+                ];
+            });
+
+            return response()->json([
+                'success' => true,
+                'data' => $processedSessions,
+                'pagination' => [
+                    'current_page' => $sessions->currentPage(),
+                    'per_page' => $sessions->perPage(),
+                    'total' => $sessions->total(),
+                    'last_page' => $sessions->lastPage(),
+                    'from' => $sessions->firstItem(),
+                    'to' => $sessions->lastItem(),
+                ],
+                'filters' => [
+                    'users' => $users,
+                ],
+            ]);
+        } catch (\Exception $e) {
+            Log::error('POS Sessions Report Error: '.$e->getMessage());
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to generate POS sessions report',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
     }
 }
