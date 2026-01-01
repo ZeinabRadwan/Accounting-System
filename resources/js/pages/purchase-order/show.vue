@@ -207,9 +207,8 @@
                       {{ formatNumber(value) }} <span class="saudi-riyal">ê</span>
                     </template>
                   </GeneralTable>
-                  <div v-else class="no-print callout callout-info text-center">
-                    <h5>{{ $t("No products found") }}</h5>
-                    <p>{{ $t("This purchase order doesn't have any products yet.") }}</p>
+                  <div v-else class="no-print">
+                    <InfoAlert :message="$t('No products found')" />
                   </div>
                   <!-- Summary Row -->
                   <div v-if="purchaseOrderProducts && purchaseOrderProducts.length > 0" class="table-responsive">
@@ -339,6 +338,7 @@ import { mapGetters } from "vuex";
 // import html2pdf from "html2pdf.js";
 import GeneralTable from "~/components/GeneralTable";
 import InvoiceSummaryTable from "~/components/sales/InvoiceSummaryTable";
+import InfoAlert from "~/components/shared/InfoAlert";
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -348,6 +348,7 @@ export default {
   components: {
     GeneralTable,
     InvoiceSummaryTable,
+    InfoAlert,
   },
   data: () => ({
     breadcrumbsCurrent: "",

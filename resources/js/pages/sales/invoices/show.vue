@@ -392,23 +392,21 @@
                         class="saudi-riyal">ê</span></strong>
                   </div>
                 </div>
-                <div class="no-print callout callout-danger mt-4 w-100" v-else>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">{{ $t("No payments available yet!") }}</h5>
-                    <div v-if="allData.paymentType !== undefined || allData.is_paid !== undefined" class="ml-3">
-                      <strong>{{ $t("Payment Type") }}:</strong>
-                      <span v-if="allData.paymentType === 'paid' || allData.is_paid" class="badge bg-success ml-2">
-                        {{ $t("Paid") }} (مدفوع)
-                      </span>
-                      <span v-else class="badge bg-warning ml-2">
-                        {{ $t("On Credit") }} (بيع آجل)
-                      </span>
-                      <span
-                        v-if="(allData.paymentType === 'paid' || allData.is_paid) && (allData.paymentMethod || allData.payment_method_id)"
-                        class="ml-2">
-                        - {{ allData.paymentMethod ? allData.paymentMethod.name : '-' }}
-                      </span>
-                    </div>
+                <div class="no-print mt-4 w-100" v-else>
+                  <InfoAlert :message="$t('No payments available yet!')" />
+                  <div v-if="allData.paymentType !== undefined || allData.is_paid !== undefined" class="mt-3 text-right">
+                    <strong>{{ $t("Payment Type") }}:</strong>
+                    <span v-if="allData.paymentType === 'paid' || allData.is_paid" class="badge bg-success ml-2">
+                      {{ $t("Paid") }} (مدفوع)
+                    </span>
+                    <span v-else class="badge bg-warning ml-2">
+                      {{ $t("On Credit") }} (بيع آجل)
+                    </span>
+                    <span
+                      v-if="(allData.paymentType === 'paid' || allData.is_paid) && (allData.paymentMethod || allData.payment_method_id)"
+                      class="ml-2">
+                      - {{ allData.paymentMethod ? allData.paymentMethod.name : '-' }}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -636,6 +634,7 @@ import { ToggleButton } from "vue-js-toggle-button";
 import AccountCreateModal from "~/components/AccountCreateModal";
 import GeneralTable from "~/components/GeneralTable";
 import InvoiceSummaryTable from "~/components/sales/InvoiceSummaryTable";
+import InfoAlert from "~/components/shared/InfoAlert";
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -647,6 +646,7 @@ export default {
     AccountCreateModal,
     GeneralTable,
     InvoiceSummaryTable,
+    InfoAlert,
   },
   data: () => ({
     allData: "",
