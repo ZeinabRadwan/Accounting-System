@@ -410,6 +410,21 @@
                     " @change="calculateSum" @keyup="calculateSum" />
                 <has-error :form="form" field="transportCost" />
               </div>
+              <!-- Transport Taxability Control -->
+              <div v-if="shippingCostTotal > 0" class="form-group col-md-6 col-xl-3">
+                <div class="form-check mt-4">
+                  <input id="transportIsTaxable" v-model="form.transportIsTaxable" type="checkbox" class="form-check-input"
+                    @change="calculateSum" />
+                  <label class="form-check-label" for="transportIsTaxable">
+                    {{ form.transportIsTaxable ? $t("Transport is Taxable") : $t("Transport is Non-Taxable") }}
+                  </label>
+                  <small class="form-text text-muted d-block">
+                    {{ form.transportIsTaxable 
+                      ? $t("VAT will be calculated on transport cost") 
+                      : $t("Transport will be added after VAT calculation") }}
+                  </small>
+                </div>
+              </div>
               <div class="form-group col-md-6 col-xl-3" style="display: none;">
                 <label for="netTotal">{{ $t("Net Total") }}</label>
                 <input id="netTotal" v-model="form.netTotal" type="number" step="any" class="form-control"
@@ -657,6 +672,7 @@ export default {
       transportCost: "",
       transportTaxableCost: "",
       transportVatAmount: 0,
+      transportIsTaxable: true, // Default to true to maintain existing behavior (transport is taxable)
       account: "",
       availableBalance: "",
       totalProductTax: 0,
@@ -814,59 +830,104 @@ export default {
       return discountAmount > subtotal ? this.roundToTwoDecimals(subtotal) : discountAmount;
     },
 
-    // Shipping Cost Total: Total shipping cost distributed proportionally across items
+    // Shipping Cost Total: Total shipping cost (regardless of taxability)
+    // Gets transport amount from either transportTaxableCost or transportCost field
     shippingCostTotal() {
       if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
         return 0;
       }
-      // Use transportTaxableCost if supplier is taxable, otherwise transportCost
+      // Get transport cost from the appropriate field based on supplier tax status
+      // This is the total transport amount, used in calculations regardless of taxability setting
       const transportCost = this.isSupplierTaxable
         ? Number(this.form.transportTaxableCost || 0)
         : Number(this.form.transportCost || 0);
       return this.roundToTwoDecimals(transportCost);
     },
 
-    // Net Amount Before VAT: Subtotal - Discount + Shipping
-    // This is the amount on which VAT is calculated
+    // Net Amount Before VAT: Calculated based on transport taxability
+    // CRITICAL: When transport is non-taxable, use sum of item net totals to avoid discount issues
+    // 
+    // If transport is taxable: 
+    //   Net Amount = Invoice Subtotal - Invoice Discount + Transport
+    //   Transport is included in VAT base
+    // 
+    // If transport is non-taxable: 
+    //   Net Amount = Sum of Item Net Totals (after item-level discounts)
+    //   This ensures item-level discounts are correctly included without double-counting
+    //   Transport is NOT included in VAT base and is added after VAT calculation
     netAmountBeforeVAT() {
       const subtotal = this.invoiceSubtotal;
-      const discount = this.invoiceLevelDiscountTotal;
+      const invoiceDiscount = this.invoiceLevelDiscountTotal;
       const shipping = this.shippingCostTotal;
-      return this.roundToTwoDecimals(subtotal - discount + shipping);
+      
+      if (this.form.transportIsTaxable) {
+        // Transport is taxable: include it in Net Amount (part of VAT base)
+        // Net Amount = Invoice Subtotal - Invoice Discount + Transport
+        return this.roundToTwoDecimals(subtotal - invoiceDiscount + shipping);
+      } else {
+        // Transport is non-taxable: use sum of item net totals (after item-level discounts)
+        // This ensures item-level discounts are correctly included
+        if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+          return 0;
+        }
+        
+        // Sum of item net totals after discount (transport excluded)
+        const sumOfItemNetTotals = this.form.selectedProducts.reduce((total, item) => {
+          const itemNetTotal = item.netTotal || item.totalAfterDiscount || 0;
+          return total + itemNetTotal;
+        }, 0);
+        
+        // Net Amount = Taxable Base = Sum of Item Net Totals (transport excluded)
+        // Transport will be added after VAT calculation in grandTotal()
+        return this.roundToTwoDecimals(sumOfItemNetTotals);
+      }
     },
 
-    // VAT Amount: Calculated on Net Amount (Subtotal - Discount + Shipping)
-    // CRITICAL: VAT must be calculated on Net Amount, NOT on Subtotal
-    // This ensures accounting accuracy: VAT is applied after discount and shipping adjustments
+    // VAT Amount: Calculated based on transport taxability
+    // CRITICAL: VAT calculation differs based on whether transport is taxable or not
     // 
-    // Why VAT is calculated on Net Amount (not Subtotal):
-    // - Discount reduces the taxable base, so VAT should be calculated after discount
-    // - Shipping is part of the transaction value and should be included in VAT base
-    // - This matches standard accounting practices: VAT = (Subtotal - Discount + Shipping) × VAT Rate
-    //
-    // Formula: VAT = Net Amount × Weighted Average VAT Rate
-    // Where: Net Amount = Subtotal - Discount + Shipping
+    // Transport Taxability Behavior:
+    // - If transport is taxable: 
+    //   VAT base = Subtotal - Discount + Transport
+    //   VAT = VAT base × Weighted Average VAT Rate
+    // - If transport is non-taxable: 
+    //   VAT base = Subtotal - Discount (transport EXCLUDED from VAT base)
+    //   VAT = Sum of item VATs (totalProductTax) - ensures consistency with item-level calculations
+    //   Transport is NOT included in VAT calculation and is added after VAT
+    // 
+    // Why this approach:
+    // - When transport is taxable: It's part of the transaction value, so included in VAT base
+    // - When transport is non-taxable: Item-level VAT already correctly excludes transport,
+    //   so we use the sum of item VATs to ensure consistency and avoid double-counting
+    // - This matches standard accounting practices for non-taxable shipping
     vatAmount() {
       if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
         return 0;
       }
 
-      // Get the Net Amount (Subtotal - Discount + Shipping)
-      // This is the correct base for VAT calculation
+      // When transport is non-taxable, use sum of item VATs directly
+      // This ensures VAT equals the sum of item VATs and transport is NOT included in VAT base
+      if (!this.form.transportIsTaxable) {
+        // Transport is non-taxable: VAT = Sum of item VATs (transport excluded from VAT base)
+        // Item-level calculations already correctly exclude transport from VAT when non-taxable
+        const itemVatSum = this.form.selectedProducts.reduce((total, item) => {
+          return total + (item.totalTax || 0);
+        }, 0);
+        return this.roundToTwoDecimals(itemVatSum);
+      }
+
+      // When transport is taxable, calculate VAT on Net Amount (includes transport)
       const netAmount = this.netAmountBeforeVAT;
       if (netAmount <= 0) {
         return 0;
       }
 
       // Calculate weighted average VAT rate from all items
-      // We use items' net amounts (after discount) as weights, not their VAT bases
-      // This ensures the rate reflects the actual distribution of value across items
+      // We use items' net amounts (after discount) as weights
       let totalNetAmountForWeighting = 0;
       let weightedVatRateSum = 0;
 
       this.form.selectedProducts.forEach((item) => {
-        // Use item's net amount after discount (before shipping allocation for weighting)
-        // Shipping is included in the invoice-level Net Amount, so we weight by net amount
         const itemNetAmount = item.netTotal || 0;
         
         if (itemNetAmount > 0) {
@@ -897,22 +958,57 @@ export default {
       const weightedAverageVatRate = (weightedVatRateSum / totalNetAmountForWeighting) * 100;
 
       // Calculate VAT on the Net Amount using weighted average rate
-      // This is the correct accounting calculation: VAT = Net Amount × VAT Rate
+      // Net Amount includes transport when transport is taxable
       const vat = this.roundToTwoDecimals(netAmount * (weightedAverageVatRate / 100));
 
       return vat;
     },
 
-    // Grand Total: Net Amount + VAT
-    // CRITICAL: Grand Total must be calculated as Net Amount + VAT, NOT Subtotal + VAT
-    // This ensures the discount and shipping are properly reflected in the final amount
-    // Formula: Grand Total = Net Amount + VAT
-    // Where: Net Amount = Subtotal - Discount + Shipping
-    //        VAT = Net Amount × Weighted Average VAT Rate
+    // Grand Total: Calculated based on transport taxability
+    // CRITICAL: When transport is non-taxable, use sum of item totals to avoid discount double-counting
+    // 
+    // If transport is taxable: 
+    //   Grand Total = Net Amount + VAT
+    //   Where: Net Amount = Subtotal - Discount + Transport (transport included in VAT base)
+    // 
+    // If transport is non-taxable: 
+    //   Grand Total = Sum of Item Totals After VAT + Transport
+    //   This ensures:
+    //   - Item-level discounts are correctly included (no double-counting)
+    //   - VAT is calculated correctly on items only (transport excluded)
+    //   - Transport is added only once at invoice level
+    // 
+    // Why use sum of item totals when non-taxable:
+    // - Item totals already include item-level discounts and VAT
+    // - Avoids issues with invoice-level vs item-level discount calculations
+    // - Ensures accuracy: Grand Total = sum(item totals) + transport
     grandTotal() {
-      const netAmount = this.netAmountBeforeVAT;
-      const vat = this.vatAmount;
-      return this.roundToTwoDecimals(netAmount + vat);
+      const shipping = this.shippingCostTotal;
+      
+      if (this.form.transportIsTaxable) {
+        // Transport is taxable: use Net Amount + VAT calculation
+        const netAmount = this.netAmountBeforeVAT;
+        const vat = this.vatAmount;
+        // Grand Total = Net Amount + VAT (transport already included in Net Amount)
+        return this.roundToTwoDecimals(netAmount + vat);
+      } else {
+        // Transport is non-taxable: use sum of item totals after VAT
+        // This ensures item-level discounts are correctly included without double-counting
+        if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+          return this.roundToTwoDecimals(shipping);
+        }
+        
+        // Calculate sum of all item totals after VAT (includes item-level discounts and VAT)
+        const sumOfItemTotals = this.form.selectedProducts.reduce((total, item) => {
+          // Item total after VAT = itemAfterDiscount + itemVAT (transport excluded)
+          const itemTotal = item.totalPrice || 0;
+          return total + itemTotal;
+        }, 0);
+        
+        // Grand Total = Sum of Item Totals + Transport
+        // Transport is added only at invoice level, not distributed to items
+        return this.roundToTwoDecimals(sumOfItemTotals + shipping);
+      }
     },
   },
   watch: {
@@ -958,6 +1054,12 @@ export default {
     'form.transportTaxableCost': {
       handler() {
         this.updateNetTotal();
+      }
+    },
+    // Watch for changes in transport taxability to recalculate totals
+    'form.transportIsTaxable': {
+      handler() {
+        this.calculateSum();
       }
     }
   },
@@ -1298,21 +1400,39 @@ export default {
       }
 
       // 8. Calculate VAT base depending on transport taxability
+      // CRITICAL: When transport is non-taxable, it must NOT affect item-level calculations
       // If transport is taxable: VAT base = netTotal + proportionalTransport
-      // If transport is non-taxable: VAT base = netTotal (do NOT include transport in VAT)
-      const isTransportTaxable = this.isSupplierTaxable; // transport taxable only when supplier is taxable
-      const vatBase = this.roundToTwoDecimals(
-        netTotal + (isTransportTaxable ? proportionalTransport : 0)
-      );
+      // If transport is non-taxable: VAT base = netTotal (transport EXCLUDED from item calculations)
+      // Use form.transportIsTaxable to respect user's choice (defaults to true for backward compatibility)
+      const isTransportTaxable = this.form.transportIsTaxable !== false; // Default to true if not set
+      
+      // When transport is non-taxable, proportionalTransport should be 0 (not distributed)
+      // But we explicitly exclude it to ensure clean calculation
+      const transportForVatBase = isTransportTaxable ? proportionalTransport : 0;
+      const vatBase = this.roundToTwoDecimals(netTotal + transportForVatBase);
+      
       item.totalTax = this.roundToTwoDecimals(vatBase * (vatRate / 100));
       // productTax is VAT per unit (for display purposes)
       item.productTax = qtyNumber > 0 ? this.roundToTwoDecimals(item.totalTax / qtyNumber) : 0;
 
-      // 9. Line Item: Total With VAT = base (netTotal + optional shippingShare) + VAT
-      item.totalPrice = this.roundToTwoDecimals(vatBase + item.totalTax);
+      // 9. Line Item: Total With VAT
+      // CRITICAL: When transport is non-taxable, it must NOT be included in item totals
+      // Transport is only added at the invoice level (grand total) when non-taxable
+      // If transport is taxable: Total = vatBase + VAT (transport already included in vatBase)
+      // If transport is non-taxable: Total = vatBase + VAT (transport NOT included, added at invoice level only)
+      if (isTransportTaxable) {
+        // Transport is taxable: included in VAT base, so total = vatBase + VAT
+        item.totalPrice = this.roundToTwoDecimals(vatBase + item.totalTax);
+      } else {
+        // Transport is non-taxable: EXCLUDE it from item total
+        // Item total = itemAfterDiscount + itemVAT (transport added only at invoice grand total)
+        item.totalPrice = this.roundToTwoDecimals(vatBase + item.totalTax);
+      }
 
       // 10. Calculate unit cost for inventory valuation
       // Business rule: cost per item = after_discount + transport_share (VAT is NOT part of cost)
+      // Note: When transport is non-taxable, proportionalTransport will be 0 (transport not distributed)
+      // This means transport cost is not included in item unit cost when non-taxable
       const costBase = this.roundToTwoDecimals(netTotal + proportionalTransport);
       item.unitCost = qtyNumber > 0 ? this.roundToTwoDecimals(costBase / qtyNumber) : 0;
 
@@ -1723,6 +1843,11 @@ export default {
     // Allocate transport costs proportionally across all items based on item subtotals (qty × unit_price)
     // Formula: itemShippingShare = (itemSubtotal / invoiceSubtotal) * shippingCost
     // Note: Transport is allocated for reporting/display purposes and included in VAT calculation
+    // Allocate transport costs proportionally across all items based on item subtotals (qty × unit_price)
+    // CRITICAL: This function should ONLY be called when transport is taxable
+    // When transport is non-taxable, it must NOT be distributed to items
+    // Formula: itemShippingShare = (itemSubtotal / invoiceSubtotal) * shippingCost
+    // Note: Transport is allocated for reporting/display purposes and included in VAT calculation (when taxable)
     allocateTransportCostProportionally(transportCost) {
       if (!transportCost || transportCost <= 0) {
         // Clear proportional transport if no transport cost
@@ -1733,6 +1858,10 @@ export default {
         });
         return;
       }
+
+      // IMPORTANT: This function assumes transport is taxable
+      // If transport is non-taxable, this function should NOT be called
+      // Transport distribution is only needed when transport affects item-level VAT calculations
 
       // Calculate total invoice subtotal (sum of all item subtotals: qty × unit_price)
       let invoiceSubtotal = 0;
@@ -1833,10 +1962,24 @@ export default {
       // Allocate invoice-level discount proportionally to items
       this.allocateInvoiceDiscountProportionally(invoiceLevelDiscount);
 
-      // Allocate transport costs proportionally to items (for reporting/display and VAT calculation)
-      this.allocateTransportCostProportionally(transportCost);
+      // Allocate transport costs proportionally to items ONLY when transport is taxable
+      // CRITICAL: When transport is non-taxable, it must NOT be distributed to items
+      // Transport should only be added at the invoice level (grand total) when non-taxable
+      if (this.form.transportIsTaxable) {
+        // Transport is taxable: distribute it proportionally across items
+        // This allows transport to be included in item-level VAT calculations
+        this.allocateTransportCostProportionally(transportCost);
+      } else {
+        // Transport is non-taxable: DO NOT distribute to items
+        // Clear any existing proportional transport amounts to ensure clean calculation
+        this.form.selectedProducts.forEach((item, index) => {
+          if (item.proportionalTransportAmount) {
+            this.$set(this.form.selectedProducts[index], 'proportionalTransportAmount', 0);
+          }
+        });
+      }
 
-      // Recalculate all items with proportional discount and transport allocation
+      // Recalculate all items with proportional discount and transport allocation (if applicable)
       this.recalculateAllItemsWithProportionalDiscount();
 
       // Calculate totals after recalculation
@@ -1982,6 +2125,11 @@ export default {
           appendIfDefined('supplier[id]', formDataObj.supplier?.id);
           appendIfDefined('transportCost', formDataObj.transportCost);
           appendIfDefined('transportTaxableCost', formDataObj.transportTaxableCost);
+          // Send both field names for backend compatibility
+          if (formDataObj.transportIsTaxable !== undefined) {
+            appendIfDefined('transportIsTaxable', formDataObj.transportIsTaxable);
+            appendIfDefined('transport_taxable', formDataObj.transportIsTaxable);
+          }
           appendIfDefined('subTotal', formDataObj.subTotal);
           appendIfDefined('netTotal', formDataObj.netTotal);
           appendIfDefined('discount', formDataObj.discount);
@@ -2072,6 +2220,13 @@ export default {
 
           // Convert addPayment to boolean for backend validation
           formData.addPayment = this.form.addPayment == 1;
+
+          // Ensure transportIsTaxable is sent (convert to transport_taxable for backend compatibility)
+          // Backend expects transport_taxable field name
+          if (formData.transportIsTaxable !== undefined) {
+            formData.transport_taxable = formData.transportIsTaxable;
+            // Keep transportIsTaxable for backward compatibility
+          }
 
           // Only include payment-related fields if payment is being added
           if (this.form.addPayment == 1) {
@@ -2430,6 +2585,7 @@ export default {
         subTotal: this.form.subTotal,
         netTotal: this.form.netTotal,
         transportCost: this.form.transportCost,
+        transportIsTaxable: this.form.transportIsTaxable,
         orderTax: this.form.orderTax,
         totalProductTax: this.form.totalProductTax,
         totalTax: this.form.totalTax,
@@ -2459,6 +2615,8 @@ export default {
           this.form.subTotal = data.subTotal || this.form.subTotal
           this.form.netTotal = data.netTotal || this.form.netTotal
           this.form.transportCost = data.transportCost || this.form.transportCost
+          // Default to true if not set (backward compatibility)
+          this.form.transportIsTaxable = data.transportIsTaxable !== undefined ? data.transportIsTaxable : true
           this.form.orderTax = data.orderTax || this.form.orderTax
           this.form.totalProductTax = data.totalProductTax || this.form.totalProductTax
           this.form.totalTax = data.totalTax || this.form.totalTax
@@ -2516,6 +2674,7 @@ export default {
           this.form.transportCost = "";
           this.form.transportTaxableCost = "";
           this.form.transportVatAmount = 0;
+          this.form.transportIsTaxable = true; // Reset to default (taxable)
           this.form.orderTax = "";
           this.form.account = "";
           this.form.availableBalance = "";

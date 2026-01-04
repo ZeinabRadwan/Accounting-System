@@ -128,18 +128,6 @@
                     </span>
                     <span v-else>{{ value || '-' }}</span>
                   </template>
-                  <template #cell-date="{ value }">
-                    {{ value | moment("Do MMM, YYYY") }}
-                  </template>
-                  <template #cell-paymentType="{ value }">
-                    <span v-if="value === 'paid'" class="badge bg-success">
-                      {{ $t("Paid") }} (مدفوع)
-                    </span>
-                    <span v-else-if="value === 'due'" class="badge bg-warning">
-                      {{ $t("On Credit") }} (أجل)
-                    </span>
-                    <span v-else>{{ value || '-' }}</span>
-                  </template>
                   <template #cell-journalEntry="{ value }">
                     <router-link v-if="value && value.id" 
                       :to="{ name: 'journal-entries.show', params: { id: value.id } }" 
@@ -149,43 +137,26 @@
                     </router-link>
                     <span v-else class="text-muted">-</span>
                   </template>
+                  <template #cell-discountType="{ value }">
+                    <span v-if="value === 'percentage'">{{ $t("%") }}</span>
+                    <span v-else-if="value === 'fixed'">{{ $t("Fixed") }}</span>
+                    <span v-else>{{ value || '-' }}</span>
+                  </template>
+                  <template #cell-discountValue="{ value, row }">
+                    <span v-if="value !== null && value !== undefined && value !== ''">
+                      {{ formatNumber(value) }}
+                      <span v-if="row.discountType === 'percentage'">%</span>
+                      <span v-else class="saudi-riyal">ê</span>
+                    </span>
+                    <span v-else class="text-muted">-</span>
+                  </template>
+                  <template #cell-discountAmount="{ value }">
+                    <span v-if="value !== null && value !== undefined && value !== ''">
+                      {{ formatNumber(value) }} <span class="saudi-riyal">ê</span>
+                    </span>
+                    <span v-else class="text-muted">-</span>
+                  </template>
                 </GeneralTable>
-              </div>
-            </div>
-
-            <!-- Purchase-Level Discount Section -->
-            <div class="row mt-3" v-if="hasPurchaseDiscount">
-              <div class="col-12">
-                <div class="table-responsive table-custom">
-                  <table class="table invoices-table">
-                    <thead>
-                      <tr>
-                        <th>{{ $t("Purchase Discount") }}</th>
-                        <th>{{ $t("Discount Type") }}</th>
-                        <th>{{ $t("Discount Value") }}</th>
-                        <th>{{ $t("Discount Amount") }}</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>{{ $t("Purchase Discount") }}</td>
-                        <td>
-                          <span v-if="purchaseDiscountType === 'percentage'">{{ $t("%") }}</span>
-                          <span v-else-if="purchaseDiscountType === 'fixed'">{{ $t("Fixed") }}</span>
-                          <span v-else>{{ purchaseDiscountType }}</span>
-                        </td>
-                        <td>
-                          {{ formatNumber(purchaseDiscountValue) }}
-                          <span v-if="purchaseDiscountType === 'percentage'">%</span>
-                          <span v-else class="saudi-riyal">ê</span>
-                        </td>
-                        <td>
-                          {{ formatNumber(invoiceLevelDiscountAmount) }} <span class="saudi-riyal">ê</span>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
               </div>
             </div>
 
@@ -555,21 +526,121 @@ export default {
     },
 
     // Shipping Cost Total: Invoice-level shipping cost
+    // CRITICAL: When transport is taxable, allData.transport contains transport + VAT
+    // We need to return the total transport amount (including VAT) for display
+    // But for netAmountBeforeVAT calculation, we need transport before VAT
     shippingCostTotal() {
       if (!this.allData) return 0;
-      // Use transportTaxableCost if supplier is taxable, otherwise transportCost
-      // For show page, we use the stored transport value
+      // For show page, we use the stored transport value (total amount including VAT if taxable)
       const transportCost = parseFloat(this.allData.transport || 0);
       return this.roundToTwoDecimals(transportCost);
     },
 
-    // Net Amount Before VAT: Subtotal - Discount + Shipping
-    // This is the amount on which VAT is calculated
+    // Transport Cost Before VAT: Calculate transport cost before VAT when taxable
+    // CRITICAL: When transport is taxable, allData.transport = transportCost + VAT
+    // We need to extract transportCost from the total to calculate netAmountBeforeVAT correctly
+    transportCostBeforeVAT() {
+      if (!this.allData) return 0;
+      
+      if (!this.isTransportTaxable) {
+        // Transport is non-taxable: transport value is the cost itself (no VAT)
+        return this.shippingCostTotal;
+      }
+      
+      // Transport is taxable: calculate transport cost before VAT
+      // We need to reverse-calculate: transportTotal = transportCost + (transportCost × VAT rate)
+      // So: transportCost = transportTotal / (1 + VAT rate / 100)
+      
+      const transportTotal = parseFloat(this.allData.transport || 0);
+      if (transportTotal <= 0) return 0;
+      
+      // Get VAT rate - use weighted average from items or default 15%
+      let vatRate = 15; // Default VAT rate
+      if (this.purchaseProducts && this.purchaseProducts.length > 0) {
+        // Calculate weighted average VAT rate from items
+        let totalNetAmount = 0;
+        let weightedVatSum = 0;
+        
+        this.purchaseProducts.forEach((product) => {
+          const itemNetAmount = parseFloat(product.totalAfterDiscount || 0);
+          const itemTax = parseFloat(product.taxTotal || product.tax_amount || 0);
+          
+          if (itemNetAmount > 0 && itemTax > 0) {
+            const itemVatRate = (itemTax / itemNetAmount) * 100;
+            totalNetAmount += itemNetAmount;
+            weightedVatSum += itemNetAmount * (itemVatRate / 100);
+          }
+        });
+        
+        if (totalNetAmount > 0) {
+          vatRate = (weightedVatSum / totalNetAmount) * 100;
+        }
+      }
+      
+      // Calculate transport cost before VAT: transportCost = transportTotal / (1 + vatRate/100)
+      const transportCost = transportTotal / (1 + vatRate / 100);
+      return this.roundToTwoDecimals(transportCost);
+    },
+
+    // Helper computed property to check if transport is taxable
+    // Returns true only if transport_taxable is explicitly true or 1
+    // Returns false if transport_taxable is false, 0, null, or undefined
+    // CRITICAL: When transport_taxable is NULL in DB, it means non-taxable (new behavior)
+    isTransportTaxable() {
+      if (!this.allData) return true; // Default to taxable for backward compatibility
+      
+      // Check multiple possible field names (transport_taxable, transportIsTaxable, etc.)
+      const transportTaxable = this.allData.transport_taxable !== undefined 
+        ? this.allData.transport_taxable 
+        : (this.allData.transportIsTaxable !== undefined ? this.allData.transportIsTaxable : null);
+      
+      // Debug: Log the value to help diagnose issues (uncomment for debugging)
+      // console.log('transport_taxable value:', transportTaxable, 'type:', typeof transportTaxable, 'allData keys:', Object.keys(this.allData));
+      
+      // Explicitly check for true or 1 (string or number)
+      if (transportTaxable === true || transportTaxable === 1 || transportTaxable === '1') {
+        return true;
+      }
+      
+      // Everything else (false, 0, null, undefined, '0', 'false') is non-taxable
+      // This includes NULL from database which should be treated as non-taxable
+      // IMPORTANT: For purchases created with non-taxable transport, transport_taxable will be NULL/false
+      return false;
+    },
+
+    // Net Amount Before VAT: Calculated based on transport taxability
+    // CRITICAL: When transport is non-taxable, use DB values directly to avoid double-counting
+    // 
+    // If transport is taxable: Net Amount = Subtotal - Discount + Transport
+    // If transport is non-taxable: Net Amount = Sum of Item Totals After Discount (from DB)
+    //   Transport is NOT included in Net Amount when non-taxable
     netAmountBeforeVAT() {
+      if (!this.allData) return 0;
+      
+      if (!this.isTransportTaxable) {
+        // Transport is non-taxable: use sum of item totals after discount from DB
+        // This ensures we use the actual stored values, not recalculated ones
+        if (!this.purchaseProducts || this.purchaseProducts.length === 0) {
+          return 0;
+        }
+        
+        // Sum of item totals after discount (transport excluded)
+        const sumOfItemNetTotals = this.purchaseProducts.reduce((total, product) => {
+          const itemNetTotal = parseFloat(product.totalAfterDiscount || 0);
+          return total + itemNetTotal;
+        }, 0);
+        
+        return this.roundToTwoDecimals(sumOfItemNetTotals);
+      }
+      
+      // Transport is taxable: include transport cost (before VAT) in Net Amount
+      // CRITICAL: We must use transport cost BEFORE VAT, not the total (which includes VAT)
+      // Net Amount = Subtotal - Discount + Transport Cost (before VAT)
+      // VAT will be calculated on this Net Amount, which includes transport cost
       const subtotal = this.invoiceSubtotal;
       const discount = this.invoiceLevelDiscountAmount;
-      const shipping = this.shippingCostTotal;
-      return this.roundToTwoDecimals(subtotal - discount + shipping);
+      const transportCostBeforeVAT = this.transportCostBeforeVAT;
+      return this.roundToTwoDecimals(subtotal - discount + transportCostBeforeVAT);
     },
 
     // Calculate due amount
@@ -622,65 +693,67 @@ export default {
       return 0;
     },
 
-    // VAT Amount: Calculated on Net Amount (Subtotal - Discount + Shipping)
-    // CRITICAL: VAT must be calculated on Net Amount, NOT on Subtotal
-    // This matches the create page logic exactly
-    // Formula: VAT = Net Amount × Weighted Average VAT Rate
+    // VAT Amount: Calculated based on transport taxability
+    // CRITICAL: When transport is non-taxable, use sum of tax_amount from DB directly
+    // This prevents double-counting and ensures accuracy
+    // 
+    // If transport is taxable: VAT = Net Amount × Weighted Average VAT Rate
+    // If transport is non-taxable: VAT = Sum of tax_amount from purchase_products (from DB)
     vatAmount() {
       if (!this.purchaseProducts || this.purchaseProducts.length === 0) {
         return 0;
       }
 
-      // Get the Net Amount (Subtotal - Discount + Shipping)
+      if (!this.isTransportTaxable) {
+        // Transport is non-taxable: use sum of tax_amount from DB
+        // This ensures VAT equals the sum of item VATs stored in database
+        const itemVatSum = this.purchaseProducts.reduce((total, product) => {
+          // Use tax_amount or taxTotal from DB (both should contain the stored VAT amount)
+          const itemVat = parseFloat(product.tax_amount || product.taxTotal || 0);
+          return total + itemVat;
+        }, 0);
+        
+        return this.roundToTwoDecimals(itemVatSum);
+      }
+
+      // Transport is taxable: calculate VAT using weighted average
       const netAmount = this.netAmountBeforeVAT;
       if (netAmount <= 0) {
         return 0;
       }
 
       // Calculate weighted average VAT rate from all items
-      // We use items' net amounts (after discount) as weights
       let totalNetAmountForWeighting = 0;
       let weightedVatRateSum = 0;
 
       this.purchaseProducts.forEach((product) => {
-        // Get item's net amount after discount (before shipping allocation)
         const itemGrossTotal = parseFloat(product.grossTotal || 0);
         const itemDiscountAmount = parseFloat(product.discountAmount || 0);
         const itemNetAmount = itemGrossTotal - itemDiscountAmount;
         
         if (itemNetAmount > 0) {
-          // Get item's VAT rate from stored tax data
-          // Try to calculate VAT rate from stored taxTotal and totalAfterDiscount
           const itemTotalAfterDiscount = parseFloat(product.totalAfterDiscount || 0);
-          const itemTaxTotal = parseFloat(product.taxTotal || 0);
+          const itemTaxTotal = parseFloat(product.taxTotal || product.tax_amount || 0);
           
           let vatRate = 0;
           if (itemTotalAfterDiscount > 0 && itemTaxTotal > 0) {
-            // Calculate rate: VAT = Net × Rate, so Rate = VAT / Net
             vatRate = (itemTaxTotal / itemTotalAfterDiscount) * 100;
           } else if (product.vatRate) {
-            // Use stored VAT rate if available
             vatRate = parseFloat(product.vatRate);
           }
 
-          // Ensure vatRate is valid
           if (!isNaN(vatRate) && vatRate >= 0) {
             totalNetAmountForWeighting += itemNetAmount;
-            // Weighted contribution: itemNetAmount × (vatRate / 100)
             weightedVatRateSum += itemNetAmount * (vatRate / 100);
           }
         }
       });
 
-      // If no valid net amount for weighting, return 0
       if (totalNetAmountForWeighting <= 0) {
         return 0;
       }
 
-      // Calculate weighted average VAT rate as percentage
       const weightedAverageVatRate = (weightedVatRateSum / totalNetAmountForWeighting) * 100;
-
-      // Calculate VAT on the Net Amount using weighted average rate
       const vat = this.roundToTwoDecimals(netAmount * (weightedAverageVatRate / 100));
 
       return vat;
@@ -691,11 +764,50 @@ export default {
       return this.vatAmount;
     },
 
-    // Grand Total: Net Amount + VAT
-    // CRITICAL: Grand Total must be calculated as Net Amount + VAT, NOT Subtotal + VAT
-    // This matches the create page logic exactly
-    // Formula: Grand Total = Net Amount + VAT
+    // Grand Total: Calculated based on transport taxability
+    // CRITICAL: When transport is non-taxable, use sum of item totals from DB + transport
+    // This prevents double-counting and ensures accuracy
+    // 
+    // If transport is taxable: Grand Total = Net Amount + VAT
+    //   Where: Net Amount = Subtotal - Discount + Transport (transport included in VAT base)
+    // If transport is non-taxable: Grand Total = Sum of Item Totals After VAT + Transport
+    //   Where: Item Totals = itemAfterDiscount + tax_amount (from DB)
+    //   Transport is added only at invoice level, not distributed to items
     grandTotal() {
+      if (!this.allData) return 0;
+      
+      const shipping = this.shippingCostTotal;
+      
+      if (!this.isTransportTaxable) {
+        // Transport is non-taxable: use sum of item totals after VAT from DB + transport
+        // This ensures item-level discounts and VAT are correctly included without double-counting
+        if (!this.purchaseProducts || this.purchaseProducts.length === 0) {
+          return this.roundToTwoDecimals(shipping);
+        }
+        
+        // Sum of all item totals after VAT (from DB: lineTotal or totalAfterDiscount + tax_amount)
+        const sumOfItemTotals = this.purchaseProducts.reduce((total, product) => {
+          // Use lineTotal if available (total with VAT), otherwise calculate from DB values
+          const itemTotal = parseFloat(product.lineTotal || 0);
+          if (itemTotal > 0) {
+            return total + itemTotal;
+          }
+          // Fallback: calculate from stored values
+          const itemAfterDiscount = parseFloat(product.totalAfterDiscount || 0);
+          const itemVat = parseFloat(product.tax_amount || product.taxTotal || 0);
+          return total + itemAfterDiscount + itemVat;
+        }, 0);
+        
+        // Grand Total = Sum of Item Totals + Transport
+        // Transport is added only at invoice level when non-taxable
+        return this.roundToTwoDecimals(sumOfItemTotals + shipping);
+      }
+      
+      // Transport is taxable: use Net Amount + VAT calculation
+      // Net Amount already includes transport cost (before VAT) in netAmountBeforeVAT
+      // VAT is calculated on Net Amount which includes transport cost
+      // Grand Total = Net Amount + VAT
+      // Example: Net Amount = 8300 (8000 - 200 + 500), VAT = 1245, Grand Total = 9545
       const netAmount = this.netAmountBeforeVAT;
       const vat = this.vatAmount;
       return this.roundToTwoDecimals(netAmount + vat);
@@ -728,17 +840,20 @@ export default {
       if (this.allData && this.allData.purchase_status) {
         columns.push({ key: "purchaseStatus", label: this.$t("Purchase Status"), align: "text-center" });
       }
-      if (this.allData && this.allData.purchaseDate) {
-        columns.push({ key: "date", label: this.$t("Date"), align: "text-center" });
-      }
       if (this.allData && this.allData.reference) {
         columns.push({ key: "reference", label: this.$t("Reference Number"), align: "text-center" });
       }
-      if (this.allData && this.allData.payment_type) {
-        columns.push({ key: "paymentType", label: this.$t("Payment Type"), align: "text-center" });
-      }
       if (this.allData && (this.allData.paymentMethod || this.allData.payment_method_id)) {
         columns.push({ key: "paymentMethod", label: this.$t("Payment Method"), align: "text-center" });
+      }
+
+      // Add discount columns if purchase has discount
+      if (this.hasPurchaseDiscount) {
+        columns.push(
+          { key: "discountType", label: this.$t("Discount Type"), align: "text-center" },
+          { key: "discountValue", label: this.$t("Discount Value"), align: "text-center" },
+          { key: "discountAmount", label: this.$t("Discount Amount"), align: "text-center" }
+        );
       }
 
       return columns;
@@ -764,17 +879,18 @@ export default {
       if (this.allData.purchase_status) {
         row.purchaseStatus = this.allData.purchase_status;
       }
-      if (this.allData.purchaseDate) {
-        row.date = this.allData.purchaseDate;
-      }
       if (this.allData.reference) {
         row.reference = this.allData.reference;
       }
-      if (this.allData.payment_type) {
-        row.paymentType = this.allData.payment_type;
-      }
       if (this.allData.paymentMethod || this.allData.payment_method_id) {
         row.paymentMethod = this.allData.paymentMethod ? this.allData.paymentMethod.name : this.getPaymentMethodName(this.allData.payment_method_id);
+      }
+
+      // Add discount data if purchase has discount
+      if (this.hasPurchaseDiscount) {
+        row.discountType = this.purchaseDiscountType;
+        row.discountValue = this.purchaseDiscountValue;
+        row.discountAmount = this.invoiceLevelDiscountAmount;
       }
 
       return [row];

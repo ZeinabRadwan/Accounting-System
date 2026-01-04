@@ -248,18 +248,25 @@ class PurchaseController extends Controller
                 ];
             }
 
-            // Grand total = sub_total_net + tax_total + transport
-            $grandTotal = $subTotalNet + $taxTotal;
+            // Get transport taxability from request (user's choice)
+            // Default to true for backward compatibility if not provided
+            $transportIsTaxable = $request->has('transportIsTaxable') 
+                ? (bool) $request->transportIsTaxable 
+                : ($request->has('transport_taxable') 
+                    ? (bool) $request->transport_taxable 
+                    : true); // Default to taxable for backward compatibility
 
-            // Calculate transport costs based on supplier tax status
+            // Calculate transport costs based on transport taxability (user's choice)
+            // CRITICAL: Transport taxability is determined by user selection, not supplier tax status
             $transportTaxable = 0;
             $transportTotal = 0;
             $transportVAT = 0;
 
-            if ($isSupplierTaxable) {
-                $transportTaxable = (float) ($request->transportTaxableCost ?? 0);
+            if ($transportIsTaxable) {
+                // Transport is taxable: get from transportTaxableCost or transportCost
+                $transportTaxable = (float) ($request->transportTaxableCost ?? $request->transportCost ?? 0);
 
-                // Always calculate VAT for taxable suppliers
+                // Calculate VAT on transport cost
                 // Get default VAT rate for transport (use first VAT rate or 15% default)
                 $vatRate = 15; // Default VAT rate
                 $defaultVatRate = \App\Models\VatRate::where('status', 1)->orderBy('rate', 'desc')->first();
@@ -273,11 +280,14 @@ class PurchaseController extends Controller
                 // Total transport = transport cost + VAT
                 $transportTotal = round($transportTaxable + $transportVAT, 2);
             } else {
+                // Transport is non-taxable: get from transportCost
                 $transportTotal = round((float) ($request->transportCost ?? 0), 2);
             }
 
-            // Add transport to grand total
-            $grandTotal += $transportTotal;
+            // Calculate grand total based on transport taxability
+            // If transport is taxable: Grand Total = Subtotal + Tax + Transport (transport included in VAT base)
+            // If transport is non-taxable: Grand Total = Subtotal + Tax + Transport (transport added after VAT)
+            $grandTotal = $subTotalNet + $taxTotal + $transportTotal;
 
             // Handle attachments
             $attachments = [];
@@ -307,9 +317,12 @@ class PurchaseController extends Controller
                 'discount' => round($totalProductDiscount, 2), // Sum of all product discount amounts
                 'discount_type' => $request->discount_type ?? 'fixed', // Invoice-level discount type
                 'discount_value' => round((float) ($request->discount_value ?? 0), 2), // Invoice-level discount value
-                'transport' => $transportTotal, // Total transport (including VAT if applicable)
-                'transport_taxable' => $isSupplierTaxable ? $transportTaxable : null,
-                'transport_non_taxable' => null, // Deprecated, kept for backward compatibility
+                'transport' => $transportTotal, // Total transport amount
+                // Store transport taxability flags based on user's choice
+                // transport_taxable: true (1) if transport is taxable, false (0) if non-taxable
+                // transport_non_taxable: inverse of transport_taxable for clarity
+                'transport_taxable' => $transportIsTaxable ? 1 : 0,
+                'transport_non_taxable' => $transportIsTaxable ? 0 : 1,
                 'tax_id' => $isSaudiArabia ? null : ($request->orderTax ? $request->orderTax['id'] : null), // VAT only when NOT Saudi Arabia
                 'sub_total' => round($grandTotal, 2), // Grand total = sub_total_net + tax_total + transport (stored in sub_total for backward compatibility)
                 'po_reference' => $request->poReference,
@@ -663,18 +676,25 @@ class PurchaseController extends Controller
                 ];
             }
 
-            // Grand total = sub_total_net + tax_total + transport
-            $grandTotal = $subTotalNet + $taxTotal;
+            // Get transport taxability from request (user's choice)
+            // Default to true for backward compatibility if not provided
+            $transportIsTaxable = $request->has('transportIsTaxable') 
+                ? (bool) $request->transportIsTaxable 
+                : ($request->has('transport_taxable') 
+                    ? (bool) $request->transport_taxable 
+                    : true); // Default to taxable for backward compatibility
 
-            // Calculate transport costs based on supplier tax status
+            // Calculate transport costs based on transport taxability (user's choice)
+            // CRITICAL: Transport taxability is determined by user selection, not supplier tax status
             $transportTaxable = 0;
             $transportTotal = 0;
             $transportVAT = 0;
 
-            if ($isSupplierTaxable) {
-                $transportTaxable = (float) ($request->transportTaxableCost ?? 0);
+            if ($transportIsTaxable) {
+                // Transport is taxable: get from transportTaxableCost or transportCost
+                $transportTaxable = (float) ($request->transportTaxableCost ?? $request->transportCost ?? 0);
 
-                // Always calculate VAT for taxable suppliers
+                // Calculate VAT on transport cost
                 // Get default VAT rate for transport (use first VAT rate or 15% default)
                 $vatRate = 15; // Default VAT rate
                 $defaultVatRate = \App\Models\VatRate::where('status', 1)->orderBy('rate', 'desc')->first();
@@ -688,11 +708,14 @@ class PurchaseController extends Controller
                 // Total transport = transport cost + VAT
                 $transportTotal = round($transportTaxable + $transportVAT, 2);
             } else {
+                // Transport is non-taxable: get from transportCost
                 $transportTotal = round((float) ($request->transportCost ?? 0), 2);
             }
 
-            // Add transport to grand total
-            $grandTotal += $transportTotal;
+            // Calculate grand total based on transport taxability
+            // If transport is taxable: Grand Total = Subtotal + Tax + Transport (transport included in VAT base)
+            // If transport is non-taxable: Grand Total = Subtotal + Tax + Transport (transport added after VAT)
+            $grandTotal = $subTotalNet + $taxTotal + $transportTotal;
 
             // delete current products
             $purchase->purchaseProducts->each->delete();
@@ -786,9 +809,12 @@ class PurchaseController extends Controller
                 'discount' => round($totalProductDiscount, 2), // Sum of all product discount amounts
                 'discount_type' => $request->discount_type ?? 'fixed', // Invoice-level discount type
                 'discount_value' => round((float) ($request->discount_value ?? 0), 2), // Invoice-level discount value
-                'transport' => $transportTotal, // Total transport (including VAT if applicable)
-                'transport_taxable' => $isSupplierTaxable ? $transportTaxable : null,
-                'transport_non_taxable' => null, // Deprecated, kept for backward compatibility
+                'transport' => $transportTotal, // Total transport amount
+                // Store transport taxability flags based on user's choice
+                // transport_taxable: true (1) if transport is taxable, false (0) if non-taxable
+                // transport_non_taxable: inverse of transport_taxable for clarity
+                'transport_taxable' => $transportIsTaxable ? 1 : 0,
+                'transport_non_taxable' => $transportIsTaxable ? 0 : 1,
                 'tax_id' => $isSaudiArabia ? null : ($request->orderTax ? $request->orderTax['id'] : null), // VAT only when NOT Saudi Arabia
                 'sub_total' => round($grandTotal, 2), // Grand total = sub_total_net + tax_total + transport (stored in sub_total for backward compatibility)
                 'po_reference' => $request->poReference,

@@ -764,10 +764,12 @@ class BusinessTransactionJournalService
             Log::info("Found {$purchaseProducts->count()} purchase products for PO {$purchase->purchase_no}");
 
             // Calculate inventory amount for all products with inventory tracking
-            // CRITICAL FIX: Inventory value MUST be based on quantity × purchase_price (NET amount, EXCLUDING VAT)
+            // CRITICAL FIX: Inventory value MUST be based on total_after_discount from DB (after item-level discounts)
+            // This ensures we use the actual stored values that include all item-level discounts
+            // Invoice-level discount will be applied separately
             // VAT must be posted to a separate Purchase VAT (Input VAT) account
             // This follows standard accounting principles and VAT compliance requirements
-            $totalInventoryAmount = 0;
+            $totalInventoryAmount = 0; // Sum of item totals after discount (before invoice-level discount)
             $totalVatAmount = 0;
 
             foreach ($purchaseProducts as $purchaseProduct) {
@@ -783,11 +785,16 @@ class BusinessTransactionJournalService
                     continue;
                 }
 
-                // Calculate line inventory value using purchase_price (NET amount, EXCLUDING VAT)
-                // This is the correct accounting treatment: inventory is valued at net cost
+                // Calculate line inventory value using total_after_discount from DB
+                // total_after_discount = (quantity × purchase_price) - item_discount_amount
+                // This is the correct accounting treatment: inventory is valued at net cost after item discounts
                 $quantity = (float) ($purchaseProduct->quantity ?? 0);
-                $purchasePrice = (float) ($purchaseProduct->purchase_price ?? 0); // Net price per unit (before VAT)
-                $lineInventoryAmount = round($quantity * $purchasePrice, 2);
+                $purchasePrice = (float) ($purchaseProduct->purchase_price ?? 0);
+                $grossTotal = $quantity * $purchasePrice;
+                $itemDiscountAmount = (float) ($purchaseProduct->discount_amount ?? 0);
+                
+                // Use total_after_discount if available, otherwise calculate it
+                $lineInventoryAmount = (float) ($purchaseProduct->total_after_discount ?? ($grossTotal - $itemDiscountAmount));
                 $totalInventoryAmount += $lineInventoryAmount;
 
                 // Collect VAT separately - this will be debited to Purchase VAT (Input VAT) account
@@ -796,16 +803,7 @@ class BusinessTransactionJournalService
                 $totalVatAmount += $productVatAmount;
 
                 $productName = $product->name ?? 'Unknown';
-                Log::info("Product: {$productName}, Quantity: {$quantity}, PurchasePrice (net): {$purchasePrice}, LineInventoryAmount (net): {$lineInventoryAmount}, VAT: {$productVatAmount}");
-            }
-
-            // Transport cost from purchase header
-            // Use transportTaxableCost if supplier is taxable, otherwise transportCost
-            $transportCost = 0;
-            if ($purchase->supplier && $purchase->supplier->tax_status === 'taxable' && $purchase->supplier->tax_registration_number) {
-                $transportCost = (float) ($purchase->transport_taxable_cost ?? $purchase->transport ?? 0);
-            } else {
-                $transportCost = (float) ($purchase->transport ?? 0);
+                Log::info("Product: {$productName}, Quantity: {$quantity}, PurchasePrice: {$purchasePrice}, GrossTotal: {$grossTotal}, ItemDiscount: {$itemDiscountAmount}, LineInventoryAmount (after item discount): {$lineInventoryAmount}, VAT: {$productVatAmount}");
             }
 
             // Calculate purchase-level (bill-level) discount amount, if any
@@ -834,12 +832,14 @@ class BusinessTransactionJournalService
                 }
             }
 
-            // CRITICAL FIX: Recalculate VAT on Net Amount (Subtotal - Discount + Shipping)
-            // The stored tax_amount values may have been calculated incorrectly (on Subtotal instead of Net Amount)
-            // We recalculate here to ensure journal entry accuracy
-            $netAmountBeforeVAT = ($totalInventoryAmount - $billDiscountAmount) + $transportCost;
+            // Get transport taxability from purchase
+            // CRITICAL: Use transport_taxable flag from purchase, not supplier tax status
+            // This respects user's choice when creating the purchase
+            $transportTotal = (float) ($purchase->transport ?? 0);
+            $transportIsTaxable = $purchase->transport_taxable == 1 || $purchase->transport_taxable === true;
             
-            // Calculate weighted average VAT rate from all products
+            // Calculate weighted average VAT rate from all products FIRST
+            // We need this to calculate transport cost before VAT when transport is taxable
             $totalNetAmountForWeighting = 0;
             $weightedVatRateSum = 0;
             
@@ -864,12 +864,11 @@ class BusinessTransactionJournalService
                     
                     if ($itemTotalAfterDiscount > 0 && $itemTaxAmount > 0) {
                         // Calculate rate: VAT = Net × Rate, so Rate = VAT / Net
-                        // But this might be wrong if VAT was calculated on wrong base
                         // Try to get rate from vat_rate field if available
                         if (isset($purchaseProduct->vat_rate) && $purchaseProduct->vat_rate > 0) {
                             $vatRate = (float) $purchaseProduct->vat_rate;
                         } else {
-                            // Fallback: calculate from stored tax_amount (may be inaccurate)
+                            // Fallback: calculate from stored tax_amount
                             $vatRate = ($itemTaxAmount / $itemTotalAfterDiscount) * 100;
                         }
                     }
@@ -879,6 +878,54 @@ class BusinessTransactionJournalService
                         $weightedVatRateSum += $itemNetAmount * ($vatRate / 100);
                     }
                 }
+            }
+            
+            // Calculate transport cost before VAT when taxable
+            // When transport is taxable: transport field contains transportCost + VAT
+            // We need to extract transportCost for inventory calculation
+            $transportCostBeforeVAT = 0;
+            $transportVATAmount = 0;
+            
+            if ($transportIsTaxable && $transportTotal > 0) {
+                // Transport is taxable: calculate transport cost before VAT
+                // Get VAT rate - use weighted average from items or default 15%
+                $vatRate = 15; // Default VAT rate
+                if ($totalNetAmountForWeighting > 0) {
+                    $vatRate = ($weightedVatRateSum / $totalNetAmountForWeighting) * 100;
+                } else {
+                    // Fallback: try to get from purchase products
+                    foreach ($purchaseProducts as $purchaseProduct) {
+                        $itemTaxAmount = (float) ($purchaseProduct->tax_amount ?? 0);
+                        $itemTotalAfterDiscount = (float) ($purchaseProduct->total_after_discount ?? 0);
+                        if ($itemTotalAfterDiscount > 0 && $itemTaxAmount > 0) {
+                            $vatRate = ($itemTaxAmount / $itemTotalAfterDiscount) * 100;
+                            break;
+                        }
+                    }
+                }
+                
+                // Calculate transport cost before VAT: transportCost = transportTotal / (1 + vatRate/100)
+                $transportCostBeforeVAT = round($transportTotal / (1 + $vatRate / 100), 2);
+                $transportVATAmount = round($transportTotal - $transportCostBeforeVAT, 2);
+            } else {
+                // Transport is non-taxable: transport value is the cost itself (no VAT)
+                $transportCostBeforeVAT = $transportTotal;
+                $transportVATAmount = 0;
+            }
+            
+            Log::info("Transport calculation for PO {$purchase->purchase_no}: IsTaxable={$transportIsTaxable}, Total={$transportTotal}, CostBeforeVAT={$transportCostBeforeVAT}, VAT={$transportVATAmount}");
+
+            // CRITICAL FIX: Recalculate VAT on Net Amount based on transport taxability
+            // When transport is taxable: Net Amount = Subtotal - Discount + Transport Cost (before VAT)
+            // When transport is non-taxable: Net Amount = Subtotal - Discount (transport excluded from VAT base)
+            // The stored tax_amount values may have been calculated incorrectly
+            // We recalculate here to ensure journal entry accuracy
+            if ($transportIsTaxable) {
+                // Transport is taxable: include transport cost (before VAT) in Net Amount
+                $netAmountBeforeVAT = ($totalInventoryAmount - $billDiscountAmount) + $transportCostBeforeVAT;
+            } else {
+                // Transport is non-taxable: exclude transport from Net Amount (VAT base)
+                $netAmountBeforeVAT = ($totalInventoryAmount - $billDiscountAmount);
             }
             
             // Recalculate total VAT on Net Amount using weighted average rate
@@ -916,17 +963,27 @@ class BusinessTransactionJournalService
                 throw new Exception('VAT Input account must be configured in account routing settings to create purchase journal entry with VAT.');
             }
 
-            // Calculate total amount for journal entry
-            // Total = Net Inventory Amount (after discount) + Transport + VAT
+            // Calculate total amount for journal entry based on transport taxability
+            // When transport is taxable: Total = Inventory (after discount + transport cost) + VAT (includes transport VAT)
+            // When transport is non-taxable: Total = Inventory (after discount + transport) + VAT (items only)
             // This represents the total invoice amount (what we owe to supplier or pay in cash)
-            // Note: Discounts reduce inventory cost, freight adds to inventory cost
-            // Both are included in inventory valuation, not as separate revenue/expense accounts
-            $totalAmount = ($totalInventoryAmount - $billDiscountAmount) + $transportCost + $totalVatAmount;
+            // CRITICAL: Transport is always included in inventory cost, whether taxable or non-taxable
+            if ($transportIsTaxable) {
+                // Transport is taxable: Inventory includes transport cost (before VAT), VAT includes transport VAT
+                $inventoryForTotal = ($totalInventoryAmount - $billDiscountAmount) + $transportCostBeforeVAT;
+                $vatForTotal = $totalVatAmount; // Includes transport VAT
+                $totalAmount = $inventoryForTotal + $vatForTotal;
+            } else {
+                // Transport is non-taxable: Inventory includes transport, VAT is only on items
+                $inventoryForTotal = ($totalInventoryAmount - $billDiscountAmount) + $transportTotal;
+                $vatForTotal = $totalVatAmount; // Only item VAT
+                $totalAmount = $inventoryForTotal + $vatForTotal;
+            }
 
             // Validate balance (defensive check against internal inconsistencies)
-            $expectedTotal = ($totalInventoryAmount - $billDiscountAmount) + $transportCost + $totalVatAmount;
+            $expectedTotal = $totalAmount;
             if (abs($totalAmount - $expectedTotal) > 0.01) {
-                throw new Exception('Journal entry calculation error: Total amount does not match inventory + transport + VAT.');
+                throw new Exception('Journal entry calculation error: Total amount does not match expected calculation.');
             }
 
             // Get default fiscal year and accounting period
@@ -956,35 +1013,68 @@ class BusinessTransactionJournalService
             $lineNumber = 1;
 
             // Line 1: Debit Inventory (net amount after discount + transport)
-            // Business rule: 
+            // Business rule based on transport taxability:
+            // - When transport is taxable: Inventory = Sum(item after_discount) - Invoice Discount + Transport Cost (before VAT)
+            // - When transport is non-taxable: Inventory = Sum(item after_discount) - Invoice Discount + Transport
+            // CRITICAL: $totalInventoryAmount already contains sum of item total_after_discount (after item-level discounts)
+            // Invoice-level discount ($billDiscountAmount) must be applied to get final inventory cost
             // - Discounts reduce inventory cost (not revenue)
-            // - Transport/freight is added to inventory cost (not expenses)
-            // - Both are merged into inventory, not separate journal lines
-            $inventoryAmount = ($totalInventoryAmount - $billDiscountAmount) + $transportCost;
-            Log::info("Creating journal line {$lineNumber}: Debit Inventory (including transport) - Account ID: {$inventoryAccount->id}, Amount: {$inventoryAmount}");
+            // - Transport is always added to inventory cost (whether taxable or non-taxable)
+            if ($transportIsTaxable) {
+                // Transport is taxable: include transport cost (before VAT) in inventory
+                // Inventory = Sum(item after_discount) - Invoice Discount + Transport Cost (before VAT)
+                $inventoryAmount = ($totalInventoryAmount - $billDiscountAmount) + $transportCostBeforeVAT;
+                Log::info("Creating journal line {$lineNumber}: Debit Inventory (including taxable transport cost) - Account ID: {$inventoryAccount->id}, Amount: {$inventoryAmount}");
+            } else {
+                // Transport is non-taxable: include transport in inventory (as part of inventory cost)
+                // Inventory = Sum(item after_discount) - Invoice Discount + Transport
+                // CRITICAL: $totalInventoryAmount = sum of item total_after_discount (after item discounts only)
+                // We must apply invoice-level discount and add transport to get final inventory cost
+                // Example: items = 8000, invoice discount = 30, transport = 500, inventory = 8000 - 30 + 500 = 8470
+                $inventoryAmount = ($totalInventoryAmount - $billDiscountAmount) + $transportTotal;
+                Log::info("Creating journal line {$lineNumber}: Debit Inventory (after invoice discount + non-taxable transport) - Account ID: {$inventoryAccount->id}, Amount: {$inventoryAmount}, TotalInventoryAmount: {$totalInventoryAmount}, BillDiscount: {$billDiscountAmount}, Transport: {$transportTotal}");
+            }
             $this->createJournalEntryLine($journalEntry, $inventoryAccount->id, $inventoryAmount, 0, $lineNumber, __('journal.inventory_for_purchase', ['number' => $purchase->purchase_no]));
             $lineNumber++;
 
             // Line 2: Debit VAT Input (if applicable)
-            // VAT (tax_amount) is calculated on net_total_after_discount + allocated_transport_share
-            if ($totalVatAmount > 0 && $vatAccount) {
-                Log::info("Creating journal line {$lineNumber}: Debit VAT Input - Account ID: {$vatAccount->id}, Amount: {$totalVatAmount}");
-                $this->createJournalEntryLine($journalEntry, $vatAccount->id, $totalVatAmount, 0, $lineNumber, __('journal.vat_input_for_purchase', ['number' => $purchase->purchase_no]));
+            // VAT calculation based on transport taxability:
+            // - When transport is taxable: VAT includes VAT on items + VAT on transport
+            // - When transport is non-taxable: VAT includes only VAT on items (transport excluded from VAT base)
+            // CRITICAL: VAT is always calculated on items only when transport is non-taxable
+            // Transport non-taxable is added to inventory cost, but NOT to VAT base
+            $vatAmountForJournal = 0; // Initialize to 0
+            if ($transportIsTaxable) {
+                // Transport is taxable: VAT includes transport VAT
+                // Total VAT = Item VAT + Transport VAT
+                $vatAmountForJournal = $totalVatAmount; // Already includes transport VAT
+            } else {
+                // Transport is non-taxable: VAT is only on items (transport excluded from VAT)
+                // Use sum of item VATs directly from database
+                $vatAmountForJournal = $totalVatAmount; // Only item VAT, no transport VAT
+            }
+            
+            if ($vatAmountForJournal > 0 && $vatAccount) {
+                Log::info("Creating journal line {$lineNumber}: Debit VAT Input - Account ID: {$vatAccount->id}, Amount: {$vatAmountForJournal}");
+                $this->createJournalEntryLine($journalEntry, $vatAccount->id, $vatAmountForJournal, 0, $lineNumber, __('journal.vat_input_for_purchase', ['number' => $purchase->purchase_no]));
                 $lineNumber++;
             }
 
             // Calculate credit amount for AP / cash-bank
-            // Credit = Inventory (after discount + transport) + VAT
-            $creditAccountAmount = $inventoryAmount + $totalVatAmount;
+            // Credit = Inventory + VAT (transport is already included in inventory when non-taxable)
+            // When transport is taxable: Credit = Inventory + VAT (transport included in inventory and VAT)
+            // When transport is non-taxable: Credit = Inventory + VAT (transport included in inventory only)
+            $creditAccountAmount = $inventoryAmount + $vatAmountForJournal;
             if ($creditAccountAmount < 0) {
                 $creditAccountAmount = 0;
             }
 
-            // Line 3: Credit Cash/Bank/Supplier
-            // Credit amount = Inventory (after discount + transport) + VAT
+            // Final Line: Credit Cash/Bank/Supplier
+            // Credit amount = Inventory + VAT
             // This represents the total invoice amount payable to supplier
-            // Note: Discounts are already accounted for in inventory cost reduction, not as separate revenue
-            Log::info("Creating journal line {$lineNumber}: Credit Payment Account - Account ID: {$creditAccount->id}, Amount: {$creditAccountAmount}");
+            // When transport is taxable: Credit = Inventory (with transport) + VAT (with transport VAT)
+            // When transport is non-taxable: Credit = Inventory (with transport) + VAT (items only)
+            Log::info("Creating journal line {$lineNumber}: Credit Payment Account - Account ID: {$creditAccount->id}, Amount: {$creditAccountAmount}, Inventory: {$inventoryAmount}, VAT: {$vatAmountForJournal}");
             $this->createJournalEntryLine($journalEntry, $creditAccount->id, 0, $creditAccountAmount, $lineNumber, __('journal.payment_for_purchase', ['number' => $purchase->purchase_no]));
             $lineNumber++;
 
