@@ -48,6 +48,11 @@
               </div>
             </div>
             <div class="card-body">
+              <div v-if="loading" class="text-center py-4">
+                <i class="fas fa-spinner fa-spin fa-2x"></i>
+                <p class="mt-2">{{ $t("Loading...") }}</p>
+              </div>
+              <template v-else>
               <div class="form-group">
                 <label for="name">{{ $t("Name") }}
                   <span class="required">*</span></label>
@@ -107,6 +112,7 @@
                   {{ $t("Used for analytical reporting and payment method tracking") }}
                 </small>
               </div>
+              </template>
             </div>
             <div class="card-footer">
               <v-button :loading="form.busy" class="btn btn-success">
@@ -122,7 +128,6 @@
 
 <script>
 import Form from "vform";
-import axios from "axios";
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -168,13 +173,15 @@ export default {
     // load analytical accounts
     async loadAnalyticalAccounts() {
       try {
-        const response = await axios.get('/api/analytical-accounts', {
+        const response = await this.$axios.get('/api/analytical-accounts', {
           params: { perPage: 1000, status: 1 } // Get all active analytical accounts
         });
         if (response.data && response.data.success) {
           this.analyticalAccounts = response.data.data || [];
         } else if (response.data && response.data.data && Array.isArray(response.data.data)) {
           this.analyticalAccounts = response.data.data;
+        } else if (Array.isArray(response.data)) {
+          this.analyticalAccounts = response.data;
         } else {
           this.analyticalAccounts = [];
         }
@@ -189,16 +196,52 @@ export default {
     },
     // get payment method
     async getMethod() {
-      const { data } = await axios.get(
-        window.location.origin +
-        "/api/payment-methods/" +
-        this.$route.params.slug
-      );
-      this.form.name = data.name;
-      this.form.shortCode = data.code;
-      this.form.note = data.note;
-      this.form.status = data.status;
-      this.form.analyticalAccountId = data.analytical_account_id || null;
+      try {
+        this.loading = true;
+        const response = await this.$axios.get(
+          "/api/payment-methods/" + this.$route.params.slug
+        );
+        
+        // Handle different response structures
+        let paymentMethodData = null;
+        if (response.data && response.data.error) {
+          // Error response
+          toast.fire({
+            type: 'error',
+            title: response.data.message || this.$t('Failed to load payment method')
+          });
+          this.$router.push({ name: 'paymentMethods.index' });
+          return;
+        } else if (response.data && response.data.data) {
+          // Wrapped in data property
+          paymentMethodData = response.data.data;
+        } else if (response.data) {
+          // Direct resource data
+          paymentMethodData = response.data;
+        } else {
+          throw new Error('Invalid response structure');
+        }
+
+        // Populate form with payment method data
+        if (paymentMethodData) {
+          this.form.name = paymentMethodData.name || '';
+          this.form.shortCode = paymentMethodData.code || '';
+          this.form.note = paymentMethodData.note || '';
+          this.form.status = paymentMethodData.status !== undefined ? paymentMethodData.status : 1;
+          this.form.analyticalAccountId = paymentMethodData.analytical_account_id || null;
+        } else {
+          throw new Error('Payment method data not found');
+        }
+      } catch (error) {
+        console.error('Error loading payment method:', error);
+        toast.fire({
+          type: 'error',
+          title: this.$t('Failed to load payment method')
+        });
+        this.$router.push({ name: 'paymentMethods.index' });
+      } finally {
+        this.loading = false;
+      }
     },
 
     // update payment method
@@ -208,9 +251,7 @@ export default {
 
       await this.form
         .patch(
-          window.location.origin +
-          "/api/payment-methods/" +
-          this.$route.params.slug
+          "/api/payment-methods/" + this.$route.params.slug
         )
         .then(() => {
           toast.fire({
@@ -219,10 +260,12 @@ export default {
           });
           this.$router.push({ name: "paymentMethods.index" });
         })
-        .catch(() => {
+        .catch((error) => {
+          console.error('Error updating payment method:', error);
           toast.fire({
             type: "error",
             title: this.$t("Error!"),
+            text: error.response?.data?.message || this.$t("Failed to update payment method"),
           });
         });
     },
