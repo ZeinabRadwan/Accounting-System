@@ -1056,6 +1056,7 @@
 "Purchase Date": "Purchase Date",
 "Enter transport cost": "Enter transport cost",
 "Transport is Taxable": "Transport is Taxable",
+"VAT will be calculated on transport cost": "VAT will be calculated on transport cost",
 "Transport is Non-Taxable": "Transport is Non-Taxable",
 "Transport will be added after VAT calculation": "Transport will be added after VAT calculation",
 "PO Date": "PO Date",

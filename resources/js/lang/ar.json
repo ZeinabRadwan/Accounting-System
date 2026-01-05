@@ -1030,6 +1030,7 @@
     "Purchase Date": "تاريخ المشتريات",
     "Enter transport cost": "أدخل تكلفة النقل",
     "Transport is Taxable": "النقل خاضع للضريبة",
+    "VAT will be calculated on transport cost": "سيتم حساب الضريبة على تكلفة النقل",
     "Transport is Non-Taxable": "النقل غير خاضع للضريبة",
     "Transport will be added after VAT calculation": "سيتم إضافة النقل بعد حساب الضريبة",
     "PO Date": "تاريخ أمر الشراء",
