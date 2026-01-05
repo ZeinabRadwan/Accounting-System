@@ -367,6 +367,8 @@
     "Inventory Adjustment": "تسوية مخزون",
     "Payment Methods": "طرق الدفع",
     "Analytical Account": "الحساب التحليلي",
+    "Analytical Accounts": "الحسابات التحليلية",
+    "Manage analytical accounts for payment method tracking and reporting.": "إدارة الحسابات التحليلية لتتبع طرق الدفع وإعداد التقارير.",
     "Change Setting": "تغيير الإعداد",
     "Manage your sms configuration such as TWILIO ACCOUNT SID, FROM etc.": "إدارة تكوين الرسائل النصية مثل معرف حساب تويليو، من إلخ.",
     "SMS Configurations": "إعدادات الرسائل النصية",
