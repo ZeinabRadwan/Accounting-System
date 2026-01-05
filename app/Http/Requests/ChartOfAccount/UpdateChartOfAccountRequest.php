@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\ChartOfAccount;
 
+use App\Rules\NotAnalyticalAccount;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -28,6 +29,7 @@ class UpdateChartOfAccountRequest extends FormRequest
             'parent_id' => [
                 'nullable',
                 'exists:chart_of_accounts,id',
+                new NotAnalyticalAccount,
                 function ($attribute, $value, $fail) use ($accountId) {
                     if ($value) {
                         // Prevent setting parent to self

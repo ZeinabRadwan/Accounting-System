@@ -113,6 +113,18 @@ class InvoicePaymentController extends Controller
                     return $this->responseWithError('Cannot add payment to an inactive invoice.');
                 }
 
+                // Get payment method and analytical account
+                $paymentMethodId = $request->payment_method_id ?? $invoice->payment_method_id;
+                $analyticalAccountId = null;
+
+                if ($paymentMethodId) {
+                    $paymentMethod = \App\Models\PaymentMethod::find($paymentMethodId);
+                    if ($paymentMethod) {
+                        $analyticalAccount = $paymentMethod->getBranchAccount($branchId);
+                        $analyticalAccountId = $analyticalAccount ? $analyticalAccount->id : null;
+                    }
+                }
+
                 // Prepare voucher data for invoice payment
                 $voucherData = [
                     'slug' => uniqid(),
@@ -120,6 +132,7 @@ class InvoicePaymentController extends Controller
                     'entity_type' => 'client',
                     'client_id' => $invoice->client_id,
                     'payment_method' => 'invoice',
+                    'payment_method_id' => $paymentMethodId,
                     'invoice_id' => $invoice->id,
                     'amount' => $selectedInvoice['paidAmount'],
                     'account_id' => $account->id,
@@ -130,6 +143,7 @@ class InvoicePaymentController extends Controller
                     'status' => $request->status ?? 1,
                     'created_by' => $userId,
                     'branch_id' => $branchId,
+                    'analytical_account_id' => $analyticalAccountId,
                 ];
 
                 // Generate transaction reason

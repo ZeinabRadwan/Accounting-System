@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\PaymentMethod\StorePaymentMethodRequest;
 use App\Http\Requests\PaymentMethod\UpdatePaymentMethodRequest;
 use App\Http\Resources\PaymentMethodResource;
-use App\Models\ChartOfAccount;
 use App\Models\PaymentMethod;
 use App\Models\PaymentMethodBranchAccount;
 use Exception;
@@ -30,7 +29,7 @@ class PaymentMethodController extends Controller
     public function index(Request $request)
     {
         return PaymentMethodResource::collection(
-            PaymentMethod::with('chartOfAccount')
+            PaymentMethod::with(['analyticalAccount'])
                 ->latest()
                 ->paginate($request->perPage)
         );
@@ -47,40 +46,28 @@ class PaymentMethodController extends Controller
         try {
             DB::beginTransaction();
 
-            // Validate chart of account if provided
-            if ($request->has('chart_of_account_id') && $request->chart_of_account_id) {
-                $chartOfAccount = ChartOfAccount::find($request->chart_of_account_id);
-                if (! $chartOfAccount || ! $chartOfAccount->is_active) {
-                    return $this->responseWithError('Selected chart of account does not exist or is not active.');
-                }
-            }
-
             // save payment method
             $paymentMethod = PaymentMethod::create([
                 'name' => $request->name,
                 'code' => $request->shortCode,
                 'note' => $request->note,
                 'status' => $request->status,
-                'chart_of_account_id' => $request->chart_of_account_id ?? null,
+                'analytical_account_id' => $request->analytical_account_id ?? null,
             ]);
 
             // Handle branch-specific analytical accounts
             if ($request->has('branch_accounts') && is_array($request->branch_accounts)) {
                 foreach ($request->branch_accounts as $branchAccount) {
-                    if (isset($branchAccount['branch_id']) && isset($branchAccount['chart_of_account_id'])) {
-                        // Validate branch account
-                        $branchChartOfAccount = ChartOfAccount::find($branchAccount['chart_of_account_id']);
-                        if ($branchChartOfAccount && $branchChartOfAccount->is_active) {
-                            PaymentMethodBranchAccount::updateOrCreate(
-                                [
-                                    'payment_method_id' => $paymentMethod->id,
-                                    'branch_id' => $branchAccount['branch_id'],
-                                ],
-                                [
-                                    'chart_of_account_id' => $branchAccount['chart_of_account_id'],
-                                ]
-                            );
-                        }
+                    if (isset($branchAccount['branch_id']) && isset($branchAccount['analytical_account_id'])) {
+                        PaymentMethodBranchAccount::updateOrCreate(
+                            [
+                                'payment_method_id' => $paymentMethod->id,
+                                'branch_id' => $branchAccount['branch_id'],
+                            ],
+                            [
+                                'analytical_account_id' => $branchAccount['analytical_account_id'],
+                            ]
+                        );
                     }
                 }
             }
@@ -116,7 +103,7 @@ class PaymentMethodController extends Controller
     public function show($slug)
     {
         try {
-            $method = PaymentMethod::with(['chartOfAccount', 'branchAccounts.chartOfAccount', 'branchAccounts.branch'])
+            $method = PaymentMethod::with(['analyticalAccount', 'branchAccounts.branch', 'branchAccounts.analyticalAccount'])
                 ->where('slug', $slug)
                 ->first();
 
@@ -148,21 +135,13 @@ class PaymentMethodController extends Controller
         try {
             DB::beginTransaction();
 
-            // Validate chart of account if provided
-            if ($request->has('chart_of_account_id') && $request->chart_of_account_id) {
-                $chartOfAccount = ChartOfAccount::find($request->chart_of_account_id);
-                if (! $chartOfAccount || ! $chartOfAccount->is_active) {
-                    return $this->responseWithError('Selected chart of account does not exist or is not active.');
-                }
-            }
-
             // update payment method
             $method->update([
                 'name' => $request->name,
                 'code' => $request->shortCode,
                 'note' => $request->note,
                 'status' => $request->status,
-                'chart_of_account_id' => $request->chart_of_account_id ?? $method->chart_of_account_id,
+                'analytical_account_id' => $request->analytical_account_id ?? $method->analytical_account_id,
             ]);
 
             // Handle branch-specific analytical accounts
@@ -173,20 +152,16 @@ class PaymentMethodController extends Controller
 
                 // Update or create branch accounts
                 foreach ($request->branch_accounts as $branchAccount) {
-                    if (isset($branchAccount['branch_id']) && isset($branchAccount['chart_of_account_id'])) {
-                        // Validate branch account
-                        $branchChartOfAccount = ChartOfAccount::find($branchAccount['chart_of_account_id']);
-                        if ($branchChartOfAccount && $branchChartOfAccount->is_active) {
-                            PaymentMethodBranchAccount::updateOrCreate(
-                                [
-                                    'payment_method_id' => $method->id,
-                                    'branch_id' => $branchAccount['branch_id'],
-                                ],
-                                [
-                                    'chart_of_account_id' => $branchAccount['chart_of_account_id'],
-                                ]
-                            );
-                        }
+                    if (isset($branchAccount['branch_id']) && isset($branchAccount['analytical_account_id'])) {
+                        PaymentMethodBranchAccount::updateOrCreate(
+                            [
+                                'payment_method_id' => $method->id,
+                                'branch_id' => $branchAccount['branch_id'],
+                            ],
+                            [
+                                'analytical_account_id' => $branchAccount['analytical_account_id'],
+                            ]
+                        );
                     }
                 }
             }
@@ -269,7 +244,10 @@ class PaymentMethodController extends Controller
      */
     public function allMethods()
     {
-        $methods = PaymentMethod::where('status', 1)->latest()->get();
+        $methods = PaymentMethod::with('analyticalAccount')
+            ->where('status', 1)
+            ->latest()
+            ->get();
 
         return PaymentMethodResource::collection($methods);
     }

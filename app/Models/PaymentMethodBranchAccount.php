@@ -19,7 +19,7 @@ class PaymentMethodBranchAccount extends Model
     protected $fillable = [
         'payment_method_id',
         'branch_id',
-        'chart_of_account_id',
+        'analytical_account_id',
     ];
 
     /**
@@ -39,10 +39,10 @@ class PaymentMethodBranchAccount extends Model
     }
 
     /**
-     * Get the chart of account.
+     * Get the analytical account.
      */
-    public function chartOfAccount()
+    public function analyticalAccount()
     {
-        return $this->belongsTo(ChartOfAccount::class);
+        return $this->belongsTo(AnalyticalAccount::class, 'analytical_account_id');
     }
 }

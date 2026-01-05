@@ -5,6 +5,7 @@ declare(strict_types=1);
 use App\Http\Controllers\API\AccountController;
 use App\Http\Controllers\API\AccountRoutingController;
 use App\Http\Controllers\API\ActivityLogController;
+use App\Http\Controllers\API\AnalyticalAccountController;
 use App\Http\Controllers\API\AssetController;
 use App\Http\Controllers\API\AssetTypeController;
 use App\Http\Controllers\API\BalanceController;
@@ -286,6 +287,11 @@ Route::middleware([
         Route::get('/payment-methods/search', [PaymentMethodController::class, 'search']);
         Route::get('/all-payment-methods', [PaymentMethodController::class, 'allMethods']);
         Route::apiResource('payment-methods', PaymentMethodController::class);
+
+        // Analytical Account routes
+        Route::get('/analytical-accounts/search', [AnalyticalAccountController::class, 'search']);
+        Route::get('/analytical-accounts/all', [AnalyticalAccountController::class, 'getAll']);
+        Route::apiResource('analytical-accounts', AnalyticalAccountController::class);
 
         // Expense categories routes
         Route::get('/expense-categories/search', [ExpenseCatController::class, 'search']);

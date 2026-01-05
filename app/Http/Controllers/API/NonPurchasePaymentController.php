@@ -2,23 +2,21 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
+use App\Http\Requests\NonPurchasePayment\StoreNonPurchasePaymentRequest;
+use App\Http\Resources\NonPurchasePaymentListResource;
+use App\Http\Resources\NonPurchasePaymentResource;
+use App\Interfaces\ITransactionService;
+use App\Models\NonPurchasePayment;
+use App\Services\BusinessTransactionJournalService;
 use Exception;
 use Illuminate\Http\Request;
-use App\Models\NonPurchasePayment;
-use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use App\Interfaces\ITransactionService;
-use App\Http\Resources\NonPurchasePaymentResource;
-use App\Http\Resources\NonPurchasePaymentListResource;
-use App\Http\Requests\NonPurchasePayment\StoreNonPurchasePaymentRequest;
-use App\Http\Requests\NonPurchasePayment\UpdateNonPurchasePaymentRequest;
-use App\Services\BusinessTransactionJournalService;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class NonPurchasePaymentController extends Controller
 {
-
     protected ITransactionService $transactionService;
 
     // define middleware
@@ -62,8 +60,20 @@ class NonPurchasePaymentController extends Controller
             // Create bank/cash transaction for both types (0: received, 1: sent)
             $transaction = $this->transactionService->createTransactionFromNonPurchasePayment($request, $userId);
 
+            // Get payment method and analytical account if provided
+            $paymentMethodId = $request->payment_method_id ?? null;
+            $analyticalAccountId = null;
+
+            if ($paymentMethodId) {
+                $paymentMethod = \App\Models\PaymentMethod::find($paymentMethodId);
+                if ($paymentMethod) {
+                    $analyticalAccount = $paymentMethod->getBranchAccount($branchId);
+                    $analyticalAccountId = $analyticalAccount ? $analyticalAccount->id : null;
+                }
+            }
+
             // store payment
-          $NonPurchasePayment =  NonPurchasePayment::create([
+            $NonPurchasePayment = NonPurchasePayment::create([
                 'slug' => uniqid(),
                 'supplier_id' => $request->supplier['id'],
                 'amount' => $request->amount,
@@ -74,6 +84,8 @@ class NonPurchasePaymentController extends Controller
                 'status' => $request->status,
                 'created_by' => $userId,
                 'branch_id' => $branchId,
+                'payment_method_id' => $paymentMethodId,
+                'analytical_account_id' => $analyticalAccountId,
             ]);
 
             // Load the supplier relationship with chart of account for journal entry creation
@@ -81,11 +93,11 @@ class NonPurchasePaymentController extends Controller
 
             // Create journal entry for non-purchase payment
             try {
-                $journalService = new BusinessTransactionJournalService();
+                $journalService = new BusinessTransactionJournalService;
                 $journalService->createNonPurchasePaymentJournal($NonPurchasePayment, $userId);
             } catch (\Exception $e) {
                 // Log the error but don't fail the payment creation
-                Log::error('Failed to create payment journal entry for non-purchase payment: ' . $e->getMessage());
+                Log::error('Failed to create payment journal entry for non-purchase payment: '.$e->getMessage());
             }
 
             // add activity log
@@ -93,11 +105,11 @@ class NonPurchasePaymentController extends Controller
                 ->causedBy(Auth::user())
                 ->performedOn($NonPurchasePayment)
                 ->withProperties([
-                    'name' => "",
-                    'code' => '[' . $request->supplier['name'] . ']',
+                    'name' => '',
+                    'code' => '['.$request->supplier['name'].']',
                     'event' => 'Create',
                     'slug' => $NonPurchasePayment->slug,
-                    'routeName' => ''
+                    'routeName' => '',
                 ])
                 ->useLog('Supplier Non Purchase Payment Created')
                 ->log('Supplier Non Purchase Payment Created');
@@ -107,6 +119,7 @@ class NonPurchasePaymentController extends Controller
             return $this->responseWithSuccess('Non purchase payment added successfully');
         } catch (Exception $e) {
             DB::rollback();
+
             return $this->responseWithError($e->getMessage());
         }
     }
@@ -167,11 +180,11 @@ class NonPurchasePaymentController extends Controller
                 ->causedBy(Auth::user())
                 ->performedOn($payment)
                 ->withProperties([
-                    'name' => "",
-                    'code' => "",
+                    'name' => '',
+                    'code' => '',
                     'event' => 'Update',
                     'slug' => $payment->slug,
-                    'routeName' => ''
+                    'routeName' => '',
                 ])
                 ->useLog('Supplier Non Purchase Payment Updated')
                 ->log('Supplier Non Purchase Payment Updated');
@@ -181,6 +194,7 @@ class NonPurchasePaymentController extends Controller
             return $this->responseWithSuccess('Payment updated successfully');
         } catch (Exception $e) {
             DB::rollback();
+
             return $this->responseWithError($e->getMessage());
         }
     }
@@ -200,23 +214,23 @@ class NonPurchasePaymentController extends Controller
 
             // check if the payment can be delete
             $canDelete = true;
-            
+
             if ($canDelete) {
                 if ($payment->paymentTransaction) {
                     $payment->paymentTransaction->delete();
                 }
 
-            // add activity log
-            activity()
-                ->causedBy(Auth::user())
-                ->performedOn($payment)
-                ->withProperties([
-                    'name' => "",
-                    'code' => "",
-                    'event' => 'Delete'
-                ])
-                ->useLog('Supplier Non Purchase Payment Deleted')
-                ->log('Supplier Non Purchase Payment Deleted');
+                // add activity log
+                activity()
+                    ->causedBy(Auth::user())
+                    ->performedOn($payment)
+                    ->withProperties([
+                        'name' => '',
+                        'code' => '',
+                        'event' => 'Delete',
+                    ])
+                    ->useLog('Supplier Non Purchase Payment Deleted')
+                    ->log('Supplier Non Purchase Payment Deleted');
 
                 $payment->delete();
             } else {
@@ -228,6 +242,7 @@ class NonPurchasePaymentController extends Controller
             return $this->responseWithSuccess('Payment deleted successfully');
         } catch (Exception $e) {
             DB::rollback();
+
             return $this->responseWithError($e->getMessage());
         }
     }

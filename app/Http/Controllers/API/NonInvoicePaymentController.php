@@ -2,25 +2,24 @@
 
 namespace App\Http\Controllers\API;
 
-use Exception;
-use Illuminate\Http\Request;
-use App\Models\NonInvoicePayment;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use App\Interfaces\ITransactionService;
-use App\Http\Resources\NonInvoicePaymentResource;
-use App\Http\Resources\NonInvoicePaymentListResource;
 use App\Http\Requests\NonInvoicePayment\StoreNonInvoicePaymentRequest;
 use App\Http\Requests\NonInvoicePayment\UpdateNonInvoicePaymentRequest;
-use App\Services\BusinessTransactionJournalService;
-use Illuminate\Support\Facades\Log;
+use App\Http\Resources\NonInvoicePaymentListResource;
+use App\Http\Resources\NonInvoicePaymentResource;
+use App\Interfaces\ITransactionService;
 use App\Models\Account;
 use App\Models\Client;
+use App\Models\NonInvoicePayment;
+use App\Services\BusinessTransactionJournalService;
+use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class NonInvoicePaymentController extends Controller
 {
-
     protected ITransactionService $transactionService;
 
     // define middleware
@@ -62,32 +61,39 @@ class NonInvoicePaymentController extends Controller
             $branchId = (int) ($user->default_branch_id ?? 0);
 
             $client = Client::findOrFail($request->client['id']);
-           
 
             $chartOfAccount = $client?->chartOfAccount;
 
-            if(!$client || !$chartOfAccount){
-                return $this->responseWithError('Client must have a Chart of Account assigned for journal entries.'); 
+            if (! $client || ! $chartOfAccount) {
+                return $this->responseWithError('Client must have a Chart of Account assigned for journal entries.');
             }
-
 
             $account = Account::findOrFail($request->account['id']);
-            if (!$account) {
-                return $this->responseWithError('Bank Account not found.'); 
+            if (! $account) {
+                return $this->responseWithError('Bank Account not found.');
             }
 
-            if (!$account->chartOfAccount) {
-                return $this->responseWithError('Bank Account must have a Chart of Account assigned for journal entries.'); 
+            if (! $account->chartOfAccount) {
+                return $this->responseWithError('Bank Account must have a Chart of Account assigned for journal entries.');
             }
 
             // Create bank/cash transaction for both types (0: sent, 1: received)
             $transaction = $this->transactionService->createTransactionFromNonInvoicePayment($request, $userId);
 
+            // Get payment method and analytical account if provided
+            $paymentMethodId = $request->payment_method_id ?? null;
+            $analyticalAccountId = null;
 
-            
+            if ($paymentMethodId) {
+                $paymentMethod = \App\Models\PaymentMethod::find($paymentMethodId);
+                if ($paymentMethod) {
+                    $analyticalAccount = $paymentMethod->getBranchAccount($branchId);
+                    $analyticalAccountId = $analyticalAccount ? $analyticalAccount->id : null;
+                }
+            }
 
             // store payment
-          $nonInvoicePayment =  NonInvoicePayment::create([
+            $nonInvoicePayment = NonInvoicePayment::create([
                 'slug' => uniqid(),
                 'client_id' => $request->client['id'],
                 'amount' => $request->amount,
@@ -98,6 +104,8 @@ class NonInvoicePaymentController extends Controller
                 'status' => $request->status,
                 'created_by' => $userId,
                 'branch_id' => $branchId,
+                'payment_method_id' => $paymentMethodId,
+                'analytical_account_id' => $analyticalAccountId,
             ]);
 
             // Load the client relationship with chart of account for journal entry creation
@@ -105,11 +113,11 @@ class NonInvoicePaymentController extends Controller
 
             // Create journal entry for non-invoice payment
             try {
-                $journalService = new BusinessTransactionJournalService();
+                $journalService = new BusinessTransactionJournalService;
                 $paymentJournalEntry = $journalService->createNonInvoicePaymentJournal($nonInvoicePayment, $userId);
             } catch (\Exception $e) {
                 // Log the error but don't fail the payment creation
-                Log::error('Failed to create payment journal entry for non-invoice payment: ' . $e->getMessage());
+                Log::error('Failed to create payment journal entry for non-invoice payment: '.$e->getMessage());
             }
 
             // add activity log
@@ -117,11 +125,11 @@ class NonInvoicePaymentController extends Controller
                 ->causedBy(Auth::user())
                 ->performedOn($nonInvoicePayment)
                 ->withProperties([
-                    'name' => "",
-                    'code' => '[' . $request->client['name'] . ']',
+                    'name' => '',
+                    'code' => '['.$request->client['name'].']',
                     'event' => 'Create',
                     'slug' => $nonInvoicePayment->slug,
-                    'routeName' => ''
+                    'routeName' => '',
                 ])
                 ->useLog('Client Non Invoice Payment Created')
                 ->log('Client Non Invoice Payment Created');
@@ -131,6 +139,7 @@ class NonInvoicePaymentController extends Controller
             return $this->responseWithSuccess('Non invoice payment added successfully');
         } catch (Exception $e) {
             DB::rollback();
+
             return $this->responseWithError($e->getMessage());
         }
     }
@@ -192,8 +201,8 @@ class NonInvoicePaymentController extends Controller
                 try {
                     // Load the client relationship with chart of account for journal entry creation
                     $payment->load(['client.chartOfAccount']);
-                    
-                    $journalService = new BusinessTransactionJournalService();
+
+                    $journalService = new BusinessTransactionJournalService;
                     $adjustmentAmount = $request->paidAmount - $payment->amount;
                     if ($adjustmentAmount > 0) {
                         // Create journal entry for the additional amount
@@ -201,7 +210,7 @@ class NonInvoicePaymentController extends Controller
                     }
                 } catch (\Exception $e) {
                     // Log the error but don't fail the update
-                    Log::error('Failed to create adjustment journal entry for non-invoice payment: ' . $e->getMessage());
+                    Log::error('Failed to create adjustment journal entry for non-invoice payment: '.$e->getMessage());
                 }
             }
 
@@ -210,11 +219,11 @@ class NonInvoicePaymentController extends Controller
                 ->causedBy(Auth::user())
                 ->performedOn($payment)
                 ->withProperties([
-                    'name' => "",
-                    'code' => '[' . $request->client['name'] . ']',
+                    'name' => '',
+                    'code' => '['.$request->client['name'].']',
                     'event' => 'Update',
                     'slug' => $payment->slug,
-                    'routeName' => ''
+                    'routeName' => '',
                 ])
                 ->useLog('Client Non Invoice Payment Updated')
                 ->log('Client Non Invoice Payment Updated');
@@ -224,6 +233,7 @@ class NonInvoicePaymentController extends Controller
             return $this->responseWithSuccess('Payment updated successfully');
         } catch (Exception $e) {
             DB::rollback();
+
             return $this->responseWithError($e->getMessage());
         }
     }
@@ -255,18 +265,17 @@ class NonInvoicePaymentController extends Controller
                     $payment->paymentTransaction->delete();
                 }
 
-            // add activity log
-            activity()
-                ->causedBy(Auth::user())
-                ->performedOn($payment)
-                ->withProperties([
-                    'name' => "",
-                    'code' => '[' . $payment->client->name . ']',
-                    'event' => 'Deleted'
-                ])
-                ->useLog('Client Non Invoice Payment deleted')
-                ->log('Client Non Invoice Payment deleted');
-
+                // add activity log
+                activity()
+                    ->causedBy(Auth::user())
+                    ->performedOn($payment)
+                    ->withProperties([
+                        'name' => '',
+                        'code' => '['.$payment->client->name.']',
+                        'event' => 'Deleted',
+                    ])
+                    ->useLog('Client Non Invoice Payment deleted')
+                    ->log('Client Non Invoice Payment deleted');
 
                 $payment->delete();
             } else {
@@ -278,6 +287,7 @@ class NonInvoicePaymentController extends Controller
             return $this->responseWithSuccess('Payment deleted successfully');
         } catch (Exception $e) {
             DB::rollback();
+
             return $this->responseWithError($e->getMessage());
         }
     }
@@ -295,7 +305,7 @@ class NonInvoicePaymentController extends Controller
 
             $payment = NonInvoicePayment::where('slug', $slug)->first();
 
-            if (!$payment) {
+            if (! $payment) {
                 return $this->responseWithError('Payment not found.');
             }
 
@@ -329,11 +339,11 @@ class NonInvoicePaymentController extends Controller
                 ->causedBy(Auth::user())
                 ->performedOn($payment)
                 ->withProperties([
-                    'name' => "",
-                    'code' => '[' . ($payment->client->name ?? '') . ']',
+                    'name' => '',
+                    'code' => '['.($payment->client->name ?? '').']',
                     'event' => 'Cancel',
                     'slug' => $payment->slug,
-                    'routeName' => ''
+                    'routeName' => '',
                 ])
                 ->useLog('Client Non Invoice Payment Cancelled')
                 ->log('Client Non Invoice Payment Cancelled');
@@ -343,6 +353,7 @@ class NonInvoicePaymentController extends Controller
             return $this->responseWithSuccess('Payment cancelled successfully');
         } catch (Exception $e) {
             DB::rollback();
+
             return $this->responseWithError($e->getMessage());
         }
     }

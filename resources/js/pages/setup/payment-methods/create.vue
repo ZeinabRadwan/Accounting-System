@@ -82,25 +82,29 @@
               </div>
 
               <div class="form-group">
-                <label for="chartOfAccountId">{{ $t("Accounting Guide / Ledger Account") }}</label>
+                <label for="analyticalAccountId">{{ $t("Analytical Account") }}
+                  <span class="required">*</span></label>
                 <v-select
-                  v-model="form.chartOfAccountId"
-                  :options="chartOfAccounts"
+                  v-model="form.analyticalAccountId"
+                  :options="analyticalAccounts"
                   label="name"
                   :reduce="option => option.id"
-                  :class="{ 'is-invalid': form.errors.has('chartOfAccountId') }"
-                  name="chartOfAccountId"
-                  :placeholder="$t('Select a Chart of Account')"
+                  :class="{ 'is-invalid': form.errors.has('analyticalAccountId') }"
+                  name="analyticalAccountId"
+                  :placeholder="$t('Select an Analytical Account')"
                 >
                   <template #option="{ name, code, type }">
                     <div>
                       <strong>{{ name }}</strong>
                       <br>
-                      <small class="text-muted">{{ code }} - {{ type }}</small>
+                      <small class="text-muted">{{ code || '-' }} - {{ type || '-' }}</small>
                     </div>
                   </template>
                 </v-select>
-                <has-error :form="form" field="chartOfAccountId" />
+                <has-error :form="form" field="analyticalAccountId" />
+                <small class="form-text text-muted">
+                  {{ $t("Used for analytical reporting and payment method tracking") }}
+                </small>
               </div>
             </div>
 
@@ -151,36 +155,41 @@ export default {
       note: "",
       status: 1,
       shortCode: "",
-      chartOfAccountId: null,
+      analyticalAccountId: null,
     }),
     loading: true,
-    chartOfAccounts: [],
+    analyticalAccounts: [],
   }),
   mounted() {
-    this.loadChartOfAccounts();
+    this.loadAnalyticalAccounts();
   },
   methods: {
-    // load chart of accounts
-    async loadChartOfAccounts() {
+    // load analytical accounts
+    async loadAnalyticalAccounts() {
       try {
-        const response = await this.$axios.get('/api/accounts/chart-of-accounts');
+        const response = await this.$axios.get('/api/analytical-accounts', {
+          params: { perPage: 1000, status: 1 } // Get all active analytical accounts
+        });
         if (response.data && response.data.success) {
-          this.chartOfAccounts = response.data.data || [];
+          this.analyticalAccounts = response.data.data || [];
+        } else if (response.data && response.data.data && Array.isArray(response.data.data)) {
+          this.analyticalAccounts = response.data.data;
         } else {
-          this.chartOfAccounts = [];
+          this.analyticalAccounts = [];
         }
       } catch (error) {
-        console.error('Error loading chart of accounts:', error);
+        console.error('Error loading analytical accounts:', error);
+        this.analyticalAccounts = [];
         toast.fire({
           type: 'error',
-          title: this.$t('Failed to load chart of accounts')
+          title: this.$t('Failed to load analytical accounts')
         });
       }
     },
     // save payment method
     async savePaymentMethod() {
-      // Set chart_of_account_id in form
-      this.form.chart_of_account_id = this.form.chartOfAccountId || null;
+      // Set analytical_account_id in form
+      this.form.analytical_account_id = this.form.analyticalAccountId || null;
 
       await this.form
         .post(window.location.origin + "/api/payment-methods")

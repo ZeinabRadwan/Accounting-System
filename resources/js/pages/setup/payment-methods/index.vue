@@ -43,9 +43,9 @@
                 <span v-if="row.status === 1" class="badge bg-success">{{ $t("Active") }}</span>
                 <span v-else class="badge bg-danger">{{ $t("Inactive") }}</span>
               </template>
-              <template #cell-chart_of_account="{ row }">
-                <span v-if="row.chart_of_account">
-                  {{ row.chart_of_account.code }} - {{ row.chart_of_account.name }}
+              <template #cell-analytical_account="{ row }">
+                <span v-if="row.analytical_account">
+                  {{ row.analytical_account.code || '-' }} - {{ row.analytical_account.name }}
                 </span>
                 <span v-else class="text-muted">{{ $t("Not linked") }}</span>
               </template>
@@ -152,7 +152,7 @@ export default {
         { key: "index", label: this.$t("#"), sortable: false },
         { key: "name", label: this.$t("Name") },
         { key: "code", label: this.$t("Short Code") },
-        { key: "chart_of_account", label: this.$t("Accounting Guide / Ledger Account") },
+        { key: "analytical_account", label: this.$t("Analytical Account") },
         { key: "note", label: this.$t("Note") },
         { key: "status", label: this.$t("Status") },
       ];
