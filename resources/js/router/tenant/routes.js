@@ -278,6 +278,26 @@ export default [
     meta: {permissions: ['payment-method-management']},
   },
 
+  // Analytical Account routes
+  {
+    path: '/setup/analytical-accounts',
+    name: 'analyticalAccounts.index',
+    component: page('setup/analytical-accounts/index.vue'),
+    meta: {permissions: ['payment-method-management']},
+  },
+  {
+    path: '/setup/analytical-accounts/create',
+    name: 'analyticalAccounts.create',
+    component: page('setup/analytical-accounts/create.vue'),
+    meta: {permissions: ['payment-method-management']},
+  },
+  {
+    path: '/setup/analytical-accounts/edit/:id',
+    name: 'analyticalAccounts.edit',
+    component: page('setup/analytical-accounts/edit.vue'),
+    meta: {permissions: ['payment-method-management']},
+  },
+
   // Fiscal Years routes
   {
     path: '/setup/fiscal-years',

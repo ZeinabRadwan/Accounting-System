@@ -87,6 +87,12 @@
             {{ $t("Payment Methods") }}
           </router-link>
         </li>
+        <li v-if="$can('payment-method-management')" class="nav-item">
+          <router-link :to="{ name: 'analyticalAccounts.index' }" class="nav-link thumb">
+            <i class="fas fa-chart-line" />
+            {{ $t("Analytical Accounts") }}
+          </router-link>
+        </li>
       </ul>
     </div>
   </div>

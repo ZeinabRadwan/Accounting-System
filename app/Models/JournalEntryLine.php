@@ -14,6 +14,7 @@ class JournalEntryLine extends Model
         'journal_entry_id',
         'chart_of_account_id',
         'cost_center_id',
+        'analytical_account_id',
         'debit_amount',
         'credit_amount',
         'description',
@@ -57,7 +58,7 @@ class JournalEntryLine extends Model
             throw new \InvalidArgumentException(__('journal.line_cannot_have_both'));
         }
 
-        if (!$hasDebit && !$hasCredit) {
+        if (! $hasDebit && ! $hasCredit) {
             throw new \InvalidArgumentException(__('journal.line_must_have_one'));
         }
     }
@@ -87,6 +88,14 @@ class JournalEntryLine extends Model
     }
 
     /**
+     * Get the analytical account for this line
+     */
+    public function analyticalAccount(): BelongsTo
+    {
+        return $this->belongsTo(AnalyticalAccount::class, 'analytical_account_id');
+    }
+
+    /**
      * Get the amount (either debit or credit)
      */
     public function getAmountAttribute(): float
@@ -108,6 +117,7 @@ class JournalEntryLine extends Model
     public function getFormattedAmountAttribute(): string
     {
         $amount = number_format($this->amount, 2);
+
         return $this->amount_type === 'debit' ? "Dr. {$amount}" : "Cr. {$amount}";
     }
 
@@ -133,8 +143,9 @@ class JournalEntryLine extends Model
     public function getAccountInfoAttribute(): string
     {
         if ($this->chartOfAccount) {
-            return $this->chartOfAccount->code . ' - ' . $this->chartOfAccount->name;
+            return $this->chartOfAccount->code.' - '.$this->chartOfAccount->name;
         }
+
         return 'Unknown Account';
     }
 }

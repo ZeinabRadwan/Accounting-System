@@ -27,10 +27,10 @@ class StorePaymentMethodRequest extends BaseRequest
             'name' => 'required|string|max:50|unique:payment_methods',
             'shortCode' => 'required|string|max:50|unique:payment_methods,code',
             'note' => 'nullable|string|max:255',
-            'chart_of_account_id' => 'nullable|exists:chart_of_accounts,id',
+            'analytical_account_id' => 'nullable|exists:analytical_accounts,id',
             'branch_accounts' => 'nullable|array',
             'branch_accounts.*.branch_id' => 'required_with:branch_accounts|exists:branches,id',
-            'branch_accounts.*.chart_of_account_id' => 'required_with:branch_accounts|exists:chart_of_accounts,id',
+            'branch_accounts.*.analytical_account_id' => 'required_with:branch_accounts|exists:analytical_accounts,id',
         ];
     }
 }

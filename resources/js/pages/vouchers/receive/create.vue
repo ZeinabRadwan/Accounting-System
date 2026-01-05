@@ -127,22 +127,36 @@
               <!-- Payment Method Selection -->
               <div class="row" v-if="form && form.entityType && (form.client || form.supplier || form.chartOfAccount)">
                 <div class="form-group col-md-6">
-                  <label for="paymentMethod">{{ $t('Payment Method') }}<span class="required">*</span></label>
-                  <select id="paymentMethod" v-model="form.paymentMethod" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('paymentMethod') }" @change="onPaymentMethodChange">
-                    <option value="direct">{{ $t('Direct Payment') }}</option>
-                    <option v-if="form && form.entityType === 'client'" value="invoice">{{ $t('Invoice Payment') }}
+                  <label for="paymentMethod">{{ $t('Payment Method') }}</label>
+                  <select id="paymentMethod" v-model="form.payment_method_id" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('payment_method_id') }"
+                    :disabled="loadingPaymentMethods" name="payment_method_id" @change="onPaymentMethodChange">
+                    <option value="">{{ loadingPaymentMethods ? $t("Loading...") : $t("Select") }}</option>
+                    <option v-if="!loadingPaymentMethods && paymentMethods.length === 0" value="" disabled>
+                      {{ $t("No payment methods available") }}
                     </option>
-                    <option v-if="form && form.entityType === 'supplier'" value="purchase">{{ $t('Purchase Payment') }}
+                    <option v-for="method in paymentMethods" :key="method.id" :value="method.id">
+                      {{ method.name }}
                     </option>
                   </select>
-                  <has-error :form="form" field="paymentMethod" />
+                  <small v-if="loadingPaymentMethods" class="form-text text-muted">
+                    {{ $t("Loading payment methods...") }}
+                  </small>
+                  <has-error :form="form" field="payment_method_id" />
+                </div>
+                <div class="form-group col-md-6" v-if="selectedPaymentMethodAnalyticalAccount">
+                  <label for="analyticalAccount">{{ $t("Analytical Account") }}</label>
+                  <input type="text" class="form-control" readonly
+                    :value="selectedPaymentMethodAnalyticalAccount.name || '-'" />
+                  <small class="form-text text-muted">
+                    {{ $t("Automatically set based on payment method") }}
+                  </small>
                 </div>
               </div>
 
               <!-- Invoice Selection (for client invoice payments) -->
               <div class="row"
-                v-if="form && form.entityType === 'client' && form.paymentMethod === 'invoice' && invoices">
+                v-if="form && form.entityType === 'client' && invoices">
                 <div class="form-group col-md-12">
                   <label for="invoice">{{ $t('Select Invoice') }}<span class="required">*</span></label>
                   <v-select v-model="form.invoice" :options="invoices" label="label"
@@ -344,7 +358,8 @@ export default {
         client: '',
         supplier: '',
         chartOfAccount: '',
-        paymentMethod: 'direct',
+        paymentMethod: 'direct', // Keep for backward compatibility
+        payment_method_id: null,
         invoice: '',
         purchase: '',
         account: '',
@@ -363,13 +378,27 @@ export default {
       accounts: '',
       isAutoAssigningClient: false,
       isAutoAssigningSupplier: false,
+      paymentMethods: [],
+      loadingPaymentMethods: false,
     }
   },
   computed: {
     ...mapGetters('operations', ['appInfo']),
+    // Get analytical account for selected payment method
+    selectedPaymentMethodAnalyticalAccount() {
+      if (!this.form.payment_method_id || !this.paymentMethods || this.paymentMethods.length === 0) {
+        return null;
+      }
+      const selectedMethod = this.paymentMethods.find(method => method.id == this.form.payment_method_id);
+      if (selectedMethod && selectedMethod.analytical_account) {
+        return selectedMethod.analytical_account;
+      }
+      return null;
+    },
   },
   created() {
     this.getAccounts()
+    this.getPaymentMethods()
   },
   mounted() {
     this.handleQueryParams()
@@ -391,7 +420,7 @@ export default {
         const client = this.clients.find(c => c.slug === query.client)
         if (client) {
           this.form.client = client
-          // Set payment method to invoice
+          // Set payment method to invoice (for backward compatibility)
           this.form.paymentMethod = 'invoice'
 
           // Get invoices for this client
@@ -508,6 +537,38 @@ export default {
       }))
     },
 
+    // get payment methods
+    async getPaymentMethods() {
+      this.loadingPaymentMethods = true;
+      try {
+        const response = await axios.get(window.location.origin + '/api/payment-methods', {
+          params: { perPage: 1000 } // Get all payment methods
+        });
+        // Handle both paginated and non-paginated responses
+        if (response.data) {
+          if (Array.isArray(response.data)) {
+            this.paymentMethods = response.data;
+          } else if (response.data.data && Array.isArray(response.data.data)) {
+            this.paymentMethods = response.data.data;
+          } else {
+            this.paymentMethods = [];
+          }
+        } else {
+          this.paymentMethods = [];
+        }
+      } catch (error) {
+        console.error('Error loading payment methods:', error);
+        this.paymentMethods = [];
+        toast.fire({
+          type: 'error',
+          title: this.$t('Error'),
+          text: this.$t('Failed to load payment methods'),
+        });
+      } finally {
+        this.loadingPaymentMethods = false;
+      }
+    },
+
     // Update balance when account changes
     updateBalance() {
       // Balance is automatically displayed via v-model binding
@@ -572,7 +633,8 @@ export default {
 
     // Handle client change
     onClientChange() {
-      if (this.form.paymentMethod === 'invoice') {
+      // Show invoices when client is selected (for invoice payment type)
+      if (this.form.entityType === 'client') {
         this.getInvoices()
       }
     },
@@ -591,8 +653,41 @@ export default {
       this.invoices = ''
       this.purchases = ''
 
-      if (this.form.paymentMethod === 'invoice' && this.form.client) {
+      // If client is selected, show invoices (for invoice payment type)
+      if (this.form.entityType === 'client' && this.form.client) {
         this.getInvoices()
+      }
+    },
+
+    // get payment methods
+    async getPaymentMethods() {
+      this.loadingPaymentMethods = true;
+      try {
+        const response = await axios.get(window.location.origin + '/api/payment-methods', {
+          params: { perPage: 1000 } // Get all payment methods
+        });
+        // Handle both paginated and non-paginated responses
+        if (response.data) {
+          if (Array.isArray(response.data)) {
+            this.paymentMethods = response.data;
+          } else if (response.data.data && Array.isArray(response.data.data)) {
+            this.paymentMethods = response.data.data;
+          } else {
+            this.paymentMethods = [];
+          }
+        } else {
+          this.paymentMethods = [];
+        }
+      } catch (error) {
+        console.error('Error loading payment methods:', error);
+        this.paymentMethods = [];
+        toast.fire({
+          type: 'error',
+          title: this.$t('Error'),
+          text: this.$t('Failed to load payment methods'),
+        });
+      } finally {
+        this.loadingPaymentMethods = false;
       }
     },
 

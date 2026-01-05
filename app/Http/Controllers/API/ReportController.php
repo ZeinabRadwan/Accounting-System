@@ -11,6 +11,7 @@ use App\Http\Resources\ProductResource;
 use App\Http\Resources\SupplierResource;
 use App\Models\Account;
 use App\Models\AdjustmentProduct;
+use App\Models\AnalyticalAccount;
 use App\Models\Asset;
 use App\Models\BalanceTansfer;
 use App\Models\Client;
@@ -21,10 +22,15 @@ use App\Models\InvoiceProduct;
 use App\Models\InvoiceReturn;
 use App\Models\InvoiceReturnProduct;
 use App\Models\LoanPayment;
+use App\Models\NonInvoicePayment;
+use App\Models\NonPurchasePayment;
+use App\Models\PaymentMethod;
+use App\Models\PaymentVoucher;
 use App\Models\Payroll;
 use App\Models\POSInvoiceSession;
 use App\Models\Product;
 use App\Models\Purchase;
+use App\Models\PurchasePayment;
 use App\Models\PurchaseProduct;
 use App\Models\PurchaseReturn;
 use App\Models\PurchaseReturnProduct;
@@ -5404,6 +5410,395 @@ class ReportController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Failed to generate POS sessions report',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    /**
+     * Payment Method Analytics Report
+     * Groups payments by Analytical Account and Payment Method
+     * Does NOT affect Trial Balance or Financial Statements
+     */
+    public function paymentMethodAnalytics(Request $request)
+    {
+        try {
+            $this->validate($request, [
+                'from_date' => 'nullable|date',
+                'to_date' => 'nullable|date|after_or_equal:from_date',
+                'branch_id' => 'nullable|exists:branches,id',
+                'analytical_account_id' => 'nullable|exists:analytical_accounts,id',
+                'payment_method_id' => 'nullable|exists:payment_methods,id',
+            ]);
+
+            $user = Auth::user();
+            $branchIds = $this->getUserBranchIds($user);
+            $fromDate = $request->from_date;
+            $toDate = $request->to_date;
+            $analyticalAccountId = $request->analytical_account_id;
+            $paymentMethodId = $request->payment_method_id;
+            $branchId = $request->branch_id;
+
+            // Filter branch IDs if specific branch requested
+            if ($branchId) {
+                $branchIds = in_array($branchId, $branchIds) ? [$branchId] : [];
+            }
+
+            // Build query for invoice payments
+            $invoicePaymentsQuery = InvoicePayment::query()
+                ->where('status', 1)
+                ->whereHas('invoice', function ($q) use ($branchIds) {
+                    $q->whereIn('branch_id', $branchIds);
+                })
+                ->whereNotNull('analytical_account_id')
+                ->whereNotNull('payment_method_id');
+
+            if ($fromDate) {
+                $invoicePaymentsQuery->whereDate('date', '>=', $fromDate);
+            }
+            if ($toDate) {
+                $invoicePaymentsQuery->whereDate('date', '<=', $toDate);
+            }
+            if ($analyticalAccountId) {
+                $invoicePaymentsQuery->where('analytical_account_id', $analyticalAccountId);
+            }
+            if ($paymentMethodId) {
+                $invoicePaymentsQuery->where('payment_method_id', $paymentMethodId);
+            }
+
+            // Build query for purchase payments
+            $purchasePaymentsQuery = PurchasePayment::query()
+                ->where('status', 1)
+                ->whereHas('purchase', function ($q) use ($branchIds) {
+                    $q->whereIn('branch_id', $branchIds);
+                })
+                ->whereNotNull('analytical_account_id')
+                ->whereNotNull('payment_method_id');
+
+            if ($fromDate) {
+                $purchasePaymentsQuery->whereDate('date', '>=', $fromDate);
+            }
+            if ($toDate) {
+                $purchasePaymentsQuery->whereDate('date', '<=', $toDate);
+            }
+            if ($analyticalAccountId) {
+                $purchasePaymentsQuery->where('analytical_account_id', $analyticalAccountId);
+            }
+            if ($paymentMethodId) {
+                $purchasePaymentsQuery->where('payment_method_id', $paymentMethodId);
+            }
+
+            // Build query for non-invoice payments
+            $nonInvoicePaymentsQuery = NonInvoicePayment::query()
+                ->where('status', 1)
+                ->whereIn('branch_id', $branchIds)
+                ->whereNotNull('analytical_account_id')
+                ->whereNotNull('payment_method_id');
+
+            if ($fromDate) {
+                $nonInvoicePaymentsQuery->whereDate('date', '>=', $fromDate);
+            }
+            if ($toDate) {
+                $nonInvoicePaymentsQuery->whereDate('date', '<=', $toDate);
+            }
+            if ($analyticalAccountId) {
+                $nonInvoicePaymentsQuery->where('analytical_account_id', $analyticalAccountId);
+            }
+            if ($paymentMethodId) {
+                $nonInvoicePaymentsQuery->where('payment_method_id', $paymentMethodId);
+            }
+
+            // Build query for non-purchase payments
+            $nonPurchasePaymentsQuery = NonPurchasePayment::query()
+                ->where('status', 1)
+                ->whereIn('branch_id', $branchIds)
+                ->whereNotNull('analytical_account_id')
+                ->whereNotNull('payment_method_id');
+
+            if ($fromDate) {
+                $nonPurchasePaymentsQuery->whereDate('date', '>=', $fromDate);
+            }
+            if ($toDate) {
+                $nonPurchasePaymentsQuery->whereDate('date', '<=', $toDate);
+            }
+            if ($analyticalAccountId) {
+                $nonPurchasePaymentsQuery->where('analytical_account_id', $analyticalAccountId);
+            }
+            if ($paymentMethodId) {
+                $nonPurchasePaymentsQuery->where('payment_method_id', $paymentMethodId);
+            }
+
+            // Build query for payment vouchers
+            $paymentVouchersQuery = PaymentVoucher::query()
+                ->where('status', 1)
+                ->whereIn('branch_id', $branchIds)
+                ->whereNotNull('analytical_account_id')
+                ->whereNotNull('payment_method_id');
+
+            if ($fromDate) {
+                $paymentVouchersQuery->whereDate('date', '>=', $fromDate);
+            }
+            if ($toDate) {
+                $paymentVouchersQuery->whereDate('date', '<=', $toDate);
+            }
+            if ($analyticalAccountId) {
+                $paymentVouchersQuery->where('analytical_account_id', $analyticalAccountId);
+            }
+            if ($paymentMethodId) {
+                $paymentVouchersQuery->where('payment_method_id', $paymentMethodId);
+            }
+
+            // Aggregate by analytical account and payment method
+            $analytics = [];
+
+            // Invoice Payments
+            $invoicePayments = $invoicePaymentsQuery
+                ->selectRaw('analytical_account_id, payment_method_id, SUM(amount) as total_amount, COUNT(*) as transaction_count')
+                ->groupBy('analytical_account_id', 'payment_method_id')
+                ->get();
+
+            foreach ($invoicePayments as $payment) {
+                $key = $payment->analytical_account_id.'_'.$payment->payment_method_id;
+                if (! isset($analytics[$key])) {
+                    $analytics[$key] = [
+                        'analytical_account_id' => $payment->analytical_account_id,
+                        'payment_method_id' => $payment->payment_method_id,
+                        'total_amount' => 0,
+                        'transaction_count' => 0,
+                        'payment_types' => [],
+                    ];
+                }
+                $analytics[$key]['total_amount'] += $payment->total_amount;
+                $analytics[$key]['transaction_count'] += $payment->transaction_count;
+                $analytics[$key]['payment_types']['invoice_payments'] = ($analytics[$key]['payment_types']['invoice_payments'] ?? 0) + $payment->total_amount;
+            }
+
+            // Purchase Payments
+            $purchasePayments = $purchasePaymentsQuery
+                ->selectRaw('analytical_account_id, payment_method_id, SUM(amount) as total_amount, COUNT(*) as transaction_count')
+                ->groupBy('analytical_account_id', 'payment_method_id')
+                ->get();
+
+            foreach ($purchasePayments as $payment) {
+                $key = $payment->analytical_account_id.'_'.$payment->payment_method_id;
+                if (! isset($analytics[$key])) {
+                    $analytics[$key] = [
+                        'analytical_account_id' => $payment->analytical_account_id,
+                        'payment_method_id' => $payment->payment_method_id,
+                        'total_amount' => 0,
+                        'transaction_count' => 0,
+                        'payment_types' => [],
+                    ];
+                }
+                $analytics[$key]['total_amount'] += $payment->total_amount;
+                $analytics[$key]['transaction_count'] += $payment->transaction_count;
+                $analytics[$key]['payment_types']['purchase_payments'] = ($analytics[$key]['payment_types']['purchase_payments'] ?? 0) + $payment->total_amount;
+            }
+
+            // Non-Invoice Payments
+            $nonInvoicePayments = $nonInvoicePaymentsQuery
+                ->selectRaw('analytical_account_id, payment_method_id, SUM(amount) as total_amount, COUNT(*) as transaction_count')
+                ->groupBy('analytical_account_id', 'payment_method_id')
+                ->get();
+
+            foreach ($nonInvoicePayments as $payment) {
+                $key = $payment->analytical_account_id.'_'.$payment->payment_method_id;
+                if (! isset($analytics[$key])) {
+                    $analytics[$key] = [
+                        'analytical_account_id' => $payment->analytical_account_id,
+                        'payment_method_id' => $payment->payment_method_id,
+                        'total_amount' => 0,
+                        'transaction_count' => 0,
+                        'payment_types' => [],
+                    ];
+                }
+                $analytics[$key]['total_amount'] += $payment->total_amount;
+                $analytics[$key]['transaction_count'] += $payment->transaction_count;
+                $analytics[$key]['payment_types']['non_invoice_payments'] = ($analytics[$key]['payment_types']['non_invoice_payments'] ?? 0) + $payment->total_amount;
+            }
+
+            // Non-Purchase Payments
+            $nonPurchasePayments = $nonPurchasePaymentsQuery
+                ->selectRaw('analytical_account_id, payment_method_id, SUM(amount) as total_amount, COUNT(*) as transaction_count')
+                ->groupBy('analytical_account_id', 'payment_method_id')
+                ->get();
+
+            foreach ($nonPurchasePayments as $payment) {
+                $key = $payment->analytical_account_id.'_'.$payment->payment_method_id;
+                if (! isset($analytics[$key])) {
+                    $analytics[$key] = [
+                        'analytical_account_id' => $payment->analytical_account_id,
+                        'payment_method_id' => $payment->payment_method_id,
+                        'total_amount' => 0,
+                        'transaction_count' => 0,
+                        'payment_types' => [],
+                    ];
+                }
+                $analytics[$key]['total_amount'] += $payment->total_amount;
+                $analytics[$key]['transaction_count'] += $payment->transaction_count;
+                $analytics[$key]['payment_types']['non_purchase_payments'] = ($analytics[$key]['payment_types']['non_purchase_payments'] ?? 0) + $payment->total_amount;
+            }
+
+            // Payment Vouchers
+            $paymentVouchers = $paymentVouchersQuery
+                ->selectRaw('analytical_account_id, payment_method_id, SUM(amount) as total_amount, COUNT(*) as transaction_count')
+                ->groupBy('analytical_account_id', 'payment_method_id')
+                ->get();
+
+            foreach ($paymentVouchers as $payment) {
+                $key = $payment->analytical_account_id.'_'.$payment->payment_method_id;
+                if (! isset($analytics[$key])) {
+                    $analytics[$key] = [
+                        'analytical_account_id' => $payment->analytical_account_id,
+                        'payment_method_id' => $payment->payment_method_id,
+                        'total_amount' => 0,
+                        'transaction_count' => 0,
+                        'payment_types' => [],
+                    ];
+                }
+                $analytics[$key]['total_amount'] += $payment->total_amount;
+                $analytics[$key]['transaction_count'] += $payment->transaction_count;
+                $analytics[$key]['payment_types']['payment_vouchers'] = ($analytics[$key]['payment_types']['payment_vouchers'] ?? 0) + $payment->total_amount;
+            }
+
+            // Load relationships and format response
+            $result = [];
+            foreach ($analytics as $key => $data) {
+                $analyticalAccount = AnalyticalAccount::find($data['analytical_account_id']);
+                $paymentMethod = PaymentMethod::find($data['payment_method_id']);
+
+                $result[] = [
+                    'analytical_account' => $analyticalAccount ? [
+                        'id' => $analyticalAccount->id,
+                        'name' => $analyticalAccount->name,
+                        'code' => $analyticalAccount->code,
+                    ] : null,
+                    'payment_method' => $paymentMethod ? [
+                        'id' => $paymentMethod->id,
+                        'name' => $paymentMethod->name,
+                        'code' => $paymentMethod->code,
+                    ] : null,
+                    'total_amount' => round($data['total_amount'], 2),
+                    'transaction_count' => $data['transaction_count'],
+                    'payment_types' => $data['payment_types'],
+                ];
+            }
+
+            // Sort by total amount descending
+            usort($result, function ($a, $b) {
+                return $b['total_amount'] <=> $a['total_amount'];
+            });
+
+            return response()->json([
+                'success' => true,
+                'data' => $result,
+                'summary' => [
+                    'total_amount' => round(array_sum(array_column($result, 'total_amount')), 2),
+                    'total_transactions' => array_sum(array_column($result, 'transaction_count')),
+                    'from_date' => $fromDate,
+                    'to_date' => $toDate,
+                ],
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Payment Method Analytics Report Error: '.$e->getMessage());
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to generate payment method analytics report',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    /**
+     * Revenue by Payment Method Report
+     * Groups sales revenue by payment method
+     * Does NOT affect Trial Balance or Financial Statements
+     */
+    public function revenueByPaymentMethod(Request $request)
+    {
+        try {
+            $this->validate($request, [
+                'from_date' => 'nullable|date',
+                'to_date' => 'nullable|date|after_or_equal:from_date',
+                'branch_id' => 'nullable|exists:branches,id',
+                'payment_method_id' => 'nullable|exists:payment_methods,id',
+            ]);
+
+            $user = Auth::user();
+            $branchIds = $this->getUserBranchIds($user);
+            $fromDate = $request->from_date;
+            $toDate = $request->to_date;
+            $paymentMethodId = $request->payment_method_id;
+            $branchId = $request->branch_id;
+
+            // Filter branch IDs if specific branch requested
+            if ($branchId) {
+                $branchIds = in_array($branchId, $branchIds) ? [$branchId] : [];
+            }
+
+            // Get invoice payments (sales revenue)
+            $invoicePaymentsQuery = InvoicePayment::query()
+                ->where('status', 1)
+                ->whereHas('invoice', function ($q) use ($branchIds, $fromDate, $toDate) {
+                    $q->whereIn('branch_id', $branchIds)
+                        ->where('status', 1);
+                    if ($fromDate) {
+                        $q->whereDate('invoice_date', '>=', $fromDate);
+                    }
+                    if ($toDate) {
+                        $q->whereDate('invoice_date', '<=', $toDate);
+                    }
+                })
+                ->whereNotNull('payment_method_id');
+
+            if ($paymentMethodId) {
+                $invoicePaymentsQuery->where('payment_method_id', $paymentMethodId);
+            }
+
+            $revenueByMethod = $invoicePaymentsQuery
+                ->selectRaw('payment_method_id, SUM(amount) as total_revenue, COUNT(*) as transaction_count')
+                ->groupBy('payment_method_id')
+                ->get();
+
+            // Load payment method details
+            $result = [];
+            foreach ($revenueByMethod as $revenue) {
+                $paymentMethod = PaymentMethod::find($revenue->payment_method_id);
+                if ($paymentMethod) {
+                    $result[] = [
+                        'payment_method' => [
+                            'id' => $paymentMethod->id,
+                            'name' => $paymentMethod->name,
+                            'code' => $paymentMethod->code,
+                        ],
+                        'total_revenue' => round($revenue->total_revenue, 2),
+                        'transaction_count' => $revenue->transaction_count,
+                    ];
+                }
+            }
+
+            // Sort by total revenue descending
+            usort($result, function ($a, $b) {
+                return $b['total_revenue'] <=> $a['total_revenue'];
+            });
+
+            return response()->json([
+                'success' => true,
+                'data' => $result,
+                'summary' => [
+                    'total_revenue' => round(array_sum(array_column($result, 'total_revenue')), 2),
+                    'total_transactions' => array_sum(array_column($result, 'transaction_count')),
+                    'from_date' => $fromDate,
+                    'to_date' => $toDate,
+                ],
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Revenue by Payment Method Report Error: '.$e->getMessage());
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to generate revenue by payment method report',
                 'error' => $e->getMessage(),
             ], 500);
         }

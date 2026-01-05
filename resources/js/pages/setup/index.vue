@@ -152,6 +152,20 @@
           </div>
         </router-link>
       </div>
+      <div v-if="$can('payment-method-management')">
+        <router-link :to="{ name: 'analyticalAccounts.index' }" class="setup-card">
+          <div class="setup-card-icon bg-info">
+            <i class="fas fa-chart-line" />
+          </div>
+          <div class="setup-card-content">
+            <h5>{{ $t('Analytical Accounts') }}</h5>
+            <p>{{ $t('Manage analytical accounts for payment method tracking and reporting.') }}</p>
+          </div>
+          <div class="setup-card-arrow">
+            <i class="fas fa-chevron-left" />
+          </div>
+        </router-link>
+      </div>
       <div v-if="$can('general-settings')">
         <router-link :to="{ name: 'setup.fiscal-years' }" class="setup-card">
           <div class="setup-card-icon bg-info">

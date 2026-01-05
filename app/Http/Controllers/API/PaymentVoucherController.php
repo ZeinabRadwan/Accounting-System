@@ -2,22 +2,20 @@
 
 namespace App\Http\Controllers\API;
 
-use Exception;
-use Illuminate\Http\Request;
-use App\Models\PaymentVoucher;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Resources\PaymentVoucherResource;
-use App\Http\Resources\PaymentVoucherListResource;
 use App\Http\Requests\PaymentVoucher\StorePaymentVoucherRequest;
 use App\Http\Requests\PaymentVoucher\UpdatePaymentVoucherRequest;
+use App\Http\Resources\PaymentVoucherListResource;
+use App\Http\Resources\PaymentVoucherResource;
 use App\Models\Account;
 use App\Models\AccountTransaction;
 use App\Models\Invoice;
-use App\Models\InvoicePayment;
+use App\Models\PaymentVoucher;
 use App\Models\Purchase;
-use App\Models\PurchasePayment;
+use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class PaymentVoucherController extends Controller
 {
@@ -34,7 +32,6 @@ class PaymentVoucherController extends Controller
     /**
      * Display a listing of receive vouchers (voucher_type = 1).
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function indexReceive(Request $request)
@@ -46,11 +43,11 @@ class PaymentVoucherController extends Controller
             'chartOfAccount',
             'invoice',
             'purchase',
-            'transaction.cashbookAccount'
+            'transaction.cashbookAccount',
         ])
-        ->where('voucher_type', 1) // Receive vouchers
-        ->latest()
-        ->paginate($perPage);
+            ->where('voucher_type', 1) // Receive vouchers
+            ->latest()
+            ->paginate($perPage);
 
         return PaymentVoucherListResource::collection($vouchers);
     }
@@ -58,7 +55,6 @@ class PaymentVoucherController extends Controller
     /**
      * Display a listing of send vouchers (voucher_type = 0).
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function indexSend(Request $request)
@@ -70,11 +66,11 @@ class PaymentVoucherController extends Controller
             'chartOfAccount',
             'invoice',
             'purchase',
-            'transaction.cashbookAccount'
+            'transaction.cashbookAccount',
         ])
-        ->where('voucher_type', 0) // Send vouchers
-        ->latest()
-        ->paginate($perPage);
+            ->where('voucher_type', 0) // Send vouchers
+            ->latest()
+            ->paginate($perPage);
 
         return PaymentVoucherListResource::collection($vouchers);
     }
@@ -82,7 +78,6 @@ class PaymentVoucherController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
@@ -94,10 +89,10 @@ class PaymentVoucherController extends Controller
             'chartOfAccount',
             'invoice',
             'purchase',
-            'transaction.cashbookAccount'
+            'transaction.cashbookAccount',
         ])
-        ->latest()
-        ->paginate($perPage);
+            ->latest()
+            ->paginate($perPage);
 
         return PaymentVoucherListResource::collection($vouchers);
     }
@@ -119,24 +114,24 @@ class PaymentVoucherController extends Controller
 
             // Get account
             $account = Account::findOrFail($request->account['id']);
-            if (!$account) {
+            if (! $account) {
                 return $this->responseWithError('Bank Account not found.');
             }
 
             // Validate account has chart of account
-            if (!$account->chartOfAccount) {
+            if (! $account->chartOfAccount) {
                 return $this->responseWithError('Bank Account must have a Chart of Account assigned for journal entries.');
             }
 
             // Validate entity has chart of account (for client and supplier)
             if ($request->entityType === 'client' && isset($request->client['id'])) {
                 $client = \App\Models\Client::find($request->client['id']);
-                if (!$client || !$client->chartOfAccount) {
+                if (! $client || ! $client->chartOfAccount) {
                     return $this->responseWithError('Client must have a Chart of Account assigned for journal entries.');
                 }
             } elseif ($request->entityType === 'supplier' && isset($request->supplier['id'])) {
                 $supplier = \App\Models\Supplier::find($request->supplier['id']);
-                if (!$supplier || !$supplier->chartOfAccount) {
+                if (! $supplier || ! $supplier->chartOfAccount) {
                     return $this->responseWithError('Supplier must have a Chart of Account assigned for journal entries.');
                 }
             }
@@ -169,25 +164,25 @@ class PaymentVoucherController extends Controller
             // Set invoice or purchase if payment method requires it
             $invoice = null;
             $purchase = null;
-            
+
             if ($request->paymentMethod === 'invoice' && isset($request->invoice['id'])) {
                 $voucherData['invoice_id'] = $request->invoice['id'];
                 // Validate invoice exists and is active
                 $invoice = Invoice::find($request->invoice['id']);
-                if (!$invoice) {
+                if (! $invoice) {
                     return $this->responseWithError('Invoice not found.');
                 }
-                if ((int)$invoice->status !== 1) {
+                if ((int) $invoice->status !== 1) {
                     return $this->responseWithError('Cannot add payment to an inactive invoice.');
                 }
             } elseif ($request->paymentMethod === 'purchase' && isset($request->purchase['id'])) {
                 $voucherData['purchase_id'] = $request->purchase['id'];
                 // Validate purchase exists and is active
                 $purchase = Purchase::find($request->purchase['id']);
-                if (!$purchase) {
+                if (! $purchase) {
                     return $this->responseWithError('Purchase not found.');
                 }
-                if ((int)$purchase->status !== 1) {
+                if ((int) $purchase->status !== 1) {
                     return $this->responseWithError('Cannot add payment to an inactive purchase.');
                 }
             }
@@ -209,6 +204,20 @@ class PaymentVoucherController extends Controller
 
             $voucherData['transaction_id'] = $transaction->id;
             $voucherData['branch_id'] = $branchId;
+
+            // Get payment method and analytical account if provided
+            $paymentMethodId = $request->payment_method_id ?? null;
+            $analyticalAccountId = null;
+
+            if ($paymentMethodId) {
+                $paymentMethod = \App\Models\PaymentMethod::find($paymentMethodId);
+                if ($paymentMethod) {
+                    $analyticalAccount = $paymentMethod->getBranchAccount($branchId);
+                    $analyticalAccountId = $analyticalAccount ? $analyticalAccount->id : null;
+                    $voucherData['payment_method_id'] = $paymentMethodId;
+                    $voucherData['analytical_account_id'] = $analyticalAccountId;
+                }
+            }
 
             // Create voucher
             $voucher = PaymentVoucher::create($voucherData);
@@ -234,17 +243,17 @@ class PaymentVoucherController extends Controller
                 'client.chartOfAccount',
                 'supplier.chartOfAccount',
                 'chartOfAccount',
-                'transaction.account.chartOfAccount'
+                'transaction.account.chartOfAccount',
             ]);
 
             // Create journal entry for payment voucher only if status is active
             if ($voucher->status == 1) {
                 try {
-                    $journalService = new \App\Services\BusinessTransactionJournalService();
+                    $journalService = new \App\Services\BusinessTransactionJournalService;
                     $paymentJournalEntry = $journalService->createPaymentVoucherJournal($voucher, $userId);
                 } catch (\Exception $e) {
                     // Log the error but don't fail the voucher creation
-                    \Illuminate\Support\Facades\Log::error('Failed to create payment journal entry for voucher: ' . $e->getMessage());
+                    \Illuminate\Support\Facades\Log::error('Failed to create payment journal entry for voucher: '.$e->getMessage());
                 }
             }
 
@@ -254,10 +263,10 @@ class PaymentVoucherController extends Controller
                 ->performedOn($voucher)
                 ->withProperties([
                     'name' => '',
-                    'code' => 'Voucher-' . $voucher->id,
+                    'code' => 'Voucher-'.$voucher->id,
                     'event' => 'Create',
                     'slug' => $voucher->slug,
-                    'routeName' => ''
+                    'routeName' => '',
                 ])
                 ->useLog('Payment Voucher Created')
                 ->log('Payment Voucher Created');
@@ -267,6 +276,7 @@ class PaymentVoucherController extends Controller
             return $this->responseWithSuccess('Payment voucher created successfully', new PaymentVoucherResource($voucher));
         } catch (Exception $e) {
             DB::rollBack();
+
             return $this->responseWithError($e->getMessage());
         }
     }
@@ -287,10 +297,10 @@ class PaymentVoucherController extends Controller
                 'invoice',
                 'purchase',
                 'transaction.cashbookAccount',
-                'user'
+                'user',
             ])->where('slug', $slug)->first();
 
-            if (!$voucher) {
+            if (! $voucher) {
                 return $this->responseWithError(__('Voucher not found.'));
             }
 
@@ -313,7 +323,7 @@ class PaymentVoucherController extends Controller
             DB::beginTransaction();
 
             $voucher = PaymentVoucher::where('slug', $slug)->first();
-            if (!$voucher) {
+            if (! $voucher) {
                 return $this->responseWithError(__('Voucher not found.'));
             }
 
@@ -321,12 +331,24 @@ class PaymentVoucherController extends Controller
 
             // Update voucher data
             $updateData = [];
-            if ($request->has('amount')) $updateData['amount'] = $request->amount;
-            if ($request->has('date')) $updateData['date'] = $request->date;
-            if ($request->has('note')) $updateData['note'] = $request->note;
-            if ($request->has('status')) $updateData['status'] = $request->status;
-            if ($request->has('chequeNo')) $updateData['cheque_no'] = $request->chequeNo;
-            if ($request->has('receiptNo')) $updateData['receipt_no'] = $request->receiptNo;
+            if ($request->has('amount')) {
+                $updateData['amount'] = $request->amount;
+            }
+            if ($request->has('date')) {
+                $updateData['date'] = $request->date;
+            }
+            if ($request->has('note')) {
+                $updateData['note'] = $request->note;
+            }
+            if ($request->has('status')) {
+                $updateData['status'] = $request->status;
+            }
+            if ($request->has('chequeNo')) {
+                $updateData['cheque_no'] = $request->chequeNo;
+            }
+            if ($request->has('receiptNo')) {
+                $updateData['receipt_no'] = $request->receiptNo;
+            }
 
             if ($request->has('account')) {
                 $account = Account::findOrFail($request->account['id']);
@@ -338,12 +360,24 @@ class PaymentVoucherController extends Controller
             // Update transaction if exists
             if ($voucher->transaction && $request->hasAny(['amount', 'date', 'account'])) {
                 $transactionData = [];
-                if ($request->has('amount')) $transactionData['amount'] = $request->amount;
-                if ($request->has('date')) $transactionData['transaction_date'] = $request->date;
-                if ($request->has('account')) $transactionData['account_id'] = $request->account['id'];
-                if ($request->has('chequeNo')) $transactionData['cheque_no'] = $request->chequeNo;
-                if ($request->has('receiptNo')) $transactionData['receipt_no'] = $request->receiptNo;
-                if ($request->has('status')) $transactionData['status'] = $request->status;
+                if ($request->has('amount')) {
+                    $transactionData['amount'] = $request->amount;
+                }
+                if ($request->has('date')) {
+                    $transactionData['transaction_date'] = $request->date;
+                }
+                if ($request->has('account')) {
+                    $transactionData['account_id'] = $request->account['id'];
+                }
+                if ($request->has('chequeNo')) {
+                    $transactionData['cheque_no'] = $request->chequeNo;
+                }
+                if ($request->has('receiptNo')) {
+                    $transactionData['receipt_no'] = $request->receiptNo;
+                }
+                if ($request->has('status')) {
+                    $transactionData['status'] = $request->status;
+                }
 
                 $voucher->transaction->update($transactionData);
             }
@@ -354,10 +388,10 @@ class PaymentVoucherController extends Controller
                 ->performedOn($voucher)
                 ->withProperties([
                     'name' => '',
-                    'code' => 'Voucher-' . $voucher->id,
+                    'code' => 'Voucher-'.$voucher->id,
                     'event' => 'Update',
                     'slug' => $voucher->slug,
-                    'routeName' => ''
+                    'routeName' => '',
                 ])
                 ->useLog('Payment Voucher Updated')
                 ->log('Payment Voucher Updated');
@@ -367,6 +401,7 @@ class PaymentVoucherController extends Controller
             return $this->responseWithSuccess('Voucher updated successfully');
         } catch (Exception $e) {
             DB::rollBack();
+
             return $this->responseWithError($e->getMessage());
         }
     }
@@ -383,7 +418,7 @@ class PaymentVoucherController extends Controller
             DB::beginTransaction();
 
             $voucher = PaymentVoucher::where('slug', $slug)->first();
-            if (!$voucher) {
+            if (! $voucher) {
                 return $this->responseWithError(__('Voucher not found.'));
             }
 
@@ -398,8 +433,8 @@ class PaymentVoucherController extends Controller
                 ->performedOn($voucher)
                 ->withProperties([
                     'name' => '',
-                    'code' => 'Voucher-' . $voucher->id,
-                    'event' => 'Delete'
+                    'code' => 'Voucher-'.$voucher->id,
+                    'event' => 'Delete',
                 ])
                 ->useLog('Payment Voucher Deleted')
                 ->log('Payment Voucher Deleted');
@@ -411,6 +446,7 @@ class PaymentVoucherController extends Controller
             return $this->responseWithSuccess('Voucher deleted successfully');
         } catch (Exception $e) {
             DB::rollBack();
+
             return $this->responseWithError($e->getMessage());
         }
     }
@@ -427,7 +463,7 @@ class PaymentVoucherController extends Controller
             DB::beginTransaction();
 
             $voucher = PaymentVoucher::where('slug', $slug)->first();
-            if (!$voucher) {
+            if (! $voucher) {
                 return $this->responseWithError(__('Voucher not found.'));
             }
 
@@ -448,10 +484,10 @@ class PaymentVoucherController extends Controller
                 ->performedOn($voucher)
                 ->withProperties([
                     'name' => '',
-                    'code' => 'Voucher-' . $voucher->id,
+                    'code' => 'Voucher-'.$voucher->id,
                     'event' => 'Cancel',
                     'slug' => $voucher->slug,
-                    'routeName' => ''
+                    'routeName' => '',
                 ])
                 ->useLog('Payment Voucher Cancelled')
                 ->log('Payment Voucher Cancelled');
@@ -461,6 +497,7 @@ class PaymentVoucherController extends Controller
             return $this->responseWithSuccess('Voucher cancelled successfully');
         } catch (Exception $e) {
             DB::rollBack();
+
             return $this->responseWithError($e->getMessage());
         }
     }
@@ -468,7 +505,6 @@ class PaymentVoucherController extends Controller
     /**
      * Search vouchers.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function search(Request $request)
@@ -483,7 +519,7 @@ class PaymentVoucherController extends Controller
             'chartOfAccount',
             'invoice',
             'purchase',
-            'transaction.account'
+            'transaction.account',
         ]);
 
         // Filter by voucher type if provided
@@ -499,22 +535,22 @@ class PaymentVoucherController extends Controller
         // Search term
         if ($term) {
             $query->where(function ($q) use ($term) {
-                $q->where('amount', 'LIKE', '%' . $term . '%')
-                    ->orWhere('note', 'LIKE', '%' . $term . '%')
-                    ->orWhere('cheque_no', 'LIKE', '%' . $term . '%')
-                    ->orWhere('receipt_no', 'LIKE', '%' . $term . '%')
+                $q->where('amount', 'LIKE', '%'.$term.'%')
+                    ->orWhere('note', 'LIKE', '%'.$term.'%')
+                    ->orWhere('cheque_no', 'LIKE', '%'.$term.'%')
+                    ->orWhere('receipt_no', 'LIKE', '%'.$term.'%')
                     ->orWhereHas('client', function ($q) use ($term) {
-                        $q->where('name', 'LIKE', '%' . $term . '%');
+                        $q->where('name', 'LIKE', '%'.$term.'%');
                     })
                     ->orWhereHas('supplier', function ($q) use ($term) {
-                        $q->where('name', 'LIKE', '%' . $term . '%');
+                        $q->where('name', 'LIKE', '%'.$term.'%');
                     })
                     ->orWhereHas('chartOfAccount', function ($q) use ($term) {
-                        $q->where('name', 'LIKE', '%' . $term . '%');
+                        $q->where('name', 'LIKE', '%'.$term.'%');
                     })
                     ->orWhereHas('transaction.cashbookAccount', function ($q) use ($term) {
-                        $q->where('bank_name', 'LIKE', '%' . $term . '%')
-                            ->orWhere('account_number', 'LIKE', '%' . $term . '%');
+                        $q->where('bank_name', 'LIKE', '%'.$term.'%')
+                            ->orWhere('account_number', 'LIKE', '%'.$term.'%');
                     });
             });
         }
@@ -544,7 +580,7 @@ class PaymentVoucherController extends Controller
             $entityName = 'Chart of Account';
         }
 
-        $method = $voucherData['payment_method'] === 'direct' ? 'Direct Payment' : 
+        $method = $voucherData['payment_method'] === 'direct' ? 'Direct Payment' :
                   ($voucherData['payment_method'] === 'invoice' ? 'Invoice Payment' : 'Purchase Payment');
 
         return "[Payment Voucher] {$prefix} - {$entityName} - {$method} - [{$account->account_number}]";

@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Listeners\StripeEventListener;
+use App\Models\AnalyticalAccount;
 use App\Models\Expense;
 use App\Models\Invoice;
 use App\Models\InvoicePayment;
@@ -10,6 +11,7 @@ use App\Models\InvoiceReturn;
 use App\Models\Purchase;
 use App\Models\PurchasePayment;
 use App\Models\PurchaseReturn;
+use App\Observers\AnalyticalAccountObserver;
 use App\Observers\ExpenseObserver;
 use App\Observers\InvoiceObserver;
 use App\Observers\InvoicePaymentObserver;
@@ -48,6 +50,7 @@ class EventServiceProvider extends ServiceProvider
     {
         // regsiter observers
         if (DB::connection()->getDatabaseName()) {
+            AnalyticalAccount::observe(AnalyticalAccountObserver::class);
             Expense::observe(ExpenseObserver::class);
             Purchase::observe(PurchaseObserver::class);
             PurchasePayment::observe(PurchasePaymentObserver::class);

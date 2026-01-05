@@ -16,7 +16,7 @@ class PaymentMethod extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'slug', 'code', 'note', 'status', 'chart_of_account_id',
+        'name', 'slug', 'code', 'note', 'status', 'analytical_account_id',
     ];
 
     /**
@@ -32,11 +32,11 @@ class PaymentMethod extends Model
     }
 
     /**
-     * Get the chart of account for this payment method.
+     * Get the analytical account for this payment method.
      */
-    public function chartOfAccount()
+    public function analyticalAccount()
     {
-        return $this->belongsTo(ChartOfAccount::class, 'chart_of_account_id');
+        return $this->belongsTo(AnalyticalAccount::class, 'analytical_account_id');
     }
 
     /**
@@ -49,14 +49,21 @@ class PaymentMethod extends Model
 
     /**
      * Get the analytical account for a specific branch.
+     * Returns analytical account from branch-specific mapping, or falls back to payment method's analytical account.
      *
      * @param  int  $branchId
-     * @return \App\Models\ChartOfAccount|null
+     * @return \App\Models\AnalyticalAccount|null
      */
     public function getBranchAccount($branchId)
     {
+        // First, try to get branch-specific analytical account
         $branchAccount = $this->branchAccounts()->where('branch_id', $branchId)->first();
 
-        return $branchAccount ? $branchAccount->chartOfAccount : null;
+        if ($branchAccount && $branchAccount->analyticalAccount) {
+            return $branchAccount->analyticalAccount;
+        }
+
+        // Fall back to payment method's default analytical account
+        return $this->analyticalAccount;
     }
 }

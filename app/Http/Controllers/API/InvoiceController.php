@@ -300,7 +300,7 @@ class InvoiceController extends Controller
 
             // Handle payment creation when isPaid is true or addPayment is 1
             $shouldCreatePayment = ($isPaid == 1 && $request->payment_method_id) || ($request->addPayment == 1);
-            
+
             if ($shouldCreatePayment) {
                 // Note: We allow payment creation even for inactive invoices (status 0) during invoice creation
                 // This is especially important for KSA where invoices start as inactive
@@ -310,18 +310,7 @@ class InvoiceController extends Controller
                 if ($request->addPayment == 1 && isset($request->account['id'])) {
                     $account = Account::findOrFail($request->account['id']);
                 } elseif ($isPaid == 1 && $request->payment_method_id) {
-                    // Try to find an account that uses the payment method's chart of account
-                    $paymentMethod = \App\Models\PaymentMethod::find($request->payment_method_id);
-                    if ($paymentMethod && $paymentMethod->chart_of_account_id) {
-                        // Find an account that uses this chart of account and belongs to the branch
-                        $account = Account::withoutGlobalScopes()
-                            ->where('chart_of_account_id', $paymentMethod->chart_of_account_id)
-                            ->where('branch_id', $branchId)
-                            ->where('status', 1)
-                            ->first();
-                    }
-                    
-                    // If still no account found, try to get a default account for the branch
+                    // Try to get a default account for the branch
                     if (! $account) {
                         $account = Account::withoutGlobalScopes()
                             ->where('branch_id', $branchId)
@@ -335,6 +324,18 @@ class InvoiceController extends Controller
                     // Use netTotal as payment amount when isPaid is true, otherwise use paidAmount
                     $paymentAmount = ($isPaid == 1 && ! $request->addPayment) ? $request->netTotal : ($request->paidAmount ?? $request->netTotal);
 
+                    // Get payment method and analytical account
+                    $paymentMethodId = $request->payment_method_id ?? null;
+                    $analyticalAccountId = null;
+
+                    if ($paymentMethodId) {
+                        $paymentMethod = \App\Models\PaymentMethod::find($paymentMethodId);
+                        if ($paymentMethod) {
+                            $analyticalAccount = $paymentMethod->getBranchAccount($branchId);
+                            $analyticalAccountId = $analyticalAccount ? $analyticalAccount->id : null;
+                        }
+                    }
+
                     // Prepare voucher data for invoice payment
                     $voucherData = [
                         'slug' => uniqid(),
@@ -342,6 +343,7 @@ class InvoiceController extends Controller
                         'entity_type' => 'client',
                         'client_id' => $invoice->client_id,
                         'payment_method' => 'invoice',
+                        'payment_method_id' => $paymentMethodId,
                         'invoice_id' => $invoice->id,
                         'amount' => $paymentAmount,
                         'account_id' => $account->id,
@@ -352,6 +354,7 @@ class InvoiceController extends Controller
                         'status' => $invoiceStatus,
                         'created_by' => $userId,
                         'branch_id' => $branchId,
+                        'analytical_account_id' => $analyticalAccountId,
                     ];
 
                     // Generate transaction reason
@@ -434,6 +437,7 @@ class InvoiceController extends Controller
             'account' => 'required',
             'paidAmount' => ['required', 'min:1', 'max:'.$request->netTotal],
             'invoice_id' => ['required', 'integer'],
+            'payment_method_id' => 'nullable|exists:payment_methods,id',
             'chequeNo' => 'nullable|string|max:255',
             'receiptNo' => 'nullable|string|max:255',
             'date' => 'nullable|date_format:Y-m-d',
@@ -457,6 +461,18 @@ class InvoiceController extends Controller
         // Get account model
         $account = Account::findOrFail($accountData['id']);
 
+        // Get payment method and analytical account
+        $paymentMethodId = $request->payment_method_id ?? $invoice->payment_method_id;
+        $analyticalAccountId = null;
+
+        if ($paymentMethodId) {
+            $paymentMethod = \App\Models\PaymentMethod::find($paymentMethodId);
+            if ($paymentMethod) {
+                $analyticalAccount = $paymentMethod->getBranchAccount($branchId);
+                $analyticalAccountId = $analyticalAccount ? $analyticalAccount->id : null;
+            }
+        }
+
         // store transaction
         $reason = '['.config('config.invoicePrefix').'-'.$invoice->invoice_no.'] Invoice Payment added to ['.$account->account_number.']';
         try {
@@ -469,6 +485,7 @@ class InvoiceController extends Controller
                 'entity_type' => 'client',
                 'client_id' => $invoice->client_id,
                 'payment_method' => 'invoice',
+                'payment_method_id' => $paymentMethodId,
                 'invoice_id' => $invoice->id,
                 'amount' => $request->paidAmount,
                 'account_id' => $account->id,
@@ -479,6 +496,7 @@ class InvoiceController extends Controller
                 'status' => 1,
                 'created_by' => $userId,
                 'branch_id' => $branchId,
+                'analytical_account_id' => $analyticalAccountId,
             ];
 
             // create transaction

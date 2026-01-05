@@ -25,7 +25,6 @@ use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Schema;
 
 class BusinessTransactionJournalService
 {
@@ -473,7 +472,7 @@ class BusinessTransactionJournalService
                 // Calculate inventory cost using unit_cost from invoice_products if available
                 // Otherwise fall back to weighted average cost method
                 $quantity = (float) ($invoiceProduct->quantity ?? 0);
-                
+
                 // Use unit_cost from invoice_products if available (stored at invoice creation)
                 // This represents the actual cost basis used when the invoice was created
                 $unitCost = null;
@@ -485,7 +484,7 @@ class BusinessTransactionJournalService
                     );
                 } else {
                     // Fallback to weighted average cost if unit_cost not available
-                $invoiceDate = $invoice->invoice_date ?? now()->format('Y-m-d');
+                    $invoiceDate = $invoice->invoice_date ?? now()->format('Y-m-d');
                     $unitCost = $product->calculatePurchaseHistoryAverageCost($invoiceDate);
                     Log::info(
                         "Using weighted average cost for product {$product->name}: ".
@@ -635,21 +634,16 @@ class BusinessTransactionJournalService
             $clientAccountsReceivableAccount = $invoice->client->chartOfAccount;
             $bankAccount = $transaction->account->chartOfAccount;
 
-            // Get the bank account from the invoice payment transaction
-            // $bankAccount = null;
-            // $cashbookAccount = null;
-            // $invoicePayment = $invoice->invoicePayments()->latest()->first();
-            // if ($invoicePayment && $invoicePayment->transaction_id) {
-            //     $transaction = \App\Models\AccountTransaction::find($invoicePayment->transaction_id);
-            //     if ($transaction && $transaction->account) {
-            // $cashbookAccount = $transaction->account;
+            // Get invoice payment to retrieve analytical account
+            $invoicePayment = InvoicePayment::where('invoice_id', $invoice->id)
+                ->where('transaction_id', $transaction->id)
+                ->first();
 
-            //         // Validate that the cashbook account is connected to a chart of account
-            //         if (!$cashbookAccount->isChartOfAccountConnected()) {
-            //             throw new Exception($cashbookAccount->getChartOfAccountValidationMessage());
-            //         }
-            //     }
-            // }
+            // Get analytical account from invoice payment
+            $analyticalAccountId = null;
+            if ($invoicePayment) {
+                $analyticalAccountId = $invoicePayment->getAnalyticalAccountId();
+            }
 
             // If no specific bank account found, throw error - we need a specific account
             if (! $bankAccount) {
@@ -682,9 +676,9 @@ class BusinessTransactionJournalService
                 'branch_id' => $invoice->branch_id ?? (int) (Auth::user()->default_branch_id ?? 0),
             ]);
 
-            // Create journal entry lines
-            $this->createJournalEntryLine($journalEntry, $bankAccount->id, $amount, 0, 1, __('journal.cash_bank_receipt'));
-            $this->createJournalEntryLine($journalEntry, $clientAccountsReceivableAccount->id, 0, $amount, 2, __('journal.accounts_receivable'));
+            // Create journal entry lines with analytical account (metadata only)
+            $this->createJournalEntryLine($journalEntry, $bankAccount->id, $amount, 0, 1, __('journal.cash_bank_receipt'), null, $analyticalAccountId);
+            $this->createJournalEntryLine($journalEntry, $clientAccountsReceivableAccount->id, 0, $amount, 2, __('journal.accounts_receivable'), null, $analyticalAccountId);
 
             // Create bridge table record
             \App\Models\InvoiceJournal::create([
@@ -792,7 +786,7 @@ class BusinessTransactionJournalService
                 $purchasePrice = (float) ($purchaseProduct->purchase_price ?? 0);
                 $grossTotal = $quantity * $purchasePrice;
                 $itemDiscountAmount = (float) ($purchaseProduct->discount_amount ?? 0);
-                
+
                 // Use total_after_discount if available, otherwise calculate it
                 $lineInventoryAmount = (float) ($purchaseProduct->total_after_discount ?? ($grossTotal - $itemDiscountAmount));
                 $totalInventoryAmount += $lineInventoryAmount;
@@ -837,31 +831,31 @@ class BusinessTransactionJournalService
             // This respects user's choice when creating the purchase
             $transportTotal = (float) ($purchase->transport ?? 0);
             $transportIsTaxable = $purchase->transport_taxable == 1 || $purchase->transport_taxable === true;
-            
+
             // Calculate weighted average VAT rate from all products FIRST
             // We need this to calculate transport cost before VAT when transport is taxable
             $totalNetAmountForWeighting = 0;
             $weightedVatRateSum = 0;
-            
+
             foreach ($purchaseProducts as $purchaseProduct) {
                 $product = $purchaseProduct->product;
                 if ($product && $product->is_service) {
                     continue; // Skip services for inventory-based weighting
                 }
-                
+
                 // Get item's net amount (after product-level discount, before invoice-level discount)
                 $quantity = (float) ($purchaseProduct->quantity ?? 0);
                 $purchasePrice = (float) ($purchaseProduct->purchase_price ?? 0);
                 $lineGross = $quantity * $purchasePrice;
                 $productDiscountAmount = (float) ($purchaseProduct->discount_amount ?? 0);
                 $itemNetAmount = $lineGross - $productDiscountAmount;
-                
+
                 if ($itemNetAmount > 0) {
                     // Get VAT rate from stored data or calculate from tax_amount
                     $vatRate = 0;
                     $itemTaxAmount = (float) ($purchaseProduct->tax_amount ?? 0);
                     $itemTotalAfterDiscount = (float) ($purchaseProduct->total_after_discount ?? $itemNetAmount);
-                    
+
                     if ($itemTotalAfterDiscount > 0 && $itemTaxAmount > 0) {
                         // Calculate rate: VAT = Net × Rate, so Rate = VAT / Net
                         // Try to get rate from vat_rate field if available
@@ -872,20 +866,20 @@ class BusinessTransactionJournalService
                             $vatRate = ($itemTaxAmount / $itemTotalAfterDiscount) * 100;
                         }
                     }
-                    
+
                     if ($vatRate > 0) {
                         $totalNetAmountForWeighting += $itemNetAmount;
                         $weightedVatRateSum += $itemNetAmount * ($vatRate / 100);
                     }
                 }
             }
-            
+
             // Calculate transport cost before VAT when taxable
             // When transport is taxable: transport field contains transportCost + VAT
             // We need to extract transportCost for inventory calculation
             $transportCostBeforeVAT = 0;
             $transportVATAmount = 0;
-            
+
             if ($transportIsTaxable && $transportTotal > 0) {
                 // Transport is taxable: calculate transport cost before VAT
                 // Get VAT rate - use weighted average from items or default 15%
@@ -903,7 +897,7 @@ class BusinessTransactionJournalService
                         }
                     }
                 }
-                
+
                 // Calculate transport cost before VAT: transportCost = transportTotal / (1 + vatRate/100)
                 $transportCostBeforeVAT = round($transportTotal / (1 + $vatRate / 100), 2);
                 $transportVATAmount = round($transportTotal - $transportCostBeforeVAT, 2);
@@ -912,7 +906,7 @@ class BusinessTransactionJournalService
                 $transportCostBeforeVAT = $transportTotal;
                 $transportVATAmount = 0;
             }
-            
+
             Log::info("Transport calculation for PO {$purchase->purchase_no}: IsTaxable={$transportIsTaxable}, Total={$transportTotal}, CostBeforeVAT={$transportCostBeforeVAT}, VAT={$transportVATAmount}");
 
             // CRITICAL FIX: Recalculate VAT on Net Amount based on transport taxability
@@ -927,14 +921,14 @@ class BusinessTransactionJournalService
                 // Transport is non-taxable: exclude transport from Net Amount (VAT base)
                 $netAmountBeforeVAT = ($totalInventoryAmount - $billDiscountAmount);
             }
-            
+
             // Recalculate total VAT on Net Amount using weighted average rate
             if ($totalNetAmountForWeighting > 0 && $netAmountBeforeVAT > 0) {
                 $weightedAverageVatRate = ($weightedVatRateSum / $totalNetAmountForWeighting) * 100;
                 $recalculatedTotalVatAmount = round($netAmountBeforeVAT * ($weightedAverageVatRate / 100), 2);
-                
+
                 Log::info("Recalculated VAT for PO {$purchase->purchase_no}: Net Amount={$netAmountBeforeVAT}, Weighted Avg Rate={$weightedAverageVatRate}%, Recalculated VAT={$recalculatedTotalVatAmount}, Original VAT={$totalVatAmount}");
-                
+
                 // Use recalculated VAT if it's significantly different (more than 0.01 difference)
                 // This ensures we use the correct calculation even if stored values are wrong
                 if (abs($recalculatedTotalVatAmount - $totalVatAmount) > 0.01) {
@@ -1053,7 +1047,7 @@ class BusinessTransactionJournalService
                 // Use sum of item VATs directly from database
                 $vatAmountForJournal = $totalVatAmount; // Only item VAT, no transport VAT
             }
-            
+
             if ($vatAmountForJournal > 0 && $vatAccount) {
                 Log::info("Creating journal line {$lineNumber}: Debit VAT Input - Account ID: {$vatAccount->id}, Amount: {$vatAmountForJournal}");
                 $this->createJournalEntryLine($journalEntry, $vatAccount->id, $vatAmountForJournal, 0, $lineNumber, __('journal.vat_input_for_purchase', ['number' => $purchase->purchase_no]));
@@ -1197,6 +1191,12 @@ class BusinessTransactionJournalService
                 throw new Exception('Supplier Chart of Account not found.');
             }
 
+            // Get analytical account from purchase payment
+            $analyticalAccountId = null;
+            if ($purchasePayment) {
+                $analyticalAccountId = $purchasePayment->getAnalyticalAccountId();
+            }
+
             // Get default fiscal year and accounting period
             $defaults = $this->getDefaultFiscalYearAndPeriod();
 
@@ -1222,9 +1222,9 @@ class BusinessTransactionJournalService
                 'branch_id' => $purchase->branch_id ?? (int) (Auth::user()->default_branch_id ?? 0),
             ]);
 
-            // Create journal entry lines
-            $this->createJournalEntryLine($journalEntry, $supplierAccountsPayableAccount->id, $amount, 0, 1, __('journal.reduction_in_accounts_payable_for_purchase', ['number' => $purchase->purchase_no]));
-            $this->createJournalEntryLine($journalEntry, $bankAccount->id, 0, $amount, 2, __('journal.cash_bank_payment_for_purchase', ['number' => $purchase->purchase_no]));
+            // Create journal entry lines with analytical account (metadata only)
+            $this->createJournalEntryLine($journalEntry, $supplierAccountsPayableAccount->id, $amount, 0, 1, __('journal.reduction_in_accounts_payable_for_purchase', ['number' => $purchase->purchase_no]), null, $analyticalAccountId);
+            $this->createJournalEntryLine($journalEntry, $bankAccount->id, 0, $amount, 2, __('journal.cash_bank_payment_for_purchase', ['number' => $purchase->purchase_no]), null, $analyticalAccountId);
 
             // Create bridge table record
             \App\Models\PurchaseJournal::create([
@@ -1383,6 +1383,9 @@ class BusinessTransactionJournalService
                 throw new Exception('Payment method must be connected to a Chart of Account for journal entries.');
             }
 
+            // Get analytical account from non-invoice payment
+            $analyticalAccountId = $nonInvoicePayment->getAnalyticalAccountId();
+
             // Get default fiscal year and accounting period
             $defaults = $this->getDefaultFiscalYearAndPeriod();
 
@@ -1405,15 +1408,15 @@ class BusinessTransactionJournalService
                 'branch_id' => $nonInvoicePayment->branch_id ?? (int) (Auth::user()->default_branch_id ?? 0),
             ]);
 
-            // Create journal entry lines based on payment type
+            // Create journal entry lines based on payment type with analytical account (metadata only)
             // type 1: Payment received from client (Debit Bank, Credit AR)
             // type 0: Payment sent to client (Debit AR, Credit Bank)
             if (intval($nonInvoicePayment->type) === 1) {
-                $this->createJournalEntryLine($journalEntry, $bankAccount->id, $nonInvoicePayment->amount, 0, 1, __('journal.cash_bank_receipt_for_non_invoice_payment'));
-                $this->createJournalEntryLine($journalEntry, $clientAccountsReceivableAccount->id, 0, $nonInvoicePayment->amount, 2, __('journal.reduction_in_client_accounts_receivable'));
+                $this->createJournalEntryLine($journalEntry, $bankAccount->id, $nonInvoicePayment->amount, 0, 1, __('journal.cash_bank_receipt_for_non_invoice_payment'), null, $analyticalAccountId);
+                $this->createJournalEntryLine($journalEntry, $clientAccountsReceivableAccount->id, 0, $nonInvoicePayment->amount, 2, __('journal.reduction_in_client_accounts_receivable'), null, $analyticalAccountId);
             } else {
-                $this->createJournalEntryLine($journalEntry, $clientAccountsReceivableAccount->id, $nonInvoicePayment->amount, 0, 1, __('journal.accounts_receivable'));
-                $this->createJournalEntryLine($journalEntry, $bankAccount->id, 0, $nonInvoicePayment->amount, 2, __('journal.cash_bank_payment_for_non_purchase'));
+                $this->createJournalEntryLine($journalEntry, $clientAccountsReceivableAccount->id, $nonInvoicePayment->amount, 0, 1, __('journal.accounts_receivable'), null, $analyticalAccountId);
+                $this->createJournalEntryLine($journalEntry, $bankAccount->id, 0, $nonInvoicePayment->amount, 2, __('journal.cash_bank_payment_for_non_purchase'), null, $analyticalAccountId);
             }
 
             // Create bridge table record (you'll need to create this model and migration)
@@ -1572,15 +1575,18 @@ class BusinessTransactionJournalService
                 'branch_id' => $nonPurchasePayment->branch_id ?? (int) (Auth::user()->default_branch_id ?? 0),
             ]);
 
-            // Create journal entry lines based on payment type
+            // Get analytical account from non-purchase payment
+            $analyticalAccountId = $nonPurchasePayment->getAnalyticalAccountId();
+
+            // Create journal entry lines based on payment type with analytical account (metadata only)
             // type 1: Payment sent to supplier (Debit AP, Credit Bank)
             // type 0: Payment received from supplier (Debit Bank, Credit AP)
             if (intval($nonPurchasePayment->type) === 1) {
-                $this->createJournalEntryLine($journalEntry, $supplierAccountsPayableAccount->id, $nonPurchasePayment->amount, 0, 1, __('journal.reduction_in_accounts_payable'));
-                $this->createJournalEntryLine($journalEntry, $bankAccount->id, 0, $nonPurchasePayment->amount, 2, __('journal.cash_bank_payment_for_non_purchase'));
+                $this->createJournalEntryLine($journalEntry, $supplierAccountsPayableAccount->id, $nonPurchasePayment->amount, 0, 1, __('journal.reduction_in_accounts_payable'), null, $analyticalAccountId);
+                $this->createJournalEntryLine($journalEntry, $bankAccount->id, 0, $nonPurchasePayment->amount, 2, __('journal.cash_bank_payment_for_non_purchase'), null, $analyticalAccountId);
             } else {
-                $this->createJournalEntryLine($journalEntry, $bankAccount->id, $nonPurchasePayment->amount, 0, 1, __('journal.cash_bank_receipt'));
-                $this->createJournalEntryLine($journalEntry, $supplierAccountsPayableAccount->id, 0, $nonPurchasePayment->amount, 2, __('journal.accounts_payable'));
+                $this->createJournalEntryLine($journalEntry, $bankAccount->id, $nonPurchasePayment->amount, 0, 1, __('journal.cash_bank_receipt'), null, $analyticalAccountId);
+                $this->createJournalEntryLine($journalEntry, $supplierAccountsPayableAccount->id, 0, $nonPurchasePayment->amount, 2, __('journal.accounts_payable'), null, $analyticalAccountId);
             }
 
             DB::commit();
@@ -1654,6 +1660,9 @@ class BusinessTransactionJournalService
                 throw new Exception('Entity Chart of Account not found.');
             }
 
+            // Get analytical account from payment voucher
+            $analyticalAccountId = $paymentVoucher->getAnalyticalAccountId();
+
             // Get default fiscal year and accounting period
             $defaults = $this->getDefaultFiscalYearAndPeriod();
 
@@ -1682,17 +1691,17 @@ class BusinessTransactionJournalService
                 'branch_id' => $paymentVoucher->branch_id ?? (int) (Auth::user()->default_branch_id ?? 0),
             ]);
 
-            // Create journal entry lines based on voucher type
+            // Create journal entry lines based on voucher type with analytical account (metadata only)
             // voucher_type 1 (Receive): Payment received - Debit Bank, Credit Entity Account
             // voucher_type 0 (Send): Payment sent - Debit Entity Account, Credit Bank
             if (intval($paymentVoucher->voucher_type) === 1) {
                 // Receive voucher: Money coming in
-                $this->createJournalEntryLine($journalEntry, $bankAccount->id, $paymentVoucher->amount, 0, 1, __('journal.cash_bank_receipt'));
-                $this->createJournalEntryLine($journalEntry, $entityAccount->id, 0, $paymentVoucher->amount, 2, __('journal.payment_received'));
+                $this->createJournalEntryLine($journalEntry, $bankAccount->id, $paymentVoucher->amount, 0, 1, __('journal.cash_bank_receipt'), null, $analyticalAccountId);
+                $this->createJournalEntryLine($journalEntry, $entityAccount->id, 0, $paymentVoucher->amount, 2, __('journal.payment_received'), null, $analyticalAccountId);
             } else {
                 // Send voucher: Money going out
-                $this->createJournalEntryLine($journalEntry, $entityAccount->id, $paymentVoucher->amount, 0, 1, __('journal.payment_sent'));
-                $this->createJournalEntryLine($journalEntry, $bankAccount->id, 0, $paymentVoucher->amount, 2, __('journal.cash_bank_payment'));
+                $this->createJournalEntryLine($journalEntry, $entityAccount->id, $paymentVoucher->amount, 0, 1, __('journal.payment_sent'), null, $analyticalAccountId);
+                $this->createJournalEntryLine($journalEntry, $bankAccount->id, 0, $paymentVoucher->amount, 2, __('journal.cash_bank_payment'), null, $analyticalAccountId);
             }
 
             DB::commit();
@@ -1710,9 +1719,20 @@ class BusinessTransactionJournalService
      * Business rule update:
      * - Cost center (cost_center_id) is no longer stored on journal entry lines for invoices.
      *   We keep the optional parameter in the signature for backward compatibility, but ignore it.
+     * - Analytical account (analytical_account_id) is metadata only and does not affect double-entry bookkeeping.
      */
-    private function createJournalEntryLine(JournalEntry $journalEntry, int $accountId, float $debitAmount, float $creditAmount, int $lineNumber, string $description, ?int $costCenterId = null): JournalEntryLine
+    private function createJournalEntryLine(JournalEntry $journalEntry, int $accountId, float $debitAmount, float $creditAmount, int $lineNumber, string $description, ?int $costCenterId = null, ?int $analyticalAccountId = null): JournalEntryLine
     {
+        // Validate that accountId is not an analytical account
+        if (\App\Models\AnalyticalAccount::where('id', $accountId)->exists()) {
+            throw new Exception('Analytical accounts cannot be used as chart of accounts in journal entries.');
+        }
+
+        // Validate that analytical_account_id is not the same as accountId
+        if ($analyticalAccountId !== null && $analyticalAccountId == $accountId) {
+            throw new Exception('Analytical account ID cannot be the same as chart of account ID.');
+        }
+
         $data = [
             'journal_entry_id' => $journalEntry->id,
             'chart_of_account_id' => $accountId,
@@ -1723,6 +1743,11 @@ class BusinessTransactionJournalService
         ];
 
         // Intentionally do NOT set cost_center_id anymore to remove the Cost Center column from journal entries
+
+        // Set analytical account if provided (metadata only, does not affect accounting)
+        if ($analyticalAccountId !== null) {
+            $data['analytical_account_id'] = $analyticalAccountId;
+        }
 
         return JournalEntryLine::create($data);
     }

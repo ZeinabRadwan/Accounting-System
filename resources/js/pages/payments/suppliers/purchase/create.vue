@@ -177,6 +177,34 @@
                 </div>
               </div>
               <div class="row">
+                <div class="form-group col-md-6">
+                  <label for="paymentMethod">{{ $t("Payment Method") }}</label>
+                  <select id="paymentMethod" v-model="form.payment_method_id" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('payment_method_id') }"
+                    :disabled="loadingPaymentMethods" name="payment_method_id">
+                    <option value="">{{ loadingPaymentMethods ? $t("Loading...") : $t("Select") }}</option>
+                    <option v-if="!loadingPaymentMethods && paymentMethods.length === 0" value="" disabled>
+                      {{ $t("No payment methods available") }}
+                    </option>
+                    <option v-for="method in paymentMethods" :key="method.id" :value="method.id">
+                      {{ method.name }}
+                    </option>
+                  </select>
+                  <small v-if="loadingPaymentMethods" class="form-text text-muted">
+                    {{ $t("Loading payment methods...") }}
+                  </small>
+                  <has-error :form="form" field="payment_method_id" />
+                </div>
+                <div class="form-group col-md-6" v-if="selectedPaymentMethodAnalyticalAccount">
+                  <label for="analyticalAccount">{{ $t("Analytical Account") }}</label>
+                  <input type="text" class="form-control" readonly
+                    :value="selectedPaymentMethodAnalyticalAccount.name || '-'" />
+                  <small class="form-text text-muted">
+                    {{ $t("Automatically set based on payment method") }}
+                  </small>
+                </div>
+              </div>
+              <div class="row">
                 <!-- <div class="form-group col-md-3">
                   <label for="chequeNo">{{ $t("Cheque No") }}</label>
                   <input type="text" v-model="form.chequeNo" class="form-control"
@@ -311,10 +339,13 @@ export default {
       paymentDate: new Date().toISOString().slice(0, 10),
       isSendEmail: false,
       isSendSMS: false,
+      payment_method_id: null,
     }),
     accounts: "",
     purchases: "",
     isAutoAssigningSupplier: false,
+    paymentMethods: [],
+    loadingPaymentMethods: false,
     // Communication configuration status
     communicationConfig: {
       email_configured: false,
@@ -324,10 +355,22 @@ export default {
   }),
   computed: {
     ...mapGetters("operations", ["items", "appInfo"]),
+    // Get analytical account for selected payment method
+    selectedPaymentMethodAnalyticalAccount() {
+      if (!this.form.payment_method_id || !this.paymentMethods || this.paymentMethods.length === 0) {
+        return null;
+      }
+      const selectedMethod = this.paymentMethods.find(method => method.id == this.form.payment_method_id);
+      if (selectedMethod && selectedMethod.analytical_account) {
+        return selectedMethod.analytical_account;
+      }
+      return null;
+    },
   },
   created() {
     this.getSuppliers();
     this.getAccounts();
+    this.getPaymentMethods();
     this.loadCommunicationConfigStatus();
   },
   mounted() {
@@ -460,6 +503,38 @@ export default {
           (account) => account.slug == defaultAccountSlug
         );
         this.updateBalance();
+      }
+    },
+
+    // get payment methods
+    async getPaymentMethods() {
+      this.loadingPaymentMethods = true;
+      try {
+        const response = await axios.get(window.location.origin + '/api/payment-methods', {
+          params: { perPage: 1000 } // Get all payment methods
+        });
+        // Handle both paginated and non-paginated responses
+        if (response.data) {
+          if (Array.isArray(response.data)) {
+            this.paymentMethods = response.data;
+          } else if (response.data.data && Array.isArray(response.data.data)) {
+            this.paymentMethods = response.data.data;
+          } else {
+            this.paymentMethods = [];
+          }
+        } else {
+          this.paymentMethods = [];
+        }
+      } catch (error) {
+        console.error('Error loading payment methods:', error);
+        this.paymentMethods = [];
+        toast.fire({
+          type: 'error',
+          title: this.$t('Error'),
+          text: this.$t('Failed to load payment methods'),
+        });
+      } finally {
+        this.loadingPaymentMethods = false;
       }
     },
 
