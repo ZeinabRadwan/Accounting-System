@@ -4937,18 +4937,14 @@ class ReportController extends Controller
     private function calculateAccountBalanceDetailsOriginal($account, $filters)
     {
         // Build base query for journal entries
+        // Note: branch_id filter is applied after join to avoid ambiguity
         $baseQuery = \App\Models\JournalEntry::query()
             ->where('status', 'posted')
             ->whereHas('lines', function ($query) use ($account) {
                 $query->where('chart_of_account_id', $account->id);
             });
 
-        // Apply branch filter
-        if (isset($filters['branch_id']) && $filters['branch_id']) {
-            $baseQuery->where('branch_id', $filters['branch_id']);
-        }
-
-        // Apply filters
+        // Apply filters (branch_id will be applied after join to avoid ambiguity)
         if ($filters['fiscal_year_id']) {
             $baseQuery->where('fiscal_year_id', $filters['fiscal_year_id']);
         } elseif ($filters['accounting_period_id']) {
@@ -4978,9 +4974,18 @@ class ReportController extends Controller
         }
 
         // Use efficient database aggregation instead of loading all entries
-        $openingTotals = $openingBalanceQuery
+        $openingTotalsQuery = $openingBalanceQuery
             ->join('journal_entry_lines', 'journal_entries.id', '=', 'journal_entry_lines.journal_entry_id')
             ->where('journal_entry_lines.chart_of_account_id', $account->id)
+            ->where('journal_entries.status', 'posted')
+            ->whereNull('journal_entries.deleted_at');
+
+        // Apply branch filter explicitly with table prefix to avoid ambiguity
+        if (isset($filters['branch_id']) && $filters['branch_id']) {
+            $openingTotalsQuery->where('journal_entries.branch_id', $filters['branch_id']);
+        }
+
+        $openingTotals = $openingTotalsQuery
             ->selectRaw('SUM(journal_entry_lines.debit_amount) as total_debits, SUM(journal_entry_lines.credit_amount) as total_credits')
             ->first();
 
@@ -4994,9 +4999,18 @@ class ReportController extends Controller
         $openingCredit = $openingBalance < 0 ? abs($openingBalance) : 0;
 
         // Calculate movements (within the current period) using efficient database aggregation
-        $movementTotals = $baseQuery
+        $movementTotalsQuery = $baseQuery
             ->join('journal_entry_lines', 'journal_entries.id', '=', 'journal_entry_lines.journal_entry_id')
             ->where('journal_entry_lines.chart_of_account_id', $account->id)
+            ->where('journal_entries.status', 'posted')
+            ->whereNull('journal_entries.deleted_at');
+
+        // Apply branch filter explicitly with table prefix to avoid ambiguity
+        if (isset($filters['branch_id']) && $filters['branch_id']) {
+            $movementTotalsQuery->where('journal_entries.branch_id', $filters['branch_id']);
+        }
+
+        $movementTotals = $movementTotalsQuery
             ->selectRaw('SUM(journal_entry_lines.debit_amount) as total_debits, SUM(journal_entry_lines.credit_amount) as total_credits')
             ->first();
 
