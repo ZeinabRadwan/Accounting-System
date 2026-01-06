@@ -48,6 +48,18 @@
                     </div>
                   </div>
 
+                  <!-- Session Type Filter -->
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label>{{ $t('Session Type') }}</label>
+                      <select v-model="filters.session_type" class="form-control">
+                        <option value="">{{ $t('All Types') }}</option>
+                        <option value="invoice">{{ $t('Invoice') }}</option>
+                        <option value="return">{{ $t('Invoice Return') }}</option>
+                      </select>
+                    </div>
+                  </div>
+
                   <!-- User Filter -->
                   <div class="col-md-3">
                     <div class="form-group">
@@ -150,6 +162,16 @@
                   :empty-message="$t('No sessions found')"
                   wrapper-class="mt-3"
                 >
+                  <!-- Session Type -->
+                  <template #cell-session_type="{ row }">
+                    <span v-if="row.is_return_invoice" class="badge badge-warning">
+                      <i class="fas fa-undo"></i> {{ $t('Invoice Return') }}
+                    </span>
+                    <span v-else class="badge badge-info">
+                      <i class="fas fa-file-invoice"></i> {{ $t('Invoice') }}
+                    </span>
+                  </template>
+
                   <!-- Status Badge -->
                   <template #cell-status="{ row }">
                     <span
@@ -300,6 +322,15 @@
                 </p>
                 <p><strong>{{ $t('Total Sales') }}:</strong> <span v-html="formatCurrency(selectedSession.total_sales)"></span></p>
                 <p><strong>{{ $t('Invoice Count') }}:</strong> {{ selectedSession.invoice_count }}</p>
+                <p v-if="selectedSession.is_return_invoice">
+                  <strong>{{ $t('Type') }}:</strong>
+                  <span class="badge badge-warning">
+                    <i class="fas fa-undo"></i> {{ $t('Invoice Return') }}
+                  </span>
+                </p>
+                <p v-if="selectedSession.return_invoice_no">
+                  <strong>{{ $t('Return Invoice No') }}:</strong> {{ selectedSession.return_invoice_no }}
+                </p>
               </div>
             </div>
           </div>
@@ -343,6 +374,7 @@ export default {
         search: '',
         status: '',
         user_id: null,
+        session_type: '',
         opened_from: '',
         opened_to: '',
         closed_from: '',
@@ -362,6 +394,7 @@ export default {
       return [
         { key: 'index', label: this.$t('#') },
         { key: 'session_number', label: this.$t('Session Number') },
+        { key: 'session_type', label: this.$t('Type') },
         { key: 'user_name', label: this.$t('Employee') },
         { key: 'status', label: this.$t('Status') },
         { key: 'opened_at_formatted', label: this.$t('Opened At') },
@@ -434,6 +467,7 @@ export default {
         search: '',
         status: '',
         user_id: null,
+        session_type: '',
         opened_from: '',
         opened_to: '',
         closed_from: '',
@@ -463,8 +497,8 @@ export default {
       this.selectedSession = session;
       $('#sessionDetailsModal').modal('show');
     },
-    async resumeSession(session) {
-      // Navigate to POS page
+    async resumeSession() {
+      // Navigate to POS page - the session will be loaded automatically
       this.$router.push({ name: 'pos.create' });
     },
     async closeSession(session) {

@@ -29,13 +29,23 @@
                   v-for="(invoice, index) in visibleInvoices"
                   :key="invoice.id"
                   class="invoice-tab"
-                  :class="{ 'invoice-tab-active': visibleInvoiceIndices[index] === currentInvoiceIndex }"
+                  :class="{ 
+                    'invoice-tab-active': visibleInvoiceIndices[index] === currentInvoiceIndex,
+                    'invoice-tab-return': invoice.isReturnInvoice
+                  }"
                   @click="switchInvoice(visibleInvoiceIndices[index])"
-                  :title="invoice.reference || `Invoice ${visibleInvoiceIndices[index] + 1}`">
+                  :title="invoice.isReturnInvoice 
+                    ? (invoice.returnInvoiceNo ? `${$t('Return')}: ${invoice.returnInvoiceNo}` : `${$t('Invoice Return')} ${visibleInvoiceIndices[index] + 1}`)
+                    : (invoice.reference || `Invoice ${visibleInvoiceIndices[index] + 1}`)">
                   <div class="invoice-tab-content">
                     <div class="invoice-tab-header">
-                      <i class="fas fa-file-invoice invoice-tab-icon"></i>
-                      <span class="invoice-tab-number">{{ invoice.reference || `#${visibleInvoiceIndices[index] + 1}` }}</span>
+                      <i :class="invoice.isReturnInvoice ? 'fas fa-undo invoice-tab-icon' : 'fas fa-file-invoice invoice-tab-icon'"></i>
+                      <span class="invoice-tab-number">
+                        <span v-if="invoice.isReturnInvoice" class="return-badge">{{ $t('Return') }}</span>
+                        {{ invoice.isReturnInvoice && invoice.returnInvoiceNo 
+                          ? invoice.returnInvoiceNo 
+                          : (invoice.reference || `#${visibleInvoiceIndices[index] + 1}`) }}
+                      </span>
                     </div>
                     <div class="invoice-tab-time" v-if="invoice.openedTime">
                       <i class="fas fa-clock"></i>
@@ -72,12 +82,22 @@
                 :title="$t('Create New Invoice')">
                 <i class="fas fa-plus"></i>
               </button>
+
+              <!-- Invoice Return Button -->
+              <button
+                type="button"
+                class="invoice-return-btn"
+                @click="openInvoiceReturnModal"
+                :title="$t('Invoice Return')">
+                <i class="fas fa-undo"></i>
+              </button>
             </div>
           </div>
         </div>
         <div class="card pos-main-card">
           <div class="card-body-l p-0">
-            <div class="form-group pl-3 pt-3 pr-3 pos-client-section">
+            <!-- Client Selection - Hidden in Invoice Return Mode -->
+            <div v-if="!isInvoiceReturnMode" class="form-group pl-3 pt-3 pr-3 pos-client-section">
               <label class="pos-section-label">{{ $t("Client") }}</label>
               <div class="d-flex w-100">
                 <v-select class="flex-grow-1" v-model="form.client" :options="Array.isArray(clients) ? clients : []" label="name"
@@ -104,7 +124,146 @@
               <has-error :form="form" field="client" />
             </div>
 
-            <div class="table-wrap">
+            <!-- Invoice Return Products Display -->
+            <div v-if="isInvoiceReturnMode && selectedInvoiceForReturn" class="pl-3 pt-3 pr-3 pb-3">
+              <div class="card bg-light mb-3">
+                <div class="card-header">
+                  <h6 class="mb-0">
+                    {{ $t("Invoice") }}: {{ selectedInvoiceForReturn.invoiceNo | withPrefix(invoicePrefix) }}
+                    <span v-if="selectedInvoiceForReturn.client" class="ml-2 text-muted">
+                      - {{ selectedInvoiceForReturn.client.name }}
+                    </span>
+                  </h6>
+                </div>
+                <div class="card-body">
+                  <!-- Return Reason -->
+                  <div class="form-group mb-3">
+                    <label for="returnReason">{{ $t("Return Reason") }} <span class="required">*</span></label>
+                    <input 
+                      id="returnReason" 
+                      v-model="returnForm.returnReason" 
+                      type="text" 
+                      class="form-control"
+                      :class="{ 'is-invalid': returnForm.errors.has('returnReason') }"
+                      :placeholder="$t('Enter return reason')"
+                    />
+                    <has-error :form="returnForm" field="returnReason" />
+                  </div>
+
+                  <!-- Account Selection (if return amount > 0) -->
+                  <div v-if="totalReturnAmount > 0 && accounts && accounts.length > 0" class="form-group mb-3">
+                    <label for="returnAccount">{{ $t("Account") }} <span class="required">*</span></label>
+                    <v-select 
+                      v-model="returnForm.account" 
+                      :options="Array.isArray(accounts) ? accounts : []" 
+                      label="label"
+                      :class="{ 'is-invalid': returnForm.errors.has('account') }"
+                      :placeholder="$t('Select an account')"
+                      @input="updateReturnAccountBalance"
+                    >
+                      <template slot="option" slot-scope="option">
+                        <img :src="option.image" style="width: 30px; height: 30px" />
+                        {{ option.label }}
+                      </template>
+                    </v-select>
+                    <has-error :form="returnForm" field="account" />
+                    <div v-if="returnForm.account" class="mt-2">
+                      <small class="text-muted">
+                        {{ $t("Available Balance") }}: 
+                        {{ formatNumber(returnForm.availableBalance || 0) }}
+                        <span class="saudi-riyal">ê</span>
+                      </small>
+                    </div>
+                  </div>
+
+                  <!-- Receipt No (optional) -->
+                  <div v-if="totalReturnAmount > 0" class="form-group mb-3">
+                    <label for="returnReceiptNo">{{ $t("Receipt No") }}</label>
+                    <input 
+                      id="returnReceiptNo" 
+                      v-model="returnForm.receiptNo" 
+                      type="text" 
+                      class="form-control"
+                      :placeholder="$t('Enter receipt number (optional)')"
+                    />
+                  </div>
+                  <div class="table-responsive">
+                    <table class="table table-sm table-bordered">
+                      <thead>
+                        <tr>
+                          <th width="40">
+                            <input 
+                              type="checkbox" 
+                              @change="toggleAllReturnProducts"
+                              :checked="allReturnProductsSelected"
+                              :indeterminate="someReturnProductsSelected"
+                            />
+                          </th>
+                          <th>{{ $t("Product") }}</th>
+                          <th class="text-center">{{ $t("Original Qty") }}</th>
+                          <th class="text-center">{{ $t("Unit Price") }}</th>
+                          <th class="text-center">{{ $t("Return Qty") }}</th>
+                          <th class="text-center">{{ $t("Return Total") }}</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-if="returnProducts.length === 0">
+                          <td colspan="6" class="text-center text-muted">
+                            {{ $t("No products found") }}
+                          </td>
+                        </tr>
+                        <tr v-for="(product, index) in returnProducts" :key="product.id" :class="{ 'table-warning': product.isSelected }">
+                          <td>
+                            <input 
+                              type="checkbox" 
+                              v-model="product.isSelected"
+                              @change="calculateReturnTotals"
+                            />
+                          </td>
+                          <td>{{ product.name }}</td>
+                          <td class="text-center">{{ product.originalQuantity }}</td>
+                          <td class="text-center">
+                            {{ (product.unitPrice || 0).toFixed(2) }}
+                            <span class="saudi-riyal">ê</span>
+                          </td>
+                          <td class="text-center">
+                            <input 
+                              type="number" 
+                              class="form-control form-control-sm text-center"
+                              v-model.number="product.returnQty"
+                              :min="0"
+                              :max="product.originalQuantity"
+                              step="any"
+                              @input="validateReturnQuantity(index)"
+                              @change="calculateReturnTotals"
+                              :disabled="!product.isSelected"
+                            />
+                            <small v-if="product.returnQtyError" class="text-danger d-block">
+                              {{ product.returnQtyError }}
+                            </small>
+                          </td>
+                          <td class="text-center">
+                            {{ (product.returnTotal || 0).toFixed(2) }}
+                            <span class="saudi-riyal">ê</span>
+                          </td>
+                        </tr>
+                      </tbody>
+                      <tfoot v-if="returnProducts.length > 0">
+                        <tr>
+                          <td colspan="5" class="text-right font-weight-bold">{{ $t("Total Return") }}:</td>
+                          <td class="text-center font-weight-bold">
+                            {{ (totalReturnAmount || 0).toFixed(2) }}
+                            <span class="saudi-riyal">ê</span>
+                          </td>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="table-wrap" v-if="!isInvoiceReturnMode">
               <GeneralTable :columns="tableColumns" :rows="form.selectedProducts || []" :show-actions="true"
                 action-header-icon="fas fa-trash" :empty-message="$t('Your shopping cart is empty')"
                 empty-image="/images/cart.png" wrapper-class="table-wrap">
@@ -222,7 +381,8 @@
           </div>
         </div>
 
-        <div class="pos-card-footer bg-white">
+        <!-- POS Footer (Discount, Transport, Summary) - Hidden in Invoice Return Mode -->
+        <div v-if="!isInvoiceReturnMode" class="pos-card-footer bg-white">
           <div>
             <div class="row pt-3 pl-3 pr-3 pos-footer-inputs">
               <div class="form-group col-md-4">
@@ -340,28 +500,40 @@
         </div>
 
         <div class="row no-print pos-action-buttons">
-          <div class="col-12 col-lg-3 mb-2">
-            <button class="btn btn-primary btn-block pos-btn" @click="saveInvoice" @keydown="form.onKeydown($event)">
-              <i class="fas fa-save" /> {{ $t("Save") }}
+          <div v-if="isInvoiceReturnMode" class="col-12 mb-2">
+            <button 
+              class="btn btn-success btn-block pos-btn" 
+              @click="saveInvoiceReturn" 
+              :disabled="returnForm.busy || totalReturnAmount <= 0"
+            >
+              <i :class="returnForm.busy ? 'fas fa-spinner fa-spin' : 'fas fa-undo'" />
+              {{ returnForm.busy ? $t("Processing...") : $t("Create Invoice Return") }}
             </button>
           </div>
-          <div class="col-12 col-lg-3 mb-2">
-            <button class="btn btn-primary btn-block pos-btn" @click="completeOrderAndAddPayment">
-              <i class="fas fa-credit-card" />
-              {{ $t("Save & Payment") }}
-            </button>
-          </div>
-          <div class="col-12 col-lg-3 mb-2">
-            <button @click="openInvoicesPage" :title="$t('Open Invoices Page')" class="btn btn-info btn-block pos-btn">
-              <i class="fas fa-file-invoice" />
-              {{ $t('Invoices') }}
-            </button>
-          </div>
-          <div class="col-12 col-lg-3 mb-2">
-            <button type="reset" class="btn btn-info btn-block pos-btn" @click="form.reset()">
-              <i class="fas fa-power-off" /> {{ $t("Reset") }}
-            </button>
-          </div>
+          <template v-else>
+            <div class="col-12 col-lg-3 mb-2">
+              <button class="btn btn-primary btn-block pos-btn" @click="saveInvoice" @keydown="form.onKeydown($event)">
+                <i class="fas fa-save" /> {{ $t("Save") }}
+              </button>
+            </div>
+            <div class="col-12 col-lg-3 mb-2">
+              <button class="btn btn-primary btn-block pos-btn" @click="completeOrderAndAddPayment">
+                <i class="fas fa-credit-card" />
+                {{ $t("Save & Payment") }}
+              </button>
+            </div>
+            <div class="col-12 col-lg-3 mb-2">
+              <button @click="openInvoicesPage" :title="$t('Open Invoices Page')" class="btn btn-info btn-block pos-btn">
+                <i class="fas fa-file-invoice" />
+                {{ $t('Invoices') }}
+              </button>
+            </div>
+            <div class="col-12 col-lg-3 mb-2">
+              <button type="reset" class="btn btn-info btn-block pos-btn" @click="form.reset()">
+                <i class="fas fa-power-off" /> {{ $t("Reset") }}
+              </button>
+            </div>
+          </template>
         </div>
       </div>
       <!-- pos left area end -->
@@ -722,6 +894,93 @@
       </div>
     </Modal>
 
+    <!-- Invoice Return Search Modal -->
+    <Modal class="invoice-return-search-modal" v-if="showInvoiceReturnModal" @close="closeInvoiceReturnModal">
+      <h5 slot="header">{{ $t("Invoice Return") }}</h5>
+      <div class="w-100" slot="body">
+        <div class="invoice-return-search-container">
+          <!-- Search Input -->
+          <div class="form-group">
+            <label for="modalInvoiceSearch">{{ $t("Search Invoice by Invoice No") }}</label>
+            <div class="input-group">
+              <input
+                id="modalInvoiceSearch"
+                ref="modalInvoiceSearchInput"
+                type="text"
+                class="form-control"
+                v-model="modalInvoiceSearchQuery"
+                :placeholder="$t('Enter invoice number')"
+                @keyup.enter="searchInvoiceInModal"
+                :disabled="isSearchingInvoiceInModal"
+              />
+              <div class="input-group-append">
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  @click="searchInvoiceInModal"
+                  :disabled="isSearchingInvoiceInModal || !modalInvoiceSearchQuery || modalInvoiceSearchQuery.trim() === ''">
+                  <i :class="isSearchingInvoiceInModal ? 'fas fa-spinner fa-spin' : 'fas fa-search'"></i>
+                  {{ $t("Search") }}
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Error Message -->
+          <div v-if="modalInvoiceSearchError" class="alert alert-danger" role="alert">
+            <i class="fas fa-exclamation-circle"></i>
+            {{ modalInvoiceSearchError }}
+          </div>
+
+          <!-- Loading State -->
+          <div v-if="isSearchingInvoiceInModal" class="text-center py-3">
+            <i class="fas fa-spinner fa-spin fa-2x text-primary"></i>
+            <p class="mt-2">{{ $t("Searching...") }}</p>
+          </div>
+
+          <!-- Invoice Info (if found) -->
+          <div v-if="modalSearchedInvoice && !isSearchingInvoiceInModal && !modalInvoiceSearchError" class="invoice-info-card">
+            <div class="card">
+              <div class="card-body">
+                <h6 class="card-title">{{ $t("Invoice Details") }}</h6>
+                <div class="invoice-info-item">
+                  <strong>{{ $t("Invoice No") }}:</strong>
+                  <span>{{ modalSearchedInvoice.invoiceNo | withPrefix(invoicePrefix) }}</span>
+                </div>
+                <div class="invoice-info-item" v-if="modalSearchedInvoice.client">
+                  <strong>{{ $t("Client") }}:</strong>
+                  <span>{{ modalSearchedInvoice.client.name || modalSearchedInvoice.client }}</span>
+                </div>
+                <div class="invoice-info-item" v-if="modalSearchedInvoice.invoiceDate">
+                  <strong>{{ $t("Date") }}:</strong>
+                  <span>{{ modalSearchedInvoice.invoiceDate | moment("Do MMM, YYYY") }}</span>
+                </div>
+                <div class="invoice-info-item" v-if="modalSearchedInvoice.invoiceTotal">
+                  <strong>{{ $t("Total") }}:</strong>
+                  <span>{{ formatNumber(modalSearchedInvoice.invoiceTotal) }} <span class="saudi-riyal">ê</span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div slot="modal-footer" class="invoice-return-modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          @click="closeInvoiceReturnModal">
+          {{ $t("Cancel") }}
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          @click="selectInvoiceForReturn"
+          :disabled="!modalSearchedInvoice">
+          {{ $t("Select Invoice") }}
+        </button>
+      </div>
+    </Modal>
+
     <!-- Stock Adjustment Modal -->
     <StockAdjustmentModal :is-open="showStockAdjustmentModal" :product="selectedProductForStockAdjustment"
       @close="closeStockAdjustmentModal" @adjust-quantity="adjustProductQuantity" @persist="saveTemporary"
@@ -822,6 +1081,12 @@ export default {
     // Stock adjustment modal
     showStockAdjustmentModal: false,
     selectedProductForStockAdjustment: null,
+    // Invoice Return Modal
+    showInvoiceReturnModal: false,
+    modalInvoiceSearchQuery: '',
+    isSearchingInvoiceInModal: false,
+    modalInvoiceSearchError: '',
+    modalSearchedInvoice: null,
     // Chart of account auto-assign
     isAutoAssigningClient: false,
     isAutoAssigningProduct: null,
@@ -832,6 +1097,26 @@ export default {
     // Invoice tabs pagination
     tabsPerPage: 6,
     currentTabsPage: 0,
+    // Invoice Return mode
+    isInvoiceReturnMode: false,
+    invoiceSearchQuery: '',
+    isSearchingInvoice: false,
+    invoiceSearchError: '',
+    selectedInvoiceForReturn: null,
+    returnProducts: [],
+    totalReturnAmount: 0,
+    returnForm: new Form({
+      returnReason: '',
+      invoice: null,
+      selectedProducts: [],
+      totalReturn: 0,
+      date: new Date().toISOString().slice(0, 10),
+      note: '',
+      status: 1,
+      account: '',
+      availableBalance: 0,
+      receiptNo: '',
+    }),
   }),
   computed: {
     ...mapGetters("operations", ["items", "appInfo"]),
@@ -1026,6 +1311,18 @@ export default {
     visibleInvoiceIndices() {
       const start = this.currentTabsPage * this.tabsPerPage;
       return this.visibleInvoices.map((_, i) => start + i);
+    },
+
+    // Invoice Return computed properties
+    allReturnProductsSelected() {
+      if (!this.returnProducts || this.returnProducts.length === 0) return false;
+      return this.returnProducts.every(p => p.isSelected && p.returnQty > 0);
+    },
+
+    someReturnProductsSelected() {
+      if (!this.returnProducts || this.returnProducts.length === 0) return false;
+      const selected = this.returnProducts.filter(p => p.isSelected && p.returnQty > 0);
+      return selected.length > 0 && selected.length < this.returnProducts.length;
     },
   },
   mounted() {
@@ -2381,7 +2678,7 @@ export default {
                 setTimeout(() => window.close(), 200);
               };
             <\/script>
-          </body></html>`
+          </body><\/html>`
         );
         printWindow.document.close();
       } catch (err) {
@@ -2508,7 +2805,7 @@ export default {
     async persistSuspendedInvoices() {
       try {
         // Update all invoices as sessions
-        const updatePromises = this.invoices.map(async (invoice, index) => {
+        const updatePromises = this.invoices.map(async (invoice) => {
           const invoiceData = {
             id: invoice.id,
             createdAt: invoice.createdAt,
@@ -2540,6 +2837,24 @@ export default {
             category: invoice.category || "",
             invoice_id: invoice.invoice_id || null,
             invoice_slug: invoice.invoice_slug || null,
+            // Invoice Return data
+            isReturnInvoice: invoice.isReturnInvoice || false,
+            returnInvoiceNo: invoice.returnInvoiceNo || null,
+            selectedInvoiceForReturn: invoice.selectedInvoiceForReturn || null,
+            returnProducts: invoice.returnProducts || [],
+            totalReturnAmount: invoice.totalReturnAmount || 0,
+            returnForm: invoice.returnForm || {
+              returnReason: '',
+              invoice: null,
+              selectedProducts: [],
+              totalReturn: 0,
+              date: new Date().toISOString().slice(0, 10),
+              note: '',
+              status: 1,
+              account: '',
+              availableBalance: 0,
+              receiptNo: '',
+            },
           };
 
           // If invoice has a session_id, update it; otherwise create new
@@ -2616,6 +2931,24 @@ export default {
             invoice_id: invoiceData.invoice_id || null,
             invoice_slug: invoiceData.invoice_slug || null,
             attachment: null, // Cannot restore file attachments
+            // Invoice Return data
+            isReturnInvoice: invoiceData.isReturnInvoice || false,
+            returnInvoiceNo: invoiceData.returnInvoiceNo || null,
+            selectedInvoiceForReturn: invoiceData.selectedInvoiceForReturn || null,
+            returnProducts: invoiceData.returnProducts || [],
+            totalReturnAmount: invoiceData.totalReturnAmount || 0,
+            returnForm: invoiceData.returnForm || {
+              returnReason: '',
+              invoice: null,
+              selectedProducts: [],
+              totalReturn: 0,
+              date: new Date().toISOString().slice(0, 10),
+              note: '',
+              status: 1,
+              account: '',
+              availableBalance: 0,
+              receiptNo: '',
+            },
           };
         });
 
@@ -2752,6 +3085,24 @@ export default {
         category: invoice.category || "",
         invoice_id: invoice.invoice_id || null,
         invoice_slug: invoice.invoice_slug || null,
+        // Invoice Return data
+        isReturnInvoice: invoice.isReturnInvoice || false,
+        returnInvoiceNo: invoice.returnInvoiceNo || null,
+        selectedInvoiceForReturn: invoice.selectedInvoiceForReturn || null,
+        returnProducts: invoice.returnProducts || [],
+        totalReturnAmount: invoice.totalReturnAmount || 0,
+        returnForm: invoice.returnForm || {
+          returnReason: '',
+          invoice: null,
+          selectedProducts: [],
+          totalReturn: 0,
+          date: new Date().toISOString().slice(0, 10),
+          note: '',
+          status: 1,
+          account: '',
+          availableBalance: 0,
+          receiptNo: '',
+        },
       };
     },
 
@@ -2793,6 +3144,48 @@ export default {
       currentInvoice.invoice_id = this.form.invoice_id || null;
       currentInvoice.invoice_slug = this.form.invoice_slug || null;
       currentInvoice.attachment = this.form.attachment || null;
+
+      // Save Invoice Return data if in return mode
+      if (this.isInvoiceReturnMode) {
+        currentInvoice.isReturnInvoice = true;
+        currentInvoice.returnInvoiceNo = this.selectedInvoiceForReturn 
+          ? this.$options.filters.withPrefix(this.selectedInvoiceForReturn.invoiceNo, this.invoicePrefix)
+          : null;
+        currentInvoice.selectedInvoiceForReturn = this.selectedInvoiceForReturn;
+        // Deep clone return products
+        currentInvoice.returnProducts = JSON.parse(JSON.stringify(this.returnProducts || []));
+        currentInvoice.totalReturnAmount = this.totalReturnAmount || 0;
+        currentInvoice.returnForm = {
+          returnReason: this.returnForm.returnReason || '',
+          invoice: this.returnForm.invoice || null,
+          selectedProducts: this.returnForm.selectedProducts || [],
+          totalReturn: this.returnForm.totalReturn || 0,
+          date: this.returnForm.date || new Date().toISOString().slice(0, 10),
+          note: this.returnForm.note || '',
+          status: this.returnForm.status !== undefined ? this.returnForm.status : 1,
+          account: this.returnForm.account || '',
+          availableBalance: this.returnForm.availableBalance || 0,
+          receiptNo: this.returnForm.receiptNo || '',
+        };
+      } else {
+        currentInvoice.isReturnInvoice = false;
+        currentInvoice.returnInvoiceNo = null;
+        currentInvoice.selectedInvoiceForReturn = null;
+        currentInvoice.returnProducts = [];
+        currentInvoice.totalReturnAmount = 0;
+        currentInvoice.returnForm = {
+          returnReason: '',
+          invoice: null,
+          selectedProducts: [],
+          totalReturn: 0,
+          date: new Date().toISOString().slice(0, 10),
+          note: '',
+          status: 1,
+          account: '',
+          availableBalance: 0,
+          receiptNo: '',
+        };
+      }
 
       // Update session via API (async, but don't wait)
       if (currentInvoice.session_id) {
@@ -2840,6 +3233,39 @@ export default {
       this.form.invoice_id = invoice.invoice_id || null;
       this.form.invoice_slug = invoice.invoice_slug || null;
       this.form.attachment = invoice.attachment || null;
+
+      // Restore Invoice Return data if it's a return invoice
+      if (invoice.isReturnInvoice) {
+        this.isInvoiceReturnMode = true;
+        this.selectedInvoiceForReturn = invoice.selectedInvoiceForReturn || null;
+        this.returnProducts = JSON.parse(JSON.stringify(invoice.returnProducts || []));
+        this.totalReturnAmount = invoice.totalReturnAmount || 0;
+        
+        // Restore return form
+        if (invoice.returnForm) {
+          this.returnForm.returnReason = invoice.returnForm.returnReason || '';
+          this.returnForm.invoice = invoice.returnForm.invoice || null;
+          this.returnForm.selectedProducts = invoice.returnForm.selectedProducts || [];
+          this.returnForm.totalReturn = invoice.returnForm.totalReturn || 0;
+          this.returnForm.date = invoice.returnForm.date || new Date().toISOString().slice(0, 10);
+          this.returnForm.note = invoice.returnForm.note || '';
+          this.returnForm.status = invoice.returnForm.status !== undefined ? invoice.returnForm.status : 1;
+          this.returnForm.account = invoice.returnForm.account || '';
+          this.returnForm.availableBalance = invoice.returnForm.availableBalance || 0;
+          this.returnForm.receiptNo = invoice.returnForm.receiptNo || '';
+        }
+        
+        // Recalculate return totals
+        this.$nextTick(() => {
+          this.calculateReturnTotals();
+        });
+      } else {
+        this.isInvoiceReturnMode = false;
+        this.selectedInvoiceForReturn = null;
+        this.returnProducts = [];
+        this.totalReturnAmount = 0;
+        this.returnForm.reset();
+      }
 
       // Recalculate totals after restoring
       this.$nextTick(() => {
@@ -3223,7 +3649,248 @@ export default {
       this.selectedProductForStockAdjustment = null;
     },
 
-    adjustProductQuantity(product) {
+    // Invoice Return Modal methods
+    openInvoiceReturnModal() {
+      this.showInvoiceReturnModal = true;
+      this.modalInvoiceSearchQuery = '';
+      this.modalInvoiceSearchError = '';
+      this.modalSearchedInvoice = null;
+      // Focus on search input when modal opens
+      this.$nextTick(() => {
+        if (this.$refs.modalInvoiceSearchInput) {
+          this.$refs.modalInvoiceSearchInput.focus();
+        }
+      });
+    },
+
+    closeInvoiceReturnModal() {
+      this.showInvoiceReturnModal = false;
+      this.modalInvoiceSearchQuery = '';
+      this.modalInvoiceSearchError = '';
+      this.modalSearchedInvoice = null;
+      this.isSearchingInvoiceInModal = false;
+    },
+
+    async searchInvoiceInModal() {
+      // Trim and validate input
+      const searchTerm = this.modalInvoiceSearchQuery ? this.modalInvoiceSearchQuery.trim() : '';
+      
+      if (!searchTerm || searchTerm === '') {
+        this.modalInvoiceSearchError = this.$t('Please enter an invoice number');
+        return;
+      }
+
+      this.isSearchingInvoiceInModal = true;
+      this.modalInvoiceSearchError = '';
+      this.modalSearchedInvoice = null;
+
+      try {
+        // Use a very high perPage value to effectively remove pagination
+        let invoices = [];
+        
+        // First, try the search endpoint
+        const searchResponse = await axios.get('/api/invoices/search', {
+          params: {
+            term: searchTerm,
+            perPage: 9999,
+          },
+        });
+
+        // Handle paginated response structure
+        if (searchResponse.data) {
+          if (searchResponse.data.data && Array.isArray(searchResponse.data.data)) {
+            invoices = searchResponse.data.data;
+          } else if (Array.isArray(searchResponse.data)) {
+            invoices = searchResponse.data;
+          }
+        }
+
+        // If search returns empty, try index endpoint with term filter
+        if (invoices.length === 0) {
+          try {
+            const indexResponse = await axios.get('/api/invoices', {
+              params: {
+                term: searchTerm,
+                perPage: 9999,
+              },
+            });
+            
+            if (indexResponse.data) {
+              if (indexResponse.data.data && Array.isArray(indexResponse.data.data)) {
+                invoices = indexResponse.data.data;
+              } else if (Array.isArray(indexResponse.data)) {
+                invoices = indexResponse.data;
+              }
+            }
+          } catch (indexError) {
+            // Ignore index endpoint errors
+            console.log('Index endpoint fallback failed:', indexError);
+          }
+        }
+
+        if (invoices && invoices.length > 0) {
+          // Normalize search term (case-insensitive, trim)
+          const normalizedSearchTerm = searchTerm.toUpperCase().trim();
+          
+          // Helper function to check if invoice matches search term
+          const matchesInvoice = (invoice) => {
+            if (!invoice) return false;
+            
+            const invoiceNo = (invoice.invoiceNo || '').toString().toUpperCase().trim();
+            const invoiceLabel = (invoice.invoiceLabel || '').toString().toUpperCase().trim();
+            
+            // 1. Exact match on invoiceNo
+            if (invoiceNo === normalizedSearchTerm) {
+              return true;
+            }
+            
+            // 2. Exact match on invoiceLabel
+            if (invoiceLabel === normalizedSearchTerm) {
+              return true;
+            }
+            
+            // 3. Check if invoiceLabel ends with search term (handles prefix cases)
+            if (invoiceLabel.endsWith(normalizedSearchTerm)) {
+              return true;
+            }
+            
+            // 4. Check if invoiceNo ends with search term
+            if (invoiceNo.endsWith(normalizedSearchTerm)) {
+              return true;
+            }
+            
+            // 5. Check if invoiceLabel contains search term
+            if (invoiceLabel.includes(normalizedSearchTerm)) {
+              return true;
+            }
+            
+            // 6. Check if invoiceNo contains search term
+            if (invoiceNo.includes(normalizedSearchTerm)) {
+              return true;
+            }
+            
+            return false;
+          };
+
+          // Find matching invoice - prioritize exact matches
+          let matchedInvoice = invoices.find(inv => {
+            const invoiceNo = (inv.invoiceNo || '').toString().toUpperCase().trim();
+            const invoiceLabel = (inv.invoiceLabel || '').toString().toUpperCase().trim();
+            return invoiceNo === normalizedSearchTerm || invoiceLabel === normalizedSearchTerm;
+          });
+
+          // If no exact match, try partial matches
+          if (!matchedInvoice) {
+            matchedInvoice = invoices.find(matchesInvoice);
+          }
+
+          if (matchedInvoice) {
+            // Load full invoice details
+            try {
+              const detailResponse = await axios.get(`/api/invoices/${matchedInvoice.slug}`);
+              if (detailResponse.data && detailResponse.data.data) {
+                this.modalSearchedInvoice = detailResponse.data.data;
+                this.modalInvoiceSearchError = '';
+              } else {
+                this.modalSearchedInvoice = matchedInvoice;
+              }
+            } catch (detailError) {
+              // If detail fetch fails, use the matched invoice from search
+              this.modalSearchedInvoice = matchedInvoice;
+            }
+          } else {
+            this.modalInvoiceSearchError = this.$t('Invoice not found. Please check the invoice number.');
+          }
+        } else {
+          this.modalInvoiceSearchError = this.$t('Invoice not found. Please check the invoice number.');
+        }
+      } catch (error) {
+        console.error('Error searching invoice in modal:', error);
+        this.modalInvoiceSearchError = this.$t('Error searching invoice. Please try again.');
+        if (error.response && error.response.data && error.response.data.message) {
+          this.modalInvoiceSearchError = error.response.data.message;
+        }
+      } finally {
+        this.isSearchingInvoiceInModal = false;
+      }
+    },
+
+    async selectInvoiceForReturn() {
+      if (!this.modalSearchedInvoice) {
+        return;
+      }
+
+      // Save current invoice state if exists
+      if (this.invoices.length > 0 && this.currentInvoiceIndex >= 0 && this.currentInvoiceIndex < this.invoices.length) {
+        this.saveInvoiceState();
+      }
+
+      // Create a new invoice session for the return
+      const returnInvoice = this.createEmptyInvoice();
+      returnInvoice.isReturnInvoice = true;
+      returnInvoice.reference = `${this.$t('Return')}-${this.invoiceCounter}`;
+      
+      // Store the selected invoice in POS state
+      this.selectedInvoiceForReturn = this.modalSearchedInvoice;
+      returnInvoice.selectedInvoiceForReturn = this.modalSearchedInvoice;
+      returnInvoice.returnInvoiceNo = this.modalSearchedInvoice.invoiceNo 
+        ? this.$options.filters.withPrefix(this.modalSearchedInvoice.invoiceNo, this.invoicePrefix)
+        : null;
+      
+      // Enable invoice return mode
+      this.isInvoiceReturnMode = true;
+      
+      // Load invoice products for return
+      await this.loadInvoiceDetails(this.modalSearchedInvoice.slug);
+      
+      // Update return invoice with loaded data
+      returnInvoice.returnProducts = JSON.parse(JSON.stringify(this.returnProducts || []));
+      returnInvoice.totalReturnAmount = this.totalReturnAmount || 0;
+      returnInvoice.returnForm = {
+        returnReason: this.returnForm.returnReason || '',
+        invoice: this.returnForm.invoice || null,
+        selectedProducts: this.returnForm.selectedProducts || [],
+        totalReturn: this.returnForm.totalReturn || 0,
+        date: this.returnForm.date || new Date().toISOString().slice(0, 10),
+        note: this.returnForm.note || '',
+        status: this.returnForm.status !== undefined ? this.returnForm.status : 1,
+        account: this.returnForm.account || '',
+        availableBalance: this.returnForm.availableBalance || 0,
+        receiptNo: this.returnForm.receiptNo || '',
+      };
+      
+      // Create session via API
+      try {
+        const invoiceData = this.getInvoiceData(returnInvoice);
+        const response = await axios.post('/api/pos/sessions', {
+          invoice_data: invoiceData,
+          status: 'active',
+        });
+        returnInvoice.session_id = response.data.data.id;
+      } catch (error) {
+        console.error('Error creating return invoice session:', error);
+        // Continue anyway, session will be created on next save
+      }
+      
+      // Add to invoices array and switch to it
+      this.invoices.push(returnInvoice);
+      this.currentInvoiceIndex = this.invoices.length - 1;
+      this.updateTabsPageForInvoice(this.currentInvoiceIndex);
+      
+      // Restore the return invoice state
+      this.restoreInvoiceState(returnInvoice);
+      
+      // Close the modal
+      this.closeInvoiceReturnModal();
+      
+      // Show success message
+      this.$toast.success(
+        this.$t('Invoice Selected'),
+        this.$t('Invoice has been selected for return. Please select products to return.')
+      );
+    },
+
+    adjustProductQuantity() {
       // In POS, we don't need to adjust quantity in selected products
       // Just close the modal and refresh products
       this.closeStockAdjustmentModal();
@@ -3400,6 +4067,489 @@ export default {
         }
       } finally {
         this.isAutoAssigningProduct = null;
+      }
+    },
+
+    // Invoice Return Methods
+    toggleInvoiceReturnMode() {
+      if (!this.isInvoiceReturnMode) {
+        // Reset invoice return data when disabling
+        this.resetInvoiceReturnData();
+      }
+    },
+
+    resetInvoiceReturnData() {
+      this.invoiceSearchQuery = '';
+      this.invoiceSearchError = '';
+      this.selectedInvoiceForReturn = null;
+      this.returnProducts = [];
+      this.totalReturnAmount = 0;
+      this.returnForm.reset();
+    },
+
+    async searchInvoice() {
+      // Trim and validate input
+      const searchTerm = this.invoiceSearchQuery ? this.invoiceSearchQuery.trim() : '';
+      
+      if (!searchTerm || searchTerm === '') {
+        this.invoiceSearchError = this.$t('Please enter an invoice number');
+        return;
+      }
+
+      this.isSearchingInvoice = true;
+      this.invoiceSearchError = '';
+      this.selectedInvoiceForReturn = null;
+      this.returnProducts = [];
+
+      try {
+        // Use a very high perPage value to effectively remove pagination
+        // Also try the index endpoint as fallback if search returns empty
+        let invoices = [];
+        
+        // First, try the search endpoint
+        const searchResponse = await axios.get('/api/invoices/search', {
+          params: {
+            term: searchTerm,
+            perPage: 9999, // Very high value to get all matching results
+          },
+        });
+
+        // Handle paginated response structure
+        if (searchResponse.data) {
+          // Check if response is paginated (has data property) or direct array
+          if (searchResponse.data.data && Array.isArray(searchResponse.data.data)) {
+            invoices = searchResponse.data.data;
+          } else if (Array.isArray(searchResponse.data)) {
+            invoices = searchResponse.data;
+          }
+        }
+
+        // If search returns empty, try index endpoint with term filter
+        if (invoices.length === 0) {
+          try {
+            const indexResponse = await axios.get('/api/invoices', {
+              params: {
+                term: searchTerm,
+                perPage: 9999,
+              },
+            });
+            
+            if (indexResponse.data) {
+              if (indexResponse.data.data && Array.isArray(indexResponse.data.data)) {
+                invoices = indexResponse.data.data;
+              } else if (Array.isArray(indexResponse.data)) {
+                invoices = indexResponse.data;
+              }
+            }
+          } catch (indexError) {
+            // Ignore index endpoint errors, continue with search results
+            console.log('Index endpoint fallback failed:', indexError);
+          }
+        }
+
+        if (invoices && invoices.length > 0) {
+          // Normalize search term (case-insensitive, trim)
+          const normalizedSearchTerm = searchTerm.toUpperCase().trim();
+          
+          // Helper function to check if invoice matches search term
+          const matchesInvoice = (invoice) => {
+            if (!invoice) return false;
+            
+            // Get invoice number and label (case-insensitive comparison)
+            const invoiceNo = (invoice.invoiceNo || '').toString().toUpperCase().trim();
+            const invoiceLabel = (invoice.invoiceLabel || '').toString().toUpperCase().trim();
+            
+            // 1. Exact match on invoiceNo
+            if (invoiceNo === normalizedSearchTerm) {
+              return true;
+            }
+            
+            // 2. Exact match on invoiceLabel
+            if (invoiceLabel === normalizedSearchTerm) {
+              return true;
+            }
+            
+            // 3. Check if invoiceLabel ends with search term (handles prefix cases)
+            // e.g., search "API001" matches "APIAPI001"
+            if (invoiceLabel.endsWith(normalizedSearchTerm)) {
+              return true;
+            }
+            
+            // 4. Check if invoiceNo ends with search term
+            if (invoiceNo.endsWith(normalizedSearchTerm)) {
+              return true;
+            }
+            
+            // 5. Check if invoiceLabel contains search term
+            if (invoiceLabel.includes(normalizedSearchTerm)) {
+              return true;
+            }
+            
+            // 6. Check if invoiceNo contains search term
+            if (invoiceNo.includes(normalizedSearchTerm)) {
+              return true;
+            }
+            
+            return false;
+          };
+
+          // Find matching invoice - prioritize exact matches
+          let matchedInvoice = invoices.find(inv => {
+            const invoiceNo = (inv.invoiceNo || '').toString().toUpperCase().trim();
+            const invoiceLabel = (inv.invoiceLabel || '').toString().toUpperCase().trim();
+            return invoiceNo === normalizedSearchTerm || invoiceLabel === normalizedSearchTerm;
+          });
+
+          // If no exact match, try partial matches
+          if (!matchedInvoice) {
+            matchedInvoice = invoices.find(matchesInvoice);
+          }
+
+          if (matchedInvoice) {
+            await this.loadInvoiceDetails(matchedInvoice.slug);
+            // Clear any previous errors on success
+            this.invoiceSearchError = '';
+          } else {
+            this.invoiceSearchError = this.$t('Invoice not found. Please check the invoice number.');
+          }
+        } else {
+          // Log for debugging
+          console.log('No invoices found in response. Search term:', searchTerm);
+          console.log('Invoices array length:', invoices.length);
+          this.invoiceSearchError = this.$t('Invoice not found. Please check the invoice number.');
+        }
+      } catch (error) {
+        console.error('Error searching invoice:', error);
+        console.error('Error details:', {
+          message: error.message,
+          response: error.response?.data,
+          status: error.response?.status,
+        });
+        this.invoiceSearchError = this.$t('Error searching invoice. Please try again.');
+        if (error.response && error.response.data && error.response.data.message) {
+          this.invoiceSearchError = error.response.data.message;
+        }
+      } finally {
+        this.isSearchingInvoice = false;
+      }
+    },
+
+    async loadInvoiceDetails(invoiceSlug) {
+      try {
+        const response = await axios.get(`/api/invoices/${invoiceSlug}`);
+        
+        if (response.data && response.data.data) {
+          this.selectedInvoiceForReturn = response.data.data;
+          
+          // Load invoice products
+          if (this.selectedInvoiceForReturn.invoiceProducts && this.selectedInvoiceForReturn.invoiceProducts.length > 0) {
+            this.returnProducts = this.selectedInvoiceForReturn.invoiceProducts.map(product => {
+              // Handle both camelCase (from resource) and snake_case (direct from model) field names
+              const salePrice = Number(product.salePrice || product.sale_price || product.unitPrice || 0);
+              const purchasePrice = Number(product.purchasePrice || product.purchase_price || product.avgPurchasePrice || 0);
+              const discountAmount = Number(product.productDiscount || product.discountAmount || product.discount_amount || 0);
+              const taxAmount = Number(product.productTax || product.unitTax || product.tax_amount || 0);
+              const quantity = Number(product.quantity || 0);
+              
+              return {
+                id: product.productID || product.product_id || product.id,
+                name: product.productName || product.product?.name || product.name || '',
+                slug: product.productSlug || product.product?.slug || product.slug || '',
+                originalQuantity: quantity,
+                unitPrice: salePrice,
+                unitCost: salePrice, // Use sale price as unit cost for return calculation
+                avgPurchasePrice: purchasePrice,
+                returnQty: 0,
+                returnTotal: 0,
+                isSelected: false,
+                returnQtyError: '',
+                discountAmount: discountAmount,
+                tax_amount: taxAmount,
+              };
+            });
+            
+            // Initialize totals calculation
+            this.calculateReturnTotals();
+          } else {
+            this.returnProducts = [];
+            this.invoiceSearchError = this.$t('No products found in this invoice.');
+          }
+
+          // Set return form data
+          this.returnForm.invoice = this.selectedInvoiceForReturn;
+          // Ensure client is properly set from invoice
+          if (this.selectedInvoiceForReturn.client) {
+            this.returnForm.client = this.selectedInvoiceForReturn.client;
+          } else if (this.selectedInvoiceForReturn.client_id) {
+            // If client object is not loaded, try to find it from clients list
+            const clientFromList = this.clients.find(c => c.id === this.selectedInvoiceForReturn.client_id);
+            if (clientFromList) {
+              this.returnForm.client = clientFromList;
+            }
+          }
+          this.returnForm.date = new Date().toISOString().slice(0, 10);
+          
+          // Set default status based on country
+          if (this.isSaudiArabia) {
+            this.returnForm.status = 0; // Inactive for Saudi Arabia
+          } else {
+            this.returnForm.status = 1; // Active for other countries
+          }
+        }
+      } catch (error) {
+        console.error('Error loading invoice details:', error);
+        this.invoiceSearchError = this.$t('Error loading invoice details. Please try again.');
+        if (error.response && error.response.data && error.response.data.message) {
+          this.invoiceSearchError = error.response.data.message;
+        }
+      }
+    },
+
+    validateReturnQuantity(index) {
+      const product = this.returnProducts[index];
+      if (!product) return;
+
+      if (product.returnQty < 0) {
+        product.returnQtyError = this.$t('Return quantity cannot be negative');
+        product.returnQty = 0;
+      } else if (product.returnQty > product.originalQuantity) {
+        product.returnQtyError = this.$t('Return quantity cannot exceed original quantity');
+        product.returnQty = product.originalQuantity;
+      } else if (product.returnQty > 0 && !product.isSelected) {
+        // Auto-select if quantity is entered
+        product.isSelected = true;
+      } else if (product.returnQty === 0 && product.isSelected) {
+        // Auto-deselect if quantity is 0
+        product.isSelected = false;
+      } else {
+        product.returnQtyError = '';
+      }
+
+      this.calculateReturnTotals();
+    },
+
+    calculateReturnTotals() {
+      this.totalReturnAmount = 0;
+
+      this.returnProducts.forEach((product, index) => {
+        if (product.isSelected && product.returnQty > 0) {
+          // Calculate return total matching backend logic exactly
+          // Backend uses: unit_discount = round(discount_amount / quantity, 2)
+          const unitDiscount = this.roundToTwoDecimals(
+            (product.discountAmount || 0) / (product.originalQuantity || 1)
+          );
+
+          // Backend uses: unit_net = sale_price - unit_discount
+          const unitNet = (product.unitPrice || 0) - unitDiscount;
+
+          // Backend uses: unit_vat = round(unit_net * 0.20, 2)
+          // Fixed 20% VAT rate as per backend implementation
+          const unitVat = this.roundToTwoDecimals(unitNet * 0.20);
+
+          // Backend uses: unit_total = unit_net + unit_vat
+          const unitTotal = unitNet + unitVat;
+
+          // Backend uses: return_total = round(unit_total * return_qty, 2)
+          product.returnTotal = this.roundToTwoDecimals(unitTotal * product.returnQty);
+          this.totalReturnAmount += product.returnTotal;
+          
+          // Debug logging for troubleshooting
+          if (product.returnTotal === 0 && product.unitPrice > 0) {
+            console.log(`Product ${index} calculation:`, {
+              unitPrice: product.unitPrice,
+              discountAmount: product.discountAmount,
+              originalQuantity: product.originalQuantity,
+              returnQty: product.returnQty,
+              unitDiscount,
+              unitNet,
+              unitVat,
+              unitTotal,
+              returnTotal: product.returnTotal,
+            });
+          }
+        } else {
+          product.returnTotal = 0;
+        }
+      });
+
+      // Round total to 2 decimals to match backend
+      this.totalReturnAmount = this.roundToTwoDecimals(this.totalReturnAmount);
+      this.returnForm.totalReturn = this.totalReturnAmount;
+    },
+
+    toggleAllReturnProducts() {
+      const allSelected = this.allReturnProductsSelected;
+      this.returnProducts.forEach(product => {
+        product.isSelected = !allSelected;
+        if (!allSelected && product.returnQty === 0) {
+          product.returnQty = 1; // Set default return quantity to 1 when selecting
+        } else if (allSelected) {
+          product.returnQty = 0;
+        }
+      });
+      this.calculateReturnTotals();
+    },
+
+    updateReturnAccountBalance() {
+      if (this.returnForm.account && this.returnForm.account.availableBalance !== undefined) {
+        this.returnForm.availableBalance = Number(this.returnForm.account.availableBalance || 0);
+      } else {
+        this.returnForm.availableBalance = 0;
+      }
+    },
+
+    async saveInvoiceReturn() {
+      // Recalculate totals before submission to ensure accuracy
+      this.calculateReturnTotals();
+
+      // Validate return reason
+      if (!this.returnForm.returnReason || this.returnForm.returnReason.trim() === '') {
+        this.$toast.error(
+          this.$t('Validation Error'),
+          this.$t('Please enter a return reason')
+        );
+        return;
+      }
+
+      // Validate that at least one product is selected with return quantity > 0
+      const selectedProducts = this.returnProducts.filter(
+        p => p.isSelected && p.returnQty > 0
+      );
+
+      if (selectedProducts.length === 0) {
+        this.$toast.error(
+          this.$t('Validation Error'),
+          this.$t('Please select at least one product with return quantity greater than 0')
+        );
+        return;
+      }
+
+      // Validate return quantities
+      let hasError = false;
+      selectedProducts.forEach(product => {
+        if (product.returnQty <= 0) {
+          product.returnQtyError = this.$t('Return quantity must be greater than 0');
+          hasError = true;
+        } else if (product.returnQty > product.originalQuantity) {
+          product.returnQtyError = this.$t('Return quantity cannot exceed original quantity');
+          hasError = true;
+        }
+      });
+
+      if (hasError) {
+        this.$toast.error(
+          this.$t('Validation Error'),
+          this.$t('Please fix the return quantity errors')
+        );
+        return;
+      }
+
+      // Ensure totalReturnAmount is calculated and valid
+      const calculatedTotalReturn = Number(this.totalReturnAmount || 0);
+      if (calculatedTotalReturn <= 0) {
+        this.$toast.error(
+          this.$t('Validation Error'),
+          this.$t('Total return amount must be greater than 0')
+        );
+        return;
+      }
+
+      // Validate account if return amount > 0
+      if (calculatedTotalReturn > 0 && !this.returnForm.account) {
+        this.$toast.error(
+          this.$t('Validation Error'),
+          this.$t('Please select an account for the return')
+        );
+        return;
+      }
+
+      // Prepare selected products for API
+      const preparedProducts = selectedProducts.map(product => ({
+        id: product.id,
+        slug: product.slug,
+        returnQty: product.returnQty,
+        unitCost: product.unitCost,
+        avgPurchasePrice: product.avgPurchasePrice,
+      }));
+
+      // Prepare form data - ensure totalReturn is a number with at least 2 decimal precision
+      // Convert to number to ensure it's not a string
+      const totalReturnValue = Number(this.roundToTwoDecimals(calculatedTotalReturn));
+      
+      // Final validation: ensure totalReturn is at least 1 (as required by backend)
+      if (totalReturnValue < 1) {
+        this.$toast.error(
+          this.$t('Validation Error'),
+          this.$t('Total return amount must be at least 1')
+        );
+        return;
+      }
+
+      // Ensure client is set from invoice if not already set
+      const client = this.returnForm.client || this.selectedInvoiceForReturn?.client || null;
+      
+      if (!client) {
+        this.$toast.error(
+          this.$t('Validation Error'),
+          this.$t('Client information is missing. Please try selecting the invoice again.')
+        );
+        return;
+      }
+
+      const formData = {
+        returnReason: this.returnForm.returnReason,
+        client: client,
+        invoice: this.selectedInvoiceForReturn,
+        selectedProducts: preparedProducts,
+        totalReturn: totalReturnValue, // Ensure it's a number, not a string
+        date: this.returnForm.date,
+        note: this.returnForm.note || '',
+        status: this.returnForm.status,
+      };
+
+      // Add account if return amount > 0
+      if (this.totalReturnAmount > 0 && this.returnForm.account) {
+        formData.account = this.returnForm.account;
+        formData.availableBalance = this.returnForm.availableBalance || 0;
+        formData.receiptNo = this.returnForm.receiptNo || '';
+      }
+
+      try {
+        this.returnForm.busy = true;
+        
+        // Debug: Log form data before submission
+        console.log('Submitting invoice return with data:', {
+          ...formData,
+          totalReturn: formData.totalReturn,
+          totalReturnType: typeof formData.totalReturn,
+          selectedProductsCount: formData.selectedProducts.length,
+        });
+        
+        const response = await axios.post('/api/invoice-returns', formData);
+
+        if (response.data.success) {
+          this.$toast.success(
+            this.$t('Success'),
+            this.$t('Invoice return created successfully')
+          );
+
+          // Reset invoice return data
+          this.resetInvoiceReturnData();
+          this.isInvoiceReturnMode = false;
+
+          // Optionally redirect to invoice returns page or show success message
+          this.$router.push({ name: 'invoiceReturns.index' });
+        } else {
+          throw new Error(response.data.message || this.$t('Failed to create invoice return'));
+        }
+      } catch (error) {
+        console.error('Error creating invoice return:', error);
+        const ErrorHandler = require('~/utils/errorHandler').default;
+        ErrorHandler.handleApiError(error, {
+          showValidationErrors: true,
+        });
+      } finally {
+        this.returnForm.busy = false;
       }
     },
   },
@@ -4688,6 +5838,95 @@ span.pqty {
   font-weight: 600;
 }
 
+/* Invoice Return Button */
+.invoice-return-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 19px 19px;
+  background: linear-gradient(135deg, #28a745 0%, #218838 100%);
+  border: none;
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(40, 167, 69, 0.2);
+  margin-left: 8px;
+}
+
+.invoice-return-btn:hover {
+  background: linear-gradient(135deg, #218838 0%, #1e7e34 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.35);
+}
+
+.invoice-return-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(40, 167, 69, 0.25);
+}
+
+.invoice-return-btn i {
+  font-size: 14px;
+}
+
+/* Invoice Return Modal Styles */
+.invoice-return-search-container {
+  padding: 10px 0;
+}
+
+.invoice-info-card {
+  margin-top: 20px;
+}
+
+.invoice-info-card .card {
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+}
+
+.invoice-info-card .card-body {
+  padding: 15px;
+}
+
+.invoice-info-card .card-title {
+  margin-bottom: 15px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.invoice-info-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.invoice-info-item:last-child {
+  border-bottom: none;
+}
+
+.invoice-info-item strong {
+  color: #666;
+  font-weight: 600;
+}
+
+.invoice-info-item span {
+  color: #333;
+  text-align: right;
+}
+
+.invoice-return-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 15px;
+  border-top: 1px solid #dee2e6;
+}
+
 .invoice-tab {
   display: flex;
   align-items: center;
@@ -4817,6 +6056,53 @@ span.pqty {
   font-size: 10px;
 }
 
+/* Invoice Return Tab Styling */
+.invoice-tab-return {
+  border-color: #f59e0b;
+  background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+}
+
+.invoice-tab-return:hover {
+  background: linear-gradient(135deg, #ffedd5 0%, #fed7aa 100%);
+  border-color: #f59e0b;
+}
+
+.invoice-tab-return .invoice-tab-icon {
+  color: #f59e0b;
+  opacity: 1;
+}
+
+.invoice-tab-return.invoice-tab-active {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  border-color: #f59e0b;
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
+}
+
+.invoice-tab-return.invoice-tab-active:hover {
+  background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+  box-shadow: 0 6px 18px rgba(245, 158, 11, 0.4);
+}
+
+.return-badge {
+  display: inline-block;
+  padding: 2px 6px;
+  background: #f59e0b;
+  color: #ffffff;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-right: 4px;
+  vertical-align: middle;
+}
+
+.invoice-tab-return.invoice-tab-active .return-badge {
+  background: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
 @media only screen and (max-width: 767px) {
   .invoice-session-controls {
     padding: 10px 12px;
@@ -4861,6 +6147,16 @@ span.pqty {
   .invoice-create-btn i {
     font-size: 14px;
   }
+
+  .invoice-return-btn {
+    padding: 8px 12px;
+    font-size: 12px;
+    margin-left: 4px;
+  }
+
+  .invoice-return-btn i {
+    font-size: 14px;
+  }
 }
 
 /* RTL Invoice Tab Time */
@@ -4889,6 +6185,12 @@ span.pqty {
 [dir="rtl"] .invoice-create-btn {
   order: 0;
   margin-left: 0;
+}
+
+[dir="rtl"] .invoice-return-btn {
+  order: -1;
+  margin-left: 0;
+  margin-right: 8px;
 }
 
 [dir="rtl"] .invoice-tabs-wrapper .invoice-tabs-nav-next {

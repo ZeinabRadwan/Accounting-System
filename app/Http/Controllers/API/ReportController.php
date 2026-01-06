@@ -5262,6 +5262,7 @@ class ReportController extends Controller
             $this->validate($request, [
                 'status' => 'nullable|in:active,suspended,closed',
                 'user_id' => 'nullable|exists:users,id',
+                'session_type' => 'nullable|in:invoice,return',
                 'opened_from' => 'nullable|date',
                 'opened_to' => 'nullable|date|after_or_equal:opened_from',
                 'closed_from' => 'nullable|date',
@@ -5309,6 +5310,26 @@ class ReportController extends Controller
                 });
             }
 
+            // Apply session type filter (invoice or return)
+            if ($request->has('session_type') && $request->session_type !== '') {
+                $sessionType = $request->session_type;
+                $query->where(function ($q) use ($sessionType) {
+                    if ($sessionType === 'return') {
+                        // Filter for return invoices - check if invoice_data contains isReturnInvoice = true
+                        $q->whereRaw("JSON_EXTRACT(invoice_data, '$.isReturnInvoice') = true")
+                            ->orWhereRaw("JSON_EXTRACT(invoice_data, '$[0].isReturnInvoice') = true");
+                    } else {
+                        // Filter for regular invoices - exclude return invoices
+                        $q->where(function ($subQ) {
+                            $subQ->whereRaw("(JSON_EXTRACT(invoice_data, '$.isReturnInvoice') IS NULL OR JSON_EXTRACT(invoice_data, '$.isReturnInvoice') = false)");
+                        })
+                        ->where(function ($subQ) {
+                            $subQ->whereRaw("(JSON_EXTRACT(invoice_data, '$[0].isReturnInvoice') IS NULL OR JSON_EXTRACT(invoice_data, '$[0].isReturnInvoice') = false)");
+                        });
+                    }
+                });
+            }
+
             // Get all users for filter dropdown (only if user has permission)
             $users = [];
             if ((int) $user->account_role === 1) {
@@ -5344,6 +5365,8 @@ class ReportController extends Controller
                 $invoiceData = $session->invoice_data ?? [];
                 $totalSales = 0;
                 $invoiceCount = 0;
+                $isReturnInvoice = false;
+                $returnInvoiceNo = null;
 
                 // Calculate total sales from invoices
                 if (is_array($invoiceData) && ! empty($invoiceData)) {
@@ -5357,17 +5380,34 @@ class ReportController extends Controller
                         // Array of invoices
                         foreach ($invoiceData as $invoice) {
                             if (is_array($invoice)) {
-                                // Sum netTotal from all invoices (including drafts)
-                                $netTotal = (float) ($invoice['netTotal'] ?? 0);
-                                $totalSales += $netTotal;
+                                // Check if this is a return invoice
+                                if (isset($invoice['isReturnInvoice']) && $invoice['isReturnInvoice']) {
+                                    $isReturnInvoice = true;
+                                    $returnInvoiceNo = $invoice['returnInvoiceNo'] ?? null;
+                                    // For return invoices, use totalReturnAmount instead of netTotal
+                                    $returnTotal = (float) ($invoice['totalReturnAmount'] ?? 0);
+                                    $totalSales += $returnTotal;
+                                } else {
+                                    // Sum netTotal from all invoices (including drafts)
+                                    $netTotal = (float) ($invoice['netTotal'] ?? 0);
+                                    $totalSales += $netTotal;
+                                }
                                 $invoiceCount++;
                             }
                         }
                     } else {
                         // Single invoice object (most common case - one invoice per session)
-                        // Get netTotal directly from the invoice object
-                        $netTotal = (float) ($invoiceData['netTotal'] ?? 0);
-                        $totalSales = $netTotal;
+                        // Check if this is a return invoice
+                        if (isset($invoiceData['isReturnInvoice']) && $invoiceData['isReturnInvoice']) {
+                            $isReturnInvoice = true;
+                            $returnInvoiceNo = $invoiceData['returnInvoiceNo'] ?? null;
+                            // For return invoices, use totalReturnAmount instead of netTotal
+                            $totalSales = (float) ($invoiceData['totalReturnAmount'] ?? 0);
+                        } else {
+                            // Get netTotal directly from the invoice object
+                            $netTotal = (float) ($invoiceData['netTotal'] ?? 0);
+                            $totalSales = $netTotal;
+                        }
                         $invoiceCount = 1;
                     }
                 }
@@ -5386,6 +5426,8 @@ class ReportController extends Controller
                     'closed_at_formatted' => $session->closed_at ? $session->closed_at->format('d/m/Y H:i') : null,
                     'total_sales' => round($totalSales, 2),
                     'invoice_count' => $invoiceCount,
+                    'is_return_invoice' => $isReturnInvoice,
+                    'return_invoice_no' => $returnInvoiceNo,
                 ];
             });
 

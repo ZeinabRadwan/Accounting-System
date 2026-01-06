@@ -35789,12 +35789,12 @@ var map = {
 		3666
 	],
 	"./reports/pos-sessions": [
-		20096,
-		96
+		9188,
+		9188
 	],
 	"./reports/pos-sessions.vue": [
-		20096,
-		96
+		9188,
+		9188
 	],
 	"./reports/profit-loss": [
 		42698,
@@ -35901,12 +35901,12 @@ var map = {
 		7844
 	],
 	"./sales/pos/create": [
-		81222,
-		1222
+		57286,
+		7286
 	],
 	"./sales/pos/create.vue": [
-		81222,
-		1222
+		57286,
+		7286
 	],
 	"./sales/quotations": [
 		87421,
