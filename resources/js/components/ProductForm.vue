@@ -11,38 +11,11 @@
             <div class="col-xl-8 col-8 float-right text-right">
               <div class="btn-group c-w-100 header-buttons">
                 <router-link :to="{ name: 'products.index' }" class="btn btn-info">
-                  <template v-if="$i18n.locale === 'ar' || document.documentElement.getAttribute('dir') === 'rtl'">
+                  <template v-if="isRTL">
                     {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
                   </template>
                   <template v-else>
-                    <template
-                      v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
-
-                      {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
-
-                    </template>
-
-                    <template v-else>
-
-                      <template
-                        v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
-
-
-                        {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
-
-
-                      </template>
-
-
-                      <template v-else>
-
-
-                        <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
-
-
-                      </template>
-
-                    </template>
+                    <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
                   </template>
                 </router-link>
                 <button type="button" class="btn btn-success" :disabled="form.busy" @click="submitForm" title="Save">
@@ -203,6 +176,15 @@ export default {
     },
     isEditMode() {
       return !!this.product
+    },
+    isRTL() {
+      if (this.$i18n.locale === 'ar') {
+        return true
+      }
+      if (typeof document !== 'undefined' && document.documentElement) {
+        return document.documentElement.getAttribute('dir') === 'rtl'
+      }
+      return false
     }
   },
   created() {
