@@ -101,7 +101,7 @@
               <template #cell-journalEntry="{ row }">
                 <div v-if="row.journalEntries && row.journalEntries.length > 0" class="d-flex flex-wrap justify-content-center" style="gap: 4px;">
                   <router-link
-                    v-for="(entry, index) in row.journalEntries"
+                    v-for="entry in row.journalEntries"
                     :key="entry.id"
                     :to="{ name: 'journal-entries.show', params: { id: entry.id } }"
                     class="badge bg-info text-white"
@@ -465,10 +465,15 @@ export default {
         // Find journal entries for this invoice by reference (invoiceNo)
         const journalEntries = this.journalEntriesMap[item.invoiceNo] || item.journalEntries || [];
 
+        // Calculate Total After Tax for sorting/filtering compatibility
+        const totalAfterTax = this.calculateTotalAfterTax(item);
+
         return {
           ...item,
           index: index + 1,
           journalEntries: Array.isArray(journalEntries) ? journalEntries : (journalEntries ? [journalEntries] : []),
+          // Override invoiceTotal with calculated value for correct display and sorting
+          invoiceTotal: totalAfterTax,
         };
       });
     },
@@ -1022,6 +1027,23 @@ export default {
       } else {
         return data.discount;
       }
+    },
+
+    // Calculate Total After Tax: Net Total - Discount + Tax
+    calculateTotalAfterTax(data) {
+      if (!data) {
+        return 0;
+      }
+
+      const netTotal = parseFloat(data.subTotal || 0);
+      const discount = this.calculateDiscountAmount(data);
+      const tax = parseFloat(data.tax || 0);
+
+      // Total After Tax = Net Total - Discount + Tax
+      const totalAfterTax = netTotal - discount + tax;
+
+      // Round to 2 decimal places to avoid floating point issues
+      return Math.round((totalAfterTax >= 0 ? totalAfterTax : 0) * 100) / 100;
     },
     // Show message for inactive invoices
     showInactiveMessage() {
