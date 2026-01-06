@@ -1723,15 +1723,10 @@ class BusinessTransactionJournalService
      */
     private function createJournalEntryLine(JournalEntry $journalEntry, int $accountId, float $debitAmount, float $creditAmount, int $lineNumber, string $description, ?int $costCenterId = null, ?int $analyticalAccountId = null): JournalEntryLine
     {
-        // Validate that accountId is not an analytical account
-        if (\App\Models\AnalyticalAccount::where('id', $accountId)->exists()) {
-            throw new Exception('Analytical accounts cannot be used as chart of accounts in journal entries.');
-        }
-
-        // Validate that analytical_account_id is not the same as accountId
-        if ($analyticalAccountId !== null && $analyticalAccountId == $accountId) {
-            throw new Exception('Analytical account ID cannot be the same as chart of account ID.');
-        }
+        // Note: Foreign key constraints in the database enforce that:
+        // - chart_of_account_id must exist in chart_of_accounts table
+        // - analytical_account_id must exist in analytical_accounts table
+        // These are separate columns with separate foreign keys, so no additional validation is needed.
 
         $data = [
             'journal_entry_id' => $journalEntry->id,

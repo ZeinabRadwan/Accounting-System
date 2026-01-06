@@ -4,10 +4,8 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\JournalEntryResource;
-use App\Models\AnalyticalAccount;
 use App\Models\ChartOfAccount;
 use App\Models\JournalEntry;
-use App\Rules\NotAnalyticalAccount;
 use App\Services\BusinessTransactionJournalService;
 use Exception;
 use Illuminate\Http\Request;
@@ -245,28 +243,10 @@ class JournalEntryController extends Controller
                 ], 422);
             }
 
-            // Validate that chart_of_account_id is not an analytical account
-            foreach ($data['lines'] as $index => $line) {
-                if (isset($line['chart_of_account_id'])) {
-                    $chartOfAccountId = $line['chart_of_account_id'];
-                    if (AnalyticalAccount::where('id', $chartOfAccountId)->exists()) {
-                        return response()->json([
-                            'message' => 'Analytical accounts cannot be used as chart of accounts in journal entries.',
-                            'error' => 'Line '.($index + 1).' uses an analytical account as chart of account',
-                        ], 422);
-                    }
-                }
-
-                // Validate that analytical_account_id is not used as chart_of_account_id
-                if (isset($line['analytical_account_id']) && isset($line['chart_of_account_id'])) {
-                    if ($line['analytical_account_id'] == $line['chart_of_account_id']) {
-                        return response()->json([
-                            'message' => 'Analytical account ID cannot be the same as chart of account ID.',
-                            'error' => 'Line '.($index + 1).' has matching analytical_account_id and chart_of_account_id',
-                        ], 422);
-                    }
-                }
-            }
+            // Note: Foreign key constraints in the database enforce that:
+            // - chart_of_account_id must exist in chart_of_accounts table
+            // - analytical_account_id must exist in analytical_accounts table
+            // These are separate columns with separate foreign keys, so no additional validation is needed.
 
             // Set branch from request (already validated as required)
             $data['branch_id'] = (int) $data['branch_id'];
@@ -352,24 +332,17 @@ class JournalEntryController extends Controller
                 'notes' => 'nullable|string',
                 'attachment' => 'nullable|string|max:255',
                 'lines' => 'required|array|min:2',
-                'lines.*.chart_of_account_id' => ['required', 'exists:chart_of_accounts,id', new NotAnalyticalAccount],
+                'lines.*.chart_of_account_id' => 'required|exists:chart_of_accounts,id',
                 'lines.*.debit_amount' => 'required_without:lines.*.credit_amount|numeric|min:0',
                 'lines.*.credit_amount' => 'required_without:lines.*.debit_amount|numeric|min:0',
                 'lines.*.description' => 'nullable|string|max:255',
                 'lines.*.reference' => 'nullable|string|max:255',
             ]);
 
-            // Validate that analytical_account_id is not used as chart_of_account_id
-            foreach ($request->lines as $index => $line) {
-                if (isset($line['analytical_account_id']) && isset($line['chart_of_account_id'])) {
-                    if ($line['analytical_account_id'] == $line['chart_of_account_id']) {
-                        return response()->json([
-                            'message' => 'Analytical account ID cannot be the same as chart of account ID.',
-                            'error' => 'Line '.($index + 1).' has matching analytical_account_id and chart_of_account_id',
-                        ], 422);
-                    }
-                }
-            }
+            // Note: Foreign key constraints in the database enforce that:
+            // - chart_of_account_id must exist in chart_of_accounts table
+            // - analytical_account_id must exist in analytical_accounts table
+            // These are separate columns with separate foreign keys, so no additional validation is needed.
 
             DB::transaction(function () use ($journalEntry, $request) {
                 // Delete existing lines
