@@ -18,9 +18,9 @@
           <!-- Chart of Account -->
           <div class="col-md-3">
             <div class="form-group">
-              <label>{{ $t('Chart of Account') }} <span class="text-danger">*</span></label>
+              <label>{{ $t('Chart of Account') }}</label>
               <v-select v-model="filters.chartOfAccount" :options="chartOfAccounts" :reduce="account => account.id"
-                label="display_name" :placeholder="$t('Select Account')" :searchable="true" :clearable="false"
+                label="display_name" :placeholder="$t('Select Account')" :searchable="true" :clearable="true"
                 :loading="loadingAccounts" @search="searchAccounts" @input="onChartOfAccountChange" />
               <div v-if="errors.chart_of_account_id" class="text-danger">
                 {{ errors.chart_of_account_id[0] }}
@@ -42,44 +42,34 @@
             </div>
           </div>
 
-          <!-- Fiscal Year -->
-          <div class="col-md-3">
-            <div class="form-group">
-              <label>{{ $t('Fiscal Year') }}</label>
-              <v-select v-model="filters.fiscalYear" :options="fiscalYears" :reduce="year => year.id" label="name"
-                :placeholder="$t('Select Fiscal Year')" :searchable="true" :clearable="true"
-                :loading="loadingFiscalYears" @search="searchFiscalYears" />
-            </div>
-          </div>
-
-          <!-- Accounting Period -->
-          <div class="col-md-3">
-            <div class="form-group">
-              <label>{{ $t('Accounting Period') }}</label>
-              <v-select v-model="filters.accountingPeriod" :options="accountingPeriods" :reduce="period => period.id"
-                label="name" :placeholder="$t('Select Period')" :searchable="true" :clearable="true"
-                :loading="loadingAccountingPeriods" :disabled="!filters.fiscalYear" @search="searchAccountingPeriods" />
-            </div>
-          </div>
-
           <!-- Date Range -->
           <div class="col-md-3">
             <div class="form-group">
-              <label>{{ $t('Date Range') }}</label>
+              <label>{{ $t('Date Range') }} <span class="text-danger">*</span></label>
               <div class="input-group">
-                <input type="date" v-model="filters.fromDate" class="form-control" :placeholder="$t('From Date')" />
+                <input type="date" v-model="filters.fromDate" class="form-control" :placeholder="$t('From Date')" required />
                 <div class="input-group-append">
                   <span class="input-group-text">{{ $t('to') }}</span>
                 </div>
-                <input type="date" v-model="filters.toDate" class="form-control" :placeholder="$t('To Date')" />
+                <input type="date" v-model="filters.toDate" class="form-control" :placeholder="$t('To Date')" required />
               </div>
+            </div>
+          </div>
+
+          <!-- Cost Center -->
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>{{ $t('Cost Center') }}</label>
+              <v-select v-model="filters.costCenter" :options="costCenters" :reduce="center => center.id"
+                label="display_name" :placeholder="$t('Select Cost Center')" :searchable="true" :clearable="true"
+                :loading="loadingCostCenters" @search="searchCostCenters" />
             </div>
           </div>
 
           <!-- Action Buttons -->
           <div class="col-12">
             <div class="form-group">
-              <button type="submit" class="btn btn-primary" :disabled="loading || !filters.chartOfAccount">
+              <button type="submit" class="btn btn-primary" :disabled="loading || (!filters.chartOfAccount && !filters.costCenter)">
                 <i v-if="loading" class="fas fa-spinner fa-spin"></i>
                 <i v-else class="fas fa-search"></i>
                 {{ $t('Generate Report') }}
@@ -111,18 +101,23 @@
       <div class="card-header">
         <h3 class="card-title">
           {{ $t('Account Statement') }} -
-          <span v-if="reportData.report_account && reportData.report_account.id !== reportData.chart_of_account.id">
-            {{ reportData.report_account.code }} - {{ reportData.report_account.name }}
-            <small class="text-muted">({{ $t('Sub Account of') }} {{ reportData.chart_of_account.code }} - {{
-              reportData.chart_of_account.name }})</small>
+          <span v-if="reportData.chart_of_account">
+            <span v-if="reportData.report_account && reportData.report_account.id !== reportData.chart_of_account.id">
+              {{ reportData.report_account.code }} - {{ reportData.report_account.name }}
+              <small class="text-muted">({{ $t('Sub Account of') }} {{ reportData.chart_of_account.code }} - {{
+                reportData.chart_of_account.name }})</small>
+            </span>
+            <span v-else>
+              {{ reportData.chart_of_account.code }} - {{ reportData.chart_of_account.name }}
+            </span>
           </span>
-          <span v-else>
-            {{ reportData.chart_of_account.code }} - {{ reportData.chart_of_account.name }}
+          <span v-else-if="reportData.filters && reportData.filters.cost_center_id">
+            {{ $t('Cost Center Statement') }}
           </span>
         </h3>
         <div class="card-tools">
-          <span class="badge badge-info">{{ $t('Type') }}: {{ reportData.chart_of_account.type }}</span>
-          <span v-if="reportData.report_account && reportData.report_account.id !== reportData.chart_of_account.id"
+          <span v-if="reportData.chart_of_account" class="badge badge-info">{{ $t('Type') }}: {{ reportData.chart_of_account.type }}</span>
+          <span v-if="reportData.report_account && reportData.report_account.id !== reportData.chart_of_account?.id"
             class="badge badge-secondary ml-2">
             {{ $t('Sub Account Type') }}: {{ reportData.report_account.type }}
           </span>
@@ -201,12 +196,12 @@
             </thead>
             <tbody>
               <tr v-if="loadingEntries">
-                <td colspan="9" class="text-center">
+                <td :colspan="reportData && reportData.chart_of_account ? 9 : 10" class="text-center">
                   <i class="fas fa-spinner fa-spin"></i> {{ $t('Loading entries...') }}
                 </td>
               </tr>
               <tr v-else-if="!loadingEntries && entriesCount === 0">
-                <td colspan="9" class="text-center text-muted">
+                <td :colspan="reportData && reportData.chart_of_account ? 9 : 10" class="text-center text-muted">
                   {{ $t('No entries found for the selected criteria') }}
                 </td>
               </tr>
@@ -216,6 +211,10 @@
                   <td>{{ entry.entry_number }}</td>
                   <td>{{ entry.reference || '-' }}</td>
                   <td>{{ entry.description || '-' }}</td>
+                  <td v-if="!reportData || !reportData.chart_of_account">
+                    <span v-if="entry.account_code">{{ entry.account_code }} - {{ entry.account_name }}</span>
+                    <span v-else class="text-muted">-</span>
+                  </td>
                   <td class="text-right">{{ entry.debit_amount }} <span class="saudi-riyal">ê</span></td>
                   <td class="text-right">{{ entry.credit_amount }} <span class="saudi-riyal">ê</span></td>
                   <td class="text-right">
@@ -283,8 +282,7 @@ export default {
       loading: false,
       loadingAccounts: false,
       loadingSubAccounts: false,
-      loadingFiscalYears: false,
-      loadingAccountingPeriods: false,
+      loadingCostCenters: false,
       loadingEntries: false,
       reportData: null,
       summary: null,
@@ -308,8 +306,7 @@ export default {
       filters: {
         chartOfAccount: null,
         subChartOfAccount: null,
-        fiscalYear: null,
-        accountingPeriod: null,
+        costCenter: null,
         fromDate: null,
         toDate: null,
       },
@@ -317,8 +314,8 @@ export default {
       // Options
       chartOfAccounts: [],
       subChartOfAccounts: [],
-      fiscalYears: [],
-      accountingPeriods: [],
+      costCenters: [],
+      loadingCostCenters: false,
 
       // Chunked loading
       currentChunk: 1,
@@ -350,18 +347,11 @@ export default {
       if (this.filters.subChartOfAccount) {
         params.append('sub_chart_of_account_id', this.filters.subChartOfAccount);
       }
-      if (this.filters.fiscalYear) {
-        params.append('fiscal_year_id', this.filters.fiscalYear);
+      if (this.filters.costCenter) {
+        params.append('cost_center_id', this.filters.costCenter);
       }
-      if (this.filters.accountingPeriod) {
-        params.append('accounting_period_id', this.filters.accountingPeriod);
-      }
-      if (this.filters.fromDate) {
-        params.append('from_date', this.filters.fromDate);
-      }
-      if (this.filters.toDate) {
-        params.append('to_date', this.filters.toDate);
-      }
+      params.append('from_date', this.filters.fromDate);
+      params.append('to_date', this.filters.toDate);
       return `/account-statement/export?${params.toString()}`;
     },
 
@@ -373,18 +363,11 @@ export default {
       if (this.filters.subChartOfAccount) {
         params.append('sub_chart_of_account_id', this.filters.subChartOfAccount);
       }
-      if (this.filters.fiscalYear) {
-        params.append('fiscal_year_id', this.filters.fiscalYear);
+      if (this.filters.costCenter) {
+        params.append('cost_center_id', this.filters.costCenter);
       }
-      if (this.filters.accountingPeriod) {
-        params.append('accounting_period_id', this.filters.accountingPeriod);
-      }
-      if (this.filters.fromDate) {
-        params.append('from_date', this.filters.fromDate);
-      }
-      if (this.filters.toDate) {
-        params.append('to_date', this.filters.toDate);
-      }
+      params.append('from_date', this.filters.fromDate);
+      params.append('to_date', this.filters.toDate);
       // Add token to URL
       const token = this.$store.getters['auth/token'];
       if (token) {
@@ -402,18 +385,11 @@ export default {
       if (this.filters.subChartOfAccount) {
         params.append('sub_chart_of_account_id', this.filters.subChartOfAccount);
       }
-      if (this.filters.fiscalYear) {
-        params.append('fiscal_year_id', this.filters.fiscalYear);
+      if (this.filters.costCenter) {
+        params.append('cost_center_id', this.filters.costCenter);
       }
-      if (this.filters.accountingPeriod) {
-        params.append('accounting_period_id', this.filters.accountingPeriod);
-      }
-      if (this.filters.fromDate) {
-        params.append('from_date', this.filters.fromDate);
-      }
-      if (this.filters.toDate) {
-        params.append('to_date', this.filters.toDate);
-      }
+      params.append('from_date', this.filters.fromDate);
+      params.append('to_date', this.filters.toDate);
       // Add token to URL
       const token = this.$store.getters['auth/token'];
       if (token) {
@@ -432,16 +408,12 @@ export default {
     this.loadInitialData();
   },
 
-  watch: {
+    watch: {
     'filters.subChartOfAccount'(newValue, oldValue) {
       // If sub account changes and we have a parent account selected, regenerate the report
       if (this.filters.chartOfAccount && newValue !== oldValue && !this.loading) {
         this.generateReport();
       }
-    },
-    'filters.fiscalYear'() {
-      this.filters.accountingPeriod = null;
-      this.loadAccountingPeriods();
     },
   },
 
@@ -449,7 +421,7 @@ export default {
     async loadInitialData() {
       await Promise.all([
         this.loadChartOfAccounts(),
-        this.loadFiscalYears(),
+        this.loadCostCenters(),
       ]);
     },
 
@@ -473,42 +445,26 @@ export default {
       }
     },
 
-    async loadFiscalYears(search = '') {
-      this.loadingFiscalYears = true;
+    async loadCostCenters(search = '') {
+      this.loadingCostCenters = true;
       try {
-        const response = await axios.get('/api/fiscal-years/search', {
-          params: { search, perPage: 100 }
+        const response = await axios.get('/api/cost-centers/all', {
+          params: { search, limit: 100 }
         });
-        // Handle paginated response
-        this.fiscalYears = response.data.data || response.data;
+        // Handle response - CostCenterResource collection returns data array
+        if (response.data && Array.isArray(response.data)) {
+          this.costCenters = response.data;
+        } else if (response.data && response.data.data && Array.isArray(response.data.data)) {
+          this.costCenters = response.data.data;
+        } else {
+          this.costCenters = [];
+        }
       } catch (error) {
-        this.$toast.error('', this.$t('Failed to load fiscal years'));
+        console.error('Error loading cost centers:', error);
+        this.$toast.error('', this.$t('Failed to load cost centers'));
+        this.costCenters = [];
       } finally {
-        this.loadingFiscalYears = false;
-      }
-    },
-
-    async loadAccountingPeriods(search = '') {
-      if (!this.filters.fiscalYear) {
-        this.accountingPeriods = [];
-        return;
-      }
-
-      this.loadingAccountingPeriods = true;
-      try {
-        const response = await axios.get('/api/accounting-periods/by-fiscal-year', {
-          params: {
-            fiscal_year_id: this.filters.fiscalYear,
-            search,
-            perPage: 100
-          }
-        });
-        // Handle paginated response
-        this.accountingPeriods = response.data.data || response.data;
-      } catch (error) {
-        this.$toast.error('', this.$t('Failed to load accounting periods'));
-      } finally {
-        this.loadingAccountingPeriods = false;
+        this.loadingCostCenters = false;
       }
     },
 
@@ -516,12 +472,8 @@ export default {
       await this.loadChartOfAccounts(search);
     },
 
-    async searchFiscalYears(search) {
-      await this.loadFiscalYears(search);
-    },
-
-    async searchAccountingPeriods(search) {
-      await this.loadAccountingPeriods(search);
+    async searchCostCenters(search) {
+      await this.loadCostCenters(search);
     },
 
     async onChartOfAccountChange(accountId) {
@@ -562,8 +514,13 @@ export default {
     },
 
     async generateReport() {
-      if (!this.filters.chartOfAccount) {
-        this.$toast.error('', this.$t('Please select a chart of account'));
+      if (!this.filters.chartOfAccount && !this.filters.costCenter) {
+        this.$toast.error('', this.$t('Please select either an account or a cost center'));
+        return;
+      }
+
+      if (!this.filters.fromDate || !this.filters.toDate) {
+        this.$toast.error('', this.$t('Please select date range'));
         return;
       }
 
@@ -615,30 +572,24 @@ export default {
           console.log(`Loading chunk ${this.currentChunk}, attempt ${attempt}`);
 
           const params = {
-            chart_of_account_id: this.filters.chartOfAccount,
             page: this.currentChunk,
             per_page: this.chunkSize,
           };
+
+          if (this.filters.chartOfAccount) {
+            params.chart_of_account_id = this.filters.chartOfAccount;
+          }
 
           if (this.filters.subChartOfAccount) {
             params.sub_chart_of_account_id = this.filters.subChartOfAccount;
           }
 
-          if (this.filters.fiscalYear) {
-            params.fiscal_year_id = this.filters.fiscalYear;
+          if (this.filters.costCenter) {
+            params.cost_center_id = this.filters.costCenter;
           }
 
-          if (this.filters.accountingPeriod) {
-            params.accounting_period_id = this.filters.accountingPeriod;
-          }
-
-          if (this.filters.fromDate) {
-            params.from_date = this.filters.fromDate;
-          }
-
-          if (this.filters.toDate) {
-            params.to_date = this.filters.toDate;
-          }
+          params.from_date = this.filters.fromDate;
+          params.to_date = this.filters.toDate;
 
           const response = await axios.get('/api/reports/account-statement', { params });
 
@@ -708,8 +659,7 @@ export default {
       this.filters = {
         chartOfAccount: null,
         subChartOfAccount: null,
-        fiscalYear: null,
-        accountingPeriod: null,
+        costCenter: null,
         fromDate: null,
         toDate: null,
       };
@@ -732,18 +682,11 @@ export default {
       if (this.filters.subChartOfAccount) {
         params.append('sub_chart_of_account_id', this.filters.subChartOfAccount);
       }
-      if (this.filters.fiscalYear) {
-        params.append('fiscal_year_id', this.filters.fiscalYear);
+      if (this.filters.costCenter) {
+        params.append('cost_center_id', this.filters.costCenter);
       }
-      if (this.filters.accountingPeriod) {
-        params.append('accounting_period_id', this.filters.accountingPeriod);
-      }
-      if (this.filters.fromDate) {
-        params.append('from_date', this.filters.fromDate);
-      }
-      if (this.filters.toDate) {
-        params.append('to_date', this.filters.toDate);
-      }
+      params.append('from_date', this.filters.fromDate);
+      params.append('to_date', this.filters.toDate);
 
       // Redirect to backend PDF route with query parameters
       // Add token to URL
@@ -765,18 +708,11 @@ export default {
       if (this.filters.subChartOfAccount) {
         params.append('sub_chart_of_account_id', this.filters.subChartOfAccount);
       }
-      if (this.filters.fiscalYear) {
-        params.append('fiscal_year_id', this.filters.fiscalYear);
+      if (this.filters.costCenter) {
+        params.append('cost_center_id', this.filters.costCenter);
       }
-      if (this.filters.accountingPeriod) {
-        params.append('accounting_period_id', this.filters.accountingPeriod);
-      }
-      if (this.filters.fromDate) {
-        params.append('from_date', this.filters.fromDate);
-      }
-      if (this.filters.toDate) {
-        params.append('to_date', this.filters.toDate);
-      }
+      params.append('from_date', this.filters.fromDate);
+      params.append('to_date', this.filters.toDate);
 
       // Redirect to backend PDF route with query parameters
       // Add token to URL
