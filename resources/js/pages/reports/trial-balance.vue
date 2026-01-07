@@ -41,42 +41,42 @@
                   </div>
                 </div>
 
-                <!-- Fiscal Year Filter -->
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <label for="fiscal_year_id">{{ $t("Fiscal Year") }}</label>
-                    <v-select v-model="filters.fiscalYearId" :options="fiscalYears" :reduce="year => year.id"
-                      label="name" :placeholder="$t('Select Fiscal Year')" :searchable="true" :clearable="true"
-                      :loading="loadingFiscalYears" @search="searchFiscalYears" @input="onFiscalYearChange" />
-                  </div>
-                </div>
-
-                <!-- Accounting Period Filter -->
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <label for="accounting_period_id">{{ $t("Accounting Period") }}</label>
-                    <v-select v-model="filters.accountingPeriodId" :options="accountingPeriods"
-                      :reduce="period => period.id" label="name" :placeholder="$t('Select Accounting Period')"
-                      :searchable="true" :clearable="true" :loading="loadingAccountingPeriods"
-                      :disabled="!filters.fiscalYearId" @search="searchAccountingPeriods"
-                      @input="onAccountingPeriodChange" />
-                  </div>
-                </div>
               </div>
 
               <div class="row">
                 <!-- Date Range Filter -->
                 <div class="col-md-3">
                   <div class="form-group">
-                    <label for="from_date">{{ $t("From Date") }}</label>
-                    <input type="date" v-model="filters.fromDate" class="form-control" :placeholder="$t('From Date')" />
+                    <label for="from_date">{{ $t("From Date") }} <span class="text-danger">*</span></label>
+                    <input type="date" v-model="filters.fromDate" class="form-control" :placeholder="$t('From Date')" required />
                   </div>
                 </div>
 
                 <div class="col-md-3">
                   <div class="form-group">
-                    <label for="to_date">{{ $t("To Date") }}</label>
-                    <input type="date" v-model="filters.toDate" class="form-control" :placeholder="$t('To Date')" />
+                    <label for="to_date">{{ $t("To Date") }} <span class="text-danger">*</span></label>
+                    <input type="date" v-model="filters.toDate" class="form-control" :placeholder="$t('To Date')" required />
+                  </div>
+                </div>
+
+                <!-- Cost Center Filter -->
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="cost_center_id">{{ $t("Cost Center") }}</label>
+                    <v-select v-model="filters.costCenterId" :options="costCenters"
+                      :reduce="center => center.id" label="display_name" :placeholder="$t('Select Cost Center')"
+                      :searchable="true" :clearable="true" :loading="loadingCostCenters" @search="searchCostCenters" />
+                  </div>
+                </div>
+
+                <!-- Account Level Filter -->
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="account_level">{{ $t("Account Level") }}</label>
+                    <select v-model="filters.accountLevel" class="form-control">
+                      <option :value="null">{{ $t('All Levels') }}</option>
+                      <option v-for="level in accountLevels" :key="level" :value="level">{{ $t('Level') }} {{ level }}</option>
+                    </select>
                   </div>
                 </div>
 
@@ -422,19 +422,18 @@ export default {
       filters: {
         chartOfAccountId: null,
         subChartOfAccountId: null,
-        fiscalYearId: null,
-        accountingPeriodId: null,
+        costCenterId: null,
+        accountLevel: null,
         fromDate: null,
         toDate: null,
       },
       chartOfAccounts: [],
       subChartOfAccounts: [],
-      fiscalYears: [],
-      accountingPeriods: [],
+      costCenters: [],
+      accountLevels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
       loadingChartOfAccounts: false,
       loadingSubChartOfAccounts: false,
-      loadingFiscalYears: false,
-      loadingAccountingPeriods: false,
+      loadingCostCenters: false,
     };
   },
   computed: {
@@ -452,15 +451,7 @@ export default {
 
       const filters = this.reportData.filters;
 
-      if (filters.fiscal_year_id) {
-        // Find the fiscal year name from the loaded fiscal years
-        const fiscalYear = this.fiscalYears.find(fy => fy.id === filters.fiscal_year_id);
-        return fiscalYear ? fiscalYear.name : this.$t('Fiscal Year');
-      } else if (filters.accounting_period_id) {
-        // Find the accounting period name from the loaded periods
-        const accountingPeriod = this.accountingPeriods.find(ap => ap.id === filters.accounting_period_id);
-        return accountingPeriod ? accountingPeriod.name : this.$t('Accounting Period');
-      } else if (filters.from_date && filters.to_date) {
+      if (filters.from_date && filters.to_date) {
         return `${filters.from_date} - ${filters.to_date}`;
       } else {
         return this.$t('All Data');
@@ -476,18 +467,14 @@ export default {
       if (this.filters.subChartOfAccountId) {
         params.append('sub_chart_of_account_id', this.filters.subChartOfAccountId);
       }
-      if (this.filters.fiscalYearId) {
-        params.append('fiscal_year_id', this.filters.fiscalYearId);
+      if (this.filters.costCenterId) {
+        params.append('cost_center_id', this.filters.costCenterId);
       }
-      if (this.filters.accountingPeriodId) {
-        params.append('accounting_period_id', this.filters.accountingPeriodId);
+      if (this.filters.accountLevel) {
+        params.append('account_level', this.filters.accountLevel);
       }
-      if (this.filters.fromDate) {
-        params.append('from_date', this.filters.fromDate);
-      }
-      if (this.filters.toDate) {
-        params.append('to_date', this.filters.toDate);
-      }
+      params.append('from_date', this.filters.fromDate);
+      params.append('to_date', this.filters.toDate);
 
       // Add token to URL
       const token = this.$store.getters['auth/token'];
@@ -508,7 +495,7 @@ export default {
     async loadInitialData() {
       await Promise.all([
         this.loadChartOfAccounts(),
-        this.loadFiscalYears(),
+        this.loadCostCenters(),
       ]);
     },
 
@@ -547,32 +534,21 @@ export default {
       }
     },
 
-    async loadFiscalYears() {
-      this.loadingFiscalYears = true;
+    async loadCostCenters() {
+      this.loadingCostCenters = true;
       try {
-        const { data } = await axios.get("/api/fiscal-years");
-        this.fiscalYears = data.data;
+        const { data } = await axios.get("/api/cost-centers/get-all", {
+          params: { limit: 100 }
+        });
+        const centers = data.data || data;
+        this.costCenters = centers.map(center => ({
+          ...center,
+          display_name: center.code ? `[${center.code}] ${center.name}` : center.name
+        }));
       } catch (error) {
-        this.$toast.error('', error.response?.data?.message || this.$t("Failed to load fiscal years"));
+        this.$toast.error('', error.response?.data?.message || this.$t("Failed to load cost centers"));
       } finally {
-        this.loadingFiscalYears = false;
-      }
-    },
-
-    async loadAccountingPeriods(fiscalYearId) {
-      if (!fiscalYearId) {
-        this.accountingPeriods = [];
-        return;
-      }
-
-      this.loadingAccountingPeriods = true;
-      try {
-        const { data } = await axios.get(`/api/accounting-periods?fiscal_year_id=${fiscalYearId}`);
-        this.accountingPeriods = data.data;
-      } catch (error) {
-        this.$toast.error('', error.response?.data?.message || this.$t("Failed to load accounting periods"));
-      } finally {
-        this.loadingAccountingPeriods = false;
+        this.loadingCostCenters = false;
       }
     },
 
@@ -608,29 +584,29 @@ export default {
       }
     },
 
-    async searchFiscalYears(search, loading) {
-      loading(true);
-      try {
-        const { data } = await axios.get(`/api/fiscal-years?search=${search}`);
-        this.fiscalYears = data.data;
-      } catch (error) {
-        this.$toast.error('', error.response?.data?.message || this.$t("Failed to search fiscal years"));
-      } finally {
-        loading(false);
+    async searchCostCenters(search, loading) {
+      if (loading) {
+        loading(true);
+      } else {
+        this.loadingCostCenters = true;
       }
-    },
-
-    async searchAccountingPeriods(search, loading) {
-      if (!this.filters.fiscalYearId) return;
-
-      loading(true);
       try {
-        const { data } = await axios.get(`/api/accounting-periods?fiscal_year_id=${this.filters.fiscalYearId}&search=${search}`);
-        this.accountingPeriods = data.data;
+        const { data } = await axios.get("/api/cost-centers/get-all", {
+          params: { search, limit: 100 }
+        });
+        const centers = data.data || data;
+        this.costCenters = centers.map(center => ({
+          ...center,
+          display_name: center.code ? `[${center.code}] ${center.name}` : center.name
+        }));
       } catch (error) {
-        this.$toast.error('', error.response?.data?.message || this.$t("Failed to search accounting periods"));
+        this.$toast.error('', error.response?.data?.message || this.$t("Failed to search cost centers"));
       } finally {
-        loading(false);
+        if (loading) {
+          loading(false);
+        } else {
+          this.loadingCostCenters = false;
+        }
       }
     },
 
@@ -642,20 +618,13 @@ export default {
       }
     },
 
-    onFiscalYearChange(fiscalYearId) {
-      this.filters.accountingPeriodId = null;
-      this.accountingPeriods = [];
-      if (fiscalYearId) {
-        this.loadAccountingPeriods(fiscalYearId);
-      }
-    },
-
-    onAccountingPeriodChange(accountingPeriodId) {
-      // No dependent filters to clear for accounting period
-      // This method is here for consistency with other filter change handlers
-    },
 
     async generateReport() {
+      if (!this.filters.fromDate || !this.filters.toDate) {
+        this.$toast.error('', this.$t('Please select date range'));
+        return;
+      }
+
       this.loading = true;
       this.allAccounts = [];
       this.calculatingAccounts.clear();
@@ -669,18 +638,14 @@ export default {
         if (this.filters.subChartOfAccountId) {
           params.append('sub_chart_of_account_id', this.filters.subChartOfAccountId);
         }
-        if (this.filters.fiscalYearId) {
-          params.append('fiscal_year_id', this.filters.fiscalYearId);
+        if (this.filters.costCenterId) {
+          params.append('cost_center_id', this.filters.costCenterId);
         }
-        if (this.filters.accountingPeriodId) {
-          params.append('accounting_period_id', this.filters.accountingPeriodId);
+        if (this.filters.accountLevel) {
+          params.append('account_level', this.filters.accountLevel);
         }
-        if (this.filters.fromDate) {
-          params.append('from_date', this.filters.fromDate);
-        }
-        if (this.filters.toDate) {
-          params.append('to_date', this.filters.toDate);
-        }
+        params.append('from_date', this.filters.fromDate);
+        params.append('to_date', this.filters.toDate);
 
         console.log('🌐 Loading all accounts with zero balances...');
         const response = await axios.get(`/api/reports/trial-balance?${params.toString()}`);
@@ -799,8 +764,7 @@ export default {
       try {
         const requestData = {
           account_id: accountId,
-          fiscal_year_id: this.filters.fiscalYearId,
-          accounting_period_id: this.filters.accountingPeriodId,
+          cost_center_id: this.filters.costCenterId,
           from_date: this.filters.fromDate,
           to_date: this.filters.toDate,
         };
@@ -1123,18 +1087,14 @@ export default {
       if (this.filters.subChartOfAccountId) {
         params.append('sub_chart_of_account_id', this.filters.subChartOfAccountId);
       }
-      if (this.filters.fiscalYearId) {
-        params.append('fiscal_year_id', this.filters.fiscalYearId);
+      if (this.filters.costCenterId) {
+        params.append('cost_center_id', this.filters.costCenterId);
       }
-      if (this.filters.accountingPeriodId) {
-        params.append('accounting_period_id', this.filters.accountingPeriodId);
+      if (this.filters.accountLevel) {
+        params.append('account_level', this.filters.accountLevel);
       }
-      if (this.filters.fromDate) {
-        params.append('from_date', this.filters.fromDate);
-      }
-      if (this.filters.toDate) {
-        params.append('to_date', this.filters.toDate);
-      }
+      params.append('from_date', this.filters.fromDate);
+      params.append('to_date', this.filters.toDate);
 
       // Redirect to backend PDF route with query parameters
       // Add token to URL
@@ -1156,18 +1116,14 @@ export default {
       if (this.filters.subChartOfAccountId) {
         params.append('sub_chart_of_account_id', this.filters.subChartOfAccountId);
       }
-      if (this.filters.fiscalYearId) {
-        params.append('fiscal_year_id', this.filters.fiscalYearId);
+      if (this.filters.costCenterId) {
+        params.append('cost_center_id', this.filters.costCenterId);
       }
-      if (this.filters.accountingPeriodId) {
-        params.append('accounting_period_id', this.filters.accountingPeriodId);
+      if (this.filters.accountLevel) {
+        params.append('account_level', this.filters.accountLevel);
       }
-      if (this.filters.fromDate) {
-        params.append('from_date', this.filters.fromDate);
-      }
-      if (this.filters.toDate) {
-        params.append('to_date', this.filters.toDate);
-      }
+      params.append('from_date', this.filters.fromDate);
+      params.append('to_date', this.filters.toDate);
 
       // Redirect to backend PDF route with query parameters
       // Add token to URL

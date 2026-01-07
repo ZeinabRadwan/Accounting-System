@@ -2625,18 +2625,16 @@ class ReportController extends Controller
             $this->validate($request, [
                 'chart_of_account_id' => 'required|exists:chart_of_accounts,id',
                 'sub_chart_of_account_id' => 'nullable|exists:chart_of_accounts,id',
-                'fiscal_year_id' => 'nullable|exists:fiscal_years,id',
-                'accounting_period_id' => 'nullable|exists:accounting_periods,id',
-                'from_date' => 'nullable|date',
-                'to_date' => 'nullable|date|after_or_equal:from_date',
+                'cost_center_id' => 'nullable|exists:cost_centers,id',
+                'from_date' => 'required|date',
+                'to_date' => 'required|date|after_or_equal:from_date',
                 'page' => 'nullable|integer|min:1',
                 'per_page' => 'nullable|integer|min:1|max:100',
             ]);
 
             $chartOfAccountId = $request->chart_of_account_id;
             $subChartOfAccountId = $request->sub_chart_of_account_id;
-            $fiscalYearId = $request->fiscal_year_id;
-            $accountingPeriodId = $request->accounting_period_id;
+            $costCenterId = $request->cost_center_id;
             $fromDate = $request->from_date;
             $toDate = $request->to_date;
             $page = $request->page ?? 1;
@@ -2657,26 +2655,26 @@ class ReportController extends Controller
             // Build date range query
             $dateQuery = \App\Models\JournalEntry::query()
                 ->where('status', 'posted')
-                ->whereHas('lines', function ($query) use ($reportAccountId) {
+                ->whereHas('lines', function ($query) use ($reportAccountId, $costCenterId) {
                     $query->where('chart_of_account_id', $reportAccountId);
+                    if ($costCenterId) {
+                        $query->where('cost_center_id', $costCenterId);
+                    }
                 });
 
-            // Apply filters
-            if ($fiscalYearId) {
-                $dateQuery->where('fiscal_year_id', $fiscalYearId);
-            } elseif ($accountingPeriodId) {
-                $dateQuery->where('accounting_period_id', $accountingPeriodId);
-            } elseif ($fromDate && $toDate) {
-                $dateQuery->whereBetween('entry_date', [$fromDate, $toDate]);
-            }
+            // Apply date filter (required)
+            $dateQuery->whereBetween('entry_date', [$fromDate, $toDate]);
 
             // Get total count for pagination
             $totalCount = $dateQuery->count();
 
             // Get journal entries with pagination
             $journalEntries = $dateQuery
-                ->with(['lines' => function ($query) use ($reportAccountId) {
+                ->with(['lines' => function ($query) use ($reportAccountId, $costCenterId) {
                     $query->where('chart_of_account_id', $reportAccountId);
+                    if ($costCenterId) {
+                        $query->where('cost_center_id', $costCenterId);
+                    }
                 }])
                 ->orderBy('entry_date', 'desc')
                 ->orderBy('id', 'desc')
@@ -2688,16 +2686,11 @@ class ReportController extends Controller
             $openingBalanceQuery = \App\Models\JournalEntry::query()
                 ->where('status', 'posted')
                 ->join('journal_entry_lines', 'journal_entries.id', '=', 'journal_entry_lines.journal_entry_id')
-                ->where('journal_entry_lines.chart_of_account_id', $reportAccountId);
+                ->where('journal_entry_lines.chart_of_account_id', $reportAccountId)
+                ->where('journal_entries.entry_date', '<', $fromDate);
 
-            if ($fiscalYearId) {
-                $fiscalYear = \App\Models\FiscalYear::findOrFail($fiscalYearId);
-                $openingBalanceQuery->where('journal_entries.entry_date', '<', $fiscalYear->start_date);
-            } elseif ($accountingPeriodId) {
-                $accountingPeriod = \App\Models\AccountingPeriod::findOrFail($accountingPeriodId);
-                $openingBalanceQuery->where('journal_entries.entry_date', '<', $accountingPeriod->start_date);
-            } elseif ($fromDate) {
-                $openingBalanceQuery->where('journal_entries.entry_date', '<', $fromDate);
+            if ($costCenterId) {
+                $openingBalanceQuery->where('journal_entry_lines.cost_center_id', $costCenterId);
             }
 
             $openingTotals = $openingBalanceQuery
@@ -2746,15 +2739,11 @@ class ReportController extends Controller
             $periodTotalsQuery = \App\Models\JournalEntry::query()
                 ->where('status', 'posted')
                 ->join('journal_entry_lines', 'journal_entries.id', '=', 'journal_entry_lines.journal_entry_id')
-                ->where('journal_entry_lines.chart_of_account_id', $reportAccountId);
+                ->where('journal_entry_lines.chart_of_account_id', $reportAccountId)
+                ->whereBetween('journal_entries.entry_date', [$fromDate, $toDate]);
 
-            // Apply same filters as main query
-            if ($fiscalYearId) {
-                $periodTotalsQuery->where('journal_entries.fiscal_year_id', $fiscalYearId);
-            } elseif ($accountingPeriodId) {
-                $periodTotalsQuery->where('journal_entries.accounting_period_id', $accountingPeriodId);
-            } elseif ($fromDate && $toDate) {
-                $periodTotalsQuery->whereBetween('journal_entries.entry_date', [$fromDate, $toDate]);
+            if ($costCenterId) {
+                $periodTotalsQuery->where('journal_entry_lines.cost_center_id', $costCenterId);
             }
 
             $periodTotals = $periodTotalsQuery
@@ -2783,8 +2772,7 @@ class ReportController extends Controller
                         'type' => $reportAccount->type->name ?? 'Unknown',
                     ],
                     'filters' => [
-                        'fiscal_year_id' => $fiscalYearId,
-                        'accounting_period_id' => $accountingPeriodId,
+                        'cost_center_id' => $costCenterId,
                         'from_date' => $fromDate,
                         'to_date' => $toDate,
                     ],
@@ -2822,16 +2810,14 @@ class ReportController extends Controller
             $this->validate($request, [
                 'chart_of_account_id' => 'required|exists:chart_of_accounts,id',
                 'sub_chart_of_account_id' => 'nullable|exists:chart_of_accounts,id',
-                'fiscal_year_id' => 'nullable|exists:fiscal_years,id',
-                'accounting_period_id' => 'nullable|exists:accounting_periods,id',
-                'from_date' => 'nullable|date',
-                'to_date' => 'nullable|date|after_or_equal:from_date',
+                'cost_center_id' => 'nullable|exists:cost_centers,id',
+                'from_date' => 'required|date',
+                'to_date' => 'required|date|after_or_equal:from_date',
             ]);
 
             $chartOfAccountId = $request->chart_of_account_id;
             $subChartOfAccountId = $request->sub_chart_of_account_id;
-            $fiscalYearId = $request->fiscal_year_id;
-            $accountingPeriodId = $request->accounting_period_id;
+            $costCenterId = $request->cost_center_id;
             $fromDate = $request->from_date;
             $toDate = $request->to_date;
 
@@ -2850,23 +2836,23 @@ class ReportController extends Controller
             // Build date range query - NO PAGINATION
             $dateQuery = \App\Models\JournalEntry::query()
                 ->where('status', 'posted')
-                ->whereHas('lines', function ($query) use ($reportAccountId) {
+                ->whereHas('lines', function ($query) use ($reportAccountId, $costCenterId) {
                     $query->where('chart_of_account_id', $reportAccountId);
+                    if ($costCenterId) {
+                        $query->where('cost_center_id', $costCenterId);
+                    }
                 });
 
-            // Apply filters
-            if ($fiscalYearId) {
-                $dateQuery->where('fiscal_year_id', $fiscalYearId);
-            } elseif ($accountingPeriodId) {
-                $dateQuery->where('accounting_period_id', $accountingPeriodId);
-            } elseif ($fromDate && $toDate) {
-                $dateQuery->whereBetween('entry_date', [$fromDate, $toDate]);
-            }
+            // Apply date filter (required)
+            $dateQuery->whereBetween('entry_date', [$fromDate, $toDate]);
 
             // Get ALL journal entries - NO PAGINATION
             $journalEntries = $dateQuery
-                ->with(['lines' => function ($query) use ($reportAccountId) {
+                ->with(['lines' => function ($query) use ($reportAccountId, $costCenterId) {
                     $query->where('chart_of_account_id', $reportAccountId);
+                    if ($costCenterId) {
+                        $query->where('cost_center_id', $costCenterId);
+                    }
                 }])
                 ->orderBy('entry_date', 'desc')
                 ->orderBy('id', 'desc')
@@ -2876,16 +2862,11 @@ class ReportController extends Controller
             $openingBalanceQuery = \App\Models\JournalEntry::query()
                 ->where('status', 'posted')
                 ->join('journal_entry_lines', 'journal_entries.id', '=', 'journal_entry_lines.journal_entry_id')
-                ->where('journal_entry_lines.chart_of_account_id', $reportAccountId);
+                ->where('journal_entry_lines.chart_of_account_id', $reportAccountId)
+                ->where('journal_entries.entry_date', '<', $fromDate);
 
-            if ($fiscalYearId) {
-                $fiscalYear = \App\Models\FiscalYear::findOrFail($fiscalYearId);
-                $openingBalanceQuery->where('journal_entries.entry_date', '<', $fiscalYear->start_date);
-            } elseif ($accountingPeriodId) {
-                $accountingPeriod = \App\Models\AccountingPeriod::findOrFail($accountingPeriodId);
-                $openingBalanceQuery->where('journal_entries.entry_date', '<', $accountingPeriod->start_date);
-            } elseif ($fromDate) {
-                $openingBalanceQuery->where('journal_entries.entry_date', '<', $fromDate);
+            if ($costCenterId) {
+                $openingBalanceQuery->where('journal_entry_lines.cost_center_id', $costCenterId);
             }
 
             $openingTotals = $openingBalanceQuery
@@ -2929,15 +2910,11 @@ class ReportController extends Controller
             $periodTotalsQuery = \App\Models\JournalEntry::query()
                 ->where('status', 'posted')
                 ->join('journal_entry_lines', 'journal_entries.id', '=', 'journal_entry_lines.journal_entry_id')
-                ->where('journal_entry_lines.chart_of_account_id', $reportAccountId);
+                ->where('journal_entry_lines.chart_of_account_id', $reportAccountId)
+                ->whereBetween('journal_entries.entry_date', [$fromDate, $toDate]);
 
-            // Apply same filters as main query
-            if ($fiscalYearId) {
-                $periodTotalsQuery->where('journal_entries.fiscal_year_id', $fiscalYearId);
-            } elseif ($accountingPeriodId) {
-                $periodTotalsQuery->where('journal_entries.accounting_period_id', $accountingPeriodId);
-            } elseif ($fromDate && $toDate) {
-                $periodTotalsQuery->whereBetween('journal_entries.entry_date', [$fromDate, $toDate]);
+            if ($costCenterId) {
+                $periodTotalsQuery->where('journal_entry_lines.cost_center_id', $costCenterId);
             }
 
             $periodTotals = $periodTotalsQuery
@@ -2966,8 +2943,7 @@ class ReportController extends Controller
                         'type' => $reportAccount->type->name ?? 'Unknown',
                     ],
                     'filters' => [
-                        'fiscal_year_id' => $fiscalYearId,
-                        'accounting_period_id' => $accountingPeriodId,
+                        'cost_center_id' => $costCenterId,
                         'from_date' => $fromDate,
                         'to_date' => $toDate,
                     ],
@@ -4302,18 +4278,18 @@ class ReportController extends Controller
             $this->validate($request, [
                 'chart_of_account_id' => 'nullable|exists:chart_of_accounts,id',
                 'sub_chart_of_account_id' => 'nullable|exists:chart_of_accounts,id',
-                'fiscal_year_id' => 'nullable|exists:fiscal_years,id',
-                'accounting_period_id' => 'nullable|exists:accounting_periods,id',
-                'from_date' => 'nullable|date',
-                'to_date' => 'nullable|date|after_or_equal:from_date',
+                'cost_center_id' => 'nullable|exists:cost_centers,id',
+                'account_level' => 'nullable|integer|min:1|max:10',
+                'from_date' => 'required|date',
+                'to_date' => 'required|date|after_or_equal:from_date',
                 'page' => 'nullable|numeric|min:1',
                 'per_page' => 'nullable|numeric|min:1|max:100',
             ]);
 
             $chartOfAccountId = $request->chart_of_account_id;
             $subChartOfAccountId = $request->sub_chart_of_account_id;
-            $fiscalYearId = $request->fiscal_year_id;
-            $accountingPeriodId = $request->accounting_period_id;
+            $costCenterId = $request->cost_center_id;
+            $accountLevel = $request->account_level;
             $fromDate = $request->from_date;
             $toDate = $request->to_date;
             $page = (int) ($request->page ?? 1);
@@ -4324,8 +4300,8 @@ class ReportController extends Controller
 
             // Create filter object for consistency
             $filters = [
-                'fiscal_year_id' => $fiscalYearId,
-                'accounting_period_id' => $accountingPeriodId,
+                'cost_center_id' => $costCenterId,
+                'account_level' => $accountLevel,
                 'from_date' => $fromDate,
                 'to_date' => $toDate,
                 'branch_id' => $branchId,
@@ -4354,6 +4330,11 @@ class ReportController extends Controller
                 // Load ALL accounts at once (much faster than pagination)
                 $allAccounts = $allAccountsQuery->orderBy('code')->get();
                 $totalCount = $allAccounts->count();
+            }
+
+            // Filter by account level if specified
+            if ($accountLevel) {
+                $allAccounts = $this->filterAccountsByLevel($allAccounts, $accountLevel);
             }
 
             // Always return ALL accounts with zero balances (no pagination)
@@ -4412,18 +4393,18 @@ class ReportController extends Controller
             $this->validate($request, [
                 'chart_of_account_id' => 'nullable|exists:chart_of_accounts,id',
                 'sub_chart_of_account_id' => 'nullable|exists:chart_of_accounts,id',
-                'fiscal_year_id' => 'nullable|exists:fiscal_years,id',
-                'accounting_period_id' => 'nullable|exists:accounting_periods,id',
-                'from_date' => 'nullable|date',
-                'to_date' => 'nullable|date|after_or_equal:from_date',
+                'cost_center_id' => 'nullable|exists:cost_centers,id',
+                'account_level' => 'nullable|integer|min:1|max:10',
+                'from_date' => 'required|date',
+                'to_date' => 'required|date|after_or_equal:from_date',
             ]);
 
             Log::info('Trial Balance For Print - Validation passed');
 
             $chartOfAccountId = $request->chart_of_account_id;
             $subChartOfAccountId = $request->sub_chart_of_account_id;
-            $fiscalYearId = $request->fiscal_year_id;
-            $accountingPeriodId = $request->accounting_period_id;
+            $costCenterId = $request->cost_center_id;
+            $accountLevel = $request->account_level;
             $fromDate = $request->from_date;
             $toDate = $request->to_date;
 
@@ -4432,8 +4413,8 @@ class ReportController extends Controller
 
             // Create filter object for consistency
             $filters = [
-                'fiscal_year_id' => $fiscalYearId,
-                'accounting_period_id' => $accountingPeriodId,
+                'cost_center_id' => $costCenterId,
+                'account_level' => $accountLevel,
                 'from_date' => $fromDate,
                 'to_date' => $toDate,
                 'chart_of_account_id' => $chartOfAccountId,
@@ -4468,11 +4449,16 @@ class ReportController extends Controller
 
             Log::info('Trial Balance For Print - Query Results:', [
                 'total_accounts_found' => $totalCount,
-                'fiscal_year_id' => $fiscalYearId,
-                'accounting_period_id' => $accountingPeriodId,
+                'cost_center_id' => $costCenterId,
+                'account_level' => $accountLevel,
                 'from_date' => $fromDate,
                 'to_date' => $toDate,
             ]);
+
+            // Filter by account level if specified
+            if ($accountLevel) {
+                $allAccounts = $this->filterAccountsByLevel($allAccounts, $accountLevel);
+            }
 
             // Build the hierarchical trial balance with REAL calculated balances
             // Note: Not passing pre-loaded data, let the method calculate balances individually
@@ -4525,15 +4511,13 @@ class ReportController extends Controller
             // Validate request
             $this->validate($request, [
                 'account_id' => 'required|exists:chart_of_accounts,id',
-                'fiscal_year_id' => 'nullable|exists:fiscal_years,id',
-                'accounting_period_id' => 'nullable|exists:accounting_periods,id',
-                'from_date' => 'nullable|date',
-                'to_date' => 'nullable|date|after_or_equal:from_date',
+                'cost_center_id' => 'nullable|exists:cost_centers,id',
+                'from_date' => 'required|date',
+                'to_date' => 'required|date|after_or_equal:from_date',
             ]);
 
             $accountId = $request->account_id;
-            $fiscalYearId = $request->fiscal_year_id;
-            $accountingPeriodId = $request->accounting_period_id;
+            $costCenterId = $request->cost_center_id;
             $fromDate = $request->from_date;
             $toDate = $request->to_date;
 
@@ -4542,8 +4526,7 @@ class ReportController extends Controller
 
             // Create filter object for consistency
             $filters = [
-                'fiscal_year_id' => $fiscalYearId,
-                'accounting_period_id' => $accountingPeriodId,
+                'cost_center_id' => $costCenterId,
                 'from_date' => $fromDate,
                 'to_date' => $toDate,
                 'branch_id' => $branchId,
@@ -4606,8 +4589,11 @@ class ReportController extends Controller
         // Build base query for journal entries
         $baseQuery = \App\Models\JournalEntry::query()
             ->where('status', 'posted')
-            ->with(['lines' => function ($query) {
-                $query->select('id', 'journal_entry_id', 'chart_of_account_id', 'debit_amount', 'credit_amount');
+            ->with(['lines' => function ($query) use ($filters) {
+                $query->select('id', 'journal_entry_id', 'chart_of_account_id', 'cost_center_id', 'debit_amount', 'credit_amount');
+                if (isset($filters['cost_center_id']) && $filters['cost_center_id']) {
+                    $query->where('cost_center_id', $filters['cost_center_id']);
+                }
             }])
             ->select('id', 'entry_date', 'fiscal_year_id', 'accounting_period_id', 'branch_id');
 
@@ -4616,12 +4602,8 @@ class ReportController extends Controller
             $baseQuery->where('branch_id', $filters['branch_id']);
         }
 
-        // Apply filters
-        if ($filters['fiscal_year_id']) {
-            $baseQuery->where('fiscal_year_id', $filters['fiscal_year_id']);
-        } elseif ($filters['accounting_period_id']) {
-            $baseQuery->where('accounting_period_id', $filters['accounting_period_id']);
-        } elseif ($filters['from_date'] && $filters['to_date']) {
+        // Apply date filter (required)
+        if (isset($filters['from_date']) && isset($filters['to_date'])) {
             $baseQuery->whereBetween('entry_date', [$filters['from_date'], $filters['to_date']]);
         }
 
@@ -4647,13 +4629,7 @@ class ReportController extends Controller
 
                 // Determine if this is opening balance or movement
                 $isOpening = false;
-                if ($filters['fiscal_year_id']) {
-                    $fiscalYear = \App\Models\FiscalYear::find($filters['fiscal_year_id']);
-                    $isOpening = $fiscalYear && $entry->entry_date < $fiscalYear->start_date;
-                } elseif ($filters['accounting_period_id']) {
-                    $accountingPeriod = \App\Models\AccountingPeriod::find($filters['accounting_period_id']);
-                    $isOpening = $accountingPeriod && $entry->entry_date < $accountingPeriod->start_date;
-                } elseif ($filters['from_date']) {
+                if (isset($filters['from_date']) && $filters['from_date']) {
                     $isOpening = $entry->entry_date < $filters['from_date'];
                 } else {
                     $isOpening = $entry->entry_date < now()->startOfYear();
@@ -4772,6 +4748,37 @@ class ReportController extends Controller
         }
 
         return $descendants;
+    }
+
+    /**
+     * Filter accounts by level in the hierarchy
+     */
+    private function filterAccountsByLevel($accounts, $maxLevel)
+    {
+        $filtered = collect();
+
+        foreach ($accounts as $account) {
+            $accountLevel = $account->getLevel();
+            
+            if ($accountLevel <= $maxLevel) {
+                // Include this account
+                // Recursively filter children
+                if ($account->children && $account->children->count() > 0) {
+                    $filteredChildren = $this->filterAccountsByLevel($account->children, $maxLevel);
+                    $account->setRelation('children', $filteredChildren);
+                }
+                
+                $filtered->push($account);
+            } elseif ($accountLevel > $maxLevel && $account->children && $account->children->count() > 0) {
+                // This account is too deep, but check its children
+                $filteredChildren = $this->filterAccountsByLevel($account->children, $maxLevel);
+                if ($filteredChildren->count() > 0) {
+                    $filtered = $filtered->merge($filteredChildren);
+                }
+            }
+        }
+
+        return $filtered;
     }
 
     /**
@@ -4940,31 +4947,29 @@ class ReportController extends Controller
         // Note: branch_id filter is applied after join to avoid ambiguity
         $baseQuery = \App\Models\JournalEntry::query()
             ->where('status', 'posted')
-            ->whereHas('lines', function ($query) use ($account) {
+            ->whereHas('lines', function ($query) use ($account, $filters) {
                 $query->where('chart_of_account_id', $account->id);
+                if (isset($filters['cost_center_id']) && $filters['cost_center_id']) {
+                    $query->where('cost_center_id', $filters['cost_center_id']);
+                }
             });
 
-        // Apply filters (branch_id will be applied after join to avoid ambiguity)
-        if ($filters['fiscal_year_id']) {
-            $baseQuery->where('fiscal_year_id', $filters['fiscal_year_id']);
-        } elseif ($filters['accounting_period_id']) {
-            $baseQuery->where('accounting_period_id', $filters['accounting_period_id']);
-        } elseif ($filters['from_date'] && $filters['to_date']) {
+        // Apply date filter (required)
+        if (isset($filters['from_date']) && isset($filters['to_date'])) {
             $baseQuery->whereBetween('entry_date', [$filters['from_date'], $filters['to_date']]);
         }
 
         // Calculate opening balance (before the current period)
-        $openingBalanceQuery = clone $baseQuery;
+        $openingBalanceQuery = \App\Models\JournalEntry::query()
+            ->where('status', 'posted')
+            ->whereHas('lines', function ($query) use ($account, $filters) {
+                $query->where('chart_of_account_id', $account->id);
+                if (isset($filters['cost_center_id']) && $filters['cost_center_id']) {
+                    $query->where('cost_center_id', $filters['cost_center_id']);
+                }
+            });
 
-        if ($filters['fiscal_year_id']) {
-            $fiscalYear = \App\Models\FiscalYear::findOrFail($filters['fiscal_year_id']);
-            $openingBalanceQuery->where('entry_date', '<', $fiscalYear->start_date);
-            Log::info("CalculateAccountBalance - Using fiscal year: {$fiscalYear->name} (start: {$fiscalYear->start_date})");
-        } elseif ($filters['accounting_period_id']) {
-            $accountingPeriod = \App\Models\AccountingPeriod::findOrFail($filters['accounting_period_id']);
-            $openingBalanceQuery->where('entry_date', '<', $accountingPeriod->start_date);
-            Log::info("CalculateAccountBalance - Using accounting period: {$accountingPeriod->name} (start: {$accountingPeriod->start_date})");
-        } elseif ($filters['from_date']) {
+        if (isset($filters['from_date']) && $filters['from_date']) {
             $openingBalanceQuery->where('entry_date', '<', $filters['from_date']);
             Log::info("CalculateAccountBalance - Using from_date: {$filters['from_date']}");
         } else {
@@ -4983,6 +4988,11 @@ class ReportController extends Controller
         // Apply branch filter explicitly with table prefix to avoid ambiguity
         if (isset($filters['branch_id']) && $filters['branch_id']) {
             $openingTotalsQuery->where('journal_entries.branch_id', $filters['branch_id']);
+        }
+
+        // Apply cost center filter
+        if (isset($filters['cost_center_id']) && $filters['cost_center_id']) {
+            $openingTotalsQuery->where('journal_entry_lines.cost_center_id', $filters['cost_center_id']);
         }
 
         $openingTotals = $openingTotalsQuery
@@ -5008,6 +5018,11 @@ class ReportController extends Controller
         // Apply branch filter explicitly with table prefix to avoid ambiguity
         if (isset($filters['branch_id']) && $filters['branch_id']) {
             $movementTotalsQuery->where('journal_entries.branch_id', $filters['branch_id']);
+        }
+
+        // Apply cost center filter
+        if (isset($filters['cost_center_id']) && $filters['cost_center_id']) {
+            $movementTotalsQuery->where('journal_entry_lines.cost_center_id', $filters['cost_center_id']);
         }
 
         $movementTotals = $movementTotalsQuery

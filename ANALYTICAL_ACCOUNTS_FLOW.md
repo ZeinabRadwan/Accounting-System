@@ -805,3 +805,4 @@ Command: php artisan tenants:seed-payment-methods
 This documentation covers the complete flow of the analytical accounts system from setup to reporting!
 
 
+
