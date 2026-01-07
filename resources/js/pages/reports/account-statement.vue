@@ -439,17 +439,21 @@ export default {
     async loadCostCenters(search = '') {
       this.loadingCostCenters = true;
       try {
-        const response = await axios.get('/api/cost-centers/get-all', {
+        const response = await axios.get('/api/cost-centers/all', {
           params: { search, limit: 100 }
         });
-        // Handle response
-        const centers = response.data.data || response.data;
-        this.costCenters = centers.map(center => ({
-          ...center,
-          display_name: center.code ? `[${center.code}] ${center.name}` : center.name
-        }));
+        // Handle response - CostCenterResource collection returns data array
+        if (response.data && Array.isArray(response.data)) {
+          this.costCenters = response.data;
+        } else if (response.data && response.data.data && Array.isArray(response.data.data)) {
+          this.costCenters = response.data.data;
+        } else {
+          this.costCenters = [];
+        }
       } catch (error) {
+        console.error('Error loading cost centers:', error);
         this.$toast.error('', this.$t('Failed to load cost centers'));
+        this.costCenters = [];
       } finally {
         this.loadingCostCenters = false;
       }

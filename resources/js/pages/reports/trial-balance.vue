@@ -537,16 +537,21 @@ export default {
     async loadCostCenters() {
       this.loadingCostCenters = true;
       try {
-        const { data } = await axios.get("/api/cost-centers/get-all", {
+        const response = await axios.get("/api/cost-centers/all", {
           params: { limit: 100 }
         });
-        const centers = data.data || data;
-        this.costCenters = centers.map(center => ({
-          ...center,
-          display_name: center.code ? `[${center.code}] ${center.name}` : center.name
-        }));
+        // Handle response - CostCenterResource collection returns data array
+        if (response.data && Array.isArray(response.data)) {
+          this.costCenters = response.data;
+        } else if (response.data && response.data.data && Array.isArray(response.data.data)) {
+          this.costCenters = response.data.data;
+        } else {
+          this.costCenters = [];
+        }
       } catch (error) {
+        console.error('Error loading cost centers:', error);
         this.$toast.error('', error.response?.data?.message || this.$t("Failed to load cost centers"));
+        this.costCenters = [];
       } finally {
         this.loadingCostCenters = false;
       }
@@ -591,16 +596,21 @@ export default {
         this.loadingCostCenters = true;
       }
       try {
-        const { data } = await axios.get("/api/cost-centers/get-all", {
+        const response = await axios.get("/api/cost-centers/all", {
           params: { search, limit: 100 }
         });
-        const centers = data.data || data;
-        this.costCenters = centers.map(center => ({
-          ...center,
-          display_name: center.code ? `[${center.code}] ${center.name}` : center.name
-        }));
+        // Handle response - CostCenterResource collection returns data array
+        if (response.data && Array.isArray(response.data)) {
+          this.costCenters = response.data;
+        } else if (response.data && response.data.data && Array.isArray(response.data.data)) {
+          this.costCenters = response.data.data;
+        } else {
+          this.costCenters = [];
+        }
       } catch (error) {
+        console.error('Error searching cost centers:', error);
         this.$toast.error('', error.response?.data?.message || this.$t("Failed to search cost centers"));
+        this.costCenters = [];
       } finally {
         if (loading) {
           loading(false);

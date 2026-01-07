@@ -23766,12 +23766,12 @@ var map = {
 		2811
 	],
 	"./reports/account-statement": [
-		59359,
-		9359
+		18597,
+		8597
 	],
 	"./reports/account-statement.vue": [
-		59359,
-		9359
+		18597,
+		8597
 	],
 	"./reports/balance-sheet": [
 		99032,
@@ -23894,12 +23894,12 @@ var map = {
 		8391
 	],
 	"./reports/trial-balance": [
-		91290,
-		1290
+		69381,
+		9381
 	],
 	"./reports/trial-balance.vue": [
-		91290,
-		1290
+		69381,
+		9381
 	],
 	"./reports/vat-report": [
 		95998,
