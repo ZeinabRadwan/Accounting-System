@@ -69,6 +69,14 @@ class PurchaseController extends Controller
      */
     public function store(Request $request)
     {
+        Log::info('=== PURCHASE STORE REQUEST RECEIVED ===', [
+            'supplier_id' => $request->supplier['id'] ?? null,
+            'transportCost' => $request->transportCost ?? null,
+            'transportTaxableCost' => $request->transportTaxableCost ?? null,
+            'transportIsTaxable' => $request->transportIsTaxable ?? null,
+            'transport_taxable' => $request->transport_taxable ?? null,
+        ]);
+
         // Get country setting to determine if orderTax is required
         $country = GeneralSetting::where('key', 'country')->first()?->value ?? 'SA';
         $isSaudiArabia = $country === 'SA';
@@ -192,12 +200,25 @@ class PurchaseController extends Controller
                 return $this->responseWithError('The configured accounting period does not belong to the configured fiscal year.');
             }
 
+            // Override branch_id if provided in request
+            $finalBranchId = $request->branch_id ?? $branchId;
+
+            Log::info('=== STARTING PURCHASE SAVE PROCESS ===');
+            Log::info('Purchase save request received', [
+                'supplier_id' => $request->supplier['id'] ?? null,
+                'products_count' => count($request->selectedProducts ?? []),
+                'user_id' => $userId,
+                'branch_id' => $finalBranchId,
+            ]);
+
             // Calculate line totals server-side for all products
             // Store calculated values for later use when creating purchase products
             $lineCalculations = [];
             $totalProductDiscount = 0;
             $subTotalNet = 0; // Sum of line_net (after discount, before tax)
             $taxTotal = 0; // Sum of line_tax
+
+            Log::info('STEP 1: Calculating product line totals', ['products_count' => count($request->selectedProducts)]);
 
             foreach ($request->selectedProducts as $key => $selectedProduct) {
                 // 1. Line gross = quantity × unit_price
@@ -250,10 +271,10 @@ class PurchaseController extends Controller
 
             // Get transport taxability from request (user's choice)
             // Default to true for backward compatibility if not provided
-            $transportIsTaxable = $request->has('transportIsTaxable') 
-                ? (bool) $request->transportIsTaxable 
-                : ($request->has('transport_taxable') 
-                    ? (bool) $request->transport_taxable 
+            $transportIsTaxable = $request->has('transportIsTaxable')
+                ? (bool) $request->transportIsTaxable
+                : ($request->has('transport_taxable')
+                    ? (bool) $request->transport_taxable
                     : true); // Default to taxable for backward compatibility
 
             // Calculate transport costs based on transport taxability (user's choice)
@@ -279,15 +300,72 @@ class PurchaseController extends Controller
 
                 // Total transport = transport cost + VAT
                 $transportTotal = round($transportTaxable + $transportVAT, 2);
+
+                Log::info('Taxable transport calculated', [
+                    'transportTaxable' => $transportTaxable,
+                    'vatRate' => $vatRate,
+                    'transportVAT' => $transportVAT,
+                    'transportTotal' => $transportTotal,
+                ]);
             } else {
                 // Transport is non-taxable: get from transportCost
-                $transportTotal = round((float) ($request->transportCost ?? 0), 2);
+                // CRITICAL: For non-taxable transport, transportCost contains the full amount (no VAT)
+                $transportCostValue = (float) ($request->transportCost ?? 0);
+                $transportTotal = round($transportCostValue, 2);
+
+                Log::info('Transport is NON-TAXABLE', [
+                    'transportCost_from_request' => $request->transportCost ?? null,
+                    'transportCost_float' => $transportCostValue,
+                    'transportTotal' => $transportTotal,
+                ]);
+
+                // VALIDATION: If transport should be present but is 0, log warning and try to recover
+                if ($transportTotal == 0) {
+                    // Check if there's a value in transportTaxableCost as fallback
+                    $fallbackTransport = (float) ($request->transportTaxableCost ?? 0);
+                    if ($fallbackTransport > 0) {
+                        Log::warning("NON-TAXABLE TRANSPORT WARNING: transportCost is 0 but transportTaxableCost is {$fallbackTransport}. Using transportTaxableCost value.");
+                        $transportTotal = round($fallbackTransport, 2);
+                    } elseif ($request->has('transportCost') && $request->transportCost !== null && $request->transportCost !== '') {
+                        // transportCost was sent but is 0 or empty string - log this
+                        Log::warning('NON-TAXABLE TRANSPORT WARNING: transportCost was sent but value is 0 or empty. Value: '.json_encode($request->transportCost));
+                    }
+                }
             }
 
-            // Calculate grand total based on transport taxability
-            // If transport is taxable: Grand Total = Subtotal + Tax + Transport (transport included in VAT base)
-            // If transport is non-taxable: Grand Total = Subtotal + Tax + Transport (transport added after VAT)
-            $grandTotal = $subTotalNet + $taxTotal + $transportTotal;
+            // Calculate grand total
+            // CRITICAL: If frontend provides netTotal, use it as the source of truth
+            // Frontend calculates: netTotal = subtotal + totalProductTax + transportCost
+            // (with invoice-level discount already allocated proportionally to items)
+            $frontendNetTotal = (float) ($request->netTotal ?? 0);
+
+            if ($frontendNetTotal > 0) {
+                // Use frontend-calculated total as source of truth
+                $grandTotal = $frontendNetTotal;
+
+                // If transport is missing but frontend total suggests it should be present, calculate it
+                if ($transportTotal == 0 && ! $transportIsTaxable) {
+                    $expectedTransport = $frontendNetTotal - ($subTotalNet + $taxTotal);
+                    if ($expectedTransport > 0.01) {
+                        Log::warning("TRANSPORT MISSING: transportCost was 0 but frontend netTotal requires transport. Calculated transport: {$expectedTransport} from netTotal: {$frontendNetTotal}, itemsNet: {$subTotalNet}, VAT: {$taxTotal}");
+                        $transportTotal = round($expectedTransport, 2);
+                    }
+                }
+            } else {
+                // Fallback: Calculate grand total based on transport taxability
+                // If transport is taxable: Grand Total = Subtotal + Tax + Transport (transport included in VAT base)
+                // If transport is non-taxable: Grand Total = Subtotal + Tax + Transport (transport added after VAT)
+                $grandTotal = $subTotalNet + $taxTotal + $transportTotal;
+            }
+
+            Log::info('STEP 2 COMPLETE: Transport and totals calculated', [
+                'subTotalNet' => $subTotalNet,
+                'taxTotal' => $taxTotal,
+                'transportTotal' => $transportTotal,
+                'grandTotal' => $grandTotal,
+                'transportIsTaxable' => $transportIsTaxable,
+                'expectedGrandTotal' => $request->netTotal ?? $request->subTotal ?? null,
+            ]);
 
             // Handle attachments
             $attachments = [];
@@ -306,10 +384,44 @@ class PurchaseController extends Controller
             // Determine payment type from isPaid
             $paymentType = $request->isPaid ? 'paid' : 'due';
 
-            // Override branch_id if provided in request
-            $finalBranchId = $request->branch_id ?? $branchId;
+            Log::info('STEP 3: Creating purchase record');
 
             // create purchase
+            // CRITICAL: Ensure transport and transport_taxable are ALWAYS persisted correctly
+            // DO NOT overwrite transport with 0
+            // DO NOT depend on transport_non_taxable instead of transport_taxable
+            // Save transport value ONLY in 'transport' field
+            // Save transport_taxable as boolean (1 or 0)
+
+            // CRITICAL: Use transport value from frontend as-is, do NOT recalculate
+            // Transport value was provided by the user and must be preserved
+            // Only auto-calculate if transport is completely missing (0) and frontend netTotal suggests it should be present
+            if ($transportTotal == 0 && $frontendNetTotal > 0 && ! $transportIsTaxable) {
+                // Only calculate if transport is completely missing
+                $calculatedTransport = $frontendNetTotal - ($subTotalNet + $taxTotal);
+                if ($calculatedTransport > 0.01) {
+                    Log::warning("TRANSPORT MISSING: transportCost was 0 but frontend netTotal requires transport. Calculated transport: {$calculatedTransport} from netTotal: {$frontendNetTotal}, itemsNet: {$subTotalNet}, VAT: {$taxTotal}");
+                    $transportTotal = round($calculatedTransport, 2);
+                }
+            }
+
+            $transportValue = round((float) $transportTotal, 2);
+            $transportTaxableValue = $transportIsTaxable ? 1 : 0;
+
+            Log::info('Purchase data prepared for save', [
+                'purchase_no' => $code,
+                'supplier_id' => $request->supplier['id'],
+                'transport' => $transportValue,
+                'transport_taxable' => $transportTaxableValue,
+                'sub_total' => round($grandTotal, 2),
+                'discount' => round($totalProductDiscount, 2),
+                'discount_value' => round((float) ($request->discount_value ?? 0), 2),
+                'grandTotal' => $grandTotal,
+                'items_net' => $subTotalNet,
+                'items_vat' => $taxTotal,
+                'calculated_transport' => $grandTotal - ($subTotalNet + $taxTotal),
+            ]);
+
             $purchase = Purchase::create([
                 'purchase_no' => $code,
                 'slug' => uniqid(),
@@ -317,11 +429,10 @@ class PurchaseController extends Controller
                 'discount' => round($totalProductDiscount, 2), // Sum of all product discount amounts
                 'discount_type' => $request->discount_type ?? 'fixed', // Invoice-level discount type
                 'discount_value' => round((float) ($request->discount_value ?? 0), 2), // Invoice-level discount value
-                'transport' => $transportTotal, // Total transport amount
-                // Store transport taxability flags based on user's choice
-                // transport_taxable: true (1) if transport is taxable, false (0) if non-taxable
-                // transport_non_taxable: inverse of transport_taxable for clarity
-                'transport_taxable' => $transportIsTaxable ? 1 : 0,
+                'transport' => $transportValue, // Total transport amount - MUST be numeric, full value
+                // Store transport taxability flag - MUST be boolean (0 or 1)
+                // transport_taxable: 1 if transport is taxable, 0 if non-taxable
+                'transport_taxable' => $transportTaxableValue,
                 'transport_non_taxable' => $transportIsTaxable ? 0 : 1,
                 'tax_id' => $isSaudiArabia ? null : ($request->orderTax ? $request->orderTax['id'] : null), // VAT only when NOT Saudi Arabia
                 'sub_total' => round($grandTotal, 2), // Grand total = sub_total_net + tax_total + transport (stored in sub_total for backward compatibility)
@@ -343,6 +454,16 @@ class PurchaseController extends Controller
                 'branch_id' => $finalBranchId,
                 'cost_center_id' => $request->cost_center_id,
             ]);
+
+            Log::info('STEP 3 COMPLETE: Purchase record created', [
+                'purchase_id' => $purchase->id,
+                'purchase_no' => $purchase->purchase_no,
+                'transport_saved' => $purchase->transport,
+                'transport_taxable_saved' => $purchase->transport_taxable,
+                'sub_total_saved' => $purchase->sub_total,
+            ]);
+
+            Log::info('STEP 4: Creating purchase products');
 
             // store purchase products using server-side calculated values
             foreach ($request->selectedProducts as $key => $selectedProduct) {
@@ -399,12 +520,83 @@ class PurchaseController extends Controller
                     'discount_type' => $discountType, // 'percentage' or 'fixed'
                     'discount_amount' => round($discountAmount, 2), // Calculated discount amount
                 ]);
+
+                Log::info('Purchase product created', [
+                    'product_id' => $product->id,
+                    'product_name' => $product->name,
+                    'quantity' => $selectedProduct['qty'],
+                    'purchase_price' => $selectedProduct['unitPrice'],
+                    'unit_cost' => round($unitCost, 4),
+                    'tax_amount' => round($lineTax, 2),
+                ]);
             }
+
+            Log::info('STEP 4 COMPLETE: Purchase products created', ['products_count' => count($request->selectedProducts)]);
+
+            Log::info('STEP 5: Creating journal entry for purchase');
 
             // Create journal entry for purchase (always create, regardless of country)
             $journalEntriesCreated = false;
             try {
-                Log::info('Starting journal entry creation for purchase: '.$purchase->purchase_no);
+                // CRITICAL: Refresh purchase from database to ensure all fields are loaded
+                // This ensures transport and transport_taxable are available to journal service
+                Log::info('Refreshing purchase from database before journal creation');
+                $purchase->refresh();
+
+                Log::info('Purchase data after refresh', [
+                    'purchase_no' => $purchase->purchase_no,
+                    'purchase_id' => $purchase->id,
+                    'transport' => $purchase->transport,
+                    'transport_taxable' => $purchase->transport_taxable,
+                    'sub_total' => $purchase->sub_total,
+                ]);
+
+                // VALIDATION ONLY: Check if transport matches invoice total (for logging/debugging)
+                // DO NOT overwrite user-provided transport value
+                // Journal service will use stored transport value for calculations
+                if (! $transportIsTaxable) {
+                    $invoiceTotal = (float) $purchase->sub_total;
+                    // Calculate items net and VAT from purchase products
+                    $itemsNet = 0;
+                    $itemsVAT = 0;
+                    foreach ($purchase->purchaseProducts as $product) {
+                        $lineTotal = (float) ($product->total ?? 0);
+                        $lineDiscount = (float) ($product->discount ?? 0);
+                        $itemsNet += ($lineTotal - $lineDiscount);
+                        $itemsVAT += (float) ($product->tax_amount ?? 0);
+                    }
+                    // Apply invoice-level discount if any
+                    $invoiceDiscount = (float) ($purchase->discount_value ?? 0);
+                    $itemsNetAfterDiscount = $itemsNet - $invoiceDiscount;
+
+                    $expectedTransport = $invoiceTotal - ($itemsNetAfterDiscount + $itemsVAT);
+                    $storedTransport = (float) $purchase->transport;
+
+                    if (abs($expectedTransport) > 0.01 && abs($storedTransport - $expectedTransport) > 0.01) {
+                        Log::warning("STEP 5.2: TRANSPORT MISMATCH DETECTED for PO {$purchase->purchase_no}: Invoice suggests transport={$expectedTransport}, but stored transport={$storedTransport}. Using stored value (user-provided).", [
+                            'invoice_total' => $invoiceTotal,
+                            'items_net' => $itemsNet,
+                            'items_net_after_discount' => $itemsNetAfterDiscount,
+                            'invoice_discount' => $invoiceDiscount,
+                            'items_vat' => $itemsVAT,
+                            'expected_transport' => $expectedTransport,
+                            'stored_transport' => $storedTransport,
+                            'note' => 'Journal will use stored transport value. If journal totals don\'t match, check frontend calculation.',
+                        ]);
+                        // DO NOT update purchase.transport - use stored value as-is
+                    }
+                }
+
+                // VALIDATION: If invoice has transport but purchase.transport is 0, log error
+                if ($transportValue > 0 && (float) $purchase->transport == 0) {
+                    Log::error("TRANSPORT PERSISTENCE ERROR for PO {$purchase->purchase_no}: Attempted to save transport={$transportValue}, but after refresh transport={$purchase->transport}");
+                }
+
+                Log::info('Starting journal entry creation', [
+                    'purchase_no' => $purchase->purchase_no,
+                    'purchase_id' => $purchase->id,
+                ]);
+
                 $journalService = new BusinessTransactionJournalService;
 
                 // Get payment account if payment is being added
@@ -417,9 +609,20 @@ class PurchaseController extends Controller
                     }
                 }
 
+                Log::info('Calling journal service to create purchase journal', [
+                    'purchase_id' => $purchase->id,
+                    'user_id' => $userId,
+                    'has_payment_account' => $paymentAccount !== null,
+                ]);
+
                 $journalEntry = $journalService->createPurchaseJournal($purchase, $userId, $paymentAccount);
                 $journalEntriesCreated = true;
-                Log::info('Journal entry created successfully for purchase: '.$purchase->purchase_no.' with ID: '.$journalEntry->id);
+
+                Log::info('STEP 5 COMPLETE: Journal entry created successfully', [
+                    'purchase_no' => $purchase->purchase_no,
+                    'journal_entry_id' => $journalEntry->id,
+                    'journal_entry_number' => $journalEntry->entry_number ?? null,
+                ]);
 
                 // Check if purchase_journals record was created
                 $purchaseJournal = \App\Models\PurchaseJournal::where('purchase_id', $purchase->id)
@@ -433,11 +636,20 @@ class PurchaseController extends Controller
                 }
             } catch (\Exception $e) {
                 // Log the error but don't fail the purchase creation
-                Log::error('Failed to create journal entry for purchase: '.$e->getMessage());
-                Log::error('Purchase ID: '.$purchase->id);
-                Log::error('User ID: '.$userId);
+                Log::error('STEP 5 FAILED: Journal entry creation failed', [
+                    'purchase_no' => $purchase->purchase_no ?? 'unknown',
+                    'purchase_id' => $purchase->id ?? null,
+                    'user_id' => $userId,
+                    'error_message' => $e->getMessage(),
+                    'error_file' => $e->getFile(),
+                    'error_line' => $e->getLine(),
+                ]);
                 Log::error('Exception trace: '.$e->getTraceAsString());
             }
+
+            Log::info('STEP 6: Processing payment (if applicable)', [
+                'addPayment' => $request->addPayment ?? false,
+            ]);
 
             // store transaction
             if ($request->addPayment == true) {
@@ -498,12 +710,22 @@ class PurchaseController extends Controller
                 }
 
             }
+            Log::info('STEP 6 COMPLETE: Payment processing finished');
+
             // update purchase
             if ($purchase->totalDue() == 0) {
+                Log::info('Marking purchase as paid (total due is 0)');
                 $purchase->update([
                     'is_paid' => 1,
                 ]);
             }
+
+            Log::info('=== PURCHASE SAVE PROCESS COMPLETE ===', [
+                'purchase_no' => $purchase->purchase_no,
+                'purchase_id' => $purchase->id,
+                'journal_entries_created' => $journalEntriesCreated,
+                'total_due' => $purchase->totalDue(),
+            ]);
 
             // send notification
             if ($request->isSendEmail || $request->isSendSMS) {
@@ -678,10 +900,10 @@ class PurchaseController extends Controller
 
             // Get transport taxability from request (user's choice)
             // Default to true for backward compatibility if not provided
-            $transportIsTaxable = $request->has('transportIsTaxable') 
-                ? (bool) $request->transportIsTaxable 
-                : ($request->has('transport_taxable') 
-                    ? (bool) $request->transport_taxable 
+            $transportIsTaxable = $request->has('transportIsTaxable')
+                ? (bool) $request->transportIsTaxable
+                : ($request->has('transport_taxable')
+                    ? (bool) $request->transport_taxable
                     : true); // Default to taxable for backward compatibility
 
             // Calculate transport costs based on transport taxability (user's choice)
@@ -804,16 +1026,23 @@ class PurchaseController extends Controller
             $isSaudiArabia = $country === 'SA';
 
             // update purchase
+            // CRITICAL: Ensure transport and transport_taxable are ALWAYS persisted correctly
+            // Save transport value ONLY in 'transport' field
+            // Save transport_taxable as boolean (1 or 0)
+            $transportValue = round((float) $transportTotal, 2);
+            $transportTaxableValue = $transportIsTaxable ? 1 : 0;
+
+            Log::info("Updating purchase with transport: transport={$transportValue}, transport_taxable={$transportTaxableValue}, grandTotal={$grandTotal}");
+
             $purchase->update([
                 'supplier_id' => $request->supplier['id'],
                 'discount' => round($totalProductDiscount, 2), // Sum of all product discount amounts
                 'discount_type' => $request->discount_type ?? 'fixed', // Invoice-level discount type
                 'discount_value' => round((float) ($request->discount_value ?? 0), 2), // Invoice-level discount value
-                'transport' => $transportTotal, // Total transport amount
-                // Store transport taxability flags based on user's choice
-                // transport_taxable: true (1) if transport is taxable, false (0) if non-taxable
-                // transport_non_taxable: inverse of transport_taxable for clarity
-                'transport_taxable' => $transportIsTaxable ? 1 : 0,
+                'transport' => $transportValue, // Total transport amount - MUST be numeric, full value
+                // Store transport taxability flag - MUST be boolean (0 or 1)
+                // transport_taxable: 1 if transport is taxable, 0 if non-taxable
+                'transport_taxable' => $transportTaxableValue,
                 'transport_non_taxable' => $transportIsTaxable ? 0 : 1,
                 'tax_id' => $isSaudiArabia ? null : ($request->orderTax ? $request->orderTax['id'] : null), // VAT only when NOT Saudi Arabia
                 'sub_total' => round($grandTotal, 2), // Grand total = sub_total_net + tax_total + transport (stored in sub_total for backward compatibility)
@@ -853,8 +1082,11 @@ class PurchaseController extends Controller
                     }
                 }
 
+                // CRITICAL: Refresh purchase from database to ensure all fields (including transport) are loaded
                 // Reload products with product relations for accurate journal calculations
                 $freshPurchase = $purchase->fresh('purchaseProducts.product');
+
+                Log::info('Recreating journal for purchase: '.$freshPurchase->purchase_no.', transport: '.$freshPurchase->transport.', transport_taxable: '.$freshPurchase->transport_taxable);
 
                 if ($freshPurchase) {
                     if ($paymentAccountChart) {

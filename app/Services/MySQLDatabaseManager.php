@@ -433,7 +433,7 @@ class MySQLDatabaseManager implements TenantDatabaseManager
                         $baseConfig['username'] = $dbUsername;
                         $baseConfig['password'] = $decryptedPassword;
 
-                        Log::info("Using tenant-specific MySQL credentials for database: {$databaseName}");
+                        // Log::info("Using tenant-specific MySQL credentials for database: {$databaseName}");
                     } catch (\Exception $e) {
                         Log::error('Failed to decrypt tenant password: '.$e->getMessage());
                         // Don't fall back to default - throw error instead

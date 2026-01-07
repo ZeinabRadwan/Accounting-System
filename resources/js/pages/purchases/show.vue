@@ -618,19 +618,14 @@ export default {
       if (!this.allData) return 0;
       
       if (!this.isTransportTaxable) {
-        // Transport is non-taxable: use sum of item totals after discount from DB
-        // This ensures we use the actual stored values, not recalculated ones
-        if (!this.purchaseProducts || this.purchaseProducts.length === 0) {
-          return 0;
-        }
+        // Transport is non-taxable: calculate net amount after invoice-level discount
+        // CRITICAL: Must subtract invoice-level discount from subtotal
+        const subtotal = this.invoiceSubtotal;
+        const invoiceDiscount = this.invoiceLevelDiscountAmount;
         
-        // Sum of item totals after discount (transport excluded)
-        const sumOfItemNetTotals = this.purchaseProducts.reduce((total, product) => {
-          const itemNetTotal = parseFloat(product.totalAfterDiscount || 0);
-          return total + itemNetTotal;
-        }, 0);
-        
-        return this.roundToTwoDecimals(sumOfItemNetTotals);
+        // Net amount = Subtotal - Invoice-level discount
+        // This represents items net after all discounts (before VAT and transport)
+        return this.roundToTwoDecimals(subtotal - invoiceDiscount);
       }
       
       // Transport is taxable: include transport cost (before VAT) in Net Amount
@@ -699,16 +694,37 @@ export default {
     // 
     // If transport is taxable: VAT = Net Amount × Weighted Average VAT Rate
     // If transport is non-taxable: VAT = Sum of tax_amount from purchase_products (from DB)
+    // CRITICAL: If invoice-level discount is applied, VAT must be recalculated on discounted amount
     vatAmount() {
       if (!this.purchaseProducts || this.purchaseProducts.length === 0) {
         return 0;
       }
 
       if (!this.isTransportTaxable) {
-        // Transport is non-taxable: use sum of tax_amount from DB
-        // This ensures VAT equals the sum of item VATs stored in database
+        // Transport is non-taxable: calculate VAT correctly accounting for invoice-level discount
+        // If invoice-level discount exists, recalculate VAT on discounted amount
+        const invoiceDiscount = this.invoiceLevelDiscountAmount;
+        const itemsNet = this.invoiceSubtotal;
+        
+        if (invoiceDiscount > 0 && itemsNet > 0) {
+          // Calculate average VAT rate from original items
+          const itemVatSum = this.purchaseProducts.reduce((total, product) => {
+            const itemVat = parseFloat(product.tax_amount || product.taxTotal || 0);
+            return total + itemVat;
+          }, 0);
+          
+          // Calculate average VAT rate
+          const averageVatRate = itemsNet > 0 ? (itemVatSum / itemsNet) * 100 : 0;
+          
+          // Recalculate VAT on discounted amount
+          const itemsNetAfterDiscount = itemsNet - invoiceDiscount;
+          const recalculatedVat = itemsNetAfterDiscount * (averageVatRate / 100);
+          
+          return this.roundToTwoDecimals(recalculatedVat);
+        }
+        
+        // No invoice discount: use sum of tax_amount from DB
         const itemVatSum = this.purchaseProducts.reduce((total, product) => {
-          // Use tax_amount or taxTotal from DB (both should contain the stored VAT amount)
           const itemVat = parseFloat(product.tax_amount || product.taxTotal || 0);
           return total + itemVat;
         }, 0);
@@ -776,6 +792,17 @@ export default {
     grandTotal() {
       if (!this.allData) return 0;
       
+      // CRITICAL: Use purchase.subTotal (or sub_total) directly as the source of truth
+      // This is the correct grand total calculated during purchase creation
+      // It already includes: items net - invoice discount + VAT + transport
+      // Do NOT recalculate from purchase products as it may miss invoice-level discount allocation
+      // API returns subTotal (camelCase), but check both formats for compatibility
+      const subTotal = this.allData.subTotal !== undefined ? this.allData.subTotal : this.allData.sub_total;
+      if (subTotal !== undefined && subTotal !== null) {
+        return this.roundToTwoDecimals(parseFloat(subTotal));
+      }
+      
+      // Fallback: Calculate if sub_total is not available (should not happen)
       const shipping = this.shippingCostTotal;
       
       if (!this.isTransportTaxable) {

@@ -20,6 +20,15 @@ class Purchase extends Model
         'purchase_no', 'slug', 'supplier_id', 'discount', 'discount_type', 'discount_value', 'transport', 'transport_taxable', 'transport_non_taxable', 'sub_total', 'tax_id', 'po_reference', 'reference', 'payment_terms', 'po_date', 'purchase_date', 'created_by', 'note', 'status', 'is_paid', 'payment_type', 'payment_method_id', 'purchase_status', 'fiscal_year_id', 'accounting_period_id', 'branch_id', 'cost_center_id', 'attachments',
     ];
 
+    protected $casts = [
+        'transport' => 'decimal:2',
+        'transport_taxable' => 'boolean',
+        'transport_non_taxable' => 'boolean',
+        'sub_total' => 'decimal:2',
+        'discount' => 'decimal:2',
+        'discount_value' => 'decimal:2',
+    ];
+
     protected $appends = ['calculated_due', 'calculated_tax', 'calculated_total'];
 
     /**

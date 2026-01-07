@@ -2123,13 +2123,36 @@ export default {
 
           // Append all form fields
           appendIfDefined('supplier[id]', formDataObj.supplier?.id);
-          appendIfDefined('transportCost', formDataObj.transportCost);
-          appendIfDefined('transportTaxableCost', formDataObj.transportTaxableCost);
+
+          // CRITICAL: Ensure transport fields are always sent correctly
+          // Get transport cost from the appropriate field based on taxability
+          const transportValue = formDataObj.transportIsTaxable
+            ? (Number(formDataObj.transportTaxableCost || 0) || Number(formDataObj.transportCost || 0))
+            : Number(formDataObj.transportCost || 0);
+
+          // Always send transportCost (the actual transport amount to be saved)
+          if (transportValue > 0) {
+            appendIfDefined('transportCost', transportValue);
+          }
+
+          // Send transportTaxableCost if it exists (for taxable transport)
+          if (formDataObj.transportTaxableCost && Number(formDataObj.transportTaxableCost) > 0) {
+            appendIfDefined('transportTaxableCost', Number(formDataObj.transportTaxableCost));
+          }
+
           // Send both field names for backend compatibility
           if (formDataObj.transportIsTaxable !== undefined) {
             appendIfDefined('transportIsTaxable', formDataObj.transportIsTaxable);
             appendIfDefined('transport_taxable', formDataObj.transportIsTaxable);
           }
+
+          // Log transport values being sent for debugging
+          console.log('Sending transport data (FormData):', {
+            transportCost: transportValue > 0 ? transportValue : null,
+            transportTaxableCost: formDataObj.transportTaxableCost,
+            transportIsTaxable: formDataObj.transportIsTaxable,
+            transport_taxable: formDataObj.transportIsTaxable,
+          });
           appendIfDefined('subTotal', formDataObj.subTotal);
           appendIfDefined('netTotal', formDataObj.netTotal);
           appendIfDefined('discount', formDataObj.discount);
@@ -2221,12 +2244,53 @@ export default {
           // Convert addPayment to boolean for backend validation
           formData.addPayment = this.form.addPayment == 1;
 
+          // CRITICAL: Ensure transport fields are always sent correctly
+          // For non-taxable transport, use transportCost (the actual amount entered)
+          // For taxable transport, use transportTaxableCost or transportCost
+          let transportValue = 0;
+          
+          if (this.form.transportIsTaxable) {
+            // Taxable: prefer transportTaxableCost, fallback to transportCost
+            transportValue = Number(this.form.transportTaxableCost || 0) || Number(this.form.transportCost || 0);
+          } else {
+            // Non-taxable: MUST use transportCost (the full amount, no VAT)
+            transportValue = Number(this.form.transportCost || 0);
+            
+            // If transportCost is 0 but shippingCostTotal has a value, use that
+            if (transportValue === 0 && this.shippingCostTotal > 0) {
+              transportValue = this.shippingCostTotal;
+              console.warn('transportCost is 0 but shippingCostTotal is', this.shippingCostTotal, '- using shippingCostTotal');
+            }
+          }
+
+          // Always send transportCost (the actual transport amount to be saved)
+          if (transportValue > 0) {
+            formData.transportCost = transportValue;
+          }
+
+          // Send transportTaxableCost if it exists (for taxable transport)
+          if (this.form.transportTaxableCost && Number(this.form.transportTaxableCost) > 0) {
+            formData.transportTaxableCost = Number(this.form.transportTaxableCost);
+          }
+
           // Ensure transportIsTaxable is sent (convert to transport_taxable for backend compatibility)
           // Backend expects transport_taxable field name
           if (formData.transportIsTaxable !== undefined) {
             formData.transport_taxable = formData.transportIsTaxable;
             // Keep transportIsTaxable for backward compatibility
           }
+
+          // Log transport values being sent for debugging
+          console.log('Sending transport data (regular form):', {
+            transportCost: formData.transportCost,
+            transportTaxableCost: formData.transportTaxableCost,
+            transportIsTaxable: formData.transportIsTaxable,
+            transport_taxable: formData.transport_taxable,
+            shippingCostTotal: this.shippingCostTotal,
+            form_transportCost: this.form.transportCost,
+            form_transportTaxableCost: this.form.transportTaxableCost,
+            calculated_transportValue: transportValue,
+          });
 
           // Only include payment-related fields if payment is being added
           if (this.form.addPayment == 1) {

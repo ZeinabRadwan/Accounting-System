@@ -119,7 +119,7 @@ class TenantDatabaseBootstrapper implements TenancyBootstrapper
             'options' => $baseConfig['options'] ?? [],
         ];
 
-        Log::info("Using tenant-specific MySQL credentials for database: {$databaseName}, user: {$dbUsername}");
+        // Log::info("Using tenant-specific MySQL credentials for database: {$databaseName}, user: {$dbUsername}");
 
         // Set the tenant connection configuration
         Config::set('database.connections.tenant', $tenantConfig);
