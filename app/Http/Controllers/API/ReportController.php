@@ -2685,6 +2685,9 @@ class ReportController extends Controller
 
             // Get journal entries with pagination
             $journalEntries = $dateQuery
+                ->with(['lines.chartOfAccount' => function ($query) {
+                    $query->select('id', 'code', 'name');
+                }])
                 ->with(['lines' => function ($query) use ($reportAccountId, $costCenterId) {
                     if ($reportAccountId) {
                         $query->where('chart_of_account_id', $reportAccountId);
@@ -2754,8 +2757,8 @@ class ReportController extends Controller
                             'balance_type' => $runningBalance >= 0 ? 'Debit' : 'Credit',
                             'source_type' => $entry->source_type,
                             'source_id' => $entry->source_id,
-                            'account_code' => $entryLine->chartOfAccount->code ?? null,
-                            'account_name' => $entryLine->chartOfAccount->name ?? null,
+                            'account_code' => $entryLine->chartOfAccount ? $entryLine->chartOfAccount->code : null,
+                            'account_name' => $entryLine->chartOfAccount ? $entryLine->chartOfAccount->name : null,
                         ];
                     }
                 }
@@ -2765,9 +2768,11 @@ class ReportController extends Controller
             $periodTotalsQuery = \App\Models\JournalEntry::query()
                 ->where('status', 'posted')
                 ->join('journal_entry_lines', 'journal_entries.id', '=', 'journal_entry_lines.journal_entry_id')
-                ->where('journal_entry_lines.chart_of_account_id', $reportAccountId)
                 ->whereBetween('journal_entries.entry_date', [$fromDate, $toDate]);
 
+            if ($reportAccountId) {
+                $periodTotalsQuery->where('journal_entry_lines.chart_of_account_id', $reportAccountId);
+            }
             if ($costCenterId) {
                 $periodTotalsQuery->where('journal_entry_lines.cost_center_id', $costCenterId);
             }
@@ -2785,19 +2790,20 @@ class ReportController extends Controller
             return [
                 'success' => true,
                 'data' => [
-                    'chart_of_account' => [
+                    'chart_of_account' => $chartOfAccount ? [
                         'id' => $chartOfAccount->id,
                         'code' => $chartOfAccount->code,
                         'name' => $chartOfAccount->name,
                         'type' => $chartOfAccount->type->name ?? 'Unknown',
-                    ],
-                    'report_account' => [
+                    ] : null,
+                    'report_account' => $reportAccount ? [
                         'id' => $reportAccount->id,
                         'code' => $reportAccount->code,
                         'name' => $reportAccount->name,
                         'type' => $reportAccount->type->name ?? 'Unknown',
-                    ],
+                    ] : null,
                     'filters' => [
+                        'chart_of_account_id' => $chartOfAccountId,
                         'cost_center_id' => $costCenterId,
                         'from_date' => $fromDate,
                         'to_date' => $toDate,
@@ -2849,6 +2855,14 @@ class ReportController extends Controller
                 ], 422);
             }
 
+            // At least one filter must be provided
+            if (!$request->chart_of_account_id && !$request->cost_center_id) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Please select either an account or a cost center',
+                ], 422);
+            }
+
             $chartOfAccountId = $request->chart_of_account_id;
             $subChartOfAccountId = $request->sub_chart_of_account_id;
             $costCenterId = $request->cost_center_id;
@@ -2889,8 +2903,13 @@ class ReportController extends Controller
 
             // Get ALL journal entries - NO PAGINATION
             $journalEntries = $dateQuery
+                ->with(['lines.chartOfAccount' => function ($query) {
+                    $query->select('id', 'code', 'name');
+                }])
                 ->with(['lines' => function ($query) use ($reportAccountId, $costCenterId) {
-                    $query->where('chart_of_account_id', $reportAccountId);
+                    if ($reportAccountId) {
+                        $query->where('chart_of_account_id', $reportAccountId);
+                    }
                     if ($costCenterId) {
                         $query->where('cost_center_id', $costCenterId);
                     }
@@ -2950,8 +2969,8 @@ class ReportController extends Controller
                         'balance_type' => $runningBalance >= 0 ? 'Debit' : 'Credit',
                         'source_type' => $entry->source_type,
                         'source_id' => $entry->source_id,
-                        'account_code' => $line->chartOfAccount->code ?? null,
-                        'account_name' => $line->chartOfAccount->name ?? null,
+                        'account_code' => $line->chartOfAccount ? $line->chartOfAccount->code : null,
+                        'account_name' => $line->chartOfAccount ? $line->chartOfAccount->name : null,
                     ];
                 }
             }
