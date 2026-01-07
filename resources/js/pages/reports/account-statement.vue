@@ -18,9 +18,9 @@
           <!-- Chart of Account -->
           <div class="col-md-3">
             <div class="form-group">
-              <label>{{ $t('Chart of Account') }} <span class="text-danger">*</span></label>
+              <label>{{ $t('Chart of Account') }}</label>
               <v-select v-model="filters.chartOfAccount" :options="chartOfAccounts" :reduce="account => account.id"
-                label="display_name" :placeholder="$t('Select Account')" :searchable="true" :clearable="false"
+                label="display_name" :placeholder="$t('Select Account')" :searchable="true" :clearable="true"
                 :loading="loadingAccounts" @search="searchAccounts" @input="onChartOfAccountChange" />
               <div v-if="errors.chart_of_account_id" class="text-danger">
                 {{ errors.chart_of_account_id[0] }}
@@ -69,7 +69,7 @@
           <!-- Action Buttons -->
           <div class="col-12">
             <div class="form-group">
-              <button type="submit" class="btn btn-primary" :disabled="loading || !filters.chartOfAccount">
+              <button type="submit" class="btn btn-primary" :disabled="loading || (!filters.chartOfAccount && !filters.costCenter)">
                 <i v-if="loading" class="fas fa-spinner fa-spin"></i>
                 <i v-else class="fas fa-search"></i>
                 {{ $t('Generate Report') }}
@@ -101,18 +101,23 @@
       <div class="card-header">
         <h3 class="card-title">
           {{ $t('Account Statement') }} -
-          <span v-if="reportData.report_account && reportData.report_account.id !== reportData.chart_of_account.id">
-            {{ reportData.report_account.code }} - {{ reportData.report_account.name }}
-            <small class="text-muted">({{ $t('Sub Account of') }} {{ reportData.chart_of_account.code }} - {{
-              reportData.chart_of_account.name }})</small>
+          <span v-if="reportData.chart_of_account">
+            <span v-if="reportData.report_account && reportData.report_account.id !== reportData.chart_of_account.id">
+              {{ reportData.report_account.code }} - {{ reportData.report_account.name }}
+              <small class="text-muted">({{ $t('Sub Account of') }} {{ reportData.chart_of_account.code }} - {{
+                reportData.chart_of_account.name }})</small>
+            </span>
+            <span v-else>
+              {{ reportData.chart_of_account.code }} - {{ reportData.chart_of_account.name }}
+            </span>
           </span>
-          <span v-else>
-            {{ reportData.chart_of_account.code }} - {{ reportData.chart_of_account.name }}
+          <span v-else-if="reportData.filters && reportData.filters.cost_center_id">
+            {{ $t('Cost Center Statement') }}
           </span>
         </h3>
         <div class="card-tools">
-          <span class="badge badge-info">{{ $t('Type') }}: {{ reportData.chart_of_account.type }}</span>
-          <span v-if="reportData.report_account && reportData.report_account.id !== reportData.chart_of_account.id"
+          <span v-if="reportData.chart_of_account" class="badge badge-info">{{ $t('Type') }}: {{ reportData.chart_of_account.type }}</span>
+          <span v-if="reportData.report_account && reportData.report_account.id !== reportData.chart_of_account?.id"
             class="badge badge-secondary ml-2">
             {{ $t('Sub Account Type') }}: {{ reportData.report_account.type }}
           </span>
@@ -191,12 +196,12 @@
             </thead>
             <tbody>
               <tr v-if="loadingEntries">
-                <td colspan="9" class="text-center">
+                <td :colspan="reportData && reportData.chart_of_account ? 9 : 10" class="text-center">
                   <i class="fas fa-spinner fa-spin"></i> {{ $t('Loading entries...') }}
                 </td>
               </tr>
               <tr v-else-if="!loadingEntries && entriesCount === 0">
-                <td colspan="9" class="text-center text-muted">
+                <td :colspan="reportData && reportData.chart_of_account ? 9 : 10" class="text-center text-muted">
                   {{ $t('No entries found for the selected criteria') }}
                 </td>
               </tr>
@@ -206,6 +211,10 @@
                   <td>{{ entry.entry_number }}</td>
                   <td>{{ entry.reference || '-' }}</td>
                   <td>{{ entry.description || '-' }}</td>
+                  <td v-if="!reportData || !reportData.chart_of_account">
+                    <span v-if="entry.account_code">{{ entry.account_code }} - {{ entry.account_name }}</span>
+                    <span v-else class="text-muted">-</span>
+                  </td>
                   <td class="text-right">{{ entry.debit_amount }} <span class="saudi-riyal">ê</span></td>
                   <td class="text-right">{{ entry.credit_amount }} <span class="saudi-riyal">ê</span></td>
                   <td class="text-right">
@@ -505,8 +514,8 @@ export default {
     },
 
     async generateReport() {
-      if (!this.filters.chartOfAccount) {
-        this.$toast.error('', this.$t('Please select a chart of account'));
+      if (!this.filters.chartOfAccount && !this.filters.costCenter) {
+        this.$toast.error('', this.$t('Please select either an account or a cost center'));
         return;
       }
 
@@ -563,10 +572,13 @@ export default {
           console.log(`Loading chunk ${this.currentChunk}, attempt ${attempt}`);
 
           const params = {
-            chart_of_account_id: this.filters.chartOfAccount,
             page: this.currentChunk,
             per_page: this.chunkSize,
           };
+
+          if (this.filters.chartOfAccount) {
+            params.chart_of_account_id = this.filters.chartOfAccount;
+          }
 
           if (this.filters.subChartOfAccount) {
             params.sub_chart_of_account_id = this.filters.subChartOfAccount;

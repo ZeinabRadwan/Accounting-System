@@ -23809,12 +23809,12 @@ var map = {
 		2811
 	],
 	"./reports/account-statement": [
-		18597,
-		8597
+		34444,
+		4444
 	],
 	"./reports/account-statement.vue": [
-		18597,
-		8597
+		34444,
+		4444
 	],
 	"./reports/balance-sheet": [
 		99032,
