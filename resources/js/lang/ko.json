@@ -727,6 +727,8 @@
   "Enter a branch name": "지점 이름을 입력하세요.",
   "Bank Name": "은행명",
   "Enter a bank name": "은행 이름을 입력하세요.",
+  "Bank Account": "은행 계좌",
+  "Cash Account": "현금 계좌",
   "Account Details": "계정 세부정보",
   "Total Transactions": "총 거래",
   "Debit Amount": "차변 금액",

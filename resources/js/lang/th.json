@@ -727,6 +727,8 @@
   "Enter a branch name": "ป้อนชื่อสาขา",
   "Bank Name": "ชื่อธนาคาร",
   "Enter a bank name": "ป้อนชื่อธนาคาร",
+  "Bank Account": "บัญชีธนาคาร",
+  "Cash Account": "บัญชีเงินสด",
   "Account Details": "รายละเอียดบัญชี",
   "Total Transactions": "ธุรกรรมทั้งหมด",
   "Debit Amount": "จำนวนเดบิต",

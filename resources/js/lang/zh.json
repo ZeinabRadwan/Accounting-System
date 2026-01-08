@@ -727,6 +727,8 @@
   "Enter a branch name": "输入分支名称",
   "Bank Name": "银行名称",
   "Enter a bank name": "输入银行名称",
+  "Bank Account": "银行账户",
+  "Cash Account": "现金账户",
   "Account Details": "账户详情",
   "Total Transactions": "总交易量",
   "Debit Amount": "借方金额",

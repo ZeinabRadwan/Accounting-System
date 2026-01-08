@@ -727,6 +727,8 @@
   "Enter a branch name": "Insira um nome de filial",
   "Bank Name": "Nome do banco",
   "Enter a bank name": "Insira um nome de banco",
+  "Bank Account": "Conta bancária",
+  "Cash Account": "Conta de caixa",
   "Account Details": "Detalhes da conta",
   "Total Transactions": "Total de transações",
   "Debit Amount": "Valor do débito",

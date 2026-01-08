@@ -726,6 +726,8 @@
   "Enter a branch name": "Ingrese el nombre de una sucursal",
   "Bank Name": "Nombre del banco",
   "Enter a bank name": "Introduzca un nombre de banco",
+  "Bank Account": "Cuenta bancaria",
+  "Cash Account": "Cuenta de efectivo",
   "Account Details": "Detalles de la cuenta",
   "Total Transactions": "Transacciones totales",
   "Debit Amount": "Importe del débito",

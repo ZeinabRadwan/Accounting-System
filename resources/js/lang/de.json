@@ -726,6 +726,8 @@
   "Enter a branch name": "Geben Sie einen Filialnamen ein",
   "Bank Name": "Bankname",
   "Enter a bank name": "Geben Sie einen Banknamen ein",
+  "Bank Account": "Bankkonto",
+  "Cash Account": "Bargeldkonto",
   "Account Details": "Kontodetails",
   "Total Transactions": "Gesamttransaktionen",
   "Debit Amount": "Sollbetrag",

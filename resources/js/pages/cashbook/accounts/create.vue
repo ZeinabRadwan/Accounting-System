@@ -47,112 +47,248 @@
           <!-- form start -->
           <form id="accountCreateForm" role="form" @submit.prevent="saveAccount" @keydown="form.onKeydown($event)">
             <div class="card-body">
-              <div class="row">
-                <div class="form-group col-md-12">
-                  <label for="bankName">{{ $t('Bank Name') }}
-                    <span class="required">*</span></label>
-                  <input id="bankName" v-model="form.bankName" type="text" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('bankName') }" name="bankName"
-                    :placeholder="$t('Enter a bank name')" />
-                  <has-error :form="form" field="bankName" />
+              <!-- Tab Interface -->
+              <div class="row no-print tabs-header-row">
+                <div class="w-100">
+                  <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                      <a 
+                        class="nav-link" 
+                        :class="{ active: activeAccountType === 'bank' }"
+                        href="#bank-account" 
+                        data-toggle="tab" 
+                        @click.prevent="switchAccountType('bank')">
+                        <i class="fa fa-university"></i>
+                        {{ $t('Bank Account') }}
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a 
+                        class="nav-link" 
+                        :class="{ active: activeAccountType === 'cash' }"
+                        href="#cash-account" 
+                        data-toggle="tab"
+                        @click.prevent="switchAccountType('cash')">
+                        <i class="fa fa-money-bill"></i>
+                        {{ $t('Cash Account') }}
+                      </a>
+                    </li>
+                  </ul>
                 </div>
               </div>
-              <div class="row">
-                <div class="form-group col-md-6">
-                  <label for="branchName">{{ $t('Branch Name') }}
-                  </label>
-                  <input id="branchName" v-model="form.branchName" type="text" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('branchName') }" name="branchName"
-                    :placeholder="$t('Enter a branch name')" />
-                  <has-error :form="form" field="branchName" />
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="accountNumber">{{ $t('Account Number') }}
-                    <span class="required">*</span></label>
-                  <input id="accountNumber" v-model="form.accountNumber" type="text" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('accountNumber') }" name="accountNumber" :placeholder="$t('Enter an account number')
-                      " />
-                  <has-error :form="form" field="accountNumber" />
-                </div>
-              </div>
-              <div class="row">
-                <div class="form-group col-md-6">
-                  <label for="chartOfAccountId">{{ $t('Chart of Account') }}
-                    <span class="required">*</span></label>
-                  <v-select
-                    v-model="form.chartOfAccountId"
-                    :options="chartOfAccounts"
-                    label="name"
-                    :reduce="option => option.id"
-                    :class="{ 'is-invalid': form.errors.has('chartOfAccountId') }"
-                    name="chartOfAccountId"
-                    :placeholder="$t('Select a Chart of Account')"
-                  >
-                    <template #option="{ name, code, type, parent }">
-                      <div>
-                        <strong>{{ name }}</strong>
-                        <br>
-                        <small class="text-muted">
-                          {{ code }} - {{ type }}
-                          <span v-if="parent" class="text-info">
-                            <i class="fas fa-level-up-alt"></i> {{ $t('Parent') }}: {{ parent.name }}
-                          </span>
+
+              <div class="tab-content">
+                <div class="tab-pane" :class="{ active: activeAccountType === 'bank' }" id="bank-account">
+                  <div class="row">
+                    <div class="form-group col-md-12">
+                      <label for="bankName">{{ $t('Bank Name') }}
+                        <span class="required">*</span></label>
+                      <input id="bankName" v-model="form.bankName" type="text" class="form-control"
+                        :class="{ 'is-invalid': form.errors.has('bankName') }" name="bankName"
+                        :placeholder="$t('Enter a bank name')" />
+                      <has-error :form="form" field="bankName" />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-group col-md-6">
+                      <label for="branchName">{{ $t('Branch Name') }}
+                      </label>
+                      <input id="branchName" v-model="form.branchName" type="text" class="form-control"
+                        :class="{ 'is-invalid': form.errors.has('branchName') }" name="branchName"
+                        :placeholder="$t('Enter a branch name')" />
+                      <has-error :form="form" field="branchName" />
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="accountNumber">{{ $t('Account Number') }}
+                        <span class="required">*</span></label>
+                      <input id="accountNumber" v-model="form.accountNumber" type="text" class="form-control"
+                        :class="{ 'is-invalid': form.errors.has('accountNumber') }" name="accountNumber" :placeholder="$t('Enter an account number')
+                          " />
+                      <has-error :form="form" field="accountNumber" />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-group col-md-6">
+                      <label for="chartOfAccountId">{{ $t('Chart of Account') }}
+                        <span class="required">*</span></label>
+                      <v-select
+                        v-model="form.chartOfAccountId"
+                        :options="chartOfAccounts"
+                        label="name"
+                        :reduce="option => option.id"
+                        :class="{ 'is-invalid': form.errors.has('chartOfAccountId') }"
+                        name="chartOfAccountId"
+                        :placeholder="$t('Select a Chart of Account')"
+                      >
+                        <template #option="{ name, code, type, parent }">
+                          <div>
+                            <strong>{{ name }}</strong>
+                            <br>
+                            <small class="text-muted">
+                              {{ code }} - {{ type }}
+                              <span v-if="parent" class="text-info">
+                                <i class="fas fa-level-up-alt"></i> {{ $t('Parent') }}: {{ parent.name }}
+                              </span>
+                            </small>
+                          </div>
+                        </template>
+                      </v-select>
+                      <div class="mt-2">
+                        <small class="text-muted d-block mb-2">
+                          <i class="fas fa-info-circle"></i>
+                          {{ $t('You can create a sub-account from Chart of Accounts page') }}
                         </small>
+                        <router-link 
+                          v-if="form.chartOfAccountId && $can('chart-of-account-create')" 
+                          :to="{ name: 'chart-of-accounts.create', query: { parent_id: form.chartOfAccountId } }"
+                          class="btn btn-sm btn-outline-primary">
+                          <i class="fas fa-plus"></i>
+                          {{ $t('Create Sub Account for this Chart of Account') }}
+                        </router-link>
                       </div>
-                    </template>
-                  </v-select>
-                  <div class="mt-2">
-                    <small class="text-muted d-block mb-2">
-                      <i class="fas fa-info-circle"></i>
-                      {{ $t('You can create a sub-account from Chart of Accounts page') }}
-                    </small>
-                    <router-link 
-                      v-if="form.chartOfAccountId && $can('chart-of-account-create')" 
-                      :to="{ name: 'chart-of-accounts.create', query: { parent_id: form.chartOfAccountId } }"
-                      class="btn btn-sm btn-outline-primary">
-                      <i class="fas fa-plus"></i>
-                      {{ $t('Create Sub Account for this Chart of Account') }}
-                    </router-link>
+                      <has-error :form="form" field="chartOfAccountId" />
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="image">{{ $t("Image") }}</label>
+                      <div class="custom-file">
+                        <input id="image" type="file" class="custom-file-input" name="image"
+                          :class="{ 'is-invalid': form.errors.has('image') }" @change="onFileChange" />
+                        <label class="custom-file-label" for="image">{{
+                          $t("Choose file")
+                        }}</label>
+                      </div>
+                      <has-error :form="form" field="image" />
+                      <div class="bg-light mt-4 w-25">
+                        <img v-if="url" :src="url" class="img-fluid" :alt="$t('Attached Image')" />
+                      </div>
+                    </div>
                   </div>
-                  <has-error :form="form" field="chartOfAccountId" />
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="image">{{ $t("Image") }}</label>
-                  <div class="custom-file">
-                    <input id="image" type="file" class="custom-file-input" name="image"
-                      :class="{ 'is-invalid': form.errors.has('image') }" @change="onFileChange" />
-                    <label class="custom-file-label" for="image">{{
-                      $t("Choose file")
-                    }}</label>
+                  <div class="row">
+                    <div class="form-group col-md-6">
+                      <label for="date">{{ $t('Date') }}</label>
+                      <input id="date" v-model="form.date" type="date" class="form-control"
+                        :class="{ 'is-invalid': form.errors.has('date') }" name="date" />
+                      <has-error :form="form" field="date" />
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="status">{{ $t('Status') }}</label>
+                      <select id="status" v-model="form.status" class="form-control"
+                        :class="{ 'is-invalid': form.errors.has('status') }">
+                        <option value="1">{{ $t('Active') }}</option>
+                        <option value="0">{{ $t('Inactive') }}</option>
+                      </select>
+                      <has-error :form="form" field="status" />
+                    </div>
                   </div>
-                  <has-error :form="form" field="image" />
-                  <div class="bg-light mt-4 w-25">
-                    <img v-if="url" :src="url" class="img-fluid" :alt="$t('Attached Image')" />
+                  <div class="form-group">
+                    <label for="note">{{ $t('Note') }}</label>
+                    <textarea id="note" v-model="form.note" class="form-control"
+                      :class="{ 'is-invalid': form.errors.has('note') }" :placeholder="$t('Write your note here!')" />
+                    <has-error :form="form" field="note" />
                   </div>
                 </div>
-              </div>
-              <div class="row">
-                <div class="form-group col-md-6">
-                  <label for="date">{{ $t('Date') }}</label>
-                  <input id="date" v-model="form.date" type="date" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('date') }" name="date" />
-                  <has-error :form="form" field="date" />
+
+                <div class="tab-pane" :class="{ active: activeAccountType === 'cash' }" id="cash-account">
+                  <div class="row">
+                    <div class="form-group col-md-12">
+                      <label for="bankNameCash">{{ $t('Bank Name') }}
+                        <span class="required">*</span></label>
+                      <input id="bankNameCash" v-model="form.bankName" type="text" class="form-control"
+                        :class="{ 'is-invalid': form.errors.has('bankName') }" name="bankName"
+                        :placeholder="$t('Enter a bank name')" />
+                      <has-error :form="form" field="bankName" />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-group col-md-6">
+                      <label for="branchNameCash">{{ $t('Branch Name') }}
+                      </label>
+                      <input id="branchNameCash" v-model="form.branchName" type="text" class="form-control"
+                        :class="{ 'is-invalid': form.errors.has('branchName') }" name="branchName"
+                        :placeholder="$t('Enter a branch name')" />
+                      <has-error :form="form" field="branchName" />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-group col-md-6">
+                      <label for="chartOfAccountIdCash">{{ $t('Chart of Account') }}
+                        <span class="required">*</span></label>
+                      <v-select
+                        v-model="form.chartOfAccountId"
+                        :options="chartOfAccounts"
+                        label="name"
+                        :reduce="option => option.id"
+                        :class="{ 'is-invalid': form.errors.has('chartOfAccountId') }"
+                        name="chartOfAccountId"
+                        :placeholder="$t('Select a Chart of Account')"
+                      >
+                        <template #option="{ name, code, type, parent }">
+                          <div>
+                            <strong>{{ name }}</strong>
+                            <br>
+                            <small class="text-muted">
+                              {{ code }} - {{ type }}
+                              <span v-if="parent" class="text-info">
+                                <i class="fas fa-level-up-alt"></i> {{ $t('Parent') }}: {{ parent.name }}
+                              </span>
+                            </small>
+                          </div>
+                        </template>
+                      </v-select>
+                      <div class="mt-2">
+                        <small class="text-muted d-block mb-2">
+                          <i class="fas fa-info-circle"></i>
+                          {{ $t('You can create a sub-account from Chart of Accounts page') }}
+                        </small>
+                        <router-link 
+                          v-if="form.chartOfAccountId && $can('chart-of-account-create')" 
+                          :to="{ name: 'chart-of-accounts.create', query: { parent_id: form.chartOfAccountId } }"
+                          class="btn btn-sm btn-outline-primary">
+                          <i class="fas fa-plus"></i>
+                          {{ $t('Create Sub Account for this Chart of Account') }}
+                        </router-link>
+                      </div>
+                      <has-error :form="form" field="chartOfAccountId" />
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="imageCash">{{ $t("Image") }}</label>
+                      <div class="custom-file">
+                        <input id="imageCash" type="file" class="custom-file-input" name="image"
+                          :class="{ 'is-invalid': form.errors.has('image') }" @change="onFileChange" />
+                        <label class="custom-file-label" for="imageCash">{{
+                          $t("Choose file")
+                        }}</label>
+                      </div>
+                      <has-error :form="form" field="image" />
+                      <div class="bg-light mt-4 w-25">
+                        <img v-if="url" :src="url" class="img-fluid" :alt="$t('Attached Image')" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-group col-md-6">
+                      <label for="dateCash">{{ $t('Date') }}</label>
+                      <input id="dateCash" v-model="form.date" type="date" class="form-control"
+                        :class="{ 'is-invalid': form.errors.has('date') }" name="date" />
+                      <has-error :form="form" field="date" />
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="statusCash">{{ $t('Status') }}</label>
+                      <select id="statusCash" v-model="form.status" class="form-control"
+                        :class="{ 'is-invalid': form.errors.has('status') }">
+                        <option value="1">{{ $t('Active') }}</option>
+                        <option value="0">{{ $t('Inactive') }}</option>
+                      </select>
+                      <has-error :form="form" field="status" />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="noteCash">{{ $t('Note') }}</label>
+                    <textarea id="noteCash" v-model="form.note" class="form-control"
+                      :class="{ 'is-invalid': form.errors.has('note') }" :placeholder="$t('Write your note here!')" />
+                    <has-error :form="form" field="note" />
+                  </div>
                 </div>
-                <div class="form-group col-md-6">
-                  <label for="status">{{ $t('Status') }}</label>
-                  <select id="status" v-model="form.status" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('status') }">
-                    <option value="1">{{ $t('Active') }}</option>
-                    <option value="0">{{ $t('Inactive') }}</option>
-                  </select>
-                  <has-error :form="form" field="status" />
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="note">{{ $t('Note') }}</label>
-                <textarea id="note" v-model="form.note" class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('note') }" :placeholder="$t('Write your note here!')" />
-                <has-error :form="form" field="note" />
               </div>
             </div>
             <!-- /.card-body -->
@@ -202,6 +338,7 @@ export default {
         url: '',
       },
     ],
+    activeAccountType: 'bank',
     form: new Form({
       bankName: '',
       branchName: '',
@@ -220,9 +357,36 @@ export default {
   mounted() {
     this.loadChartOfAccounts()
     this.loadTemporaryData()
+    
+    // Listen for Bootstrap tab events to keep state in sync
+    if (typeof $ !== 'undefined') {
+      $('a[data-toggle="tab"]').on('shown.bs.tab', (e) => {
+        const target = $(e.target).attr('href');
+        if (target === '#bank-account') {
+          this.activeAccountType = 'bank';
+        } else if (target === '#cash-account') {
+          this.activeAccountType = 'cash';
+        }
+      });
+    }
   },
 
   methods: {
+    // switch account type
+    switchAccountType(type) {
+      if (this.activeAccountType === type) {
+        return;
+      }
+      this.activeAccountType = type;
+      // Clear account number when switching to cash account
+      if (type === 'cash') {
+        this.form.accountNumber = '';
+        // Clear any validation errors for accountNumber
+        if (this.form.errors.has('accountNumber')) {
+          this.form.errors.clear('accountNumber');
+        }
+      }
+    },
     // load chart of accounts
     async loadChartOfAccounts() {
       try {
@@ -286,6 +450,7 @@ export default {
         enabled: this.form.enabled,
         note: this.form.note,
         chartOfAccountId: this.form.chartOfAccountId,
+        activeAccountType: this.activeAccountType,
         timestamp: new Date().toISOString()
       }
       localStorage.setItem('accountTempData', JSON.stringify(tempData))
@@ -306,6 +471,9 @@ export default {
           this.form.enabled = data.enabled !== undefined ? data.enabled : 1
           this.form.note = data.note || ''
           this.form.chartOfAccountId = data.chartOfAccountId || null
+          if (data.activeAccountType) {
+            this.activeAccountType = data.activeAccountType
+          }
         } catch (error) {
           console.error('Error loading temporary data:', error)
         }
@@ -548,6 +716,78 @@ textarea.form-control {
     display: flex;
     flex-direction: column;
     gap: 10px;
+  }
+}
+
+/* Tab Interface Styling */
+.tabs-header-row {
+  margin-bottom: 1.5rem;
+}
+
+.nav-tabs {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+  border: none;
+  margin-bottom: 0;
+  background: #0775AF1A;
+  padding: 10px;
+  border-radius: 10px;
+  width: 15%;
+}
+
+.nav-item {
+  flex: 0 1 auto;
+}
+
+.nav-link {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: none;
+  color: #000000;
+  font-family: DINNextLTArabic;
+  font-weight: 400;
+  font-size: 0.95rem;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.nav-link.active {
+  background: #0775AF;
+  color: #FFFFFF !important;
+}
+
+.nav-link:hover {
+  filter: brightness(0.96);
+}
+
+.tab-content {
+  margin-top: 1rem;
+}
+
+.tab-pane {
+  display: none;
+}
+
+.tab-pane.active {
+  display: block;
+}
+
+@media (max-width: 576px) {
+  .nav-tabs {
+    gap: 6px;
+    padding: 8px;
+  }
+
+  .nav-link {
+    padding: 8px 10px;
+    font-size: 0.85rem;
   }
 }
 </style>

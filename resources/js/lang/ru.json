@@ -727,6 +727,8 @@
   "Enter a branch name": "Введите название филиала",
   "Bank Name": "Название банка",
   "Enter a bank name": "Введите название банка",
+  "Bank Account": "Банковский счет",
+  "Cash Account": "Кассовый счет",
   "Account Details": "Детали учетной записи",
   "Total Transactions": "Всего транзакций",
   "Debit Amount": "Сумма дебета",

@@ -727,6 +727,8 @@
   "Enter a branch name": "Bir şube adı girin",
   "Bank Name": "Banka Adı",
   "Enter a bank name": "Bir banka adı girin",
+  "Bank Account": "Banka Hesabı",
+  "Cash Account": "Nakit Hesap",
   "Account Details": "Hesap Detayları",
   "Total Transactions": "Toplam İşlemler",
   "Debit Amount": "Borç Tutarı",

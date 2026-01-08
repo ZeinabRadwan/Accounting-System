@@ -727,6 +727,8 @@
   "Enter a branch name": "Nhập tên chi nhánh",
   "Bank Name": "Tên ngân hàng",
   "Enter a bank name": "Nhập tên ngân hàng",
+  "Bank Account": "Tài khoản ngân hàng",
+  "Cash Account": "Tài khoản tiền mặt",
   "Account Details": "Chi tiết tài khoản",
   "Total Transactions": "Tổng số giao dịch",
   "Debit Amount": "Số tiền ghi nợ",

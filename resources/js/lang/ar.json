@@ -3024,6 +3024,7 @@
     "cashbook.Opps...something went wrong": "عذراً... حدث خطأ ما",
     "Cashbook Balance Create Form Messages": "رسائل نموذج إنشاء تعديل الرصيد في دفتر النقدية",
     "Bank Account": "حساب البنك",
+    "Cash Account": "حساب نقدي",
     "Select a bank account": "اختر حساب بنك",
     "Select account for journal entry": "اختر حساب لقيود اليومية",
     "The account field is required for balance adjustments.": "حقل الحساب مطلوب لتعديلات الرصيد.",

@@ -727,6 +727,8 @@
   "Enter a branch name": "Voer een filiaalnaam in",
   "Bank Name": "Banknaam",
   "Enter a bank name": "Voer een banknaam in",
+  "Bank Account": "Bankrekening",
+  "Cash Account": "Contantrekening",
   "Account Details": "Accountgegevens",
   "Total Transactions": "Totaal aantal transacties",
   "Debit Amount": "Debetbedrag",

@@ -727,6 +727,8 @@
   "Enter a branch name": "शाखा का नाम दर्ज करें",
   "Bank Name": "बैंक का नाम",
   "Enter a bank name": "बैंक का नाम दर्ज करें",
+  "Bank Account": "बैंक खाता",
+  "Cash Account": "नकद खाता",
   "Account Details": "खाता विवरण",
   "Total Transactions": "कुल लेनदेन",
   "Debit Amount": "डेबिट राशि",
