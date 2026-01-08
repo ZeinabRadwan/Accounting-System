@@ -634,6 +634,7 @@ Route::middleware([
         // Report routes
         Route::get('/reports/account-statement', [ReportController::class, 'accountStatement']);
         Route::get('/reports/group-account-statement', [ReportController::class, 'groupAccountStatement']);
+        Route::get('/reports/analytical-account-statement', [ReportController::class, 'analyticalAccountStatement']);
         Route::get('/reports/invoice-summary', [ReportController::class, 'invoiceSummary']);
         Route::get('/reports/purchase-summary', [ReportController::class, 'purchaseSummary']);
         Route::get('/reports/sub-chart-of-accounts', [ReportController::class, 'getSubChartOfAccounts']);
@@ -806,6 +807,9 @@ Route::middleware([
         Route::get('/print/reports/group-account-statement', [App\Http\Controllers\PrintController::class, 'printGroupAccountStatement'])->name('print.reports.group-account-statement');
         Route::get('/print/reports/group-account-statement/pdf', [App\Http\Controllers\PrintController::class, 'downloadGroupAccountStatementPDF'])->name('print.reports.group-account-statement.pdf');
         Route::get('/print/reports/group-account-statement/preview', [App\Http\Controllers\PrintController::class, 'previewGroupAccountStatementPDF'])->name('print.reports.group-account-statement.preview');
+        Route::get('/print/reports/analytical-account-statement', [App\Http\Controllers\PrintController::class, 'printAnalyticalAccountStatement'])->name('print.reports.analytical-account-statement');
+        Route::get('/print/reports/analytical-account-statement/pdf', [App\Http\Controllers\PrintController::class, 'downloadAnalyticalAccountStatementPDF'])->name('print.reports.analytical-account-statement.pdf');
+        Route::get('/print/reports/analytical-account-statement/preview', [App\Http\Controllers\PrintController::class, 'previewAnalyticalAccountStatementPDF'])->name('print.reports.analytical-account-statement.preview');
     });
 
     // PDF download routes for print templates
@@ -922,6 +926,8 @@ Route::middleware([
     Route::get('/account-statement/export', [TableExportController::class, 'accountStatementExportExcel'])->name('accountStatement.export.excel');
     Route::get('/group-account-statement/pdf', [TableExportController::class, 'groupAccountStatementPDF'])->name('groupAccountStatement.pdf');
     Route::get('/group-account-statement/export', [TableExportController::class, 'groupAccountStatementExportExcel'])->name('groupAccountStatement.export.excel');
+    Route::get('/analytical-account-statement/pdf', [TableExportController::class, 'analyticalAccountStatementPDF'])->name('analyticalAccountStatement.pdf');
+    Route::get('/analytical-account-statement/export', [TableExportController::class, 'analyticalAccountStatementExportExcel'])->name('analyticalAccountStatement.export.excel');
     Route::get('/invoice-summary/pdf', [TableExportController::class, 'invoiceSummaryPDF'])->name('invoiceSummary.pdf');
     Route::get('/invoice-summary/export', [TableExportController::class, 'invoiceSummaryExportExcel'])->name('invoiceSummary.export.excel');
     Route::get('/purchase-summary/pdf', [TableExportController::class, 'purchaseSummaryPDF'])->name('purchaseSummary.pdf');

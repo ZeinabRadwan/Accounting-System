@@ -49,6 +49,7 @@ class ReportController extends Controller
     public function __construct()
     {
         $this->middleware('can:account-statement', ['only' => ['accountStatement']]);
+        $this->middleware('can:account-statement', ['only' => ['analyticalAccountStatement']]);
         $this->middleware('can:balance-sheet', ['only' => ['balanceSheet', 'trialBalance']]);
         $this->middleware('can:summary-report', ['only' => ['summeryReport']]);
         $this->middleware('can:profit-loss', ['only' => ['profitLossReport']]);
@@ -2633,7 +2634,7 @@ class ReportController extends Controller
             ]);
 
             // At least one filter must be provided
-            if (!$request->chart_of_account_id && !$request->cost_center_id) {
+            if (! $request->chart_of_account_id && ! $request->cost_center_id) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Please select either an account or a cost center',
@@ -2730,7 +2731,7 @@ class ReportController extends Controller
 
             foreach ($journalEntries as $entry) {
                 $entryLines = $entry->lines;
-                
+
                 // If account is selected, filter lines by account
                 if ($reportAccountId) {
                     $entryLines = $entryLines->where('chart_of_account_id', $reportAccountId);
@@ -2848,7 +2849,7 @@ class ReportController extends Controller
             ]);
 
             // At least one filter must be provided
-            if (!$request->chart_of_account_id && !$request->cost_center_id) {
+            if (! $request->chart_of_account_id && ! $request->cost_center_id) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Please select either an account or a cost center',
@@ -2856,7 +2857,7 @@ class ReportController extends Controller
             }
 
             // At least one filter must be provided
-            if (!$request->chart_of_account_id && !$request->cost_center_id) {
+            if (! $request->chart_of_account_id && ! $request->cost_center_id) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Please select either an account or a cost center',
@@ -2945,7 +2946,7 @@ class ReportController extends Controller
 
             foreach ($journalEntries as $entry) {
                 $entryLines = $entry->lines;
-                
+
                 // If account is selected, filter lines by account
                 if ($reportAccountId) {
                     $entryLines = $entryLines->where('chart_of_account_id', $reportAccountId);
@@ -4831,7 +4832,7 @@ class ReportController extends Controller
 
         foreach ($accounts as $account) {
             $accountLevel = $account->getLevel();
-            
+
             if ($accountLevel <= $maxLevel) {
                 // Include this account
                 // Recursively filter children
@@ -4839,7 +4840,7 @@ class ReportController extends Controller
                     $filteredChildren = $this->filterAccountsByLevel($account->children, $maxLevel);
                     $account->setRelation('children', $filteredChildren);
                 }
-                
+
                 $filtered->push($account);
             } elseif ($accountLevel > $maxLevel && $account->children && $account->children->count() > 0) {
                 // This account is too deep, but check its children
@@ -5424,9 +5425,9 @@ class ReportController extends Controller
                         $q->where(function ($subQ) {
                             $subQ->whereRaw("(JSON_EXTRACT(invoice_data, '$.isReturnInvoice') IS NULL OR JSON_EXTRACT(invoice_data, '$.isReturnInvoice') = false)");
                         })
-                        ->where(function ($subQ) {
-                            $subQ->whereRaw("(JSON_EXTRACT(invoice_data, '$[0].isReturnInvoice') IS NULL OR JSON_EXTRACT(invoice_data, '$[0].isReturnInvoice') = false)");
-                        });
+                            ->where(function ($subQ) {
+                                $subQ->whereRaw("(JSON_EXTRACT(invoice_data, '$[0].isReturnInvoice') IS NULL OR JSON_EXTRACT(invoice_data, '$[0].isReturnInvoice') = false)");
+                            });
                     }
                 });
             }
@@ -5850,6 +5851,307 @@ class ReportController extends Controller
                 'message' => 'Failed to generate payment method analytics report',
                 'error' => $e->getMessage(),
             ], 500);
+        }
+    }
+
+    /**
+     * Get Analytical Account Statement report data with chunked loading
+     * Shows all transactions for a specific analytical account
+     * Does NOT affect Trial Balance or Financial Statements - Metadata only
+     */
+    public function analyticalAccountStatement(Request $request)
+    {
+        try {
+            // Validate request
+            $this->validate($request, [
+                'analytical_account_id' => 'required|exists:analytical_accounts,id',
+                'from_date' => 'required|date',
+                'to_date' => 'required|date|after_or_equal:from_date',
+                'page' => 'nullable|integer|min:1',
+                'per_page' => 'nullable|integer|min:1|max:100',
+            ]);
+
+            $analyticalAccountId = $request->analytical_account_id;
+            $fromDate = $request->from_date;
+            $toDate = $request->to_date;
+            $page = $request->page ?? 1;
+            $perPage = $request->per_page ?? 10; // Default to 10 rows per page
+
+            $branchId = Auth::user()->default_branch_id ?? null;
+
+            // Get analytical account details
+            $analyticalAccount = AnalyticalAccount::forBranch($branchId)
+                ->findOrFail($analyticalAccountId);
+
+            // Build date range query - filter by analytical_account_id on journal_entry_lines
+            $dateQuery = \App\Models\JournalEntry::query()
+                ->where('status', 'posted')
+                ->whereHas('lines', function ($query) use ($analyticalAccountId) {
+                    $query->where('analytical_account_id', $analyticalAccountId);
+                });
+
+            // Apply date filter (required)
+            $dateQuery->whereBetween('entry_date', [$fromDate, $toDate]);
+
+            // Get total count for pagination
+            $totalCount = $dateQuery->count();
+
+            // Get journal entries with pagination
+            $journalEntries = $dateQuery
+                ->with(['lines.chartOfAccount' => function ($query) {
+                    $query->select('id', 'code', 'name');
+                }])
+                ->with(['lines' => function ($query) use ($analyticalAccountId) {
+                    $query->where('analytical_account_id', $analyticalAccountId);
+                }])
+                ->orderBy('entry_date', 'desc')
+                ->orderBy('id', 'desc')
+                ->skip(($page - 1) * $perPage)
+                ->take($perPage)
+                ->get();
+
+            // Calculate opening balance (balance before the date range) - OPTIMIZED
+            $openingBalanceQuery = \App\Models\JournalEntry::query()
+                ->where('status', 'posted')
+                ->join('journal_entry_lines', 'journal_entries.id', '=', 'journal_entry_lines.journal_entry_id')
+                ->where('journal_entries.entry_date', '<', $fromDate)
+                ->where('journal_entry_lines.analytical_account_id', $analyticalAccountId);
+
+            $openingTotals = $openingBalanceQuery
+                ->selectRaw('SUM(journal_entry_lines.debit_amount) as total_debits, SUM(journal_entry_lines.credit_amount) as total_credits')
+                ->first();
+
+            $openingDebits = $openingTotals->total_debits ?? 0;
+            $openingCredits = $openingTotals->total_credits ?? 0;
+            $openingBalance = $openingDebits - $openingCredits;
+
+            // Calculate running balance for each entry
+            $runningBalance = $openingBalance;
+            $processedEntries = [];
+
+            foreach ($journalEntries as $entry) {
+                $entryLines = $entry->lines->where('analytical_account_id', $analyticalAccountId);
+
+                if ($entryLines->count() > 0) {
+                    // If there are multiple lines, show each one separately
+                    foreach ($entryLines as $entryLine) {
+                        $debitAmount = $entryLine->debit_amount;
+                        $creditAmount = $entryLine->credit_amount;
+                        $netAmount = $debitAmount - $creditAmount;
+                        $runningBalance += $netAmount;
+
+                        $processedEntries[] = [
+                            'id' => $entry->id.'_'.$entryLine->id, // Unique ID for each line
+                            'entry_number' => $entry->formatted_entry_number,
+                            'entry_date' => $entry->entry_date->format('Y-m-d'),
+                            'reference' => $entry->reference,
+                            'description' => $entry->description,
+                            'debit_amount' => round($debitAmount, 2),
+                            'credit_amount' => round($creditAmount, 2),
+                            'net_amount' => round($netAmount, 2),
+                            'running_balance' => round($runningBalance, 2),
+                            'balance_type' => $runningBalance >= 0 ? 'Debit' : 'Credit',
+                            'source_type' => $entry->source_type,
+                            'source_id' => $entry->source_id,
+                            'account_code' => $entryLine->chartOfAccount ? $entryLine->chartOfAccount->code : null,
+                            'account_name' => $entryLine->chartOfAccount ? $entryLine->chartOfAccount->name : null,
+                        ];
+                    }
+                }
+            }
+
+            // Calculate period totals - OPTIMIZED
+            $periodTotalsQuery = \App\Models\JournalEntry::query()
+                ->where('status', 'posted')
+                ->join('journal_entry_lines', 'journal_entries.id', '=', 'journal_entry_lines.journal_entry_id')
+                ->whereBetween('journal_entries.entry_date', [$fromDate, $toDate])
+                ->where('journal_entry_lines.analytical_account_id', $analyticalAccountId);
+
+            $periodTotals = $periodTotalsQuery
+                ->selectRaw('SUM(journal_entry_lines.debit_amount) as total_debits, SUM(journal_entry_lines.credit_amount) as total_credits')
+                ->first();
+
+            $periodDebits = $periodTotals->total_debits ?? 0;
+            $periodCredits = $periodTotals->total_credits ?? 0;
+            $periodNet = $periodDebits - $periodCredits;
+            $closingBalance = $openingBalance + $periodNet;
+
+            return [
+                'success' => true,
+                'data' => [
+                    'analytical_account' => [
+                        'id' => $analyticalAccount->id,
+                        'code' => $analyticalAccount->code,
+                        'name' => $analyticalAccount->name,
+                        'display_name' => $analyticalAccount->display_name,
+                        'type' => $analyticalAccount->type,
+                    ],
+                    'filters' => [
+                        'analytical_account_id' => $analyticalAccountId,
+                        'from_date' => $fromDate,
+                        'to_date' => $toDate,
+                    ],
+                    'summary' => [
+                        'opening_balance' => round($openingBalance, 2),
+                        'opening_balance_type' => $openingBalance >= 0 ? 'Debit' : 'Credit',
+                        'period_debits' => round($periodDebits, 2),
+                        'period_credits' => round($periodCredits, 2),
+                        'period_net' => round($periodNet, 2),
+                        'closing_balance' => round($closingBalance, 2),
+                        'closing_balance_type' => $closingBalance >= 0 ? 'Debit' : 'Credit',
+                    ],
+                    'entries' => $processedEntries,
+                    'pagination' => [
+                        'current_page' => $page,
+                        'per_page' => $perPage,
+                        'total_count' => $totalCount,
+                        'total_pages' => ceil($totalCount / $perPage),
+                        'has_more' => $page < ceil($totalCount / $perPage),
+                    ],
+                ],
+            ];
+        } catch (\Exception $e) {
+            return $this->responseWithError($e->getMessage());
+        }
+    }
+
+    /**
+     * Get Analytical Account Statement report data for printing (all data, no pagination)
+     */
+    public function analyticalAccountStatementForPrint(Request $request)
+    {
+        try {
+            // Validate request
+            $this->validate($request, [
+                'analytical_account_id' => 'required|exists:analytical_accounts,id',
+                'from_date' => 'required|date',
+                'to_date' => 'required|date|after_or_equal:from_date',
+            ]);
+
+            $analyticalAccountId = $request->analytical_account_id;
+            $fromDate = $request->from_date;
+            $toDate = $request->to_date;
+
+            $branchId = Auth::user()->default_branch_id ?? null;
+
+            // Get analytical account details
+            $analyticalAccount = AnalyticalAccount::forBranch($branchId)
+                ->findOrFail($analyticalAccountId);
+
+            // Build date range query - NO PAGINATION
+            $dateQuery = \App\Models\JournalEntry::query()
+                ->where('status', 'posted')
+                ->whereHas('lines', function ($query) use ($analyticalAccountId) {
+                    $query->where('analytical_account_id', $analyticalAccountId);
+                });
+
+            // Apply date filter (required)
+            $dateQuery->whereBetween('entry_date', [$fromDate, $toDate]);
+
+            // Get ALL journal entries - NO PAGINATION
+            $journalEntries = $dateQuery
+                ->with(['lines.chartOfAccount' => function ($query) {
+                    $query->select('id', 'code', 'name');
+                }])
+                ->with(['lines' => function ($query) use ($analyticalAccountId) {
+                    $query->where('analytical_account_id', $analyticalAccountId);
+                }])
+                ->orderBy('entry_date', 'desc')
+                ->orderBy('id', 'desc')
+                ->get(); // Get ALL entries
+
+            // Calculate opening balance (balance before the date range) - OPTIMIZED
+            $openingBalanceQuery = \App\Models\JournalEntry::query()
+                ->where('status', 'posted')
+                ->join('journal_entry_lines', 'journal_entries.id', '=', 'journal_entry_lines.journal_entry_id')
+                ->where('journal_entries.entry_date', '<', $fromDate)
+                ->where('journal_entry_lines.analytical_account_id', $analyticalAccountId);
+
+            $openingTotals = $openingBalanceQuery
+                ->selectRaw('SUM(journal_entry_lines.debit_amount) as total_debits, SUM(journal_entry_lines.credit_amount) as total_credits')
+                ->first();
+
+            $openingDebits = $openingTotals->total_debits ?? 0;
+            $openingCredits = $openingTotals->total_credits ?? 0;
+            $openingBalance = $openingDebits - $openingCredits;
+
+            // Process journal entries
+            $processedEntries = [];
+            $runningBalance = $openingBalance;
+
+            foreach ($journalEntries as $entry) {
+                $entryLines = $entry->lines->where('analytical_account_id', $analyticalAccountId);
+
+                foreach ($entryLines as $line) {
+                    $debitAmount = $line->debit_amount ?? 0;
+                    $creditAmount = $line->credit_amount ?? 0;
+                    $netAmount = $debitAmount - $creditAmount;
+                    $runningBalance += $netAmount;
+
+                    $processedEntries[] = [
+                        'entry_date' => $entry->entry_date,
+                        'entry_number' => $entry->entry_number,
+                        'reference' => $entry->reference,
+                        'description' => $line->description ?? $entry->description,
+                        'debit_amount' => $debitAmount,
+                        'credit_amount' => $creditAmount,
+                        'net_amount' => $netAmount,
+                        'running_balance' => $runningBalance,
+                        'balance_type' => $runningBalance >= 0 ? 'Debit' : 'Credit',
+                        'source_type' => $entry->source_type,
+                        'source_id' => $entry->source_id,
+                        'account_code' => $line->chartOfAccount ? $line->chartOfAccount->code : null,
+                        'account_name' => $line->chartOfAccount ? $line->chartOfAccount->name : null,
+                    ];
+                }
+            }
+
+            // Calculate period totals - OPTIMIZED
+            $periodTotalsQuery = \App\Models\JournalEntry::query()
+                ->where('status', 'posted')
+                ->join('journal_entry_lines', 'journal_entries.id', '=', 'journal_entry_lines.journal_entry_id')
+                ->whereBetween('journal_entries.entry_date', [$fromDate, $toDate])
+                ->where('journal_entry_lines.analytical_account_id', $analyticalAccountId);
+
+            $periodTotals = $periodTotalsQuery
+                ->selectRaw('SUM(journal_entry_lines.debit_amount) as total_debits, SUM(journal_entry_lines.credit_amount) as total_credits')
+                ->first();
+
+            $periodDebits = $periodTotals->total_debits ?? 0;
+            $periodCredits = $periodTotals->total_credits ?? 0;
+            $periodNet = $periodDebits - $periodCredits;
+            $closingBalance = $openingBalance + $periodNet;
+
+            return [
+                'success' => true,
+                'data' => [
+                    'analytical_account' => [
+                        'id' => $analyticalAccount->id,
+                        'code' => $analyticalAccount->code,
+                        'name' => $analyticalAccount->name,
+                        'display_name' => $analyticalAccount->display_name,
+                        'type' => $analyticalAccount->type,
+                    ],
+                    'filters' => [
+                        'analytical_account_id' => $analyticalAccountId,
+                        'from_date' => $fromDate,
+                        'to_date' => $toDate,
+                    ],
+                    'summary' => [
+                        'opening_balance' => round($openingBalance, 2),
+                        'opening_balance_type' => $openingBalance >= 0 ? 'Debit' : 'Credit',
+                        'period_debits' => round($periodDebits, 2),
+                        'period_credits' => round($periodCredits, 2),
+                        'period_net' => round($periodNet, 2),
+                        'closing_balance' => round($closingBalance, 2),
+                        'closing_balance_type' => $closingBalance >= 0 ? 'Debit' : 'Credit',
+                    ],
+                    'entries' => $processedEntries,
+                    'total_entries' => count($processedEntries),
+                ],
+            ];
+        } catch (\Exception $e) {
+            return $this->responseWithError($e->getMessage());
         }
     }
 

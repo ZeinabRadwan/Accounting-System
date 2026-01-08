@@ -8,6 +8,7 @@ use App\Exports\ExportAccounts;
 use App\Exports\ExportAccountStatement;
 use App\Exports\ExportAccountTransaction;
 use App\Exports\ExportAccountTransactionHistory;
+use App\Exports\ExportAnalyticalAccountStatement;
 use App\Exports\ExportAsset;
 use App\Exports\ExportAssetType;
 use App\Exports\ExportBalanceSheet;
@@ -1867,6 +1868,84 @@ class TableExportController extends Controller
         $filters = $request->all();
 
         return Excel::download(new ExportGroupAccountStatement($filters), 'GroupAccountStatement.xlsx');
+    }
+
+    // return analytical account statement pdf
+    public function analyticalAccountStatementPDF(Request $request)
+    {
+        // Disable Telescope for this request to avoid database issues
+        \Laravel\Telescope\Telescope::stopRecording();
+
+        // Increase memory limit for large PDFs with all entries
+        ini_set('memory_limit', '1G'); // 1GB for very large datasets
+        set_time_limit(300); // 5 minutes for processing
+
+        try {
+            // Use the dedicated print method that gets ALL data without pagination
+            $reportController = new \App\Http\Controllers\API\ReportController;
+            $response = $reportController->analyticalAccountStatementForPrint($request);
+
+            // Handle JsonResponse
+            if ($response instanceof \Illuminate\Http\JsonResponse) {
+                $reportData = $response->getData(true);
+            } else {
+                $reportData = $response;
+            }
+
+            if (! $reportData['success']) {
+                abort(404, 'Report data not found');
+            }
+
+            $data = $reportData['data'];
+
+            // Log entry count for debugging
+            if (isset($data['entries'])) {
+                Log::info('Analytical Account Statement PDF - Processing all entries. Total: '.count($data['entries']));
+            }
+
+            // Add filters to data for template - merge with existing filters if they exist
+            $data['filters'] = array_merge($data['filters'] ?? [], [
+                'from_date' => $request->input('from_date'),
+                'to_date' => $request->input('to_date'),
+                'analytical_account_id' => $request->input('analytical_account_id'),
+            ]);
+
+            // Log the data structure for debugging
+            Log::info('Analytical Account Statement PDF Data Structure:', [
+                'has_analytical_account' => isset($data['analytical_account']),
+                'has_summary' => isset($data['summary']),
+                'has_entries' => isset($data['entries']),
+                'entries_count' => isset($data['entries']) ? count($data['entries']) : 0,
+            ]);
+
+            // For debugging purposes, temporarily return HTML instead of PDF
+            if ($request->has('debug')) {
+                return view('pdf.analytical-account-statement', ['reportData' => $data]);
+            }
+
+            // share data to view
+            view()->share('reportData', $data);
+
+            return $this->generatePDF('pdf.analytical-account-statement', $data, 'analytical-account-statement.pdf');
+        } catch (\Exception $e) {
+            Log::error('Analytical Account Statement PDF Error: '.$e->getMessage(), [
+                'trace' => $e->getTraceAsString(),
+                'request_params' => $request->all(),
+            ]);
+
+            // Return error response
+            return response()->json([
+                'error' => 'Failed to generate PDF: '.$e->getMessage(),
+            ], 500);
+        }
+    }
+
+    // return analytical account statement excel
+    public function analyticalAccountStatementExportExcel(Request $request)
+    {
+        $filters = $request->all();
+
+        return Excel::download(new ExportAnalyticalAccountStatement($filters), 'AnalyticalAccountStatement.xlsx');
     }
 
     // return invoice summary excel

@@ -23773,6 +23773,14 @@ var map = {
 		34444,
 		4444
 	],
+	"./reports/analytical-account-statement": [
+		11803,
+		1803
+	],
+	"./reports/analytical-account-statement.vue": [
+		11803,
+		1803
+	],
 	"./reports/balance-sheet": [
 		99032,
 		9032
