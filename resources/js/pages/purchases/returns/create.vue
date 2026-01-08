@@ -296,9 +296,20 @@ export default {
       returnAmount: 0,
       returnAmountText: 0,
       availableBalance: 0,
-      totalDiscount: 0,
-      transportCost: 0,
+      // Match purchase create structure
+      subTotal: 0,
       netTotal: 0,
+      discount: '',
+      discount_type: 'percentage', // "percentage" or "fixed"
+      discount_value: 0,
+      transportCost: '',
+      transportTaxableCost: '',
+      transportVatAmount: 0,
+      transportIsTaxable: true, // Default to true to maintain existing behavior (transport is taxable)
+      totalProductTax: 0,
+      orderTax: '',
+      totalTax: 0,
+      totalDiscount: 0,
       taxAmount: 0,
       discountTotal: 0,
     }),
@@ -335,53 +346,258 @@ export default {
         },
       ];
     },
-    // Totals (same as invoice return)
+    // Calculate total unit price (sum of all unit prices) - using returnQty for purchase returns
     totalUnitPrice() {
-      if (!this.form.selectedProducts || !Array.isArray(this.form.selectedProducts) || this.form.selectedProducts.length === 0) return 0
-      const total = this.form.selectedProducts.reduce((total, product) => total + (Number(product.totalBeforeDiscount) || 0), 0)
-      const numValue = Number(total)
-      return isNaN(numValue) ? 0 : Number(numValue.toFixed(2))
-    },
-    totalTotal() {
-      if (!this.form.selectedProducts || !Array.isArray(this.form.selectedProducts) || this.form.selectedProducts.length === 0) return 0
-      const total = this.form.selectedProducts.reduce((total, product) => total + (Number(product.totalBeforeDiscount) || 0), 0)
-      const numValue = Number(total)
-      return isNaN(numValue) ? 0 : Number(numValue.toFixed(2))
-    },
-    totalProductDiscount() {
-      if (!this.form.selectedProducts || !Array.isArray(this.form.selectedProducts) || this.form.selectedProducts.length === 0) return 0
-      const total = this.form.selectedProducts.reduce((total, product) => total + (Number(product.discountAmount) || 0), 0)
-      const numValue = Number(total)
-      return isNaN(numValue) ? 0 : Number(numValue.toFixed(2))
-    },
-    totalAfterDiscount() {
-      if (!this.form.selectedProducts || !Array.isArray(this.form.selectedProducts) || this.form.selectedProducts.length === 0) return 0
-      const total = this.form.selectedProducts.reduce((total, product) => total + (Number(product.totalAfterDiscount) || 0), 0)
-      const numValue = Number(total)
-      return isNaN(numValue) ? 0 : Number(numValue.toFixed(2))
-    },
-    // Total VAT (sum of line VAT amounts, same logic as purchase create)
-    totalProductTax() {
       if (
         !this.form.selectedProducts ||
-        !Array.isArray(this.form.selectedProducts) ||
         this.form.selectedProducts.length === 0
       ) {
-        return 0
+        return 0;
       }
-      const total = this.form.selectedProducts.reduce(
-        (sum, product) => sum + (Number(product.totalTax) || 0),
-        0
-      )
-      const numValue = Number(total)
-      return isNaN(numValue) ? 0 : Number(numValue.toFixed(2))
+      return this.form.selectedProducts.reduce((total, item) => {
+        const qty = Number(item.returnQty || item.qty) || 0;
+        return total + (item.originalPrice || item.unitPrice || item.purchasePrice) * qty;
+      }, 0);
     },
+
+    totalProductDiscount() {
+      return this.getTotalDiscountSum();
+    },
+
+    totalAfterDiscount() {
+      return this.getSubTotalAfterDiscount();
+    },
+
+    totalProductTax() {
+      return this.getTotalVATSum();
+    },
+
     subtotal() {
-      if (!this.form.selectedProducts || !Array.isArray(this.form.selectedProducts) || this.form.selectedProducts.length === 0) return 0
-      const total = this.form.selectedProducts.reduce((total, product) => total + (Number(product.totalPrice) || 0), 0)
-      const numValue = Number(total)
-      return isNaN(numValue) ? 0 : Number(numValue.toFixed(2))
+      return this.getTotalWithVATSum();
     },
+    
+    // Calculate number of items
+    numberOfItems() {
+      if (
+        !this.form.selectedProducts ||
+        this.form.selectedProducts.length === 0
+      ) {
+        return 0;
+      }
+      return this.form.selectedProducts.length;
+    },
+    
+    // Check if supplier is taxable (has tax_status === 'taxable' and tax_registration_number)
+    isSupplierTaxable() {
+      if (!this.form.supplier) {
+        return false;
+      }
+
+      // Support both camelCase and snake_case
+      const taxStatus =
+        this.form.supplier.tax_status || this.form.supplier.taxStatus;
+      const taxRegNumber =
+        this.form.supplier.tax_registration_number ||
+        this.form.supplier.taxRegistrationNumber ||
+        this.form.supplier.tax_registrationNumber;
+
+      const isTaxable =
+        taxStatus === 'taxable' &&
+        taxRegNumber &&
+        taxRegNumber.length > 0;
+
+      return isTaxable;
+    },
+
+    // Invoice Subtotal: Sum of all item subtotals before discount (qty × unit_price) - using returnQty
+    invoiceSubtotal() {
+      if (
+        !this.form.selectedProducts ||
+        this.form.selectedProducts.length === 0
+      ) {
+        return 0;
+      }
+      return this.roundToTwoDecimals(
+        this.form.selectedProducts.reduce((total, item) => {
+          const unitPriceNumber =
+            Number(item.originalPrice || item.unitPrice || item.purchasePrice) || 0;
+          const qtyNumber = Number(item.returnQty || item.qty) || 0;
+          return total + unitPriceNumber * qtyNumber;
+        }, 0)
+      );
+    },
+
+    // Invoice-Level Discount Total: Total discount applied at invoice level and distributed across items
+    invoiceLevelDiscountTotal() {
+      if (
+        !this.form.selectedProducts ||
+        this.form.selectedProducts.length === 0
+      ) {
+        return 0;
+      }
+
+      const subtotal = this.invoiceSubtotal;
+      if (
+        subtotal <= 0 ||
+        !this.form.discount_value ||
+        this.form.discount_value <= 0
+      ) {
+        return 0;
+      }
+
+      let discountAmount = 0;
+      if (this.form.discount_type === 'percentage') {
+        discountAmount = this.roundToTwoDecimals(
+          (subtotal * this.form.discount_value) / 100
+        );
+      } else {
+        discountAmount = this.roundToTwoDecimals(
+          Number(this.form.discount_value)
+        );
+      }
+
+      // Ensure discount doesn't exceed the subtotal
+      return discountAmount > subtotal
+        ? this.roundToTwoDecimals(subtotal)
+        : discountAmount;
+    },
+
+    // Shipping Cost Total: Total shipping cost (regardless of taxability)
+    shippingCostTotal() {
+      if (
+        !this.form.selectedProducts ||
+        this.form.selectedProducts.length === 0
+      ) {
+        return 0;
+      }
+      // Get transport cost from the appropriate field based on supplier tax status
+      const transportCost = this.isSupplierTaxable
+        ? Number(this.form.transportTaxableCost || 0)
+        : Number(this.form.transportCost || 0);
+      return this.roundToTwoDecimals(transportCost);
+    },
+
+    // Net Amount Before VAT: Calculated based on transport taxability
+    netAmountBeforeVAT() {
+      const subtotal = this.invoiceSubtotal;
+      const invoiceDiscount = this.invoiceLevelDiscountTotal;
+      const shipping = this.shippingCostTotal;
+
+      if (this.form.transportIsTaxable) {
+        // Transport is taxable: include it in Net Amount (part of VAT base)
+        return this.roundToTwoDecimals(subtotal - invoiceDiscount + shipping);
+      } else {
+        // Transport is non-taxable: use sum of item net totals (after item-level discounts)
+        if (
+          !this.form.selectedProducts ||
+          this.form.selectedProducts.length === 0
+        ) {
+          return 0;
+        }
+
+        const sumOfItemNetTotals = this.form.selectedProducts.reduce(
+          (total, item) => {
+            const itemNetTotal = item.netTotal || item.totalAfterDiscount || 0;
+            return total + itemNetTotal;
+          },
+          0
+        );
+
+        return this.roundToTwoDecimals(sumOfItemNetTotals);
+      }
+    },
+
+    // VAT Amount: Calculated based on transport taxability
+    vatAmount() {
+      if (
+        !this.form.selectedProducts ||
+        this.form.selectedProducts.length === 0
+      ) {
+        return 0;
+      }
+
+      // When transport is non-taxable, use sum of item VATs directly
+      if (!this.form.transportIsTaxable) {
+        const itemVatSum = this.form.selectedProducts.reduce((total, item) => {
+          return total + (item.totalTax || 0);
+        }, 0);
+        return this.roundToTwoDecimals(itemVatSum);
+      }
+
+      // When transport is taxable, calculate VAT on Net Amount (includes transport)
+      const netAmount = this.netAmountBeforeVAT;
+      if (netAmount <= 0) {
+        return 0;
+      }
+
+      // Calculate weighted average VAT rate from all items
+      let totalNetAmountForWeighting = 0;
+      let weightedVatRateSum = 0;
+
+      this.form.selectedProducts.forEach((item) => {
+        const itemNetAmount = item.netTotal || 0;
+
+        if (itemNetAmount > 0) {
+          let vatRate = 0;
+          if (
+            item.selectedVatRate &&
+            item.selectedVatRate.rate !== undefined &&
+            item.selectedVatRate.rate !== null
+          ) {
+            vatRate = Number(item.selectedVatRate.rate);
+          } else if (item.taxRate !== undefined && item.taxRate !== null) {
+            vatRate = Number(item.taxRate);
+          }
+
+          if (!isNaN(vatRate) && vatRate >= 0) {
+            totalNetAmountForWeighting += itemNetAmount;
+            weightedVatRateSum += itemNetAmount * (vatRate / 100);
+          }
+        }
+      });
+
+      if (totalNetAmountForWeighting <= 0) {
+        return 0;
+      }
+
+      const weightedAverageVatRate =
+        (weightedVatRateSum / totalNetAmountForWeighting) * 100;
+
+      const vat = this.roundToTwoDecimals(
+        netAmount * (weightedAverageVatRate / 100)
+      );
+
+      return vat;
+    },
+
+    // Grand Total: Calculated based on transport taxability
+    grandTotal() {
+      const shipping = this.shippingCostTotal;
+
+      if (this.form.transportIsTaxable) {
+        const netAmount = this.netAmountBeforeVAT;
+        const vat = this.vatAmount;
+        return this.roundToTwoDecimals(netAmount + vat);
+      } else {
+        if (
+          !this.form.selectedProducts ||
+          this.form.selectedProducts.length === 0
+        ) {
+          return this.roundToTwoDecimals(shipping);
+        }
+
+        const sumOfItemTotals = this.form.selectedProducts.reduce(
+          (total, item) => {
+            const itemTotal = item.totalPrice || 0;
+            return total + itemTotal;
+          },
+          0
+        );
+
+        return this.roundToTwoDecimals(sumOfItemTotals + shipping);
+      }
+    },
+    
     formattedTotalDiscount() {
       return this.formatToTwoDecimals(this.form.totalDiscount || 0)
     },
@@ -393,6 +609,39 @@ export default {
     },
     formattedAvailableBalance() {
       return this.formatToTwoDecimals(this.form.availableBalance || 0)
+    },
+  },
+  watch: {
+    appInfo: {
+      handler() {
+        // Watcher for appInfo changes
+      },
+      immediate: true,
+      deep: true,
+    },
+    // Watch for changes in selectedProducts to update Net Total
+    'form.selectedProducts': {
+      handler() {
+        this.updateNetTotal();
+      },
+      deep: true,
+    },
+    // Watch for changes in transport cost to update Net Total
+    'form.transportCost': {
+      handler() {
+        this.updateNetTotal();
+      },
+    },
+    'form.transportTaxableCost': {
+      handler() {
+        this.updateNetTotal();
+      },
+    },
+    // Watch for changes in transport taxability to recalculate totals
+    'form.transportIsTaxable': {
+      handler() {
+        this.calculateSum();
+      },
     },
   },
   created() {
@@ -489,6 +738,33 @@ export default {
       this.form.newDue = this.form.purchase.due
       this.form.newDueText = this.form.purchase.due
       
+      // Initialize discount fields from purchase data
+      if (this.form.purchase.discount_type && this.form.purchase.discount_value !== undefined) {
+        this.form.discount_type = this.form.purchase.discount_type || 'percentage'
+        this.form.discount_value = Number(this.form.purchase.discount_value) || 0
+        this.form.discount = this.form.purchase.totalDiscount || ''
+      } else {
+        // Backward compatibility: if only totalDiscount is provided
+        const totalDiscount = Number(this.form.purchase.totalDiscount) || 0
+        this.form.discount = totalDiscount
+        if (totalDiscount > 0) {
+          this.form.discount_type = 'fixed'
+          this.form.discount_value = totalDiscount
+        } else {
+          this.form.discount_type = 'percentage'
+          this.form.discount_value = 0
+        }
+      }
+      
+      // Initialize transport fields from purchase data
+      this.form.transportCost = this.form.purchase.transport || ''
+      this.form.transportTaxableCost = this.form.purchase.transport_taxable || ''
+      this.form.transportIsTaxable = this.form.purchase.transportIsTaxable !== undefined 
+        ? Boolean(this.form.purchase.transportIsTaxable) 
+        : (this.form.purchase.transport_taxable !== undefined 
+          ? Boolean(this.form.purchase.transport_taxable) 
+          : true) // Default to true for backward compatibility
+      
       // Check if we're coming from purchase actions (pre-selected purchase)
       const isPreSelected = this.$route.query.purchase
       
@@ -547,11 +823,13 @@ export default {
           qty: purchaseItem.quantity, // Original quantity from purchase
           returnQty: presetReturnQty, // Default to full quantity (no limit check needed)
           purchasePrice: purchaseItem.purchasePrice,
+          unitPrice: purchaseItem.purchasePrice,
+          originalPrice: purchaseItem.purchasePrice, // Set originalPrice to match unitPrice
           unitCost: purchaseItem.purchasePrice,
           totalPrice: totalPrice,
           returnTotal: totalPrice,
           productTax: productTax,
-          totalTax: productTax,
+          totalTax: totalTax,
           productDiscount: purchaseItem.productDiscount || 0,
           discountType: purchaseItem.discountType || 'fixed',
           discountAmount: discountAmount,
@@ -560,104 +838,195 @@ export default {
           selectedVatRate: selectedVatRate,
           totalBeforeDiscount: totalBeforeDiscount,
           totalAfterDiscount: totalAfterDiscount,
+          // Initialize proportional amounts (will be recalculated)
+          proportionalDiscountAmount: 0,
+          proportionalTransportAmount: 0,
+          netTotal: totalAfterDiscount,
           purchase_account_id: finalPurchaseAccountId,
         })
       }
-      this.calculateSum()
+      
+      // After loading products, recalculate all totals
+      this.$nextTick(() => {
+        // Recalculate all items to ensure proper initialization
+        this.form.selectedProducts.forEach((item, index) => {
+          this.generateItemTotalPrice(index, true);
+        });
+        this.calculateSum();
+      });
+      
       return
     },
 
     // Handle item change from ItemsTable component (clone of purchase create logic, adapted for returnQty)
     handleItemChange({ value, type, index, action }) {
-      const item = this.form.selectedProducts[index]
-      if (!item) return
+      let item = this.form.selectedProducts[index];
+      if (!item) return;
 
       if (type === 'qty') {
-        let qty = Number(item.returnQty || 0)
+        let qty = Number(item.returnQty || 0);
 
         if (action === 'increment') {
-          qty = qty + 1
+          qty = qty + 1;
         } else if (action === 'decrement') {
-          qty = qty - 1
+          qty = qty - 1;
         } else {
-          qty = Number(value)
+          qty = Number(value);
         }
 
         // Only ensure qty is not negative (no max limit check - purchases increase quantity)
-        if (qty < 0) qty = 0
+        if (qty < 0) qty = 0;
 
-        item.returnQty = qty
-        this.$set(this.form.selectedProducts, index, item)
+        item.returnQty = qty;
+        this.$set(this.form.selectedProducts, index, item);
 
-        // Recalculate line totals and overall sums
-        this.recalculateReturnItem(index)
-        this.calculateSum()
+        // Use the new method to calculate totals (will recalculate sum internally)
+        this.generateItemTotalPrice(index);
       } else if (type === 'price') {
         // Price is readonly for returns, but keep it in sync if needed
-        item.unitCost = Number(value)
-        this.$set(this.form.selectedProducts, index, item)
-        this.recalculateReturnItem(index)
-        this.calculateSum()
+        item.unitPrice = Number(value);
+        item.originalPrice = item.unitPrice;
+        this.$set(this.form.selectedProducts, index, item);
+        
+        // Use the new method to calculate totals (will recalculate sum internally)
+        this.generateItemTotalPrice(index);
       }
     },
 
-    // Recalculate a single return line using the same logic as purchase create
-    recalculateReturnItem(index) {
-      const item = this.form.selectedProducts[index]
-      if (!item) return
+    // generate item total price (following purchase create logic with proportional discount and transport)
+    // Adapted for purchase returns: uses returnQty instead of qty
+    generateItemTotalPrice(index, skipRecalculate = false) {
+      let item = this.form.selectedProducts[index];
+      if (!item) {
+        return;
+      }
 
-      const qty = Number(item.returnQty || 0)
-      const unitPrice = Number(item.purchasePrice || item.unitCost || 0)
+      // Normalize numeric inputs - use returnQty for purchase returns
+      const unitPriceNumber = Number(item.originalPrice || item.unitPrice || item.purchasePrice) || 0;
+      const qtyNumber = Number(item.returnQty || item.qty) || 0;
 
-      // 1. Total before discount
-      const total = Number((unitPrice * qty).toFixed(2))
-      this.$set(item, 'totalBeforeDiscount', total)
+      // 1. Line Item: Total (Before Discount) = returnQty × unit_price
+      const totalBeforeDiscount = this.roundToTwoDecimals(
+        unitPriceNumber * qtyNumber
+      );
+      this.$set(item, 'totalBeforeDiscount', totalBeforeDiscount);
 
-      // 2. Discount amount and total after discount
-      let discountAmount = 0
+      // 2. Calculate product-level discount amount
+      let productDiscountAmount = 0;
       if (item.discountType === 'percentage') {
-        discountAmount = Number((total * (item.discount || 0) / 100).toFixed(2))
+        productDiscountAmount = this.roundToTwoDecimals(
+          (unitPriceNumber * qtyNumber * (item.discount || 0)) / 100
+        );
       } else {
-        discountAmount = Number(item.discountAmount || item.discount || 0)
+        productDiscountAmount = this.roundToTwoDecimals(
+          Number(item.discount || 0)
+        );
       }
-      this.$set(item, 'discountAmount', discountAmount)
 
-      const totalAfterDiscount = Number((total - discountAmount).toFixed(2))
-      this.$set(item, 'totalAfterDiscount', totalAfterDiscount)
-
-      // 3. VAT rate
-      let vatRate = 0
-      if (item.selectedVatRate && item.selectedVatRate.rate !== undefined && item.selectedVatRate.rate !== null) {
-        vatRate = Number(item.selectedVatRate.rate)
-      } else if (item.vatRate !== undefined && item.vatRate !== null) {
-        vatRate = Number(item.vatRate)
+      // Ensure product discount amount doesn't exceed the total before discount
+      if (productDiscountAmount > totalBeforeDiscount) {
+        productDiscountAmount = this.roundToTwoDecimals(totalBeforeDiscount);
       }
-      if (isNaN(vatRate) || vatRate < 0) vatRate = 0
 
-      // 4. VAT amount (for entire returned quantity) and per-unit VAT
-      const totalTax = Number((totalAfterDiscount * vatRate / 100).toFixed(2))
-      const productTax = qty > 0 ? Number((totalTax / qty).toFixed(2)) : 0
-      this.$set(item, 'totalTax', totalTax)
-      this.$set(item, 'productTax', productTax)
+      // Store product-level discount
+      item.discountAmount = productDiscountAmount;
 
-      // 5. Total with VAT and unit cost
-      const totalPrice = Number((totalAfterDiscount + totalTax).toFixed(2))
-      this.$set(item, 'totalPrice', totalPrice)
-      const unitCost = Number((unitPrice + productTax).toFixed(2))
-      this.$set(item, 'unitCost', unitCost)
+      // 3. Get proportional invoice-level discount allocation (if any)
+      const proportionalDiscount = item.proportionalDiscountAmount || 0;
 
-      this.$set(this.form.selectedProducts, index, item)
+      // 4. Total discount = product discount + proportional invoice-level discount
+      const discountAmount = this.roundToTwoDecimals(
+        productDiscountAmount + proportionalDiscount
+      );
+
+      // Ensure total discount doesn't exceed the total before discount
+      const finalDiscountAmount =
+        discountAmount > totalBeforeDiscount
+          ? this.roundToTwoDecimals(totalBeforeDiscount)
+          : discountAmount;
+
+      // 5. Calculate net total after discount
+      const netTotal = this.roundToTwoDecimals(
+        totalBeforeDiscount - finalDiscountAmount
+      );
+      this.$set(item, 'totalAfterDiscount', netTotal);
+
+      // 6. Get proportional transport cost allocation (if any)
+      const proportionalTransport = item.proportionalTransportAmount || 0;
+
+      // 7. Get VAT rate
+      let vatRate = 0;
+      if (
+        item.selectedVatRate &&
+        item.selectedVatRate.rate !== undefined &&
+        item.selectedVatRate.rate !== null
+      ) {
+        vatRate = Number(item.selectedVatRate.rate);
+      } else if (item.taxRate !== undefined && item.taxRate !== null) {
+        vatRate = Number(item.taxRate);
+      }
+
+      // Ensure vatRate is a valid number
+      if (isNaN(vatRate) || vatRate < 0) {
+        vatRate = 0;
+      }
+
+      // 8. Calculate VAT base depending on transport taxability
+      const isTransportTaxable = this.form.transportIsTaxable !== false;
+
+      const transportForVatBase = isTransportTaxable
+        ? proportionalTransport
+        : 0;
+      const vatBase = this.roundToTwoDecimals(netTotal + transportForVatBase);
+
+      item.totalTax = this.roundToTwoDecimals(vatBase * (vatRate / 100));
+      // productTax is VAT per unit (for display purposes)
+      item.productTax =
+        qtyNumber > 0 ? this.roundToTwoDecimals(item.totalTax / qtyNumber) : 0;
+
+      // 9. Line Item: Total With VAT
+      if (isTransportTaxable) {
+        item.totalPrice = this.roundToTwoDecimals(vatBase + item.totalTax);
+      } else {
+        item.totalPrice = this.roundToTwoDecimals(vatBase + item.totalTax);
+      }
+
+      // 10. Calculate unit cost for inventory valuation
+      const costBase = this.roundToTwoDecimals(
+        netTotal + proportionalTransport
+      );
+      item.unitCost =
+        qtyNumber > 0 ? this.roundToTwoDecimals(costBase / qtyNumber) : 0;
+
+      // Store all calculated values
+      this.$set(item, 'proportionalDiscountAmount', proportionalDiscount);
+      this.$set(item, 'proportionalTransportAmount', proportionalTransport);
+      this.$set(item, 'netTotal', netTotal);
+
+      // Update the item in the array
+      this.$set(this.form.selectedProducts, index, item);
+
+      // Recalculate sum and update reactive totals (unless we are already in a global recomputation)
+      if (!skipRecalculate) {
+        this.calculateSum();
+      }
     },
 
-    // Discount and VAT per product (delegating to recalculateReturnItem, same as purchase create)
+    // Discount and VAT per product (delegating to generateItemTotalPrice, same as purchase create)
     calculateProductDiscount(index) {
-      this.recalculateReturnItem(index)
-      this.calculateSum()
+      let item = this.form.selectedProducts[index];
+      if (item) {
+        // Recalculate totals using the new method (will recalculate sum internally)
+        this.generateItemTotalPrice(index);
+      }
     },
 
     calculateProductVat(index) {
-      this.recalculateReturnItem(index)
-      this.calculateSum()
+      let item = this.form.selectedProducts[index];
+      if (item) {
+        // Recalculate totals using the new method (will recalculate sum internally)
+        this.generateItemTotalPrice(index);
+      }
     },
 
     // helpers
@@ -687,11 +1056,98 @@ export default {
       return null
     },
 
+    // Helper method to round to 2 decimal places (for calculations)
+    roundToTwoDecimals(value) {
+      return Math.round((value + Number.EPSILON) * 100) / 100;
+    },
+
     formatToTwoDecimals(value) {
-      if (value === null || value === undefined || isNaN(value)) return '0.00'
-      const numValue = Number(value)
-      if (isNaN(numValue)) return '0.00'
-      return numValue.toFixed(2)
+      if (value === null || value === undefined || value === '') {
+        return '0.00';
+      }
+      const numValue = Number(value);
+      if (isNaN(numValue)) {
+        return '0.00';
+      }
+      return numValue.toFixed(2);
+    },
+    
+    // Helper method to get total after discount for display
+    getTotalAfterDiscount(item) {
+      const qty = Number(item.returnQty || item.qty) || 0;
+      let total = (item.originalPrice || item.unitPrice || item.purchasePrice) * qty;
+      if (item.discountType === 'percentage') {
+        return total - (total * (item.discount || 0)) / 100;
+      } else {
+        return total - (item.discountAmount || 0);
+      }
+    },
+
+    // Helper method to get subtotal after discount for display
+    getSubTotalAfterDiscount() {
+      if (
+        !this.form.selectedProducts ||
+        this.form.selectedProducts.length === 0
+      ) {
+        return 0;
+      }
+      return this.form.selectedProducts.reduce(function (prev, cur) {
+        const qty = Number(cur.returnQty || cur.qty) || 0;
+        let lineTotal = (cur.originalPrice || cur.unitPrice || cur.purchasePrice) * qty;
+        let lineTotalAfterDiscount;
+        if (cur.discountType === 'percentage') {
+          lineTotalAfterDiscount =
+            lineTotal - (lineTotal * (cur.discount || 0)) / 100;
+        } else {
+          lineTotalAfterDiscount = lineTotal - (cur.discountAmount || 0);
+        }
+        return Number((prev + lineTotalAfterDiscount).toFixed(2));
+      }, 0);
+    },
+
+    // Helper method to get sum of all individual "Total with VAT" values
+    getTotalWithVATSum() {
+      if (
+        !this.form.selectedProducts ||
+        this.form.selectedProducts.length === 0
+      ) {
+        return 0;
+      }
+      return this.form.selectedProducts.reduce((total, item) => {
+        return Number((total + (item.totalPrice || 0)).toFixed(2));
+      }, 0);
+    },
+
+    // Helper method to get sum of all individual VAT amounts
+    getTotalVATSum() {
+      if (
+        !this.form.selectedProducts ||
+        this.form.selectedProducts.length === 0
+      ) {
+        return 0;
+      }
+      return this.form.selectedProducts.reduce((total, item) => {
+        return Number((total + (item.totalTax || 0)).toFixed(2));
+      }, 0);
+    },
+
+    // Helper method to get sum of all individual discount amounts
+    getTotalDiscountSum() {
+      if (
+        !this.form.selectedProducts ||
+        this.form.selectedProducts.length === 0
+      ) {
+        return 0;
+      }
+      return this.form.selectedProducts.reduce((total, item) => {
+        return Number((total + (item.discountAmount || 0)).toFixed(2));
+      }, 0);
+    },
+
+    // Update Net Total when Total with VAT or Transport Cost changes
+    updateNetTotal() {
+      this.form.netTotal = this.grandTotal;
+      this.form.transportVatAmount = 0;
     },
 
     toWord() { return this.$t('Total') },
@@ -776,79 +1232,268 @@ export default {
       }
     },
 
-    // calculate sum
-    calculateSum() {
-      const length = this.form.selectedProducts.length
-      this.form.newSubTotal = this.form.totalReturn = 0
-      let totalProductDiscount = 0
-      let purchaseSubtotal = 0
-      this.form.netTotal = 0
-      this.form.taxAmount = 0
-      this.form.discountTotal = 0
-      
-      for (let i = 0; i < length; i++) {
-        const p = this.form.selectedProducts[i]
-        const remainingQty = p.qty - p.returnQty
-        // Use purchasePrice (base price without VAT) for calculations
-        const productTotal = remainingQty * p.purchasePrice
-        purchaseSubtotal += productTotal
-        this.form.newSubTotal += Number(productTotal.toFixed(2))
-        
-        if (p.returnQty > 0) {
-          const originalLineTotal = parseFloat(p.totalPrice) || 0
-          const totalQty = parseFloat(p.qty) || 1
-          const returnQty = parseFloat(p.returnQty) || 0
-          const unitPrice = originalLineTotal / totalQty
-          const returnTotal = Number((unitPrice * returnQty).toFixed(2))
-          p.returnTotal = returnTotal
-          this.form.totalReturn += returnTotal
-          const originalDiscount = parseFloat(p.discountAmount) || 0
-          const originalTax = parseFloat(p.totalTax) || 0
-          const proportionalDiscount = Number(((originalDiscount / totalQty) * returnQty).toFixed(2))
-          const proportionalTax = Number(((originalTax / totalQty) * returnQty).toFixed(2))
-          const proportionalNet = Number((returnTotal - proportionalDiscount).toFixed(2))
-          this.form.netTotal += proportionalNet
-          this.form.taxAmount += proportionalTax
-          this.form.discountTotal += proportionalDiscount
-        }
-        
-        if (p.productDiscount && p.productDiscount > 0) {
-          if (p.discountType === 'percentage') {
-            let discountAmount = (productTotal * p.productDiscount) / 100
-            totalProductDiscount += Number(discountAmount.toFixed(2))
-          } else {
-            let discountPerUnit = p.productDiscount / p.qty
-            let discountAmount = discountPerUnit * remainingQty
-            totalProductDiscount += Number(discountAmount.toFixed(2))
+    // Allocate invoice-level discount proportionally across all items based on item subtotals (returnQty × unit_price)
+    allocateInvoiceDiscountProportionally(invoiceLevelDiscount) {
+      if (!invoiceLevelDiscount || invoiceLevelDiscount <= 0) {
+        this.form.selectedProducts.forEach((item, index) => {
+          if (item.proportionalDiscountAmount) {
+            this.$set(
+              this.form.selectedProducts[index],
+              'proportionalDiscountAmount',
+              0
+            );
           }
+        });
+        return;
+      }
+
+      let invoiceSubtotal = 0;
+      const itemSubtotals = [];
+
+      this.form.selectedProducts.forEach((item) => {
+        const unitPriceNumber =
+          Number(item.originalPrice || item.unitPrice || item.purchasePrice) || 0;
+        const qtyNumber = Number(item.returnQty || item.qty) || 0;
+        const itemSubtotal = unitPriceNumber * qtyNumber;
+
+        itemSubtotals.push(itemSubtotal);
+        invoiceSubtotal += itemSubtotal;
+      });
+
+      if (invoiceSubtotal <= 0) {
+        return;
+      }
+
+      let allocatedTotal = 0;
+      this.form.selectedProducts.forEach((item, index) => {
+        const itemSubtotal = itemSubtotals[index] || 0;
+        let proportionalAmount = 0;
+
+        if (invoiceSubtotal > 0 && itemSubtotal > 0) {
+          const proportion = itemSubtotal / invoiceSubtotal;
+          proportionalAmount = this.roundToTwoDecimals(
+            invoiceLevelDiscount * proportion
+          );
+          allocatedTotal += proportionalAmount;
+        }
+
+        this.$set(
+          this.form.selectedProducts[index],
+          'proportionalDiscountAmount',
+          proportionalAmount
+        );
+      });
+
+      const roundingDifference = this.roundToTwoDecimals(
+        invoiceLevelDiscount - allocatedTotal
+      );
+      if (
+        Math.abs(roundingDifference) > 0.01 &&
+        this.form.selectedProducts.length > 0
+      ) {
+        const lastIndex = this.form.selectedProducts.length - 1;
+        const lastItem = this.form.selectedProducts[lastIndex];
+        const currentProportional = lastItem.proportionalDiscountAmount || 0;
+        const adjusted = this.roundToTwoDecimals(
+          currentProportional + roundingDifference
+        );
+        this.$set(
+          this.form.selectedProducts[lastIndex],
+          'proportionalDiscountAmount',
+          Math.max(0, adjusted)
+        );
+      }
+    },
+
+    // Allocate transport costs proportionally across all items
+    allocateTransportCostProportionally(transportCost) {
+      if (!transportCost || transportCost <= 0) {
+        this.form.selectedProducts.forEach((item, index) => {
+          if (item.proportionalTransportAmount) {
+            this.$set(
+              this.form.selectedProducts[index],
+              'proportionalTransportAmount',
+              0
+            );
+          }
+        });
+        return;
+      }
+
+      let invoiceSubtotal = 0;
+      const itemSubtotals = [];
+
+      this.form.selectedProducts.forEach((item) => {
+        const unitPriceNumber =
+          Number(item.originalPrice || item.unitPrice || item.purchasePrice) || 0;
+        const qtyNumber = Number(item.returnQty || item.qty) || 0;
+        const itemSubtotal = unitPriceNumber * qtyNumber;
+
+        itemSubtotals.push(itemSubtotal);
+        invoiceSubtotal += itemSubtotal;
+      });
+
+      if (invoiceSubtotal <= 0) {
+        return;
+      }
+
+      let allocatedTotal = 0;
+      this.form.selectedProducts.forEach((item, index) => {
+        const itemSubtotal = itemSubtotals[index] || 0;
+        let proportionalAmount = 0;
+
+        if (invoiceSubtotal > 0 && itemSubtotal > 0) {
+          const proportion = itemSubtotal / invoiceSubtotal;
+          proportionalAmount = this.roundToTwoDecimals(
+            transportCost * proportion
+          );
+          allocatedTotal += proportionalAmount;
+        }
+
+        this.$set(
+          this.form.selectedProducts[index],
+          'proportionalTransportAmount',
+          proportionalAmount
+        );
+      });
+
+      const roundingDifference = this.roundToTwoDecimals(
+        transportCost - allocatedTotal
+      );
+      if (
+        Math.abs(roundingDifference) > 0.01 &&
+        this.form.selectedProducts.length > 0
+      ) {
+        const lastIndex = this.form.selectedProducts.length - 1;
+        const lastItem = this.form.selectedProducts[lastIndex];
+        const currentProportional = lastItem.proportionalTransportAmount || 0;
+        const adjusted = this.roundToTwoDecimals(
+          currentProportional + roundingDifference
+        );
+        this.$set(
+          this.form.selectedProducts[lastIndex],
+          'proportionalTransportAmount',
+          Math.max(0, adjusted)
+        );
+      }
+    },
+
+    // Recalculate all items with proportional discount allocation
+    recalculateAllItemsWithProportionalDiscount() {
+      this.form.selectedProducts.forEach((item, index) => {
+        this.generateItemTotalPrice(index, true);
+      });
+    },
+
+    // calculate sum (following purchase create logic with proportional discount and transport)
+    // Adapted for purchase returns: uses returnQty instead of qty
+    calculateSum() {
+      if (
+        !this.form.selectedProducts ||
+        this.form.selectedProducts.length === 0
+      ) {
+        this.form.totalDiscount = 0;
+        this.form.subTotal = 0;
+        this.form.totalProductTax = 0;
+        this.form.netTotal = 0;
+        this.form.totalReturn = 0;
+        return;
+      }
+
+      // Calculate invoice subtotal (sum of all item subtotals: returnQty × unit_price)
+      const invoiceSubtotal = this.form.selectedProducts.reduce(
+        (total, item) => {
+          const unitPriceNumber =
+            Number(item.originalPrice || item.unitPrice || item.purchasePrice) || 0;
+          const qtyNumber = Number(item.returnQty || item.qty) || 0;
+          return total + unitPriceNumber * qtyNumber;
+        },
+        0
+      );
+
+      // Apply commercial invoice-level discount (for allocation only)
+      let invoiceLevelDiscount = 0;
+      if (this.form.discount_value > 0) {
+        if (this.form.discount_type === 'percentage') {
+          invoiceLevelDiscount = this.roundToTwoDecimals(
+            (invoiceSubtotal * this.form.discount_value) / 100
+          );
+        } else {
+          invoiceLevelDiscount = this.roundToTwoDecimals(
+            Number(this.form.discount_value)
+          );
+        }
+
+        if (invoiceLevelDiscount > invoiceSubtotal) {
+          invoiceLevelDiscount = invoiceSubtotal;
         }
       }
-      
-      // purchase-level discount
-      let purchaseDiscountAmount = Number(this.form.purchaseDiscount || 0)
-      this.form.newSubTotal = Number((purchaseSubtotal - totalProductDiscount - purchaseDiscountAmount).toFixed(2))
-      this.form.purchaseDiscount = purchaseDiscountAmount
-      
-      const taxableAmount = this.form.newSubTotal
-      if (this.form.taxRate && this.form.taxRate.rate) {
-        this.form.newTax = Number(((this.form.taxRate.rate / 100) * taxableAmount).toFixed(2))
+
+      // Get transport cost (use transportTaxableCost if supplier is taxable, otherwise transportCost)
+      const transportCost = this.isSupplierTaxable
+        ? Number(this.form.transportTaxableCost || 0)
+        : Number(this.form.transportCost || 0);
+
+      // Allocate invoice-level discount proportionally to items
+      this.allocateInvoiceDiscountProportionally(invoiceLevelDiscount);
+
+      // Allocate transport costs proportionally to items ONLY when transport is taxable
+      if (this.form.transportIsTaxable) {
+        this.allocateTransportCostProportionally(transportCost);
       } else {
-        this.form.newTax = 0
+        this.form.selectedProducts.forEach((item, index) => {
+          if (item.proportionalTransportAmount) {
+            this.$set(
+              this.form.selectedProducts[index],
+              'proportionalTransportAmount',
+              0
+            );
+          }
+        });
       }
-      
-      this.form.purchaseTotal = Number((this.form.newSubTotal + this.form.newTax + this.form.purchaseTransport - this.form.purchaseDiscount).toFixed(2))
-      this.form.purchaseDue = Number((this.form.purchaseTotal - (this.form.purchase?.totalPaid || 0)).toFixed(2))
-      
-      if (this.form.purchaseDue >= 0) {
-        this.form.newDue = this.form.purchaseTotal - (this.form.purchase?.totalPaid || 0)
-        this.form.newDueText = `${this.form.purchaseTotal} - ${this.form.purchase?.totalPaid || 0} = ${Number(this.form.newDue).toFixed(2)}`
-        this.form.returnAmount = 0
-      } else {
-        this.form.returnAmount = Number(((this.form.purchase?.totalPaid || 0) - this.form.purchaseTotal).toFixed(2))
-        this.form.returnAmountText = `${this.form.purchase?.totalPaid || 0} - ${this.form.purchaseTotal} = ${this.form.returnAmount}`
-        this.form.purchaseDue = 0
-        this.form.newDue = 0
-      }
+
+      // Recalculate all items with proportional discount and transport allocation
+      this.recalculateAllItemsWithProportionalDiscount();
+
+      // Calculate totals after recalculation
+      this.form.totalDiscount = this.form.selectedProducts.reduce(
+        (total, item) => {
+          const productDiscount = item.discountAmount || 0;
+          const proportionalDiscount = item.proportionalDiscountAmount || 0;
+          return total + productDiscount + proportionalDiscount;
+        },
+        0
+      );
+
+      // Subtotal after discount (sum of netTotal values)
+      this.form.subTotal = this.form.selectedProducts.reduce((total, item) => {
+        return total + (item.netTotal || item.totalAfterDiscount || 0);
+      }, 0);
+
+      // Total VAT (sum of totalTax values)
+      this.form.totalProductTax = this.form.selectedProducts.reduce(
+        (total, item) => {
+          return total + (item.totalTax || 0);
+        },
+        0
+      );
+
+      // Total return amount (sum of totalPrice values for returned items)
+      this.form.totalReturn = this.form.selectedProducts.reduce(
+        (total, item) => {
+          return total + (item.totalPrice || 0);
+        },
+        0
+      );
+
+      // Update Net Total using the dedicated method
+      this.updateNetTotal();
+
+      // Legacy fields for backward compatibility
+      this.form.newSubTotal = this.form.subTotal;
+      this.form.taxAmount = this.form.totalProductTax;
+      this.form.discountTotal = this.form.totalDiscount;
+      this.form.newTax = this.form.totalProductTax;
     },
 
     // save return
