@@ -7,9 +7,14 @@
             <!-- breadcrumbs Start -->
             <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
             <!-- breadcrumbs end -->
-            <div class="col-xl-8 col-8 float-right text-right">
-              <div class="btn-group c-w-100 header-buttons">
-                <router-link :to="{ name: 'invoices.index' }" class="btn btn-info">
+            <div class="float-right text-right">
+              <div
+                class="btn-group c-w-100 header-buttons d-flex flex-column flex-sm-row"
+              >
+                <router-link
+                  :to="{ name: 'invoices.index' }"
+                  class="btn btn-sm btn-info mb-2 mb-sm-0"
+                >
                   <template v-if="isRTL">
                     {{ $t("Back") }} <i class="fas fa-long-arrow-alt-left" />
                   </template>
@@ -44,7 +49,12 @@
                     </template>
                   </template>
                 </router-link>
-                <button type="submit" class="btn btn-success" :form="'invoiceCreateForm'" title="Save">
+                <button
+                  type="submit"
+                  class="btn btn-sm btn-success"
+                  :form="'invoiceCreateForm'"
+                  title="Save"
+                >
                   <i class="fas fa-save" />
                 </button>
               </div>
@@ -54,112 +64,195 @@
           <div class="card-body">
             <!-- Add the missing form element with submit handler -->
             <form id="invoiceCreateForm" @submit.prevent="handleFormSubmit">
-              <!-- Row 1: Cost Center / Branch / Representative / Cashier -->
+              <!-- Basic Information Section -->
               <div class="row">
-                <div class="form-group col-md-3">
+                <div class="form-group col-12 col-sm-6 col-md-3">
                   <label for="costCenter">{{ $t("Cost Center") }}</label>
-                  <v-select class="flex-grow-1" v-model="form.costCenter" :options="costCenters" label="name"
-                    :class="{ 'is-invalid': form.errors.has('cost_center_id') }" name="costCenter"
-                    :placeholder="$t('Select a cost center')" @input="onCostCenterChange" />
+                  <v-select
+                    class="flex-grow-1"
+                    v-model="form.costCenter"
+                    :options="costCenters"
+                    label="name"
+                    :class="{ 'is-invalid': form.errors.has('cost_center_id') }"
+                    name="costCenter"
+                    :placeholder="$t('Select a cost center')"
+                    @input="onCostCenterChange"
+                  />
                   <has-error :form="form" field="cost_center_id" />
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-12 col-sm-6 col-md-3">
                   <label for="branch">{{ $t("Branch") }}</label>
-                  <v-select class="flex-grow-1" v-model="form.branch" :options="branches" label="name"
-                    :class="{ 'is-invalid': form.errors.has('branch_id') }" name="branch"
-                    :placeholder="$t('Select a branch')" @input="onBranchChange" />
+                  <v-select
+                    class="flex-grow-1"
+                    v-model="form.branch"
+                    :options="branches"
+                    label="name"
+                    :class="{ 'is-invalid': form.errors.has('branch_id') }"
+                    name="branch"
+                    :placeholder="$t('Select a branch')"
+                    @input="onBranchChange"
+                  />
                   <has-error :form="form" field="branch_id" />
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-12 col-sm-6 col-md-3">
                   <label for="representative">{{ $t("Sales Representative") }}</label>
-                  <v-select class="flex-grow-1" v-model="form.representative" :options="representatives" label="name"
-                    :class="{ 'is-invalid': form.errors.has('representative_id') }" name="representative"
-                    :placeholder="$t('Select a sales representative')" @input="onRepresentativeChange" />
+                  <v-select
+                    class="flex-grow-1"
+                    v-model="form.representative"
+                    :options="representatives"
+                    label="name"
+                    :class="{ 'is-invalid': form.errors.has('representative_id') }"
+                    name="representative"
+                    :placeholder="$t('Select a sales representative')"
+                    @input="onRepresentativeChange"
+                  />
                   <has-error :form="form" field="representative_id" />
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-12 col-sm-6 col-md-3">
                   <label for="cashier">{{ $t("Cashier") }}</label>
-                  <v-select class="flex-grow-1" v-model="form.cashier" :options="cashiers" label="name"
-                    :class="{ 'is-invalid': form.errors.has('cashier_id') }" name="cashier"
-                    :placeholder="$t('Select a cashier')" @input="onCashierChange" />
+                  <v-select
+                    class="flex-grow-1"
+                    v-model="form.cashier"
+                    :options="cashiers"
+                    label="name"
+                    :class="{ 'is-invalid': form.errors.has('cashier_id') }"
+                    name="cashier"
+                    :placeholder="$t('Select a cashier')"
+                    @input="onCashierChange"
+                  />
                   <has-error :form="form" field="cashier_id" />
                 </div>
               </div>
 
-              <!-- Row 2: Client / Sale Status / Date / Reference Number -->
-              <div class="row" v-if="items">
-                <div class="form-group col-md-3">
-                  <label for="client">{{ $t("Client") }}
-                    <span class="required">*</span></label>
-                  <div class="row">
-                    <div class="col">
-                      <div class="d-flex w-100">
-                        <v-select class="flex-grow-1" v-model="form.client" :options="items" label="name"
-                          :class="{ 'is-invalid': form.errors.has('client') }" name="client"
-                          :placeholder="$t('Select a client')" @input="onClientChange" />
-                        <ClientCreateModal @reloadClients="getClients('latest')">
-                          <div class="input-group-text create-btn">
-                            <i class="fas fa-solid fa-plus-circle"></i>
-                          </div>
-                        </ClientCreateModal>
-                      </div>
-
-                      <!-- Client Chart of Account Status - Keep this validation -->
-                      <div class="client-status mt-2" v-if="form.client">
-                        <div v-if="!form.client.chart_of_account_id" class="client-warning">
-                          <i class="fas fa-exclamation-triangle text-warning"></i>
-                          <span class="ml-2">{{ $t('Client needs Chart of Account') }}</span>
-                          <button type="button" class="btn btn-sm btn-outline-warning ml-2"
-                            @click="autoAssignClientChartOfAccount" :disabled="isAutoAssigningClient">
-                            <i :class="isAutoAssigningClient ? 'fas fa-spinner fa-spin' : 'fas fa-magic'"></i>
-                            {{ isAutoAssigningClient ? $t('Assigning...') : $t('Auto-Assign') }}
-                          </button>
+              <!-- Client Information Section -->
+              <div v-if="items">
+                <div class="row">
+                  <div class="form-group col-12 col-md-6">
+                    <label for="client"
+                      >{{ $t("Client") }}
+                      <span class="required">*</span></label
+                    >
+                    <div class="d-flex w-100">
+                      <v-select
+                        class="flex-grow-1"
+                        v-model="form.client"
+                        :options="items"
+                        label="name"
+                        :class="{ 'is-invalid': form.errors.has('client') }"
+                        name="client"
+                        :placeholder="$t('Select a client')"
+                        @input="onClientChange"
+                      />
+                      <ClientCreateModal @reloadClients="getClients('latest')">
+                        <div class="input-group-text create-btn">
+                          <i class="fas fa-solid fa-plus-circle"></i>
                         </div>
-                      </div>
-
-                      <has-error :form="form" field="client" />
+                      </ClientCreateModal>
                     </div>
+
+                    <!-- Client Chart of Account Status -->
+                    <div class="client-status mt-2" v-if="form.client">
+                      <div
+                        v-if="!form.client.chart_of_account_id"
+                        class="client-warning"
+                      >
+                        <i class="fas fa-exclamation-triangle text-warning"></i>
+                        <span class="ml-2">{{
+                          $t("Client needs Chart of Account")
+                        }}</span>
+                        <button
+                          type="button"
+                          class="btn btn-sm btn-outline-warning ml-2"
+                          @click="autoAssignClientChartOfAccount"
+                          :disabled="isAutoAssigningClient"
+                        >
+                          <i
+                            :class="
+                              isAutoAssigningClient
+                                ? 'fas fa-spinner fa-spin'
+                                : 'fas fa-magic'
+                            "
+                          ></i>
+                          {{
+                            isAutoAssigningClient
+                              ? $t("Assigning...")
+                              : $t("Auto-Assign")
+                          }}
+                        </button>
+                      </div>
+                    </div>
+
+                    <has-error :form="form" field="client" />
+                  </div>
+                  <div class="form-group col-12 col-md-3">
+                    <label for="saleStatus">{{ $t("Sale Status") }}</label>
+                    <select
+                      id="saleStatus"
+                      v-model="form.saleStatus"
+                      class="form-control"
+                      :class="{ 'is-invalid': form.errors.has('sale_status') }"
+                      name="saleStatus"
+                      @change="onSaleStatusChange"
+                    >
+                      <option value="">{{ $t("Select") }}</option>
+                      <option value="مكتملة">{{ $t("Completed") }}</option>
+                      <option value="معلقة">{{ $t("Pending") }}</option>
+                    </select>
+                    <has-error :form="form" field="sale_status" />
+                  </div>
+                  <div class="form-group col-12 col-md-3">
+                    <label for="current_date">{{ $t("Date") }}</label>
+                    <input
+                      id="current_date"
+                      v-model="form.current_date"
+                      type="date"
+                      class="form-control"
+                      :class="{ 'is-invalid': form.errors.has('current_date') }"
+                      name="current_date"
+                      readonly
+                    />
+                    <has-error :form="form" field="current_date" />
                   </div>
                 </div>
-                <div class="form-group col-md-3">
-                  <label for="saleStatus">{{ $t("Sale Status") }}</label>
-                  <select id="saleStatus" v-model="form.saleStatus" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('sale_status') }" name="saleStatus"
-                    @change="onSaleStatusChange">
-                    <option value="">{{ $t("Select") }}</option>
-                    <option value="مكتملة">{{ $t("Completed") }}</option>
-                    <option value="معلقة">{{ $t("Pending") }}</option>
-                  </select>
-                  <has-error :form="form" field="sale_status" />
-                </div>
-                <div class="form-group col-md-3">
-                  <label for="current_date">{{ $t("Date") }}</label>
-                  <input id="current_date" v-model="form.current_date" type="date" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('current_date') }" name="current_date" readonly />
-                  <has-error :form="form" field="current_date" />
-                </div>
-                <div class="form-group col-md-3">
-                  <label for="reference">
-                    {{ $t("Reference Number") }}
-                  </label>
-                  <input id="reference" v-model="form.reference" type="text" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('reference') }" name="reference"
-                    :placeholder="$t('Enter reference')" @input="clearFieldError('reference')" />
-                  <has-error :form="form" field="reference" />
+                <div class="row">
+                  <div class="form-group col-12 col-md-6">
+                    <label for="reference">{{ $t("Reference Number") }}</label>
+                    <input
+                      id="reference"
+                      v-model="form.reference"
+                      type="text"
+                      class="form-control"
+                      :class="{ 'is-invalid': form.errors.has('reference') }"
+                      name="reference"
+                      :placeholder="$t('Enter reference number')"
+                      @input="clearFieldError('reference')"
+                    />
+                    <has-error :form="form" field="reference" />
+                  </div>
                 </div>
               </div>
 
-              <!-- Row 3: Select Items (Full Width) -->
-              <div class="row" v-if="products">
-                <div class="form-group col-12">
-                  <label for="product">{{ $t("Select Items") }}
-                    <span class="required">*</span></label>
-                  <div class="row">
-                    <div class="col">
-                      <div class="d-flex w-100">
-                        <v-select class="flex-grow-1" v-model="form.product" :options="products" label="label" :class="{
+              <!-- Products Section -->
+              <div v-if="products">
+                <div class="row">
+                  <div class="form-group col-12">
+                    <label for="product"
+                      >{{ $t("Select Items") }}
+                      <span class="required">*</span></label
+                    >
+                    <div class="d-flex w-100">
+                      <v-select
+                        v-model="form.product"
+                        :options="products"
+                        label="label"
+                        class="flex-grow-1"
+                        :class="{
                           'is-invalid': form.errors.has('selectedProducts'),
-                        }" name="product" :placeholder="$t('Search Items')" @input="storeProduct(form.product)">
+                        }"
+                        name="product"
+                        :placeholder="$t('Search Items')"
+                        @input="storeProduct(form.product)"
+                      >
                           <template #option="{ name, code, unitName, unitCode, inventoryCount, avgPurchasePrice, regularPrice, isLowStock }">
                             <div class="product-option">
                               <div class="product-option-header">
@@ -194,49 +287,64 @@
                             <i class="fas fa-solid fa-plus-circle"></i>
                           </div>
                         </ProductCreateModal>
-                      </div>
+                      </v-select>
+                      <ProductCreateModal
+                        @reloadProducts="getProducts"
+                        @productCreated="handleProductCreated"
+                      >
+                        <div class="input-group-text create-btn">
+                          <i class="fas fa-solid fa-plus-circle"></i>
+                        </div>
+                      </ProductCreateModal>
+                    </div>
 
-                      <!-- Product Chart of Account Status - Similar to client validation -->
-                      <div class="product-status mt-2" v-if="form.product">
-                        <div v-if="!form.product.sales_account_id" class="product-warning">
-                          <i class="fas fa-exclamation-triangle text-warning"></i>
-                          <span class="ml-2">
-                            {{ $t('Product') }} "{{ form.product.name }}" {{ $t('needs Sales Account') }}
-                          </span>
-                          <button type="button" class="btn btn-sm btn-outline-warning ml-2"
-                            @click="autoAssignProductChartOfAccount(form.product, 'sales')"
-                            :disabled="isAutoAssigningProduct === form.product.id">
-                            <i
-                              :class="isAutoAssigningProduct === form.product.id ? 'fas fa-spinner fa-spin' : 'fas fa-magic'"></i>
-                            {{ isAutoAssigningProduct === form.product.id ? $t('Assigning...') : $t('Auto-Assign') }}
-                          </button>
-                        </div>
-                        <div v-else-if="!form.product.productTax || !form.product.productTax.id"
-                          class="product-warning">
-                          <i class="fas fa-exclamation-triangle text-warning"></i>
-                          <span class="ml-2">
-                            {{ $t('Product') }} "{{ form.product.name }}" {{ $t('needs VAT Rate') }}
-                          </span>
-                        </div>
-                        <div
-                          v-else-if="form.selectedProducts && form.selectedProducts.length > 0 && form.selectedProducts[0].sales_account_id"
-                          class="product-success">
-                          <i class="fas fa-check-circle text-success"></i>
-                          <span class="ml-2">
-                            {{ $t('Product') }} "{{ form.selectedProducts[0].name }}" {{ $t('Sales Account ready') }}
-                          </span>
-                        </div>
-                      </div>
-
-                      <has-error :form="form" field="selectedProducts" />
-                      <div v-if="!form.selectedProducts || form.selectedProducts.length === 0"
-                        class="text-warning mt-1">
-                        <small>
-                          <i class="fas fa-exclamation-triangle"></i>
-                          {{ $t('At least one product must be selected') }}
-                        </small>
+                    <!-- Product Chart of Account Status -->
+                    <div
+                      class="product-status mt-2"
+                      v-if="
+                        form.selectedProducts && form.selectedProducts.length > 0
+                      "
+                    >
+                      <div
+                        v-if="!form.selectedProducts[0].sales_account_id"
+                        class="product-warning"
+                      >
+                        <i class="fas fa-exclamation-triangle text-warning"></i>
+                        <span class="ml-2">
+                          {{ $t("Product") }}
+                          "{{ form.selectedProducts[0].name }}"
+                          {{ $t("needs Sales Account") }}
+                        </span>
+                        <button
+                          type="button"
+                          class="btn btn-sm btn-outline-warning ml-2"
+                          @click="
+                            autoAssignProductChartOfAccount(
+                              form.selectedProducts[0],
+                              'sales'
+                            )
+                          "
+                          :disabled="
+                            isAutoAssigningProduct === form.selectedProducts[0].id
+                          "
+                        >
+                          <i
+                            :class="
+                              isAutoAssigningProduct === form.selectedProducts[0].id
+                                ? 'fas fa-spinner fa-spin'
+                                : 'fas fa-magic'
+                            "
+                          ></i>
+                          {{
+                            isAutoAssigningProduct === form.selectedProducts[0].id
+                              ? $t("Assigning...")
+                              : $t("Auto-Assign")
+                          }}
+                        </button>
                       </div>
                     </div>
+
+                    <has-error :form="form" field="selectedProducts" />
                   </div>
                 </div>
               </div>
@@ -247,49 +355,96 @@
                 @discount-change="calculateProductDiscount" @vat-change="calculateProductVat" @remove-item="removeItem"
                 @open-stock-modal="openStockAdjustmentModal" @edit-product="editProductFromTable" />
 
-              <!-- Summary Footer -->
-              <div v-if="form.selectedProducts && form.selectedProducts.length > 0" class="summary-footer-wrapper mt-2 mb-3">
-                <div class="table-responsive table-custom w-100 m-auto" style="max-width: 100%;">
-                  <table class="table table-sm text-center invoices-create-table">
-                    <tbody>
-                      <tr class="summary-footer-row">
-                        <td colspan="6" class="text-right summary-label">
-                          <strong>{{ $t("Number of Items") }} (عدد الأصناف):</strong>
-                        </td>
-                        <td class="summary-value">
-                          <strong>{{ numberOfItems }}</strong>
-                        </td>
-                        <td colspan="6"></td>
-                      </tr>
-                      <tr class="summary-footer-row">
-                        <td colspan="6" class="text-right summary-label">
-                          <strong>{{ $t("Total Tax") }} (إجمالي الضريبة):</strong>
-                        </td>
-                        <td class="summary-value">
-                          {{ formatToTwoDecimals(totalProductTax) }} <span class="saudi-riyal">ê</span>
-                        </td>
-                        <td colspan="6"></td>
-                      </tr>
-                      <tr class="summary-footer-row">
-                        <td colspan="6" class="text-right summary-label">
-                          <strong>{{ $t("Total Discount") }} (إجمالي الخصم):</strong>
-                        </td>
-                        <td class="summary-value">
-                          {{ formatToTwoDecimals(totalProductDiscount) }} <span class="saudi-riyal">ê</span>
-                        </td>
-                        <td colspan="6"></td>
-                      </tr>
-                      <tr class="summary-footer-row grand-total-row">
-                        <td colspan="6" class="text-right summary-label">
-                          <strong>{{ $t("Grand Total") }} (المجموع):</strong>
-                        </td>
-                        <td class="summary-value grand-total-value">
-                          <strong>{{ formatToTwoDecimals(form.netTotal) }} <span class="saudi-riyal">ê</span></strong>
-                        </td>
-                        <td colspan="6"></td>
-                      </tr>
-                    </tbody>
-                  </table>
+              <!-- Financial Summary Section -->
+              <div
+                v-if="form.selectedProducts && form.selectedProducts.length > 0"
+                class="summary-footer-wrapper mt-4 mb-4"
+              >
+                <div class="summary-card">
+                  <div class="summary-header">
+                    <h6 class="summary-title">
+                      <i class="fas fa-calculator mr-2"></i>
+                      {{ $t("Summary") }}
+                    </h6>
+                  </div>
+                  <div class="summary-body">
+                    <div class="summary-row">
+                      <span class="summary-label">
+                        <i class="fas fa-boxes mr-2"></i>
+                        {{ $t("Number of Items") }}
+                      </span>
+                      <span class="summary-value">{{ numberOfItems }}</span>
+                    </div>
+                    
+                    <div class="summary-row">
+                      <span class="summary-label">
+                        <i class="fas fa-list-alt mr-2"></i>
+                        {{ $t("Subtotal") }}
+                      </span>
+                      <span class="summary-value">
+                        {{ formatToTwoDecimals(invoiceSubtotal) }}
+                        <span class="saudi-riyal">ê</span>
+                      </span>
+                    </div>
+
+                    <div
+                      v-if="invoiceLevelDiscountTotal > 0"
+                      class="summary-row summary-row-discount"
+                    >
+                      <span class="summary-label">
+                        <i class="fas fa-tag mr-2"></i>
+                        {{ $t("Total Discount") }}
+                      </span>
+                      <span class="summary-value text-danger">
+                        -{{ formatToTwoDecimals(invoiceLevelDiscountTotal) }}
+                        <span class="saudi-riyal">ê</span>
+                      </span>
+                    </div>
+
+                    <div class="summary-row">
+                      <span class="summary-label">
+                        <i class="fas fa-receipt mr-2"></i>
+                        {{ $t("After Discount") }}
+                      </span>
+                      <span class="summary-value">
+                        {{ formatToTwoDecimals(subtotal) }}
+                        <span class="saudi-riyal">ê</span>
+                      </span>
+                    </div>
+
+                    <div class="summary-row summary-row-net">
+                      <span class="summary-label">
+                        <i class="fas fa-percent mr-2"></i>
+                        {{ $t("Total Tax") }}
+                      </span>
+                      <span class="summary-value">
+                        {{ formatToTwoDecimals(totalProductTax) }}
+                        <span class="saudi-riyal">ê</span>
+                      </span>
+                    </div>
+
+                    <div class="summary-row">
+                      <span class="summary-label">
+                        <i class="fas fa-truck mr-2"></i>
+                        {{ $t("Transport Cost") }}
+                      </span>
+                      <span class="summary-value">
+                        {{ formatToTwoDecimals(shippingCostTotal) }}
+                        <span class="saudi-riyal">ê</span>
+                      </span>
+                    </div>
+
+                    <div class="summary-row summary-row-total">
+                      <span class="summary-label">
+                        <i class="fas fa-money-bill-wave mr-2"></i>
+                        {{ $t("Grand Total") }}
+                      </span>
+                      <span class="summary-value">
+                        <strong>{{ formatToTwoDecimals(grandTotal) }}</strong>
+                        <span class="saudi-riyal">ê</span>
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -313,75 +468,204 @@
                   </div>
                 </div>
               </div>
-              <!-- Discount and Tax Section -->
-              <div class="row">
-                <div class="form-group col-md-4" v-if="!isSaudiArabia">
-                  <label for="discountType">{{ $t("Discount Type") }}</label>
-                  <select id="discountType" v-model="form.discountType" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('discountType') }" name="discountType"
-                    @change="calculateSum; clearFieldError('discountType')" @keyup="calculateSum">
-                    <option value="0">{{ $t("Fixed") }}</option>
-                    <option value="1">{{ $t("Percentage") }}(%)</option>
-                  </select>
-                  <has-error :form="form" field="discountType" />
+
+              <!-- Financial Details Section -->
+              <div
+                v-if="form.selectedProducts && form.selectedProducts.length > 0"
+              >
+                <!-- Tax Fields (Non-Saudi Arabia) -->
+                <div class="row mb-3" v-if="taxes && !isSaudiArabia">
+                  <div class="form-group col-12 col-sm-6 col-md-4">
+                    <label for="orderTax"
+                      >{{ $t("Invoice Tax") }}
+                      <span class="required">*</span></label
+                    >
+                    <v-select
+                      v-model="form.orderTax"
+                      :options="taxes"
+                      label="code"
+                      :class="{ 'is-invalid': form.errors.has('orderTax') }"
+                      name="orderTax"
+                      :placeholder="$t('Select a tax type')"
+                      @input="calculateSum(); clearFieldError('orderTax')"
+                    />
+                    <has-error :form="form" field="orderTax" />
+                  </div>
+                  <div class="form-group col-12 col-sm-6 col-md-4">
+                    <label for="totalTax">{{ $t("Total Tax") }}</label>
+                    <input
+                      id="totalTax"
+                      v-model="form.totalTax"
+                      type="text"
+                      class="form-control"
+                      :class="{ 'is-invalid': form.errors.has('totalTax') }"
+                      name="totalTax"
+                      readonly
+                    />
+                    <has-error :form="form" field="totalTax" />
+                  </div>
                 </div>
-                <div class="form-group col-md-4" v-if="!isSaudiArabia">
-                  <label for="discount">{{ $t("Discount") }}
-                    <span v-if="form.discountType == 1">(%)</span></label>
-                  <div class="input-group">
-                    <input id="discount" v-model="form.discount" type="number" step="any" min="0"
-                      :max="form.discountType == 1 ? 100 : form.subTotal" class="form-control"
-                      :class="{ 'is-invalid': form.errors.has('discount') }" name="discount"
-                      :placeholder="$t('Enter discount')" @change="calculateSum" @keyup="calculateSum"
-                      @input="clearFieldError('discount')" />
-                    <div v-if="form.discountType == 1" class="input-group-append">
-                      <span class="input-group-text">{{
-                        form.totalDiscount }}<span class="saudi-riyal">ê</span></span>
+
+                <!-- Discount Section -->
+                <div class="row mb-3">
+                  <div class="form-group col-12 col-md-6">
+                    <label for="discount_type">{{ $t("Discount Type") }}</label>
+                    <div class="input-group">
+                      <select
+                        id="discount_type"
+                        v-model="form.discountType"
+                        class="form-control"
+                        :class="{
+                          'is-invalid': form.errors.has('discountType'),
+                        }"
+                        name="discountType"
+                        @change="
+                          calculateSum();
+                          clearFieldError('discountType');
+                        "
+                      >
+                        <option value="0">{{ $t("Fixed") }}</option>
+                        <option value="1">{{ $t("Percentage") }}(%)</option>
+                      </select>
+                      <input
+                        id="discount"
+                        v-model="form.discount"
+                        type="number"
+                        step="any"
+                        min="0"
+                        :max="form.discountType == 1 ? 100 : form.subTotal"
+                        class="form-control"
+                        :class="{ 'is-invalid': form.errors.has('discount') }"
+                        name="discount"
+                        :placeholder="$t('Enter discount')"
+                        @change="calculateSum"
+                        @keyup="calculateSum"
+                        @input="clearFieldError('discount')"
+                      />
+                    </div>
+                    <div
+                      v-if="
+                        form.errors.has('discountType') ||
+                        form.errors.has('discount')
+                      "
+                      class="invalid-feedback d-block"
+                    >
+                      <span
+                        v-if="form.errors.has('discountType')"
+                        class="d-block"
+                        >{{ form.errors.get("discountType") }}</span
+                      >
+                      <span
+                        v-if="form.errors.has('discount')"
+                        class="d-block"
+                        >{{ form.errors.get("discount") }}</span
+                      >
                     </div>
                   </div>
-                  <has-error :form="form" field="discount" />
+                  <div class="form-group col-12 col-md-6">
+                    <label for="total_amount">{{ $t("Amount") }}</label>
+                    <input
+                      id="total_amount"
+                      :value="grandTotal"
+                      type="number"
+                      step="any"
+                      class="form-control"
+                      name="total_amount"
+                      readonly
+                    />
+                  </div>
                 </div>
-                <div class="form-group col-md-4">
-                  <label for="transportCost">{{
-                    $t("Transport Cost")
-                  }}</label>
-                  <input id="transportCost" v-model="form.transportCost" type="number" step="any" min="0"
-                    class="form-control" name="transportCost" :placeholder="$t('Enter transport cost')"
-                    @change="calculateSum" @keyup="calculateSum" @input="clearFieldError('transportCost')" />
-                </div>
-              </div>
 
-              <div class="row">
-                <div v-if="taxes && !isSaudiArabia" class="form-group col-md-2">
-                  <label for="orderTax">{{ $t("Invoice Tax") }}
-                    <span class="required">*</span></label>
-                  <v-select v-model="form.orderTax" :options="taxes" label="code"
-                    :class="{ 'is-invalid': form.errors.has('orderTax') }" name="orderTax"
-                    placeholder="Select a tax type" @input="calculateSum(); clearFieldError('orderTax')" />
-                  <has-error :form="form" field="orderTax" />
-                </div>
-                <div class="form-group col-md-2" v-if="!isSaudiArabia">
-                  <label for="totalDiscount">{{ $t("Product Discounts") }}</label>
-                  <input id="totalDiscount" v-model="form.totalDiscount" type="text" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('totalDiscount') }" name="totalDiscount" readonly />
-                  <has-error :form="form" field="totalDiscount" />
-                </div>
-                <div class="form-group col-md-2" v-if="!isSaudiArabia">
-                  <label for="globalDiscount">{{ $t("Global Discount") }}</label>
-                  <input id="globalDiscount" v-model="globalDiscountDisplay" type="text" class="form-control"
-                    readonly />
-                </div>
-                <div v-if="taxes && !isSaudiArabia" class="form-group col-md-3">
-                  <label for="totalTax">{{ $t("Total Tax") }}</label>
-                  <input id="totalTax" v-model="form.totalTax" type="text" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('totalTax') }" name="totalTax" readonly />
-                  <has-error :form="form" field="totalTax" />
-                </div>
-                <div class="form-group col-md-3" v-if="!isSaudiArabia" style="display: none;">
-                  <label for="netTotal">{{ $t("Net Total") }}</label>
-                  <input id="netTotal" v-model="form.netTotal" type="number" step="any" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('netTotal') }" name="netTotal" readonly />
-                  <has-error :form="form" field="netTotal" />
+                <!-- Transport Cost Fields -->
+                <div class="row mb-3">
+                  <div class="form-group col-12 col-sm-6 col-md-4">
+                    <label for="transportCost">{{
+                      $t("Transport Cost")
+                    }}</label>
+                    <input
+                      id="transportCost"
+                      v-model="form.transportCost"
+                      type="number"
+                      step="any"
+                      min="0"
+                      class="form-control"
+                      name="transportCost"
+                      :placeholder="$t('Enter transport cost')"
+                      @change="calculateSum"
+                      @keyup="calculateSum"
+                      @input="clearFieldError('transportCost')"
+                    />
+                  </div>
+                  <!-- Transport Taxability Control -->
+                  <div
+                    v-if="Number(form.transportCost || 0) > 0"
+                    class="form-group col-12 col-sm-6 col-md-4"
+                  >
+                    <div class="transport-taxability-card">
+                      <div class="transport-taxability-header">
+                        <i
+                          class="fas"
+                          :class="
+                            form.transportIsTaxable
+                              ? 'fa-check-circle text-success'
+                              : 'fa-times-circle text-secondary'
+                          "
+                        ></i>
+                        <span class="transport-taxability-title">
+                          {{ $t("Transport Taxability") }}
+                        </span>
+                      </div>
+                      <div class="transport-taxability-body">
+                        <div class="custom-checkbox-wrapper">
+                          <input
+                            id="transportIsTaxable"
+                            v-model="form.transportIsTaxable"
+                            type="checkbox"
+                            class="custom-checkbox-input"
+                            @change="calculateSum"
+                          />
+                          <label
+                            class="custom-checkbox-label"
+                            for="transportIsTaxable"
+                          >
+                            <span class="checkbox-indicator"></span>
+                            <span class="checkbox-text">
+                              {{
+                                form.transportIsTaxable
+                                  ? $t("Transport is Taxable")
+                                  : $t("Transport is Non-Taxable")
+                              }}
+                            </span>
+                          </label>
+                        </div>
+                        <div
+                          class="transport-taxability-description"
+                          :class="{
+                            'description-taxable': form.transportIsTaxable,
+                            'description-non-taxable': !form.transportIsTaxable,
+                          }"
+                        >
+                          <i
+                            class="fas mr-2"
+                            :class="
+                              form.transportIsTaxable
+                                ? 'fa-info-circle'
+                                : 'fa-exclamation-circle'
+                            "
+                          ></i>
+                          <span>
+                            {{
+                              form.transportIsTaxable
+                                ? $t("VAT will be calculated on transport cost")
+                                : $t(
+                                    "Transport will be added after VAT calculation"
+                                  )
+                            }}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -1032,6 +1316,7 @@ export default {
         subTotal: 0,
         netTotal: 0,
         transportCost: "",
+        transportIsTaxable: true, // Default to true to maintain existing behavior (transport is taxable)
         orderTax: "",
         totalTax: 0,
         productTotalTax: 0,
@@ -1165,16 +1450,238 @@ export default {
       return this.roundToTwoDecimals(total);
     },
 
+    // Invoice Subtotal: Sum of all item subtotals before discount (qty × unit_price)
+    invoiceSubtotal() {
+      return this.roundToTwoDecimals(this.totalUnitPrice);
+    },
+
+    // Invoice-Level Discount Total: Total discount applied at invoice level and distributed across items
+    // This is calculated from invoice-level discount inputs (discount_type and discount_value)
+    invoiceLevelDiscountTotal() {
+      const subtotal = this.invoiceSubtotal;
+      if (
+        !this.form.discount ||
+        this.form.discount <= 0
+      ) {
+        return 0;
+      }
+
+      let discountAmount = 0;
+      if (this.form.discountType == 1) {
+        discountAmount = this.roundToTwoDecimals(
+          (subtotal * this.form.discount) / 100
+        );
+      } else {
+        discountAmount = this.roundToTwoDecimals(
+          Number(this.form.discount)
+        );
+      }
+
+      // Ensure discount doesn't exceed the subtotal
+      return discountAmount > subtotal
+        ? this.roundToTwoDecimals(subtotal)
+        : discountAmount;
+    },
+
+    // Gets transport amount
+    shippingCostTotal() {
+      const transportCost = Number(this.form.transportCost || 0);
+      return this.roundToTwoDecimals(transportCost);
+    },
+
     // Calculate subtotal (reactive) - sum of line net_totals (line_total - discount)
     // Note: This is the sum of net amounts after discount, before VAT
     subtotal() {
       return this.roundToTwoDecimals(this.totalAfterDiscount);
     },
+
+    // Net Amount Before VAT: Calculated based on transport taxability
+    // CRITICAL: When transport is non-taxable, use sum of item net totals to avoid discount issues
+    //
+    // If transport is taxable:
+    //   Net Amount = Invoice Subtotal - Invoice Discount + Transport
+    //   Transport is included in VAT base
+    //
+    // If transport is non-taxable:
+    //   Net Amount = Sum of Item Net Totals (after item-level discounts)
+    //   This ensures item-level discounts are correctly included without double-counting
+    //   Transport is NOT included in VAT base and is added after VAT calculation
+    netAmountBeforeVAT() {
+      const subtotal = this.invoiceSubtotal;
+      const invoiceDiscount = this.invoiceLevelDiscountTotal;
+      const shipping = this.shippingCostTotal;
+
+      if (this.form.transportIsTaxable) {
+        // Transport is taxable: include it in Net Amount (part of VAT base)
+        // Net Amount = Invoice Subtotal - Invoice Discount + Transport
+        return this.roundToTwoDecimals(subtotal - invoiceDiscount + shipping);
+      } else {
+        // Transport is non-taxable: use sum of item net totals (after item-level discounts)
+        // This ensures item-level discounts are correctly included
+        if (
+          !this.form.selectedProducts ||
+          this.form.selectedProducts.length === 0
+        ) {
+          return 0;
+        }
+
+        // Sum of item net totals after discount (transport excluded)
+        const sumOfItemNetTotals = this.form.selectedProducts.reduce(
+          (total, item) => {
+            const itemNetTotal = item.netTotal || item.totalAfterDiscount || 0;
+            return total + itemNetTotal;
+          },
+          0
+        );
+
+        // Net Amount = Taxable Base = Sum of Item Net Totals (transport excluded)
+        // Transport will be added after VAT calculation in grandTotal()
+        return this.roundToTwoDecimals(sumOfItemNetTotals);
+      }
+    },
+
+    // VAT Amount: Calculated based on transport taxability
+    // CRITICAL: VAT calculation differs based on whether transport is taxable or not
+    //
+    // Transport Taxability Behavior:
+    // - If transport is taxable:
+    //   VAT base = Subtotal - Discount + Transport
+    //   VAT = VAT base × Weighted Average VAT Rate
+    // - If transport is non-taxable:
+    //   VAT base = Subtotal - Discount (transport EXCLUDED from VAT base)
+    //   VAT = Sum of item VATs (totalProductTax) - ensures consistency with item-level calculations
+    //   Transport is NOT included in VAT calculation and is added after VAT
+    //
+    // Why this approach:
+    // - When transport is taxable: It's part of the transaction value, so included in VAT base
+    // - When transport is non-taxable: Item-level VAT already correctly excludes transport,
+    //   so we use the sum of item VATs to ensure consistency and avoid double-counting
+    // - This matches standard accounting practices for non-taxable shipping
+    vatAmount() {
+      if (
+        !this.form.selectedProducts ||
+        this.form.selectedProducts.length === 0
+      ) {
+        return 0;
+      }
+
+      // When transport is non-taxable, use sum of item VATs directly
+      // This ensures VAT equals the sum of item VATs and transport is NOT included in VAT base
+      if (!this.form.transportIsTaxable) {
+        // Transport is non-taxable: VAT = Sum of item VATs (transport excluded from VAT base)
+        // Item-level calculations already correctly exclude transport from VAT when non-taxable
+        const itemVatSum = this.form.selectedProducts.reduce((total, item) => {
+          return total + (item.totalTax || 0);
+        }, 0);
+        return this.roundToTwoDecimals(itemVatSum);
+      }
+
+      // When transport is taxable, calculate VAT on Net Amount (includes transport)
+      const netAmount = this.netAmountBeforeVAT;
+      if (netAmount <= 0) {
+        return 0;
+      }
+
+      // Calculate weighted average VAT rate from all items
+      // We use items' net amounts (after discount) as weights
+      let totalNetAmountForWeighting = 0;
+      let weightedVatRateSum = 0;
+
+      this.form.selectedProducts.forEach((item) => {
+        const itemNetAmount = item.netTotal || item.totalAfterDiscount || 0;
+
+        if (itemNetAmount > 0) {
+          // Get item's VAT rate
+          let vatRate = 0;
+          if (
+            item.selectedVatRate &&
+            item.selectedVatRate.rate !== undefined &&
+            item.selectedVatRate.rate !== null
+          ) {
+            vatRate = Number(item.selectedVatRate.rate);
+          } else if (item.taxRate !== undefined && item.taxRate !== null) {
+            vatRate = Number(item.taxRate);
+          }
+
+          // Ensure vatRate is valid
+          if (!isNaN(vatRate) && vatRate >= 0) {
+            totalNetAmountForWeighting += itemNetAmount;
+            // Weighted contribution: itemNetAmount × (vatRate / 100)
+            weightedVatRateSum += itemNetAmount * (vatRate / 100);
+          }
+        }
+      });
+
+      // If no valid net amount for weighting, return 0
+      if (totalNetAmountForWeighting <= 0) {
+        return 0;
+      }
+
+      // Calculate weighted average VAT rate as percentage
+      // Formula: weightedAverageRate = (sum(itemNetAmount × itemVatRate) / sum(itemNetAmount)) × 100
+      const weightedAverageVatRate =
+        (weightedVatRateSum / totalNetAmountForWeighting) * 100;
+
+      // Calculate VAT on the Net Amount using weighted average rate
+      // Net Amount includes transport when transport is taxable
+      const vat = this.roundToTwoDecimals(
+        netAmount * (weightedAverageVatRate / 100)
+      );
+
+      return vat;
+    },
     
-    // Calculate grand total: subtotal + total_vat + transport
+    // Grand Total: Calculated based on transport taxability
+    // CRITICAL: When transport is non-taxable, use sum of item totals to avoid discount double-counting
+    //
+    // If transport is taxable:
+    //   Grand Total = Net Amount + VAT
+    //   Where: Net Amount = Subtotal - Discount + Transport (transport included in VAT base)
+    //
+    // If transport is non-taxable:
+    //   Grand Total = Sum of Item Totals After VAT + Transport
+    //   This ensures:
+    //   - Item-level discounts are correctly included (no double-counting)
+    //   - VAT is calculated correctly on items only (transport excluded)
+    //   - Transport is added only once at invoice level
+    //
+    // Why use sum of item totals when non-taxable:
+    // - Item totals already include item-level discounts and VAT
+    // - Avoids issues with invoice-level vs item-level discount calculations
+    // - Ensures accuracy: Grand Total = sum(item totals) + transport
     grandTotal() {
-      const transportCost = Number(this.form.transportCost || 0);
-      return this.roundToTwoDecimals(this.subtotal + this.totalProductTax + transportCost);
+      const shipping = this.shippingCostTotal;
+
+      if (this.form.transportIsTaxable) {
+        // Transport is taxable: use Net Amount + VAT calculation
+        const netAmount = this.netAmountBeforeVAT;
+        const vat = this.vatAmount;
+        // Grand Total = Net Amount + VAT (transport already included in Net Amount)
+        return this.roundToTwoDecimals(netAmount + vat);
+      } else {
+        // Transport is non-taxable: use sum of item totals after VAT
+        // This ensures item-level discounts are correctly included without double-counting
+        if (
+          !this.form.selectedProducts ||
+          this.form.selectedProducts.length === 0
+        ) {
+          return this.roundToTwoDecimals(shipping);
+        }
+
+        // Calculate sum of all item totals after VAT (includes item-level discounts and VAT)
+        const sumOfItemTotals = this.form.selectedProducts.reduce(
+          (total, item) => {
+            // Item total after VAT = itemAfterDiscount + itemVAT (transport excluded)
+            const itemTotal = item.totalPrice || 0;
+            return total + itemTotal;
+          },
+          0
+        );
+
+        // Grand Total = Sum of Item Totals + Transport
+        // Transport is added only at invoice level, not distributed to items
+        return this.roundToTwoDecimals(sumOfItemTotals + shipping);
+      }
     },
 
     // Calculate number of items
@@ -1330,6 +1837,20 @@ export default {
         if (newVal !== oldVal && this.form.addPayment == 1 && !this.isSubmitting) {
           // Only clear errors, don't reset the actual values
           this.clearFieldError('paidAmount');
+        }
+        // Recalculate totals when transport cost changes
+        if (newVal !== oldVal) {
+          this.calculateSum();
+        }
+      }
+    },
+
+    // Watch for changes in transport taxability to recalculate totals
+    'form.transportIsTaxable': {
+      handler(newVal, oldVal) {
+        if (newVal !== oldVal) {
+          // Recalculate all items and totals when transport taxability changes
+          this.calculateSum();
         }
       }
     },
@@ -2444,8 +2965,7 @@ export default {
       // Calculate net total after discount (this is what VAT is calculated on)
       const netTotal = this.roundToTwoDecimals(totalBeforeDiscount - finalDiscountAmount);
 
-      // Get proportional transport cost allocation (if any) - shipping is taxable
-      // Business rule: shipping cost is added AFTER discount and is taxable.
+      // Get proportional transport cost allocation (if any)
       const proportionalTransport = item.proportionalTransportAmount || 0;
 
       // Use selected VAT rate if available, otherwise fall back to product's default tax rate
@@ -2475,27 +2995,46 @@ export default {
         }
       }
 
+      // Calculate VAT base depending on transport taxability
+      // CRITICAL: When transport is non-taxable, it must NOT affect item-level calculations
+      // If transport is taxable: VAT base = netTotal + proportionalTransport
+      // If transport is non-taxable: VAT base = netTotal (transport EXCLUDED from item calculations)
+      // Use form.transportIsTaxable to respect user's choice (defaults to true for backward compatibility)
+      const isTransportTaxable = this.form.transportIsTaxable !== false; // Default to true if not set
+
+      // When transport is non-taxable, proportionalTransport should be 0 (not distributed)
+      // But we explicitly exclude it to ensure clean calculation
+      const transportForVatBase = isTransportTaxable
+        ? proportionalTransport
+        : 0;
+      const vatBase = this.roundToTwoDecimals(netTotal + transportForVatBase);
+
       // Calculate tax and total based on tax type
-      // VAT is calculated on: net_total_after_discount + shipping_share
-      // Where:
-      //   net_total_after_discount = totalBeforeDiscount - all_discounts
-      //   shipping_share = proportionalTransport (allocated shipping for this item)
       let productTax, totalTax, totalPrice;
 
       if (item.taxType == "Exclusive") {
-        // VAT on (net_total_after_discount + shipping_share)
-        const vatBase = this.roundToTwoDecimals(netTotal + proportionalTransport);
+        // VAT on vatBase (which includes transport only if transport is taxable)
         productTax = this.roundToTwoDecimals(vatBase * (vatRate / 100));
         totalTax = this.roundToTwoDecimals(productTax);
-        // Total after VAT = net_total_after_discount + shipping_share + VAT
+        // Total after VAT = vatBase + VAT
         totalPrice = this.roundToTwoDecimals(vatBase + totalTax);
       } else {
         // Inclusive: VAT is included in unit price; derive VAT from net_total
         let netUnitPrice = this.roundToTwoDecimals(qtyNumber > 0 ? (netTotal / qtyNumber) : 0);
         productTax = this.roundToTwoDecimals(netUnitPrice - (netUnitPrice / (1 + vatRate / 100)));
         totalTax = this.roundToTwoDecimals(productTax * qtyNumber);
-        // Total after VAT = net_total (VAT already included, transport added at invoice level)
+        // Total after VAT = net_total (VAT already included, transport added at invoice level only if non-taxable)
         totalPrice = this.roundToTwoDecimals(netTotal);
+      }
+
+      // CRITICAL: When transport is non-taxable, it must NOT be included in item totals
+      // Transport is only added at the invoice level (grand total) when non-taxable
+      // If transport is taxable: Total = vatBase + VAT (transport already included in vatBase)
+      // If transport is non-taxable: Total = vatBase + VAT (transport NOT included, added at invoice level only)
+      if (!isTransportTaxable) {
+        // Transport is non-taxable: EXCLUDE it from item total
+        // Item total = itemAfterDiscount + itemVAT (transport added only at invoice grand total)
+        // Note: vatBase already excludes transport when non-taxable, so totalPrice is correct
       }
 
       // Create updated item with all calculated values
@@ -2618,35 +3157,19 @@ export default {
       // Apply commercial invoice-level discount (for allocation only)
       // Business rule: invoice-level discount is applied on the INVOICE SUBTOTAL (sum of qty × unit_price),
       // not on a single line or on net/after-tax amounts.
-      let invoiceLevelDiscount = 0;
-      if (this.form.discount > 0) {
-        // Base for invoice-level discount: invoice subtotal before any discounts
-        const invoiceSubtotal = this.totalUnitPrice || 0;
+      // Use the computed invoiceLevelDiscountTotal which already handles the calculation correctly
+      const invoiceLevelDiscount = this.invoiceLevelDiscountTotal;
 
-        if (this.form.discountType == 1) {
-          // Percentage discount on invoice subtotal
-          invoiceLevelDiscount = this.roundToTwoDecimals((invoiceSubtotal * this.form.discount) / 100);
-        } else {
-          // Fixed discount amount
-          invoiceLevelDiscount = this.roundToTwoDecimals(Number(this.form.discount));
-        }
-
-        // Ensure discount doesn't exceed the invoice subtotal
-        if (invoiceLevelDiscount > invoiceSubtotal) {
-          invoiceLevelDiscount = invoiceSubtotal;
-        }
-      }
-
-      // Grand total = subtotal + total_vat + transport
-      // Note: Invoice-level discount is already distributed proportionally to items
-      const transportCost = Number(this.form.transportCost || 0);
-      const grandTotal = this.roundToTwoDecimals(this.subtotal + this.totalProductTax + transportCost);
-      this.$set(this.form, 'netTotal', grandTotal);
+      // Update netTotal to match the computed grandTotal
+      // Grand total calculation is handled by the computed property which respects transport taxability
+      this.$set(this.form, 'netTotal', this.grandTotal);
 
       // Allocate invoice-level discount proportionally to items
       this.allocateInvoiceDiscountProportionally(invoiceLevelDiscount);
 
-      // Allocate transport costs proportionally to items (for reporting/display only, not in VAT calculation)
+      // Allocate transport costs proportionally to items (only when transport is taxable)
+      // When transport is non-taxable, it should NOT be distributed to items
+      const transportCost = Number(this.form.transportCost || 0);
       this.allocateTransportCostProportionally(transportCost);
 
       // Recalculate all items with proportional discount and transport allocation
@@ -2737,11 +3260,25 @@ export default {
     },
 
     // Allocate transport costs proportionally across all items based on item subtotals (qty × unit_price)
+    // CRITICAL: This function should ONLY be called when transport is taxable
+    // When transport is non-taxable, it must NOT be distributed to items
     // Formula: itemShippingShare = (itemSubtotal / invoiceSubtotal) * shippingCost
-    // Note: Transport is allocated for reporting/display purposes and included in VAT calculation
+    // Note: Transport is allocated for reporting/display purposes and included in VAT calculation (when taxable)
     allocateTransportCostProportionally(transportCost) {
       if (!transportCost || transportCost <= 0) {
         // Clear proportional transport if no transport cost
+        this.form.selectedProducts.forEach((item, index) => {
+          if (item.proportionalTransportAmount) {
+            this.$set(this.form.selectedProducts[index], 'proportionalTransportAmount', 0);
+          }
+        });
+        return;
+      }
+
+      // CRITICAL: Only allocate transport when it is taxable
+      // When transport is non-taxable, it should NOT be distributed to items
+      if (!this.form.transportIsTaxable) {
+        // Clear all proportional transport amounts when transport is non-taxable
         this.form.selectedProducts.forEach((item, index) => {
           if (item.proportionalTransportAmount) {
             this.$set(this.form.selectedProducts[index], 'proportionalTransportAmount', 0);
@@ -3206,6 +3743,7 @@ export default {
           appendIfDefined('reference', formDataObj.reference);
           appendIfDefined('client[id]', formDataObj.client?.id);
           appendIfDefined('transportCost', formDataObj.transportCost);
+          appendIfDefined('transportIsTaxable', formDataObj.transportIsTaxable ? 1 : 0);
           appendIfDefined('subTotal', formDataObj.subTotal);
           // Sync discount fields before appending
           this.syncDiscountFields();
@@ -4645,6 +5183,7 @@ export default {
         subTotal: this.form.subTotal,
         netTotal: this.form.netTotal,
         transportCost: this.form.transportCost,
+        transportIsTaxable: this.form.transportIsTaxable,
         orderTax: this.form.orderTax,
         totalProductTax: this.form.totalProductTax,
         totalTax: this.form.totalTax,
@@ -4693,6 +5232,7 @@ export default {
           this.form.subTotal = data.subTotal || this.form.subTotal
           this.form.netTotal = data.netTotal || this.form.netTotal
           this.form.transportCost = data.transportCost || this.form.transportCost
+          this.form.transportIsTaxable = data.transportIsTaxable !== undefined ? data.transportIsTaxable : this.form.transportIsTaxable
           this.form.orderTax = data.orderTax || this.form.orderTax
           this.form.totalProductTax = data.totalProductTax || this.form.totalProductTax
           this.form.totalTax = data.totalTax || this.form.totalTax
@@ -5538,5 +6078,411 @@ export default {
 /* Selected option styling */
 .v-select .vs__dropdown-option--selected .product-option {
   background-color: #e3f2fd;
+}
+
+/* Summary Card Styles */
+.summary-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.summary-header {
+  background: linear-gradient(135deg, #33a0d9 0%, #2a8bc7 100%);
+  padding: 16px 20px;
+  border-bottom: 2px solid #2a8bc7;
+}
+
+.summary-title {
+  margin: 0;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+
+.summary-title i {
+  font-size: 18px;
+}
+
+.summary-body {
+  padding: 16px 20px;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #f3f4f6;
+  transition: background-color 0.2s ease;
+}
+
+.summary-row:last-child {
+  border-bottom: none;
+}
+
+.summary-row:hover {
+  background-color: #f9fafb;
+  margin: 0 -20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 4px;
+}
+
+.summary-row-net {
+  font-weight: 500;
+}
+
+.summary-row-discount {
+  background-color: #fef2f2;
+}
+
+.summary-row-discount:hover {
+  background-color: #fee2e2;
+}
+
+.summary-row-total {
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  border-bottom: none;
+  margin-top: 12px;
+  padding: 16px 20px;
+  border-radius: 8px;
+  font-size: 18px;
+}
+
+.summary-row-total:hover {
+  background: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%);
+  margin: 12px -20px 0;
+  padding: 16px 20px;
+}
+
+.summary-label {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #374151;
+  font-weight: 500;
+  flex: 1;
+}
+
+.summary-label i {
+  color: #6b7280;
+  font-size: 14px;
+  width: 20px;
+  text-align: center;
+}
+
+.summary-value {
+  font-size: 14px;
+  color: #111827;
+  font-weight: 600;
+  text-align: right;
+  min-width: 120px;
+}
+
+.summary-total {
+  font-size: 20px;
+  color: #33a0d9;
+  font-weight: 700;
+}
+
+/* RTL Support for Summary Footer */
+[dir="rtl"] .summary-label i {
+  margin-left: 8px;
+  margin-right: 0;
+}
+
+[dir="rtl"] .summary-value {
+  text-align: left;
+}
+
+/* Responsive Summary Footer */
+@media (max-width: 768px) {
+  .summary-header {
+    padding: 12px 16px;
+  }
+
+  .summary-title {
+    font-size: 14px;
+  }
+
+  .summary-body {
+    padding: 12px 16px;
+  }
+
+  .summary-row {
+    padding: 10px 0;
+    flex-wrap: wrap;
+  }
+
+  .summary-row:hover {
+    margin: 0 -16px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .summary-label {
+    font-size: 13px;
+    margin-bottom: 4px;
+    width: 100%;
+  }
+
+  .summary-value {
+    font-size: 13px;
+    width: 100%;
+    text-align: left;
+    min-width: auto;
+  }
+
+  .summary-row-total {
+    padding: 12px 16px;
+    font-size: 16px;
+  }
+
+  .summary-row-total:hover {
+    margin: 12px -16px 0;
+    padding: 12px 16px;
+  }
+
+  .summary-total {
+    font-size: 18px;
+  }
+
+  [dir="rtl"] .summary-value {
+    text-align: right;
+  }
+}
+
+@media (max-width: 576px) {
+  .summary-card {
+    border-radius: 8px;
+  }
+
+  .summary-header {
+    padding: 10px 12px;
+  }
+
+  .summary-body {
+    padding: 10px 12px;
+  }
+
+  .summary-row-total {
+    padding: 10px 12px;
+  }
+
+  .summary-row-total:hover {
+    margin: 12px -12px 0;
+    padding: 10px 12px;
+  }
+}
+
+/* Transport Taxability Card Styles */
+.transport-taxability-card {
+  background: #ffffff;
+  border: 2px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 16px;
+  margin-top: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.transport-taxability-card:hover {
+  border-color: #33a0d9;
+  box-shadow: 0 4px 8px rgba(51, 160, 217, 0.1);
+}
+
+.transport-taxability-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.transport-taxability-header i {
+  font-size: 20px;
+  margin-right: 8px;
+}
+
+.transport-taxability-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.transport-taxability-body {
+  padding-top: 8px;
+}
+
+/* Custom Checkbox Styling */
+.custom-checkbox-wrapper {
+  position: relative;
+  margin-bottom: 12px;
+}
+
+.custom-checkbox-input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.custom-checkbox-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  padding: 8px 0;
+  transition: all 0.2s ease;
+}
+
+.custom-checkbox-label:hover {
+  color: #33a0d9;
+}
+
+.checkbox-indicator {
+  position: relative;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  margin-right: 12px;
+  border: 2px solid #d1d5db;
+  border-radius: 6px;
+  background-color: #ffffff;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.custom-checkbox-input:checked ~ .custom-checkbox-label .checkbox-indicator {
+  background-color: #33a0d9;
+  border-color: #33a0d9;
+}
+
+.custom-checkbox-input:checked
+  ~ .custom-checkbox-label
+  .checkbox-indicator::after {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 3px;
+  width: 6px;
+  height: 12px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.custom-checkbox-input:focus ~ .custom-checkbox-label .checkbox-indicator {
+  box-shadow: 0 0 0 3px rgba(51, 160, 217, 0.1);
+}
+
+.checkbox-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  line-height: 1.5;
+}
+
+.custom-checkbox-input:checked ~ .custom-checkbox-label .checkbox-text {
+  color: #33a0d9;
+  font-weight: 600;
+}
+
+.transport-taxability-description {
+  display: flex;
+  align-items: flex-start;
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  line-height: 1.5;
+  margin-top: 8px;
+  transition: all 0.2s ease;
+}
+
+.transport-taxability-description i {
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.description-taxable {
+  background-color: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+
+.description-taxable i {
+  color: #10b981;
+}
+
+.description-non-taxable {
+  background-color: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fde68a;
+}
+
+.description-non-taxable i {
+  color: #f59e0b;
+}
+
+/* RTL Support for Transport Taxability */
+[dir="rtl"] .transport-taxability-header i {
+  margin-right: 0;
+  margin-left: 8px;
+}
+
+[dir="rtl"] .checkbox-indicator {
+  margin-right: 0;
+  margin-left: 12px;
+}
+
+[dir="rtl"] .transport-taxability-description i {
+  margin-right: 0;
+  margin-left: 8px;
+}
+
+/* Responsive Transport Taxability */
+@media (max-width: 768px) {
+  .transport-taxability-card {
+    padding: 12px;
+    margin-top: 0.5rem;
+  }
+
+  .transport-taxability-header {
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+  }
+
+  .transport-taxability-title {
+    font-size: 13px;
+  }
+
+  .checkbox-indicator {
+    width: 22px;
+    height: 22px;
+  }
+
+  .custom-checkbox-input:checked
+    ~ .custom-checkbox-label
+    .checkbox-indicator::after {
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+  }
+
+  .checkbox-text {
+    font-size: 13px;
+  }
+
+  .transport-taxability-description {
+    font-size: 12px;
+    padding: 8px 10px;
+  }
 }
 </style>
