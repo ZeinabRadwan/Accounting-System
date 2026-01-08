@@ -33800,12 +33800,12 @@ var map = {
 		2620
 	],
 	"./cashbook/accounts/create": [
-		14501,
-		4501
+		88699,
+		8699
 	],
 	"./cashbook/accounts/create.vue": [
-		14501,
-		4501
+		88699,
+		8699
 	],
 	"./cashbook/accounts/edit": [
 		6409,

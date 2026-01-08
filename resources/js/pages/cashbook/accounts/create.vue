@@ -733,7 +733,7 @@ textarea.form-control {
   background: #0775AF1A;
   padding: 10px;
   border-radius: 10px;
-  width: 15%;
+  width: 17%;
 }
 
 .nav-item {
