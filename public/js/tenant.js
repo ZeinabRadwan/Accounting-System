@@ -23217,12 +23217,12 @@ var map = {
 		4956
 	],
 	"./journal-entries/show": [
-		16801,
-		6801
+		16650,
+		6650
 	],
 	"./journal-entries/show.vue": [
-		16801,
-		6801
+		16650,
+		6650
 	],
 	"./loans": [
 		91736,
