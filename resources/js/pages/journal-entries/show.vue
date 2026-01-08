@@ -122,6 +122,15 @@
                   <strong>{{ row._raw.chart_of_account.code }}</strong><br>
                   <small>{{ row._raw.chart_of_account.name }}</small>
                 </template>
+                <template #cell-analyticalAccount="{ row }">
+                  <span v-if="row._raw.analytical_account" class="text-muted">
+                    <small>
+                      <span v-if="row._raw.analytical_account.code">{{ row._raw.analytical_account.code }} - </span>
+                      {{ row._raw.analytical_account.name }}
+                    </small>
+                  </span>
+                  <span v-else class="text-muted">-</span>
+                </template>
                 <template #cell-debitAmount="{ row }">
                   <span v-if="row._raw.debit_amount > 0" class="text-success">
                     <CurrencyDisplay :amount="row._raw.debit_amount" :disable-rtl="true"/>
@@ -334,6 +343,7 @@ export default {
       return [
         { key: "lineNumber", label: this.$t('Line Number'), align: "text-center" },
         { key: "chartOfAccount", label: this.$t('Chart of Account'), align: "text-left" },
+        { key: "analyticalAccount", label: this.$t('Analytical Account'), align: "text-left" },
         { key: "description", label: this.$t('Description'), align: "text-left" },
         { key: "debitAmount", label: this.$t('Debit Amount'), align: "text-right" },
         { key: "creditAmount", label: this.$t('Credit Amount'), align: "text-right" },
@@ -346,6 +356,7 @@ export default {
       return this.sortedLines.map((line) => ({
         lineNumber: line.line_number,
         chartOfAccount: line,
+        analyticalAccount: line,
         description: line.description || '-',
         debitAmount: line,
         creditAmount: line,

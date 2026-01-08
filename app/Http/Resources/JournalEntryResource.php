@@ -80,6 +80,14 @@ class JournalEntryResource extends JsonResource
                             'name' => $line->costCenter->name,
                             'full_path' => $line->costCenter->getFullPath(),
                         ] : null,
+                        'analytical_account_id' => $line->analytical_account_id,
+                        'analytical_account' => $line->analyticalAccount ? [
+                            'id' => $line->analyticalAccount->id,
+                            'name' => $line->analyticalAccount->name,
+                            'code' => $line->analyticalAccount->code,
+                            'display_name' => $line->analyticalAccount->display_name,
+                            'type' => $line->analyticalAccount->type,
+                        ] : null,
                         'chart_of_account' => $line->chartOfAccount ? [
                             'id' => $line->chartOfAccount->id,
                             'code' => $line->chartOfAccount->code,

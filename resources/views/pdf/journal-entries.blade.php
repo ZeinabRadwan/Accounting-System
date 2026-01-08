@@ -65,12 +65,13 @@
                                         </tr>
                                         @if($entry->lines->count() > 0)
                                             <tr class="bg-light">
-                                                <td colspan="9">
+                                                <td colspan="10">
                                                     <strong>Journal Entry Lines:</strong>
                                                     <table class="table table-sm mb-0 mt-2">
                                                         <thead>
                                                             <tr>
                                                                 <th>Account</th>
+                                                                <th>Analytical Account</th>
                                                                 <th>Description</th>
                                                                 <th>Debit</th>
                                                                 <th>Credit</th>
@@ -81,6 +82,15 @@
                                                                 <tr>
                                                                     <td>
                                                                         {{ $line->chartOfAccount ? $line->chartOfAccount->code . ' - ' . $line->chartOfAccount->name : 'Unknown Account' }}
+                                                                    </td>
+                                                                    <td>
+                                                                        @if($line->analyticalAccount)
+                                                                            <small class="text-muted">
+                                                                                {{ $line->analyticalAccount->code ? $line->analyticalAccount->code . ' - ' : '' }}{{ $line->analyticalAccount->name }}
+                                                                            </small>
+                                                                        @else
+                                                                            <span class="text-muted">-</span>
+                                                                        @endif
                                                                     </td>
                                                                     <td>{{ $line->description ?? '-' }}</td>
                                                                     <td class="text-right">

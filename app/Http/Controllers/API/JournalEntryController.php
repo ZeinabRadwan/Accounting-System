@@ -36,7 +36,7 @@ class JournalEntryController extends Controller
     {
         $perPage = $request->perPage ?? 10;
 
-        $query = JournalEntry::with(['lines.chartOfAccount.type.translations', 'lines.chartOfAccount.translations', 'lines.costCenter', 'creator', 'poster', 'branch']);
+        $query = JournalEntry::with(['lines.chartOfAccount.type.translations', 'lines.chartOfAccount.translations', 'lines.costCenter', 'lines.analyticalAccount', 'creator', 'poster', 'branch']);
 
         // Apply all column filters
         $this->applyFilters($query, $request);
@@ -175,7 +175,7 @@ class JournalEntryController extends Controller
     public function getAll()
     {
         try {
-            $query = JournalEntry::with(['lines.chartOfAccount.type', 'lines.costCenter', 'creator', 'poster', 'branch'])
+            $query = JournalEntry::with(['lines.chartOfAccount.type', 'lines.costCenter', 'lines.analyticalAccount', 'creator', 'poster', 'branch'])
                 ->orderBy('entry_date', 'desc')
                 ->orderBy('created_at', 'desc');
 
@@ -291,6 +291,7 @@ class JournalEntryController extends Controller
                 'lines.chartOfAccount.type.translations',
                 'lines.chartOfAccount.translations',
                 'lines.costCenter',
+                'lines.analyticalAccount',
                 'creator',
                 'poster',
                 'branch',
@@ -481,7 +482,7 @@ class JournalEntryController extends Controller
     public function search(Request $request)
     {
         try {
-            $query = JournalEntry::with(['lines.chartOfAccount.type.translations', 'lines.chartOfAccount.translations', 'lines.costCenter', 'creator', 'poster', 'branch']);
+            $query = JournalEntry::with(['lines.chartOfAccount.type.translations', 'lines.chartOfAccount.translations', 'lines.costCenter', 'lines.analyticalAccount', 'creator', 'poster', 'branch']);
 
             // Apply all filters (same as index)
             $this->applyFilters($query, $request);
