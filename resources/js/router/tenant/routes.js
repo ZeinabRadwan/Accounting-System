@@ -1392,6 +1392,12 @@ export default [
     meta: {permissions: ['account-statement']},
   },
   {
+    path: '/reports/analytical-account-statement',
+    name: 'reports.analyticalAccountStatement',
+    component: page('reports/analytical-account-statement.vue'),
+    meta: {permissions: ['account-statement']},
+  },
+  {
     path: '/reports/invoice-summary',
     name: 'reports.invoiceSummary',
     component: page('reports/invoice-summary.vue'),

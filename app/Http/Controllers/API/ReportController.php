@@ -5833,14 +5833,171 @@ class ReportController extends Controller
                 return $b['total_amount'] <=> $a['total_amount'];
             });
 
+            // Calculate summary statistics
+            $totalAmount = array_sum(array_column($result, 'total_amount'));
+            $totalTransactions = array_sum(array_column($result, 'transaction_count'));
+            $averageTransactionSize = $totalTransactions > 0 ? $totalAmount / $totalTransactions : 0;
+
+            // Calculate percentage breakdowns
+            foreach ($result as &$item) {
+                $item['percentage'] = $totalAmount > 0 ? round(($item['total_amount'] / $totalAmount) * 100, 2) : 0;
+                $item['average_transaction_size'] = $item['transaction_count'] > 0 ? round($item['total_amount'] / $item['transaction_count'], 2) : 0;
+            }
+            unset($item);
+
+            // Get top performing analytical accounts (top 10)
+            $topAnalyticalAccounts = [];
+            $analyticalAccountTotals = [];
+            foreach ($result as $item) {
+                if ($item['analytical_account']) {
+                    $accId = $item['analytical_account']['id'];
+                    if (! isset($analyticalAccountTotals[$accId])) {
+                        $analyticalAccountTotals[$accId] = [
+                            'analytical_account' => $item['analytical_account'],
+                            'total_amount' => 0,
+                            'transaction_count' => 0,
+                        ];
+                    }
+                    $analyticalAccountTotals[$accId]['total_amount'] += $item['total_amount'];
+                    $analyticalAccountTotals[$accId]['transaction_count'] += $item['transaction_count'];
+                }
+            }
+            usort($analyticalAccountTotals, function ($a, $b) {
+                return $b['total_amount'] <=> $a['total_amount'];
+            });
+            $topAnalyticalAccounts = array_slice($analyticalAccountTotals, 0, 10);
+
+            // Calculate time-series data (daily breakdown) if date range is provided
+            $timeSeriesData = [];
+            if ($fromDate && $toDate) {
+                $startDate = Carbon::parse($fromDate);
+                $endDate = Carbon::parse($toDate);
+                $daysDiff = $startDate->diffInDays($endDate);
+
+                // Group by day if range is <= 90 days, otherwise by week or month
+                $groupBy = 'day';
+                if ($daysDiff > 90 && $daysDiff <= 365) {
+                    $groupBy = 'week';
+                } elseif ($daysDiff > 365) {
+                    $groupBy = 'month';
+                }
+
+                // Get time-series data from journal entry lines
+                $timeSeriesQuery = DB::table('journal_entry_lines')
+                    ->join('journal_entries', 'journal_entry_lines.journal_entry_id', '=', 'journal_entries.id')
+                    ->where('journal_entries.status', 'posted')
+                    ->whereNotNull('journal_entry_lines.analytical_account_id')
+                    ->whereBetween('journal_entries.entry_date', [$fromDate, $toDate]);
+
+                if ($analyticalAccountId) {
+                    $timeSeriesQuery->where('journal_entry_lines.analytical_account_id', $analyticalAccountId);
+                }
+
+                if ($branchId) {
+                    $timeSeriesQuery->whereIn('journal_entries.branch_id', $branchIds);
+                }
+
+                if ($groupBy === 'day') {
+                    $timeSeriesData = $timeSeriesQuery
+                        ->selectRaw('DATE(journal_entries.entry_date) as period, SUM(journal_entry_lines.debit_amount) as total_debits, SUM(journal_entry_lines.credit_amount) as total_credits, COUNT(DISTINCT journal_entries.id) as transaction_count')
+                        ->groupBy(DB::raw('DATE(journal_entries.entry_date)'))
+                        ->orderBy('period', 'asc')
+                        ->get()
+                        ->map(function ($item) {
+                            return [
+                                'period' => $item->period,
+                                'total_amount' => round(($item->total_debits ?? 0) - ($item->total_credits ?? 0), 2),
+                                'transaction_count' => $item->transaction_count,
+                            ];
+                        })
+                        ->toArray();
+                } elseif ($groupBy === 'week') {
+                    $timeSeriesData = $timeSeriesQuery
+                        ->selectRaw('YEARWEEK(journal_entries.entry_date) as period, SUM(journal_entry_lines.debit_amount) as total_debits, SUM(journal_entry_lines.credit_amount) as total_credits, COUNT(DISTINCT journal_entries.id) as transaction_count')
+                        ->groupBy(DB::raw('YEARWEEK(journal_entries.entry_date)'))
+                        ->orderBy('period', 'asc')
+                        ->get()
+                        ->map(function ($item) {
+                            return [
+                                'period' => $item->period,
+                                'total_amount' => round(($item->total_debits ?? 0) - ($item->total_credits ?? 0), 2),
+                                'transaction_count' => $item->transaction_count,
+                            ];
+                        })
+                        ->toArray();
+                } else {
+                    $timeSeriesData = $timeSeriesQuery
+                        ->selectRaw('DATE_FORMAT(journal_entries.entry_date, "%Y-%m") as period, SUM(journal_entry_lines.debit_amount) as total_debits, SUM(journal_entry_lines.credit_amount) as total_credits, COUNT(DISTINCT journal_entries.id) as transaction_count')
+                        ->groupBy(DB::raw('DATE_FORMAT(journal_entries.entry_date, "%Y-%m")'))
+                        ->orderBy('period', 'asc')
+                        ->get()
+                        ->map(function ($item) {
+                            return [
+                                'period' => $item->period,
+                                'total_amount' => round(($item->total_debits ?? 0) - ($item->total_credits ?? 0), 2),
+                                'transaction_count' => $item->transaction_count,
+                            ];
+                        })
+                        ->toArray();
+                }
+            }
+
+            // Calculate growth rates (compare with previous period)
+            $growthRates = [];
+            if ($fromDate && $toDate) {
+                $startDate = Carbon::parse($fromDate);
+                $endDate = Carbon::parse($toDate);
+                $daysDiff = $startDate->diffInDays($endDate);
+
+                // Get previous period data
+                $previousStartDate = $startDate->copy()->subDays($daysDiff + 1);
+                $previousEndDate = $startDate->copy()->subDay();
+
+                $previousPeriodQuery = DB::table('journal_entry_lines')
+                    ->join('journal_entries', 'journal_entry_lines.journal_entry_id', '=', 'journal_entries.id')
+                    ->where('journal_entries.status', 'posted')
+                    ->whereNotNull('journal_entry_lines.analytical_account_id')
+                    ->whereBetween('journal_entries.entry_date', [$previousStartDate->format('Y-m-d'), $previousEndDate->format('Y-m-d')]);
+
+                if ($analyticalAccountId) {
+                    $previousPeriodQuery->where('journal_entry_lines.analytical_account_id', $analyticalAccountId);
+                }
+
+                if ($branchId) {
+                    $previousPeriodQuery->whereIn('journal_entries.branch_id', $branchIds);
+                }
+
+                $previousPeriodTotal = $previousPeriodQuery
+                    ->selectRaw('SUM(journal_entry_lines.debit_amount) as total_debits, SUM(journal_entry_lines.credit_amount) as total_credits')
+                    ->first();
+
+                $previousPeriodAmount = ($previousPeriodTotal->total_debits ?? 0) - ($previousPeriodTotal->total_credits ?? 0);
+
+                if ($previousPeriodAmount > 0) {
+                    $growthRate = (($totalAmount - $previousPeriodAmount) / $previousPeriodAmount) * 100;
+                    $growthRates = [
+                        'current_period_amount' => round($totalAmount, 2),
+                        'previous_period_amount' => round($previousPeriodAmount, 2),
+                        'growth_rate' => round($growthRate, 2),
+                        'growth_direction' => $growthRate >= 0 ? 'up' : 'down',
+                    ];
+                }
+            }
+
             return response()->json([
                 'success' => true,
                 'data' => $result,
                 'summary' => [
-                    'total_amount' => round(array_sum(array_column($result, 'total_amount')), 2),
-                    'total_transactions' => array_sum(array_column($result, 'transaction_count')),
+                    'total_amount' => round($totalAmount, 2),
+                    'total_transactions' => $totalTransactions,
+                    'average_transaction_size' => round($averageTransactionSize, 2),
                     'from_date' => $fromDate,
                     'to_date' => $toDate,
+                ],
+                'analytics' => [
+                    'top_analytical_accounts' => $topAnalyticalAccounts,
+                    'time_series_data' => $timeSeriesData,
+                    'growth_rates' => $growthRates,
                 ],
             ]);
         } catch (\Exception $e) {
@@ -6152,6 +6309,171 @@ class ReportController extends Controller
             ];
         } catch (\Exception $e) {
             return $this->responseWithError($e->getMessage());
+        }
+    }
+
+    /**
+     * Analytical Account Summary Report
+     * Provides summary statistics per analytical account
+     * Does NOT affect Trial Balance or Financial Statements - Metadata only
+     */
+    public function analyticalAccountSummary(Request $request)
+    {
+        try {
+            $this->validate($request, [
+                'analytical_account_id' => 'nullable|exists:analytical_accounts,id',
+                'from_date' => 'nullable|date',
+                'to_date' => 'nullable|date|after_or_equal:from_date',
+                'branch_id' => 'nullable|exists:branches,id',
+                'compare_period' => 'nullable|boolean', // If true, compare with previous period
+            ]);
+
+            $user = Auth::user();
+            $branchIds = $this->getUserBranchIds($user);
+            $analyticalAccountId = $request->analytical_account_id;
+            $fromDate = $request->from_date;
+            $toDate = $request->to_date;
+            $branchId = $request->branch_id;
+            $comparePeriod = $request->compare_period ?? false;
+
+            // Filter branch IDs if specific branch requested
+            if ($branchId) {
+                $branchIds = in_array($branchId, $branchIds) ? [$branchId] : [];
+            }
+
+            // Build base query for journal entry lines
+            $baseQuery = DB::table('journal_entry_lines')
+                ->join('journal_entries', 'journal_entry_lines.journal_entry_id', '=', 'journal_entries.id')
+                ->where('journal_entries.status', 'posted')
+                ->whereNotNull('journal_entry_lines.analytical_account_id')
+                ->whereIn('journal_entries.branch_id', $branchIds);
+
+            if ($analyticalAccountId) {
+                $baseQuery->where('journal_entry_lines.analytical_account_id', $analyticalAccountId);
+            }
+
+            if ($fromDate) {
+                $baseQuery->whereDate('journal_entries.entry_date', '>=', $fromDate);
+            }
+
+            if ($toDate) {
+                $baseQuery->whereDate('journal_entries.entry_date', '<=', $toDate);
+            }
+
+            // Get current period statistics
+            $currentPeriodStats = $baseQuery
+                ->selectRaw('
+                    journal_entry_lines.analytical_account_id,
+                    SUM(journal_entry_lines.debit_amount) as total_debits,
+                    SUM(journal_entry_lines.credit_amount) as total_credits,
+                    COUNT(DISTINCT journal_entries.id) as transaction_count,
+                    COUNT(DISTINCT journal_entry_lines.id) as line_count,
+                    AVG(journal_entry_lines.debit_amount + journal_entry_lines.credit_amount) as avg_transaction_size
+                ')
+                ->groupBy('journal_entry_lines.analytical_account_id')
+                ->get();
+
+            $result = [];
+            foreach ($currentPeriodStats as $stat) {
+                $analyticalAccount = AnalyticalAccount::find($stat->analytical_account_id);
+                if (! $analyticalAccount) {
+                    continue;
+                }
+
+                $totalAmount = ($stat->total_debits ?? 0) - ($stat->total_credits ?? 0);
+                $avgSize = $stat->avg_transaction_size ?? 0;
+
+                $summary = [
+                    'analytical_account' => [
+                        'id' => $analyticalAccount->id,
+                        'name' => $analyticalAccount->name,
+                        'code' => $analyticalAccount->code,
+                        'display_name' => $analyticalAccount->display_name,
+                        'type' => $analyticalAccount->type,
+                    ],
+                    'current_period' => [
+                        'total_amount' => round($totalAmount, 2),
+                        'total_debits' => round($stat->total_debits ?? 0, 2),
+                        'total_credits' => round($stat->total_credits ?? 0, 2),
+                        'transaction_count' => $stat->transaction_count ?? 0,
+                        'line_count' => $stat->line_count ?? 0,
+                        'average_transaction_size' => round($avgSize, 2),
+                    ],
+                ];
+
+                // Compare with previous period if requested
+                if ($comparePeriod && $fromDate && $toDate) {
+                    $startDate = Carbon::parse($fromDate);
+                    $endDate = Carbon::parse($toDate);
+                    $daysDiff = $startDate->diffInDays($endDate);
+
+                    $previousStartDate = $startDate->copy()->subDays($daysDiff + 1);
+                    $previousEndDate = $startDate->copy()->subDay();
+
+                    $previousPeriodStats = DB::table('journal_entry_lines')
+                        ->join('journal_entries', 'journal_entry_lines.journal_entry_id', '=', 'journal_entries.id')
+                        ->where('journal_entries.status', 'posted')
+                        ->where('journal_entry_lines.analytical_account_id', $stat->analytical_account_id)
+                        ->whereIn('journal_entries.branch_id', $branchIds)
+                        ->whereBetween('journal_entries.entry_date', [$previousStartDate->format('Y-m-d'), $previousEndDate->format('Y-m-d')])
+                        ->selectRaw('
+                            SUM(journal_entry_lines.debit_amount) as total_debits,
+                            SUM(journal_entry_lines.credit_amount) as total_credits,
+                            COUNT(DISTINCT journal_entries.id) as transaction_count
+                        ')
+                        ->first();
+
+                    $previousTotalAmount = ($previousPeriodStats->total_debits ?? 0) - ($previousPeriodStats->total_credits ?? 0);
+                    $previousTransactionCount = $previousPeriodStats->transaction_count ?? 0;
+
+                    $amountChange = $totalAmount - $previousTotalAmount;
+                    $amountChangePercent = $previousTotalAmount != 0 ? round(($amountChange / abs($previousTotalAmount)) * 100, 2) : ($totalAmount > 0 ? 100 : 0);
+
+                    $transactionChange = ($stat->transaction_count ?? 0) - $previousTransactionCount;
+                    $transactionChangePercent = $previousTransactionCount > 0 ? round(($transactionChange / $previousTransactionCount) * 100, 2) : (($stat->transaction_count ?? 0) > 0 ? 100 : 0);
+
+                    $summary['previous_period'] = [
+                        'total_amount' => round($previousTotalAmount, 2),
+                        'transaction_count' => $previousTransactionCount,
+                    ];
+
+                    $summary['comparison'] = [
+                        'amount_change' => round($amountChange, 2),
+                        'amount_change_percent' => $amountChangePercent,
+                        'amount_change_direction' => $amountChange >= 0 ? 'up' : 'down',
+                        'transaction_change' => $transactionChange,
+                        'transaction_change_percent' => $transactionChangePercent,
+                        'transaction_change_direction' => $transactionChange >= 0 ? 'up' : 'down',
+                    ];
+                }
+
+                $result[] = $summary;
+            }
+
+            // Sort by total amount descending
+            usort($result, function ($a, $b) {
+                return $b['current_period']['total_amount'] <=> $a['current_period']['total_amount'];
+            });
+
+            return response()->json([
+                'success' => true,
+                'data' => $result,
+                'summary' => [
+                    'total_analytical_accounts' => count($result),
+                    'total_amount' => round(array_sum(array_column(array_column($result, 'current_period'), 'total_amount')), 2),
+                    'total_transactions' => array_sum(array_column(array_column($result, 'current_period'), 'transaction_count')),
+                    'from_date' => $fromDate,
+                    'to_date' => $toDate,
+                ],
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Analytical Account Summary Report Error: '.$e->getMessage());
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to generate analytical account summary report',
+                'error' => $e->getMessage(),
+            ], 500);
         }
     }
 

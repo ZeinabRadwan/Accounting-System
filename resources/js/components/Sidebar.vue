@@ -1209,6 +1209,11 @@
                 </router-link>
               </li>
               <li v-if="$can('account-statement')" class="nav-item">
+                <router-link :to="{ name: 'reports.analyticalAccountStatement' }" class="nav-link">
+                  <p>{{ $t("Analytical Account Statement") }}</p>
+                </router-link>
+              </li>
+              <li v-if="$can('account-statement')" class="nav-item">
                 <router-link :to="{ name: 'reports.invoiceSummary' }" class="nav-link">
                   <p>{{ $t("Invoice Summary") }}</p>
                 </router-link>
