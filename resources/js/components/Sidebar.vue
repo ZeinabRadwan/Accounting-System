@@ -399,7 +399,7 @@
               " class="nav-item">
                 <router-link :to="{ name: 'accounts.index' }" class="nav-link">
                   <i class="fas fa-university nav-icon" />
-                  <p>{{ $t("Bank Accounts") }}</p>
+                  <p>{{ $t("Accounts (Bank / Cash)") }}</p>
                 </router-link>
               </li>
               <li v-if="

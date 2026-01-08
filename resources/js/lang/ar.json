@@ -2543,6 +2543,7 @@
     "Select expense account": "اختر حساب المصروفات",
     "This account will be debited for the expense": "سيتم خصم هذا الحساب للمصروف",
     "Bank Accounts": "حسابات البنوك",
+    "Accounts (Bank / Cash)": "الحسابات (بنك / نقدي)",
     "Loading payment accounts...": "جاري تحميل حسابات الدفع...",
     "Row Number": "#",
     "Product Code": "الرمز",
