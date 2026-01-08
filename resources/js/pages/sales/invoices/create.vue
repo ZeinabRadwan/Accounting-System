@@ -401,32 +401,13 @@
                       </span>
                     </div>
 
-                    <div class="summary-row">
-                      <span class="summary-label">
-                        <i class="fas fa-receipt mr-2"></i>
-                        {{ $t("After Discount") }}
-                      </span>
-                      <span class="summary-value">
-                        {{ formatToTwoDecimals(subtotal) }}
-                        <span class="saudi-riyal">ê</span>
-                      </span>
-                    </div>
-
-                    <div class="summary-row summary-row-net">
-                      <span class="summary-label">
-                        <i class="fas fa-percent mr-2"></i>
-                        {{ $t("Total Tax") }}
-                      </span>
-                      <span class="summary-value">
-                        {{ formatToTwoDecimals(totalProductTax) }}
-                        <span class="saudi-riyal">ê</span>
-                      </span>
-                    </div>
-
-                    <div class="summary-row">
+                    <div
+                      v-if="shippingCostTotal > 0"
+                      class="summary-row"
+                    >
                       <span class="summary-label">
                         <i class="fas fa-truck mr-2"></i>
-                        {{ $t("Transport Cost") }}
+                        {{ $t("Total Shipping Cost") }}
                       </span>
                       <span class="summary-value">
                         {{ formatToTwoDecimals(shippingCostTotal) }}
@@ -434,14 +415,38 @@
                       </span>
                     </div>
 
+                    <div class="summary-row summary-row-net">
+                      <span class="summary-label">
+                        <i class="fas fa-coins mr-2"></i>
+                        {{ $t("Net Amount") }}
+                      </span>
+                      <span class="summary-value">
+                        {{ formatToTwoDecimals(netAmountBeforeVAT) }}
+                        <span class="saudi-riyal">ê</span>
+                      </span>
+                    </div>
+
+                    <div class="summary-row">
+                      <span class="summary-label">
+                        <i class="fas fa-percentage mr-2"></i>
+                        {{ $t("VAT") }}
+                      </span>
+                      <span class="summary-value">
+                        {{ formatToTwoDecimals(vatAmount) }}
+                        <span class="saudi-riyal">ê</span>
+                      </span>
+                    </div>
+
                     <div class="summary-row summary-row-total">
                       <span class="summary-label">
                         <i class="fas fa-money-bill-wave mr-2"></i>
-                        {{ $t("Grand Total") }}
+                        <strong>{{ $t("Grand Total") }}</strong>
                       </span>
-                      <span class="summary-value">
-                        <strong>{{ formatToTwoDecimals(grandTotal) }}</strong>
-                        <span class="saudi-riyal">ê</span>
+                      <span class="summary-value summary-total">
+                        <strong>
+                          {{ formatToTwoDecimals(grandTotal) }}
+                          <span class="saudi-riyal">ê</span>
+                        </strong>
                       </span>
                     </div>
                   </div>
@@ -1075,7 +1080,7 @@
                       <strong>Discount:</strong> {{ formatToTwoDecimals(item.discountAmount || 0) }}
                     </div>
                     <div class="debug-step">
-                      <strong>After Discount:</strong> {{ formatToTwoDecimals(((Number(item.unitPrice) || 0) *
+                      <strong>{{ $t("After Discount") }}:</strong> {{ formatToTwoDecimals(((Number(item.unitPrice) || 0) *
                         (Number(item.qty) || 0)) - (item.discountAmount || 0)) }}
                     </div>
                   </div>
@@ -1211,7 +1216,7 @@
                       </td>
                     </tr>
                     <tr>
-                      <td>After Discount</td>
+                      <td>{{ $t("After Discount") }}</td>
                       <td>{{ formatToTwoDecimals(totalAfterDiscount) }}</td>
                       <td>{{ formatToTwoDecimals(form.subTotal - (form.productTotalTax + (form.invoiceTax || 0))) }}
                       </td>
