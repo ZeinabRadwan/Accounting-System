@@ -6,44 +6,52 @@
           <!-- breadcrumbs Start -->
           <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
           <!-- breadcrumbs end -->
-          <div class="col-xl-8 col-8 float-right text-right">
-            <div class="btn-group c-w-100 header-buttons">
-              <router-link :to="{ name: 'purchases.index' }" class="btn btn-info">
+          <div class="float-right text-right">
+            <div
+              class="btn-group c-w-100 header-buttons d-flex flex-column flex-sm-row"
+            >
+              <router-link
+                :to="{ name: 'purchases.index' }"
+                class="btn btn-sm btn-info mb-2 mb-sm-0"
+              >
                 <template v-if="isRTL">
                   {{ $t("Back") }} <i class="fas fa-long-arrow-alt-left" />
                 </template>
                 <template v-else>
                   <template
-                    v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
-
-                    {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
-
+                    v-if="
+                      $i18n.locale === 'ar' ||
+                      (typeof document !== 'undefined' &&
+                        document.documentElement.getAttribute('dir') === 'rtl')
+                    "
+                  >
+                    {{ $t("Back") }} <i class="fas fa-long-arrow-alt-left" />
                   </template>
 
                   <template v-else>
-
                     <template
-                      v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
-
-
-                      {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
-
-
+                      v-if="
+                        $i18n.locale === 'ar' ||
+                        (typeof document !== 'undefined' &&
+                          document.documentElement.getAttribute('dir') ===
+                            'rtl')
+                      "
+                    >
+                      {{ $t("Back") }} <i class="fas fa-long-arrow-alt-left" />
                     </template>
-
 
                     <template v-else>
-
-
-                      <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
-
-
+                      <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
                     </template>
-
                   </template>
                 </template>
               </router-link>
-              <button type="submit" class="btn btn-success" :form="'purchaseCreateForm'" title="Save">
+              <button
+                type="submit"
+                class="btn btn-sm btn-success"
+                :form="'purchaseCreateForm'"
+                title="Save"
+              >
                 <i class="fas fa-save" />
               </button>
             </div>
@@ -53,481 +61,866 @@
         <div class="card-body">
           <!-- Add the missing form element with submit handler -->
           <form id="purchaseCreateForm" @submit.prevent="handleFormSubmit">
-            <!-- Row 1: Cost Center / Branch / Purchase Status / Date -->
+            <!-- Basic Information Section -->
             <div class="row">
-              <div class="form-group col-md-3">
+              <div class="form-group col-12 col-sm-6 col-md-3">
                 <label for="costCenter">{{ $t("Cost Center") }}</label>
-                <v-select class="flex-grow-1" v-model="form.costCenter" :options="costCenters" label="name"
-                  :class="{ 'is-invalid': form.errors.has('cost_center_id') }" name="costCenter"
-                  :placeholder="$t('Select a cost center')" @input="onCostCenterChange" />
+                <v-select
+                  class="flex-grow-1"
+                  v-model="form.costCenter"
+                  :options="costCenters"
+                  label="name"
+                  :class="{ 'is-invalid': form.errors.has('cost_center_id') }"
+                  name="costCenter"
+                  :placeholder="$t('Select a cost center')"
+                  @input="onCostCenterChange"
+                />
                 <has-error :form="form" field="cost_center_id" />
               </div>
-              <div class="form-group col-md-3">
+              <div class="form-group col-12 col-sm-6 col-md-3">
                 <label for="branch">{{ $t("Branch") }}</label>
-                <v-select class="flex-grow-1" v-model="form.branch" :options="branches" label="name"
-                  :class="{ 'is-invalid': form.errors.has('branch_id') }" name="branch"
-                  :placeholder="$t('Select a branch')" @input="onBranchChange" />
+                <v-select
+                  class="flex-grow-1"
+                  v-model="form.branch"
+                  :options="branches"
+                  label="name"
+                  :class="{ 'is-invalid': form.errors.has('branch_id') }"
+                  name="branch"
+                  :placeholder="$t('Select a branch')"
+                  @input="onBranchChange"
+                />
                 <has-error :form="form" field="branch_id" />
               </div>
-              <div class="form-group col-md-3">
+              <div class="form-group col-12 col-sm-6 col-md-3">
                 <label for="purchaseStatus">{{ $t("Purchase Status") }}</label>
-                <select id="purchaseStatus" v-model="form.purchaseStatus" class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('purchase_status') }" name="purchaseStatus"
-                  @change="onPurchaseStatusChange">
+                <select
+                  id="purchaseStatus"
+                  v-model="form.purchaseStatus"
+                  class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('purchase_status') }"
+                  name="purchaseStatus"
+                  @change="onPurchaseStatusChange"
+                >
                   <option value="">{{ $t("Select") }}</option>
-                  <option value="تم الاستلام">{{ $t("Received") }}</option>
-                  <option value="معلقة">{{ $t("Pending") }}</option>
+                  <option value="received">{{ $t("Received") }}</option>
+                  <option value="pending">{{ $t("Pending") }}</option>
                 </select>
                 <has-error :form="form" field="purchase_status" />
               </div>
-              <div class="form-group col-md-3">
+              <div class="form-group col-12 col-sm-6 col-md-3">
                 <label for="purchaseDate">{{ $t("Date") }}</label>
-                <input id="purchaseDate" v-model="form.purchaseDate" type="date" class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('purchase_date') }" name="purchaseDate" readonly />
+                <input
+                  id="purchaseDate"
+                  v-model="form.purchaseDate"
+                  type="date"
+                  class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('purchase_date') }"
+                  name="purchaseDate"
+                  readonly
+                />
                 <has-error :form="form" field="purchase_date" />
               </div>
             </div>
 
-            <!-- Row 2: Supplier / Reference Number -->
-            <div class="row" v-if="suppliers && products">
-              <div class="form-group col-md-6">
-                <label for="supplier">{{ $t("Supplier") }}
-                  <span class="required">*</span></label>
-                <div class="row">
-                  <div class="col">
-                    <div class="d-flex w-100">
-                      <v-select class="flex-grow-1" v-model="form.supplier" :options="suppliers" label="name"
-                        :class="{ 'is-invalid': form.errors.has('supplier') }" name="supplier"
-                        :placeholder="$t('Select a supplier')" @input="onSupplierChange" />
-                      <SupplierCreateModal @reloadSuppliers="getSuppliers">
-                        <div class="input-group-text create-btn">
-                          <i class="fas fa-solid fa-plus-circle"></i>
-                        </div>
-                      </SupplierCreateModal>
-                    </div>
-
-                    <!-- Supplier Chart of Account Status -->
-                    <div class="supplier-status mt-2" v-if="form.supplier">
-                      <div v-if="!form.supplier.chart_of_account_id" class="supplier-warning">
-                        <i class="fas fa-exclamation-triangle text-warning"></i>
-                        <span class="ml-2">{{ $t('Supplier needs Chart of Account') }}</span>
-                        <button type="button" class="btn btn-sm btn-outline-warning ml-2"
-                          @click="autoAssignSupplierChartOfAccount" :disabled="isAutoAssigningSupplier">
-                          <i :class="isAutoAssigningSupplier ? 'fas fa-spinner fa-spin' : 'fas fa-magic'"></i>
-                          {{ isAutoAssigningSupplier ? $t('Assigning...') : $t('Auto-Assign') }}
-                        </button>
+            <!-- Supplier Information Section -->
+            <div v-if="suppliers && products">
+              <div class="row">
+                <div class="form-group col-12 col-md-6">
+                  <label for="supplier"
+                    >{{ $t("Supplier") }} <span class="required">*</span></label
+                  >
+                  <div class="d-flex w-100">
+                    <v-select
+                      class="flex-grow-1"
+                      v-model="form.supplier"
+                      :options="suppliers"
+                      label="name"
+                      :class="{ 'is-invalid': form.errors.has('supplier') }"
+                      name="supplier"
+                      :placeholder="$t('Select a supplier')"
+                      @input="onSupplierChange"
+                    />
+                    <SupplierCreateModal @reloadSuppliers="getSuppliers">
+                      <div class="input-group-text create-btn">
+                        <i class="fas fa-solid fa-plus-circle"></i>
                       </div>
-                    </div>
-
-                    <has-error :form="form" field="supplier" />
+                    </SupplierCreateModal>
                   </div>
+
+                  <!-- Supplier Chart of Account Status -->
+                  <div class="supplier-status mt-2" v-if="form.supplier">
+                    <div
+                      v-if="!form.supplier.chart_of_account_id"
+                      class="supplier-warning"
+                    >
+                      <i class="fas fa-exclamation-triangle text-warning"></i>
+                      <span class="ml-2">{{
+                        $t("Supplier needs Chart of Account")
+                      }}</span>
+                      <button
+                        type="button"
+                        class="btn btn-sm btn-outline-warning ml-2"
+                        @click="autoAssignSupplierChartOfAccount"
+                        :disabled="isAutoAssigningSupplier"
+                      >
+                        <i
+                          :class="
+                            isAutoAssigningSupplier
+                              ? 'fas fa-spinner fa-spin'
+                              : 'fas fa-magic'
+                          "
+                        ></i>
+                        {{
+                          isAutoAssigningSupplier
+                            ? $t("Assigning...")
+                            : $t("Auto-Assign")
+                        }}
+                      </button>
+                    </div>
+                  </div>
+
+                  <has-error :form="form" field="supplier" />
+                </div>
+                <div class="form-group col-12 col-md-6">
+                  <label for="reference">{{ $t("Reference Number") }}</label>
+                  <input
+                    id="reference"
+                    v-model="form.reference"
+                    type="text"
+                    class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('reference') }"
+                    name="reference"
+                    :placeholder="$t('Enter reference number')"
+                  />
+                  <has-error :form="form" field="reference" />
                 </div>
               </div>
-              <div class="form-group col-md-6">
-                <label for="reference">{{ $t("Reference Number") }}</label>
-                <input id="reference" v-model="form.reference" type="text" class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('reference') }" name="reference"
-                  :placeholder="$t('Enter reference number')" />
-                <has-error :form="form" field="reference" />
-              </div>
             </div>
-            <div class="row" v-if="products">
-              <div class="form-group col-md-6">
-                <label for="product">{{ $t("Select Products") }}
-                  <span class="required">*</span></label>
-                <div class="row">
-                  <div class="col">
-                    <div class="d-flex w-100">
-                      <v-select v-model="form.product" :options="products" label="label" class="flex-grow-1" :class="{
+
+            <!-- Products Section -->
+            <div v-if="products">
+              <div class="row">
+                <div class="form-group col-12">
+                  <label for="product"
+                    >{{ $t("Select Products") }}
+                    <span class="required">*</span></label
+                  >
+                  <div class="d-flex w-100">
+                    <v-select
+                      v-model="form.product"
+                      :options="products"
+                      label="label"
+                      class="flex-grow-1"
+                      :class="{
                         'is-invalid': form.errors.has('selectedProducts'),
-                      }" name="product" :placeholder="$t('Search products')" @input="storeProduct(form.product)">
-                        <template #option="{ name, code, unitName, unitCode, inventoryCount, avgPurchasePriceBySupplier, avgPurchasePrice, regularPrice, isLowStock }">
-                          <div class="product-option">
-                            <div class="product-option-header">
-                              <strong>{{ name }}</strong>
-                              <span class="product-code">[{{ code }}]</span>
-                              <span v-if="isLowStock" class="badge badge-warning badge-sm ml-2">
-                                <i class="fas fa-exclamation-triangle"></i> {{ $t('Low Stock') }}
-                              </span>
-                            </div>
-                            <div class="product-option-details">
-                              <span class="product-detail-item">
-                                <i class="fas fa-ruler"></i> {{ unitName || unitCode || $t('N/A') }}
-                              </span>
-                              <span class="product-detail-item">
-                                <i class="fas fa-boxes"></i> {{ $t('Stock') }}: {{ inventoryCount || 0 }}
-                              </span>
-                              <span class="product-detail-item">
-                                <i class="fas fa-dollar-sign"></i> {{ $t('Avg Cost') }}: {{ formatToTwoDecimals(avgPurchasePriceBySupplier || avgPurchasePrice || 0) }} <span class="saudi-riyal">ê</span>
-                              </span>
-                              <span class="product-detail-item">
-                                <i class="fas fa-tag"></i> {{ $t('Price') }}: {{ formatToTwoDecimals(regularPrice || 0) }} <span class="saudi-riyal">ê</span>
-                              </span>
-                            </div>
+                      }"
+                      name="product"
+                      :placeholder="$t('Search products')"
+                      @input="storeProduct(form.product)"
+                    >
+                      <template
+                        #option="{
+                          name,
+                          code,
+                          unitName,
+                          unitCode,
+                          inventoryCount,
+                          avgPurchasePriceBySupplier,
+                          avgPurchasePrice,
+                          regularPrice,
+                          isLowStock,
+                        }"
+                      >
+                        <div class="product-option">
+                          <div class="product-option-header">
+                            <strong>{{ name }}</strong>
+                            <span class="product-code">[{{ code }}]</span>
+                            <span
+                              v-if="isLowStock"
+                              class="badge badge-warning badge-sm ml-2"
+                            >
+                              <i class="fas fa-exclamation-triangle"></i>
+                              {{ $t("Low Stock") }}
+                            </span>
                           </div>
-                        </template>
-                        <template #selected-option="{ name, code }">
-                          <span>{{ name }} [{{ code }}]</span>
-                        </template>
-                      </v-select>
-                      <ProductCreateModal @reloadProducts="getProducts" @productCreated="handleProductCreated">
-                        <div class="input-group-text create-btn">
-                          <i class="fas fa-solid fa-plus-circle"></i>
+                          <div class="product-option-details">
+                            <span class="product-detail-item">
+                              <i class="fas fa-ruler"></i>
+                              {{ unitName || unitCode || $t("N/A") }}
+                            </span>
+                            <span class="product-detail-item">
+                              <i class="fas fa-boxes"></i> {{ $t("Stock") }}:
+                              {{ inventoryCount || 0 }}
+                            </span>
+                            <span class="product-detail-item">
+                              <i class="fas fa-dollar-sign"></i>
+                              {{ $t("Avg Cost") }}:
+                              {{
+                                formatToTwoDecimals(
+                                  avgPurchasePriceBySupplier ||
+                                    avgPurchasePrice ||
+                                    0
+                                )
+                              }}
+                              <span class="saudi-riyal">ê</span>
+                            </span>
+                            <span class="product-detail-item">
+                              <i class="fas fa-tag"></i> {{ $t("Price") }}:
+                              {{ formatToTwoDecimals(regularPrice || 0) }}
+                              <span class="saudi-riyal">ê</span>
+                            </span>
+                          </div>
                         </div>
-                      </ProductCreateModal>
-                    </div>
-
-                    <!-- Product Chart of Account Status -->
-                    <div class="product-status mt-2" v-if="form.selectedProducts && form.selectedProducts.length > 0">
-                      <div v-if="!form.selectedProducts[0].purchase_account_id" class="product-warning">
-                        <i class="fas fa-exclamation-triangle text-warning"></i>
-                        <span class="ml-2">
-                          {{ $t('Product') }}
-                          "{{ form.selectedProducts[0].name }}"
-                          {{ $t('needs Purchase Account') }}
-                        </span>
-                        <button type="button" class="btn btn-sm btn-outline-warning ml-2"
-                          @click="autoAssignProductChartOfAccount(form.selectedProducts[0])"
-                          :disabled="isAutoAssigningProduct === form.selectedProducts[0].id">
-                          <i
-                            :class="isAutoAssigningProduct === form.selectedProducts[0].id ? 'fas fa-spinner fa-spin' : 'fas fa-magic'"></i>
-                          {{ isAutoAssigningProduct === form.selectedProducts[0].id ? $t('Assigning...') :
-                            $t('Auto-Assign') }}
-                        </button>
+                      </template>
+                      <template #selected-option="{ name, code }">
+                        <span>{{ name }} [{{ code }}]</span>
+                      </template>
+                    </v-select>
+                    <ProductCreateModal
+                      @reloadProducts="getProducts"
+                      @productCreated="handleProductCreated"
+                    >
+                      <div class="input-group-text create-btn">
+                        <i class="fas fa-solid fa-plus-circle"></i>
                       </div>
-                    </div>
+                    </ProductCreateModal>
+                  </div>
 
-                    <has-error :form="form" field="selectedProducts" />
+                  <!-- Product Chart of Account Status -->
+                  <div
+                    class="product-status mt-2"
+                    v-if="
+                      form.selectedProducts && form.selectedProducts.length > 0
+                    "
+                  >
+                    <div
+                      v-if="!form.selectedProducts[0].purchase_account_id"
+                      class="product-warning"
+                    >
+                      <i class="fas fa-exclamation-triangle text-warning"></i>
+                      <span class="ml-2">
+                        {{ $t("Product") }}
+                        "{{ form.selectedProducts[0].name }}"
+                        {{ $t("needs Purchase Account") }}
+                      </span>
+                      <button
+                        type="button"
+                        class="btn btn-sm btn-outline-warning ml-2"
+                        @click="
+                          autoAssignProductChartOfAccount(
+                            form.selectedProducts[0]
+                          )
+                        "
+                        :disabled="
+                          isAutoAssigningProduct === form.selectedProducts[0].id
+                        "
+                      >
+                        <i
+                          :class="
+                            isAutoAssigningProduct ===
+                            form.selectedProducts[0].id
+                              ? 'fas fa-spinner fa-spin'
+                              : 'fas fa-magic'
+                          "
+                        ></i>
+                        {{
+                          isAutoAssigningProduct === form.selectedProducts[0].id
+                            ? $t("Assigning...")
+                            : $t("Auto-Assign")
+                        }}
+                      </button>
+                    </div>
+                  </div>
+
+                  <has-error :form="form" field="selectedProducts" />
+                </div>
+              </div>
+            </div>
+            <ItemsTable
+              :items="form.selectedProducts"
+              :prefix="prefix"
+              :taxes="taxes"
+              :form-errors="form.errors"
+              :total-unit-price="totalUnitPrice"
+              :total-product-discount="totalProductDiscount"
+              :total-after-discount="totalAfterDiscount"
+              :total-product-tax="totalProductTax"
+              :subtotal="subtotal"
+              :amount-in-words="toWord()"
+              table-class="invoices-create-table"
+              @item-change="handleItemChange"
+              @discount-change="calculateProductDiscount"
+              @vat-change="calculateProductVat"
+              @remove-item="removeItem"
+            />
+
+            <!-- Financial Summary Section -->
+            <div
+              v-if="form.selectedProducts && form.selectedProducts.length > 0"
+              class="summary-footer-wrapper mt-4 mb-4"
+            >
+              <div class="summary-card">
+                <div class="summary-header">
+                  <h6 class="summary-title">
+                    <i class="fas fa-calculator mr-2"></i>
+                    {{ $t("Summary") }}
+                  </h6>
+                </div>
+                <div class="summary-body">
+                  <div class="summary-row">
+                    <span class="summary-label">
+                      <i class="fas fa-boxes mr-2"></i>
+                      {{ $t("Number of Items") }}
+                    </span>
+                    <span class="summary-value">{{ numberOfItems }}</span>
+                  </div>
+                  
+                  <div class="summary-row">
+                    <span class="summary-label">
+                      <i class="fas fa-list-alt mr-2"></i>
+                      {{ $t("Subtotal") }}
+                    </span>
+                    <span class="summary-value">
+                      {{ formatToTwoDecimals(invoiceSubtotal) }}
+                      <span class="saudi-riyal">ê</span>
+                    </span>
+                  </div>
+
+                  <div
+                    v-if="invoiceLevelDiscountTotal > 0"
+                    class="summary-row summary-row-discount"
+                  >
+                    <span class="summary-label">
+                      <i class="fas fa-tag mr-2"></i>
+                      {{ $t("Total Discount") }}
+                    </span>
+                    <span class="summary-value text-danger">
+                      -{{ formatToTwoDecimals(invoiceLevelDiscountTotal) }}
+                      <span class="saudi-riyal">ê</span>
+                    </span>
+                  </div>
+
+                  <div
+                    v-if="shippingCostTotal > 0"
+                    class="summary-row"
+                  >
+                    <span class="summary-label">
+                      <i class="fas fa-truck mr-2"></i>
+                      {{ $t("Total Shipping Cost") }}
+                    </span>
+                    <span class="summary-value">
+                      {{ formatToTwoDecimals(shippingCostTotal) }}
+                      <span class="saudi-riyal">ê</span>
+                    </span>
+                  </div>
+
+                  <div class="summary-row summary-row-net">
+                    <span class="summary-label">
+                      <i class="fas fa-coins mr-2"></i>
+                      {{ $t("Net Amount") }}
+                    </span>
+                    <span class="summary-value">
+                      {{ formatToTwoDecimals(netAmountBeforeVAT) }}
+                      <span class="saudi-riyal">ê</span>
+                    </span>
+                  </div>
+
+                  <div class="summary-row">
+                    <span class="summary-label">
+                      <i class="fas fa-percentage mr-2"></i>
+                      {{ $t("VAT") }}
+                    </span>
+                    <span class="summary-value">
+                      {{ formatToTwoDecimals(vatAmount) }}
+                      <span class="saudi-riyal">ê</span>
+                    </span>
+                  </div>
+
+                  <div class="summary-row summary-row-total">
+                    <span class="summary-label">
+                      <i class="fas fa-money-bill-wave mr-2"></i>
+                      <strong>{{ $t("Grand Total") }}</strong>
+                    </span>
+                    <span class="summary-value summary-total">
+                      <strong>
+                        {{ formatToTwoDecimals(grandTotal) }}
+                        <span class="saudi-riyal">ê</span>
+                      </strong>
+                    </span>
                   </div>
                 </div>
               </div>
             </div>
-            <ItemsTable :items="form.selectedProducts" :prefix="prefix" :taxes="taxes" :form-errors="form.errors"
-              :total-unit-price="totalUnitPrice" :total-product-discount="totalProductDiscount"
-              :total-after-discount="totalAfterDiscount" :total-product-tax="totalProductTax" :subtotal="subtotal"
-              :amount-in-words="toWord()" table-class="invoices-create-table" @item-change="handleItemChange"
-              @discount-change="calculateProductDiscount" @vat-change="calculateProductVat" @remove-item="removeItem" />
 
-            <!-- Financial Breakdown Section -->
-            <!-- 
-              This section displays the invoice financial breakdown clearly:
-              - Discount and shipping are applied at invoice level and distributed proportionally across items
-              - The "After Discount" column per item already includes its share of discount and shipping
-              - Totals shown here are calculated from invoice-level inputs, not per-item inputs
-            -->
-            <div v-if="form.selectedProducts && form.selectedProducts.length > 0" class="summary-footer-wrapper mt-2 mb-3">
-              <div class="table-responsive table-custom w-100 m-auto" style="max-width: 100%;">
-                <table class="table table-sm text-center invoices-create-table">
-                  <tbody>
-                    <tr class="summary-footer-row">
-                      <td colspan="6" class="text-right summary-label">
-                        <strong>{{ $t("Number of Items") }} (عدد الأصناف):</strong>
-                      </td>
-                      <td class="summary-value">
-                        <strong>{{ numberOfItems }}</strong>
-                      </td>
-                      <td colspan="6"></td>
-                    </tr>
-                    <!-- Subtotal: Sum of all item totals before discount (qty × unit_price) -->
-                    <tr class="summary-footer-row">
-                      <td colspan="6" class="text-right summary-label">
-                        <strong>{{ $t("Subtotal") }} (المجموع الفرعي):</strong>
-                      </td>
-                      <td class="summary-value">
-                        {{ formatToTwoDecimals(invoiceSubtotal) }} <span class="saudi-riyal">ê</span>
-                      </td>
-                      <td colspan="6"></td>
-                    </tr>
-                    <!-- Total Discount: Invoice-level discount distributed proportionally across items -->
-                    <!-- 
-                      Discount Distribution Logic:
-                      - Invoice-level discount is applied on the invoice subtotal
-                      - Discount is distributed proportionally: itemDiscount = (itemSubtotal / invoiceSubtotal) * invoiceDiscount
-                      - Each item's "After Discount" column already includes its proportional share
-                      - This total shows the sum of all distributed discount amounts
-                    -->
-                    <tr v-if="invoiceLevelDiscountTotal > 0" class="summary-footer-row">
-                      <td colspan="6" class="text-right summary-label">
-                        <strong>{{ $t("Total Discount") }} (إجمالي الخصم):</strong>
-                      </td>
-                      <td class="summary-value text-danger">
-                        -{{ formatToTwoDecimals(invoiceLevelDiscountTotal) }} <span class="saudi-riyal">ê</span>
-                      </td>
-                      <td colspan="6"></td>
-                    </tr>
-                    <!-- Total Shipping Cost: Distributed proportionally across items -->
-                    <!-- 
-                      Shipping Distribution Logic:
-                      - Shipping cost is applied at invoice level
-                      - Shipping is distributed proportionally: itemShipping = (itemSubtotal / invoiceSubtotal) * shippingCost
-                      - Each item's "After Discount" column already includes its proportional share of shipping
-                      - This total shows the sum of all distributed shipping amounts
-                    -->
-                    <tr v-if="shippingCostTotal > 0" class="summary-footer-row">
-                      <td colspan="6" class="text-right summary-label">
-                        <strong>{{ $t("Total Shipping Cost") }} (إجمالي تكلفة الشحن):</strong>
-                      </td>
-                      <td class="summary-value">
-                        {{ formatToTwoDecimals(shippingCostTotal) }} <span class="saudi-riyal">ê</span>
-                      </td>
-                      <td colspan="6"></td>
-                    </tr>
-                    <!-- Net Amount: Subtotal - Discount + Shipping (before VAT) -->
-                    <tr class="summary-footer-row">
-                      <td colspan="6" class="text-right summary-label">
-                        <strong>{{ $t("Net Amount") }} (المبلغ الصافي):</strong>
-                      </td>
-                      <td class="summary-value">
-                        {{ formatToTwoDecimals(netAmountBeforeVAT) }} <span class="saudi-riyal">ê</span>
-                      </td>
-                      <td colspan="6"></td>
-                    </tr>
-                    <!-- VAT: Calculated on Net Amount (Subtotal - Discount + Shipping) -->
-                    <tr class="summary-footer-row">
-                      <td colspan="6" class="text-right summary-label">
-                        <strong>{{ $t("VAT") }} (الضريبة):</strong>
-                      </td>
-                      <td class="summary-value">
-                        {{ formatToTwoDecimals(vatAmount) }} <span class="saudi-riyal">ê</span>
-                      </td>
-                      <td colspan="6"></td>
-                    </tr>
-                    <!-- Grand Total: Net Amount + VAT -->
-                    <tr class="summary-footer-row grand-total-row">
-                      <td colspan="6" class="text-right summary-label">
-                        <strong>{{ $t("Grand Total") }} (الإجمالي الكلي):</strong>
-                      </td>
-                      <td class="summary-value grand-total-value">
-                        <strong>{{ formatToTwoDecimals(grandTotal) }} <span class="saudi-riyal">ê</span></strong>
-                      </td>
-                      <td colspan="6"></td>
-                    </tr>
-                  </tbody>
-                </table>
+            <!-- Financial Details Section -->
+            <div
+              v-if="form.selectedProducts && form.selectedProducts.length > 0"
+            >
+              <!-- Tax Fields (Non-Saudi Arabia) -->
+              <div class="row mb-3" v-if="taxes && !isSaudiArabia">
+                <div class="form-group col-12 col-sm-6 col-md-4">
+                  <label for="orderTax"
+                    >{{ $t("Purchase Tax") }}
+                    <span class="required">*</span></label
+                  >
+                  <v-select
+                    v-model="form.orderTax"
+                    :options="taxes"
+                    label="code"
+                    :class="{ 'is-invalid': form.errors.has('orderTax') }"
+                    name="orderTax"
+                    :placeholder="$t('Select a tax type')"
+                    @input="updateTax"
+                  />
+                  <has-error :form="form" field="orderTax" />
+                </div>
+                <div class="form-group col-12 col-sm-6 col-md-4">
+                  <label for="totalTax">{{ $t("Total Tax") }}</label>
+                  <input
+                    id="totalTax"
+                    v-model="form.totalTax"
+                    type="text"
+                    class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('totalTax') }"
+                    name="totalTax"
+                    readonly
+                  />
+                  <has-error :form="form" field="totalTax" />
+                </div>
               </div>
-            </div>
 
-            <div class="row">
-              <!-- Payment Terms field hidden as per requirements -->
-              <div class="form-group col-md-6 col-xl-3" style="display: none;">
-                <label for="paymentTerms">{{
-                  $t("Payment Terms")
-                }}</label>
-                <input id="paymentTerms" v-model="form.paymentTerms" type="text" class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('paymentTerms') }" name="paymentTerms" :placeholder="$t('Enter payment terms')
-                    " />
-                <has-error :form="form" field="paymentTerms" />
+              <!-- Discount Section -->
+              <div class="row mb-3">
+                <div class="form-group col-12 col-md-6">
+                  <label for="discount_type">{{ $t("Discount Type") }}</label>
+                  <div class="input-group">
+                    <select
+                      id="discount_type"
+                      v-model="form.discount_type"
+                      class="form-control"
+                      :class="{
+                        'is-invalid': form.errors.has('discount_type'),
+                      }"
+                      name="discount_type"
+                      @change="
+                        calculateSum();
+                        clearFieldError('discount_type');
+                      "
+                    >
+                      <option value="percentage">{{ $t("%") }}</option>
+                      <option value="fixed">{{ $t("Fixed") }}</option>
+                    </select>
+                    <input
+                      id="discount_value"
+                      v-model="form.discount_value"
+                      type="number"
+                      step="any"
+                      min="0"
+                      :max="
+                        form.discount_type === 'percentage'
+                          ? 100
+                          : form.netTotal
+                      "
+                      class="form-control"
+                      :class="{
+                        'is-invalid': form.errors.has('discount_value'),
+                      }"
+                      name="discount_value"
+                      placeholder="0"
+                      @change="calculateSum"
+                      @keyup="calculateSum"
+                      @input="clearFieldError('discount_value')"
+                    />
+                  </div>
+                  <div
+                    v-if="
+                      form.errors.has('discount_type') ||
+                      form.errors.has('discount_value')
+                    "
+                    class="invalid-feedback d-block"
+                  >
+                    <span
+                      v-if="form.errors.has('discount_type')"
+                      class="d-block"
+                      >{{ form.errors.get("discount_type") }}</span
+                    >
+                    <span
+                      v-if="form.errors.has('discount_value')"
+                      class="d-block"
+                      >{{ form.errors.get("discount_value") }}</span
+                    >
+                  </div>
+                </div>
+                <div class="form-group col-12 col-md-6">
+                  <label for="total_amount">{{ $t("Amount") }}</label>
+                  <input
+                    id="total_amount"
+                    :value="grandTotal"
+                    type="number"
+                    step="any"
+                    class="form-control"
+                    name="total_amount"
+                    readonly
+                  />
+                </div>
               </div>
-              <div v-if="taxes && !isSaudiArabia" class="form-group col-md-6 col-xl-3">
-                <label for="orderTax">{{ $t("Purchase Tax") }}
-                  <span class="required">*</span></label>
-                <!-- Debug: isSaudiArabia = {{ isSaudiArabia }}, taxes = {{ taxes ? 'exists' : 'null' }} -->
-                <v-select v-model="form.orderTax" :options="taxes" label="code"
-                  :class="{ 'is-invalid': form.errors.has('orderTax') }" name="orderTax" :placeholder="$t('Select a tax type')
-                    " @input="updateTax" />
-                <has-error :form="form" field="orderTax" />
-              </div>
-              <div v-if="taxes && !isSaudiArabia" class="form-group col-md-6 col-xl-3">
-                <label for="totalTax">{{
-                  $t("Total Tax")
-                }}</label>
-                <input id="totalTax" v-model="form.totalTax" type="text" class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('totalTax') }" name="totalTax" readonly />
-                <has-error :form="form" field="totalTax" />
-              </div>
-            </div>
-            <!-- Discount Section (Like Invoices) -->
-            <div class="row" v-if="form.selectedProducts && form.selectedProducts.length > 0">
-              <div class="form-group col-md-6">
-                <label for="discount_type">{{ $t("Discount Type") }}</label>
-                <div class="input-group">
-                  <select id="discount_type" v-model="form.discount_type" class="form-control form-control-sm"
-                    style="width: 85px;" :class="{ 'is-invalid': form.errors.has('discount_type') }"
-                    name="discount_type" @change="calculateSum(); clearFieldError('discount_type')">
-                    <option value="percentage">{{ $t("%") }}</option>
-                    <option value="fixed">{{ $t("Fixed") }}</option>
+
+              <!-- Transport Cost Fields -->
+              <div class="row mb-3">
+                <!-- Old discount field hidden for non-Saudi -->
+                <div
+                  class="form-group col-12 col-sm-6 col-md-3"
+                  v-if="!isSaudiArabia"
+                  style="display: none"
+                >
+                  <label for="discount">{{ $t("Discount") }}</label>
+                  <input
+                    id="discount"
+                    v-model="form.discount"
+                    type="number"
+                    step="any"
+                    min="1"
+                    :max="form.subTotal"
+                    class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('discount') }"
+                    name="discount"
+                    :placeholder="$t('Enter discount')"
+                    @change="calculateSum"
+                    @keyup="calculateSum"
+                  />
+                  <has-error :form="form" field="discount" />
+                </div>
+                <!-- Transport Cost Fields - Show based on supplier tax status -->
+                <div
+                  v-if="isSupplierTaxable"
+                  class="form-group col-12 col-sm-6 col-md-4"
+                >
+                  <label for="transportTaxableCost">{{
+                    $t("Taxable Transport Cost")
+                  }}</label>
+                  <input
+                    id="transportTaxableCost"
+                    v-model="form.transportTaxableCost"
+                    type="number"
+                    step="any"
+                    min="0"
+                    class="form-control"
+                    :class="{
+                      'is-invalid': form.errors.has('transportTaxableCost'),
+                    }"
+                    name="transportTaxableCost"
+                    :placeholder="$t('Enter transport cost')"
+                    @change="calculateSum"
+                    @keyup="calculateSum"
+                  />
+                  <has-error :form="form" field="transportTaxableCost" />
+                </div>
+                <div
+                  v-if="isSupplierTaxable"
+                  class="form-group col-12 col-sm-6 col-md-4"
+                >
+                  <label for="transportVatAmount">{{
+                    $t("Transport VAT Amount")
+                  }}</label>
+                  <input
+                    id="transportVatAmount"
+                    v-model="form.transportVatAmount"
+                    type="number"
+                    step="any"
+                    class="form-control"
+                    name="transportVatAmount"
+                    readonly
+                  />
+                </div>
+                <div v-else class="form-group col-12 col-sm-6 col-md-4">
+                  <label for="transportCost">{{ $t("Transport Cost") }}</label>
+                  <input
+                    id="transportCost"
+                    v-model="form.transportCost"
+                    type="number"
+                    step="any"
+                    min="0"
+                    class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('transportCost') }"
+                    name="transportCost"
+                    :placeholder="$t('Enter transport cost')"
+                    @change="calculateSum"
+                    @keyup="calculateSum"
+                  />
+                  <has-error :form="form" field="transportCost" />
+                </div>
+                <!-- Transport Taxability Control -->
+                <div
+                  v-if="shippingCostTotal > 0"
+                  class="form-group col-12 col-sm-6 col-md-4"
+                >
+                  <div class="transport-taxability-card">
+                    <div class="transport-taxability-header">
+                      <i
+                        class="fas"
+                        :class="
+                          form.transportIsTaxable
+                            ? 'fa-check-circle text-success'
+                            : 'fa-times-circle text-secondary'
+                        "
+                      ></i>
+                      <span class="transport-taxability-title">
+                        {{ $t("Transport Taxability") }}
+                      </span>
+                    </div>
+                    <div class="transport-taxability-body">
+                      <div class="custom-checkbox-wrapper">
+                        <input
+                          id="transportIsTaxable"
+                          v-model="form.transportIsTaxable"
+                          type="checkbox"
+                          class="custom-checkbox-input"
+                          @change="calculateSum"
+                        />
+                        <label
+                          class="custom-checkbox-label"
+                          for="transportIsTaxable"
+                        >
+                          <span class="checkbox-indicator"></span>
+                          <span class="checkbox-text">
+                            {{
+                              form.transportIsTaxable
+                                ? $t("Transport is Taxable")
+                                : $t("Transport is Non-Taxable")
+                            }}
+                          </span>
+                        </label>
+                      </div>
+                      <div
+                        class="transport-taxability-description"
+                        :class="{
+                          'description-taxable': form.transportIsTaxable,
+                          'description-non-taxable': !form.transportIsTaxable,
+                        }"
+                      >
+                        <i
+                          class="fas mr-2"
+                          :class="
+                            form.transportIsTaxable
+                              ? 'fa-info-circle'
+                              : 'fa-exclamation-circle'
+                          "
+                        ></i>
+                        <span>
+                          {{
+                            form.transportIsTaxable
+                              ? $t("VAT will be calculated on transport cost")
+                              : $t(
+                                  "Transport will be added after VAT calculation"
+                                )
+                          }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="form-group col-12 col-sm-6 col-md-4"
+                  style="display: none"
+                >
+                  <label for="netTotal">{{ $t("Net Total") }}</label>
+                  <input
+                    id="netTotal"
+                    v-model="form.netTotal"
+                    type="number"
+                    step="any"
+                    class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('netTotal') }"
+                    name="netTotal"
+                    readonly
+                  />
+                  <has-error :form="form" field="netTotal" />
+                </div>
+                <div class="form-group col-12 col-sm-6 col-md-4">
+                  <label for="addPayment">{{ $t("Add Payment?") }}</label>
+                  <select
+                    id="addPayment"
+                    v-model="form.addPayment"
+                    class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('addPayment') }"
+                    name="addPayment"
+                  >
+                    <option value="0" selected>{{ $t("No") }}</option>
+                    <option value="1">{{ $t("Yes") }}</option>
                   </select>
-                  <input id="discount_value" v-model="form.discount_value" type="number" step="any" min="0"
-                    :max="form.discount_type === 'percentage' ? 100 : form.netTotal"
-                    class="form-control form-control-sm" style="width: 80px;"
-                    :class="{ 'is-invalid': form.errors.has('discount_value') }" name="discount_value" placeholder="0"
-                    @change="calculateSum" @keyup="calculateSum" @input="clearFieldError('discount_value')" />
+                  <has-error :form="form" field="addPayment" />
                 </div>
-                <div v-if="form.errors.has('discount_type') || form.errors.has('discount_value')"
-                  class="invalid-feedback d-block">
-                  <span v-if="form.errors.has('discount_type')" class="d-block">{{ form.errors.get('discount_type')
-                  }}</span>
-                  <span v-if="form.errors.has('discount_value')" class="d-block">{{ form.errors.get('discount_value')
-                  }}</span>
-                </div>
-              </div>
-              <div class="form-group col-md-6">
-                <!-- Amount (المبلغ): Final payable amount, always equals Grand Total -->
-                <!-- This represents the total amount due after all calculations: Net Amount + VAT -->
-                <label for="total_amount">{{ $t("Amount") }}</label>
-                <input id="total_amount" :value="grandTotal" type="number" step="any" class="form-control"
-                  name="total_amount" readonly />
               </div>
             </div>
-
-            <div v-if="form.selectedProducts && form.selectedProducts.length > 0" class="row">
-              <!-- Old discount field hidden for non-Saudi -->
-              <div class="form-group col-md-6 col-xl-3" v-if="!isSaudiArabia" style="display: none;">
-                <label for="discount">{{
-                  $t("Discount")
-                }}</label>
-                <input id="discount" v-model="form.discount" type="number" step="any" min="1" :max="form.subTotal"
-                  class="form-control" :class="{ 'is-invalid': form.errors.has('discount') }" name="discount"
-                  :placeholder="$t('Enter discount')
-                    " @change="calculateSum" @keyup="calculateSum" />
-                <has-error :form="form" field="discount" />
-              </div>
-              <!-- Transport Cost Fields - Show based on supplier tax status -->
-              <div v-if="isSupplierTaxable" class="form-group col-md-6 col-xl-3">
-                <label for="transportTaxableCost">{{
-                  $t("Taxable Transport Cost")
-                }}</label>
-                <input id="transportTaxableCost" v-model="form.transportTaxableCost" type="number" step="any" min="0"
-                  class="form-control" :class="{ 'is-invalid': form.errors.has('transportTaxableCost') }"
-                  name="transportTaxableCost" :placeholder="$t('Enter transport cost')
-                    " @change="calculateSum" @keyup="calculateSum" />
-                <has-error :form="form" field="transportTaxableCost" />
-              </div>
-              <div v-if="isSupplierTaxable" class="form-group col-md-6 col-xl-3">
-                <label for="transportVatAmount">{{
-                  $t("Transport VAT Amount")
-                }}</label>
-                <input id="transportVatAmount" v-model="form.transportVatAmount" type="number" step="any"
-                  class="form-control" name="transportVatAmount" readonly />
-              </div>
-              <div v-else class="form-group col-md-6 col-xl-3">
-                <label for="transportCost">{{
-                  $t("Transport Cost")
-                }}</label>
-                <input id="transportCost" v-model="form.transportCost" type="number" step="any" min="0"
-                  class="form-control" :class="{ 'is-invalid': form.errors.has('transportCost') }" name="transportCost"
-                  :placeholder="$t('Enter transport cost')
-                    " @change="calculateSum" @keyup="calculateSum" />
-                <has-error :form="form" field="transportCost" />
-              </div>
-              <!-- Transport Taxability Control -->
-              <div v-if="shippingCostTotal > 0" class="form-group col-md-6 col-xl-3">
-                <div class="form-check mt-4">
-                  <input id="transportIsTaxable" v-model="form.transportIsTaxable" type="checkbox" class="form-check-input"
-                    @change="calculateSum" />
-                  <label class="form-check-label" for="transportIsTaxable">
-                    {{ form.transportIsTaxable ? $t("Transport is Taxable") : $t("Transport is Non-Taxable") }}
-                  </label>
-                  <small class="form-text text-muted d-block">
-                    {{ form.transportIsTaxable 
-                      ? $t("VAT will be calculated on transport cost") 
-                      : $t("Transport will be added after VAT calculation") }}
+            <!-- Payment Information Section -->
+            <div
+              v-if="
+                form.addPayment == 1 &&
+                accounts &&
+                form.selectedProducts &&
+                form.selectedProducts.length > 0
+              "
+            >
+              <div class="row">
+                <div class="form-group col-12 col-md-6">
+                  <label for="account"
+                    >{{ $t("Account") }} <span class="required">*</span></label
+                  >
+                  <v-select
+                    v-model="form.account"
+                    :options="accounts"
+                    label="label"
+                    :class="{ 'is-invalid': form.errors.has('account') }"
+                    name="account"
+                    :placeholder="$t('Select an account')"
+                    @input="updateBalance"
+                  >
+                    <template slot="option" slot-scope="option">
+                      <img
+                        :src="option.image"
+                        style="width: 30px; height: 30px"
+                      />
+                      {{ option.label }}
+                    </template>
+                  </v-select>
+                  <has-error :form="form" field="account" />
+                </div>
+                <div class="form-group col-12 col-md-6">
+                  <label for="availableBalance">{{
+                    $t("Available Balance")
+                  }}</label>
+                  <input
+                    id="availableBalance"
+                    v-model="form.availableBalance"
+                    type="number"
+                    step="any"
+                    class="form-control"
+                    :class="{
+                      'is-invalid': form.errors.has('availableBalance'),
+                    }"
+                    name="availableBalance"
+                    readonly
+                  />
+                  <has-error :form="form" field="availableBalance" />
+                </div>
+                <div class="form-group col-12 col-sm-6 col-md-4">
+                  <label for="totalPaid"
+                    >{{ $t("Total Paid") }}
+                    <span class="required">*</span></label
+                  >
+                  <input
+                    id="totalPaid"
+                    v-model="form.totalPaid"
+                    type="number"
+                    step="any"
+                    class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('totalPaid') }"
+                    name="totalPaid"
+                    min="1"
+                    :max="form.netTotal"
+                    :placeholder="$t('Enter an amount')"
+                  />
+                  <has-error :form="form" field="totalPaid" />
+                </div>
+                <div class="form-group col-12 col-sm-6 col-md-4">
+                  <label for="receiptNo">{{ $t("Receipt No") }}</label>
+                  <input
+                    id="receiptNo"
+                    v-model="form.receiptNo"
+                    type="text"
+                    class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('receiptNo') }"
+                    name="receiptNo"
+                    :placeholder="$t('Enter a receipt no')"
+                  />
+                  <has-error :form="form" field="receiptNo" />
+                </div>
+                <div
+                  class="form-group col-12 col-sm-6 col-md-4"
+                  v-if="form.addPayment == 1"
+                >
+                  <label for="payment_method_id"
+                    >{{ $t("Payment Method") }} ({{ $t("وسيلة الدفع") }})</label
+                  >
+                  <select
+                    id="payment_method_id"
+                    v-model="form.payment_method_id"
+                    class="form-control"
+                    :class="{
+                      'is-invalid': form.errors.has('payment_method_id'),
+                    }"
+                    name="payment_method_id"
+                    :disabled="loadingPaymentMethods"
+                    @change="clearFieldError('payment_method_id')"
+                  >
+                    <option value="">
+                      {{
+                        loadingPaymentMethods ? $t("Loading...") : $t("Select")
+                      }}
+                    </option>
+                    <option
+                      v-if="
+                        !loadingPaymentMethods && paymentMethods.length === 0
+                      "
+                      value=""
+                      disabled
+                    >
+                      {{ $t("No payment methods available") }}
+                    </option>
+                    <option
+                      v-for="method in paymentMethods"
+                      :key="method.id"
+                      :value="method.id"
+                    >
+                      {{ method.name }}
+                    </option>
+                  </select>
+                  <has-error :form="form" field="payment_method_id" />
+                  <small
+                    v-if="loadingPaymentMethods"
+                    class="form-text text-muted"
+                  >
+                    <i class="fas fa-spinner fa-spin"></i>
+                    {{ $t("Loading payment methods...") }}
                   </small>
                 </div>
               </div>
-              <div class="form-group col-md-6 col-xl-3" style="display: none;">
-                <label for="netTotal">{{ $t("Net Total") }}</label>
-                <input id="netTotal" v-model="form.netTotal" type="number" step="any" class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('netTotal') }" name="netTotal" readonly />
-                <has-error :form="form" field="netTotal" />
-              </div>
-              <div class="form-group col-md-6 col-xl-3">
-                <label for="addPayment">{{ $t("Add Payment?") }}</label>
-                <select id="addPayment" v-model="form.addPayment" class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('addPayment') }" name="addPayment">
-                  <option value="0" selected>{{ $t("No") }}</option>
-                  <option value="1">{{ $t("Yes") }}</option>
-                </select>
-                <has-error :form="form" field="addPayment" />
-              </div>
-            </div>
-            <div class="row" v-if="form.addPayment == 1 &&
-              accounts &&
-              form.selectedProducts &&
-              form.selectedProducts.length > 0
-            ">
-              <div class="form-group col-md-6">
-                <label for="account">{{ $t("Account") }}
-                  <span class="required">*</span></label>
-                <v-select v-model="form.account" :options="accounts" label="label"
-                  :class="{ 'is-invalid': form.errors.has('account') }" name="account"
-                  :placeholder="$t('Select an account')" @input="updateBalance">
-                  <template slot="option" slot-scope="option">
-                    <img :src="option.image" style="width: 30px; height: 30px;" />
-                    {{ option.label }}
-                  </template>
-                </v-select>
-                <has-error :form="form" field="account" />
-              </div>
-              <div class="form-group col-md-6">
-                <label for="availableBalance">{{
-                  $t("Available Balance")
-                }}</label>
-                <input id="availableBalance" v-model="form.availableBalance" type="number" step="any"
-                  class="form-control" :class="{
-                    'is-invalid': form.errors.has('availableBalance'),
-                  }" name="availableBalance" readonly />
-                <has-error :form="form" field="availableBalance" />
-              </div>
-              <div class="form-group col-md-4">
-                <label for="totalPaid">{{ $t("Total Paid") }}
-                  <span class="required">*</span></label>
-                <input id="totalPaid" v-model="form.totalPaid" type="number" step="any" class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('totalPaid') }" name="totalPaid" min="1" :max="form.netTotal"
-                  :placeholder="$t('Enter an amount')" />
-                <has-error :form="form" field="totalPaid" />
-              </div>
-              <!-- <div class="form-group col-md-4">
-                  <label for="chequeNo">{{ $t("Cheque No") }}</label>
-                  <input id="chequeNo" v-model="form.chequeNo" type="text" step="any" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('chequeNo') }" name="chequeNo"
-                    :placeholder="$t('Enter a cheque number')" />
-                  <has-error :form="form" field="chequeNo" />
-                </div> -->
-              <div class="form-group col-md-4">
-                <label for="receiptNo">{{ $t("Receipt No") }}</label>
-                <input id="receiptNo" v-model="form.receiptNo" type="text" class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('receiptNo') }" name="receiptNo"
-                  :placeholder="$t('Enter a receipt no')" />
-                <has-error :form="form" field="receiptNo" />
-              </div>
-              <div class="form-group col-md-4" v-if="form.addPayment == 1">
-                <label for="payment_method_id">{{ $t("Payment Method") }} ({{ $t("وسيلة الدفع") }})</label>
-                <select id="payment_method_id" v-model="form.payment_method_id" class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('payment_method_id') }" name="payment_method_id"
-                  :disabled="loadingPaymentMethods"
-                  @change="clearFieldError('payment_method_id')">
-                  <option value="">{{ loadingPaymentMethods ? $t("Loading...") : $t("Select") }}</option>
-                  <option v-if="!loadingPaymentMethods && paymentMethods.length === 0" value="" disabled>
-                    {{ $t("No payment methods available") }}
-                  </option>
-                  <option v-for="method in paymentMethods" :key="method.id" :value="method.id">
-                    {{ method.name }}
-                  </option>
-                </select>
-                <has-error :form="form" field="payment_method_id" />
-                <small v-if="loadingPaymentMethods" class="form-text text-muted">
-                  <i class="fas fa-spinner fa-spin"></i> {{ $t("Loading payment methods...") }}
-                </small>
-              </div>
             </div>
 
+            <!-- Additional Information Section -->
+
             <!-- Attachments -->
-            <div class="form-group">
+            <div class="form-group mb-3">
               <label for="attachments">{{ $t("Attachments") }}</label>
-              <input id="attachments" type="file" multiple class="form-control"
-                :class="{ 'is-invalid': form.errors.has('attachments') }" name="attachments"
-                @change="onAttachmentChange" />
+              <input
+                id="attachments"
+                type="file"
+                multiple
+                class="form-control"
+                :class="{ 'is-invalid': form.errors.has('attachments') }"
+                name="attachments"
+                @change="onAttachmentChange"
+              />
               <has-error :form="form" field="attachments" />
-              <div v-if="form.attachments && form.attachments.length > 0" class="mt-2">
+              <div
+                v-if="form.attachments && form.attachments.length > 0"
+                class="mt-2"
+              >
                 <small class="text-muted">{{ $t("Selected files") }}:</small>
                 <ul class="list-unstyled mt-1">
-                  <li v-for="(file, index) in form.attachments" :key="index"
-                    class="d-flex justify-content-between align-items-center mb-1">
-                    <span class="text-truncate" style="max-width: 70%;">
+                  <li
+                    v-for="(file, index) in form.attachments"
+                    :key="index"
+                    class="d-flex justify-content-between align-items-center mb-1"
+                  >
+                    <span class="text-truncate" style="max-width: 70%">
                       <i class="fas fa-file mr-1"></i>{{ file.name }}
                     </span>
-                    <button type="button" class="btn btn-sm btn-danger" @click="removeAttachment(index)">
+                    <button
+                      type="button"
+                      class="btn btn-sm btn-danger"
+                      @click="removeAttachment(index)"
+                    >
                       <i class="fas fa-times"></i>
                     </button>
                   </li>
@@ -535,73 +928,140 @@
               </div>
             </div>
 
-            <!-- Notes Section -->
-            <div class="form-group">
+            <!-- Notes -->
+            <div class="form-group mb-3">
               <label for="note">{{ $t("Notes") }}</label>
-              <textarea id="note" v-model="form.note" class="form-control"
-                :class="{ 'is-invalid': form.errors.has('note') }" :placeholder="$t('Write your note here!')" />
+              <textarea
+                id="note"
+                v-model="form.note"
+                class="form-control"
+                rows="3"
+                :class="{ 'is-invalid': form.errors.has('note') }"
+                :placeholder="$t('Write your note here!')"
+              />
               <has-error :form="form" field="note" />
             </div>
+
+            <!-- Status and Communication Options -->
             <div class="row">
-              <div class="form-group col-md-4" style="display: none;">
-                <label for="purchaseDate">{{
-                  $t("Purchase Date")
-                }}</label>
-                <input id="purchaseDate" v-model="form.purchaseDate" type="date" class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('purchaseDate') }" name="purchaseDate" />
+              <div
+                class="form-group col-12 col-sm-6 col-md-4"
+                style="display: none"
+              >
+                <label for="purchaseDate">{{ $t("Purchase Date") }}</label>
+                <input
+                  id="purchaseDate"
+                  v-model="form.purchaseDate"
+                  type="date"
+                  class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('purchaseDate') }"
+                  name="purchaseDate"
+                />
                 <has-error :form="form" field="purchaseDate" />
               </div>
-              <div class="form-group col-md-4" style="display: none;">
-                <label for="poDate">{{
-                  $t("PO Date")
-                }}</label>
-                <input id="poDate" v-model="form.poDate" type="date" class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('poDate') }" name="poDate" />
+              <div
+                class="form-group col-12 col-sm-6 col-md-4"
+                style="display: none"
+              >
+                <label for="poDate">{{ $t("PO Date") }}</label>
+                <input
+                  id="poDate"
+                  v-model="form.poDate"
+                  type="date"
+                  class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('poDate') }"
+                  name="poDate"
+                />
                 <has-error :form="form" field="poDate" />
               </div>
-              <div class="form-group col-md-4" v-if="!isSaudiArabia">
+              <div
+                class="form-group col-12 col-sm-6 col-md-4"
+                v-if="!isSaudiArabia"
+              >
                 <label for="status">{{ $t("Status") }}</label>
-                <select id="status" v-model="form.status" class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('status') }">
+                <select
+                  id="status"
+                  v-model="form.status"
+                  class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('status') }"
+                >
                   <option value="1">{{ $t("Active") }}</option>
                   <option value="0">{{ $t("Inactive") }}</option>
                 </select>
                 <has-error :form="form" field="status" />
               </div>
             </div>
-            <div class="form-group col-12 d-flex flex-wrap">
-              <div class="pr-5 d-flex align-items-center">
-                <toggle-button v-model="form.isSendEmail"
-                  :disabled="isDemoMode || communicationConfig.loading || !communicationConfig.email_configured" />
-                <span class="ml-3">{{ $t("Send To Email") }}</span>
-                <span v-if="!communicationConfig.loading && !communicationConfig.email_configured"
-                  class="ml-2 text-muted small">
-                  ({{ $t("Email not configured") }})
-                </span>
+
+            <!-- Communication Options -->
+            <div class="row">
+              <div class="form-group col-12 col-md-6">
+                <div class="d-flex align-items-center">
+                  <toggle-button
+                    v-model="form.isSendEmail"
+                    :disabled="
+                      isDemoMode ||
+                      communicationConfig.loading ||
+                      !communicationConfig.email_configured
+                    "
+                  />
+                  <span class="ml-3">{{ $t("Send To Email") }}</span>
+                  <span
+                    v-if="
+                      !communicationConfig.loading &&
+                      !communicationConfig.email_configured
+                    "
+                    class="ml-2 text-muted small"
+                  >
+                    ({{ $t("Email not configured") }})
+                  </span>
+                </div>
               </div>
-            </div>
-            <div class="form-group col-12 d-flex flex-wrap">
-              <div class="pr-5 d-flex align-items-center">
-                <toggle-button v-model="form.isSendSMS"
-                  :disabled="isDemoMode || communicationConfig.loading || !communicationConfig.sms_configured" />
-                <span class="ml-3">{{ $t("Send To SMS") }}</span>
-                <span v-if="!communicationConfig.loading && !communicationConfig.sms_configured"
-                  class="ml-2 text-muted small">
-                  ({{ $t("SMS not configured") }})
-                </span>
+              <div class="form-group col-12 col-md-6">
+                <div class="d-flex align-items-center">
+                  <toggle-button
+                    v-model="form.isSendSMS"
+                    :disabled="
+                      isDemoMode ||
+                      communicationConfig.loading ||
+                      !communicationConfig.sms_configured
+                    "
+                  />
+                  <span class="ml-3">{{ $t("Send To SMS") }}</span>
+                  <span
+                    v-if="
+                      !communicationConfig.loading &&
+                      !communicationConfig.sms_configured
+                    "
+                    class="ml-2 text-muted small"
+                  >
+                    ({{ $t("SMS not configured") }})
+                  </span>
+                </div>
               </div>
             </div>
 
             <!-- Form Actions -->
             <div class="card-footer">
               <div class="dtable-footer">
-                <div class="form-group row display-per-page footer-buttons d-flex justify-content-between w-100">
-                  <button :disabled="form.busy || !isFormReady" class="btn btn-success" type="submit" form="purchaseCreateForm">
+                <div
+                  class="form-group row display-per-page footer-buttons d-flex flex-column flex-sm-row justify-content-between w-100"
+                >
+                  <button
+                    :disabled="form.busy || !isFormReady"
+                    class="btn btn-success mb-2 mb-sm-0"
+                    type="submit"
+                    form="purchaseCreateForm"
+                  >
                     <i v-if="form.busy" class="fas fa-spinner fa-spin"></i>
                     <i v-else class="fas fa-save"></i>
                     {{ form.busy ? $t("Saving...") : $t("Complete Process") }}
                   </button>
-                  <button type="button" class="btn btn-secondary ml-2" @click="resetForm" :disabled="form.busy">
+                  <button
+                    type="button"
+                    class="btn btn-secondary ml-sm-2"
+                    @click="resetForm"
+                    :disabled="form.busy"
+                  >
                     <i class="fas fa-power-off" /> {{ $t("Reset") }}
                   </button>
                 </div>
@@ -620,13 +1080,13 @@ import Form from "vform";
 import axios from "axios";
 import { mapGetters } from "vuex";
 import { ToggleButton } from "vue-js-toggle-button";
-import ProductCreateModal from '~/components/ProductCreateModal'
-import SupplierCreateModal from '~/components/SupplierCreateModal'
-import ItemsTable from '~/components/ItemsTable'
-import RTLMixin from '~/mixins/RTLMixin'
+import ProductCreateModal from "~/components/ProductCreateModal";
+import SupplierCreateModal from "~/components/SupplierCreateModal";
+import ItemsTable from "~/components/ItemsTable";
+import RTLMixin from "~/mixins/RTLMixin";
 import Swal from "sweetalert2";
 
-import { ToWords } from 'to-words';
+import { ToWords } from "to-words";
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -720,11 +1180,14 @@ export default {
 
     // Calculate total unit price (sum of all unit prices)
     totalUnitPrice() {
-      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+      if (
+        !this.form.selectedProducts ||
+        this.form.selectedProducts.length === 0
+      ) {
         return 0;
       }
       return this.form.selectedProducts.reduce((total, item) => {
-        return total + ((item.originalPrice || item.unitPrice) * item.qty);
+        return total + (item.originalPrice || item.unitPrice) * item.qty;
       }, 0);
     },
 
@@ -745,19 +1208,17 @@ export default {
     },
     // Calculate number of items
     numberOfItems() {
-      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+      if (
+        !this.form.selectedProducts ||
+        this.form.selectedProducts.length === 0
+      ) {
         return 0;
       }
       return this.form.selectedProducts.length;
     },
     // Check if the country is Saudi Arabia
     isSaudiArabia() {
-      console.log('=== isSaudiArabia Debug ===');
-      console.log('appInfo:', this.appInfo);
-      console.log('appInfo.country:', this.appInfo ? this.appInfo.country : 'appInfo is null/undefined');
-      console.log('Country comparison result:', this.appInfo && this.appInfo.country === 'SA');
-      console.log('========================');
-      return this.appInfo && this.appInfo.country === 'SA'
+      return this.appInfo && this.appInfo.country === "SA";
     },
     // Check if supplier is taxable (has tax_status === 'taxable' and tax_registration_number)
     isSupplierTaxable() {
@@ -766,43 +1227,41 @@ export default {
       }
 
       // Support both camelCase and snake_case
-      const taxStatus = this.form.supplier.tax_status || this.form.supplier.taxStatus;
-      const taxRegNumber = this.form.supplier.tax_registration_number ||
+      const taxStatus =
+        this.form.supplier.tax_status || this.form.supplier.taxStatus;
+      const taxRegNumber =
+        this.form.supplier.tax_registration_number ||
         this.form.supplier.taxRegistrationNumber ||
         this.form.supplier.tax_registrationNumber;
 
-      const isTaxable = taxStatus === 'taxable' &&
-        taxRegNumber &&
-        taxRegNumber.length > 0;
-
-      // Debug log
-      console.log('isSupplierTaxable check:', {
-        supplier: this.form.supplier.name,
-        tax_status: taxStatus,
-        tax_registration_number: taxRegNumber,
-        isTaxable: isTaxable,
-        supplierData: this.form.supplier
-      });
+      const isTaxable =
+        taxStatus === "taxable" && taxRegNumber && taxRegNumber.length > 0;
 
       return isTaxable;
     },
     // Check if form is ready to submit
     isFormReady() {
-      return this.form.supplier &&
+      return (
+        this.form.supplier &&
         this.form.selectedProducts &&
-        this.form.selectedProducts.length > 0;
+        this.form.selectedProducts.length > 0
+      );
     },
 
     // Invoice Subtotal: Sum of all item subtotals before discount (qty × unit_price)
     invoiceSubtotal() {
-      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+      if (
+        !this.form.selectedProducts ||
+        this.form.selectedProducts.length === 0
+      ) {
         return 0;
       }
       return this.roundToTwoDecimals(
         this.form.selectedProducts.reduce((total, item) => {
-          const unitPriceNumber = Number(item.originalPrice || item.unitPrice) || 0;
+          const unitPriceNumber =
+            Number(item.originalPrice || item.unitPrice) || 0;
           const qtyNumber = Number(item.qty) || 0;
-          return total + (unitPriceNumber * qtyNumber);
+          return total + unitPriceNumber * qtyNumber;
         }, 0)
       );
     },
@@ -810,30 +1269,46 @@ export default {
     // Invoice-Level Discount Total: Total discount applied at invoice level and distributed across items
     // This is calculated from invoice-level discount inputs (discount_type and discount_value)
     invoiceLevelDiscountTotal() {
-      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+      if (
+        !this.form.selectedProducts ||
+        this.form.selectedProducts.length === 0
+      ) {
         return 0;
       }
 
       const subtotal = this.invoiceSubtotal;
-      if (subtotal <= 0 || !this.form.discount_value || this.form.discount_value <= 0) {
+      if (
+        subtotal <= 0 ||
+        !this.form.discount_value ||
+        this.form.discount_value <= 0
+      ) {
         return 0;
       }
 
       let discountAmount = 0;
-      if (this.form.discount_type === 'percentage') {
-        discountAmount = this.roundToTwoDecimals((subtotal * this.form.discount_value) / 100);
+      if (this.form.discount_type === "percentage") {
+        discountAmount = this.roundToTwoDecimals(
+          (subtotal * this.form.discount_value) / 100
+        );
       } else {
-        discountAmount = this.roundToTwoDecimals(Number(this.form.discount_value));
+        discountAmount = this.roundToTwoDecimals(
+          Number(this.form.discount_value)
+        );
       }
 
       // Ensure discount doesn't exceed the subtotal
-      return discountAmount > subtotal ? this.roundToTwoDecimals(subtotal) : discountAmount;
+      return discountAmount > subtotal
+        ? this.roundToTwoDecimals(subtotal)
+        : discountAmount;
     },
 
     // Shipping Cost Total: Total shipping cost (regardless of taxability)
     // Gets transport amount from either transportTaxableCost or transportCost field
     shippingCostTotal() {
-      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+      if (
+        !this.form.selectedProducts ||
+        this.form.selectedProducts.length === 0
+      ) {
         return 0;
       }
       // Get transport cost from the appropriate field based on supplier tax status
@@ -846,12 +1321,12 @@ export default {
 
     // Net Amount Before VAT: Calculated based on transport taxability
     // CRITICAL: When transport is non-taxable, use sum of item net totals to avoid discount issues
-    // 
-    // If transport is taxable: 
+    //
+    // If transport is taxable:
     //   Net Amount = Invoice Subtotal - Invoice Discount + Transport
     //   Transport is included in VAT base
-    // 
-    // If transport is non-taxable: 
+    //
+    // If transport is non-taxable:
     //   Net Amount = Sum of Item Net Totals (after item-level discounts)
     //   This ensures item-level discounts are correctly included without double-counting
     //   Transport is NOT included in VAT base and is added after VAT calculation
@@ -859,7 +1334,7 @@ export default {
       const subtotal = this.invoiceSubtotal;
       const invoiceDiscount = this.invoiceLevelDiscountTotal;
       const shipping = this.shippingCostTotal;
-      
+
       if (this.form.transportIsTaxable) {
         // Transport is taxable: include it in Net Amount (part of VAT base)
         // Net Amount = Invoice Subtotal - Invoice Discount + Transport
@@ -867,16 +1342,22 @@ export default {
       } else {
         // Transport is non-taxable: use sum of item net totals (after item-level discounts)
         // This ensures item-level discounts are correctly included
-        if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        if (
+          !this.form.selectedProducts ||
+          this.form.selectedProducts.length === 0
+        ) {
           return 0;
         }
-        
+
         // Sum of item net totals after discount (transport excluded)
-        const sumOfItemNetTotals = this.form.selectedProducts.reduce((total, item) => {
-          const itemNetTotal = item.netTotal || item.totalAfterDiscount || 0;
-          return total + itemNetTotal;
-        }, 0);
-        
+        const sumOfItemNetTotals = this.form.selectedProducts.reduce(
+          (total, item) => {
+            const itemNetTotal = item.netTotal || item.totalAfterDiscount || 0;
+            return total + itemNetTotal;
+          },
+          0
+        );
+
         // Net Amount = Taxable Base = Sum of Item Net Totals (transport excluded)
         // Transport will be added after VAT calculation in grandTotal()
         return this.roundToTwoDecimals(sumOfItemNetTotals);
@@ -885,23 +1366,26 @@ export default {
 
     // VAT Amount: Calculated based on transport taxability
     // CRITICAL: VAT calculation differs based on whether transport is taxable or not
-    // 
+    //
     // Transport Taxability Behavior:
-    // - If transport is taxable: 
+    // - If transport is taxable:
     //   VAT base = Subtotal - Discount + Transport
     //   VAT = VAT base × Weighted Average VAT Rate
-    // - If transport is non-taxable: 
+    // - If transport is non-taxable:
     //   VAT base = Subtotal - Discount (transport EXCLUDED from VAT base)
     //   VAT = Sum of item VATs (totalProductTax) - ensures consistency with item-level calculations
     //   Transport is NOT included in VAT calculation and is added after VAT
-    // 
+    //
     // Why this approach:
     // - When transport is taxable: It's part of the transaction value, so included in VAT base
     // - When transport is non-taxable: Item-level VAT already correctly excludes transport,
     //   so we use the sum of item VATs to ensure consistency and avoid double-counting
     // - This matches standard accounting practices for non-taxable shipping
     vatAmount() {
-      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+      if (
+        !this.form.selectedProducts ||
+        this.form.selectedProducts.length === 0
+      ) {
         return 0;
       }
 
@@ -929,11 +1413,15 @@ export default {
 
       this.form.selectedProducts.forEach((item) => {
         const itemNetAmount = item.netTotal || 0;
-        
+
         if (itemNetAmount > 0) {
           // Get item's VAT rate
           let vatRate = 0;
-          if (item.selectedVatRate && item.selectedVatRate.rate !== undefined && item.selectedVatRate.rate !== null) {
+          if (
+            item.selectedVatRate &&
+            item.selectedVatRate.rate !== undefined &&
+            item.selectedVatRate.rate !== null
+          ) {
             vatRate = Number(item.selectedVatRate.rate);
           } else if (item.taxRate !== undefined && item.taxRate !== null) {
             vatRate = Number(item.taxRate);
@@ -955,36 +1443,39 @@ export default {
 
       // Calculate weighted average VAT rate as percentage
       // Formula: weightedAverageRate = (sum(itemNetAmount × itemVatRate) / sum(itemNetAmount)) × 100
-      const weightedAverageVatRate = (weightedVatRateSum / totalNetAmountForWeighting) * 100;
+      const weightedAverageVatRate =
+        (weightedVatRateSum / totalNetAmountForWeighting) * 100;
 
       // Calculate VAT on the Net Amount using weighted average rate
       // Net Amount includes transport when transport is taxable
-      const vat = this.roundToTwoDecimals(netAmount * (weightedAverageVatRate / 100));
+      const vat = this.roundToTwoDecimals(
+        netAmount * (weightedAverageVatRate / 100)
+      );
 
       return vat;
     },
 
     // Grand Total: Calculated based on transport taxability
     // CRITICAL: When transport is non-taxable, use sum of item totals to avoid discount double-counting
-    // 
-    // If transport is taxable: 
+    //
+    // If transport is taxable:
     //   Grand Total = Net Amount + VAT
     //   Where: Net Amount = Subtotal - Discount + Transport (transport included in VAT base)
-    // 
-    // If transport is non-taxable: 
+    //
+    // If transport is non-taxable:
     //   Grand Total = Sum of Item Totals After VAT + Transport
     //   This ensures:
     //   - Item-level discounts are correctly included (no double-counting)
     //   - VAT is calculated correctly on items only (transport excluded)
     //   - Transport is added only once at invoice level
-    // 
+    //
     // Why use sum of item totals when non-taxable:
     // - Item totals already include item-level discounts and VAT
     // - Avoids issues with invoice-level vs item-level discount calculations
     // - Ensures accuracy: Grand Total = sum(item totals) + transport
     grandTotal() {
       const shipping = this.shippingCostTotal;
-      
+
       if (this.form.transportIsTaxable) {
         // Transport is taxable: use Net Amount + VAT calculation
         const netAmount = this.netAmountBeforeVAT;
@@ -994,17 +1485,23 @@ export default {
       } else {
         // Transport is non-taxable: use sum of item totals after VAT
         // This ensures item-level discounts are correctly included without double-counting
-        if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        if (
+          !this.form.selectedProducts ||
+          this.form.selectedProducts.length === 0
+        ) {
           return this.roundToTwoDecimals(shipping);
         }
-        
+
         // Calculate sum of all item totals after VAT (includes item-level discounts and VAT)
-        const sumOfItemTotals = this.form.selectedProducts.reduce((total, item) => {
-          // Item total after VAT = itemAfterDiscount + itemVAT (transport excluded)
-          const itemTotal = item.totalPrice || 0;
-          return total + itemTotal;
-        }, 0);
-        
+        const sumOfItemTotals = this.form.selectedProducts.reduce(
+          (total, item) => {
+            // Item total after VAT = itemAfterDiscount + itemVAT (transport excluded)
+            const itemTotal = item.totalPrice || 0;
+            return total + itemTotal;
+          },
+          0
+        );
+
         // Grand Total = Sum of Item Totals + Transport
         // Transport is added only at invoice level, not distributed to items
         return this.roundToTwoDecimals(sumOfItemTotals + shipping);
@@ -1013,59 +1510,48 @@ export default {
   },
   watch: {
     appInfo: {
-      handler(newVal, oldVal) {
-        console.log('=== appInfo Watcher ===');
-        console.log('New appInfo:', newVal);
-        console.log('Old appInfo:', oldVal);
-        console.log('Country in new appInfo:', newVal ? newVal.country : 'newVal is null/undefined');
-        console.log('======================');
+      handler() {
+        // Watcher for appInfo changes
       },
       immediate: true,
-      deep: true
+      deep: true,
     },
     isSaudiArabia: {
-      handler(newVal, oldVal) {
-        console.log('=== isSaudiArabia Watcher ===');
-        console.log('New isSaudiArabia:', newVal);
-        console.log('Old isSaudiArabia:', oldVal);
+      handler(newVal) {
         // Clear orderTax when fields are hidden (when isSaudiArabia is true)
         if (newVal === true) {
-          console.log('Clearing orderTax because fields are hidden');
           this.form.orderTax = null;
           this.form.totalTax = 0;
         }
-        console.log('============================');
       },
-      immediate: true
+      immediate: true,
     },
     // Watch for changes in selectedProducts to update Net Total
-    'form.selectedProducts': {
+    "form.selectedProducts": {
       handler() {
         this.updateNetTotal();
       },
-      deep: true
+      deep: true,
     },
     // Watch for changes in transport cost to update Net Total
-    'form.transportCost': {
+    "form.transportCost": {
       handler() {
         this.updateNetTotal();
-      }
+      },
     },
-    'form.transportTaxableCost': {
+    "form.transportTaxableCost": {
       handler() {
         this.updateNetTotal();
-      }
+      },
     },
     // Watch for changes in transport taxability to recalculate totals
-    'form.transportIsTaxable': {
+    "form.transportIsTaxable": {
       handler() {
         this.calculateSum();
-      }
-    }
+      },
+    },
   },
   async created() {
-    console.log('=== Component Created ===');
-    console.log('appInfo at creation:', this.appInfo);
     this.prefix = this.appInfo.productPrefix;
 
     // Load initial data
@@ -1077,7 +1563,7 @@ export default {
       this.getCostCenters(),
       this.getBranches(),
       this.getPaymentMethods(),
-      this.loadCommunicationConfigStatus()
+      this.loadCommunicationConfigStatus(),
     ]);
 
     // Load purchase order data if query parameter exists (after data is loaded)
@@ -1091,13 +1577,13 @@ export default {
       try {
         this.communicationConfig.loading = true;
 
-        const response = await axios.get('/api/communication-config-status');
+        const response = await axios.get("/api/communication-config-status");
 
-        this.communicationConfig.email_configured = response.data.email_configured;
+        this.communicationConfig.email_configured =
+          response.data.email_configured;
         this.communicationConfig.sms_configured = response.data.sms_configured;
         this.communicationConfig.loading = false;
       } catch (error) {
-        console.error('Error loading communication config status:', error);
         // Default to false if there's an error
         this.communicationConfig.email_configured = false;
         this.communicationConfig.sms_configured = false;
@@ -1108,14 +1594,20 @@ export default {
     // get all local suppliers
     async getSuppliers() {
       // Store the current supplier ID if one is selected
-      const currentSupplierId = this.form.supplier ? this.form.supplier.id : null;
+      const currentSupplierId = this.form.supplier
+        ? this.form.supplier.id
+        : null;
 
-      const { data } = await axios.get(window.location.origin + "/api/all-suppliers");
+      const { data } = await axios.get(
+        window.location.origin + "/api/all-suppliers"
+      );
       this.suppliers = data.data || [];
 
       // If we had a supplier selected, find and restore it
       if (currentSupplierId && this.suppliers && this.suppliers.length > 0) {
-        const currentSupplier = this.suppliers.find(s => s.id === currentSupplierId);
+        const currentSupplier = this.suppliers.find(
+          (s) => s.id === currentSupplierId
+        );
         if (currentSupplier) {
           this.form.supplier = currentSupplier;
         } else {
@@ -1132,7 +1624,9 @@ export default {
     // get products
     async getProducts() {
       // Store the current selected products IDs
-      const currentProductIds = this.form.selectedProducts ? this.form.selectedProducts.map(p => p.id) : [];
+      const currentProductIds = this.form.selectedProducts
+        ? this.form.selectedProducts.map((p) => p.id)
+        : [];
 
       // Build query parameters with supplier_id if supplier is selected
       const params = {};
@@ -1149,8 +1643,10 @@ export default {
 
       // Update selected products with fresh data if they exist
       if (currentProductIds.length > 0 && this.form.selectedProducts) {
-        this.form.selectedProducts.forEach(selectedProduct => {
-          const freshProduct = this.products.find(p => p.id === selectedProduct.id);
+        this.form.selectedProducts.forEach((selectedProduct) => {
+          const freshProduct = this.products.find(
+            (p) => p.id === selectedProduct.id
+          );
           if (freshProduct) {
             // Update the product with fresh data while preserving user input
             Object.assign(selectedProduct, freshProduct);
@@ -1231,10 +1727,16 @@ export default {
       let quantity = 1;
       if (index === -1) {
         // Use average purchase price by supplier if available, otherwise fall back to avgPurchasePrice or regularPrice
-        let purchasePrice = product.avgPurchasePriceBySupplier && product.avgPurchasePriceBySupplier > 0
-          ? product.avgPurchasePriceBySupplier
-          : (product.avgPurchasePrice > 0 ? product.avgPurchasePrice : (product.regularPrice > 0 ? product.regularPrice : 1));
-        
+        let purchasePrice =
+          product.avgPurchasePriceBySupplier &&
+          product.avgPurchasePriceBySupplier > 0
+            ? product.avgPurchasePriceBySupplier
+            : product.avgPurchasePrice > 0
+            ? product.avgPurchasePrice
+            : product.regularPrice > 0
+            ? product.regularPrice
+            : 1;
+
         // store product
         this.form.selectedProducts.unshift({
           id: product.id,
@@ -1247,7 +1749,9 @@ export default {
           discount: 0,
           discountType: "fixed",
           discountAmount: 0,
-          selectedVatRate: this.findMatchingVatRate(product.productTax) || (this.taxes && this.taxes.length > 0 ? this.taxes[0] : null),
+          selectedVatRate:
+            this.findMatchingVatRate(product.productTax) ||
+            (this.taxes && this.taxes.length > 0 ? this.taxes[0] : null),
           productTax: 0,
           totalTax: 0,
           unitCost: purchasePrice,
@@ -1349,15 +1853,21 @@ export default {
       const qtyNumber = Number(item.qty) || 0;
 
       // 1. Line Item: Total (Before Discount) = qty × unit_price
-      const totalBeforeDiscount = this.roundToTwoDecimals(unitPriceNumber * qtyNumber);
-      this.$set(item, 'totalBeforeDiscount', totalBeforeDiscount);
+      const totalBeforeDiscount = this.roundToTwoDecimals(
+        unitPriceNumber * qtyNumber
+      );
+      this.$set(item, "totalBeforeDiscount", totalBeforeDiscount);
 
       // 2. Calculate product-level discount amount
       let productDiscountAmount = 0;
       if (item.discountType === "percentage") {
-        productDiscountAmount = this.roundToTwoDecimals((unitPriceNumber * qtyNumber * (item.discount || 0)) / 100);
+        productDiscountAmount = this.roundToTwoDecimals(
+          (unitPriceNumber * qtyNumber * (item.discount || 0)) / 100
+        );
       } else {
-        productDiscountAmount = this.roundToTwoDecimals(Number(item.discount || 0));
+        productDiscountAmount = this.roundToTwoDecimals(
+          Number(item.discount || 0)
+        );
       }
 
       // Ensure product discount amount doesn't exceed the total before discount
@@ -1372,23 +1882,32 @@ export default {
       const proportionalDiscount = item.proportionalDiscountAmount || 0;
 
       // 4. Total discount = product discount + proportional invoice-level discount
-      const discountAmount = this.roundToTwoDecimals(productDiscountAmount + proportionalDiscount);
+      const discountAmount = this.roundToTwoDecimals(
+        productDiscountAmount + proportionalDiscount
+      );
 
       // Ensure total discount doesn't exceed the total before discount
-      const finalDiscountAmount = discountAmount > totalBeforeDiscount 
-        ? this.roundToTwoDecimals(totalBeforeDiscount) 
-        : discountAmount;
+      const finalDiscountAmount =
+        discountAmount > totalBeforeDiscount
+          ? this.roundToTwoDecimals(totalBeforeDiscount)
+          : discountAmount;
 
       // 5. Calculate net total after discount
-      const netTotal = this.roundToTwoDecimals(totalBeforeDiscount - finalDiscountAmount);
-      this.$set(item, 'totalAfterDiscount', netTotal);
+      const netTotal = this.roundToTwoDecimals(
+        totalBeforeDiscount - finalDiscountAmount
+      );
+      this.$set(item, "totalAfterDiscount", netTotal);
 
       // 6. Get proportional transport cost allocation (if any)
       const proportionalTransport = item.proportionalTransportAmount || 0;
 
       // 7. Get VAT rate
       let vatRate = 0;
-      if (item.selectedVatRate && item.selectedVatRate.rate !== undefined && item.selectedVatRate.rate !== null) {
+      if (
+        item.selectedVatRate &&
+        item.selectedVatRate.rate !== undefined &&
+        item.selectedVatRate.rate !== null
+      ) {
         vatRate = Number(item.selectedVatRate.rate);
       } else if (item.taxRate !== undefined && item.taxRate !== null) {
         vatRate = Number(item.taxRate);
@@ -1405,15 +1924,18 @@ export default {
       // If transport is non-taxable: VAT base = netTotal (transport EXCLUDED from item calculations)
       // Use form.transportIsTaxable to respect user's choice (defaults to true for backward compatibility)
       const isTransportTaxable = this.form.transportIsTaxable !== false; // Default to true if not set
-      
+
       // When transport is non-taxable, proportionalTransport should be 0 (not distributed)
       // But we explicitly exclude it to ensure clean calculation
-      const transportForVatBase = isTransportTaxable ? proportionalTransport : 0;
+      const transportForVatBase = isTransportTaxable
+        ? proportionalTransport
+        : 0;
       const vatBase = this.roundToTwoDecimals(netTotal + transportForVatBase);
-      
+
       item.totalTax = this.roundToTwoDecimals(vatBase * (vatRate / 100));
       // productTax is VAT per unit (for display purposes)
-      item.productTax = qtyNumber > 0 ? this.roundToTwoDecimals(item.totalTax / qtyNumber) : 0;
+      item.productTax =
+        qtyNumber > 0 ? this.roundToTwoDecimals(item.totalTax / qtyNumber) : 0;
 
       // 9. Line Item: Total With VAT
       // CRITICAL: When transport is non-taxable, it must NOT be included in item totals
@@ -1433,13 +1955,16 @@ export default {
       // Business rule: cost per item = after_discount + transport_share (VAT is NOT part of cost)
       // Note: When transport is non-taxable, proportionalTransport will be 0 (transport not distributed)
       // This means transport cost is not included in item unit cost when non-taxable
-      const costBase = this.roundToTwoDecimals(netTotal + proportionalTransport);
-      item.unitCost = qtyNumber > 0 ? this.roundToTwoDecimals(costBase / qtyNumber) : 0;
+      const costBase = this.roundToTwoDecimals(
+        netTotal + proportionalTransport
+      );
+      item.unitCost =
+        qtyNumber > 0 ? this.roundToTwoDecimals(costBase / qtyNumber) : 0;
 
       // Store all calculated values
-      this.$set(item, 'proportionalDiscountAmount', proportionalDiscount);
-      this.$set(item, 'proportionalTransportAmount', proportionalTransport);
-      this.$set(item, 'netTotal', netTotal);
+      this.$set(item, "proportionalDiscountAmount", proportionalDiscount);
+      this.$set(item, "proportionalTransportAmount", proportionalTransport);
+      this.$set(item, "netTotal", netTotal);
 
       // Update the item in the array
       this.$set(this.form.selectedProducts, index, item);
@@ -1454,7 +1979,7 @@ export default {
     getTotalAfterDiscount(item) {
       let total = (item.originalPrice || item.unitPrice) * item.qty;
       if (item.discountType === "percentage") {
-        return total - (total * (item.discount || 0) / 100);
+        return total - (total * (item.discount || 0)) / 100;
       } else {
         return total - (item.discountAmount || 0);
       }
@@ -1462,14 +1987,18 @@ export default {
 
     // Helper method to get subtotal after discount for display
     getSubTotalAfterDiscount() {
-      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+      if (
+        !this.form.selectedProducts ||
+        this.form.selectedProducts.length === 0
+      ) {
         return 0;
       }
       return this.form.selectedProducts.reduce(function (prev, cur) {
         let lineTotal = (cur.originalPrice || cur.unitPrice) * cur.qty;
         let lineTotalAfterDiscount;
         if (cur.discountType === "percentage") {
-          lineTotalAfterDiscount = lineTotal - (lineTotal * (cur.discount || 0) / 100);
+          lineTotalAfterDiscount =
+            lineTotal - (lineTotal * (cur.discount || 0)) / 100;
         } else {
           lineTotalAfterDiscount = lineTotal - (cur.discountAmount || 0);
         }
@@ -1494,7 +2023,10 @@ export default {
 
     // Helper method to get sum of all individual "Total with VAT" values
     getTotalWithVATSum() {
-      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+      if (
+        !this.form.selectedProducts ||
+        this.form.selectedProducts.length === 0
+      ) {
         return 0;
       }
       // Sum of all item.totalPrice values (which is totalAfterDiscount + totalTax)
@@ -1505,7 +2037,10 @@ export default {
 
     // Helper method to get sum of all individual VAT amounts
     getTotalVATSum() {
-      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+      if (
+        !this.form.selectedProducts ||
+        this.form.selectedProducts.length === 0
+      ) {
         return 0;
       }
       return this.form.selectedProducts.reduce((total, item) => {
@@ -1516,7 +2051,10 @@ export default {
 
     // Helper method to get sum of all individual discount amounts
     getTotalDiscountSum() {
-      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+      if (
+        !this.form.selectedProducts ||
+        this.form.selectedProducts.length === 0
+      ) {
         return 0;
       }
       return this.form.selectedProducts.reduce((total, item) => {
@@ -1538,13 +2076,13 @@ export default {
       if (!this.taxes || !productTax) return null;
 
       // If productTax is an object (VAT rate object), use its rate property
-      if (typeof productTax === 'object' && productTax.rate !== undefined) {
-        return this.taxes.find(tax => tax.rate === productTax.rate);
+      if (typeof productTax === "object" && productTax.rate !== undefined) {
+        return this.taxes.find((tax) => tax.rate === productTax.rate);
       }
 
       // If productTax is a number (rate value), compare directly
-      if (typeof productTax === 'number') {
-        return this.taxes.find(tax => tax.rate === productTax);
+      if (typeof productTax === "number") {
+        return this.taxes.find((tax) => tax.rate === productTax);
       }
 
       return null;
@@ -1552,12 +2090,12 @@ export default {
 
     // Format number to display with exactly 2 decimal places
     formatToTwoDecimals(value) {
-      if (value === null || value === undefined || value === '') {
-        return '0.00';
+      if (value === null || value === undefined || value === "") {
+        return "0.00";
       }
       const numValue = Number(value);
       if (isNaN(numValue)) {
-        return '0.00';
+        return "0.00";
       }
       return numValue.toFixed(2);
     },
@@ -1573,14 +2111,18 @@ export default {
 
       // Handle edge cases
       if (isNaN(amount) || amount < 0) {
-        return this.isRTL && this.currentLocale === 'ar' ? 'مبلغ غير صحيح' : 'Invalid Amount';
+        return this.isRTL && this.currentLocale === "ar"
+          ? "مبلغ غير صحيح"
+          : "Invalid Amount";
       }
 
       if (amount === 0) {
-        return this.isRTL && this.currentLocale === 'ar' ? 'صفر ريال فقط' : 'Zero Only';
+        return this.isRTL && this.currentLocale === "ar"
+          ? "صفر ريال فقط"
+          : "Zero Only";
       }
 
-      if (this.isRTL && this.currentLocale === 'ar') {
+      if (this.isRTL && this.currentLocale === "ar") {
         return this.convertToArabicWords(amount);
       } else {
         return this.convertToEnglishWords(amount);
@@ -1595,69 +2137,72 @@ export default {
       const integerPart = Math.floor(amount);
       const decimalPart = Math.round((amount - integerPart) * 100);
 
-      let result = '';
+      let result = "";
 
       if (integerPart > 0) {
         const arabicNumber = this.convertIntegerToArabic(integerPart);
-        result += arabicNumber + ' ' + currencyInfo.main;
+        result += arabicNumber + " " + currencyInfo.main;
 
         // Add proper pluralization for main currency
         if (integerPart === 1) {
           // Keep singular form
         } else if (integerPart === 2) {
-          result = result.replace(currencyInfo.main, currencyInfo.main + 'ان');
+          result = result.replace(currencyInfo.main, currencyInfo.main + "ان");
         } else if (integerPart >= 3 && integerPart <= 10) {
-          result = result.replace(currencyInfo.main, currencyInfo.main + 'ات');
+          result = result.replace(currencyInfo.main, currencyInfo.main + "ات");
         } else {
           // Keep plural form for larger numbers
         }
       }
 
       if (decimalPart > 0) {
-        if (result) result += ' و ';
+        if (result) result += " و ";
         const arabicDecimal = this.convertIntegerToArabic(decimalPart);
-        result += arabicDecimal + ' ' + currencyInfo.sub;
+        result += arabicDecimal + " " + currencyInfo.sub;
 
         // Add proper pluralization for sub currency
         if (decimalPart === 1) {
           // Keep singular form
         } else if (decimalPart === 2) {
-          result = result.replace(currencyInfo.sub, currencyInfo.sub + 'ان');
+          result = result.replace(currencyInfo.sub, currencyInfo.sub + "ان");
         } else if (decimalPart >= 3 && decimalPart <= 10) {
-          result = result.replace(currencyInfo.sub, currencyInfo.sub + 'ات');
+          result = result.replace(currencyInfo.sub, currencyInfo.sub + "ات");
         } else {
           // Keep plural form for larger numbers
         }
       }
 
-      return result + ' فقط';
+      return result + " فقط";
     },
 
     // Get currency information based on locale and app settings
     getCurrencyInfo() {
-      const currency = this.appInfo?.currency || 'SAR';
-      const isArabic = this.isRTL && this.currentLocale === 'ar';
+      const currency = this.appInfo?.currency || "SAR";
+      const isArabic = this.isRTL && this.currentLocale === "ar";
 
       const currencyMap = {
-        'SAR': {
-          en: { main: 'Riyal', sub: 'Halala', symbol: 'ê' },
-          ar: { main: 'ريال', sub: 'هللة', symbol: 'ê' }
+        SAR: {
+          en: { main: "Riyal", sub: "Halala", symbol: "ê" },
+          ar: { main: "ريال", sub: "هللة", symbol: "ê" },
         },
-        'USD': {
-          en: { main: 'Dollar', sub: 'Cent', symbol: '$' },
-          ar: { main: 'دولار', sub: 'سنت', symbol: '$' }
+        USD: {
+          en: { main: "Dollar", sub: "Cent", symbol: "$" },
+          ar: { main: "دولار", sub: "سنت", symbol: "$" },
         },
-        'EUR': {
-          en: { main: 'Euro', sub: 'Cent', symbol: '€' },
-          ar: { main: 'يورو', sub: 'سنت', symbol: '€' }
+        EUR: {
+          en: { main: "Euro", sub: "Cent", symbol: "€" },
+          ar: { main: "يورو", sub: "سنت", symbol: "€" },
         },
-        'EGP': {
-          en: { main: 'Pound', sub: 'Piastre', symbol: '£' },
-          ar: { main: 'جنيه', sub: 'قرش', symbol: '£' }
-        }
+        EGP: {
+          en: { main: "Pound", sub: "Piastre", symbol: "£" },
+          ar: { main: "جنيه", sub: "قرش", symbol: "£" },
+        },
       };
 
-      return currencyMap[currency]?.[isArabic ? 'ar' : 'en'] || currencyMap['SAR'][isArabic ? 'ar' : 'en'];
+      return (
+        currencyMap[currency]?.[isArabic ? "ar" : "en"] ||
+        currencyMap["SAR"][isArabic ? "ar" : "en"]
+      );
     },
 
     // Convert number to English words
@@ -1673,26 +2218,60 @@ export default {
       let result = words;
 
       if (integerPart > 0) {
-        result += ' ' + currencyInfo.main;
-        if (integerPart !== 1) result += 's';
+        result += " " + currencyInfo.main;
+        if (integerPart !== 1) result += "s";
       }
 
       if (decimalPart > 0) {
-        if (result) result += ' and ';
-        result += this.convertIntegerToEnglish(decimalPart) + ' ' + currencyInfo.sub;
-        if (decimalPart !== 1) result += 's';
+        if (result) result += " and ";
+        result +=
+          this.convertIntegerToEnglish(decimalPart) + " " + currencyInfo.sub;
+        if (decimalPart !== 1) result += "s";
       }
 
-      return result + ' Only';
+      return result + " Only";
     },
 
     // Convert integer to English words (for decimal parts)
     convertIntegerToEnglish(num) {
-      if (num === 0) return 'zero';
+      if (num === 0) return "zero";
 
-      const ones = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
-      const tens = ['', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
-      const teens = ['ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'];
+      const ones = [
+        "",
+        "one",
+        "two",
+        "three",
+        "four",
+        "five",
+        "six",
+        "seven",
+        "eight",
+        "nine",
+      ];
+      const tens = [
+        "",
+        "",
+        "twenty",
+        "thirty",
+        "forty",
+        "fifty",
+        "sixty",
+        "seventy",
+        "eighty",
+        "ninety",
+      ];
+      const teens = [
+        "ten",
+        "eleven",
+        "twelve",
+        "thirteen",
+        "fourteen",
+        "fifteen",
+        "sixteen",
+        "seventeen",
+        "eighteen",
+        "nineteen",
+      ];
 
       if (num < 10) return ones[num];
       if (num < 20) return teens[num - 10];
@@ -1700,20 +2279,64 @@ export default {
         const ten = Math.floor(num / 10);
         const one = num % 10;
         if (one === 0) return tens[ten];
-        return tens[ten] + '-' + ones[one];
+        return tens[ten] + "-" + ones[one];
       }
 
-      return 'number';
+      return "number";
     },
 
     // Convert integer to Arabic words
     convertIntegerToArabic(num) {
-      if (num === 0) return 'صفر';
+      if (num === 0) return "صفر";
 
-      const ones = ['', 'واحد', 'اثنان', 'ثلاثة', 'أربعة', 'خمسة', 'ستة', 'سبعة', 'ثمانية', 'تسعة'];
-      const tens = ['', '', 'عشرون', 'ثلاثون', 'أربعون', 'خمسون', 'ستون', 'سبعون', 'ثمانون', 'تسعون'];
-      const teens = ['عشرة', 'أحد عشر', 'اثنا عشر', 'ثلاثة عشر', 'أربعة عشر', 'خمسة عشر', 'ستة عشر', 'سبعة عشر', 'ثمانية عشر', 'تسعة عشر'];
-      const hundreds = ['', 'مائة', 'مائتان', 'ثلاثمائة', 'أربعمائة', 'خمسمائة', 'ستمائة', 'سبعمائة', 'ثمانمائة', 'تسعمائة'];
+      const ones = [
+        "",
+        "واحد",
+        "اثنان",
+        "ثلاثة",
+        "أربعة",
+        "خمسة",
+        "ستة",
+        "سبعة",
+        "ثمانية",
+        "تسعة",
+      ];
+      const tens = [
+        "",
+        "",
+        "عشرون",
+        "ثلاثون",
+        "أربعون",
+        "خمسون",
+        "ستون",
+        "سبعون",
+        "ثمانون",
+        "تسعون",
+      ];
+      const teens = [
+        "عشرة",
+        "أحد عشر",
+        "اثنا عشر",
+        "ثلاثة عشر",
+        "أربعة عشر",
+        "خمسة عشر",
+        "ستة عشر",
+        "سبعة عشر",
+        "ثمانية عشر",
+        "تسعة عشر",
+      ];
+      const hundreds = [
+        "",
+        "مائة",
+        "مائتان",
+        "ثلاثمائة",
+        "أربعمائة",
+        "خمسمائة",
+        "ستمائة",
+        "سبعمائة",
+        "ثمانمائة",
+        "تسعمائة",
+      ];
 
       if (num < 10) return ones[num];
       if (num < 20) return teens[num - 10];
@@ -1721,38 +2344,50 @@ export default {
         const ten = Math.floor(num / 10);
         const one = num % 10;
         if (one === 0) return tens[ten];
-        return ones[one] + ' و ' + tens[ten];
+        return ones[one] + " و " + tens[ten];
       }
       if (num < 1000) {
         const hundred = Math.floor(num / 100);
         const remainder = num % 100;
         if (remainder === 0) return hundreds[hundred];
-        return hundreds[hundred] + ' و ' + this.convertIntegerToArabic(remainder);
+        return (
+          hundreds[hundred] + " و " + this.convertIntegerToArabic(remainder)
+        );
       }
       if (num < 1000000) {
         const thousand = Math.floor(num / 1000);
         const remainder = num % 1000;
         if (remainder === 0) {
-          if (thousand === 1) return 'ألف';
-          if (thousand === 2) return 'ألفان';
-          if (thousand >= 3 && thousand <= 10) return this.convertIntegerToArabic(thousand) + ' آلاف';
-          return this.convertIntegerToArabic(thousand) + ' ألف';
+          if (thousand === 1) return "ألف";
+          if (thousand === 2) return "ألفان";
+          if (thousand >= 3 && thousand <= 10)
+            return this.convertIntegerToArabic(thousand) + " آلاف";
+          return this.convertIntegerToArabic(thousand) + " ألف";
         }
-        return this.convertIntegerToArabic(thousand) + ' ألف و ' + this.convertIntegerToArabic(remainder);
+        return (
+          this.convertIntegerToArabic(thousand) +
+          " ألف و " +
+          this.convertIntegerToArabic(remainder)
+        );
       }
       if (num < 1000000000) {
         const million = Math.floor(num / 1000000);
         const remainder = num % 1000000;
         if (remainder === 0) {
-          if (million === 1) return 'مليون';
-          if (million === 2) return 'مليونان';
-          if (million >= 3 && million <= 10) return this.convertIntegerToArabic(million) + ' ملايين';
-          return this.convertIntegerToArabic(million) + ' مليون';
+          if (million === 1) return "مليون";
+          if (million === 2) return "مليونان";
+          if (million >= 3 && million <= 10)
+            return this.convertIntegerToArabic(million) + " ملايين";
+          return this.convertIntegerToArabic(million) + " مليون";
         }
-        return this.convertIntegerToArabic(million) + ' مليون و ' + this.convertIntegerToArabic(remainder);
+        return (
+          this.convertIntegerToArabic(million) +
+          " مليون و " +
+          this.convertIntegerToArabic(remainder)
+        );
       }
 
-      return 'رقم كبير جداً';
+      return "رقم كبير جداً";
     },
 
     // remove item from array
@@ -1788,7 +2423,11 @@ export default {
         // Clear proportional discounts if no invoice-level discount
         this.form.selectedProducts.forEach((item, index) => {
           if (item.proportionalDiscountAmount) {
-            this.$set(this.form.selectedProducts[index], 'proportionalDiscountAmount', 0);
+            this.$set(
+              this.form.selectedProducts[index],
+              "proportionalDiscountAmount",
+              0
+            );
           }
         });
         return;
@@ -1799,7 +2438,8 @@ export default {
       const itemSubtotals = [];
 
       this.form.selectedProducts.forEach((item) => {
-        const unitPriceNumber = Number(item.originalPrice || item.unitPrice) || 0;
+        const unitPriceNumber =
+          Number(item.originalPrice || item.unitPrice) || 0;
         const qtyNumber = Number(item.qty) || 0;
         const itemSubtotal = unitPriceNumber * qtyNumber; // Item subtotal = qty × unit_price
 
@@ -1821,22 +2461,39 @@ export default {
         if (invoiceSubtotal > 0 && itemSubtotal > 0) {
           // Calculate proportional share: itemDiscount = (itemSubtotal / invoiceSubtotal) * invoiceDiscount
           const proportion = itemSubtotal / invoiceSubtotal;
-          proportionalAmount = this.roundToTwoDecimals(invoiceLevelDiscount * proportion);
+          proportionalAmount = this.roundToTwoDecimals(
+            invoiceLevelDiscount * proportion
+          );
           allocatedTotal += proportionalAmount;
         }
 
         // Store proportional discount amount
-        this.$set(this.form.selectedProducts[index], 'proportionalDiscountAmount', proportionalAmount);
+        this.$set(
+          this.form.selectedProducts[index],
+          "proportionalDiscountAmount",
+          proportionalAmount
+        );
       });
 
       // Handle rounding differences - add/subtract from the last item
-      const roundingDifference = this.roundToTwoDecimals(invoiceLevelDiscount - allocatedTotal);
-      if (Math.abs(roundingDifference) > 0.01 && this.form.selectedProducts.length > 0) {
+      const roundingDifference = this.roundToTwoDecimals(
+        invoiceLevelDiscount - allocatedTotal
+      );
+      if (
+        Math.abs(roundingDifference) > 0.01 &&
+        this.form.selectedProducts.length > 0
+      ) {
         const lastIndex = this.form.selectedProducts.length - 1;
         const lastItem = this.form.selectedProducts[lastIndex];
         const currentProportional = lastItem.proportionalDiscountAmount || 0;
-        const adjusted = this.roundToTwoDecimals(currentProportional + roundingDifference);
-        this.$set(this.form.selectedProducts[lastIndex], 'proportionalDiscountAmount', Math.max(0, adjusted));
+        const adjusted = this.roundToTwoDecimals(
+          currentProportional + roundingDifference
+        );
+        this.$set(
+          this.form.selectedProducts[lastIndex],
+          "proportionalDiscountAmount",
+          Math.max(0, adjusted)
+        );
       }
     },
 
@@ -1853,7 +2510,11 @@ export default {
         // Clear proportional transport if no transport cost
         this.form.selectedProducts.forEach((item, index) => {
           if (item.proportionalTransportAmount) {
-            this.$set(this.form.selectedProducts[index], 'proportionalTransportAmount', 0);
+            this.$set(
+              this.form.selectedProducts[index],
+              "proportionalTransportAmount",
+              0
+            );
           }
         });
         return;
@@ -1868,10 +2529,11 @@ export default {
       const itemSubtotals = [];
 
       this.form.selectedProducts.forEach((item) => {
-        const unitPriceNumber = Number(item.originalPrice || item.unitPrice) || 0;
+        const unitPriceNumber =
+          Number(item.originalPrice || item.unitPrice) || 0;
         const qtyNumber = Number(item.qty) || 0;
         const itemSubtotal = unitPriceNumber * qtyNumber; // Item subtotal = qty × unit_price
-        
+
         itemSubtotals.push(itemSubtotal);
         invoiceSubtotal += itemSubtotal;
       });
@@ -1890,22 +2552,39 @@ export default {
         if (invoiceSubtotal > 0 && itemSubtotal > 0) {
           // Calculate proportional share: itemShippingShare = (itemSubtotal / invoiceSubtotal) * shippingCost
           const proportion = itemSubtotal / invoiceSubtotal;
-          proportionalAmount = this.roundToTwoDecimals(transportCost * proportion);
+          proportionalAmount = this.roundToTwoDecimals(
+            transportCost * proportion
+          );
           allocatedTotal += proportionalAmount;
         }
 
         // Store proportional transport amount (for reporting/display and VAT calculation)
-        this.$set(this.form.selectedProducts[index], 'proportionalTransportAmount', proportionalAmount);
+        this.$set(
+          this.form.selectedProducts[index],
+          "proportionalTransportAmount",
+          proportionalAmount
+        );
       });
 
       // Handle rounding differences - add/subtract from the last item
-      const roundingDifference = this.roundToTwoDecimals(transportCost - allocatedTotal);
-      if (Math.abs(roundingDifference) > 0.01 && this.form.selectedProducts.length > 0) {
+      const roundingDifference = this.roundToTwoDecimals(
+        transportCost - allocatedTotal
+      );
+      if (
+        Math.abs(roundingDifference) > 0.01 &&
+        this.form.selectedProducts.length > 0
+      ) {
         const lastIndex = this.form.selectedProducts.length - 1;
         const lastItem = this.form.selectedProducts[lastIndex];
         const currentProportional = lastItem.proportionalTransportAmount || 0;
-        const adjusted = this.roundToTwoDecimals(currentProportional + roundingDifference);
-        this.$set(this.form.selectedProducts[lastIndex], 'proportionalTransportAmount', Math.max(0, adjusted));
+        const adjusted = this.roundToTwoDecimals(
+          currentProportional + roundingDifference
+        );
+        this.$set(
+          this.form.selectedProducts[lastIndex],
+          "proportionalTransportAmount",
+          Math.max(0, adjusted)
+        );
       }
     },
 
@@ -1920,7 +2599,10 @@ export default {
 
     // calculate sum (following sales module logic with proportional discount and transport)
     calculateSum() {
-      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+      if (
+        !this.form.selectedProducts ||
+        this.form.selectedProducts.length === 0
+      ) {
         this.form.totalDiscount = 0;
         this.form.subTotal = 0;
         this.form.totalProductTax = 0;
@@ -1929,23 +2611,31 @@ export default {
       }
 
       // Calculate invoice subtotal (sum of all item subtotals: qty × unit_price)
-      const invoiceSubtotal = this.form.selectedProducts.reduce((total, item) => {
-        const unitPriceNumber = Number(item.originalPrice || item.unitPrice) || 0;
-        const qtyNumber = Number(item.qty) || 0;
-        return total + (unitPriceNumber * qtyNumber);
-      }, 0);
+      const invoiceSubtotal = this.form.selectedProducts.reduce(
+        (total, item) => {
+          const unitPriceNumber =
+            Number(item.originalPrice || item.unitPrice) || 0;
+          const qtyNumber = Number(item.qty) || 0;
+          return total + unitPriceNumber * qtyNumber;
+        },
+        0
+      );
 
       // Apply commercial invoice-level discount (for allocation only)
       // Business rule: invoice-level discount is applied on the INVOICE SUBTOTAL (sum of qty × unit_price),
       // not on a single line or on net/after-tax amounts.
       let invoiceLevelDiscount = 0;
       if (this.form.discount_value > 0) {
-        if (this.form.discount_type === 'percentage') {
+        if (this.form.discount_type === "percentage") {
           // Percentage discount on invoice subtotal
-          invoiceLevelDiscount = this.roundToTwoDecimals((invoiceSubtotal * this.form.discount_value) / 100);
+          invoiceLevelDiscount = this.roundToTwoDecimals(
+            (invoiceSubtotal * this.form.discount_value) / 100
+          );
         } else {
           // Fixed discount amount
-          invoiceLevelDiscount = this.roundToTwoDecimals(Number(this.form.discount_value));
+          invoiceLevelDiscount = this.roundToTwoDecimals(
+            Number(this.form.discount_value)
+          );
         }
 
         // Ensure discount doesn't exceed the invoice subtotal
@@ -1955,7 +2645,7 @@ export default {
       }
 
       // Get transport cost (use transportTaxableCost if supplier is taxable, otherwise transportCost)
-      const transportCost = this.isSupplierTaxable 
+      const transportCost = this.isSupplierTaxable
         ? Number(this.form.transportTaxableCost || 0)
         : Number(this.form.transportCost || 0);
 
@@ -1974,7 +2664,11 @@ export default {
         // Clear any existing proportional transport amounts to ensure clean calculation
         this.form.selectedProducts.forEach((item, index) => {
           if (item.proportionalTransportAmount) {
-            this.$set(this.form.selectedProducts[index], 'proportionalTransportAmount', 0);
+            this.$set(
+              this.form.selectedProducts[index],
+              "proportionalTransportAmount",
+              0
+            );
           }
         });
       }
@@ -1984,11 +2678,14 @@ export default {
 
       // Calculate totals after recalculation
       // Total discount (sum of all discounts including proportional allocation)
-      this.form.totalDiscount = this.form.selectedProducts.reduce((total, item) => {
-        const productDiscount = item.discountAmount || 0;
-        const proportionalDiscount = item.proportionalDiscountAmount || 0;
-        return total + productDiscount + proportionalDiscount;
-      }, 0);
+      this.form.totalDiscount = this.form.selectedProducts.reduce(
+        (total, item) => {
+          const productDiscount = item.discountAmount || 0;
+          const proportionalDiscount = item.proportionalDiscountAmount || 0;
+          return total + productDiscount + proportionalDiscount;
+        },
+        0
+      );
 
       // Subtotal after discount (sum of netTotal values)
       this.form.subTotal = this.form.selectedProducts.reduce((total, item) => {
@@ -1996,9 +2693,12 @@ export default {
       }, 0);
 
       // Total VAT (sum of totalTax values, which already include VAT on transport)
-      this.form.totalProductTax = this.form.selectedProducts.reduce((total, item) => {
-        return total + (item.totalTax || 0);
-      }, 0);
+      this.form.totalProductTax = this.form.selectedProducts.reduce(
+        (total, item) => {
+          return total + (item.totalTax || 0);
+        },
+        0
+      );
 
       // Update Net Total using the dedicated method
       this.updateNetTotal();
@@ -2019,7 +2719,7 @@ export default {
             toast.fire({
               type: "error",
               title: this.$t("Validation Error"),
-              text: this.$t("Please select an account")
+              text: this.$t("Please select an account"),
             });
             return;
           }
@@ -2028,7 +2728,7 @@ export default {
             toast.fire({
               type: "error",
               title: this.$t("Validation Error"),
-              text: this.$t("Please enter the total amount paid")
+              text: this.$t("Please enter the total amount paid"),
             });
             return;
           }
@@ -2044,11 +2744,8 @@ export default {
 
     // save purchase
     async savePurchase() {
-
-
       // Check if form is already busy
       if (this.form.busy) {
-
         return;
       }
 
@@ -2061,7 +2758,10 @@ export default {
       }
 
       // Check products
-      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+      if (
+        !this.form.selectedProducts ||
+        this.form.selectedProducts.length === 0
+      ) {
         validationErrors.push(this.$t("Please add at least one product"));
       }
 
@@ -2071,7 +2771,10 @@ export default {
       }
 
       // Check total paid (only required if adding payment)
-      if (this.form.addPayment == 1 && (!this.form.totalPaid || Number(this.form.totalPaid) <= 0)) {
+      if (
+        this.form.addPayment == 1 &&
+        (!this.form.totalPaid || Number(this.form.totalPaid) <= 0)
+      ) {
         validationErrors.push(this.$t("Please enter the total amount paid"));
       }
 
@@ -2079,22 +2782,32 @@ export default {
       if (this.form.selectedProducts && this.form.selectedProducts.length > 0) {
         this.form.selectedProducts.forEach((product, index) => {
           if (!product.qty || Number(product.qty) <= 0) {
-            validationErrors.push(`${this.$t("Product")} ${index + 1}: ${this.$t("Invalid quantity")}`);
+            validationErrors.push(
+              `${this.$t("Product")} ${index + 1}: ${this.$t(
+                "Invalid quantity"
+              )}`
+            );
           }
           if (!product.unitPrice || Number(product.unitPrice) <= 0) {
-            validationErrors.push(`${this.$t("Product")} ${index + 1}: ${this.$t("Invalid unit price")}`);
+            validationErrors.push(
+              `${this.$t("Product")} ${index + 1}: ${this.$t(
+                "Invalid unit price"
+              )}`
+            );
           }
         });
       }
 
       // Show all validation errors if any
       if (validationErrors.length > 0) {
-        const errorList = validationErrors.map(error => `• ${error}`).join('\n');
+        const errorList = validationErrors
+          .map((error) => `• ${error}`)
+          .join("\n");
         toast.fire({
           type: "error",
           title: `${this.$t("Validation Error")}:\n\n${errorList}`,
           timer: 8000,
-          timerProgressBar: true
+          timerProgressBar: true,
         });
         return;
       }
@@ -2116,85 +2829,105 @@ export default {
 
           // Helper function to append values
           const appendIfDefined = (key, value) => {
-            if (value !== null && value !== undefined && value !== '') {
+            if (value !== null && value !== undefined && value !== "") {
               formData.append(key, value);
             }
           };
 
           // Append all form fields
-          appendIfDefined('supplier[id]', formDataObj.supplier?.id);
+          appendIfDefined("supplier[id]", formDataObj.supplier?.id);
 
           // CRITICAL: Ensure transport fields are always sent correctly
           // Get transport cost from the appropriate field based on taxability
           const transportValue = formDataObj.transportIsTaxable
-            ? (Number(formDataObj.transportTaxableCost || 0) || Number(formDataObj.transportCost || 0))
+            ? Number(formDataObj.transportTaxableCost || 0) ||
+              Number(formDataObj.transportCost || 0)
             : Number(formDataObj.transportCost || 0);
 
           // Always send transportCost (the actual transport amount to be saved)
           if (transportValue > 0) {
-            appendIfDefined('transportCost', transportValue);
+            appendIfDefined("transportCost", transportValue);
           }
 
           // Send transportTaxableCost if it exists (for taxable transport)
-          if (formDataObj.transportTaxableCost && Number(formDataObj.transportTaxableCost) > 0) {
-            appendIfDefined('transportTaxableCost', Number(formDataObj.transportTaxableCost));
+          if (
+            formDataObj.transportTaxableCost &&
+            Number(formDataObj.transportTaxableCost) > 0
+          ) {
+            appendIfDefined(
+              "transportTaxableCost",
+              Number(formDataObj.transportTaxableCost)
+            );
           }
 
           // Send both field names for backend compatibility
           if (formDataObj.transportIsTaxable !== undefined) {
-            appendIfDefined('transportIsTaxable', formDataObj.transportIsTaxable);
-            appendIfDefined('transport_taxable', formDataObj.transportIsTaxable);
+            appendIfDefined(
+              "transportIsTaxable",
+              formDataObj.transportIsTaxable
+            );
+            appendIfDefined(
+              "transport_taxable",
+              formDataObj.transportIsTaxable
+            );
           }
 
-          // Log transport values being sent for debugging
-          console.log('Sending transport data (FormData):', {
-            transportCost: transportValue > 0 ? transportValue : null,
-            transportTaxableCost: formDataObj.transportTaxableCost,
-            transportIsTaxable: formDataObj.transportIsTaxable,
-            transport_taxable: formDataObj.transportIsTaxable,
-          });
-          appendIfDefined('subTotal', formDataObj.subTotal);
-          appendIfDefined('netTotal', formDataObj.netTotal);
-          appendIfDefined('discount', formDataObj.discount);
-          appendIfDefined('discount_type', formDataObj.discount_type);
-          appendIfDefined('discount_value', formDataObj.discount_value);
-          appendIfDefined('poReference', formDataObj.poReference);
-          appendIfDefined('reference', formDataObj.reference);
-          appendIfDefined('paymentTerms', formDataObj.paymentTerms);
-          appendIfDefined('purchaseDate', formDataObj.purchaseDate);
-          appendIfDefined('poDate', formDataObj.poDate);
-          appendIfDefined('note', formDataObj.note);
-          appendIfDefined('status', formDataObj.status);
-          appendIfDefined('isSendEmail', formDataObj.isSendEmail ? 1 : 0);
-          appendIfDefined('isSendSMS', formDataObj.isSendSMS ? 1 : 0);
-          appendIfDefined('addPayment', this.form.addPayment == 1 ? 1 : 0);
-          appendIfDefined('cost_center_id', formDataObj.cost_center_id);
-          appendIfDefined('branch_id', formDataObj.branch_id);
-          appendIfDefined('purchase_status', formDataObj.purchase_status);
+          appendIfDefined("subTotal", formDataObj.subTotal);
+          appendIfDefined("netTotal", formDataObj.netTotal);
+          appendIfDefined("discount", formDataObj.discount);
+          appendIfDefined("discount_type", formDataObj.discount_type);
+          appendIfDefined("discount_value", formDataObj.discount_value);
+          appendIfDefined("poReference", formDataObj.poReference);
+          appendIfDefined("reference", formDataObj.reference);
+          appendIfDefined("paymentTerms", formDataObj.paymentTerms);
+          appendIfDefined("purchaseDate", formDataObj.purchaseDate);
+          appendIfDefined("poDate", formDataObj.poDate);
+          appendIfDefined("note", formDataObj.note);
+          appendIfDefined("status", formDataObj.status);
+          appendIfDefined("isSendEmail", formDataObj.isSendEmail ? 1 : 0);
+          appendIfDefined("isSendSMS", formDataObj.isSendSMS ? 1 : 0);
+          appendIfDefined("addPayment", this.form.addPayment == 1 ? 1 : 0);
+          appendIfDefined("cost_center_id", formDataObj.cost_center_id);
+          appendIfDefined("branch_id", formDataObj.branch_id);
+          appendIfDefined("purchase_status", formDataObj.purchase_status);
 
           // Handle orderTax - only include if country is NOT Saudi Arabia
           if (!this.isSaudiArabia && formDataObj.orderTax) {
-            appendIfDefined('orderTax[id]', formDataObj.orderTax.id);
+            appendIfDefined("orderTax[id]", formDataObj.orderTax.id);
           }
 
           // Only include payment-related fields if payment is being added
           if (this.form.addPayment == 1) {
-            appendIfDefined('account[id]', formDataObj.account?.id);
-            appendIfDefined('totalPaid', formDataObj.totalPaid);
-            appendIfDefined('availableBalance', formDataObj.availableBalance);
+            appendIfDefined("account[id]", formDataObj.account?.id);
+            appendIfDefined("totalPaid", formDataObj.totalPaid);
+            appendIfDefined("availableBalance", formDataObj.availableBalance);
           }
 
           // Append selectedProducts array
           if (Array.isArray(formDataObj.selectedProducts)) {
             formDataObj.selectedProducts.forEach((product, index) => {
-              Object.keys(product).forEach(prodKey => {
+              Object.keys(product).forEach((prodKey) => {
                 const prodValue = product[prodKey];
-                if (prodValue !== null && prodValue !== undefined && prodValue !== '') {
+                if (
+                  prodValue !== null &&
+                  prodValue !== undefined &&
+                  prodValue !== ""
+                ) {
                   // Handle nested objects in products
-                  if (typeof prodValue === 'object' && !Array.isArray(prodValue) && prodValue.id) {
-                    formData.append(`selectedProducts[${index}][${prodKey}][id]`, prodValue.id);
+                  if (
+                    typeof prodValue === "object" &&
+                    !Array.isArray(prodValue) &&
+                    prodValue.id
+                  ) {
+                    formData.append(
+                      `selectedProducts[${index}][${prodKey}][id]`,
+                      prodValue.id
+                    );
                   } else {
-                    formData.append(`selectedProducts[${index}][${prodKey}]`, prodValue);
+                    formData.append(
+                      `selectedProducts[${index}][${prodKey}]`,
+                      prodValue
+                    );
                   }
                 }
               });
@@ -2204,15 +2937,15 @@ export default {
           // Append attachments using attachments[] format
           this.form.attachments.forEach((file) => {
             if (file instanceof File) {
-              formData.append('attachments[]', file);
+              formData.append("attachments[]", file);
             }
           });
 
           // Submit using axios with FormData
           const response = await this.$axios.post("/api/purchases", formData, {
             headers: {
-              'Content-Type': 'multipart/form-data'
-            }
+              "Content-Type": "multipart/form-data",
+            },
           });
 
           toast.fire({
@@ -2232,7 +2965,7 @@ export default {
             }, 500);
           }
 
-          this.clearTemporaryData()
+          this.clearTemporaryData();
           this.$router.push({
             name: "purchases.show",
             params: { slug: response.data.data.slug },
@@ -2248,18 +2981,19 @@ export default {
           // For non-taxable transport, use transportCost (the actual amount entered)
           // For taxable transport, use transportTaxableCost or transportCost
           let transportValue = 0;
-          
+
           if (this.form.transportIsTaxable) {
             // Taxable: prefer transportTaxableCost, fallback to transportCost
-            transportValue = Number(this.form.transportTaxableCost || 0) || Number(this.form.transportCost || 0);
+            transportValue =
+              Number(this.form.transportTaxableCost || 0) ||
+              Number(this.form.transportCost || 0);
           } else {
             // Non-taxable: MUST use transportCost (the full amount, no VAT)
             transportValue = Number(this.form.transportCost || 0);
-            
+
             // If transportCost is 0 but shippingCostTotal has a value, use that
             if (transportValue === 0 && this.shippingCostTotal > 0) {
               transportValue = this.shippingCostTotal;
-              console.warn('transportCost is 0 but shippingCostTotal is', this.shippingCostTotal, '- using shippingCostTotal');
             }
           }
 
@@ -2269,8 +3003,13 @@ export default {
           }
 
           // Send transportTaxableCost if it exists (for taxable transport)
-          if (this.form.transportTaxableCost && Number(this.form.transportTaxableCost) > 0) {
-            formData.transportTaxableCost = Number(this.form.transportTaxableCost);
+          if (
+            this.form.transportTaxableCost &&
+            Number(this.form.transportTaxableCost) > 0
+          ) {
+            formData.transportTaxableCost = Number(
+              this.form.transportTaxableCost
+            );
           }
 
           // Ensure transportIsTaxable is sent (convert to transport_taxable for backend compatibility)
@@ -2279,18 +3018,6 @@ export default {
             formData.transport_taxable = formData.transportIsTaxable;
             // Keep transportIsTaxable for backward compatibility
           }
-
-          // Log transport values being sent for debugging
-          console.log('Sending transport data (regular form):', {
-            transportCost: formData.transportCost,
-            transportTaxableCost: formData.transportTaxableCost,
-            transportIsTaxable: formData.transportIsTaxable,
-            transport_taxable: formData.transport_taxable,
-            shippingCostTotal: this.shippingCostTotal,
-            form_transportCost: this.form.transportCost,
-            form_transportTaxableCost: this.form.transportTaxableCost,
-            calculated_transportValue: transportValue,
-          });
 
           // Only include payment-related fields if payment is being added
           if (this.form.addPayment == 1) {
@@ -2329,41 +3056,60 @@ export default {
             }, 500);
           }
 
-          this.clearTemporaryData()
+          this.clearTemporaryData();
           this.$router.push({
             name: "purchases.show",
             params: { slug: response.data.data.slug },
           });
         }
       } catch (error) {
-        if (error.response && error.response.data && error.response.data.errors) {
+        if (
+          error.response &&
+          error.response.data &&
+          error.response.data.errors
+        ) {
           // Validation errors from backend - show all errors in one notification
-          const errorMessages = Object.values(error.response.data.errors).flat();
-          const errorList = errorMessages.map(error => `• ${error}`).join('\n');
+          const errorMessages = Object.values(
+            error.response.data.errors
+          ).flat();
+          const errorList = errorMessages
+            .map((error) => `• ${error}`)
+            .join("\n");
           toast.fire({
             type: "error",
             title: `${this.$t("Validation Error")}:\n\n${errorList}`,
             timer: 8000,
-            timerProgressBar: true
+            timerProgressBar: true,
           });
-        } else if (error.response && error.response.data && error.response.data.message) {
+        } else if (
+          error.response &&
+          error.response.data &&
+          error.response.data.message
+        ) {
           // Custom error message from backend
           toast.fire({
             type: "error",
             title: this.$t("Error"),
-            text: error.response.data.message
+            text: error.response.data.message,
           });
         } else {
           // Use centralized error handler
-          const ErrorHandler = require('~/utils/errorHandler').default;
-          ErrorHandler.handleApiError(error, {
-            showValidationErrors: true
-          });
+          try {
+            const ErrorHandler = (await import("~/utils/errorHandler")).default;
+            ErrorHandler.handleApiError(error, {
+              showValidationErrors: true,
+            });
+          } catch (importError) {
+            // Fallback if error handler cannot be imported
+            toast.fire({
+              type: "error",
+              title: this.$t("Error"),
+              text: error.message || this.$t("An unexpected error occurred"),
+            });
+          }
         }
       }
     },
-
-
 
     // Auto-assign Chart of Account for supplier
     async autoAssignSupplierChartOfAccount() {
@@ -2374,16 +3120,14 @@ export default {
       this.isAutoAssigningSupplier = true;
 
       try {
-        const response = await this.$http.post(`/api/suppliers/${this.form.supplier.slug}/auto-assign-chart-of-account`);
+        const response = await this.$http.post(
+          `/api/suppliers/${this.form.supplier.slug}/auto-assign-chart-of-account`
+        );
 
         if (response.data.success) {
-          console.log('Auto-assign response:', response.data);
-          console.log('Current supplier before update:', this.form.supplier);
-
           // Update the supplier data with new chart of account
-          this.form.supplier.chart_of_account_id = response.data.chart_of_account_id;
-
-          console.log('Supplier after updating chart_of_account_id:', this.form.supplier);
+          this.form.supplier.chart_of_account_id =
+            response.data.chart_of_account_id;
 
           // Force Vue to re-render the component to update the UI
           this.$nextTick(() => {
@@ -2395,17 +3139,16 @@ export default {
             type: "success",
             title: this.$t("Chart of Account assigned successfully"),
           });
-
         } else {
           toast.fire({
             type: "error",
             title: this.$t("Failed to assign Chart of Account"),
-            text: response.data.message || this.$t("Please try again or assign manually")
+            text:
+              response.data.message ||
+              this.$t("Please try again or assign manually"),
           });
         }
-
       } catch (error) {
-        console.error('Error auto-assigning chart of account:', error);
         toast.fire({
           type: "error",
           title: this.$t("An error occurred while assigning Chart of Account"),
@@ -2424,7 +3167,9 @@ export default {
       this.isAutoAssigningProduct = product.id;
 
       try {
-        const response = await this.$http.post(`/api/products/${product.slug}/auto-assign-chart-of-account`);
+        const response = await this.$http.post(
+          `/api/products/${product.slug}/auto-assign-chart-of-account`
+        );
 
         if (response.data.success) {
           // Update the product data with new chart of account
@@ -2440,17 +3185,16 @@ export default {
             type: "success",
             title: this.$t("Chart of Account assigned successfully"),
           });
-
         } else {
           toast.fire({
             type: "error",
             title: this.$t("Failed to assign Chart of Account"),
-            text: response.data.message || this.$t("Please try again or assign manually")
+            text:
+              response.data.message ||
+              this.$t("Please try again or assign manually"),
           });
         }
-
       } catch (error) {
-        console.error('Error auto-assigning chart of account:', error);
         toast.fire({
           type: "error",
           title: this.$t("An error occurred while assigning Chart of Account"),
@@ -2463,12 +3207,14 @@ export default {
     // Handle supplier change
     async onSupplierChange() {
       // Clear any previous errors
-      this.form.errors.clear('supplier');
+      this.form.errors.clear("supplier");
 
       // If a supplier is selected, ensure we have the latest data including Chart of Account
       if (this.form.supplier && this.form.supplier.id) {
         // Find the supplier in the suppliers list to get the most up-to-date data
-        const updatedSupplier = this.suppliers.find(s => s.id === this.form.supplier.id);
+        const updatedSupplier = this.suppliers.find(
+          (s) => s.id === this.form.supplier.id
+        );
         if (updatedSupplier) {
           // Update the form supplier with all the latest data
           this.form.supplier = { ...updatedSupplier };
@@ -2478,14 +3224,24 @@ export default {
         await this.getProducts();
 
         // Update existing selected products with new average purchase prices
-        if (this.form.selectedProducts && this.form.selectedProducts.length > 0) {
+        if (
+          this.form.selectedProducts &&
+          this.form.selectedProducts.length > 0
+        ) {
           this.form.selectedProducts.forEach((selectedProduct, index) => {
-            const freshProduct = this.products.find(p => p.id === selectedProduct.id);
+            const freshProduct = this.products.find(
+              (p) => p.id === selectedProduct.id
+            );
             if (freshProduct) {
               // Update unitPrice with average purchase price by supplier if available
-              if (freshProduct.avgPurchasePriceBySupplier && freshProduct.avgPurchasePriceBySupplier > 0) {
-                selectedProduct.unitPrice = freshProduct.avgPurchasePriceBySupplier;
-                selectedProduct.originalPrice = freshProduct.avgPurchasePriceBySupplier;
+              if (
+                freshProduct.avgPurchasePriceBySupplier &&
+                freshProduct.avgPurchasePriceBySupplier > 0
+              ) {
+                selectedProduct.unitPrice =
+                  freshProduct.avgPurchasePriceBySupplier;
+                selectedProduct.originalPrice =
+                  freshProduct.avgPurchasePriceBySupplier;
                 // Recalculate totals for this product
                 this.generateItemTotalPrice(index);
               }
@@ -2513,7 +3269,6 @@ export default {
           this.costCenters = [];
         }
       } catch (error) {
-        console.error('Error getting cost centers:', error);
         this.costCenters = [];
       }
     },
@@ -2525,16 +3280,19 @@ export default {
       } else {
         this.form.cost_center_id = null;
       }
-      this.clearFieldError('cost_center_id');
+      this.clearFieldError("cost_center_id");
     },
 
     // get all payment methods
     async getPaymentMethods() {
       this.loadingPaymentMethods = true;
       try {
-        const response = await axios.get(window.location.origin + '/api/payment-methods', {
-          params: { perPage: 1000 } // Get all payment methods
-        });
+        const response = await axios.get(
+          window.location.origin + "/api/payment-methods",
+          {
+            params: { perPage: 1000 }, // Get all payment methods
+          }
+        );
         // Handle both paginated and non-paginated responses
         if (response.data) {
           if (Array.isArray(response.data)) {
@@ -2548,12 +3306,11 @@ export default {
           this.paymentMethods = [];
         }
       } catch (error) {
-        console.error('Error loading payment methods:', error);
         this.paymentMethods = [];
         toast.fire({
-          type: 'error',
-          title: this.$t('Error'),
-          text: this.$t('Failed to load payment methods'),
+          type: "error",
+          title: this.$t("Error"),
+          text: this.$t("Failed to load payment methods"),
         });
       } finally {
         this.loadingPaymentMethods = false;
@@ -2562,11 +3319,11 @@ export default {
     async getBranches() {
       try {
         let branchesData = [];
-        const user = this.$store.getters['auth/user'];
+        const user = this.$store.getters["auth/user"];
 
         if (user && user.account_role === 1) {
           // For superadmin, get all branches
-          const { data } = await axios.get('/api/branches');
+          const { data } = await axios.get("/api/branches");
           if (data.data) {
             branchesData = data.data;
           } else if (Array.isArray(data)) {
@@ -2583,7 +3340,7 @@ export default {
             }
           } catch (error) {
             // Fallback to all branches if user branches fail
-            const { data } = await axios.get('/api/branches');
+            const { data } = await axios.get("/api/branches");
             if (data.data) {
               branchesData = data.data;
             }
@@ -2591,7 +3348,6 @@ export default {
         }
         this.branches = branchesData;
       } catch (error) {
-        console.error('Error getting branches:', error);
         this.branches = [];
       }
     },
@@ -2603,25 +3359,24 @@ export default {
       } else {
         this.form.branch_id = null;
       }
-      this.clearFieldError('branch_id');
+      this.clearFieldError("branch_id");
     },
 
     // handle purchase status change
     onPurchaseStatusChange() {
-      this.clearFieldError('purchase_status');
+      this.clearFieldError("purchase_status");
     },
-
 
     // handle attachment change
     onAttachmentChange(event) {
       const files = Array.from(event.target.files || []);
-      const validFiles = files.filter(file => {
+      const validFiles = files.filter((file) => {
         // Validate file size (10MB max)
         if (file.size > 10 * 1024 * 1024) {
           toast.fire({
             type: "error",
             title: this.$t("File too large"),
-            text: `${file.name} ${this.$t("exceeds 10MB limit")}`
+            text: `${file.name} ${this.$t("exceeds 10MB limit")}`,
           });
           return false;
         }
@@ -2663,45 +3418,51 @@ export default {
         totalPaid: this.form.totalPaid,
         note: this.form.note,
         status: this.form.status,
-        timestamp: new Date().toISOString()
-      }
-      localStorage.setItem('purchaseTempData', JSON.stringify(tempData))
-
+        timestamp: new Date().toISOString(),
+      };
+      localStorage.setItem("purchaseTempData", JSON.stringify(tempData));
     },
     // load temporary data
     loadTemporaryData() {
-      const tempData = localStorage.getItem('purchaseTempData')
+      const tempData = localStorage.getItem("purchaseTempData");
       if (tempData) {
         try {
-          const data = JSON.parse(tempData)
-          this.form.supplier = data.supplier || this.form.supplier
-          this.form.selectedProducts = data.selectedProducts || this.form.selectedProducts
-          this.form.subTotal = data.subTotal || this.form.subTotal
-          this.form.netTotal = data.netTotal || this.form.netTotal
-          this.form.transportCost = data.transportCost || this.form.transportCost
+          const data = JSON.parse(tempData);
+          this.form.supplier = data.supplier || this.form.supplier;
+          this.form.selectedProducts =
+            data.selectedProducts || this.form.selectedProducts;
+          this.form.subTotal = data.subTotal || this.form.subTotal;
+          this.form.netTotal = data.netTotal || this.form.netTotal;
+          this.form.transportCost =
+            data.transportCost || this.form.transportCost;
           // Default to true if not set (backward compatibility)
-          this.form.transportIsTaxable = data.transportIsTaxable !== undefined ? data.transportIsTaxable : true
-          this.form.orderTax = data.orderTax || this.form.orderTax
-          this.form.totalProductTax = data.totalProductTax || this.form.totalProductTax
-          this.form.totalTax = data.totalTax || this.form.totalTax
-          this.form.discount = data.discount || this.form.discount
-          this.form.poReference = data.poReference || this.form.poReference
-          this.form.paymentTerms = data.paymentTerms || this.form.paymentTerms
-          this.form.poDate = data.poDate || this.form.poDate
-          this.form.purchaseDate = data.purchaseDate || this.form.purchaseDate
-          this.form.addPayment = data.addPayment || this.form.addPayment
-          this.form.account = data.account || this.form.account
-          this.form.totalPaid = data.totalPaid || this.form.totalPaid
-          this.form.note = data.note || this.form.note
-          this.form.status = data.status !== undefined ? data.status : this.form.status
+          this.form.transportIsTaxable =
+            data.transportIsTaxable !== undefined
+              ? data.transportIsTaxable
+              : true;
+          this.form.orderTax = data.orderTax || this.form.orderTax;
+          this.form.totalProductTax =
+            data.totalProductTax || this.form.totalProductTax;
+          this.form.totalTax = data.totalTax || this.form.totalTax;
+          this.form.discount = data.discount || this.form.discount;
+          this.form.poReference = data.poReference || this.form.poReference;
+          this.form.paymentTerms = data.paymentTerms || this.form.paymentTerms;
+          this.form.poDate = data.poDate || this.form.poDate;
+          this.form.purchaseDate = data.purchaseDate || this.form.purchaseDate;
+          this.form.addPayment = data.addPayment || this.form.addPayment;
+          this.form.account = data.account || this.form.account;
+          this.form.totalPaid = data.totalPaid || this.form.totalPaid;
+          this.form.note = data.note || this.form.note;
+          this.form.status =
+            data.status !== undefined ? data.status : this.form.status;
         } catch (e) {
-          console.error('Error loading temporary data:', e)
+          // Error loading temporary data
         }
       }
     },
     // clear temporary data
     clearTemporaryData() {
-      localStorage.removeItem('purchaseTempData')
+      localStorage.removeItem("purchaseTempData");
     },
 
     // Reset form
@@ -2714,7 +3475,9 @@ export default {
       // Confirm reset action
       Swal.fire({
         title: this.$t("Reset Form"),
-        text: this.$t("Are you sure you want to reset the form? All entered data will be lost."),
+        text: this.$t(
+          "Are you sure you want to reset the form? All entered data will be lost."
+        ),
         type: "warning",
         showCancelButton: true,
         confirmButtonText: this.$t("Yes, Reset"),
@@ -2771,18 +3534,19 @@ export default {
           // Reset account selection - set to default account if available
           if (this.accounts && this.accounts.length > 0) {
             let defaultAccountSlug = this.appInfo.defaultAccountSlug;
-            this.form.account = this.accounts.find(
-              (account) => account.slug == defaultAccountSlug
-            ) || this.accounts[0];
+            this.form.account =
+              this.accounts.find(
+                (account) => account.slug == defaultAccountSlug
+              ) || this.accounts[0];
             this.updateBalance();
           }
 
           // Reset orderTax - set to default VAT rate if available
           if (this.taxes && this.taxes.length > 0) {
             let defaultVatRateSlug = this.appInfo.defaultVatRateSlug;
-            this.form.orderTax = this.taxes.find(
-              (tax) => tax.slug === defaultVatRateSlug
-            ) || this.taxes[0];
+            this.form.orderTax =
+              this.taxes.find((tax) => tax.slug === defaultVatRateSlug) ||
+              this.taxes[0];
             this.updateTax();
           }
 
@@ -2816,8 +3580,16 @@ export default {
         const purchaseOrder = data.data;
 
         // Set supplier
-        if (purchaseOrder.supplier && this.suppliers && this.suppliers.length > 0) {
-          const supplier = this.suppliers.find(s => s.id === purchaseOrder.supplier.id || s.id === purchaseOrder.supplier_id);
+        if (
+          purchaseOrder.supplier &&
+          this.suppliers &&
+          this.suppliers.length > 0
+        ) {
+          const supplier = this.suppliers.find(
+            (s) =>
+              s.id === purchaseOrder.supplier.id ||
+              s.id === purchaseOrder.supplier_id
+          );
           if (supplier) {
             this.form.supplier = supplier;
             this.onSupplierChange();
@@ -2847,12 +3619,19 @@ export default {
         }
 
         // Map purchase order products to form products
-        if (purchaseOrder.purchase_order_products && purchaseOrder.purchase_order_products.length > 0) {
+        if (
+          purchaseOrder.purchase_order_products &&
+          purchaseOrder.purchase_order_products.length > 0
+        ) {
           const selectedProducts = [];
 
           for (const poProduct of purchaseOrder.purchase_order_products) {
             // Find the product in the products list
-            const product = this.products.find(p => p.id === poProduct.product_id || (poProduct.product && p.id === poProduct.product.id));
+            const product = this.products.find(
+              (p) =>
+                p.id === poProduct.product_id ||
+                (poProduct.product && p.id === poProduct.product.id)
+            );
 
             if (product) {
               // Determine the base unit cost for this purchase line.
@@ -2860,27 +3639,48 @@ export default {
               // fall back to stored purchase_price (original purchase price),
               // and finally to the current regular price.
               const quantity = poProduct.quantity || 1;
-              const baseUnitCost = poProduct.unit_cost || poProduct.purchase_price || product.regularPrice || 0;
+              const baseUnitCost =
+                poProduct.unit_cost ||
+                poProduct.purchase_price ||
+                product.regularPrice ||
+                0;
 
               // Find matching VAT rate
               let selectedVatRate = null;
-              if (poProduct.tax_amount && poProduct.tax_amount > 0 && this.taxes && this.taxes.length > 0) {
+              if (
+                poProduct.tax_amount &&
+                poProduct.tax_amount > 0 &&
+                this.taxes &&
+                this.taxes.length > 0
+              ) {
                 // Try to find VAT rate by rate value (calculate from tax_amount)
                 // Use cost price (baseUnitCost) for the line total so that
                 // quantity only affects the total amount, not the stored purchase price.
                 const lineTotal = quantity * baseUnitCost;
                 const discountAmount = poProduct.discount_amount || 0;
                 const totalAfterDiscount = lineTotal - discountAmount;
-                const calculatedVatRate = totalAfterDiscount > 0 ? (poProduct.tax_amount / totalAfterDiscount) * 100 : 0;
+                const calculatedVatRate =
+                  totalAfterDiscount > 0
+                    ? (poProduct.tax_amount / totalAfterDiscount) * 100
+                    : 0;
 
                 // Find matching VAT rate
-                selectedVatRate = this.taxes.find(tax =>
-                  Math.abs(tax.rate - calculatedVatRate) < 0.01 ||
-                  (poProduct.product && poProduct.product.productTax && this.findMatchingVatRate(poProduct.product.productTax))
+                selectedVatRate = this.taxes.find(
+                  (tax) =>
+                    Math.abs(tax.rate - calculatedVatRate) < 0.01 ||
+                    (poProduct.product &&
+                      poProduct.product.productTax &&
+                      this.findMatchingVatRate(poProduct.product.productTax))
                 );
 
-                if (!selectedVatRate && poProduct.product && poProduct.product.productTax) {
-                  selectedVatRate = this.findMatchingVatRate(poProduct.product.productTax);
+                if (
+                  !selectedVatRate &&
+                  poProduct.product &&
+                  poProduct.product.productTax
+                ) {
+                  selectedVatRate = this.findMatchingVatRate(
+                    poProduct.product.productTax
+                  );
                 }
               }
 
@@ -2904,9 +3704,11 @@ export default {
                 unitPrice: baseUnitCost,
                 originalPrice: baseUnitCost,
                 discount: poProduct.discount || 0,
-                discountType: poProduct.discount_type || 'fixed',
+                discountType: poProduct.discount_type || "fixed",
                 discountAmount: discountAmount,
-                selectedVatRate: selectedVatRate || (this.taxes && this.taxes.length > 0 ? this.taxes[0] : null),
+                selectedVatRate:
+                  selectedVatRate ||
+                  (this.taxes && this.taxes.length > 0 ? this.taxes[0] : null),
                 productTax: poProduct.tax_amount || 0,
                 totalTax: poProduct.tax_amount || 0,
                 // unitCost is the cost price actually used for this purchase line.
@@ -2943,7 +3745,6 @@ export default {
 
         this.$store.state.operations.loading = false;
       } catch (error) {
-        console.error('Error loading purchase order data:', error);
         this.$store.state.operations.loading = false;
         toast.fire({
           type: "error",
@@ -2954,7 +3755,7 @@ export default {
     },
   },
   mounted() {
-    this.loadTemporaryData()
+    this.loadTemporaryData();
   },
 };
 </script>
@@ -3068,11 +3869,11 @@ export default {
 }
 
 .btn-primary {
-  background: #2AB930 !important;
+  background: #2ab930 !important;
 }
 
 .btn-primary:hover {
-  background: #229A26 !important;
+  background: #229a26 !important;
   transform: translateY(-1px);
   box-shadow: 0 4px 8px rgba(42, 185, 48, 0.3);
 }
@@ -3086,12 +3887,12 @@ export default {
   margin-top: 30px;
   border-radius: 20px;
   box-shadow: 0px 8px 20px 0px #00000014;
-  border: 1px solid #CED4DA;
+  border: 1px solid #ced4da;
 }
 
 .card-header {
   background-color: white;
-  border-bottom: 1px solid #CED4DA;
+  border-bottom: 1px solid #ced4da;
   padding: 1.25rem 1.25rem 0 1.25rem;
   border-radius: 20px 20px 0 0;
 }
@@ -3102,7 +3903,7 @@ export default {
 
 .card-footer {
   background-color: white;
-  border-top: 1px solid #CED4DA;
+  border-top: 1px solid #ced4da;
   padding: 0 1.25rem 0.625rem 1.25rem;
   border-radius: 0 0 20px 20px;
 }
@@ -3110,7 +3911,7 @@ export default {
 /* Form Control Styling */
 .form-control {
   background: #fff !important;
-  border: 1px solid #E5E7EB;
+  border: 1px solid #e5e7eb;
   padding: 10px 16px;
   font-size: 14px;
 }
@@ -3129,13 +3930,13 @@ export default {
 }
 
 .required {
-  color: #DC3545;
+  color: #dc3545;
   font-weight: bold;
 }
 
 /* Button Styling */
 .btn-primary {
-  background: #2AB930 !important;
+  background: #2ab930 !important;
   color: white !important;
   padding: 10px 20px !important;
 
@@ -3144,7 +3945,7 @@ export default {
 }
 
 .btn-primary:hover {
-  background: #229A26 !important;
+  background: #229a26 !important;
   transform: translateY(-1px);
   box-shadow: 0 4px 8px rgba(42, 185, 48, 0.3);
 }
@@ -3167,7 +3968,7 @@ export default {
 
 /* Invalid Form Control */
 .is-invalid {
-  border-color: #DC3545 !important;
+  border-color: #dc3545 !important;
 }
 
 /* Textarea Styling */
@@ -3179,17 +3980,17 @@ textarea.form-control {
 /* V-Select Styling */
 .v-select {
   background: #fff !important;
-  border: 1px solid #E5E7EB;
+  border: 1px solid #e5e7eb;
 }
 
 .v-select .vs__dropdown-toggle {
   background: #fff !important;
-  border: 1px solid #E5E7EB;
+  border: 1px solid #e5e7eb;
   padding: 10px 16px;
 }
 
 .v-select .vs__search::placeholder {
-  color: #6B7280;
+  color: #6b7280;
 }
 
 .v-select .vs__selected {
@@ -3209,8 +4010,8 @@ textarea.form-control {
 }
 
 .table-custom thead th {
-  background-color: #F8F9FA;
-  border-bottom: 2px solid #E5E7EB;
+  background-color: #f8f9fa;
+  border-bottom: 2px solid #e5e7eb;
   font-weight: 600;
   color: #374151;
   padding: 12px 8px;
@@ -3219,12 +4020,12 @@ textarea.form-control {
 
 .table-custom tbody td {
   padding: 12px 8px;
-  border-bottom: 1px solid #E5E7EB;
+  border-bottom: 1px solid #e5e7eb;
   vertical-align: middle;
 }
 
 .table-custom tbody tr:hover {
-  background-color: #F8F9FA;
+  background-color: #f8f9fa;
 }
 
 /* Toggle Button Styling */
@@ -3280,12 +4081,12 @@ textarea.form-control {
 
 /* Form Text Styling */
 .form-text {
-  color: #6B7280;
+  color: #6b7280;
   font-size: 0.875rem;
 }
 
 .text-muted {
-  color: #6B7280 !important;
+  color: #6b7280 !important;
 }
 
 /* Responsive adjustments */
@@ -3410,8 +4211,8 @@ textarea.form-control {
 
 /* Custom Status Badge Styling */
 .invoices-create-table .badge.badge-danger {
-  background: #FEF4F4 !important;
-  color: #DC3545 !important;
+  background: #fef4f4 !important;
+  color: #dc3545 !important;
   font-size: 12px !important;
   font-weight: 500 !important;
   padding: 10px 16px;
@@ -3424,60 +4225,206 @@ textarea.form-control {
 
 /* Summary Footer Styles */
 .summary-footer-wrapper {
-  margin-top: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
-.summary-footer-row {
-  background-color: #f8f9fa;
-  border-top: 2px solid #dee2e6;
+.summary-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
 }
 
-.summary-footer-row:last-child {
-  border-bottom: 2px solid #dee2e6;
+.summary-header {
+  background: linear-gradient(135deg, #33a0d9 0%, #2a8bc7 100%);
+  padding: 16px 20px;
+  border-bottom: 2px solid #2a8bc7;
+}
+
+.summary-title {
+  margin: 0;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+
+.summary-title i {
+  font-size: 18px;
+}
+
+.summary-body {
+  padding: 16px 20px;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #f3f4f6;
+  transition: background-color 0.2s ease;
+}
+
+.summary-row:last-child {
+  border-bottom: none;
+}
+
+.summary-row:hover {
+  background-color: #f9fafb;
+  margin: 0 -20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 4px;
+}
+
+.summary-row-net {
+  font-weight: 500;
+}
+
+.summary-row-discount {
+  background-color: #fef2f2;
+}
+
+.summary-row-discount:hover {
+  background-color: #fee2e2;
+}
+
+.summary-row-total {
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  border-bottom: none;
+  margin-top: 12px;
+  padding: 16px 20px;
+  border-radius: 8px;
+  font-size: 18px;
+}
+
+.summary-row-total:hover {
+  background: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%);
+  margin: 12px -20px 0;
+  padding: 16px 20px;
 }
 
 .summary-label {
-  padding: 12px 16px;
+  display: flex;
+  align-items: center;
   font-size: 14px;
-  color: #495057;
+  color: #374151;
+  font-weight: 500;
+  flex: 1;
+}
+
+.summary-label i {
+  color: #6b7280;
+  font-size: 14px;
+  width: 20px;
+  text-align: center;
 }
 
 .summary-value {
-  padding: 12px 16px;
   font-size: 14px;
-  color: #212529;
-  text-align: left;
+  color: #111827;
+  font-weight: 600;
+  text-align: right;
+  min-width: 120px;
 }
 
-.grand-total-row {
-  background-color: #e9ecef;
-  border-top: 3px solid #33a0d9;
-}
-
-.grand-total-value {
-  font-size: 16px;
+.summary-total {
+  font-size: 20px;
   color: #33a0d9;
+  font-weight: 700;
 }
 
 /* RTL Support for Summary Footer */
-[dir="rtl"] .summary-label {
-  text-align: left;
+[dir="rtl"] .summary-label i {
+  margin-left: 8px;
+  margin-right: 0;
 }
 
 [dir="rtl"] .summary-value {
-  text-align: right;
+  text-align: left;
 }
 
 /* Responsive Summary Footer */
 @media (max-width: 768px) {
-  .summary-label,
-  .summary-value {
-    padding: 8px 12px;
-    font-size: 12px;
+  .summary-header {
+    padding: 12px 16px;
   }
 
-  .grand-total-value {
+  .summary-title {
     font-size: 14px;
+  }
+
+  .summary-body {
+    padding: 12px 16px;
+  }
+
+  .summary-row {
+    padding: 10px 0;
+    flex-wrap: wrap;
+  }
+
+  .summary-row:hover {
+    margin: 0 -16px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .summary-label {
+    font-size: 13px;
+    margin-bottom: 4px;
+    width: 100%;
+  }
+
+  .summary-value {
+    font-size: 13px;
+    width: 100%;
+    text-align: left;
+    min-width: auto;
+  }
+
+  .summary-row-total {
+    padding: 12px 16px;
+    font-size: 16px;
+  }
+
+  .summary-row-total:hover {
+    margin: 12px -16px 0;
+    padding: 12px 16px;
+  }
+
+  .summary-total {
+    font-size: 18px;
+  }
+
+  [dir="rtl"] .summary-value {
+    text-align: right;
+  }
+}
+
+@media (max-width: 576px) {
+  .summary-card {
+    border-radius: 8px;
+  }
+
+  .summary-header {
+    padding: 10px 12px;
+  }
+
+  .summary-body {
+    padding: 10px 12px;
+  }
+
+  .summary-row-total {
+    padding: 10px 12px;
+  }
+
+  .summary-row-total:hover {
+    margin: 12px -12px 0;
+    padding: 10px 12px;
   }
 }
 
@@ -3551,5 +4498,325 @@ textarea.form-control {
 /* Selected option styling */
 .v-select .vs__dropdown-option--selected .product-option {
   background-color: #e3f2fd;
+}
+
+/* Form Section Styling */
+.form-section {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.form-section:last-of-type {
+  border-bottom: none;
+}
+
+/* Responsive Form Groups */
+.form-group {
+  margin-bottom: 1rem;
+}
+
+/* Responsive Input Groups */
+.input-group {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.input-group .form-control {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* Mobile-friendly buttons */
+@media (max-width: 576px) {
+  .footer-buttons .btn {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-buttons .btn:last-child {
+    margin-bottom: 0;
+  }
+
+  .form-section {
+    padding: 1rem 0;
+  }
+}
+
+/* Tablet adjustments */
+@media (min-width: 577px) and (max-width: 768px) {
+  .form-section {
+    padding: 1.25rem 0;
+  }
+}
+
+/* Ensure proper spacing for form controls on mobile */
+@media (max-width: 768px) {
+  .form-group label {
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  .input-group {
+    flex-direction: column;
+  }
+
+  .input-group .form-control,
+  .input-group select {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* Touch-friendly buttons on mobile */
+@media (max-width: 768px) {
+  .btn {
+    min-height: 44px;
+    padding: 0.75rem 1rem;
+  }
+
+  .btn-sm {
+    min-height: 36px;
+    padding: 0.5rem 0.75rem;
+  }
+}
+
+/* Transport Taxability Card */
+.transport-taxability-card {
+  background: #ffffff;
+  border: 2px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 16px;
+  margin-top: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.transport-taxability-card:hover {
+  border-color: #33a0d9;
+  box-shadow: 0 4px 8px rgba(51, 160, 217, 0.1);
+}
+
+.transport-taxability-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.transport-taxability-header i {
+  font-size: 20px;
+  margin-right: 8px;
+}
+
+.transport-taxability-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.transport-taxability-body {
+  padding-top: 8px;
+}
+
+/* Custom Checkbox Styling */
+.custom-checkbox-wrapper {
+  position: relative;
+  margin-bottom: 12px;
+}
+
+.custom-checkbox-input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.custom-checkbox-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  padding: 8px 0;
+  transition: all 0.2s ease;
+}
+
+.custom-checkbox-label:hover {
+  color: #33a0d9;
+}
+
+.checkbox-indicator {
+  position: relative;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  margin-right: 12px;
+  border: 2px solid #d1d5db;
+  border-radius: 6px;
+  background-color: #ffffff;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.custom-checkbox-input:checked ~ .custom-checkbox-label .checkbox-indicator {
+  background-color: #33a0d9;
+  border-color: #33a0d9;
+}
+
+.custom-checkbox-input:checked
+  ~ .custom-checkbox-label
+  .checkbox-indicator::after {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 3px;
+  width: 6px;
+  height: 12px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.custom-checkbox-input:focus ~ .custom-checkbox-label .checkbox-indicator {
+  box-shadow: 0 0 0 3px rgba(51, 160, 217, 0.1);
+}
+
+.checkbox-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  line-height: 1.5;
+}
+
+.custom-checkbox-input:checked ~ .custom-checkbox-label .checkbox-text {
+  color: #33a0d9;
+  font-weight: 600;
+}
+
+.transport-taxability-description {
+  display: flex;
+  align-items: flex-start;
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  line-height: 1.5;
+  margin-top: 8px;
+  transition: all 0.2s ease;
+}
+
+.transport-taxability-description i {
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.description-taxable {
+  background-color: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+
+.description-taxable i {
+  color: #10b981;
+}
+
+.description-non-taxable {
+  background-color: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fde68a;
+}
+
+.description-non-taxable i {
+  color: #f59e0b;
+}
+
+/* RTL Support for Transport Taxability */
+[dir="rtl"] .transport-taxability-header i {
+  margin-right: 0;
+  margin-left: 8px;
+}
+
+[dir="rtl"] .checkbox-indicator {
+  margin-right: 0;
+  margin-left: 12px;
+}
+
+[dir="rtl"] .transport-taxability-description i {
+  margin-right: 0;
+  margin-left: 8px;
+}
+
+/* Responsive Transport Taxability */
+@media (max-width: 768px) {
+  .transport-taxability-card {
+    padding: 12px;
+    margin-top: 0.5rem;
+  }
+
+  .transport-taxability-header {
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+  }
+
+  .transport-taxability-title {
+    font-size: 13px;
+  }
+
+  .checkbox-indicator {
+    width: 22px;
+    height: 22px;
+  }
+
+  .custom-checkbox-input:checked
+    ~ .custom-checkbox-label
+    .checkbox-indicator::after {
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+  }
+
+  .checkbox-text {
+    font-size: 13px;
+  }
+
+  .transport-taxability-description {
+    font-size: 12px;
+    padding: 8px 10px;
+  }
+}
+
+/* Improve spacing for supplier/product warnings */
+.supplier-warning,
+.product-warning {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background-color: #fff3cd;
+  border: 1px solid #ffeaa7;
+  border-radius: 0.25rem;
+  margin-top: 0.5rem;
+}
+
+.supplier-warning button,
+.product-warning button {
+  white-space: nowrap;
+}
+
+/* Responsive adjustments for warning messages */
+@media (max-width: 576px) {
+  .supplier-warning,
+  .product-warning {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .supplier-warning button,
+  .product-warning button {
+    width: 100%;
+    margin-left: 0 !important;
+  }
 }
 </style>
