@@ -6595,10 +6595,6 @@ class ReportController extends Controller
                 ->whereNotNull('journal_entry_lines.analytical_account_id')
                 ->whereIn('journal_entries.branch_id', $branchIds);
 
-            if ($accountType) {
-                $timeSeriesQuery->where('chart_of_account_types.name', $accountType);
-            }
-
             if ($chartOfAccountId) {
                 $timeSeriesQuery->where('journal_entry_lines.chart_of_account_id', $chartOfAccountId);
             }
