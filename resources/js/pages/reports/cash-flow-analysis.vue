@@ -509,10 +509,18 @@ export default {
           index === self.findIndex(a => a.id === account.id)
         );
 
+        // Use display_name from backend if available, otherwise create one
         this.chartOfAccounts = uniqueAccounts.map(account => ({
           ...account,
-          display_name: `${account.code || ''} - ${account.name || ''}`
+          display_name: account.display_name || `${account.code || ''} - ${account.name || ''}`
         }));
+        
+        // Sort: main accounts first, then children
+        this.chartOfAccounts.sort((a, b) => {
+          if (a.is_main && !b.is_main) return -1;
+          if (!a.is_main && b.is_main) return 1;
+          return (a.code || '').localeCompare(b.code || '');
+        });
       } catch (error) {
         console.error('Error loading cash/bank accounts:', error);
         this.$toast.error('', this.$t('Failed to load cash/bank accounts'));

@@ -71,8 +71,8 @@ class AccountRoutingSetting extends Model
     }
 
     /**
-     * Get all accounts (parent + children) for this setting
-     * Filters to only show accounts at level 4 and below
+     * Get all accounts (main account + all descendants) for this setting
+     * Returns the main account and all its child accounts recursively
      */
     public function getAllAccounts()
     {
@@ -82,64 +82,60 @@ class AccountRoutingSetting extends Model
         // Check for main account first (newer approach)
         if ($this->main_account_id) {
             $mainAccount = ChartOfAccount::forBranch($branchId)
-                ->with(['parent.parent.parent.parent'])
                 ->find($this->main_account_id);
-            if ($mainAccount && $mainAccount->is_active) {
-                // Only include main account if it's at level 4 or below
-                if ($mainAccount->getLevel() <= 4) {
-                    $accounts->push($mainAccount);
-                }
 
-                // Get child accounts and filter by level
-                $childAccounts = ChartOfAccount::forBranch($branchId)
-                    ->where('parent_id', $this->main_account_id)
-                    ->where('is_active', true)
-                    ->with(['parent.parent.parent.parent'])
-                    ->get()
-                    ->filter(function ($account) {
-                        return $account->getLevel() <= 4;
-                    });
-                $accounts = $accounts->merge($childAccounts);
+            if ($mainAccount && $mainAccount->is_active) {
+                // Always include the main account
+                $accounts->push($mainAccount);
+
+                // Get ALL descendants recursively (not just direct children)
+                $allChildren = $mainAccount->getAllChildren();
+                $accounts = $accounts->merge($allChildren);
             }
         }
         // Fallback to parent account (legacy approach)
         elseif ($this->parent_account_id) {
             $parentAccount = ChartOfAccount::forBranch($branchId)
-                ->with(['parent.parent.parent.parent'])
                 ->find($this->parent_account_id);
-            if ($parentAccount && $parentAccount->is_active) {
-                // Only include parent account if it's at level 4 or below
-                if ($parentAccount->getLevel() <= 4) {
-                    $accounts->push($parentAccount);
-                }
 
-                // Get child accounts and filter by level
-                $childAccounts = ChartOfAccount::forBranch($branchId)
-                    ->where('parent_id', $this->parent_account_id)
-                    ->where('is_active', true)
-                    ->with(['parent.parent.parent.parent'])
-                    ->get()
-                    ->filter(function ($account) {
-                        return $account->getLevel() <= 4;
-                    });
-                $accounts = $accounts->merge($childAccounts);
+            if ($parentAccount && $parentAccount->is_active) {
+                // Always include the parent account
+                $accounts->push($parentAccount);
+
+                // Get ALL descendants recursively (not just direct children)
+                $allChildren = $parentAccount->getAllChildren();
+                $accounts = $accounts->merge($allChildren);
             }
         }
 
-        return $accounts;
+        // Filter to only active accounts
+        return $accounts->filter(function ($account) {
+            return $account->is_active;
+        })->unique('id');
     }
 
     /**
      * Get accounts for dropdown selection
+     * Includes main account and all descendants with hierarchy indication
      */
     public function getAccountsForDropdown()
     {
-        return $this->getAllAccounts()->map(function ($account) {
+        $allAccounts = $this->getAllAccounts();
+        $mainAccountId = $this->main_account_id ?? $this->parent_account_id;
+
+        return $allAccounts->map(function ($account) use ($mainAccountId) {
+            $isMainAccount = $account->id == $mainAccountId;
+            $indent = $isMainAccount ? '' : '  '; // Indent child accounts
+
             return [
                 'id' => $account->id,
                 'name' => $account->name,
                 'code' => $account->code,
                 'type' => $account->type ? $account->type->name : 'Unknown',
+                'is_main' => $isMainAccount,
+                'display_name' => $isMainAccount
+                    ? $account->code.' - '.$account->name.' (Main)'
+                    : $indent.$account->code.' - '.$account->name,
             ];
         });
     }
