@@ -129,65 +129,338 @@
                 :amount-in-words="toWord()" table-class="invoices-create-table" @item-change="handleItemChange"
                 @discount-change="calculateProductDiscount" @vat-change="calculateProductVat"
                 @remove-item="removeItem" />
-              <div class="row">
-                <div class="form-group col-md-4">
+
+            <!-- Financial Summary Section -->
+            <div
+              v-if="form.selectedProducts && form.selectedProducts.length > 0"
+              class="summary-footer-wrapper mt-4 mb-4"
+            >
+              <div class="summary-card">
+                <div class="summary-header">
+                  <h6 class="summary-title">
+                    <i class="fas fa-calculator mr-2"></i>
+                    {{ $t("Summary") }}
+                  </h6>
+                </div>
+                <div class="summary-body">
+                  <div class="summary-row">
+                    <span class="summary-label">
+                      <i class="fas fa-boxes mr-2"></i>
+                      {{ $t("Number of Items") }}
+                    </span>
+                    <span class="summary-value">{{ numberOfItems }}</span>
+                  </div>
+                  
+                  <div class="summary-row">
+                    <span class="summary-label">
+                      <i class="fas fa-list-alt mr-2"></i>
+                      {{ $t("Subtotal") }}
+                    </span>
+                    <span class="summary-value">
+                      {{ formatToTwoDecimals(invoiceSubtotal) }}
+                      <span class="saudi-riyal">ê</span>
+                    </span>
+                  </div>
+
+                  <div
+                    v-if="invoiceLevelDiscountTotal > 0"
+                    class="summary-row summary-row-discount"
+                  >
+                    <span class="summary-label">
+                      <i class="fas fa-tag mr-2"></i>
+                      {{ $t("Total Discount") }}
+                    </span>
+                    <span class="summary-value text-danger">
+                      -{{ formatToTwoDecimals(invoiceLevelDiscountTotal) }}
+                      <span class="saudi-riyal">ê</span>
+                    </span>
+                  </div>
+
+                  <div
+                    v-if="shippingCostTotal > 0"
+                    class="summary-row"
+                  >
+                    <span class="summary-label">
+                      <i class="fas fa-truck mr-2"></i>
+                      {{ $t("Total Shipping Cost") }}
+                    </span>
+                    <span class="summary-value">
+                      {{ formatToTwoDecimals(shippingCostTotal) }}
+                      <span class="saudi-riyal">ê</span>
+                    </span>
+                  </div>
+
+                  <div class="summary-row summary-row-net">
+                    <span class="summary-label">
+                      <i class="fas fa-coins mr-2"></i>
+                      {{ $t("Net Amount") }}
+                    </span>
+                    <span class="summary-value">
+                      {{ formatToTwoDecimals(netAmountBeforeVAT) }}
+                      <span class="saudi-riyal">ê</span>
+                    </span>
+                  </div>
+
+                  <div class="summary-row">
+                    <span class="summary-label">
+                      <i class="fas fa-percentage mr-2"></i>
+                      {{ $t("VAT") }}
+                    </span>
+                    <span class="summary-value">
+                      {{ formatToTwoDecimals(vatAmount) }}
+                      <span class="saudi-riyal">ê</span>
+                    </span>
+                  </div>
+
+                  <div class="summary-row summary-row-total">
+                    <span class="summary-label">
+                      <i class="fas fa-money-bill-wave mr-2"></i>
+                      <strong>{{ $t("Grand Total") }}</strong>
+                    </span>
+                    <span class="summary-value summary-total">
+                      <strong>
+                        {{ formatToTwoDecimals(grandTotal) }}
+                        <span class="saudi-riyal">ê</span>
+                      </strong>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Financial Details Section -->
+            <div
+              v-if="form.selectedProducts && form.selectedProducts.length > 0"
+            >
+              <!-- Tax Fields (Non-Saudi Arabia) -->
+              <div class="row mb-3" v-if="taxes && !isSaudiArabia">
+                <div class="form-group col-12 col-sm-6 col-md-4">
+                  <label for="orderTax"
+                    >{{ $t("Purchase Tax") }}
+                    <span class="required">*</span></label
+                  >
+                  <v-select
+                    v-model="form.orderTax"
+                    :options="taxes"
+                    label="code"
+                    :class="{ 'is-invalid': form.errors.has('orderTax') }"
+                    name="orderTax"
+                    :placeholder="$t('Select a tax type')"
+                    @input="updateTax"
+                  />
+                  <has-error :form="form" field="orderTax" />
+                </div>
+                <div class="form-group col-12 col-sm-6 col-md-4">
+                  <label for="totalTax">{{ $t("Total Tax") }}</label>
+                  <input
+                    id="totalTax"
+                    v-model="form.totalTax"
+                    type="text"
+                    class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('totalTax') }"
+                    name="totalTax"
+                    readonly
+                  />
+                  <has-error :form="form" field="totalTax" />
+                </div>
+              </div>
+
+              <!-- Discount Section -->
+              <div class="row mb-3">
+                <div class="form-group col-12 col-md-6">
+                  <label for="discount_type">{{ $t("Discount Type") }}</label>
+                  <div class="input-group">
+                    <select
+                      id="discount_type"
+                      v-model="form.discount_type"
+                      class="form-control"
+                      :class="{
+                        'is-invalid': form.errors.has('discount_type'),
+                      }"
+                      name="discount_type"
+                      @change="
+                        calculateSum();
+                        clearFieldError('discount_type');
+                      "
+                    >
+                      <option value="percentage">{{ $t("%") }}</option>
+                      <option value="fixed">{{ $t("Fixed") }}</option>
+                    </select>
+                    <input
+                      id="discount_value"
+                      v-model="form.discount_value"
+                      type="number"
+                      step="any"
+                      min="0"
+                      :max="
+                        form.discount_type === 'percentage'
+                          ? 100
+                          : form.netTotal
+                      "
+                      class="form-control"
+                      :class="{
+                        'is-invalid': form.errors.has('discount_value'),
+                      }"
+                      name="discount_value"
+                      placeholder="0"
+                      @change="calculateSum"
+                      @keyup="calculateSum"
+                      @input="clearFieldError('discount_value')"
+                    />
+                  </div>
+                  <div
+                    v-if="
+                      form.errors.has('discount_type') ||
+                      form.errors.has('discount_value')
+                    "
+                    class="invalid-feedback d-block"
+                  >
+                    <span
+                      v-if="form.errors.has('discount_type')"
+                      class="d-block"
+                      >{{ form.errors.get("discount_type") }}</span
+                    >
+                    <span
+                      v-if="form.errors.has('discount_value')"
+                      class="d-block"
+                      >{{ form.errors.get("discount_value") }}</span
+                    >
+                  </div>
+                </div>
+                <div class="form-group col-12 col-md-6">
+                  <label for="total_amount">{{ $t("Amount") }}</label>
+                  <input
+                    id="total_amount"
+                    :value="grandTotal"
+                    type="number"
+                    step="any"
+                    class="form-control"
+                    name="total_amount"
+                    readonly
+                  />
+                </div>
+              </div>
+
+              <!-- Transport Cost Fields -->
+              <div class="row mb-3">
+                <!-- Transport Cost Fields - Show based on supplier tax status -->
+                <div
+                  v-if="isSupplierTaxable"
+                  class="form-group col-12 col-sm-6 col-md-4"
+                >
+                  <label for="transportTaxableCost">{{
+                    $t("Taxable Transport Cost")
+                  }}</label>
+                  <input
+                    id="transportTaxableCost"
+                    v-model="form.transportTaxableCost"
+                    type="number"
+                    step="any"
+                    min="0"
+                    class="form-control"
+                    :class="{
+                      'is-invalid': form.errors.has('transportTaxableCost'),
+                    }"
+                    name="transportTaxableCost"
+                    :placeholder="$t('Enter transport cost')"
+                    @change="calculateSum"
+                    @keyup="calculateSum"
+                  />
+                  <has-error :form="form" field="transportTaxableCost" />
+                </div>
+                <div
+                  v-if="isSupplierTaxable"
+                  class="form-group col-12 col-sm-6 col-md-4"
+                >
+                  <label for="transportVatAmount">{{
+                    $t("Transport VAT Amount")
+                  }}</label>
+                  <input
+                    id="transportVatAmount"
+                    v-model="form.transportVatAmount"
+                    type="number"
+                    step="any"
+                    class="form-control"
+                    name="transportVatAmount"
+                    readonly
+                  />
+                </div>
+                <div v-else class="form-group col-12 col-sm-6 col-md-4">
+                  <label for="transportCost">{{ $t("Transport Cost") }}</label>
+                  <input
+                    id="transportCost"
+                    v-model="form.transportCost"
+                    type="number"
+                    step="any"
+                    min="0"
+                    class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('transportCost') }"
+                    name="transportCost"
+                    :placeholder="$t('Enter transport cost')"
+                    @change="calculateSum"
+                    @keyup="calculateSum"
+                  />
+                  <has-error :form="form" field="transportCost" />
+                </div>
+                <!-- Transport Taxability Control -->
+                <div
+                  v-if="shippingCostTotal > 0"
+                  class="form-group col-12 col-sm-6 col-md-4"
+                >
+                  <div class="transport-taxability-card">
+                    <div class="transport-taxability-header">
+                      <i
+                        class="fas"
+                        :class="
+                          form.transportIsTaxable
+                            ? 'fa-check-circle text-success'
+                            : 'fa-times-circle text-secondary'
+                        "
+                      ></i>
+                      <span class="transport-taxability-title">
+                        {{ $t("Transport Taxability") }}
+                      </span>
+                    </div>
+                    <div class="transport-taxability-body">
+                      <div class="custom-checkbox-wrapper">
+                        <input
+                          id="transportIsTaxable"
+                          v-model="form.transportIsTaxable"
+                          type="checkbox"
+                          class="custom-checkbox-input"
+                          @change="calculateSum"
+                        />
+                        <label
+                          class="custom-checkbox-label"
+                          for="transportIsTaxable"
+                        >
+                          <span class="checkbox-indicator"></span>
+                          <span class="checkbox-text">
+                            {{
+                              form.transportIsTaxable
+                                ? $t("Transport is Taxable")
+                                : $t("Transport is Non-Taxable")
+                            }}
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+              
+              <!-- Purchase Order Specific Fields (Hidden in data but included in save) -->
+              <div class="row" style="display: none;">
+                <div class="form-group col-md-6">
                   <label for="poReference">{{
                     $t("PO Reference")
                   }}</label>
-                  <input id="poReference" v-model="form.poReference" type="text" step="any" class="form-control"
+                  <input id="poReference" v-model="form.poReference" type="text" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('poReference') }" name="poReference" :placeholder="$t('Enter PO reference')
                       " />
                   <has-error :form="form" field="poReference" />
                 </div>
-
-                <div v-if="taxes && !isSaudiArabia" class="form-group col-md-4">
-                  <label for="orderTax">{{ $t("Purchase Tax") }}
-                    <span class="required">*</span></label>
-                  <!-- Debug: isSaudiArabia = {{ isSaudiArabia }}, taxes = {{ taxes ? 'exists' : 'null' }} -->
-                  <v-select v-model="form.orderTax" :options="taxes" label="code" :clearable="false"
-                    :class="{ 'is-invalid': form.errors.has('orderTax') }" name="orderTax" :placeholder="$t('Select a tax type')
-                      " @input="updateTax" />
-                  <has-error :form="form" field="orderTax" />
-                </div>
-
-                <div class="form-group col-md-4" style="display: none;">
-                  <label for="netTotal">{{ $t("Net Total") }}</label>
-                  <input id="netTotal" v-model="form.netTotal" type="number" step="any" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('netTotal') }" name="netTotal" readonly />
-                  <has-error :form="form" field="netTotal" />
-                </div>
-
-                <div v-if="taxes && !isSaudiArabia" class="form-group col-md-4">
-                  <label for="totalTax">{{
-                    $t("Total Tax")
-                  }}</label>
-                  <input id="totalTax" v-model="form.totalTax" type="text" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('totalTax') }" name="totalTax" readonly />
-                  <has-error :form="form" field="totalTax" />
-                </div>
-
-                <div class="form-group col-md-6 col-xl-3" v-if="!isSaudiArabia">
-                  <label for="discount">{{
-                    $t("Discount")
-                  }}</label>
-                  <!-- Debug: isSaudiArabia = {{ isSaudiArabia }} -->
-                  <input id="discount" v-model="form.discount" type="number" step="any" min="1" :max="form.subTotal"
-                    class="form-control" :class="{ 'is-invalid': form.errors.has('discount') }" name="discount"
-                    :placeholder="$t('Enter discount')
-                      " @change="calculateSum" @keyup="calculateSum" />
-                  <has-error :form="form" field="discount" />
-                </div>
-                <div class="form-group col-md-4">
-                  <label for="transportCost">{{
-                    $t("Transport Cost")
-                  }}</label>
-                  <input id="transportCost" v-model="form.transportCost" type="number" step="any" min="0"
-                    class="form-control" :class="{ 'is-invalid': form.errors.has('transportCost') }"
-                    name="transportCost" :placeholder="$t('Enter transport cost')
-                      " @change="calculateSum" @keyup="calculateSum" />
-                  <has-error :form="form" field="transportCost" />
-                </div>
-
                 <div class="form-group col-md-6">
                   <label for="paymentTerms">{{
                     $t("Payment Terms")
@@ -197,10 +470,6 @@
                       " />
                   <has-error :form="form" field="paymentTerms" />
                 </div>
-              </div>
-              <div v-if="form.selectedProducts && form.selectedProducts.length > 0" class="row">
-
-
               </div>
               <div class="form-group">
                 <label for="note">{{ $t("Note") }}</label>
@@ -330,7 +599,12 @@ export default {
       subTotal: 0,
       netTotal: 0,
       discount: "",
+      discount_type: "percentage", // "percentage" or "fixed"
+      discount_value: 0,
       transportCost: "",
+      transportTaxableCost: "",
+      transportVatAmount: 0,
+      transportIsTaxable: true, // Default to true to maintain existing behavior (transport is taxable)
       totalProductTax: 0,
       orderTax: "",
       totalTax: 0,
@@ -384,12 +658,211 @@ export default {
     },
     // Check if the country is Saudi Arabia
     isSaudiArabia() {
-      console.log('=== isSaudiArabia Debug ===');
-      console.log('appInfo:', this.appInfo);
-      console.log('appInfo.country:', this.appInfo ? this.appInfo.country : 'appInfo is null/undefined');
-      console.log('Country comparison result:', this.appInfo && this.appInfo.country === 'SA');
-      console.log('========================');
-      return this.appInfo && this.appInfo.country === 'SA'
+      return this.appInfo && this.appInfo.country === 'SA';
+    },
+    // Check if supplier is taxable (has tax_status === 'taxable' and tax_registration_number)
+    isSupplierTaxable() {
+      if (!this.form.supplier) {
+        return false;
+      }
+
+      // Support both camelCase and snake_case
+      const taxStatus =
+        this.form.supplier.tax_status || this.form.supplier.taxStatus;
+      const taxRegNumber =
+        this.form.supplier.tax_registration_number ||
+        this.form.supplier.taxRegistrationNumber ||
+        this.form.supplier.tax_registrationNumber;
+
+      const isTaxable =
+        taxStatus === "taxable" && taxRegNumber && taxRegNumber.length > 0;
+
+      return isTaxable;
+    },
+    // Calculate number of items
+    numberOfItems() {
+      if (
+        !this.form.selectedProducts ||
+        this.form.selectedProducts.length === 0
+      ) {
+        return 0;
+      }
+      return this.form.selectedProducts.length;
+    },
+    // Invoice Subtotal: Sum of all item subtotals before discount (qty × unit_price)
+    invoiceSubtotal() {
+      if (
+        !this.form.selectedProducts ||
+        this.form.selectedProducts.length === 0
+      ) {
+        return 0;
+      }
+      return this.roundToTwoDecimals(
+        this.form.selectedProducts.reduce((total, item) => {
+          const unitPriceNumber =
+            Number(item.originalPrice || item.unitPrice) || 0;
+          const qtyNumber = Number(item.qty) || 0;
+          return total + unitPriceNumber * qtyNumber;
+        }, 0)
+      );
+    },
+    // Invoice-Level Discount Total: Total discount applied at invoice level and distributed across items
+    invoiceLevelDiscountTotal() {
+      if (
+        !this.form.selectedProducts ||
+        this.form.selectedProducts.length === 0
+      ) {
+        return 0;
+      }
+
+      const subtotal = this.invoiceSubtotal;
+      if (
+        subtotal <= 0 ||
+        !this.form.discount_value ||
+        this.form.discount_value <= 0
+      ) {
+        return 0;
+      }
+
+      let discountAmount = 0;
+      if (this.form.discount_type === "percentage") {
+        discountAmount = this.roundToTwoDecimals(
+          (subtotal * this.form.discount_value) / 100
+        );
+      } else {
+        discountAmount = this.roundToTwoDecimals(
+          Number(this.form.discount_value)
+        );
+      }
+
+      // Ensure discount doesn't exceed the subtotal
+      return discountAmount > subtotal
+        ? this.roundToTwoDecimals(subtotal)
+        : discountAmount;
+    },
+    // Shipping Cost Total: Total shipping cost (regardless of taxability)
+    shippingCostTotal() {
+      if (
+        !this.form.selectedProducts ||
+        this.form.selectedProducts.length === 0
+      ) {
+        return 0;
+      }
+      const transportCost = this.isSupplierTaxable
+        ? Number(this.form.transportTaxableCost || 0)
+        : Number(this.form.transportCost || 0);
+      return this.roundToTwoDecimals(transportCost);
+    },
+    // Net Amount Before VAT: Calculated based on transport taxability
+    netAmountBeforeVAT() {
+      const subtotal = this.invoiceSubtotal;
+      const invoiceDiscount = this.invoiceLevelDiscountTotal;
+      const shipping = this.shippingCostTotal;
+
+      if (this.form.transportIsTaxable) {
+        return this.roundToTwoDecimals(subtotal - invoiceDiscount + shipping);
+      } else {
+        if (
+          !this.form.selectedProducts ||
+          this.form.selectedProducts.length === 0
+        ) {
+          return 0;
+        }
+        const sumOfItemNetTotals = this.form.selectedProducts.reduce(
+          (total, item) => {
+            const itemNetTotal = item.netTotal || item.totalAfterDiscount || 0;
+            return total + itemNetTotal;
+          },
+          0
+        );
+        return this.roundToTwoDecimals(sumOfItemNetTotals);
+      }
+    },
+    // VAT Amount: Calculated based on transport taxability
+    vatAmount() {
+      if (
+        !this.form.selectedProducts ||
+        this.form.selectedProducts.length === 0
+      ) {
+        return 0;
+      }
+
+      if (!this.form.transportIsTaxable) {
+        const itemVatSum = this.form.selectedProducts.reduce((total, item) => {
+          return total + (item.totalTax || 0);
+        }, 0);
+        return this.roundToTwoDecimals(itemVatSum);
+      }
+
+      const netAmount = this.netAmountBeforeVAT;
+      if (netAmount <= 0) {
+        return 0;
+      }
+
+      let totalNetAmountForWeighting = 0;
+      let weightedVatRateSum = 0;
+
+      this.form.selectedProducts.forEach((item) => {
+        const itemNetAmount = item.netTotal || 0;
+
+        if (itemNetAmount > 0) {
+          let vatRate = 0;
+          if (
+            item.selectedVatRate &&
+            item.selectedVatRate.rate !== undefined &&
+            item.selectedVatRate.rate !== null
+          ) {
+            vatRate = Number(item.selectedVatRate.rate);
+          } else if (item.taxRate !== undefined && item.taxRate !== null) {
+            vatRate = Number(item.taxRate);
+          }
+
+          if (!isNaN(vatRate) && vatRate >= 0) {
+            totalNetAmountForWeighting += itemNetAmount;
+            weightedVatRateSum += itemNetAmount * (vatRate / 100);
+          }
+        }
+      });
+
+      if (totalNetAmountForWeighting <= 0) {
+        return 0;
+      }
+
+      const weightedAverageVatRate =
+        (weightedVatRateSum / totalNetAmountForWeighting) * 100;
+
+      const vat = this.roundToTwoDecimals(
+        netAmount * (weightedAverageVatRate / 100)
+      );
+
+      return vat;
+    },
+    // Grand Total: Calculated based on transport taxability
+    grandTotal() {
+      const shipping = this.shippingCostTotal;
+
+      if (this.form.transportIsTaxable) {
+        const netAmount = this.netAmountBeforeVAT;
+        const vat = this.vatAmount;
+        return this.roundToTwoDecimals(netAmount + vat);
+      } else {
+        if (
+          !this.form.selectedProducts ||
+          this.form.selectedProducts.length === 0
+        ) {
+          return this.roundToTwoDecimals(shipping);
+        }
+
+        const sumOfItemTotals = this.form.selectedProducts.reduce(
+          (total, item) => {
+            const itemTotal = item.totalPrice || 0;
+            return total + itemTotal;
+          },
+          0
+        );
+
+        return this.roundToTwoDecimals(sumOfItemTotals + shipping);
+      }
     },
   },
   watch: {
@@ -446,6 +919,30 @@ export default {
     this.loadTemporaryData()
   },
   methods: {
+    // Format number to display with exactly 2 decimal places
+    formatToTwoDecimals(value) {
+      if (value === null || value === undefined || value === "") {
+        return "0.00";
+      }
+      const numValue = Number(value);
+      if (isNaN(numValue)) {
+        return "0.00";
+      }
+      return numValue.toFixed(2);
+    },
+
+    // Helper method to round to 2 decimal places (for calculations)
+    roundToTwoDecimals(value) {
+      return Math.round((value + Number.EPSILON) * 100) / 100;
+    },
+
+    // Clear field error helper
+    clearFieldError(field) {
+      if (this.form.errors && this.form.errors.has(field)) {
+        this.form.errors.clear(field);
+      }
+    },
+
     // Load communication configuration status
     async loadCommunicationConfigStatus() {
       try {
@@ -575,15 +1072,6 @@ export default {
       );
       let quantity = 1;
       if (index === -1) {
-        // Prefer avgPurchasePrice from API payload; fallback to sellingPrice then regularPrice then 1
-        let purchasePrice = 1;
-        if (product && Number(product.avgPurchasePrice) > 0) {
-          purchasePrice = Number(product.avgPurchasePrice);
-        } else if (product && Number(product.sellingPrice) > 0) {
-          purchasePrice = Number(product.sellingPrice);
-        } else if (product && Number(product.regularPrice) > 0) {
-          purchasePrice = Number(product.regularPrice);
-        }
         // store product
         this.form.selectedProducts.unshift({
           id: product.id,
