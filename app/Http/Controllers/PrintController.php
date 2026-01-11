@@ -185,7 +185,7 @@ class PrintController extends Controller
                 return view('print.voucher-basic', compact('voucher'));
             }
 
-            $template = new PrintTemplate();
+            $template = new PrintTemplate;
             $template->template_config = $this->getTemplateConfig('invoice');
         }
 
@@ -211,7 +211,7 @@ class PrintController extends Controller
             if (view()->exists('print.voucher-basic')) {
                 $html = view('print.voucher-basic', compact('voucher'))->render();
             } else {
-                $template = new PrintTemplate();
+                $template = new PrintTemplate;
                 $template->template_config = $this->getTemplateConfig('invoice');
                 $html = view('print.voucher', compact('voucher', 'template'))->render();
             }
@@ -273,7 +273,7 @@ class PrintController extends Controller
 
         try {
             // Get report data from the API
-            $reportController = new \App\Http\Controllers\API\ReportController();
+            $reportController = new \App\Http\Controllers\API\ReportController;
             $reportResponse = $reportController->balanceSheet($request);
 
             // Handle JsonResponse
@@ -342,7 +342,7 @@ class PrintController extends Controller
         \App::setLocale($locale);
 
         // Get report data from the API
-        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportController = new \App\Http\Controllers\API\ReportController;
         $reportResponse = $reportController->balanceSheet($request);
 
         // Handle JsonResponse
@@ -399,7 +399,7 @@ class PrintController extends Controller
         \App::setLocale($locale);
 
         // Get report data from the API
-        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportController = new \App\Http\Controllers\API\ReportController;
         $reportResponse = $reportController->balanceSheet($request);
 
         // Handle JsonResponse
@@ -462,7 +462,7 @@ class PrintController extends Controller
 
         try {
             // Use the dedicated print method that gets ALL data without pagination
-            $reportController = new \App\Http\Controllers\API\ReportController();
+            $reportController = new \App\Http\Controllers\API\ReportController;
             $reportResponse = $reportController->trialBalanceForPrint($request);
 
             // Handle JsonResponse
@@ -531,7 +531,7 @@ class PrintController extends Controller
         \App::setLocale($locale);
 
         // Get report data from the API
-        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportController = new \App\Http\Controllers\API\ReportController;
         $reportResponse = $reportController->trialBalanceForPrint($request);
 
         // Handle JsonResponse
@@ -588,7 +588,7 @@ class PrintController extends Controller
         \App::setLocale($locale);
 
         // Get report data from the API
-        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportController = new \App\Http\Controllers\API\ReportController;
         $reportResponse = $reportController->trialBalanceForPrint($request);
 
         // Handle JsonResponse
@@ -651,7 +651,7 @@ class PrintController extends Controller
 
         try {
             // Get report data from the API
-            $reportController = new \App\Http\Controllers\API\ReportController();
+            $reportController = new \App\Http\Controllers\API\ReportController;
             $reportResponse = $reportController->profitLossReport($request);
 
             // Handle JsonResponse
@@ -736,7 +736,7 @@ class PrintController extends Controller
         \App::setLocale($locale);
 
         // Get report data from the API
-        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportController = new \App\Http\Controllers\API\ReportController;
         $reportResponse = $reportController->profitLossReport($request);
 
         // Handle JsonResponse
@@ -805,7 +805,7 @@ class PrintController extends Controller
         \App::setLocale($locale);
 
         // Get report data from the API
-        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportController = new \App\Http\Controllers\API\ReportController;
         $reportResponse = $reportController->profitLossReport($request);
 
         // Handle JsonResponse
@@ -875,7 +875,7 @@ class PrintController extends Controller
         \App::setLocale($locale);
 
         // Use the dedicated print method that gets ALL data without pagination
-        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportController = new \App\Http\Controllers\API\ReportController;
         $reportResponse = $reportController->accountStatementForPrint($request);
 
         // Handle JsonResponse
@@ -916,7 +916,7 @@ class PrintController extends Controller
         \App::setLocale($locale);
 
         // Use the dedicated print method that gets ALL data without pagination
-        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportController = new \App\Http\Controllers\API\ReportController;
         $reportResponse = $reportController->accountStatementForPrint($request);
 
         // Handle JsonResponse
@@ -972,7 +972,7 @@ class PrintController extends Controller
         \App::setLocale($locale);
 
         // Use the dedicated print method that gets ALL data without pagination
-        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportController = new \App\Http\Controllers\API\ReportController;
         $reportResponse = $reportController->accountStatementForPrint($request);
 
         // Handle JsonResponse
@@ -1003,11 +1003,175 @@ class PrintController extends Controller
 
         $locale = \Auth::user()->locale ?? 'ar';
         \App::setLocale($locale);
+
         // Use Utility::buildPdf to generate PDF
         // Pass headerFooter as false since header/footer are empty to prevent repetition
         return \App\Models\Utility::buildPdf([
             'view' => $template ? 'print.reports.account-statement' : 'print.account-statement-basic',
             'view_data' => compact('accountStatementData', 'template', 'locale', 'logoBase64'),
+            'type' => 'download',
+            'file_name' => $filename,
+            'header' => '',
+            'footer' => '',
+            'header_spacing' => '2',
+
+            'margins' => [
+                'top' => '10mm',
+                'bottom' => '10mm',
+            ],
+        ], 'landscape', false);
+    }
+
+    /**
+     * Print analytical account statement report using selected template
+     */
+    public function printAnalyticalAccountStatement(Request $request)
+    {
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+
+        // Set locale for translations
+        $locale = $user?->locale ?? app()->getLocale();
+        \App::setLocale($locale);
+
+        // Use the dedicated print method that gets ALL data without pagination
+        $reportController = new \App\Http\Controllers\API\ReportController;
+        $reportResponse = $reportController->analyticalAccountStatementForPrint($request);
+
+        // Handle JsonResponse
+        if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
+            $reportData = $reportResponse->getData(true);
+        } else {
+            $reportData = $reportResponse;
+        }
+
+        if (! $reportData['success']) {
+            abort(404, 'Report data not found');
+        }
+
+        $analyticalAccountStatementData = $reportData['data'];
+
+        Log::info('Print Analytical Account Statement - Total entries: '.count($analyticalAccountStatementData['entries']));
+
+        // Get the default template for reports
+        $template = PrintTemplate::byModule('reports')->default()->first();
+
+        if (! $template) {
+            // Fallback to basic template if no print template is set
+            return view('print.analytical-account-statement-basic', compact('analyticalAccountStatementData'));
+        }
+
+        return view('print.reports.analytical-account-statement', compact('analyticalAccountStatementData', 'template'));
+    }
+
+    /**
+     * Preview Analytical Account Statement PDF
+     */
+    public function previewAnalyticalAccountStatementPDF(Request $request)
+    {
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+
+        $locale = $user?->locale ?? 'ar';
+        \App::setLocale($locale);
+
+        // Use the dedicated print method that gets ALL data without pagination
+        $reportController = new \App\Http\Controllers\API\ReportController;
+        $reportResponse = $reportController->analyticalAccountStatementForPrint($request);
+
+        // Handle JsonResponse
+        if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
+            $reportData = $reportResponse->getData(true);
+        } else {
+            $reportData = $reportResponse;
+        }
+
+        if (! $reportData['success']) {
+            abort(404, 'Report data not found');
+        }
+
+        $analyticalAccountStatementData = $reportData['data'];
+
+        // Get the default template for reports
+        $template = PrintTemplate::byModule('reports')->default()->first();
+
+        // Convert logo to base64 for PDF compatibility
+        $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
+
+        // Generate filename
+        $accountName = $analyticalAccountStatementData['analytical_account']['name'] ?? 'Analytical Account';
+        $fromDate = $analyticalAccountStatementData['filters']['from_date'] ?? '';
+        $toDate = $analyticalAccountStatementData['filters']['to_date'] ?? '';
+        $filename = 'Analytical-Account-Statement-'.str_replace(' ', '-', $accountName).'-'.$fromDate.'-to-'.$toDate.'.pdf';
+        $filename = preg_replace('/[^a-zA-Z0-9\-_\.]/', '', $filename);
+
+        // Use Utility::buildPdf to generate PDF
+        // Pass headerFooter as false since header/footer are empty to prevent repetition
+        return \App\Models\Utility::buildPdf([
+            'view' => $template ? 'print.reports.analytical-account-statement' : 'print.analytical-account-statement-basic',
+            'view_data' => compact('analyticalAccountStatementData', 'template', 'logoBase64', 'locale'),
+            'type' => 'preview',
+            'file_name' => $filename,
+            'header' => '',
+            'footer' => '',
+            'header_spacing' => '2',
+            'margins' => [
+                'top' => '10mm',
+                'bottom' => '10mm',
+            ],
+        ], 'landscape', false);
+    }
+
+    /**
+     * Download Analytical Account Statement PDF
+     */
+    public function downloadAnalyticalAccountStatementPDF(Request $request)
+    {
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+
+        // Set locale for translations
+        $locale = $user?->locale ?? 'ar';
+        \App::setLocale($locale);
+
+        // Use the dedicated print method that gets ALL data without pagination
+        $reportController = new \App\Http\Controllers\API\ReportController;
+        $reportResponse = $reportController->analyticalAccountStatementForPrint($request);
+
+        // Handle JsonResponse
+        if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
+            $reportData = $reportResponse->getData(true);
+        } else {
+            $reportData = $reportResponse;
+        }
+
+        if (! $reportData['success']) {
+            abort(404, 'Report data not found');
+        }
+
+        $analyticalAccountStatementData = $reportData['data'];
+
+        // Get the default template for reports
+        $template = PrintTemplate::byModule('reports')->default()->first();
+
+        // Convert logo to base64 for PDF compatibility
+        $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
+
+        // Generate filename
+        $accountName = $analyticalAccountStatementData['analytical_account']['name'] ?? 'Analytical Account';
+        $fromDate = $analyticalAccountStatementData['filters']['from_date'] ?? '';
+        $toDate = $analyticalAccountStatementData['filters']['to_date'] ?? '';
+        $filename = 'Analytical-Account-Statement-'.str_replace(' ', '-', $accountName).'-'.$fromDate.'-to-'.$toDate.'.pdf';
+        $filename = preg_replace('/[^a-zA-Z0-9\-_\.]/', '', $filename);
+
+        $locale = \Auth::user()->locale ?? 'ar';
+        \App::setLocale($locale);
+
+        // Use Utility::buildPdf to generate PDF
+        // Pass headerFooter as false since header/footer are empty to prevent repetition
+        return \App\Models\Utility::buildPdf([
+            'view' => $template ? 'print.reports.analytical-account-statement' : 'print.analytical-account-statement-basic',
+            'view_data' => compact('analyticalAccountStatementData', 'template', 'locale', 'logoBase64'),
             'type' => 'download',
             'file_name' => $filename,
             'header' => '',
@@ -2036,7 +2200,7 @@ class PrintController extends Controller
         \App::setLocale($locale);
 
         // Get today's report data
-        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportController = new \App\Http\Controllers\API\ReportController;
         $reportData = $reportController->todayReport($request);
 
         if ($reportData instanceof \Illuminate\Http\JsonResponse) {
@@ -2068,7 +2232,7 @@ class PrintController extends Controller
         \App::setLocale($locale);
 
         // Get today's report data
-        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportController = new \App\Http\Controllers\API\ReportController;
         $reportData = $reportController->todayReport($request);
 
         if ($reportData instanceof \Illuminate\Http\JsonResponse) {
@@ -2113,7 +2277,7 @@ class PrintController extends Controller
         \App::setLocale($locale);
 
         // Get today's report data
-        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportController = new \App\Http\Controllers\API\ReportController;
         $reportData = $reportController->todayReport($request);
 
         if ($reportData instanceof \Illuminate\Http\JsonResponse) {
@@ -2164,7 +2328,7 @@ class PrintController extends Controller
 
         try {
             // Use the dedicated print method that gets ALL data without pagination
-            $reportController = new \App\Http\Controllers\API\ReportController();
+            $reportController = new \App\Http\Controllers\API\ReportController;
             $reportResponse = $reportController->invoiceSummaryForPrint($request);
 
             // Handle JsonResponse
@@ -2233,7 +2397,7 @@ class PrintController extends Controller
         \App::setLocale($locale);
 
         // Use the dedicated print method that gets ALL data without pagination
-        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportController = new \App\Http\Controllers\API\ReportController;
         $reportResponse = $reportController->invoiceSummaryForPrint($request);
 
         // Handle JsonResponse
@@ -2290,7 +2454,7 @@ class PrintController extends Controller
         \App::setLocale($locale);
 
         // Use the dedicated print method that gets ALL data without pagination
-        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportController = new \App\Http\Controllers\API\ReportController;
         $reportResponse = $reportController->invoiceSummaryForPrint($request);
 
         // Handle JsonResponse
@@ -2353,7 +2517,7 @@ class PrintController extends Controller
 
         try {
             // Use the dedicated print method that gets ALL data without pagination
-            $reportController = new \App\Http\Controllers\API\ReportController();
+            $reportController = new \App\Http\Controllers\API\ReportController;
             $reportResponse = $reportController->purchaseSummaryForPrint($request);
 
             // Handle JsonResponse
@@ -2422,7 +2586,7 @@ class PrintController extends Controller
         \App::setLocale($locale);
 
         // Use the dedicated print method that gets ALL data without pagination
-        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportController = new \App\Http\Controllers\API\ReportController;
         $reportResponse = $reportController->purchaseSummaryForPrint($request);
 
         // Handle JsonResponse
@@ -2479,7 +2643,7 @@ class PrintController extends Controller
         \App::setLocale($locale);
 
         // Use the dedicated print method that gets ALL data without pagination
-        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportController = new \App\Http\Controllers\API\ReportController;
         $reportResponse = $reportController->purchaseSummaryForPrint($request);
 
         // Handle JsonResponse
@@ -2542,7 +2706,7 @@ class PrintController extends Controller
 
         try {
             // Use the dedicated print method that gets ALL data without pagination
-            $reportController = new \App\Http\Controllers\API\ReportController();
+            $reportController = new \App\Http\Controllers\API\ReportController;
             $reportResponse = $reportController->vatReportForPrint($request);
 
             // Handle JsonResponse
@@ -2611,7 +2775,7 @@ class PrintController extends Controller
         \App::setLocale($locale);
 
         // Get report data from the API
-        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportController = new \App\Http\Controllers\API\ReportController;
         $reportResponse = $reportController->vatReportForPrint($request);
 
         // Handle JsonResponse
@@ -2668,7 +2832,7 @@ class PrintController extends Controller
         \App::setLocale($locale);
 
         // Get report data from the API
-        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportController = new \App\Http\Controllers\API\ReportController;
         $reportResponse = $reportController->vatReportForPrint($request);
 
         // Handle JsonResponse
@@ -2727,7 +2891,7 @@ class PrintController extends Controller
 
         try {
             // Get inventory report data
-            $reportController = new \App\Http\Controllers\API\ReportController();
+            $reportController = new \App\Http\Controllers\API\ReportController;
             $inventoryData = $reportController->inventoryReport($request);
 
             // Handle JsonResponse (the inventory API returns array of products)
@@ -2789,7 +2953,7 @@ class PrintController extends Controller
         \App::setLocale($locale);
 
         // Get inventory report data
-        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportController = new \App\Http\Controllers\API\ReportController;
         $inventoryData = $reportController->inventoryReport($request, $user);
 
         // Handle JsonResponse
@@ -2850,7 +3014,7 @@ class PrintController extends Controller
         \App::setLocale($locale);
 
         // Get inventory report data
-        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportController = new \App\Http\Controllers\API\ReportController;
         $inventoryData = $reportController->inventoryReport($request, $user);
 
         // Handle JsonResponse
@@ -2913,7 +3077,7 @@ class PrintController extends Controller
 
         try {
             // Get items report data
-            $reportController = new \App\Http\Controllers\API\ReportController();
+            $reportController = new \App\Http\Controllers\API\ReportController;
             $itemsData = $reportController->itemsReport($request);
 
             // Handle JsonResponse (error response)
@@ -3112,7 +3276,7 @@ class PrintController extends Controller
 
         try {
             // Get items report data
-            $reportController = new \App\Http\Controllers\API\ReportController();
+            $reportController = new \App\Http\Controllers\API\ReportController;
             $itemsData = $reportController->itemsReport($request);
 
             // Handle JsonResponse (error response)
@@ -3223,7 +3387,7 @@ class PrintController extends Controller
 
         try {
             // Get expenses report data
-            $reportController = new \App\Http\Controllers\API\ReportController();
+            $reportController = new \App\Http\Controllers\API\ReportController;
             $expensesData = $reportController->expenseReport($request);
 
             // Handle JsonResponse (the expenses API returns a collection resource)
@@ -3287,7 +3451,7 @@ class PrintController extends Controller
         $normalizedRequest = $this->normalizeExpenseReportRequest($request);
 
         // Get expenses report data
-        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportController = new \App\Http\Controllers\API\ReportController;
         $expensesData = $reportController->expenseReport($normalizedRequest);
 
         // Handle JsonResponse
@@ -3349,7 +3513,7 @@ class PrintController extends Controller
         $normalizedRequest = $this->normalizeExpenseReportRequest($request);
 
         // Get expenses report data
-        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportController = new \App\Http\Controllers\API\ReportController;
         $expensesData = $reportController->expenseReport($normalizedRequest);
 
         // Handle JsonResponse
@@ -3455,7 +3619,7 @@ class PrintController extends Controller
         \App::setLocale($locale);
 
         // Use the dedicated print method that gets ALL data without pagination
-        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportController = new \App\Http\Controllers\API\ReportController;
         $reportResponse = $reportController->clientDueReportForPrint($request, $user);
 
         // Handle JsonResponse
@@ -3494,7 +3658,7 @@ class PrintController extends Controller
         \App::setLocale($locale);
 
         // Use the dedicated print method that gets ALL data without pagination
-        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportController = new \App\Http\Controllers\API\ReportController;
         $reportResponse = $reportController->clientDueReportForPrint($request, $user);
 
         // Handle JsonResponse
@@ -3545,7 +3709,7 @@ class PrintController extends Controller
         \App::setLocale($locale);
 
         // Use the dedicated print method that gets ALL data without pagination
-        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportController = new \App\Http\Controllers\API\ReportController;
         $reportResponse = $reportController->clientDueReportForPrint($request, $user);
 
         // Handle JsonResponse
@@ -3597,7 +3761,7 @@ class PrintController extends Controller
         \App::setLocale($locale);
 
         // Use the dedicated print method that gets ALL data without pagination
-        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportController = new \App\Http\Controllers\API\ReportController;
         $reportResponse = $reportController->supplierDueReportForPrint($request, $user);
 
         // Handle JsonResponse
@@ -3636,7 +3800,7 @@ class PrintController extends Controller
         \App::setLocale($locale);
 
         // Use the dedicated print method that gets ALL data without pagination
-        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportController = new \App\Http\Controllers\API\ReportController;
         $reportResponse = $reportController->supplierDueReportForPrint($request, $user);
 
         // Handle JsonResponse
@@ -3687,7 +3851,7 @@ class PrintController extends Controller
         \App::setLocale($locale);
 
         // Use the dedicated print method that gets ALL data without pagination
-        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportController = new \App\Http\Controllers\API\ReportController;
         $reportResponse = $reportController->supplierDueReportForPrint($request, $user);
 
         // Handle JsonResponse
@@ -3740,7 +3904,7 @@ class PrintController extends Controller
 
         try {
             // Use the dedicated print method that gets ALL data without pagination
-            $reportController = new \App\Http\Controllers\API\ReportController();
+            $reportController = new \App\Http\Controllers\API\ReportController;
             $reportResponse = $reportController->salesByUserReportForPrint($request, $user);
 
             // Handle JsonResponse
@@ -3806,7 +3970,7 @@ class PrintController extends Controller
         \App::setLocale($locale);
 
         // Use the dedicated print method that gets ALL data without pagination
-        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportController = new \App\Http\Controllers\API\ReportController;
         $reportResponse = $reportController->salesByUserReportForPrint($request, $user);
 
         // Handle JsonResponse
@@ -3871,7 +4035,7 @@ class PrintController extends Controller
         \App::setLocale($locale);
 
         // Use the dedicated print method that gets ALL data without pagination
-        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportController = new \App\Http\Controllers\API\ReportController;
         $reportResponse = $reportController->salesByUserReportForPrint($request, $user);
 
         // Handle JsonResponse
@@ -3938,7 +4102,7 @@ class PrintController extends Controller
 
         try {
             // Use the dedicated print method that gets ALL data without pagination
-            $reportController = new \App\Http\Controllers\API\ReportController();
+            $reportController = new \App\Http\Controllers\API\ReportController;
             $reportResponse = $reportController->collectionByUserReportForPrint($request, $user);
 
             // Handle JsonResponse
@@ -4004,7 +4168,7 @@ class PrintController extends Controller
         \App::setLocale($locale);
 
         // Use the dedicated print method that gets ALL data without pagination
-        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportController = new \App\Http\Controllers\API\ReportController;
         $reportResponse = $reportController->collectionByUserReportForPrint($request, $user);
 
         // Handle JsonResponse
@@ -4069,7 +4233,7 @@ class PrintController extends Controller
         \App::setLocale($locale);
 
         // Use the dedicated print method that gets ALL data without pagination
-        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportController = new \App\Http\Controllers\API\ReportController;
         $reportResponse = $reportController->collectionByUserReportForPrint($request, $user);
 
         // Handle JsonResponse
@@ -4135,7 +4299,7 @@ class PrintController extends Controller
         \App::setLocale($locale);
 
         // Use the dedicated print method that gets ALL data without pagination
-        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportController = new \App\Http\Controllers\API\ReportController;
         $reportResponse = $reportController->groupAccountStatementForPrint($request);
 
         // Handle JsonResponse
@@ -4178,7 +4342,7 @@ class PrintController extends Controller
         \App::setLocale($locale);
 
         // Use the dedicated print method that gets ALL data without pagination
-        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportController = new \App\Http\Controllers\API\ReportController;
         $reportResponse = $reportController->groupAccountStatementForPrint($request);
 
         // Handle JsonResponse
@@ -4236,7 +4400,7 @@ class PrintController extends Controller
         \App::setLocale($locale);
 
         // Use the dedicated print method that gets ALL data without pagination
-        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportController = new \App\Http\Controllers\API\ReportController;
         $reportResponse = $reportController->groupAccountStatementForPrint($request);
 
         // Handle JsonResponse
@@ -4296,7 +4460,7 @@ class PrintController extends Controller
 
         try {
             // Get summary report data
-            $reportController = new \App\Http\Controllers\API\ReportController();
+            $reportController = new \App\Http\Controllers\API\ReportController;
             $summaryData = $reportController->summeryReport($request);
 
             if ($summaryData instanceof \Illuminate\Http\JsonResponse) {
@@ -4342,7 +4506,7 @@ class PrintController extends Controller
         \App::setLocale($locale);
 
         // Get summary report data
-        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportController = new \App\Http\Controllers\API\ReportController;
         $summaryData = $reportController->summeryReport($request);
 
         if ($summaryData instanceof \Illuminate\Http\JsonResponse) {
@@ -4389,7 +4553,7 @@ class PrintController extends Controller
         \App::setLocale($locale);
 
         // Get summary report data
-        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportController = new \App\Http\Controllers\API\ReportController;
         $summaryData = $reportController->summeryReport($request);
 
         if ($summaryData instanceof \Illuminate\Http\JsonResponse) {

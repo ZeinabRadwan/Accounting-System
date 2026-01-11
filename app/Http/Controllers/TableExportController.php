@@ -8,6 +8,7 @@ use App\Exports\ExportAccounts;
 use App\Exports\ExportAccountStatement;
 use App\Exports\ExportAccountTransaction;
 use App\Exports\ExportAccountTransactionHistory;
+use App\Exports\ExportAnalyticalAccountStatement;
 use App\Exports\ExportAsset;
 use App\Exports\ExportAssetType;
 use App\Exports\ExportBalanceSheet;
@@ -265,6 +266,7 @@ class TableExportController extends Controller
         // share data to view
         view()->share('currencies', $data);
         $pdf = PDF::loadView('pdf.currencies', $data);
+
         // download PDF file with download method
         return $pdf->download('currencies-list.pdf');
     }
@@ -277,6 +279,7 @@ class TableExportController extends Controller
         // share data to view
         view()->share('units', $data);
         $pdf = PDF::loadView('pdf.units', $data);
+
         // download PDF file with download method
         return $pdf->download('units-list.pdf');
     }
@@ -289,6 +292,7 @@ class TableExportController extends Controller
         // share data to view
         view()->share('vatRates', $data);
         $pdf = PDF::loadView('pdf.vat-rates', $data);
+
         // download PDF file with download method
         return $pdf->download('vat-rates-list.pdf');
     }
@@ -301,6 +305,7 @@ class TableExportController extends Controller
         // share data to view
         view()->share('roles', $data);
         $pdf = PDF::loadView('pdf.roles', $data);
+
         // download PDF file with download method
         return $pdf->download('roles-list.pdf');
     }
@@ -313,6 +318,7 @@ class TableExportController extends Controller
         // share data to view
         view()->share('paymentMethods', $data);
         $pdf = PDF::loadView('pdf.payment-methods', $data);
+
         // download PDF file with download method
         return $pdf->download('payment-methods-list.pdf');
     }
@@ -325,6 +331,7 @@ class TableExportController extends Controller
         // share data to view
         view()->share('categories', $data);
         $pdf = PDF::loadView('pdf.exp-categories', $data);
+
         // download PDF file with download method
         return $pdf->download('exp-categories-list.pdf');
     }
@@ -345,6 +352,7 @@ class TableExportController extends Controller
         // share data to view
         view()->share('categories', $data);
         $pdf = PDF::loadView('pdf.exp-sub-categories', $data);
+
         // download PDF file with download method
         return $pdf->download('exp-sub-categories-list.pdf');
     }
@@ -428,6 +436,7 @@ class TableExportController extends Controller
         // share data to view
         view()->share('returns', $data);
         $pdf = PDF::loadView('pdf.purchase-returns', $data)->setPaper('a4', 'landscape');
+
         // download PDF file with download method
         return $pdf->download('purchase-returns-list.pdf');
     }
@@ -507,6 +516,7 @@ class TableExportController extends Controller
         // share data to view
         view()->share('returns', $data);
         $pdf = PDF::loadView('pdf.invoice-returns', $data)->setPaper('a4', 'landscape');
+
         // download PDF file with download method
         return $pdf->download('invoice-return-list.pdf');
     }
@@ -529,6 +539,7 @@ class TableExportController extends Controller
         // share data to view
         view()->share('accounts', $data);
         $pdf = PDF::loadView('pdf.accounts', $data)->setPaper('a4', 'landscape');
+
         // download PDF file with download method
         return $pdf->download('account-list.pdf');
     }
@@ -551,6 +562,7 @@ class TableExportController extends Controller
         // share data to view
         view()->share('chartOfAccounts', $data);
         $pdf = PDF::loadView('pdf.chart-of-accounts', $data)->setPaper('a4', 'landscape');
+
         // download PDF file with download method
         return $pdf->download('chart-of-accounts-list.pdf');
     }
@@ -580,6 +592,7 @@ class TableExportController extends Controller
             'transactions' => $data,
             'account' => $account->toArray(),
         ])->setPaper('a4', 'landscape');
+
         // download PDF file with download method
         return $pdf->download($account->account_number.'-ledger.pdf');
     }
@@ -591,6 +604,7 @@ class TableExportController extends Controller
         // share data to view
         view()->share('balances', $data);
         $pdf = PDF::loadView('pdf.non-invoice-balances', $data)->setPaper('a4', 'landscape');
+
         // download PDF file with download method
         return $pdf->download('account-transaction-list.pdf');
     }
@@ -610,6 +624,7 @@ class TableExportController extends Controller
         // share data to view
         view()->share('transfers', $data);
         $pdf = PDF::loadView('pdf.transfer-balances', $data)->setPaper('a4', 'landscape');
+
         // download PDF file with download method
         return $pdf->download('balance-transfer-list.pdf');
     }
@@ -631,6 +646,7 @@ class TableExportController extends Controller
         // share data to view
         view()->share('transactions', $data);
         $pdf = PDF::loadView('pdf.all-transactions', $data)->setPaper('a4', 'landscape');
+
         // download PDF file with download method
         return $pdf->download('transaction-list.pdf');
     }
@@ -652,6 +668,7 @@ class TableExportController extends Controller
         // share data to view
         view()->share('payments', $data);
         $pdf = PDF::loadView('pdf.non-invoice-payments', $data)->setPaper('a4', 'landscape');
+
         // download PDF file with download method
         return $pdf->download('non-invoice-payment-list.pdf');
     }
@@ -673,6 +690,7 @@ class TableExportController extends Controller
         // share data to view
         view()->share('payments', $data);
         $pdf = PDF::loadView('pdf.invoice-payments', $data)->setPaper('a4', 'landscape');
+
         // download PDF file with download method
         return $pdf->download('invoice-payment-list.pdf');
     }
@@ -694,6 +712,7 @@ class TableExportController extends Controller
         // share data to view
         view()->share('payments', $data);
         $pdf = PDF::loadView('pdf.non-purchase-payments', $data)->setPaper('a4', 'landscape');
+
         // download PDF file with download method
         return $pdf->download('non-purchase-payment-list.pdf');
     }
@@ -715,6 +734,7 @@ class TableExportController extends Controller
         // share data to view
         view()->share('payments', $data);
         $pdf = PDF::loadView('pdf.purchase-payments', $data)->setPaper('a4', 'landscape');
+
         // download PDF file with download method
         return $pdf->download('purchase-payments-list.pdf');
     }
@@ -737,6 +757,7 @@ class TableExportController extends Controller
         // share data to view
         view()->share('loanAuthorities', $data);
         $pdf = PDF::loadView('pdf.loan-authorities', $data)->setPaper('a4', 'landscape');
+
         // download PDF file with download method
         return $pdf->download('loan-authority-list.pdf');
     }
@@ -757,6 +778,7 @@ class TableExportController extends Controller
         // share data to view
         view()->share('loans', $data);
         $pdf = PDF::loadView('pdf.loans', compact('data'))->setPaper('a4', 'landscape');
+
         // download PDF file with download method
         return $pdf->download('loan-list.pdf');
     }
@@ -779,6 +801,7 @@ class TableExportController extends Controller
         // share data to view
         view()->share('loanPayments', $data);
         $pdf = PDF::loadView('pdf.loan-payments', compact('data'))->setPaper('a4', 'landscape');
+
         // download PDF file with download method
         return $pdf->download('loan-payment-list.pdf');
     }
@@ -801,6 +824,7 @@ class TableExportController extends Controller
         // share data to view
         view()->share('assetTypes', $data);
         $pdf = PDF::loadView('pdf.asset-types', $data);
+
         // download PDF file with download method
         return $pdf->download('asset-type-list.pdf');
     }
@@ -821,6 +845,7 @@ class TableExportController extends Controller
         // share data to view
         view()->share('assets', $data);
         $pdf = PDF::loadView('pdf.assets', $data);
+
         // download PDF file with download method
         return $pdf->download('asset-list.pdf');
     }
@@ -843,6 +868,7 @@ class TableExportController extends Controller
         // share data to view
         view()->share('allPayroll', $data);
         $pdf = PDF::loadView('pdf.payroll', $data)->setPaper('a4', 'landscape');
+
         // download PDF file with download method
         return $pdf->download('payroll-list.pdf');
     }
@@ -887,6 +913,7 @@ class TableExportController extends Controller
         // share data to view
         view()->share('suppliers', $data);
         $pdf = PDF::loadView('pdf.suppliers', $data)->setPaper('a4', 'landscape');
+
         // download PDF file with download method
         return $pdf->download('supplier-list.pdf');
     }
@@ -918,6 +945,7 @@ class TableExportController extends Controller
         // share data to view
         view()->share('departments', $data);
         $pdf = PDF::loadView('pdf.departments', $data);
+
         // download PDF file with download method
         return $pdf->download('department-list.pdf');
     }
@@ -938,6 +966,7 @@ class TableExportController extends Controller
         // share data to view
         view()->share('employees', $data);
         $pdf = PDF::loadView('pdf.employees', $data)->setPaper('a4', 'landscape');
+
         // download PDF file with download method
         return $pdf->download('employee-list.pdf');
     }
@@ -960,6 +989,7 @@ class TableExportController extends Controller
         // share data to view
         view()->share('salIncrements', $data);
         $pdf = PDF::loadView('pdf.increments', $data)->setPaper('a4', 'landscape');
+
         // download PDF file with download method
         return $pdf->download('increment-list.pdf');
     }
@@ -982,6 +1012,7 @@ class TableExportController extends Controller
         // share data to view
         view()->share('productCategories', $data);
         $pdf = PDF::loadView('pdf.product-categories', $data);
+
         // download PDF file with download method
         return $pdf->download('product-category-list.pdf');
     }
@@ -1002,6 +1033,7 @@ class TableExportController extends Controller
         // share data to view
         view()->share('productsubCategories', $data);
         $pdf = PDF::loadView('pdf.product-sub-categories', $data);
+
         // download PDF file with download method
         return $pdf->download('product-sub-category-list.pdf');
     }
@@ -1022,6 +1054,7 @@ class TableExportController extends Controller
         // share data to view
         view()->share('products', $data);
         $pdf = PDF::loadView('pdf.products', compact('data'))->setPaper('a4', 'landscape');
+
         // download PDF file with download method
         return $pdf->download('product-list.pdf');
     }
@@ -1042,6 +1075,7 @@ class TableExportController extends Controller
         // share data to view
         view()->share('adjustments', $data);
         $pdf = PDF::loadView('pdf.adjustments', compact('data'))->setPaper('a4', 'landscape');
+
         // download PDF file with download method
         return $pdf->download('inventory-adjustment-list.pdf');
     }
@@ -1128,7 +1162,7 @@ class TableExportController extends Controller
         if (! empty($term)) {
             $purchaseQuery->whereHas('product', function ($q) use ($term) {
                 $q->where('name', 'LIKE', '%'.$term.'%')
-                  ->orWhere('code', 'LIKE', '%'.$term.'%');
+                    ->orWhere('code', 'LIKE', '%'.$term.'%');
             });
         }
         $purchaseProducts = $purchaseQuery->orderBy('created_at', 'desc')->get();
@@ -1172,7 +1206,7 @@ class TableExportController extends Controller
         if (! empty($term)) {
             $invoiceQuery->whereHas('product', function ($q) use ($term) {
                 $q->where('name', 'LIKE', '%'.$term.'%')
-                  ->orWhere('code', 'LIKE', '%'.$term.'%');
+                    ->orWhere('code', 'LIKE', '%'.$term.'%');
             });
         }
         $invoiceProducts = $invoiceQuery->orderBy('created_at', 'desc')->get();
@@ -1215,7 +1249,7 @@ class TableExportController extends Controller
         if (! empty($term)) {
             $adjustmentQuery->whereHas('product', function ($q) use ($term) {
                 $q->where('name', 'LIKE', '%'.$term.'%')
-                  ->orWhere('code', 'LIKE', '%'.$term.'%');
+                    ->orWhere('code', 'LIKE', '%'.$term.'%');
             });
         }
         $adjustmentProducts = $adjustmentQuery->orderBy('created_at', 'desc')->get();
@@ -1265,7 +1299,7 @@ class TableExportController extends Controller
         if (! empty($term)) {
             $invoiceReturnQuery->whereHas('product', function ($q) use ($term) {
                 $q->where('name', 'LIKE', '%'.$term.'%')
-                  ->orWhere('code', 'LIKE', '%'.$term.'%');
+                    ->orWhere('code', 'LIKE', '%'.$term.'%');
             });
         }
         $invoiceReturnProducts = $invoiceReturnQuery->orderBy('created_at', 'desc')->get();
@@ -1311,7 +1345,7 @@ class TableExportController extends Controller
         if (! empty($term)) {
             $purchaseReturnQuery->whereHas('product', function ($q) use ($term) {
                 $q->where('name', 'LIKE', '%'.$term.'%')
-                  ->orWhere('code', 'LIKE', '%'.$term.'%');
+                    ->orWhere('code', 'LIKE', '%'.$term.'%');
             });
         }
         $purchaseReturnProducts = $purchaseReturnQuery->orderBy('created_at', 'desc')->get();
@@ -1360,6 +1394,7 @@ class TableExportController extends Controller
         // share data to view
         view()->share('products', $data);
         $pdf = PDF::loadView('pdf.non-zero-inventory', compact('data'))->setPaper('a4', 'landscape');
+
         // download PDF file with download method
         return $pdf->download('non-zero-inventory-list.pdf');
     }
@@ -1466,7 +1501,7 @@ class TableExportController extends Controller
     public function todayReportPDF()
     {
         // Get today's report data
-        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportController = new \App\Http\Controllers\API\ReportController;
         $data = $reportController->todayReport();
 
         // Add current date to data
@@ -1481,7 +1516,7 @@ class TableExportController extends Controller
     // return today report excel
     public function todayReportExportExcel(Request $request)
     {
-        return Excel::download(new ExportTodayReport(), 'TodayReport.xlsx');
+        return Excel::download(new ExportTodayReport, 'TodayReport.xlsx');
     }
 
     // return balance sheet pdf
@@ -1496,7 +1531,7 @@ class TableExportController extends Controller
 
         try {
             // Get balance sheet data using the same filters
-            $reportController = new \App\Http\Controllers\API\ReportController();
+            $reportController = new \App\Http\Controllers\API\ReportController;
             $response = $reportController->balanceSheet($request);
 
             // Handle JsonResponse
@@ -1560,7 +1595,7 @@ class TableExportController extends Controller
     public function profitLossPDF(Request $request)
     {
         // Get profit loss data using the same filters
-        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportController = new \App\Http\Controllers\API\ReportController;
         $response = $reportController->profitLossReport($request);
 
         if (! $response) {
@@ -1609,7 +1644,7 @@ class TableExportController extends Controller
         ]);
 
         // Get sales by user report data using the same filters
-        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportController = new \App\Http\Controllers\API\ReportController;
         $collection = $reportController->salesByUserReport($mappedRequest);
         // Normalize to plain array to avoid any accidental model access in Blade
         $raw = $collection->toArray(request());
@@ -1648,7 +1683,7 @@ class TableExportController extends Controller
         ]);
 
         // Get collection by user report data using the same filters
-        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportController = new \App\Http\Controllers\API\ReportController;
         $collection = $reportController->collectionByUserReport($mappedRequest);
         // Normalize to plain array to avoid accessing Eloquent relations in Blade
         $raw = $collection->toArray(request());
@@ -1690,7 +1725,7 @@ class TableExportController extends Controller
 
         try {
             // Use the dedicated print method that gets ALL data without pagination
-            $reportController = new \App\Http\Controllers\API\ReportController();
+            $reportController = new \App\Http\Controllers\API\ReportController;
             $response = $reportController->accountStatementForPrint($request);
 
             // Handle JsonResponse
@@ -1774,7 +1809,7 @@ class TableExportController extends Controller
 
         try {
             // Use the dedicated print method that gets ALL data without pagination
-            $reportController = new \App\Http\Controllers\API\ReportController();
+            $reportController = new \App\Http\Controllers\API\ReportController;
             $response = $reportController->groupAccountStatementForPrint($request);
 
             // Handle JsonResponse
@@ -1835,6 +1870,84 @@ class TableExportController extends Controller
         return Excel::download(new ExportGroupAccountStatement($filters), 'GroupAccountStatement.xlsx');
     }
 
+    // return analytical account statement pdf
+    public function analyticalAccountStatementPDF(Request $request)
+    {
+        // Disable Telescope for this request to avoid database issues
+        \Laravel\Telescope\Telescope::stopRecording();
+
+        // Increase memory limit for large PDFs with all entries
+        ini_set('memory_limit', '1G'); // 1GB for very large datasets
+        set_time_limit(300); // 5 minutes for processing
+
+        try {
+            // Use the dedicated print method that gets ALL data without pagination
+            $reportController = new \App\Http\Controllers\API\ReportController;
+            $response = $reportController->analyticalAccountStatementForPrint($request);
+
+            // Handle JsonResponse
+            if ($response instanceof \Illuminate\Http\JsonResponse) {
+                $reportData = $response->getData(true);
+            } else {
+                $reportData = $response;
+            }
+
+            if (! $reportData['success']) {
+                abort(404, 'Report data not found');
+            }
+
+            $data = $reportData['data'];
+
+            // Log entry count for debugging
+            if (isset($data['entries'])) {
+                Log::info('Analytical Account Statement PDF - Processing all entries. Total: '.count($data['entries']));
+            }
+
+            // Add filters to data for template - merge with existing filters if they exist
+            $data['filters'] = array_merge($data['filters'] ?? [], [
+                'from_date' => $request->input('from_date'),
+                'to_date' => $request->input('to_date'),
+                'analytical_account_id' => $request->input('analytical_account_id'),
+            ]);
+
+            // Log the data structure for debugging
+            Log::info('Analytical Account Statement PDF Data Structure:', [
+                'has_analytical_account' => isset($data['analytical_account']),
+                'has_summary' => isset($data['summary']),
+                'has_entries' => isset($data['entries']),
+                'entries_count' => isset($data['entries']) ? count($data['entries']) : 0,
+            ]);
+
+            // For debugging purposes, temporarily return HTML instead of PDF
+            if ($request->has('debug')) {
+                return view('pdf.analytical-account-statement', ['reportData' => $data]);
+            }
+
+            // share data to view
+            view()->share('reportData', $data);
+
+            return $this->generatePDF('pdf.analytical-account-statement', $data, 'analytical-account-statement.pdf');
+        } catch (\Exception $e) {
+            Log::error('Analytical Account Statement PDF Error: '.$e->getMessage(), [
+                'trace' => $e->getTraceAsString(),
+                'request_params' => $request->all(),
+            ]);
+
+            // Return error response
+            return response()->json([
+                'error' => 'Failed to generate PDF: '.$e->getMessage(),
+            ], 500);
+        }
+    }
+
+    // return analytical account statement excel
+    public function analyticalAccountStatementExportExcel(Request $request)
+    {
+        $filters = $request->all();
+
+        return Excel::download(new ExportAnalyticalAccountStatement($filters), 'AnalyticalAccountStatement.xlsx');
+    }
+
     // return invoice summary excel
     public function invoiceSummaryExportExcel(Request $request)
     {
@@ -1871,7 +1984,7 @@ class TableExportController extends Controller
 
         try {
             // Use the dedicated print method that gets ALL data without pagination
-            $reportController = new \App\Http\Controllers\API\ReportController();
+            $reportController = new \App\Http\Controllers\API\ReportController;
             $response = $reportController->invoiceSummaryForPrint($request);
 
             // Handle JsonResponse
@@ -1937,7 +2050,7 @@ class TableExportController extends Controller
 
         try {
             // Use the dedicated print method that gets ALL data without pagination
-            $reportController = new \App\Http\Controllers\API\ReportController();
+            $reportController = new \App\Http\Controllers\API\ReportController;
             $response = $reportController->purchaseSummaryForPrint($request);
 
             // Handle JsonResponse
@@ -2003,7 +2116,7 @@ class TableExportController extends Controller
 
         try {
             // Use the dedicated print method that gets ALL data without pagination
-            $reportController = new \App\Http\Controllers\API\ReportController();
+            $reportController = new \App\Http\Controllers\API\ReportController;
             $response = $reportController->trialBalanceForPrint($request);
 
             // Handle JsonResponse
@@ -2070,7 +2183,7 @@ class TableExportController extends Controller
 
         try {
             // Get inventory report data
-            $reportController = new \App\Http\Controllers\API\ReportController();
+            $reportController = new \App\Http\Controllers\API\ReportController;
             $response = $reportController->inventoryReport($request);
 
             // Handle JsonResponse
@@ -2115,7 +2228,7 @@ class TableExportController extends Controller
 
         try {
             // Get items report data
-            $reportController = new \App\Http\Controllers\API\ReportController();
+            $reportController = new \App\Http\Controllers\API\ReportController;
             $response = $reportController->itemsReport($request);
 
             // Handle JsonResponse
@@ -2160,7 +2273,7 @@ class TableExportController extends Controller
 
         try {
             // Get expenses report data
-            $reportController = new \App\Http\Controllers\API\ReportController();
+            $reportController = new \App\Http\Controllers\API\ReportController;
             $response = $reportController->expenseReport($request);
 
             // Handle JsonResponse
@@ -2205,7 +2318,7 @@ class TableExportController extends Controller
 
         try {
             // Get supplier payable report data
-            $reportController = new \App\Http\Controllers\API\ReportController();
+            $reportController = new \App\Http\Controllers\API\ReportController;
             $response = $reportController->supplierDueReport($request);
 
             // Handle JsonResponse
@@ -2242,7 +2355,7 @@ class TableExportController extends Controller
 
         try {
             // Use the dedicated print method that gets ALL data without pagination
-            $reportController = new \App\Http\Controllers\API\ReportController();
+            $reportController = new \App\Http\Controllers\API\ReportController;
             $response = $reportController->vatReportForPrint($request);
 
             // Handle JsonResponse
@@ -2309,7 +2422,7 @@ class TableExportController extends Controller
 
         try {
             // Get summary report data
-            $reportController = new \App\Http\Controllers\API\ReportController();
+            $reportController = new \App\Http\Controllers\API\ReportController;
             $summaryData = $reportController->summeryReport($request);
 
             // Handle JsonResponse
@@ -2372,7 +2485,7 @@ class TableExportController extends Controller
     public function journalEntriesExportPDF(Request $request)
     {
         try {
-            $query = \App\Models\JournalEntry::with(['lines.chartOfAccount.type', 'creator', 'poster']);
+            $query = \App\Models\JournalEntry::with(['lines.chartOfAccount.type', 'lines.analyticalAccount', 'creator', 'poster']);
 
             // Apply filters
             if ($request->input('status')) {

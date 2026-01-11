@@ -564,6 +564,7 @@ export default {
         if (this.$can('account-statement')) {
           addRoute('reports.accountStatement', 'Account Statement', 'fas fa-chart-bar');
           addRoute('reports.groupAccountStatement', 'Group Account Statement', 'fas fa-chart-bar');
+          addRoute('reports.analyticalAccountStatement', 'Analytical Account Statement', 'fas fa-chart-bar');
           addRoute('reports.invoiceSummary', 'Invoice Summary', 'fas fa-chart-bar');
           addRoute('reports.purchaseSummary', 'Purchase Summary', 'fas fa-chart-bar');
         }

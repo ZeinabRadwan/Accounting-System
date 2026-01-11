@@ -53,6 +53,7 @@
                     <th>{{ $t('Reference') }}</th>
                     <th>{{ $t('Invoice') }}</th>
                     <th>{{ $t('Account') }}</th>
+                    <th>{{ $t('Analytical Account') }}</th>
                     <th class="text-center">{{ $t('Debit') }}</th>
                     <th class="text-center">{{ $t('Credit') }}</th>
                     <th>{{ $t('Cost Center') }}</th>
@@ -158,6 +159,15 @@
                         @search="searchAccounts"
                         @input="applyFilters"
                         class="vue-select-sm"
+                      />
+                    </th>
+                    <th>
+                      <input 
+                        v-model="columnFilters.analytical_account" 
+                        type="text" 
+                        class="form-control form-control-sm column-filter" 
+                        :placeholder="$t('Filter')"
+                        @input="applyFilters"
                       />
                     </th>
                     <th class="text-center">
@@ -281,6 +291,15 @@
                             <span class="account-name">{{ line.chart_of_account.name }}</span>
                           </span>
                           <span v-else>-</span>
+                        </td>
+                        <td class="analytical-account-cell">
+                          <span v-if="line.analytical_account" class="analytical-account-info">
+                            <small class="text-muted">
+                              <span v-if="line.analytical_account.code" class="analytical-account-code">{{ line.analytical_account.code }} - </span>
+                              <span class="analytical-account-name">{{ line.analytical_account.name }}</span>
+                            </small>
+                          </span>
+                          <span v-else class="text-muted">-</span>
                         </td>
                         <td class="text-center">
                           <span v-if="line.debit_amount > 0" class="text-success">
@@ -424,6 +443,7 @@
                       <td>{{ entry.reference || '-' }}</td>
                       <td>{{ getInvoiceNumber(entry) || '-' }}</td>
                         <td>-</td>
+                        <td>-</td>
                         <td class="text-center">-</td>
                         <td class="text-center">-</td>
                         <td>-</td>
@@ -534,7 +554,7 @@
                     </tr>
                   </template>
                   <tr v-show="!loading && !displayItems.length">
-                    <td colspan="16" class="text-center">
+                    <td colspan="17" class="text-center">
                       <EmptyTable />
                     </td>
                   </tr>
@@ -544,6 +564,7 @@
                     <td colspan="7" class="text-right font-weight-bold">
                       {{ $t('Total') }}:
                     </td>
+                    <td></td>
                     <td class="text-center font-weight-bold">
                       <span class="text-success">
                         <CurrencyDisplay :amount="totalDebit" />
@@ -632,6 +653,7 @@ export default {
         reference: '',
         invoice: '',
         account: '',
+        analytical_account: '',
         debit: '',
         credit: '',
         cost_center: '',
@@ -1666,6 +1688,32 @@ export default {
   text-overflow: ellipsis;
   white-space: nowrap;
   max-width: 180px;
+}
+
+.analytical-account-cell {
+  max-width: 180px;
+  min-width: 130px;
+}
+
+.analytical-account-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.analytical-account-code {
+  font-size: 11px;
+  color: #6B7280;
+  font-weight: 500;
+}
+
+.analytical-account-name {
+  font-size: 11px;
+  color: #9CA3AF;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 160px;
 }
 
 .description-cell {
