@@ -636,6 +636,7 @@ Route::middleware([
         Route::get('/reports/group-account-statement', [ReportController::class, 'groupAccountStatement']);
         Route::get('/reports/analytical-account-statement', [ReportController::class, 'analyticalAccountStatement']);
         Route::get('/reports/analytical-account-summary', [ReportController::class, 'analyticalAccountSummary']);
+        Route::get('/reports/payment-method-analytics', [ReportController::class, 'paymentMethodAnalytics']);
         Route::get('/reports/cash-flow-analysis', [ReportController::class, 'cashFlowAnalysis']);
         Route::get('/reports/invoice-summary', [ReportController::class, 'invoiceSummary']);
         Route::get('/reports/purchase-summary', [ReportController::class, 'purchaseSummary']);
