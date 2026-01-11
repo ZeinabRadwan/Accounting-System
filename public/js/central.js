@@ -21826,12 +21826,12 @@ var map = {
 		2620
 	],
 	"./cashbook/accounts/create": [
-		88699,
-		8699
+		1509,
+		1509
 	],
 	"./cashbook/accounts/create.vue": [
-		88699,
-		8699
+		1509,
+		1509
 	],
 	"./cashbook/accounts/edit": [
 		6409,

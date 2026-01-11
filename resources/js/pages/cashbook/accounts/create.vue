@@ -113,38 +113,39 @@
                         <span class="required">*</span></label>
                       <v-select
                         v-model="form.chartOfAccountId"
-                        :options="chartOfAccounts"
+                        :options="filteredChartOfAccounts"
                         label="name"
                         :reduce="option => option.id"
                         :class="{ 'is-invalid': form.errors.has('chartOfAccountId') }"
                         name="chartOfAccountId"
                         :placeholder="$t('Select a Chart of Account')"
+                        :disabled="loadingChartOfAccounts"
                       >
-                        <template #option="{ name, code, type, parent }">
+                        <template #option="{ name, code, type }">
                           <div>
                             <strong>{{ name }}</strong>
                             <br>
                             <small class="text-muted">
                               {{ code }} - {{ type }}
-                              <span v-if="parent" class="text-info">
-                                <i class="fas fa-level-up-alt"></i> {{ $t('Parent') }}: {{ parent.name }}
-                              </span>
                             </small>
                           </div>
                         </template>
                       </v-select>
                       <div class="mt-2">
-                        <small class="text-muted d-block mb-2">
-                          <i class="fas fa-info-circle"></i>
-                          {{ $t('You can create a sub-account from Chart of Accounts page') }}
-                        </small>
-                        <router-link 
-                          v-if="form.chartOfAccountId && $can('chart-of-account-create')" 
-                          :to="{ name: 'chart-of-accounts.create', query: { parent_id: form.chartOfAccountId } }"
-                          class="btn btn-sm btn-outline-primary">
+                        <button 
+                          v-if="$can('chart-of-account-create')" 
+                          type="button"
+                          class="btn btn-sm btn-outline-primary"
+                          @click="createNewChartOfAccount"
+                          :disabled="!form.bankName || form.bankName.trim() === '' || creatingChartOfAccount">
                           <i class="fas fa-plus"></i>
-                          {{ $t('Create Sub Account for this Chart of Account') }}
-                        </router-link>
+                          <span v-if="creatingChartOfAccount">{{ $t('Creating...') }}</span>
+                          <span v-else>{{ $t('Create New Chart of Account') }}</span>
+                        </button>
+                        <small v-if="!form.bankName || form.bankName.trim() === ''" class="text-muted d-block mt-1">
+                          <i class="fas fa-info-circle"></i>
+                          {{ $t('Enter bank name to create a new chart of account') }}
+                        </small>
                       </div>
                       <has-error :form="form" field="chartOfAccountId" />
                     </div>
@@ -215,38 +216,39 @@
                         <span class="required">*</span></label>
                       <v-select
                         v-model="form.chartOfAccountId"
-                        :options="chartOfAccounts"
+                        :options="filteredChartOfAccounts"
                         label="name"
                         :reduce="option => option.id"
                         :class="{ 'is-invalid': form.errors.has('chartOfAccountId') }"
                         name="chartOfAccountId"
                         :placeholder="$t('Select a Chart of Account')"
+                        :disabled="loadingChartOfAccounts"
                       >
-                        <template #option="{ name, code, type, parent }">
+                        <template #option="{ name, code, type }">
                           <div>
                             <strong>{{ name }}</strong>
                             <br>
                             <small class="text-muted">
                               {{ code }} - {{ type }}
-                              <span v-if="parent" class="text-info">
-                                <i class="fas fa-level-up-alt"></i> {{ $t('Parent') }}: {{ parent.name }}
-                              </span>
                             </small>
                           </div>
                         </template>
                       </v-select>
                       <div class="mt-2">
-                        <small class="text-muted d-block mb-2">
-                          <i class="fas fa-info-circle"></i>
-                          {{ $t('You can create a sub-account from Chart of Accounts page') }}
-                        </small>
-                        <router-link 
-                          v-if="form.chartOfAccountId && $can('chart-of-account-create')" 
-                          :to="{ name: 'chart-of-accounts.create', query: { parent_id: form.chartOfAccountId } }"
-                          class="btn btn-sm btn-outline-primary">
+                        <button 
+                          v-if="$can('chart-of-account-create')" 
+                          type="button"
+                          class="btn btn-sm btn-outline-primary"
+                          @click="createNewChartOfAccount"
+                          :disabled="!form.bankName || form.bankName.trim() === '' || creatingChartOfAccount">
                           <i class="fas fa-plus"></i>
-                          {{ $t('Create Sub Account for this Chart of Account') }}
-                        </router-link>
+                          <span v-if="creatingChartOfAccount">{{ $t('Creating...') }}</span>
+                          <span v-else>{{ $t('Create New Chart of Account') }}</span>
+                        </button>
+                        <small v-if="!form.bankName || form.bankName.trim() === ''" class="text-muted d-block mt-1">
+                          <i class="fas fa-info-circle"></i>
+                          {{ $t('Enter bank name to create a new chart of account') }}
+                        </small>
                       </div>
                       <has-error :form="form" field="chartOfAccountId" />
                     </div>
@@ -352,7 +354,21 @@ export default {
     url: null,
     loading: true,
     chartOfAccounts: [],
+    loadingChartOfAccounts: false,
+    creatingChartOfAccount: false,
   }),
+
+  computed: {
+    filteredChartOfAccounts() {
+      return this.chartOfAccounts || []
+    },
+  },
+
+  watch: {
+    activeAccountType(newType) {
+      this.loadChartOfAccounts()
+    },
+  },
 
   mounted() {
     this.loadChartOfAccounts()
@@ -386,11 +402,21 @@ export default {
           this.form.errors.clear('accountNumber');
         }
       }
+      // Clear selected chart of account when switching types
+      this.form.chartOfAccountId = null;
+      // Reload chart of accounts for the new type
+      this.loadChartOfAccounts();
     },
     // load chart of accounts
     async loadChartOfAccounts() {
+      this.loadingChartOfAccounts = true
       try {
-        const response = await this.$axios.get('/api/accounts/chart-of-accounts')
+        // Load child accounts based on account type (bank or cash)
+        const response = await this.$axios.get('/api/accounts/child-chart-of-accounts', {
+          params: {
+            account_type: this.activeAccountType
+          }
+        })
         if (response.data && response.data.success) {
           this.chartOfAccounts = response.data.data || []
         } else {
@@ -402,6 +428,55 @@ export default {
           type: 'error',
           title: this.$t('Failed to load chart of accounts')
         })
+        this.chartOfAccounts = []
+      } finally {
+        this.loadingChartOfAccounts = false
+      }
+    },
+    // create new chart of account
+    async createNewChartOfAccount() {
+      // Validate bank name
+      if (!this.form.bankName || this.form.bankName.trim() === '') {
+        toast.fire({
+          type: 'error',
+          title: this.$t('Bank name is required to create a chart of account')
+        })
+        return
+      }
+
+      this.creatingChartOfAccount = true
+      try {
+        const response = await this.$axios.post('/api/accounts/create-child-chart-of-account', {
+          account_type: this.activeAccountType,
+          bank_name: this.form.bankName.trim()
+        })
+
+        if (response.data && response.data.success) {
+          const newAccount = response.data.data
+          // Add the new account to the list
+          this.chartOfAccounts.push(newAccount)
+          // Select the newly created account
+          this.form.chartOfAccountId = newAccount.id
+          
+          toast.fire({
+            type: 'success',
+            title: this.$t('Chart of account created successfully')
+          })
+        } else {
+          toast.fire({
+            type: 'error',
+            title: response.data?.message || this.$t('Failed to create chart of account')
+          })
+        }
+      } catch (error) {
+        console.error('Error creating chart of account:', error)
+        const errorMessage = error.response?.data?.message || this.$t('Failed to create chart of account')
+        toast.fire({
+          type: 'error',
+          title: errorMessage
+        })
+      } finally {
+        this.creatingChartOfAccount = false
       }
     },
     // save account

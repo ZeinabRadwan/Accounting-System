@@ -8,6 +8,7 @@ use App\Http\Requests\Account\UpdateAccountRequest;
 use App\Http\Resources\AccountResource;
 use App\Http\Resources\AccountTransactionResource;
 use App\Models\Account;
+use App\Models\AccountRoutingSetting;
 use App\Models\AccountTransaction;
 use App\Models\ChartOfAccount;
 use App\Services\ImageService;
@@ -15,6 +16,7 @@ use App\Traits\ApiResponse;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
 
@@ -405,5 +407,203 @@ class AccountController extends Controller
         })->latest()->paginate($request->perPage);
 
         return AccountTransactionResource::collection($transactions);
+    }
+
+    /**
+     * Get child chart of accounts under main bank or cash account
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getChildChartOfAccounts(Request $request)
+    {
+        try {
+            $accountType = $request->input('account_type'); // 'bank' or 'cash'
+            $branchId = Auth::user()->default_branch_id ?? null;
+
+            if (! in_array($accountType, ['bank', 'cash'])) {
+                return $this->responseWithError('Invalid account type. Must be "bank" or "cash".');
+            }
+
+            // Get the routing setting for the account type
+            $settingKey = $accountType === 'bank' ? 'main_bank_account' : 'main_cash_account';
+            $routingSetting = AccountRoutingSetting::where('branch_id', $branchId)
+                ->where('module', 'banking')
+                ->where('setting_key', $settingKey)
+                ->where('is_active', true)
+                ->first();
+
+            if (! $routingSetting || ! $routingSetting->main_account_id) {
+                return $this->responseWithSuccess('No main account configured', []);
+            }
+
+            // Get the main account
+            $mainAccount = ChartOfAccount::forBranch($branchId)
+                ->find($routingSetting->main_account_id);
+
+            if (! $mainAccount) {
+                return $this->responseWithSuccess('Main account not found', []);
+            }
+
+            // Get only direct children (not the main account itself, and not nested children)
+            $childAccounts = ChartOfAccount::where('parent_id', $mainAccount->id)
+                ->where('is_active', true)
+                ->forBranch($branchId)
+                ->with(['type', 'translations'])
+                ->orderBy('code')
+                ->orderBy('name')
+                ->get()
+                ->map(function ($account) {
+                    $translatedName = method_exists($account, 'getTranslatedField')
+                        ? $account->getTranslatedField('name')
+                        : $account->name;
+
+                    return [
+                        'id' => $account->id,
+                        'name' => $translatedName,
+                        'code' => $account->code,
+                        'type' => $account->type ? $account->type->name : 'Unknown',
+                    ];
+                })
+                ->values();
+
+            return $this->responseWithSuccess('Child accounts retrieved successfully', $childAccounts);
+        } catch (Exception $e) {
+            return $this->responseWithError($e->getMessage());
+        }
+    }
+
+    /**
+     * Create a new chart of account under the main bank or cash account
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function createChildChartOfAccount(Request $request)
+    {
+        try {
+            $accountType = $request->input('account_type'); // 'bank' or 'cash'
+            $bankName = $request->input('bank_name');
+            $branchId = Auth::user()->default_branch_id ?? null;
+
+            // Validate bank name
+            if (empty($bankName) || trim($bankName) === '') {
+                return $this->responseWithError('Bank name is required to create a chart of account.');
+            }
+
+            if (! in_array($accountType, ['bank', 'cash'])) {
+                return $this->responseWithError('Invalid account type. Must be "bank" or "cash".');
+            }
+
+            // Get the routing setting for the account type
+            $settingKey = $accountType === 'bank' ? 'main_bank_account' : 'main_cash_account';
+            $routingSetting = AccountRoutingSetting::where('branch_id', $branchId)
+                ->where('module', 'banking')
+                ->where('setting_key', $settingKey)
+                ->where('is_active', true)
+                ->first();
+
+            if (! $routingSetting || ! $routingSetting->main_account_id) {
+                return $this->responseWithError('Main account is not configured. Please configure it in Accounting Settings.');
+            }
+
+            // Get the main account
+            $mainAccount = ChartOfAccount::forBranch($branchId)
+                ->find($routingSetting->main_account_id);
+
+            if (! $mainAccount) {
+                return $this->responseWithError('Main account not found.');
+            }
+
+            // Generate unique account code
+            $baseCode = $mainAccount->code;
+            $existingCodes = ChartOfAccount::where('parent_id', $mainAccount->id)
+                ->pluck('code')
+                ->toArray();
+
+            // Determine the pattern - check if children use dash format (e.g., 12301-001)
+            $useDashFormat = false;
+            foreach ($existingCodes as $code) {
+                if (strpos($code, '-') !== false) {
+                    $useDashFormat = true;
+                    break;
+                }
+            }
+
+            if ($useDashFormat) {
+                // Use dash format: parent-001, parent-002, etc.
+                $maxNumber = 0;
+                $pattern = '/^'.preg_quote($baseCode, '/').'-(\d+)$/';
+                foreach ($existingCodes as $code) {
+                    if (preg_match($pattern, $code, $matches)) {
+                        $maxNumber = max($maxNumber, (int) $matches[1]);
+                    }
+                }
+                $newCode = $baseCode.'-'.str_pad($maxNumber + 1, 3, '0', STR_PAD_LEFT);
+            } else {
+                // Use numeric suffix format: 1230101, 1230102, etc.
+                $maxNumber = 0;
+                $codeLength = strlen($baseCode);
+                foreach ($existingCodes as $code) {
+                    if (strlen($code) > $codeLength && strpos($code, $baseCode) === 0) {
+                        $suffix = substr($code, $codeLength);
+                        if (is_numeric($suffix)) {
+                            $maxNumber = max($maxNumber, (int) $suffix);
+                        }
+                    }
+                }
+
+                // Determine suffix length based on existing codes
+                $suffixLength = 2; // Default
+                if (! empty($existingCodes)) {
+                    $firstChildCode = $existingCodes[0];
+                    $suffixLength = strlen($firstChildCode) - $codeLength;
+                    $suffixLength = max(2, $suffixLength); // At least 2 digits
+                }
+
+                $newCode = $baseCode.str_pad($maxNumber + 1, $suffixLength, '0', STR_PAD_LEFT);
+            }
+
+            // Create the new account
+            $newAccount = DB::transaction(function () use ($bankName, $newCode, $mainAccount, $branchId) {
+                $account = ChartOfAccount::create([
+                    'name' => $bankName,
+                    'code' => $newCode,
+                    'type_id' => $mainAccount->type_id,
+                    'parent_id' => $mainAccount->id,
+                    'is_active' => true,
+                    'created_by' => Auth::id(),
+                    'branch_id' => $branchId,
+                ]);
+
+                // Create translations if needed
+                $locales = ['ar', 'en'];
+                foreach ($locales as $locale) {
+                    DB::table('chart_of_account_translations')->insert([
+                        'chart_of_account_id' => $account->id,
+                        'locale' => $locale,
+                        'name' => $bankName,
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ]);
+                }
+
+                return $account;
+            });
+
+            // Load relationships for response
+            $newAccount->load(['type', 'translations']);
+
+            $translatedName = method_exists($newAccount, 'getTranslatedField')
+                ? $newAccount->getTranslatedField('name')
+                : $newAccount->name;
+
+            return $this->responseWithSuccess('Chart of account created successfully', [
+                'id' => $newAccount->id,
+                'name' => $translatedName,
+                'code' => $newAccount->code,
+                'type' => $newAccount->type ? $newAccount->type->name : 'Unknown',
+            ]);
+        } catch (Exception $e) {
+            return $this->responseWithError($e->getMessage());
+        }
     }
 }

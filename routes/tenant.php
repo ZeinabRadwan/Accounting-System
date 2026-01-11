@@ -400,6 +400,8 @@ Route::middleware([
         Route::get('/accounts/search', [AccountController::class, 'search']);
         Route::get('/all-accounts', [AccountController::class, 'allAccounts']);
         Route::get('/accounts/chart-of-accounts', [AccountController::class, 'getChartOfAccounts']);
+        Route::get('/accounts/child-chart-of-accounts', [AccountController::class, 'getChildChartOfAccounts']);
+        Route::post('/accounts/create-child-chart-of-account', [AccountController::class, 'createChildChartOfAccount']);
         Route::get('/accounts/check-connection', [AccountController::class, 'checkAccountsConnection']);
         Route::get('/accounts/transactions/{slug}', [AccountController::class, 'accountTransactions']);
         Route::get('/accounts/transactions/{slug}/search', [AccountController::class, 'searchTransactions']);
