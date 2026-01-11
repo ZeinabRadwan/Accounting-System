@@ -6489,8 +6489,7 @@ class ReportController extends Controller
                 'from_date' => 'nullable|date',
                 'to_date' => 'nullable|date|after_or_equal:from_date',
                 'branch_id' => 'nullable|exists:branches,id',
-                'chart_of_account_id' => 'nullable|exists:chart_of_accounts,id', // Specific cash account
-                'account_type' => 'nullable|string', // Filter by account type (e.g., 'Asset')
+                'chart_of_account_id' => 'nullable|exists:chart_of_accounts,id', // Specific cash/bank account
             ]);
 
             $user = Auth::user();
@@ -6500,7 +6499,6 @@ class ReportController extends Controller
             $toDate = $request->to_date;
             $branchId = $request->branch_id;
             $chartOfAccountId = $request->chart_of_account_id;
-            $accountType = $request->account_type;
 
             // Filter branch IDs if specific branch requested
             if ($branchId) {
@@ -6513,17 +6511,11 @@ class ReportController extends Controller
             $baseQuery = DB::table('journal_entry_lines')
                 ->join('journal_entries', 'journal_entry_lines.journal_entry_id', '=', 'journal_entries.id')
                 ->join('chart_of_accounts', 'journal_entry_lines.chart_of_account_id', '=', 'chart_of_accounts.id')
-                ->leftJoin('chart_of_account_types', 'chart_of_accounts.type_id', '=', 'chart_of_account_types.id')
                 ->where('journal_entries.status', 'posted')
                 ->whereNotNull('journal_entry_lines.analytical_account_id')
                 ->whereIn('journal_entries.branch_id', $branchIds);
 
-            // Filter by account type (typically Asset for cash accounts)
-            if ($accountType) {
-                $baseQuery->where('chart_of_account_types.name', $accountType);
-            }
-
-            // Filter by specific chart of account (cash account)
+            // Filter by specific chart of account (cash/bank account)
             if ($chartOfAccountId) {
                 $baseQuery->where('journal_entry_lines.chart_of_account_id', $chartOfAccountId);
             }
@@ -6634,6 +6626,29 @@ class ReportController extends Controller
                 }
             }
 
+            $timeSeriesQuery = DB::table('journal_entry_lines')
+                ->join('journal_entries', 'journal_entry_lines.journal_entry_id', '=', 'journal_entries.id')
+                ->join('chart_of_accounts', 'journal_entry_lines.chart_of_account_id', '=', 'chart_of_accounts.id')
+                ->where('journal_entries.status', 'posted')
+                ->whereNotNull('journal_entry_lines.analytical_account_id')
+                ->whereIn('journal_entries.branch_id', $branchIds);
+
+            if ($chartOfAccountId) {
+                $timeSeriesQuery->where('journal_entry_lines.chart_of_account_id', $chartOfAccountId);
+            }
+
+            if ($analyticalAccountId) {
+                $timeSeriesQuery->where('journal_entry_lines.analytical_account_id', $analyticalAccountId);
+            }
+
+            if ($fromDate) {
+                $timeSeriesQuery->whereDate('journal_entries.entry_date', '>=', $fromDate);
+            }
+
+            if ($toDate) {
+                $timeSeriesQuery->whereDate('journal_entries.entry_date', '<=', $toDate);
+            }
+
             $timeSeriesData = $timeSeriesQuery
                 ->selectRaw("
                     DATE_FORMAT(journal_entries.entry_date, '{$periodFormat}') as period,
@@ -6649,14 +6664,9 @@ class ReportController extends Controller
             $openingBalanceQuery = DB::table('journal_entry_lines')
                 ->join('journal_entries', 'journal_entry_lines.journal_entry_id', '=', 'journal_entries.id')
                 ->join('chart_of_accounts', 'journal_entry_lines.chart_of_account_id', '=', 'chart_of_accounts.id')
-                ->leftJoin('chart_of_account_types', 'chart_of_accounts.type_id', '=', 'chart_of_account_types.id')
                 ->where('journal_entries.status', 'posted')
                 ->whereNotNull('journal_entry_lines.analytical_account_id')
                 ->whereIn('journal_entries.branch_id', $branchIds);
-
-            if ($accountType) {
-                $openingBalanceQuery->where('chart_of_account_types.name', $accountType);
-            }
 
             if ($chartOfAccountId) {
                 $openingBalanceQuery->where('journal_entry_lines.chart_of_account_id', $chartOfAccountId);
@@ -6716,7 +6726,6 @@ class ReportController extends Controller
                 'to_date' => 'nullable|date|after_or_equal:from_date',
                 'branch_id' => 'nullable|exists:branches,id',
                 'chart_of_account_id' => 'nullable|exists:chart_of_accounts,id',
-                'account_type' => 'nullable|string',
             ]);
 
             $user = Auth::user();
@@ -6726,7 +6735,6 @@ class ReportController extends Controller
             $toDate = $request->to_date;
             $branchId = $request->branch_id;
             $chartOfAccountId = $request->chart_of_account_id;
-            $accountType = $request->account_type;
 
             if ($branchId) {
                 $branchIds = in_array($branchId, $branchIds) ? [$branchId] : [];
@@ -6736,14 +6744,9 @@ class ReportController extends Controller
             $baseQuery = DB::table('journal_entry_lines')
                 ->join('journal_entries', 'journal_entry_lines.journal_entry_id', '=', 'journal_entries.id')
                 ->join('chart_of_accounts', 'journal_entry_lines.chart_of_account_id', '=', 'chart_of_accounts.id')
-                ->leftJoin('chart_of_account_types', 'chart_of_accounts.type_id', '=', 'chart_of_account_types.id')
                 ->where('journal_entries.status', 'posted')
                 ->whereNotNull('journal_entry_lines.analytical_account_id')
                 ->whereIn('journal_entries.branch_id', $branchIds);
-
-            if ($accountType) {
-                $baseQuery->where('chart_of_account_types.name', $accountType);
-            }
 
             if ($chartOfAccountId) {
                 $baseQuery->where('journal_entry_lines.chart_of_account_id', $chartOfAccountId);
@@ -6815,14 +6818,9 @@ class ReportController extends Controller
             $openingBalanceQuery = DB::table('journal_entry_lines')
                 ->join('journal_entries', 'journal_entry_lines.journal_entry_id', '=', 'journal_entries.id')
                 ->join('chart_of_accounts', 'journal_entry_lines.chart_of_account_id', '=', 'chart_of_accounts.id')
-                ->leftJoin('chart_of_account_types', 'chart_of_accounts.type_id', '=', 'chart_of_account_types.id')
                 ->where('journal_entries.status', 'posted')
                 ->whereNotNull('journal_entry_lines.analytical_account_id')
                 ->whereIn('journal_entries.branch_id', $branchIds);
-
-            if ($accountType) {
-                $openingBalanceQuery->where('chart_of_account_types.name', $accountType);
-            }
 
             if ($chartOfAccountId) {
                 $openingBalanceQuery->where('journal_entry_lines.chart_of_account_id', $chartOfAccountId);

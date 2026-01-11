@@ -23861,12 +23861,12 @@ var map = {
 		9032
 	],
 	"./reports/cash-flow-analysis": [
-		51655,
-		1655
+		50693,
+		693
 	],
 	"./reports/cash-flow-analysis.vue": [
-		51655,
-		1655
+		50693,
+		693
 	],
 	"./reports/client-receivable-report": [
 		54403,

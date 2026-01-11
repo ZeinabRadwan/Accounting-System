@@ -23,22 +23,13 @@
             </div>
           </div>
 
-          <!-- Chart of Account (Cash Account) -->
+          <!-- Chart of Account (Cash/Bank Account) -->
           <div class="col-md-3">
             <div class="form-group">
-              <label>{{ $t('Cash Account') }}</label>
+              <label>{{ $t('Cash/Bank Account') }}</label>
               <v-select v-model="filters.chartOfAccount" :options="chartOfAccounts" :reduce="account => account.id"
-                label="display_name" :placeholder="$t('Select Cash Account')" :searchable="true" :clearable="true"
-                :loading="loadingAccounts" @search="searchAccounts" />
-            </div>
-          </div>
-
-          <!-- Account Type -->
-          <div class="col-md-3">
-            <div class="form-group">
-              <label>{{ $t('Account Type') }}</label>
-              <v-select v-model="filters.accountType" :options="accountTypes" :reduce="type => type.value"
-                label="label" :placeholder="$t('Select Account Type')" :searchable="false" :clearable="true" />
+                label="display_name" :placeholder="$t('Select Cash/Bank Account')" :searchable="true" :clearable="true"
+                :loading="loadingAccounts" />
             </div>
           </div>
 
@@ -320,7 +311,6 @@ export default {
       filters: {
         analyticalAccount: null,
         chartOfAccount: null,
-        accountType: null,
         fromDate: null,
         toDate: null,
         branch: null,
@@ -329,13 +319,6 @@ export default {
       analyticalAccounts: [],
       chartOfAccounts: [],
       branches: [],
-      accountTypes: [
-        { label: 'Asset', value: 'Asset' },
-        { label: 'Liability', value: 'Liability' },
-        { label: 'Equity', value: 'Equity' },
-        { label: 'Revenue', value: 'Revenue' },
-        { label: 'Expense', value: 'Expense' },
-      ],
 
       // Chart options
       lineChartOptions: {
@@ -458,7 +441,7 @@ export default {
     async loadInitialData() {
       await Promise.all([
         this.loadAnalyticalAccounts(),
-        this.loadChartOfAccounts(),
+        this.loadCashBankAccounts(),
         this.loadBranches(),
       ]);
     },
@@ -500,41 +483,43 @@ export default {
       await this.loadAnalyticalAccounts(search);
     },
 
-    async loadChartOfAccounts(search = '') {
+    async loadCashBankAccounts() {
       this.loadingAccounts = true;
       try {
-        const response = await axios.get('/api/chart-of-accounts', {
-          params: {
-            search: search,
-            perPage: 100,
-            is_active: 1
-          }
-        });
-        
-        let accounts = [];
-        if (response.data && Array.isArray(response.data)) {
-          accounts = response.data;
-        } else if (response.data && response.data.data && Array.isArray(response.data.data)) {
-          accounts = response.data.data;
-        } else if (response.data && response.data.success && response.data.data && Array.isArray(response.data.data)) {
-          accounts = response.data.data;
+        // Get accounts from main_cash_account and main_bank_account routing settings
+        const [cashResponse, bankResponse] = await Promise.all([
+          axios.get('/api/account-routing-settings/main_cash_account/accounts').catch(() => ({ data: { success: false, data: { accounts: [] } } })),
+          axios.get('/api/account-routing-settings/main_bank_account/accounts').catch(() => ({ data: { success: false, data: { accounts: [] } } }))
+        ]);
+
+        let allAccounts = [];
+
+        // Get cash accounts
+        if (cashResponse.data && cashResponse.data.success && cashResponse.data.data && cashResponse.data.data.accounts) {
+          allAccounts = allAccounts.concat(cashResponse.data.data.accounts);
         }
-        
-        this.chartOfAccounts = accounts.map(account => ({
+
+        // Get bank accounts
+        if (bankResponse.data && bankResponse.data.success && bankResponse.data.data && bankResponse.data.data.accounts) {
+          allAccounts = allAccounts.concat(bankResponse.data.data.accounts);
+        }
+
+        // Remove duplicates based on id
+        const uniqueAccounts = allAccounts.filter((account, index, self) =>
+          index === self.findIndex(a => a.id === account.id)
+        );
+
+        this.chartOfAccounts = uniqueAccounts.map(account => ({
           ...account,
-          display_name: account.display_name || `${account.code || ''} - ${account.name || ''}`
+          display_name: `${account.code || ''} - ${account.name || ''}`
         }));
       } catch (error) {
-        console.error('Error loading chart of accounts:', error);
-        this.$toast.error('', this.$t('Failed to load chart of accounts'));
+        console.error('Error loading cash/bank accounts:', error);
+        this.$toast.error('', this.$t('Failed to load cash/bank accounts'));
         this.chartOfAccounts = [];
       } finally {
         this.loadingAccounts = false;
       }
-    },
-
-    async searchAccounts(search) {
-      await this.loadChartOfAccounts(search);
     },
 
     async loadBranches(search = '') {
@@ -579,9 +564,6 @@ export default {
         }
         if (this.filters.chartOfAccount) {
           params.chart_of_account_id = this.filters.chartOfAccount;
-        }
-        if (this.filters.accountType) {
-          params.account_type = this.filters.accountType;
         }
         if (this.filters.fromDate) {
           params.from_date = this.filters.fromDate;
@@ -659,7 +641,6 @@ export default {
       this.filters = {
         analyticalAccount: null,
         chartOfAccount: null,
-        accountType: null,
         fromDate: null,
         toDate: null,
         branch: null,
@@ -685,9 +666,6 @@ export default {
       if (this.filters.chartOfAccount) {
         params.append('chart_of_account_id', this.filters.chartOfAccount);
       }
-      if (this.filters.accountType) {
-        params.append('account_type', this.filters.accountType);
-      }
       if (this.filters.fromDate) {
         params.append('from_date', this.filters.fromDate);
       }
@@ -708,9 +686,6 @@ export default {
       }
       if (this.filters.chartOfAccount) {
         params.append('chart_of_account_id', this.filters.chartOfAccount);
-      }
-      if (this.filters.accountType) {
-        params.append('account_type', this.filters.accountType);
       }
       if (this.filters.fromDate) {
         params.append('from_date', this.filters.fromDate);
