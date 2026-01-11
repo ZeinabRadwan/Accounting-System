@@ -21834,12 +21834,12 @@ var map = {
 		1509
 	],
 	"./cashbook/accounts/edit": [
-		6409,
-		6409
+		51054,
+		1054
 	],
 	"./cashbook/accounts/edit.vue": [
-		6409,
-		6409
+		51054,
+		1054
 	],
 	"./cashbook/accounts/index": [
 		72620,

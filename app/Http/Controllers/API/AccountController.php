@@ -123,7 +123,7 @@ class AccountController extends Controller
     public function show($slug)
     {
         try {
-            $account = Account::where('slug', $slug)->with('balanceTransactions.user', 'user', 'chartOfAccount.type')->first();
+            $account = Account::where('slug', $slug)->with('balanceTransactions.user', 'user', 'chartOfAccount.type', 'chartOfAccount.parent')->first();
 
             return new AccountResource($account);
         } catch (Exception $e) {

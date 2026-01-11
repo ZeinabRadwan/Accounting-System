@@ -81,38 +81,39 @@
                     <span class="required">*</span></label>
                   <v-select
                     v-model="form.chartOfAccountId"
-                    :options="chartOfAccounts"
+                    :options="filteredChartOfAccounts"
                     label="name"
                     :reduce="option => option.id"
                     :class="{ 'is-invalid': form.errors.has('chartOfAccountId') }"
                     name="chartOfAccountId"
                     :placeholder="$t('Select a Chart of Account')"
+                    :disabled="loadingChartOfAccounts"
                   >
-                    <template #option="{ name, code, type, parent }">
+                    <template #option="{ name, code, type }">
                       <div>
                         <strong>{{ name }}</strong>
                         <br>
                         <small class="text-muted">
                           {{ code }} - {{ type }}
-                          <span v-if="parent" class="text-info">
-                            <i class="fas fa-level-up-alt"></i> {{ $t('Parent') }}: {{ parent.name }}
-                          </span>
                         </small>
                       </div>
                     </template>
                   </v-select>
                   <div class="mt-2">
-                    <small class="text-muted d-block mb-2">
-                      <i class="fas fa-info-circle"></i>
-                      {{ $t('You can create a sub-account from Chart of Accounts page') }}
-                    </small>
-                    <router-link 
-                      v-if="form.chartOfAccountId && $can('chart-of-account-create')" 
-                      :to="{ name: 'chart-of-accounts.create', query: { parent_id: form.chartOfAccountId } }"
-                      class="btn btn-sm btn-outline-primary">
+                    <button 
+                      v-if="$can('chart-of-account-create')" 
+                      type="button"
+                      class="btn btn-sm btn-outline-primary"
+                      @click="createNewChartOfAccount"
+                      :disabled="!form.bankName || form.bankName.trim() === '' || creatingChartOfAccount">
                       <i class="fas fa-plus"></i>
-                      {{ $t('Create Sub Account for this Chart of Account') }}
-                    </router-link>
+                      <span v-if="creatingChartOfAccount">{{ $t('Creating...') }}</span>
+                      <span v-else>{{ $t('Create New Chart of Account') }}</span>
+                    </button>
+                    <small v-if="!form.bankName || form.bankName.trim() === ''" class="text-muted d-block mt-1">
+                      <i class="fas fa-info-circle"></i>
+                      {{ $t('Enter bank name to create a new chart of account') }}
+                    </small>
                   </div>
                   <has-error :form="form" field="chartOfAccountId" />
                 </div>
@@ -229,32 +230,40 @@ export default {
     url: null,
     loading: true,
     chartOfAccounts: [],
+    loadingChartOfAccounts: false,
+    creatingChartOfAccount: false,
+    accountType: null, // 'bank' or 'cash'
   }),
 
-  mounted() {
-    this.loadChartOfAccounts()
-    this.loadTemporaryData()
+  computed: {
+    filteredChartOfAccounts() {
+      return this.chartOfAccounts || []
+    },
   },
 
-  watch: {
-    'chartOfAccounts': {
-      handler(newVal) {
-        if (newVal && newVal.length > 0) {
-          // Load account data after chart of accounts are available
-          this.getAccount()
-        }
-      },
-      immediate: true
-    }
+  mounted() {
+    this.loadTemporaryData()
+    // Load account first to determine account type
+    this.getAccount()
   },
 
   
 
   methods: {
-    // load chart of accounts
-    async loadChartOfAccounts() {
+    // load chart of accounts based on account type
+    async loadChartOfAccounts(accountType) {
+      if (!accountType) {
+        return
+      }
+      
+      this.loadingChartOfAccounts = true
       try {
-        const response = await this.$axios.get('/api/accounts/chart-of-accounts')
+        // Load child accounts based on account type (bank or cash)
+        const response = await this.$axios.get('/api/accounts/child-chart-of-accounts', {
+          params: {
+            account_type: accountType
+          }
+        })
         if (response.data && response.data.success) {
           this.chartOfAccounts = response.data.data || []
         } else {
@@ -266,27 +275,147 @@ export default {
           type: 'error',
           title: this.$t('Failed to load chart of accounts')
         })
+        this.chartOfAccounts = []
+      } finally {
+        this.loadingChartOfAccounts = false
       }
+    },
+    // determine account type from chart of account's parent
+    async determineAccountType(chartOfAccount) {
+      if (!chartOfAccount || !chartOfAccount.parent_id) {
+        // Default to bank if no chart of account or no parent
+        return 'bank'
+      }
+      
+      try {
+        const parentId = chartOfAccount.parent_id
+        const branchId = this.$store.getters['auth/currentUser']?.default_branch_id
+          
+        // Check if parent is main_bank_account
+        const bankSettingResponse = await this.$axios.get('/api/account-routing-settings', {
+          params: {
+            module: 'banking',
+            setting_key: 'main_bank_account',
+            branch_id: branchId
+          }
+        })
+        
+        if (bankSettingResponse.data && bankSettingResponse.data.success) {
+          const settings = bankSettingResponse.data.data || []
+          const bankSetting = settings.find(s => s.main_account_id === parentId)
+          if (bankSetting) {
+            return 'bank'
+          }
+        }
+        
+        // Check if parent is main_cash_account
+        const cashSettingResponse = await this.$axios.get('/api/account-routing-settings', {
+          params: {
+            module: 'banking',
+            setting_key: 'main_cash_account',
+            branch_id: branchId
+          }
+        })
+        
+        if (cashSettingResponse.data && cashSettingResponse.data.success) {
+          const settings = cashSettingResponse.data.data || []
+          const cashSetting = settings.find(s => s.main_account_id === parentId)
+          if (cashSetting) {
+            return 'cash'
+          }
+        }
+      } catch (error) {
+        console.error('Error determining account type:', error)
+      }
+      
+      // Default to bank if we can't determine
+      return 'bank'
     },
     // get account
     async getAccount() {
-      const { data } = await axios.get(
-        window.location.origin + '/api/accounts/' + this.$route.params.slug
-      )
-      this.form.accountLabel = data.data.accountLabel
-      this.form.bankName = data.data.bankName
-      this.form.branchName = data.data.branchName
-      this.form.accountNumber = data.data.accountNumber
-      this.form.date = data.data.date
-      this.url = data.data.image
-      this.form.note = data.data.note
-      this.form.status = data.data.status
-      
-      // Set the chartOfAccountId to the ID value for proper v-select handling
-      if (data.data.chartOfAccount && data.data.chartOfAccount.id) {
-        this.form.chartOfAccountId = data.data.chartOfAccount.id
-      } else {
-        this.form.chartOfAccountId = null
+      try {
+        const { data } = await axios.get(
+          window.location.origin + '/api/accounts/' + this.$route.params.slug
+        )
+        this.form.accountLabel = data.data.accountLabel
+        this.form.bankName = data.data.bankName
+        this.form.branchName = data.data.branchName
+        this.form.accountNumber = data.data.accountNumber
+        this.form.date = data.data.date
+        this.url = data.data.image
+        this.form.note = data.data.note
+        this.form.status = data.data.status
+        
+        // Determine account type from chart of account
+        if (data.data.chartOfAccount && data.data.chartOfAccount.id) {
+          this.form.chartOfAccountId = data.data.chartOfAccount.id
+          // Determine account type and load appropriate chart of accounts
+          this.accountType = await this.determineAccountType(data.data.chartOfAccount)
+          await this.loadChartOfAccounts(this.accountType)
+        } else {
+          this.form.chartOfAccountId = null
+          // Default to bank if no chart of account
+          this.accountType = 'bank'
+          await this.loadChartOfAccounts('bank')
+        }
+      } catch (error) {
+        console.error('Error loading account:', error)
+        toast.fire({
+          type: 'error',
+          title: this.$t('Failed to load account')
+        })
+        // Default to bank on error
+        this.accountType = 'bank'
+        await this.loadChartOfAccounts('bank')
+      }
+    },
+    // create new chart of account
+    async createNewChartOfAccount() {
+      // Validate bank name
+      if (!this.form.bankName || this.form.bankName.trim() === '') {
+        toast.fire({
+          type: 'error',
+          title: this.$t('Bank name is required to create a chart of account')
+        })
+        return
+      }
+
+      // Use determined account type or default to bank
+      const accountType = this.accountType || 'bank'
+
+      this.creatingChartOfAccount = true
+      try {
+        const response = await this.$axios.post('/api/accounts/create-child-chart-of-account', {
+          account_type: accountType,
+          bank_name: this.form.bankName.trim()
+        })
+
+        if (response.data && response.data.success) {
+          const newAccount = response.data.data
+          // Add the new account to the list
+          this.chartOfAccounts.push(newAccount)
+          // Select the newly created account
+          this.form.chartOfAccountId = newAccount.id
+          
+          toast.fire({
+            type: 'success',
+            title: this.$t('Chart of account created successfully')
+          })
+        } else {
+          toast.fire({
+            type: 'error',
+            title: response.data?.message || this.$t('Failed to create chart of account')
+          })
+        }
+      } catch (error) {
+        console.error('Error creating chart of account:', error)
+        const errorMessage = error.response?.data?.message || this.$t('Failed to create chart of account')
+        toast.fire({
+          type: 'error',
+          title: errorMessage
+        })
+      } finally {
+        this.creatingChartOfAccount = false
       }
     },
     // update account
