@@ -1398,6 +1398,18 @@ export default [
     meta: {permissions: ['account-statement']},
   },
   {
+    path: '/reports/analytical-account-dashboard',
+    name: 'reports.analyticalAccountDashboard',
+    component: page('reports/analytical-account-dashboard.vue'),
+    meta: {permissions: ['account-statement']},
+  },
+  {
+    path: '/reports/cash-flow-analysis',
+    name: 'reports.cashFlowAnalysis',
+    component: page('reports/cash-flow-analysis.vue'),
+    meta: {permissions: ['account-statement']},
+  },
+  {
     path: '/reports/invoice-summary',
     name: 'reports.invoiceSummary',
     component: page('reports/invoice-summary.vue'),

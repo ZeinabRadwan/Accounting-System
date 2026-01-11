@@ -635,6 +635,8 @@ Route::middleware([
         Route::get('/reports/account-statement', [ReportController::class, 'accountStatement']);
         Route::get('/reports/group-account-statement', [ReportController::class, 'groupAccountStatement']);
         Route::get('/reports/analytical-account-statement', [ReportController::class, 'analyticalAccountStatement']);
+        Route::get('/reports/analytical-account-summary', [ReportController::class, 'analyticalAccountSummary']);
+        Route::get('/reports/cash-flow-analysis', [ReportController::class, 'cashFlowAnalysis']);
         Route::get('/reports/invoice-summary', [ReportController::class, 'invoiceSummary']);
         Route::get('/reports/purchase-summary', [ReportController::class, 'purchaseSummary']);
         Route::get('/reports/sub-chart-of-accounts', [ReportController::class, 'getSubChartOfAccounts']);
@@ -928,6 +930,8 @@ Route::middleware([
     Route::get('/group-account-statement/export', [TableExportController::class, 'groupAccountStatementExportExcel'])->name('groupAccountStatement.export.excel');
     Route::get('/analytical-account-statement/pdf', [TableExportController::class, 'analyticalAccountStatementPDF'])->name('analyticalAccountStatement.pdf');
     Route::get('/analytical-account-statement/export', [TableExportController::class, 'analyticalAccountStatementExportExcel'])->name('analyticalAccountStatement.export.excel');
+    Route::get('/cash-flow-analysis/pdf', [TableExportController::class, 'cashFlowAnalysisPDF'])->name('cashFlowAnalysis.pdf');
+    Route::get('/cash-flow-analysis/export', [TableExportController::class, 'cashFlowAnalysisExportExcel'])->name('cashFlowAnalysis.export.excel');
     Route::get('/invoice-summary/pdf', [TableExportController::class, 'invoiceSummaryPDF'])->name('invoiceSummary.pdf');
     Route::get('/invoice-summary/export', [TableExportController::class, 'invoiceSummaryExportExcel'])->name('invoiceSummary.export.excel');
     Route::get('/purchase-summary/pdf', [TableExportController::class, 'purchaseSummaryPDF'])->name('purchaseSummary.pdf');

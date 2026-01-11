@@ -1948,6 +1948,53 @@ class TableExportController extends Controller
         return Excel::download(new ExportAnalyticalAccountStatement($filters), 'AnalyticalAccountStatement.xlsx');
     }
 
+    /**
+     * Cash Flow Analysis PDF Export
+     */
+    public function cashFlowAnalysisPDF(Request $request)
+    {
+        \Laravel\Telescope\Telescope::stopRecording();
+
+        ini_set('memory_limit', '1G');
+        set_time_limit(300);
+
+        try {
+            $reportController = new \App\Http\Controllers\API\ReportController;
+            $reportData = $reportController->cashFlowAnalysisForPrint($request);
+
+            if (! $reportData || ! isset($reportData['data'])) {
+                abort(404, 'Report data not found');
+            }
+
+            $data = $reportData['data'];
+            $summary = $reportData['summary'];
+
+            $pdf = PDF::loadView('pdf.cash-flow-analysis', [
+                'data' => $data,
+                'summary' => $summary,
+                'filters' => $request->all(),
+                'appInfo' => \App\Models\AppInfo::first(),
+            ]);
+
+            return $pdf->download('CashFlowAnalysis.pdf');
+        } catch (\Exception $e) {
+            Log::error('Cash Flow Analysis PDF Export Error: '.$e->getMessage());
+            Log::error($e->getTraceAsString());
+
+            abort(500, 'Failed to generate PDF: '.$e->getMessage());
+        }
+    }
+
+    /**
+     * Cash Flow Analysis Excel Export
+     */
+    public function cashFlowAnalysisExportExcel(Request $request)
+    {
+        $filters = $request->all();
+
+        return Excel::download(new \App\Exports\ExportCashFlowAnalysis($filters), 'CashFlowAnalysis.xlsx');
+    }
+
     // return invoice summary excel
     public function invoiceSummaryExportExcel(Request $request)
     {

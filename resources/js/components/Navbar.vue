@@ -565,6 +565,8 @@ export default {
           addRoute('reports.accountStatement', 'Account Statement', 'fas fa-chart-bar');
           addRoute('reports.groupAccountStatement', 'Group Account Statement', 'fas fa-chart-bar');
           addRoute('reports.analyticalAccountStatement', 'Analytical Account Statement', 'fas fa-chart-bar');
+          addRoute('reports.analyticalAccountDashboard', 'Analytical Account Dashboard', 'fas fa-chart-bar');
+          addRoute('reports.cashFlowAnalysis', 'Cash Flow Analysis', 'fas fa-chart-bar');
           addRoute('reports.invoiceSummary', 'Invoice Summary', 'fas fa-chart-bar');
           addRoute('reports.purchaseSummary', 'Purchase Summary', 'fas fa-chart-bar');
         }

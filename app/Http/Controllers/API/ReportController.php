@@ -6467,13 +6467,401 @@ class ReportController extends Controller
                 ],
             ]);
         } catch (\Exception $e) {
-            Log::error('Analytical Account Summary Report Error: '.$e->getMessage());
+            Log::error('Analytical Account Summary Error: '.$e->getMessage());
+            Log::error($e->getTraceAsString());
 
             return response()->json([
                 'success' => false,
-                'message' => 'Failed to generate analytical account summary report',
-                'error' => $e->getMessage(),
+                'message' => $e->getMessage(),
             ], 500);
+        }
+    }
+
+    /**
+     * Cash Flow Analysis by Analytical Account
+     * Tracks cash inflows and outflows grouped by analytical accounts
+     */
+    public function cashFlowAnalysis(Request $request)
+    {
+        try {
+            $this->validate($request, [
+                'analytical_account_id' => 'nullable|exists:analytical_accounts,id',
+                'from_date' => 'nullable|date',
+                'to_date' => 'nullable|date|after_or_equal:from_date',
+                'branch_id' => 'nullable|exists:branches,id',
+                'chart_of_account_id' => 'nullable|exists:chart_of_accounts,id', // Specific cash account
+                'account_type' => 'nullable|string', // Filter by account type (e.g., 'Asset')
+            ]);
+
+            $user = Auth::user();
+            $branchIds = $this->getUserBranchIds($user);
+            $analyticalAccountId = $request->analytical_account_id;
+            $fromDate = $request->from_date;
+            $toDate = $request->to_date;
+            $branchId = $request->branch_id;
+            $chartOfAccountId = $request->chart_of_account_id;
+            $accountType = $request->account_type;
+
+            // Filter branch IDs if specific branch requested
+            if ($branchId) {
+                $branchIds = in_array($branchId, $branchIds) ? [$branchId] : [];
+            }
+
+            // Build base query for cash flow analysis
+            // Cash inflows = credits to cash accounts (money coming in)
+            // Cash outflows = debits from cash accounts (money going out)
+            $baseQuery = DB::table('journal_entry_lines')
+                ->join('journal_entries', 'journal_entry_lines.journal_entry_id', '=', 'journal_entries.id')
+                ->join('chart_of_accounts', 'journal_entry_lines.chart_of_account_id', '=', 'chart_of_accounts.id')
+                ->leftJoin('chart_of_account_types', 'chart_of_accounts.type_id', '=', 'chart_of_account_types.id')
+                ->where('journal_entries.status', 'posted')
+                ->whereNotNull('journal_entry_lines.analytical_account_id')
+                ->whereIn('journal_entries.branch_id', $branchIds);
+
+            // Filter by account type (typically Asset for cash accounts)
+            if ($accountType) {
+                $baseQuery->where('chart_of_account_types.name', $accountType);
+            }
+
+            // Filter by specific chart of account (cash account)
+            if ($chartOfAccountId) {
+                $baseQuery->where('journal_entry_lines.chart_of_account_id', $chartOfAccountId);
+            }
+
+            // Filter by analytical account
+            if ($analyticalAccountId) {
+                $baseQuery->where('journal_entry_lines.analytical_account_id', $analyticalAccountId);
+            }
+
+            // Filter by date range
+            if ($fromDate) {
+                $baseQuery->whereDate('journal_entries.entry_date', '>=', $fromDate);
+            }
+
+            if ($toDate) {
+                $baseQuery->whereDate('journal_entries.entry_date', '<=', $toDate);
+            }
+
+            // Get cash flow data grouped by analytical account
+            $cashFlowData = $baseQuery
+                ->selectRaw('
+                    journal_entry_lines.analytical_account_id,
+                    SUM(journal_entry_lines.credit_amount) as total_inflows,
+                    SUM(journal_entry_lines.debit_amount) as total_outflows,
+                    COUNT(DISTINCT CASE WHEN journal_entry_lines.credit_amount > 0 THEN journal_entries.id END) as inflow_transactions,
+                    COUNT(DISTINCT CASE WHEN journal_entry_lines.debit_amount > 0 THEN journal_entries.id END) as outflow_transactions,
+                    COUNT(DISTINCT journal_entries.id) as total_transactions
+                ')
+                ->groupBy('journal_entry_lines.analytical_account_id')
+                ->get();
+
+            $result = [];
+            $totalInflows = 0;
+            $totalOutflows = 0;
+
+            foreach ($cashFlowData as $flow) {
+                $analyticalAccount = AnalyticalAccount::find($flow->analytical_account_id);
+                if (! $analyticalAccount) {
+                    continue;
+                }
+
+                $inflows = round($flow->total_inflows ?? 0, 2);
+                $outflows = round($flow->total_outflows ?? 0, 2);
+                $netCashFlow = round($inflows - $outflows, 2);
+
+                $totalInflows += $inflows;
+                $totalOutflows += $outflows;
+
+                $result[] = [
+                    'analytical_account' => [
+                        'id' => $analyticalAccount->id,
+                        'name' => $analyticalAccount->name,
+                        'code' => $analyticalAccount->code,
+                        'display_name' => $analyticalAccount->display_name,
+                        'type' => $analyticalAccount->type,
+                    ],
+                    'inflows' => $inflows,
+                    'outflows' => $outflows,
+                    'net_cash_flow' => $netCashFlow,
+                    'inflow_transactions' => $flow->inflow_transactions ?? 0,
+                    'outflow_transactions' => $flow->outflow_transactions ?? 0,
+                    'total_transactions' => $flow->total_transactions ?? 0,
+                ];
+            }
+
+            // Sort by net cash flow descending
+            usort($result, function ($a, $b) {
+                return $b['net_cash_flow'] <=> $a['net_cash_flow'];
+            });
+
+            // Get time series data for trends
+            $timeSeriesQuery = DB::table('journal_entry_lines')
+                ->join('journal_entries', 'journal_entry_lines.journal_entry_id', '=', 'journal_entries.id')
+                ->join('chart_of_accounts', 'journal_entry_lines.chart_of_account_id', '=', 'chart_of_accounts.id')
+                ->leftJoin('chart_of_account_types', 'chart_of_accounts.type_id', '=', 'chart_of_account_types.id')
+                ->where('journal_entries.status', 'posted')
+                ->whereNotNull('journal_entry_lines.analytical_account_id')
+                ->whereIn('journal_entries.branch_id', $branchIds);
+
+            if ($accountType) {
+                $timeSeriesQuery->where('chart_of_account_types.name', $accountType);
+            }
+
+            if ($chartOfAccountId) {
+                $timeSeriesQuery->where('journal_entry_lines.chart_of_account_id', $chartOfAccountId);
+            }
+
+            if ($analyticalAccountId) {
+                $timeSeriesQuery->where('journal_entry_lines.analytical_account_id', $analyticalAccountId);
+            }
+
+            if ($fromDate) {
+                $timeSeriesQuery->whereDate('journal_entries.entry_date', '>=', $fromDate);
+            }
+
+            if ($toDate) {
+                $timeSeriesQuery->whereDate('journal_entries.entry_date', '<=', $toDate);
+            }
+
+            // Determine period grouping based on date range
+            $periodFormat = 'Y-m-d'; // Default to daily
+            if ($fromDate && $toDate) {
+                $daysDiff = Carbon::parse($fromDate)->diffInDays(Carbon::parse($toDate));
+                if ($daysDiff > 365) {
+                    $periodFormat = 'Y-m'; // Monthly for > 1 year
+                } elseif ($daysDiff > 90) {
+                    $periodFormat = 'Y-W'; // Weekly for > 3 months
+                }
+            }
+
+            $timeSeriesData = $timeSeriesQuery
+                ->selectRaw("
+                    DATE_FORMAT(journal_entries.entry_date, '{$periodFormat}') as period,
+                    SUM(journal_entry_lines.credit_amount) as inflows,
+                    SUM(journal_entry_lines.debit_amount) as outflows,
+                    SUM(journal_entry_lines.credit_amount - journal_entry_lines.debit_amount) as net_flow
+                ")
+                ->groupBy('period')
+                ->orderBy('period')
+                ->get();
+
+            // Calculate opening balance (balance before from_date)
+            $openingBalanceQuery = DB::table('journal_entry_lines')
+                ->join('journal_entries', 'journal_entry_lines.journal_entry_id', '=', 'journal_entries.id')
+                ->join('chart_of_accounts', 'journal_entry_lines.chart_of_account_id', '=', 'chart_of_accounts.id')
+                ->leftJoin('chart_of_account_types', 'chart_of_accounts.type_id', '=', 'chart_of_account_types.id')
+                ->where('journal_entries.status', 'posted')
+                ->whereNotNull('journal_entry_lines.analytical_account_id')
+                ->whereIn('journal_entries.branch_id', $branchIds);
+
+            if ($accountType) {
+                $openingBalanceQuery->where('chart_of_account_types.name', $accountType);
+            }
+
+            if ($chartOfAccountId) {
+                $openingBalanceQuery->where('journal_entry_lines.chart_of_account_id', $chartOfAccountId);
+            }
+
+            if ($analyticalAccountId) {
+                $openingBalanceQuery->where('journal_entry_lines.analytical_account_id', $analyticalAccountId);
+            }
+
+            if ($fromDate) {
+                $openingBalanceQuery->whereDate('journal_entries.entry_date', '<', $fromDate);
+            }
+
+            $openingBalance = $openingBalanceQuery
+                ->selectRaw('
+                    SUM(journal_entry_lines.credit_amount - journal_entry_lines.debit_amount) as opening_balance
+                ')
+                ->first();
+
+            $openingBalanceAmount = round($openingBalance->opening_balance ?? 0, 2);
+            $closingBalance = $openingBalanceAmount + ($totalInflows - $totalOutflows);
+
+            return response()->json([
+                'success' => true,
+                'data' => $result,
+                'summary' => [
+                    'total_inflows' => round($totalInflows, 2),
+                    'total_outflows' => round($totalOutflows, 2),
+                    'net_cash_flow' => round($totalInflows - $totalOutflows, 2),
+                    'opening_balance' => $openingBalanceAmount,
+                    'closing_balance' => round($closingBalance, 2),
+                    'from_date' => $fromDate,
+                    'to_date' => $toDate,
+                ],
+                'time_series' => $timeSeriesData,
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Cash Flow Analysis Error: '.$e->getMessage());
+            Log::error($e->getTraceAsString());
+
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    /**
+     * Cash Flow Analysis for Print/Export (all data without pagination)
+     */
+    public function cashFlowAnalysisForPrint(Request $request)
+    {
+        try {
+            $this->validate($request, [
+                'analytical_account_id' => 'nullable|exists:analytical_accounts,id',
+                'from_date' => 'nullable|date',
+                'to_date' => 'nullable|date|after_or_equal:from_date',
+                'branch_id' => 'nullable|exists:branches,id',
+                'chart_of_account_id' => 'nullable|exists:chart_of_accounts,id',
+                'account_type' => 'nullable|string',
+            ]);
+
+            $user = Auth::user();
+            $branchIds = $this->getUserBranchIds($user);
+            $analyticalAccountId = $request->analytical_account_id;
+            $fromDate = $request->from_date;
+            $toDate = $request->to_date;
+            $branchId = $request->branch_id;
+            $chartOfAccountId = $request->chart_of_account_id;
+            $accountType = $request->account_type;
+
+            if ($branchId) {
+                $branchIds = in_array($branchId, $branchIds) ? [$branchId] : [];
+            }
+
+            // Get all data (same logic as cashFlowAnalysis but without pagination)
+            $baseQuery = DB::table('journal_entry_lines')
+                ->join('journal_entries', 'journal_entry_lines.journal_entry_id', '=', 'journal_entries.id')
+                ->join('chart_of_accounts', 'journal_entry_lines.chart_of_account_id', '=', 'chart_of_accounts.id')
+                ->leftJoin('chart_of_account_types', 'chart_of_accounts.type_id', '=', 'chart_of_account_types.id')
+                ->where('journal_entries.status', 'posted')
+                ->whereNotNull('journal_entry_lines.analytical_account_id')
+                ->whereIn('journal_entries.branch_id', $branchIds);
+
+            if ($accountType) {
+                $baseQuery->where('chart_of_account_types.name', $accountType);
+            }
+
+            if ($chartOfAccountId) {
+                $baseQuery->where('journal_entry_lines.chart_of_account_id', $chartOfAccountId);
+            }
+
+            if ($analyticalAccountId) {
+                $baseQuery->where('journal_entry_lines.analytical_account_id', $analyticalAccountId);
+            }
+
+            if ($fromDate) {
+                $baseQuery->whereDate('journal_entries.entry_date', '>=', $fromDate);
+            }
+
+            if ($toDate) {
+                $baseQuery->whereDate('journal_entries.entry_date', '<=', $toDate);
+            }
+
+            $cashFlowData = $baseQuery
+                ->selectRaw('
+                    journal_entry_lines.analytical_account_id,
+                    SUM(journal_entry_lines.credit_amount) as total_inflows,
+                    SUM(journal_entry_lines.debit_amount) as total_outflows,
+                    COUNT(DISTINCT CASE WHEN journal_entry_lines.credit_amount > 0 THEN journal_entries.id END) as inflow_transactions,
+                    COUNT(DISTINCT CASE WHEN journal_entry_lines.debit_amount > 0 THEN journal_entries.id END) as outflow_transactions,
+                    COUNT(DISTINCT journal_entries.id) as total_transactions
+                ')
+                ->groupBy('journal_entry_lines.analytical_account_id')
+                ->get();
+
+            $result = [];
+            $totalInflows = 0;
+            $totalOutflows = 0;
+
+            foreach ($cashFlowData as $flow) {
+                $analyticalAccount = AnalyticalAccount::find($flow->analytical_account_id);
+                if (! $analyticalAccount) {
+                    continue;
+                }
+
+                $inflows = round($flow->total_inflows ?? 0, 2);
+                $outflows = round($flow->total_outflows ?? 0, 2);
+                $netCashFlow = round($inflows - $outflows, 2);
+
+                $totalInflows += $inflows;
+                $totalOutflows += $outflows;
+
+                $result[] = [
+                    'analytical_account' => [
+                        'id' => $analyticalAccount->id,
+                        'name' => $analyticalAccount->name,
+                        'code' => $analyticalAccount->code,
+                        'display_name' => $analyticalAccount->display_name,
+                        'type' => $analyticalAccount->type,
+                    ],
+                    'inflows' => $inflows,
+                    'outflows' => $outflows,
+                    'net_cash_flow' => $netCashFlow,
+                    'inflow_transactions' => $flow->inflow_transactions ?? 0,
+                    'outflow_transactions' => $flow->outflow_transactions ?? 0,
+                    'total_transactions' => $flow->total_transactions ?? 0,
+                ];
+            }
+
+            usort($result, function ($a, $b) {
+                return $b['net_cash_flow'] <=> $a['net_cash_flow'];
+            });
+
+            // Calculate opening balance
+            $openingBalanceQuery = DB::table('journal_entry_lines')
+                ->join('journal_entries', 'journal_entry_lines.journal_entry_id', '=', 'journal_entries.id')
+                ->join('chart_of_accounts', 'journal_entry_lines.chart_of_account_id', '=', 'chart_of_accounts.id')
+                ->leftJoin('chart_of_account_types', 'chart_of_accounts.type_id', '=', 'chart_of_account_types.id')
+                ->where('journal_entries.status', 'posted')
+                ->whereNotNull('journal_entry_lines.analytical_account_id')
+                ->whereIn('journal_entries.branch_id', $branchIds);
+
+            if ($accountType) {
+                $openingBalanceQuery->where('chart_of_account_types.name', $accountType);
+            }
+
+            if ($chartOfAccountId) {
+                $openingBalanceQuery->where('journal_entry_lines.chart_of_account_id', $chartOfAccountId);
+            }
+
+            if ($analyticalAccountId) {
+                $openingBalanceQuery->where('journal_entry_lines.analytical_account_id', $analyticalAccountId);
+            }
+
+            if ($fromDate) {
+                $openingBalanceQuery->whereDate('journal_entries.entry_date', '<', $fromDate);
+            }
+
+            $openingBalance = $openingBalanceQuery
+                ->selectRaw('
+                    SUM(journal_entry_lines.credit_amount - journal_entry_lines.debit_amount) as opening_balance
+                ')
+                ->first();
+
+            $openingBalanceAmount = round($openingBalance->opening_balance ?? 0, 2);
+            $closingBalance = $openingBalanceAmount + ($totalInflows - $totalOutflows);
+
+            return [
+                'data' => $result,
+                'summary' => [
+                    'total_inflows' => round($totalInflows, 2),
+                    'total_outflows' => round($totalOutflows, 2),
+                    'net_cash_flow' => round($totalInflows - $totalOutflows, 2),
+                    'opening_balance' => $openingBalanceAmount,
+                    'closing_balance' => round($closingBalance, 2),
+                    'from_date' => $fromDate,
+                    'to_date' => $toDate,
+                ],
+            ];
+        } catch (\Exception $e) {
+            Log::error('Cash Flow Analysis For Print Error: '.$e->getMessage());
+            Log::error($e->getTraceAsString());
+
+            throw $e;
         }
     }
 

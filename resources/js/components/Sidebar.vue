@@ -1214,6 +1214,16 @@
                 </router-link>
               </li>
               <li v-if="$can('account-statement')" class="nav-item">
+                <router-link :to="{ name: 'reports.analyticalAccountDashboard' }" class="nav-link">
+                  <p>{{ $t("Analytical Account Dashboard") }}</p>
+                </router-link>
+              </li>
+              <li v-if="$can('account-statement')" class="nav-item">
+                <router-link :to="{ name: 'reports.cashFlowAnalysis' }" class="nav-link">
+                  <p>{{ $t("Cash Flow Analysis") }}</p>
+                </router-link>
+              </li>
+              <li v-if="$can('account-statement')" class="nav-item">
                 <router-link :to="{ name: 'reports.invoiceSummary' }" class="nav-link">
                   <p>{{ $t("Invoice Summary") }}</p>
                 </router-link>
