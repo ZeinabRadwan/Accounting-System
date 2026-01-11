@@ -6590,7 +6590,6 @@ class ReportController extends Controller
             $timeSeriesQuery = DB::table('journal_entry_lines')
                 ->join('journal_entries', 'journal_entry_lines.journal_entry_id', '=', 'journal_entries.id')
                 ->join('chart_of_accounts', 'journal_entry_lines.chart_of_account_id', '=', 'chart_of_accounts.id')
-                ->leftJoin('chart_of_account_types', 'chart_of_accounts.type_id', '=', 'chart_of_account_types.id')
                 ->where('journal_entries.status', 'posted')
                 ->whereNotNull('journal_entry_lines.analytical_account_id')
                 ->whereIn('journal_entries.branch_id', $branchIds);
