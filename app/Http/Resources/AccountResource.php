@@ -28,19 +28,22 @@ class AccountResource extends JsonResource
             'image' => getAvatarWithFallback($this->image_path, 'accounts'),
             'chartOfAccountId' => $this->chart_of_account_id,
             'chartOfAccount' => $this->whenLoaded('chartOfAccount', function () {
+                $parentData = null;
+                if ($this->chartOfAccount->relationLoaded('parent') && $this->chartOfAccount->parent) {
+                    $parentData = [
+                        'id' => $this->chartOfAccount->parent->id,
+                        'name' => $this->chartOfAccount->parent->name,
+                        'code' => $this->chartOfAccount->parent->code,
+                    ];
+                }
+
                 return [
                     'id' => $this->chartOfAccount->id,
                     'name' => $this->chartOfAccount->name,
                     'code' => $this->chartOfAccount->code,
                     'type' => $this->chartOfAccount->type ? $this->chartOfAccount->type->name : null,
                     'parent_id' => $this->chartOfAccount->parent_id,
-                    'parent' => $this->chartOfAccount->whenLoaded('parent', function () {
-                        return [
-                            'id' => $this->chartOfAccount->parent->id,
-                            'name' => $this->chartOfAccount->parent->name,
-                            'code' => $this->chartOfAccount->parent->code,
-                        ];
-                    }),
+                    'parent' => $parentData,
                 ];
             }),
             'note' => $this->note,
