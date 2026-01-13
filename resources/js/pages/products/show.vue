@@ -590,12 +590,55 @@ export default {
     // Get purchase history from allData (including opening stock, purchases, returns, discounts, freight)
     purchaseHistory() {
       const history = [];
+      // Track unique purchase IDs to avoid duplicates
+      const seenIds = new Set();
+      const seenPurchaseKeys = new Set();
+      
+      // Helper function to create unique keys for purchase deduplication
+      const getPurchaseKeys = (purchase) => {
+        const keys = [];
+        // Use ID if available
+        if (purchase.id) {
+          keys.push(`id-${purchase.id}`);
+        }
+        // Use purchase_no + date combination (more reliable for cross-array matching)
+        if (purchase.purchase_no && purchase.purchase_date) {
+          keys.push(`purchase-${purchase.purchase_no}-${purchase.purchase_date}`);
+        }
+        return keys;
+      };
+      
+      // Helper function to check and add purchase (only if not duplicate)
+      const addPurchaseIfUnique = (purchase) => {
+        const keys = getPurchaseKeys(purchase);
+        
+        // Check if any key has been seen before
+        for (const key of keys) {
+          if (seenPurchaseKeys.has(key)) {
+            return false; // Skip duplicate
+          }
+        }
+        
+        // Add all keys to the seen set
+        keys.forEach(key => seenPurchaseKeys.add(key));
+        
+        // Also track by ID if available
+        if (purchase.id) {
+          if (seenIds.has(purchase.id)) {
+            return false; // Skip duplicate (shouldn't happen if keys work correctly, but extra safety)
+          }
+          seenIds.add(purchase.id);
+        }
+        
+        history.push(purchase);
+        return true;
+      };
       
       // Add opening stock if it exists
       if (this.allData && this.allData.openingStockData) {
         const openingStock = this.allData.openingStockData;
         if (openingStock.quantity > 0 && openingStock.unit_price > 0) {
-          history.push({
+          addPurchaseIfUnique({
             id: 'opening',
             type: 'opening_stock',
             purchase_date: null,
@@ -612,7 +655,7 @@ export default {
       if (this.allData && this.allData.opening_inventory) {
         const openingInv = this.allData.opening_inventory;
         if (openingInv.quantity > 0 && openingInv.unit_price > 0) {
-          history.push({
+          addPurchaseIfUnique({
             id: 'opening_inv',
             type: 'opening_stock',
             purchase_date: null,
@@ -640,10 +683,10 @@ export default {
             line_total: (parseFloat(pp.quantity) || 0) * (parseFloat(pp.purchase_price) || 0),
           }));
         
-        history.push(...purchaseProducts);
+        purchaseProducts.forEach(pp => addPurchaseIfUnique(pp));
       }
       
-      // Add purchases from purchases array if provided
+      // Add purchases from purchases array if provided (only if not already added from purchaseProducts)
       if (this.allData && this.allData.purchases && Array.isArray(this.allData.purchases)) {
         const purchases = this.allData.purchases
           .filter(p => p && p.quantity > 0 && p.unit_price > 0)
@@ -658,7 +701,7 @@ export default {
             line_total: (parseFloat(p.quantity) || 0) * (parseFloat(p.unit_price) || 0),
           }));
         
-        history.push(...purchases);
+        purchases.forEach(p => addPurchaseIfUnique(p));
       }
       
       // Add purchase returns
