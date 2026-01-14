@@ -1145,31 +1145,6 @@
             </router-link>
           </li>
 
-          <li v-if="
-            $can('item-report') ||
-            $can('inventory-report')
-          " class="nav-item has-treeview" :class="menuOpen('inventoryReports') ? 'menu-is-opening menu-open' : ''">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-chart-bar" />
-              <p>
-                {{ $t("Reports") }}
-                <span class="toggle-icon"></span>
-              </p>
-            </a>
-            <ul class="nav nav-treeview" :style="menuOpen('inventoryReports') ? 'display: block' : 'display: none'">
-              <li v-if="$can('item-report')" class="nav-item">
-                <router-link :to="{ name: 'reports.items' }" class="nav-link">
-                  <p>{{ $t("Item Report") }}</p>
-                </router-link>
-              </li>
-              <li v-if="$can('inventory-report')" class="nav-item">
-                <router-link :to="{ name: 'reports.inventory' }" class="nav-link">
-                  <p>{{ $t("Inventory Report") }}</p>
-                </router-link>
-              </li>
-            </ul>
-          </li>
-
           <li v-if="$can('inventory-view')" class="nav-item">
             <router-link :to="{ name: 'inventory.count' }" class="nav-link">
               <i class="nav-icon fas fa-clipboard-check" />
