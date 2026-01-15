@@ -214,14 +214,6 @@
               <strong>{{ $t("ZATCA Requirement:") }}</strong> {{ $t("For taxable clients, all address fields are mandatory. Please ensure all information is accurate.") }}
             </div>
             
-            <!-- Country Section -->
-            <div class="form-section-header" style="margin-top: 16px;">
-              <h6 class="section-subtitle">
-                <i class="fas fa-globe mr-2"></i>
-                {{ $t("Country") }}
-              </h6>
-            </div>
-            
             <!-- Country -->
             <div class="form-group">
               <label for="country" class="form-label">
