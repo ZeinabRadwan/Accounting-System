@@ -39,7 +39,1022 @@ ___CSS_LOADER_EXPORT___.push([module.id, ".header-buttons[data-v-6d3eb230]{margi
 
 /***/ }),
 
-/***/ 29424:
+/***/ 33483:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".form-card[data-v-493e4a0c]{background:#fff;border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:20px}.form-card .card-header[data-v-493e4a0c]{background-color:#33a0d9;border-bottom:none;border-radius:20px 20px 0 0;color:#fff;padding:22px 16px}.form-card .section-title[data-v-493e4a0c]{color:#fff;font-size:14px;font-weight:600;margin:0}.form-card .card-body[data-v-493e4a0c]{padding:16px}.form-control[data-v-493e4a0c]{background:#fff!important}input[readonly][data-v-493e4a0c]{background-color:#f8f9fa!important;border-color:#ced4da;color:#6c757d;cursor:not-allowed}.form-control[data-v-493e4a0c]:focus,select.form-control[data-v-493e4a0c]:focus,textarea.form-control[data-v-493e4a0c]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.radio-group[data-v-493e4a0c]{align-items:center;display:flex;gap:16px}.radio-group .radio-inline[data-v-493e4a0c]{align-items:center;display:inline-flex;gap:6px;margin:0}.v-select .vs__dropdown-toggle[data-v-493e4a0c]{border-color:#ced4da;border-radius:6px}.v-select .vs__dropdown-toggle.vs__open[data-v-493e4a0c],.v-select .vs__dropdown-toggle[data-v-493e4a0c]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.v-select .vs__dropdown-menu[data-v-493e4a0c],.v-select .vs__search[data-v-493e4a0c],.v-select .vs__selected[data-v-493e4a0c]{font-size:.95rem}.custom-file-input:focus~.custom-file-label[data-v-493e4a0c]{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.custom-file-label[data-v-493e4a0c]{border-radius:6px}.file-upload-area[data-v-493e4a0c]{background:#f8fdfe;border:2px dashed #33a0d9;border-radius:12px;padding:20px;position:relative;text-align:center}.file-upload-area .file-input[data-v-493e4a0c]{cursor:pointer;height:100%;inset:0;opacity:0;position:absolute;width:100%}.file-upload-area .file-upload-content[data-v-493e4a0c]{color:#33a0d9}.selected-files .selected-file-item[data-v-493e4a0c]{align-items:center;background:#f5faff;border:1px solid #e3f3f7;border-radius:6px;display:inline-flex;margin-bottom:8px;margin-right:8px;padding:6px 10px}.d-flex.align-items-center span.ml-3[data-v-493e4a0c]{font-weight:500}.required[data-v-493e4a0c]{color:#dc3545}.tax-status-options[data-v-493e4a0c]{margin-top:.5rem}.tax-status-card-compact[data-v-493e4a0c]{background-color:#fff;border:2px solid #e0e0e0;box-shadow:0 1px 4px rgba(0,0,0,.06);display:block;padding:.75rem 1rem;position:relative}.tax-status-card-compact[data-v-493e4a0c]:hover{border-color:#007bff;box-shadow:0 2px 8px rgba(0,123,255,.12);transform:translateY(-1px)}.tax-status-card-compact.active[data-v-493e4a0c]{background:linear-gradient(135deg,#f8f9ff,#fff);border-color:#007bff;box-shadow:0 2px 10px rgba(0,123,255,.15)}.tax-status-card-compact.border-success.active[data-v-493e4a0c]{background:linear-gradient(135deg,#f0fff4,#fff);border-color:#28a745;box-shadow:0 2px 10px rgba(40,167,69,.15)}.tax-status-card-compact.border-primary.active[data-v-493e4a0c]{background:linear-gradient(135deg,#f8f9ff,#fff);border-color:#007bff;box-shadow:0 2px 10px rgba(0,123,255,.15)}.tax-status-header-compact[data-v-493e4a0c]{position:relative}.tax-status-radio[data-v-493e4a0c]{opacity:0;pointer-events:none;position:absolute}.tax-status-icon-compact[data-v-493e4a0c]{align-items:center;border-radius:8px;display:flex;flex-shrink:0;font-size:1rem;height:32px;justify-content:center;margin-right:.75rem;transition:all .2s ease;width:32px}.tax-status-icon-compact.taxable-icon[data-v-493e4a0c]{background:linear-gradient(135deg,#007bff,#0056b3);box-shadow:0 2px 6px rgba(0,123,255,.25);color:#fff}.tax-status-icon-compact.non-taxable-icon[data-v-493e4a0c]{background:linear-gradient(135deg,#28a745,#1e7e34);box-shadow:0 2px 6px rgba(40,167,69,.25);color:#fff}.tax-status-card-compact.active .tax-status-icon-compact.taxable-icon[data-v-493e4a0c]{box-shadow:0 3px 10px rgba(0,123,255,.35);transform:scale(1.05)}.tax-status-card-compact.active .tax-status-icon-compact.non-taxable-icon[data-v-493e4a0c]{box-shadow:0 3px 10px rgba(40,167,69,.35);transform:scale(1.05)}.tax-status-title-compact[data-v-493e4a0c]{color:#2c3e50;flex:1;font-size:.95rem;font-weight:600}.tax-status-card-compact.active .tax-status-title-compact[data-v-493e4a0c]{color:#007bff}.tax-status-card-compact.border-success.active .tax-status-title-compact[data-v-493e4a0c]{color:#28a745}[dir=rtl] .tax-status-icon-compact[data-v-493e4a0c]{margin-left:.75rem;margin-right:0}[dir=rtl] .form-card .card-header[data-v-493e4a0c]{border-radius:20px 20px 0 0}.custom-file-label[data-v-493e4a0c],[dir=rtl] .custom-file-label[data-v-493e4a0c]{text-align:left!important}.btn-primary[data-v-493e4a0c]{background:#33a0d9!important;border-color:#33a0d9!important}.btn-primary[data-v-493e4a0c]:hover{filter:brightness(.95)}.equal-height>[class*=\" col-\"][data-v-493e4a0c],.equal-height>[class^=col-][data-v-493e4a0c]{display:flex}.equal-height .form-card[data-v-493e4a0c]{display:flex;flex-direction:column;width:100%}.equal-height .form-card .card-body[data-v-493e4a0c]{flex:1 1 auto}.country-select[data-v-493e4a0c]{width:100%}.country-select .vs__dropdown-toggle[data-v-493e4a0c]{border:1px solid #ced4da;border-radius:6px;max-width:100%;min-height:2.5rem;overflow:hidden;padding:.5rem 1rem}.country-select .vs__search[data-v-493e4a0c]{font-size:.95rem;margin:0;padding:0}.country-select .vs__selected[data-v-493e4a0c]{align-items:center;display:flex;gap:.5rem;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.country-option[data-v-493e4a0c],.country-selected[data-v-493e4a0c]{align-items:center;display:flex;gap:.5rem;min-width:0}.country-flag[data-v-493e4a0c]{flex-shrink:0;font-size:1.25rem;line-height:1}.country-name[data-v-493e4a0c]{flex:1;font-size:.95rem;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.country-select.is-invalid .vs__dropdown-toggle[data-v-493e4a0c]{border-color:#dc3545}.country-select .vs__dropdown-menu[data-v-493e4a0c]{border-radius:6px;box-shadow:0 .5rem 1rem rgba(0,0,0,.15);margin-top:.5rem}.country-select .vs__dropdown-option[data-v-493e4a0c]{padding:.75rem 1rem}.country-select .vs__dropdown-option--highlight[data-v-493e4a0c]{background-color:#33a0d9;color:#fff}.saudi-location-select[data-v-493e4a0c]{width:100%}.saudi-location-select .vs__dropdown-toggle[data-v-493e4a0c]{background-color:#fff;border:1px solid #ced4da;border-radius:6px;min-height:2.5rem;padding:.375rem .75rem}.saudi-location-select .vs__dropdown-toggle.vs__open[data-v-493e4a0c],.saudi-location-select .vs__dropdown-toggle[data-v-493e4a0c]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15);outline:none}.saudi-location-select.is-invalid .vs__dropdown-toggle[data-v-493e4a0c]{border-color:#dc3545}.saudi-location-select .vs__search[data-v-493e4a0c]{font-size:.95rem;margin:0;padding:0}.saudi-location-select .vs__dropdown-menu[data-v-493e4a0c]{border-radius:6px;box-shadow:0 .5rem 1rem rgba(0,0,0,.15);margin-top:.5rem}.saudi-location-select .vs__dropdown-option[data-v-493e4a0c]{padding:.75rem 1rem}.saudi-location-select .vs__dropdown-option--highlight[data-v-493e4a0c]{background-color:#33a0d9;color:#fff}.client-form-tabs[data-v-493e4a0c]{background:#f8f9fa;border-radius:12px;margin-bottom:2rem;padding:.5rem}.client-form-tabs .nav-tabs[data-v-493e4a0c]{border:none;display:flex;gap:.5rem;margin:0;padding:0}.client-form-tabs .nav-item[data-v-493e4a0c]{flex:1}.client-form-tabs .nav-link[data-v-493e4a0c]{align-items:center;background:transparent;border:none;border-radius:8px;color:#6b7280;cursor:pointer;display:flex;font-size:15px;font-weight:500;justify-content:center;padding:14px 24px;transition:all .3s ease}.client-form-tabs .nav-link[data-v-493e4a0c]:hover{background:#e5e7eb;color:#374151}.client-form-tabs .nav-link.active[data-v-493e4a0c]{background:#0775af;box-shadow:0 2px 8px rgba(7,117,175,.2);color:#fff}.client-form-tabs .nav-link i[data-v-493e4a0c]{font-size:16px;margin-right:8px}[dir=rtl] .client-form-tabs .nav-link i[data-v-493e4a0c]{margin-left:8px;margin-right:0}.tab-content[data-v-493e4a0c]{margin-top:0}.tab-pane[data-v-493e4a0c]{display:none}.tab-pane.show.active[data-v-493e4a0c]{animation:fadeIn-493e4a0c .3s ease;display:block}@keyframes fadeIn-493e4a0c{0%{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}.form-card-enhanced[data-v-493e4a0c]{background:#fff;border:1px solid #e5e7eb;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.05);margin-bottom:2rem;overflow:hidden;transition:all .3s ease}.form-card-enhanced[data-v-493e4a0c]:hover{border-color:#d1d5db;box-shadow:0 4px 12px rgba(0,0,0,.08)}.form-card-enhanced .card-header[data-v-493e4a0c]{background:#eceff3;border-bottom:1px solid #e5e7eb;padding:20px 24px}.form-card-enhanced .section-title[data-v-493e4a0c]{align-items:center;color:#111827;display:flex;flex-wrap:wrap;font-size:18px;font-weight:600;gap:8px;margin:0}.form-card-enhanced .section-title i[data-v-493e4a0c]{color:#0775af;font-size:20px}.form-card-enhanced .card-header-subtitle[data-v-493e4a0c]{color:#6b7280;font-size:13px;font-weight:400;line-height:1.5;margin-bottom:0;margin-top:6px}.form-card-enhanced .card-body[data-v-493e4a0c]{padding:24px}.form-control[data-v-493e4a0c],.form-control-modern[data-v-493e4a0c]{background-color:#fff;border:1.5px solid #d1d5db;border-radius:8px;color:#111827;font-size:14px;height:44px;line-height:1.5;padding:12px 16px;transition:all .2s ease;width:100%}.form-control-modern[data-v-493e4a0c]:focus,.form-control[data-v-493e4a0c]:focus{background-color:#fff;border-color:#0775af;box-shadow:0 0 0 3px rgba(7,117,175,.1);outline:none}.form-control-modern[readonly][data-v-493e4a0c]{background-color:#f9fafb;color:#6b7280;cursor:not-allowed}.form-row-modern[data-v-493e4a0c]{display:grid;gap:20px;grid-template-columns:repeat(2,1fr);margin-bottom:0}.form-row-three[data-v-493e4a0c]{grid-template-columns:repeat(3,1fr)}.form-col-third[data-v-493e4a0c]{width:100%}@media (max-width:1200px){.form-row-three[data-v-493e4a0c]{grid-template-columns:repeat(2,1fr)}.form-row-three .form-col-third[data-v-493e4a0c]:last-child{grid-column:1/-1}}@media (max-width:768px){.form-row-modern[data-v-493e4a0c],.form-row-three[data-v-493e4a0c]{gap:0;grid-template-columns:1fr}.form-row-three .form-col-third[data-v-493e4a0c]:last-child{grid-column:1}}.radio-group-modern[data-v-493e4a0c]{display:flex;gap:12px}.radio-option-modern[data-v-493e4a0c]{align-items:center;background:#fff;border:1.5px solid #d1d5db;border-radius:8px;cursor:pointer;display:flex;flex:1;height:44px;justify-content:center;padding:0 16px;position:relative;transition:all .2s ease}.radio-option-modern[data-v-493e4a0c]:hover{background:#f0f9ff;border-color:#0775af}.radio-option-modern.active[data-v-493e4a0c]{background:#e6f4ff;border-color:#0775af;box-shadow:0 0 0 3px rgba(7,117,175,.1)}.radio-option-modern input[type=radio][data-v-493e4a0c]{opacity:0;pointer-events:none;position:absolute}.radio-label-text[data-v-493e4a0c]{color:#374151;font-size:14px;font-weight:500}.radio-option-modern.active .radio-label-text[data-v-493e4a0c]{color:#0775af;font-weight:600}.tax-status-row[data-v-493e4a0c]{display:flex;gap:8px}.tax-status-row .tax-status-card-compact[data-v-493e4a0c]{flex:1;min-width:0}.tax-status-card-compact[data-v-493e4a0c]{align-items:center;background:#fff;border:1.5px solid #d1d5db;border-radius:8px;cursor:pointer;display:flex;height:44px;padding:0;transition:all .2s ease}.tax-status-card-compact[data-v-493e4a0c]:hover{border-color:#0775af;box-shadow:0 2px 8px rgba(7,117,175,.15)}.tax-status-card-compact.active[data-v-493e4a0c]{background:#f0f9ff;border-color:#0775af;box-shadow:0 0 0 3px rgba(7,117,175,.1)}.tax-status-card-compact.border-success.active[data-v-493e4a0c]{background:#f0fdf4;border-color:#10b981}.tax-status-header-compact[data-v-493e4a0c]{align-items:center;display:flex;height:100%;justify-content:center;padding:0 12px;width:100%}.tax-status-title-compact[data-v-493e4a0c]{color:#374151;font-size:14px;font-weight:500;text-align:center}.tax-status-card-compact.active .tax-status-title-compact[data-v-493e4a0c]{color:#0775af}.tax-status-card-compact.border-success.active .tax-status-title-compact[data-v-493e4a0c]{color:#10b981;font-weight:600}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 47462:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "default": () => (/* binding */ create)
+});
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/suppliers/create.vue?vue&type=template&id=6d3eb230&scoped=true
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "mb-50"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-lg-12 col-xl-12"
+  }, [_c('div', {
+    staticClass: "card custom-card w-100"
+  }, [_c('div', {
+    staticClass: "card-header setings-header"
+  }, [_c('breadcrumbs', {
+    attrs: {
+      "items": _vm.breadcrumbs,
+      "current": _vm.breadcrumbsCurrent
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "col-xl-8 col-8 float-right text-right"
+  }, [_c('div', {
+    staticClass: "btn-group c-w-100 header-buttons"
+  }, [_c('router-link', {
+    staticClass: "btn btn-info",
+    attrs: {
+      "to": {
+        name: 'suppliers.index'
+      }
+    }
+  }, [_vm.$i18n.locale === 'ar' || typeof _vm.document !== 'undefined' && _vm.document.documentElement.getAttribute('dir') === 'rtl' ? [_vm._v("\n\n                  " + _vm._s(_vm.$t('Back')) + " "), _c('i', {
+    staticClass: "fas fa-long-arrow-alt-left"
+  })] : [_vm.$i18n.locale === 'ar' || typeof _vm.document !== 'undefined' && _vm.document.documentElement.getAttribute('dir') === 'rtl' ? [_vm._v("\n\n\n                    " + _vm._s(_vm.$t('Back')) + " "), _c('i', {
+    staticClass: "fas fa-long-arrow-alt-left"
+  })] : [_c('i', {
+    staticClass: "fas fa-long-arrow-alt-left"
+  }), _vm._v(" " + _vm._s(_vm.$t('Back')) + "\n\n\n                  ")]]], 2), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-success",
+    attrs: {
+      "type": "button",
+      "disabled": _vm.isSubmitting,
+      "title": _vm.$t('Save')
+    },
+    on: {
+      "click": _vm.submitForm
+    }
+  }, [_vm.isSubmitting ? _c('i', {
+    staticClass: "fas fa-spinner fa-spin"
+  }) : _c('i', {
+    staticClass: "fas fa-save"
+  })])], 1)])], 1), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_c('SupplierForm', {
+    ref: "supplierForm",
+    attrs: {
+      "showCardBody": false,
+      "fullWidthSections": true
+    },
+    on: {
+      "submit": _vm.saveSupplier
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "card-footer"
+  }, [_c('div', {
+    staticClass: "dtable-footer"
+  }, [_c('div', {
+    staticClass: "form-group row display-per-page footer-buttons d-flex justify-content-between w-100"
+  }, [_c('button', {
+    staticClass: "btn btn-success",
+    attrs: {
+      "disabled": _vm.isSubmitting
+    },
+    on: {
+      "click": _vm.submitForm
+    }
+  }, [_vm.isSubmitting ? _c('i', {
+    staticClass: "fas fa-spinner fa-spin"
+  }) : _c('i', {
+    staticClass: "fas fa-save"
+  }), _vm._v("\n                " + _vm._s(_vm.isSubmitting ? _vm.$t("Saving...") : _vm.$t("Save")) + "\n              ")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-info",
+    attrs: {
+      "type": "reset"
+    },
+    on: {
+      "click": _vm.resetForm
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-power-off"
+  }), _vm._v(" " + _vm._s(_vm.$t("Reset")) + "\n              ")])])])])])])])]);
+};
+var staticRenderFns = [];
+
+// EXTERNAL MODULE: ./resources/js/components/SupplierForm.vue + 6 modules
+var SupplierForm = __webpack_require__(82190);
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/suppliers/create.vue?vue&type=script&lang=js
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+/* harmony default export */ const createvue_type_script_lang_js = ({
+  middleware: ["auth", "check-permissions"],
+  metaInfo: function metaInfo() {
+    return {
+      title: this.$t("Create Supplier")
+    };
+  },
+  components: {
+    SupplierForm: SupplierForm/* default */.A
+  },
+  data: function data() {
+    return {
+      breadcrumbsCurrent: "Create Supplier",
+      breadcrumbs: [{
+        name: "Dashboard",
+        url: "home"
+      }, {
+        name: "Suppliers",
+        url: "suppliers.index"
+      }, {
+        name: "Create",
+        url: ""
+      }],
+      form: null,
+      isSubmitting: false
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+    // Load temporary data after child form is mounted
+    this.$nextTick(function () {
+      _this.loadTemporaryData();
+    });
+  },
+  methods: {
+    // Submit form by calling SupplierForm's submitForm method
+    submitForm: function submitForm() {
+      if (this.$refs.supplierForm) {
+        this.$refs.supplierForm.submitForm();
+      }
+    },
+    // save supplier
+    saveSupplier: function saveSupplier(formData) {
+      var _this2 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        var _this2$$refs$supplier, fd, appendIfDefined, taxStatusValue, taxStatusToSend, name, formDataEntries, _iterator, _step, pair, response;
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              if (!_this2.isSubmitting) {
+                _context.next = 2;
+                break;
+              }
+              return _context.abrupt("return");
+            case 2:
+              _this2.isSubmitting = true;
+              _context.prev = 3;
+              // Build FormData to properly send all fields including taxStatus
+              fd = new FormData();
+              appendIfDefined = function appendIfDefined(key, value) {
+                if (value !== undefined && value !== null && value !== '') {
+                  fd.append(key, value);
+                }
+              }; // Debug: Log formData before building FormData - CRITICAL
+              console.log('=== SUPPLIER CREATE - FORM DATA RECEIVED ===');
+              console.log('Supplier Create - formData received:', {
+                taxStatus: formData.taxStatus,
+                tax_status: formData.tax_status,
+                allFormData: formData
+              });
+              console.log('Supplier Create - formData keys:', Object.keys(formData || {}));
+              console.log('Supplier Create - formData.taxStatus type:', _typeof(formData.taxStatus));
+              console.log('Supplier Create - formData.taxStatus value:', formData.taxStatus);
+              console.log('Supplier Create - formData.tax_status value:', formData.tax_status);
+              console.log('Supplier Create - $refs.supplierForm exists:', !!_this2.$refs.supplierForm);
+              console.log('Supplier Create - $refs.supplierForm.form exists:', !!(_this2.$refs.supplierForm && _this2.$refs.supplierForm.form));
+              if (_this2.$refs.supplierForm && _this2.$refs.supplierForm.form) {
+                console.log('Supplier Create - form.taxStatus:', _this2.$refs.supplierForm.form.taxStatus);
+                console.log('Supplier Create - form.data() taxStatus:', _this2.$refs.supplierForm.form.data ? _this2.$refs.supplierForm.form.data().taxStatus : 'N/A');
+              }
+
+              // Explicitly append all fields to ensure taxStatus is sent
+              appendIfDefined('codeNumber', formData.codeNumber);
+              appendIfDefined('notes', formData.notes);
+              appendIfDefined('displayLanguage', formData.displayLanguage);
+              appendIfDefined('type', formData.type);
+
+              // CRITICAL: Always append taxStatus - don't use appendIfDefined to ensure it's always sent
+              // Get taxStatus from formData, or try to get it from form object if available
+              taxStatusValue = formData.taxStatus || formData.tax_status;
+              console.log('Supplier Create - Initial taxStatus check:', {
+                formDataTaxStatus: formData.taxStatus,
+                formDataTax_status: formData.tax_status,
+                currentTaxStatusValue: taxStatusValue
+              });
+
+              // If still not found, try to get it from the form component
+              if (!taxStatusValue && _this2.$refs.supplierForm && _this2.$refs.supplierForm.form) {
+                taxStatusValue = _this2.$refs.supplierForm.form.taxStatus;
+                console.log('Supplier Create - Got taxStatus from form object:', taxStatusValue);
+              }
+
+              // Default to non_taxable if still not found
+              taxStatusValue = taxStatusValue || 'non_taxable';
+              console.log('Supplier Create - Final taxStatusValue before appending:', taxStatusValue);
+
+              // Always append taxStatus - never skip it, even if it's the default value
+              // CRITICAL: Use explicit string conversion and ensure it's never null/undefined
+              taxStatusToSend = String(taxStatusValue || 'non_taxable');
+              fd.append('taxStatus', taxStatusToSend);
+              fd.append('tax_status', taxStatusToSend);
+              console.log('=== SUPPLIER CREATE - APPENDING TAX STATUS ===');
+              console.log('Supplier Create - taxStatusValue:', taxStatusValue);
+              console.log('Supplier Create - taxStatusToSend:', taxStatusToSend);
+              console.log('Supplier Create - Appended taxStatus to FormData:', taxStatusToSend);
+              console.log('Supplier Create - formData.taxStatus:', formData.taxStatus);
+              console.log('Supplier Create - formData.tax_status:', formData.tax_status);
+              console.log('Supplier Create - form.taxStatus:', (_this2$$refs$supplier = _this2.$refs.supplierForm) === null || _this2$$refs$supplier === void 0 || (_this2$$refs$supplier = _this2$$refs$supplier.form) === null || _this2$$refs$supplier === void 0 ? void 0 : _this2$$refs$supplier.taxStatus);
+
+              // Verify it was added
+              console.log('Supplier Create - FormData has taxStatus:', fd.has('taxStatus'));
+              console.log('Supplier Create - FormData has tax_status:', fd.has('tax_status'));
+              appendIfDefined('fullName', formData.fullName);
+              appendIfDefined('businessName', formData.businessName);
+              appendIfDefined('companyName', formData.companyName || formData.businessName);
+              appendIfDefined('firstName', formData.firstName);
+              appendIfDefined('lastName', formData.lastName);
+              appendIfDefined('phone', formData.phone);
+              appendIfDefined('phoneNumber', formData.phoneNumber);
+              appendIfDefined('email', formData.email);
+              appendIfDefined('streetAddress1', formData.streetAddress1);
+              appendIfDefined('streetAddress2', formData.streetAddress2);
+              appendIfDefined('city', formData.city);
+              appendIfDefined('state', formData.state);
+              appendIfDefined('postalCode', formData.postalCode);
+              appendIfDefined('country', formData.country);
+              appendIfDefined('neighbourhood', formData.neighbourhood);
+              appendIfDefined('commercialRegister', formData.commercialRegister);
+              appendIfDefined('taxCard', formData.taxCard);
+              appendIfDefined('taxRegistrationNumber', formData.taxRegistrationNumber || formData.taxCard);
+              appendIfDefined('buildingNumber', formData.buildingNumber);
+              appendIfDefined('streetNumber', formData.streetNumber);
+              appendIfDefined('districtNumber', formData.districtNumber);
+              appendIfDefined('unitNumber', formData.unitNumber);
+              appendIfDefined('additionalNumber', formData.additionalNumber);
+              appendIfDefined('status', formData.status);
+              appendIfDefined('isSendEmail', formData.isSendEmail ? 1 : 0);
+              appendIfDefined('isSendSMS', formData.isSendSMS ? 1 : 0);
+              appendIfDefined('chartOfAccountId', formData.chartOfAccountId);
+              appendIfDefined('saudi_region', formData.saudi_region);
+
+              // Handle name field - always required when type is Individual
+              name = formData.name || (formData.type === 'Individual' ? formData.fullName : formData.businessName);
+              if (name) {
+                fd.append('name', name);
+              }
+
+              // Handle address field
+              appendIfDefined('address', formData.address || formData.streetAddress1);
+
+              // Handle image if it's a File object
+              if (formData.image instanceof File) {
+                fd.append('image', formData.image);
+              } else if (formData.image) {
+                // If it's a base64 string, we might need to handle it differently
+                // For now, skip it as it's handled in the controller
+              }
+
+              // Handle attachments
+              if (formData.attachments && Array.isArray(formData.attachments)) {
+                formData.attachments.forEach(function (file, index) {
+                  if (file instanceof File) {
+                    fd.append("attachments[".concat(index, "]"), file);
+                  }
+                });
+              }
+
+              // Handle representatives
+              if (formData.representatives && Array.isArray(formData.representatives)) {
+                formData.representatives.forEach(function (rep, index) {
+                  if (rep && rep.name) {
+                    appendIfDefined("representatives[".concat(index, "][name]"), rep.name);
+                    appendIfDefined("representatives[".concat(index, "][email]"), rep.email);
+                    appendIfDefined("representatives[".concat(index, "][phone]"), rep.phone);
+                    appendIfDefined("representatives[".concat(index, "][position]"), rep.position);
+                    appendIfDefined("representatives[".concat(index, "][is_primary]"), rep.is_primary ? 1 : 0);
+                    appendIfDefined("representatives[".concat(index, "][notes]"), rep.notes);
+                  }
+                });
+              }
+
+              // Debug: Log FormData contents - CRITICAL for debugging
+              console.log('Supplier Create - FormData contents:');
+              formDataEntries = [];
+              _iterator = _createForOfIteratorHelper(fd.entries());
+              try {
+                for (_iterator.s(); !(_step = _iterator.n()).done;) {
+                  pair = _step.value;
+                  console.log(pair[0] + ': ' + pair[1]);
+                  formDataEntries.push({
+                    key: pair[0],
+                    value: pair[1]
+                  });
+                }
+              } catch (err) {
+                _iterator.e(err);
+              } finally {
+                _iterator.f();
+              }
+              console.log('Supplier Create - FormData entries array:', formDataEntries);
+              console.log('Supplier Create - taxStatus in FormData:', formDataEntries.find(function (e) {
+                return e.key === 'taxStatus';
+              }));
+              console.log('Supplier Create - tax_status in FormData:', formDataEntries.find(function (e) {
+                return e.key === 'tax_status';
+              }));
+
+              // Use FormData with proper headers
+              _context.next = 79;
+              return _this2.$http.post("/api/suppliers", fd, {
+                headers: {
+                  'Content-Type': 'multipart/form-data'
+                }
+              });
+            case 79:
+              response = _context.sent;
+              if (!response.data.success) {
+                _context.next = 86;
+                break;
+              }
+              toast.fire({
+                type: "success",
+                title: _this2.$t("Supplier added successfully")
+              });
+              _this2.clearTemporaryData();
+              _this2.$router.push({
+                name: "suppliers.index"
+              });
+              _context.next = 87;
+              break;
+            case 86:
+              throw new Error(response.data.message || 'Failed to create supplier');
+            case 87:
+              _context.next = 92;
+              break;
+            case 89:
+              _context.prev = 89;
+              _context.t0 = _context["catch"](3);
+              _this2.handleSubmitError(_context.t0);
+            case 92:
+              _context.prev = 92;
+              _this2.isSubmitting = false;
+              return _context.finish(92);
+            case 95:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee, null, [[3, 89, 92, 95]]);
+      }))();
+    },
+    // handle form submission errors
+    handleSubmitError: function handleSubmitError(error) {
+      var _error$response,
+        _error$response2,
+        _this3 = this;
+      if ((error === null || error === void 0 || (_error$response = error.response) === null || _error$response === void 0 ? void 0 : _error$response.status) === 422 && (_error$response2 = error.response) !== null && _error$response2 !== void 0 && (_error$response2 = _error$response2.data) !== null && _error$response2 !== void 0 && _error$response2.errors) {
+        var serverErrors = error.response.data.errors || {};
+        var translatedErrors = {};
+        var errorMessages = [];
+        Object.keys(serverErrors).forEach(function (field) {
+          var fieldErrors = serverErrors[field] || [];
+          var translatedFieldErrors = fieldErrors.map(function (message) {
+            return _this3.translateValidationMessage(message, field);
+          });
+          translatedErrors[field] = translatedFieldErrors;
+
+          // Collect error messages for toast notification
+          translatedFieldErrors.forEach(function (msg) {
+            errorMessages.push(msg);
+          });
+        });
+
+        // Set errors on the form if it exists
+        if (this.$refs.supplierForm && this.$refs.supplierForm.form) {
+          if (typeof this.$refs.supplierForm.form.errors.set === 'function') {
+            this.$refs.supplierForm.form.errors.set(translatedErrors);
+            console.log('Supplier Create - Set errors on form:', translatedErrors);
+          } else if (typeof this.$refs.supplierForm.form.errors.record === 'function') {
+            // Fallback to record method if set is not available
+            var mapped = {};
+            Object.keys(translatedErrors).forEach(function (key) {
+              mapped[key] = Array.isArray(translatedErrors[key]) ? translatedErrors[key][0] : translatedErrors[key];
+            });
+            this.$refs.supplierForm.form.errors.record(mapped);
+            console.log('Supplier Create - Recorded errors on form (fallback):', mapped);
+          } else {
+            console.warn('Supplier Create - Form errors object not available or invalid');
+          }
+        }
+
+        // Show detailed error messages in toast
+        var errorTitle = errorMessages.length > 0 ? errorMessages.slice(0, 3).join(' | ') + (errorMessages.length > 3 ? " (+".concat(errorMessages.length - 3, " more)") : '') : this.$t('Please fix the highlighted errors and try again');
+        console.log('Supplier Create - Error messages for toast:', errorMessages);
+        console.log('Supplier Create - Error title:', errorTitle);
+        console.log('Supplier Create - Translated errors:', translatedErrors);
+        toast.fire({
+          type: 'error',
+          title: this.$t('Validation Error'),
+          text: errorTitle,
+          html: errorMessages.length > 0 ? "<div style=\"text-align: left; max-height: 200px; overflow-y: auto;\">".concat(errorMessages.map(function (msg) {
+            return "<div>\u2022 ".concat(msg, "</div>");
+          }).join(''), "</div>") : undefined
+        });
+      } else {
+        var _error$response3;
+        var message = (error === null || error === void 0 || (_error$response3 = error.response) === null || _error$response3 === void 0 || (_error$response3 = _error$response3.data) === null || _error$response3 === void 0 ? void 0 : _error$response3.message) || (error === null || error === void 0 ? void 0 : error.message) || this.$t('Please check your input and try again.');
+        toast.fire({
+          type: 'error',
+          title: this.$t('Error'),
+          text: message
+        });
+      }
+    },
+    // translate validation messages from backend to localized messages
+    translateValidationMessage: function translateValidationMessage(message, field) {
+      // If there is a direct translation key, use it
+      var direct = this.$t(message);
+      if (direct && direct !== message) return direct;
+
+      // Get current locale
+      var currentLocale = this.$i18n.locale || 'en';
+      var isArabic = currentLocale === 'ar';
+
+      // Field label mapping for supplier form fields
+      var fieldLabelMap = {
+        codeNumber: this.$t('Code Number'),
+        notes: this.$t('Notes'),
+        displayLanguage: this.$t('Display Language'),
+        type: this.$t('Type'),
+        fullName: this.$t('Full Name'),
+        businessName: this.$t('Business Name'),
+        firstName: this.$t('First Name'),
+        lastName: this.$t('Last Name'),
+        phone: this.$t('Phone'),
+        phoneNumber: this.$t('Mobile Number'),
+        email: this.$t('Email'),
+        streetAddress1: this.$t('Street Address 1'),
+        streetAddress2: this.$t('Street Address 2'),
+        city: this.$t('City'),
+        state: this.$t('State'),
+        postalCode: this.$t('Postal Code'),
+        country: this.$t('Country'),
+        neighbourhood: this.$t('Neighbourhood'),
+        commercialRegister: this.$t('Commercial Register'),
+        taxCard: this.$t('Tax Card'),
+        buildingNumber: this.$t('Building Number'),
+        streetNumber: this.$t('Street Number'),
+        districtNumber: this.$t('District Number'),
+        unitNumber: this.$t('Unit Number'),
+        additionalNumber: this.$t('Additional Number'),
+        taxStatus: this.$t('Tax Status'),
+        taxRegistrationNumber: this.$t('Tax Registration Number'),
+        image: this.$t('Image'),
+        attachments: this.$t('Attachments'),
+        status: this.$t('Status'),
+        isSendEmail: this.$t('Send Email'),
+        isSendSMS: this.$t('Send SMS'),
+        chartOfAccountId: this.$t('Chart of Account'),
+        representatives: this.$t('Representatives'),
+        // Legacy field mappings
+        name: this.$t('Name'),
+        companyName: this.$t('Company Name'),
+        address: this.$t('Address')
+      };
+      var fieldLabel = fieldLabelMap[field] || field;
+
+      // Common Laravel validation patterns with localized messages
+      var patterns = [
+      // Required field patterns
+      {
+        re: /The\s+.+?\s+field\s+is\s+required\.?/i,
+        en: "This field is required",
+        ar: "\u0647\u0630\u0627 \u0627\u0644\u062D\u0642\u0644 \u0645\u0637\u0644\u0648\u0628"
+      }, {
+        re: /Please\s+select\s+an?\s+.+?\.?/i,
+        en: "Please select",
+        ar: "\u064A\u0631\u062C\u0649 \u0627\u062E\u062A\u064A\u0627\u0631"
+      }, {
+        re: /Please\s+enter\s+a\s+.+?\.?/i,
+        en: "Please enter",
+        ar: "\u064A\u0631\u062C\u0649 \u0625\u062F\u062E\u0627\u0644"
+      }, {
+        re: /Please\s+provide\s+a\s+.+?\.?/i,
+        en: "Please provide",
+        ar: "\u064A\u0631\u062C\u0649 \u062A\u0642\u062F\u064A\u0645"
+      },
+      // Selection and choice patterns
+      {
+        re: /The\s+selected\s+.+?\s+is\s+invalid\.?/i,
+        en: "The selected value is invalid",
+        ar: "\u0627\u0644\u0642\u064A\u0645\u0629 \u0627\u0644\u0645\u062D\u062F\u062F\u0629 \u063A\u064A\u0631 \u0635\u0627\u0644\u062D\u0629"
+      }, {
+        re: /The\s+selected\s+.+?\s+does\s+not\s+exist\.?/i,
+        en: "The selected value does not exist",
+        ar: "\u0627\u0644\u0642\u064A\u0645\u0629 \u0627\u0644\u0645\u062D\u062F\u062F\u0629 \u063A\u064A\u0631 \u0645\u0648\u062C\u0648\u062F\u0629"
+      }, {
+        re: /Please\s+choose\s+a\s+.+?\.?/i,
+        en: "Please choose",
+        ar: "\u064A\u0631\u062C\u0649 \u0627\u062E\u062A\u064A\u0627\u0631"
+      }, {
+        re: /You\s+must\s+select\s+a\s+.+?\.?/i,
+        en: "You must select",
+        ar: "\u064A\u062C\u0628 \u0627\u062E\u062A\u064A\u0627\u0631"
+      },
+      // Data type patterns
+      {
+        re: /The\s+.+?\s+must\s+be\s+a\s+number\.?/i,
+        en: "Must be a number",
+        ar: "\u064A\u062C\u0628 \u0623\u0646 \u064A\u0643\u0648\u0646 \u0631\u0642\u0645\u0627\u064B"
+      }, {
+        re: /The\s+.+?\s+must\s+be\s+an\s+integer\.?/i,
+        en: "Must be an integer",
+        ar: "\u064A\u062C\u0628 \u0623\u0646 \u064A\u0643\u0648\u0646 \u0639\u062F\u062F\u0627\u064B \u0635\u062D\u064A\u062D\u0627\u064B"
+      }, {
+        re: /The\s+.+?\s+must\s+be\s+a\s+string\.?/i,
+        en: "Must be a string",
+        ar: "\u064A\u062C\u0628 \u0623\u0646 \u064A\u0643\u0648\u0646 \u0646\u0635\u0627\u064B"
+      }, {
+        re: /The\s+.+?\s+must\s+be\s+an\s+array\.?/i,
+        en: "Must be an array",
+        ar: "\u064A\u062C\u0628 \u0623\u0646 \u064A\u0643\u0648\u0646 \u0645\u0635\u0641\u0648\u0641\u0629"
+      }, {
+        re: /The\s+.+?\s+must\s+be\s+a\s+boolean\.?/i,
+        en: "Must be true or false",
+        ar: "\u064A\u062C\u0628 \u0623\u0646 \u064A\u0643\u0648\u0646 \u0635\u062D\u064A\u062D \u0623\u0648 \u062E\u0637\u0623"
+      }, {
+        re: /The\s+.+?\s+must\s+be\s+a\s+valid\s+email\.?/i,
+        en: "Must be a valid email",
+        ar: "\u064A\u062C\u0628 \u0623\u0646 \u064A\u0643\u0648\u0646 \u0628\u0631\u064A\u062F \u0625\u0644\u0643\u062A\u0631\u0648\u0646\u064A \u0635\u062D\u064A\u062D"
+      }, {
+        re: /The\s+.+?\s+must\s+be\s+a\s+valid\s+url\.?/i,
+        en: "Must be a valid URL",
+        ar: "\u064A\u062C\u0628 \u0623\u0646 \u064A\u0643\u0648\u0646 \u0631\u0627\u0628\u0637 \u0635\u062D\u064A\u062D"
+      },
+      // Numeric validation patterns
+      {
+        re: /The\s+.+?\s+must\s+be\s+at\s+least\s+(\d+)\.?/i,
+        en: function en(_, n) {
+          return "Must be at least ".concat(n);
+        },
+        ar: function ar(_, n) {
+          return "\u064A\u062C\u0628 \u0623\u0644\u0627 \u064A\u0642\u0644 \u0639\u0646 ".concat(n);
+        }
+      }, {
+        re: /The\s+.+?\s+must\s+be\s+greater\s+than\s+(\d+)\.?/i,
+        en: function en(_, n) {
+          return "Must be greater than ".concat(n);
+        },
+        ar: function ar(_, n) {
+          return "\u064A\u062C\u0628 \u0623\u0646 \u064A\u0643\u0648\u0646 \u0623\u0643\u0628\u0631 \u0645\u0646 ".concat(n);
+        }
+      }, {
+        re: /The\s+.+?\s+may\s+not\s+be\s+greater\s+than\s+(\d+)\.?/i,
+        en: function en(_, n) {
+          return "May not be greater than ".concat(n);
+        },
+        ar: function ar(_, n) {
+          return "\u064A\u062C\u0628 \u0623\u0644\u0627 \u064A\u0632\u064A\u062F \u0639\u0646 ".concat(n);
+        }
+      }, {
+        re: /The\s+.+?\s+must\s+be\s+between\s+(\d+)\s+and\s+(\d+)\.?/i,
+        en: function en(_, min, max) {
+          return "Must be between ".concat(min, " and ").concat(max);
+        },
+        ar: function ar(_, min, max) {
+          return "\u064A\u062C\u0628 \u0623\u0646 \u064A\u0643\u0648\u0646 \u0628\u064A\u0646 ".concat(min, " \u0648 ").concat(max);
+        }
+      }, {
+        re: /The\s+.+?\s+must\s+be\s+exactly\s+(\d+)\.?/i,
+        en: function en(_, n) {
+          return "Must be exactly ".concat(n);
+        },
+        ar: function ar(_, n) {
+          return "\u064A\u062C\u0628 \u0623\u0646 \u064A\u0643\u0648\u0646 \u0628\u0627\u0644\u0636\u0628\u0637 ".concat(n);
+        }
+      },
+      // String length patterns
+      {
+        re: /The\s+.+?\s+may\s+not\s+be\s+greater\s+than\s+(\d+)\s+characters\.?/i,
+        en: function en(_, n) {
+          return "May not be greater than ".concat(n, " characters");
+        },
+        ar: function ar(_, n) {
+          return "\u064A\u062C\u0628 \u0623\u0644\u0627 \u064A\u062A\u062C\u0627\u0648\u0632 ".concat(n, " \u062D\u0631\u0641\u0627\u064B");
+        }
+      }, {
+        re: /The\s+.+?\s+must\s+be\s+at\s+least\s+(\d+)\s+characters\.?/i,
+        en: function en(_, n) {
+          return "Must be at least ".concat(n, " characters");
+        },
+        ar: function ar(_, n) {
+          return "\u064A\u062C\u0628 \u0623\u0646 \u064A\u0643\u0648\u0646 \u0639\u0644\u0649 \u0627\u0644\u0623\u0642\u0644 ".concat(n, " \u062D\u0631\u0641\u0627\u064B");
+        }
+      }, {
+        re: /The\s+.+?\s+must\s+be\s+between\s+(\d+)\s+and\s+(\d+)\s+characters\.?/i,
+        en: function en(_, min, max) {
+          return "Must be between ".concat(min, " and ").concat(max, " characters");
+        },
+        ar: function ar(_, min, max) {
+          return "\u064A\u062C\u0628 \u0623\u0646 \u064A\u0643\u0648\u0646 \u0628\u064A\u0646 ".concat(min, " \u0648 ").concat(max, " \u062D\u0631\u0641\u0627\u064B");
+        }
+      },
+      // Date validation patterns
+      {
+        re: /The\s+.+?\s+is\s+not\s+a\s+valid\s+date\.?/i,
+        en: "Is not a valid date",
+        ar: "\u0644\u064A\u0633 \u062A\u0627\u0631\u064A\u062E\u0627\u064B \u0635\u062D\u064A\u062D\u0627\u064B"
+      }, {
+        re: /The\s+.+?\s+does\s+not\s+match\s+the\s+format\s+.+?\.?/i,
+        en: "Does not match the required format",
+        ar: "\u0644\u0627 \u064A\u0637\u0627\u0628\u0642 \u0627\u0644\u062A\u0646\u0633\u064A\u0642 \u0627\u0644\u0645\u0637\u0644\u0648\u0628"
+      }, {
+        re: /The\s+.+?\s+must\s+be\s+after\s+or\s+equal\s+to\s+.+?\.?/i,
+        en: "Must be after or equal to the specified date",
+        ar: "\u064A\u062C\u0628 \u0623\u0646 \u064A\u0643\u0648\u0646 \u0628\u0639\u062F \u0623\u0648 \u064A\u0633\u0627\u0648\u064A \u0627\u0644\u062A\u0627\u0631\u064A\u062E \u0627\u0644\u0645\u062D\u062F\u062F"
+      }, {
+        re: /The\s+.+?\s+must\s+be\s+before\s+or\s+equal\s+to\s+.+?\.?/i,
+        en: "Must be before or equal to the specified date",
+        ar: "\u064A\u062C\u0628 \u0623\u0646 \u064A\u0643\u0648\u0646 \u0642\u0628\u0644 \u0623\u0648 \u064A\u0633\u0627\u0648\u064A \u0627\u0644\u062A\u0627\u0631\u064A\u062E \u0627\u0644\u0645\u062D\u062F\u062F"
+      }, {
+        re: /The\s+.+?\s+must\s+be\s+after\s+.+?\.?/i,
+        en: "Must be after the specified date",
+        ar: "\u064A\u062C\u0628 \u0623\u0646 \u064A\u0643\u0648\u0646 \u0628\u0639\u062F \u0627\u0644\u062A\u0627\u0631\u064A\u062E \u0627\u0644\u0645\u062D\u062F\u062F"
+      }, {
+        re: /The\s+.+?\s+must\s+be\s+before\s+.+?\.?/i,
+        en: "Must be before the specified date",
+        ar: "\u064A\u062C\u0628 \u0623\u0646 \u064A\u0643\u0648\u0646 \u0642\u0628\u0644 \u0627\u0644\u062A\u0627\u0631\u064A\u062E \u0627\u0644\u0645\u062D\u062F\u062F"
+      }, {
+        re: /The\s+.+?\s+must\s+be\s+a\s+date\s+after\s+or\s+equal\s+to\s+today\.?/i,
+        en: "Must be a date after or equal to today",
+        ar: "\u064A\u062C\u0628 \u0623\u0646 \u064A\u0643\u0648\u0646 \u062A\u0627\u0631\u064A\u062E \u0628\u0639\u062F \u0623\u0648 \u064A\u0633\u0627\u0648\u064A \u0627\u0644\u064A\u0648\u0645"
+      },
+      // Format validation patterns
+      {
+        re: /The\s+.+?\s+format\s+is\s+invalid\.?/i,
+        en: "Invalid format",
+        ar: "\u062A\u0646\u0633\u064A\u0642 \u063A\u064A\u0631 \u0635\u0627\u0644\u062D"
+      }, {
+        re: /The\s+.+?\s+does\s+not\s+match\s+the\s+required\s+format\.?/i,
+        en: "Does not match the required format",
+        ar: "\u0644\u0627 \u064A\u0637\u0627\u0628\u0642 \u0627\u0644\u062A\u0646\u0633\u064A\u0642 \u0627\u0644\u0645\u0637\u0644\u0648\u0628"
+      }, {
+        re: /The\s+.+?\s+must\s+match\s+the\s+pattern\.?/i,
+        en: "Must match the required pattern",
+        ar: "\u064A\u062C\u0628 \u0623\u0646 \u064A\u0637\u0627\u0628\u0642 \u0627\u0644\u0646\u0645\u0637 \u0627\u0644\u0645\u0637\u0644\u0648\u0628"
+      },
+      // Uniqueness patterns
+      {
+        re: /The\s+.+?\s+has\s+already\s+been\s+taken\.?/i,
+        en: "This value has already been taken",
+        ar: "\u0647\u0630\u0647 \u0627\u0644\u0642\u064A\u0645\u0629 \u0645\u0633\u062A\u062E\u062F\u0645\u0629 \u0628\u0627\u0644\u0641\u0639\u0644"
+      }, {
+        re: /The\s+.+?\s+already\s+exists\.?/i,
+        en: "Already exists",
+        ar: "\u0645\u0648\u062C\u0648\u062F \u0628\u0627\u0644\u0641\u0639\u0644"
+      }, {
+        re: /This\s+.+?\s+is\s+already\s+in\s+use\.?/i,
+        en: "This is already in use",
+        ar: "\u0647\u0630\u0627 \u0645\u0633\u062A\u062E\u062F\u0645 \u0628\u0627\u0644\u0641\u0639\u0644"
+      },
+      // File upload patterns
+      {
+        re: /The\s+.+?\s+must\s+be\s+a\s+file\.?/i,
+        en: "Must be a file",
+        ar: "\u064A\u062C\u0628 \u0623\u0646 \u064A\u0643\u0648\u0646 \u0645\u0644\u0641\u0627\u064B"
+      }, {
+        re: /The\s+.+?\s+must\s+be\s+an\s+image\.?/i,
+        en: "Must be an image",
+        ar: "\u064A\u062C\u0628 \u0623\u0646 \u064A\u0643\u0648\u0646 \u0635\u0648\u0631\u0629"
+      }, {
+        re: /The\s+.+?\s+must\s+be\s+a\s+valid\s+image\.?/i,
+        en: "Must be a valid image",
+        ar: "\u064A\u062C\u0628 \u0623\u0646 \u064A\u0643\u0648\u0646 \u0635\u0648\u0631\u0629 \u0635\u062D\u064A\u062D\u0629"
+      }, {
+        re: /The\s+.+?\s+file\s+is\s+too\s+large\.?/i,
+        en: "File is too large",
+        ar: "\u0627\u0644\u0645\u0644\u0641 \u0643\u0628\u064A\u0631 \u062C\u062F\u0627\u064B"
+      }, {
+        re: /The\s+.+?\s+file\s+size\s+must\s+not\s+exceed\s+(\d+)\s+KB\.?/i,
+        en: function en(_, n) {
+          return "File size must not exceed ".concat(n, " KB");
+        },
+        ar: function ar(_, n) {
+          return "\u062D\u062C\u0645 \u0627\u0644\u0645\u0644\u0641 \u064A\u062C\u0628 \u0623\u0644\u0627 \u064A\u062A\u062C\u0627\u0648\u0632 ".concat(n, " \u0643\u064A\u0644\u0648\u0628\u0627\u064A\u062A");
+        }
+      },
+      // Confirmation patterns
+      {
+        re: /The\s+.+?\s+confirmation\s+does\s+not\s+match\.?/i,
+        en: "Confirmation does not match",
+        ar: "\u0627\u0644\u062A\u0623\u0643\u064A\u062F \u063A\u064A\u0631 \u0645\u062A\u0637\u0627\u0628\u0642"
+      }, {
+        re: /The\s+.+?\s+and\s+.+?\s+must\s+match\.?/i,
+        en: "Must match",
+        ar: "\u064A\u062C\u0628 \u0623\u0646 \u064A\u062A\u0637\u0627\u0628\u0642\u0627"
+      },
+      // Custom validation patterns for supplier form
+      {
+        re: /Mobile\s+number\s+is\s+required\.?/i,
+        en: "Mobile number is required",
+        ar: "\u0631\u0642\u0645 \u0627\u0644\u0647\u0627\u062A\u0641 \u0627\u0644\u0645\u062D\u0645\u0648\u0644 \u0645\u0637\u0644\u0648\u0628"
+      }, {
+        re: /Business\s+name\s+is\s+required\s+for\s+company\s+suppliers\.?/i,
+        en: "Business name is required for company suppliers",
+        ar: "\u0627\u0633\u0645 \u0627\u0644\u0634\u0631\u0643\u0629 \u0645\u0637\u0644\u0648\u0628 \u0644\u0645\u0648\u0631\u062F\u064A \u0627\u0644\u0634\u0631\u0643\u0627\u062A"
+      }, {
+        re: /Phone\s+number\s+is\s+required\.?/i,
+        en: "Phone number is required",
+        ar: "\u0631\u0642\u0645 \u0627\u0644\u0647\u0627\u062A\u0641 \u0645\u0637\u0644\u0648\u0628"
+      }, {
+        re: /Email\s+is\s+required\.?/i,
+        en: "Email is required",
+        ar: "\u0627\u0644\u0628\u0631\u064A\u062F \u0627\u0644\u0625\u0644\u0643\u062A\u0631\u0648\u0646\u064A \u0645\u0637\u0644\u0648\u0628"
+      }, {
+        re: /Full\s+name\s+is\s+required\.?/i,
+        en: "Full name is required",
+        ar: "\u0627\u0644\u0627\u0633\u0645 \u0627\u0644\u0643\u0627\u0645\u0644 \u0645\u0637\u0644\u0648\u0628"
+      }, {
+        re: /First\s+name\s+is\s+required\.?/i,
+        en: "First name is required",
+        ar: "\u0627\u0644\u0627\u0633\u0645 \u0627\u0644\u0623\u0648\u0644 \u0645\u0637\u0644\u0648\u0628"
+      }, {
+        re: /Last\s+name\s+is\s+required\.?/i,
+        en: "Last name is required",
+        ar: "\u0627\u0644\u0627\u0633\u0645 \u0627\u0644\u0623\u062E\u064A\u0631 \u0645\u0637\u0644\u0648\u0628"
+      }, {
+        re: /Company\s+name\s+is\s+required\.?/i,
+        en: "Company name is required",
+        ar: "\u0627\u0633\u0645 \u0627\u0644\u0634\u0631\u0643\u0629 \u0645\u0637\u0644\u0648\u0628"
+      }, {
+        re: /Please\s+enter\s+a\s+mobile\s+number\.?/i,
+        en: "Please enter a mobile number",
+        ar: "\u064A\u0631\u062C\u0649 \u0625\u062F\u062E\u0627\u0644 \u0631\u0642\u0645 \u0647\u0627\u062A\u0641 \u0645\u062D\u0645\u0648\u0644"
+      }, {
+        re: /Please\s+enter\s+a\s+business\s+name\.?/i,
+        en: "Please enter a business name",
+        ar: "\u064A\u0631\u062C\u0649 \u0625\u062F\u062E\u0627\u0644 \u0627\u0633\u0645 \u0634\u0631\u0643\u0629"
+      }, {
+        re: /Please\s+enter\s+a\s+phone\s+number\.?/i,
+        en: "Please enter a phone number",
+        ar: "\u064A\u0631\u062C\u0649 \u0625\u062F\u062E\u0627\u0644 \u0631\u0642\u0645 \u0647\u0627\u062A\u0641"
+      }, {
+        re: /Please\s+enter\s+an\s+email\.?/i,
+        en: "Please enter an email",
+        ar: "\u064A\u0631\u062C\u0649 \u0625\u062F\u062E\u0627\u0644 \u0628\u0631\u064A\u062F \u0625\u0644\u0643\u062A\u0631\u0648\u0646\u064A"
+      }, {
+        re: /Please\s+enter\s+a\s+full\s+name\.?/i,
+        en: "Please enter a full name",
+        ar: "\u064A\u0631\u062C\u0649 \u0625\u062F\u062E\u0627\u0644 \u0627\u0633\u0645 \u0643\u0627\u0645\u0644"
+      }, {
+        re: /Please\s+enter\s+a\s+first\s+name\.?/i,
+        en: "Please enter a first name",
+        ar: "\u064A\u0631\u062C\u0649 \u0625\u062F\u062E\u0627\u0644 \u0627\u0633\u0645 \u0623\u0648\u0644"
+      }, {
+        re: /Please\s+enter\s+a\s+last\s+name\.?/i,
+        en: "Please enter a last name",
+        ar: "\u064A\u0631\u062C\u0649 \u0625\u062F\u062E\u0627\u0644 \u0627\u0633\u0645 \u0623\u062E\u064A\u0631"
+      }, {
+        re: /Please\s+enter\s+a\s+company\s+name\.?/i,
+        en: "Please enter a company name",
+        ar: "\u064A\u0631\u062C\u0649 \u0625\u062F\u062E\u0627\u0644 \u0627\u0633\u0645 \u0634\u0631\u0643\u0629"
+      }, {
+        re: /Please\s+select\s+a\s+type\.?/i,
+        en: "Please select a type",
+        ar: "\u064A\u0631\u062C\u0649 \u0627\u062E\u062A\u064A\u0627\u0631 \u0646\u0648\u0639"
+      }, {
+        re: /Type\s+is\s+required\.?/i,
+        en: "Type is required",
+        ar: "\u0627\u0644\u0646\u0648\u0639 \u0645\u0637\u0644\u0648\u0628"
+      }, {
+        re: /Status\s+is\s+required\.?/i,
+        en: "Status is required",
+        ar: "\u0627\u0644\u062D\u0627\u0644\u0629 \u0645\u0637\u0644\u0648\u0628\u0629"
+      }, {
+        re: /Please\s+select\s+a\s+status\.?/i,
+        en: "Please select a status",
+        ar: "\u064A\u0631\u062C\u0649 \u0627\u062E\u062A\u064A\u0627\u0631 \u062D\u0627\u0644\u0629"
+      },
+      // Generic fallback patterns
+      {
+        re: /This\s+field\s+is\s+required\.?/i,
+        en: "This field is required",
+        ar: "\u0647\u0630\u0627 \u0627\u0644\u062D\u0642\u0644 \u0645\u0637\u0644\u0648\u0628"
+      }, {
+        re: /This\s+field\s+must\s+be\s+filled\.?/i,
+        en: "This field must be filled",
+        ar: "\u064A\u062C\u0628 \u0645\u0644\u0621 \u0647\u0630\u0627 \u0627\u0644\u062D\u0642\u0644"
+      }, {
+        re: /This\s+value\s+is\s+invalid\.?/i,
+        en: "This value is invalid",
+        ar: "\u0647\u0630\u0647 \u0627\u0644\u0642\u064A\u0645\u0629 \u063A\u064A\u0631 \u0635\u0627\u0644\u062D\u0629"
+      }, {
+        re: /Invalid\s+input\.?/i,
+        en: "Invalid input",
+        ar: "\u0625\u062F\u062E\u0627\u0644 \u063A\u064A\u0631 \u0635\u0627\u0644\u062D"
+      }, {
+        re: /Please\s+check\s+your\s+input\.?/i,
+        en: "Please check your input",
+        ar: "\u064A\u0631\u062C\u0649 \u0627\u0644\u062A\u062D\u0642\u0642 \u0645\u0646 \u0627\u0644\u0645\u062F\u062E\u0644\u0627\u062A"
+      }];
+      for (var _i = 0, _patterns = patterns; _i < _patterns.length; _i++) {
+        var _patterns$_i = _patterns[_i],
+          re = _patterns$_i.re,
+          en = _patterns$_i.en,
+          ar = _patterns$_i.ar;
+        var match = message.match(re);
+        if (match) {
+          var text = typeof (isArabic ? ar : en) === 'function' ? (isArabic ? ar : en).apply(void 0, _toConsumableArray(match)) : isArabic ? ar : en;
+          return "".concat(fieldLabel, ": ").concat(text);
+        }
+      }
+
+      // Fallback: return original message if nothing matched
+      return message;
+    },
+    // Reset form
+    resetForm: function resetForm() {
+      this.$refs.supplierForm.resetForm();
+    },
+    // save form data temporarily
+    saveTemporary: function saveTemporary() {
+      if (this.$refs.supplierForm && this.$refs.supplierForm.form) {
+        var f = this.$refs.supplierForm.form;
+        var tempData = {
+          codeNumber: f.codeNumber,
+          notes: f.notes,
+          displayLanguage: f.displayLanguage,
+          type: f.type,
+          fullName: f.fullName,
+          businessName: f.businessName,
+          firstName: f.firstName,
+          lastName: f.lastName,
+          phone: f.phone,
+          phoneNumber: f.phoneNumber,
+          email: f.email,
+          streetAddress1: f.streetAddress1,
+          streetAddress2: f.streetAddress2,
+          city: f.city,
+          state: f.state,
+          postalCode: f.postalCode,
+          country: f.country,
+          neighbourhood: f.neighbourhood,
+          commercialRegister: f.commercialRegister,
+          taxCard: f.taxCard,
+          attachments: f.attachments,
+          status: f.status,
+          isSendEmail: f.isSendEmail,
+          isSendSMS: f.isSendSMS,
+          chartOfAccountId: f.chartOfAccountId,
+          representatives: f.representatives,
+          timestamp: new Date().toISOString()
+        };
+        localStorage.setItem('supplierTempData', JSON.stringify(tempData));
+      }
+    },
+    // load temporary data
+    loadTemporaryData: function loadTemporaryData() {
+      var tempData = localStorage.getItem('supplierTempData');
+      if (tempData && this.$refs.supplierForm && this.$refs.supplierForm.form) {
+        try {
+          var d = JSON.parse(tempData);
+          var f = this.$refs.supplierForm.form;
+          f.codeNumber = d.codeNumber || f.codeNumber;
+          f.notes = d.notes || f.notes;
+          f.displayLanguage = d.displayLanguage || f.displayLanguage;
+          f.type = d.type || f.type;
+          f.fullName = d.fullName || f.fullName;
+          f.businessName = d.businessName || f.businessName;
+          f.firstName = d.firstName || f.firstName;
+          f.lastName = d.lastName || f.lastName;
+          f.phone = d.phone || f.phone;
+          f.phoneNumber = d.phoneNumber || f.phoneNumber;
+          f.email = d.email || f.email;
+          f.streetAddress1 = d.streetAddress1 || f.streetAddress1;
+          f.streetAddress2 = d.streetAddress2 || f.streetAddress2;
+          f.city = d.city || f.city;
+          f.state = d.state || f.state;
+          f.postalCode = d.postalCode || f.postalCode;
+          f.country = d.country || f.country;
+          f.neighbourhood = d.neighbourhood || f.neighbourhood;
+          f.commercialRegister = d.commercialRegister || f.commercialRegister;
+          f.taxCard = d.taxCard || f.taxCard;
+          f.attachments = d.attachments || f.attachments;
+          f.status = d.status !== undefined ? d.status : f.status;
+          f.isSendEmail = d.isSendEmail !== undefined ? d.isSendEmail : f.isSendEmail;
+          f.isSendSMS = d.isSendSMS !== undefined ? d.isSendSMS : f.isSendSMS;
+          f.chartOfAccountId = d.chartOfAccountId || f.chartOfAccountId;
+          f.representatives = d.representatives || f.representatives;
+        } catch (e) {
+          console.error('Error loading temporary data:', e);
+        }
+      }
+    },
+    // clear temporary data
+    clearTemporaryData: function clearTemporaryData() {
+      localStorage.removeItem('supplierTempData');
+    }
+  }
+});
+;// ./resources/js/pages/suppliers/create.vue?vue&type=script&lang=js
+ /* harmony default export */ const suppliers_createvue_type_script_lang_js = (createvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__(85072);
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-tel-input/dist/vue-tel-input.css?vue&type=style&index=0&prod&lang=css&external
+var vue_tel_inputvue_type_style_index_0_prod_lang_css_external = __webpack_require__(13561);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-tel-input/dist/vue-tel-input.css?vue&type=style&index=0&prod&lang=css&external
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = injectStylesIntoStyleTag_default()(vue_tel_inputvue_type_style_index_0_prod_lang_css_external/* default */.A, options);
+
+
+
+/* harmony default export */ const dist_vue_tel_inputvue_type_style_index_0_prod_lang_css_external = (vue_tel_inputvue_type_style_index_0_prod_lang_css_external/* default */.A.locals || {});
+;// ./node_modules/vue-tel-input/dist/vue-tel-input.css?vue&type=style&index=0&prod&lang=css&external
+
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/suppliers/create.vue?vue&type=style&index=1&id=6d3eb230&prod&scoped=true&lang=css
+var createvue_type_style_index_1_id_6d3eb230_prod_scoped_true_lang_css = __webpack_require__(21644);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/suppliers/create.vue?vue&type=style&index=1&id=6d3eb230&prod&scoped=true&lang=css
+
+            
+
+var createvue_type_style_index_1_id_6d3eb230_prod_scoped_true_lang_css_options = {};
+
+createvue_type_style_index_1_id_6d3eb230_prod_scoped_true_lang_css_options.insert = "head";
+createvue_type_style_index_1_id_6d3eb230_prod_scoped_true_lang_css_options.singleton = false;
+
+var createvue_type_style_index_1_id_6d3eb230_prod_scoped_true_lang_css_update = injectStylesIntoStyleTag_default()(createvue_type_style_index_1_id_6d3eb230_prod_scoped_true_lang_css/* default */.A, createvue_type_style_index_1_id_6d3eb230_prod_scoped_true_lang_css_options);
+
+
+
+/* harmony default export */ const suppliers_createvue_type_style_index_1_id_6d3eb230_prod_scoped_true_lang_css = (createvue_type_style_index_1_id_6d3eb230_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/pages/suppliers/create.vue?vue&type=style&index=1&id=6d3eb230&prod&scoped=true&lang=css
+
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(14486);
+;// ./resources/js/pages/suppliers/create.vue
+
+
+
+;
+
+
+
+/* normalize component */
+
+var component = (0,componentNormalizer/* default */.A)(
+  suppliers_createvue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  "6d3eb230",
+  null
+  
+)
+
+/* harmony default export */ const create = (component.exports);
+
+/***/ }),
+
+/***/ 82190:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 
@@ -48,7 +1063,7 @@ __webpack_require__.d(__webpack_exports__, {
   A: () => (/* binding */ SupplierForm)
 });
 
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierForm.vue?vue&type=template&id=47408498&scoped=true
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierForm.vue?vue&type=template&id=493e4a0c&scoped=true
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -57,33 +1072,93 @@ var render = function render() {
       'card-body': _vm.showCardBody
     }
   }, [_c('div', {
-    staticClass: "row"
+    staticClass: "client-form-tabs"
+  }, [_c('ul', {
+    staticClass: "nav nav-tabs",
+    attrs: {
+      "role": "tablist"
+    }
+  }, [_c('li', {
+    staticClass: "nav-item",
+    attrs: {
+      "role": "presentation"
+    }
+  }, [_c('button', {
+    staticClass: "nav-link",
+    "class": {
+      active: _vm.activeTab === 'required'
+    },
+    attrs: {
+      "type": "button",
+      "role": "tab"
+    },
+    on: {
+      "click": function click($event) {
+        return _vm.switchTab('required');
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-check-circle mr-2"
+  }), _vm._v("\n          " + _vm._s(_vm.form.taxStatus === 'taxable' ? _vm.$t('ZATCA Required Information') : _vm.$t('Required Information')) + "\n        ")])]), _vm._v(" "), _c('li', {
+    staticClass: "nav-item",
+    attrs: {
+      "role": "presentation"
+    }
+  }, [_c('button', {
+    staticClass: "nav-link",
+    "class": {
+      active: _vm.activeTab === 'additional'
+    },
+    attrs: {
+      "type": "button",
+      "role": "tab"
+    },
+    on: {
+      "click": function click($event) {
+        return _vm.switchTab('additional');
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-info-circle mr-2"
+  }), _vm._v("\n          " + _vm._s(_vm.$t('Additional Information')) + "\n        ")])])])]), _vm._v(" "), _c('div', {
+    staticClass: "tab-content"
   }, [_c('div', {
-    "class": _vm.sectionColumnClass
+    staticClass: "tab-pane fade",
+    "class": {
+      'show active': _vm.activeTab === 'required'
+    },
+    attrs: {
+      "role": "tabpanel"
+    }
   }, [_c('div', {
-    staticClass: "form-card"
+    staticClass: "form-card-enhanced"
   }, [_c('div', {
     staticClass: "card-header"
   }, [_c('h5', {
     staticClass: "section-title"
   }, [_c('i', {
     staticClass: "fas fa-user-circle mr-2"
-  }), _vm._v("\n            " + _vm._s(_vm.$t("Supplier Details")) + "\n          ")])]), _vm._v(" "), _c('div', {
+  }), _vm._v("\n            " + _vm._s(_vm.$t("Supplier Details")) + "\n          ")]), _vm._v(" "), _c('p', {
+    staticClass: "card-header-subtitle"
+  }, [_vm._v("\n            " + _vm._s(_vm.$t("Basic information about the supplier")) + "\n          ")])]), _vm._v(" "), _c('div', {
     staticClass: "card-body"
   }, [_c('div', {
-    staticClass: "form-group"
+    staticClass: "form-row-modern form-row-three"
+  }, [_c('div', {
+    staticClass: "form-group form-col-third"
   }, [_c('label', {
+    staticClass: "form-label",
     attrs: {
       "for": "codeNumber"
     }
-  }, [_vm._v("\n              " + _vm._s(_vm.$t("Supplier Number")) + "\n            ")]), _vm._v(" "), _c('input', {
+  }, [_vm._v("\n                " + _vm._s(_vm.$t("Supplier Number")) + "\n              ")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
       value: _vm.form.codeNumber,
       expression: "form.codeNumber"
     }],
-    staticClass: "form-control",
+    staticClass: "form-control form-control-modern",
     "class": {
       'is-invalid': _vm.form.errors.has('codeNumber')
     },
@@ -91,7 +1166,7 @@ var render = function render() {
       "id": "codeNumber",
       "type": "text",
       "name": "codeNumber",
-      "placeholder": _vm.$t('Loading...'),
+      "placeholder": _vm.$t('Auto-generated...'),
       "readonly": "",
       "aria-readonly": "true"
     },
@@ -105,18 +1180,25 @@ var render = function render() {
       }
     }
   }), _vm._v(" "), _c('small', {
-    staticClass: "form-text text-muted"
-  }, [_vm._v("\n              " + _vm._s(_vm.$t("This supplier number is automatically generated and cannot be changed")) + "\n            ")]), _vm._v(" "), _c('has-error', {
+    staticClass: "form-text form-helper-text"
+  }, [_c('i', {
+    staticClass: "fas fa-info-circle mr-1"
+  }), _vm._v("\n                " + _vm._s(_vm.$t("Auto-generated")) + "\n              ")]), _vm._v(" "), _c('has-error', {
     attrs: {
       "form": _vm.form,
       "field": "codeNumber"
     }
   })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
-  }, [_c('label', [_vm._v(_vm._s(_vm.$t("Supplier Type")))]), _vm._v(" "), _c('div', {
-    staticClass: "radio-group"
+    staticClass: "form-group form-col-third"
   }, [_c('label', {
-    staticClass: "radio-inline"
+    staticClass: "form-label"
+  }, [_vm._v(_vm._s(_vm.$t("Supplier Type")))]), _vm._v(" "), _c('div', {
+    staticClass: "radio-group-modern"
+  }, [_c('label', {
+    staticClass: "radio-option-modern",
+    "class": {
+      'active': _vm.form.type === 'Individual'
+    }
   }, [_c('input', {
     directives: [{
       name: "model",
@@ -136,8 +1218,13 @@ var render = function render() {
         return _vm.$set(_vm.form, "type", "Individual");
       }
     }
-  }), _vm._v("\n                " + _vm._s(_vm.$t("Individual")) + "\n              ")]), _vm._v(" "), _c('label', {
-    staticClass: "radio-inline"
+  }), _vm._v(" "), _c('span', {
+    staticClass: "radio-label-text"
+  }, [_vm._v(_vm._s(_vm.$t("Individual")))])]), _vm._v(" "), _c('label', {
+    staticClass: "radio-option-modern",
+    "class": {
+      'active': _vm.form.type === 'Company'
+    }
   }, [_c('input', {
     directives: [{
       name: "model",
@@ -157,25 +1244,21 @@ var render = function render() {
         return _vm.$set(_vm.form, "type", "Company");
       }
     }
-  }), _vm._v("\n                " + _vm._s(_vm.$t("Business")) + "\n              ")])]), _vm._v(" "), _c('has-error', {
+  }), _vm._v(" "), _c('span', {
+    staticClass: "radio-label-text"
+  }, [_vm._v(_vm._s(_vm.$t("Business")))])])]), _vm._v(" "), _c('has-error', {
     attrs: {
       "form": _vm.form,
       "field": "type"
     }
   })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
+    staticClass: "form-group form-col-third"
   }, [_c('label', {
-    staticClass: "form-label font-weight-bold text-primary mb-2 d-block"
-  }, [_c('i', {
-    staticClass: "fas fa-receipt mr-2"
-  }), _vm._v("\n              " + _vm._s(_vm.$t("Tax Status")) + "\n              "), _c('span', {
-    staticClass: "required text-danger"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('div', {
+    staticClass: "form-label"
+  }, [_vm._v("\n                " + _vm._s(_vm.$t("Tax Status")) + "\n              ")]), _vm._v(" "), _c('div', {
     staticClass: "tax-status-options"
   }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-6"
+    staticClass: "tax-status-row"
   }, [_c('label', {
     staticClass: "tax-status-card-compact",
     "class": {
@@ -190,28 +1273,28 @@ var render = function render() {
   }, [_c('div', {
     staticClass: "tax-status-header-compact"
   }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.taxStatus,
+      expression: "form.taxStatus"
+    }],
     staticClass: "tax-status-radio",
     attrs: {
       "type": "radio",
       "value": "taxable"
     },
     domProps: {
-      "checked": _vm.form.taxStatus === 'taxable'
+      "checked": _vm._q(_vm.form.taxStatus, "taxable")
     },
     on: {
       "change": function change($event) {
-        return _vm.setTaxStatus('taxable');
-      },
-      "click": function click($event) {
-        $event.stopPropagation();
-        return _vm.setTaxStatus('taxable');
+        return _vm.$set(_vm.form, "taxStatus", "taxable");
       }
     }
-  }), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('span', {
+  }), _vm._v(" "), _c('span', {
     staticClass: "tax-status-title-compact"
-  }, [_vm._v(_vm._s(_vm.$t("Taxable")))])])])]), _vm._v(" "), _c('div', {
-    staticClass: "col-md-6"
-  }, [_c('label', {
+  }, [_vm._v(_vm._s(_vm.$t("Taxable")))])])]), _vm._v(" "), _c('label', {
     staticClass: "tax-status-card-compact",
     "class": {
       'active': _vm.form.taxStatus === 'non_taxable',
@@ -225,31 +1308,33 @@ var render = function render() {
   }, [_c('div', {
     staticClass: "tax-status-header-compact"
   }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.taxStatus,
+      expression: "form.taxStatus"
+    }],
     staticClass: "tax-status-radio",
     attrs: {
       "type": "radio",
       "value": "non_taxable"
     },
     domProps: {
-      "checked": _vm.form.taxStatus === 'non_taxable'
+      "checked": _vm._q(_vm.form.taxStatus, "non_taxable")
     },
     on: {
       "change": function change($event) {
-        return _vm.setTaxStatus('non_taxable');
-      },
-      "click": function click($event) {
-        $event.stopPropagation();
-        return _vm.setTaxStatus('non_taxable');
+        return _vm.$set(_vm.form, "taxStatus", "non_taxable");
       }
     }
-  }), _vm._v(" "), _vm._m(1), _vm._v(" "), _c('span', {
+  }), _vm._v(" "), _c('span', {
     staticClass: "tax-status-title-compact"
-  }, [_vm._v(_vm._s(_vm.$t("Non-Taxable")))])])])])])]), _vm._v(" "), _c('has-error', {
+  }, [_vm._v(_vm._s(_vm.$t("Non-Taxable")))])])])])]), _vm._v(" "), _c('has-error', {
     attrs: {
       "form": _vm.form,
       "field": "taxStatus"
     }
-  })], 1), _vm._v(" "), _vm.form.type === 'Individual' ? _c('div', [_c('div', {
+  })], 1)]), _vm._v(" "), _vm.form.type === 'Individual' ? _c('div', [_c('div', {
     staticClass: "form-group"
   }, [_c('label', {
     attrs: {
@@ -503,17 +1588,17 @@ var render = function render() {
       "form": _vm.form,
       "field": "email"
     }
-  })], 1)])])]), _vm._v(" "), _c('div', {
-    "class": _vm.sectionColumnClass
-  }, [_c('div', {
-    staticClass: "form-card"
+  })], 1)])]), _vm._v(" "), _c('div', {
+    staticClass: "form-card-enhanced"
   }, [_c('div', {
     staticClass: "card-header"
   }, [_c('h5', {
     staticClass: "section-title"
   }, [_c('i', {
     staticClass: "fas fa-map-marked-alt mr-2"
-  }), _vm._v("\n            " + _vm._s(_vm.$t("National Address")) + "\n          ")])]), _vm._v(" "), _c('div', {
+  }), _vm._v("\n            " + _vm._s(_vm.$t("National Address")) + "\n          ")]), _vm._v(" "), _c('p', {
+    staticClass: "card-header-subtitle"
+  }, [_vm._v("\n            " + _vm._s(_vm.form.taxStatus === 'taxable' ? _vm.$t("All fields required for ZATCA compliance") : _vm.$t("Complete address information")) + "\n          ")])]), _vm._v(" "), _c('div', {
     staticClass: "card-body"
   }, [_c('div', {
     staticClass: "row"
@@ -1263,7 +2348,7 @@ var render = function render() {
     }
   })], 1)]) : _vm._e(), _vm._v(" "), _vm.form.type === 'Company' && _vm.form.taxStatus !== 'taxable' ? _c('div', {
     staticClass: "row mt-3"
-  }, [_vm._m(2), _vm._v(" "), _c('div', {
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
     staticClass: "form-group col-md-6"
   }, [_c('label', {
     attrs: {
@@ -1339,19 +2424,25 @@ var render = function render() {
       "form": _vm.form,
       "field": "taxCard"
     }
-  })], 1)]) : _vm._e()])])])]), _vm._v(" "), _c('div', {
-    staticClass: "row mt-4"
+  })], 1)]) : _vm._e()])])]), _vm._v(" "), _c('div', {
+    staticClass: "tab-pane fade",
+    "class": {
+      'show active': _vm.activeTab === 'additional'
+    },
+    attrs: {
+      "role": "tabpanel"
+    }
   }, [_c('div', {
-    staticClass: "col-md-12"
-  }, [_c('div', {
-    staticClass: "form-card"
+    staticClass: "form-card-enhanced"
   }, [_c('div', {
     staticClass: "card-header"
   }, [_c('h5', {
     staticClass: "section-title"
   }, [_c('i', {
     staticClass: "fas fa-cog mr-2"
-  }), _vm._v("\n            " + _vm._s(_vm.$t("Account Details")) + "\n          ")])]), _vm._v(" "), _c('div', {
+  }), _vm._v("\n            " + _vm._s(_vm.$t("Account Details")) + "\n          ")]), _vm._v(" "), _c('p', {
+    staticClass: "card-header-subtitle"
+  }, [_vm._v("\n            " + _vm._s(_vm.$t("Account settings and preferences")) + "\n          ")])]), _vm._v(" "), _c('div', {
     staticClass: "card-body"
   }, [_c('div', {
     staticClass: "row"
@@ -1492,19 +2583,17 @@ var render = function render() {
       "src": _vm.url,
       "alt": _vm.$t('Profile Image')
     }
-  })]) : _vm._e()], 1)])])])])]), _vm._v(" "), _vm.form.type === 'Company' ? _c('div', {
-    staticClass: "row mt-4"
-  }, [_c('div', {
-    staticClass: "col-md-12"
-  }, [_c('div', {
-    staticClass: "form-card"
+  })]) : _vm._e()], 1)])])]), _vm._v(" "), _vm.form.type === 'Company' ? _c('div', {
+    staticClass: "form-card-enhanced"
   }, [_c('div', {
     staticClass: "card-header"
   }, [_c('h5', {
     staticClass: "section-title"
   }, [_c('i', {
     staticClass: "fas fa-users mr-2"
-  }), _vm._v("\n            " + _vm._s(_vm.$t("Supplier Representative Info")) + "\n          ")])]), _vm._v(" "), _c('div', {
+  }), _vm._v("\n            " + _vm._s(_vm.$t("Supplier Representative Info")) + "\n          ")]), _vm._v(" "), _c('p', {
+    staticClass: "card-header-subtitle"
+  }, [_vm._v("\n            " + _vm._s(_vm.$t("Manage company representatives and authorized persons")) + "\n          ")])]), _vm._v(" "), _c('div', {
     staticClass: "card-body"
   }, [_c('RepresentativesList', {
     attrs: {
@@ -1513,19 +2602,17 @@ var render = function render() {
     on: {
       "representatives-changed": _vm.handleRepresentativesChanged
     }
-  })], 1)])])]) : _vm._e(), _vm._v(" "), _c('div', {
-    staticClass: "row mt-4 equal-height"
-  }, [_c('div', {
-    staticClass: "col-md-6"
-  }, [_c('div', {
-    staticClass: "form-card"
+  })], 1)]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "form-card-enhanced"
   }, [_c('div', {
     staticClass: "card-header"
   }, [_c('h5', {
     staticClass: "section-title"
   }, [_c('i', {
     staticClass: "fas fa-info-circle mr-2"
-  }), _vm._v("\n            " + _vm._s(_vm.$t("Additional Information")) + "\n          ")])]), _vm._v(" "), _c('div', {
+  }), _vm._v("\n            " + _vm._s(_vm.$t("Additional Information")) + "\n          ")]), _vm._v(" "), _c('p', {
+    staticClass: "card-header-subtitle"
+  }, [_vm._v("\n            " + _vm._s(_vm.$t("Optional notes and additional details")) + "\n          ")])]), _vm._v(" "), _c('div', {
     staticClass: "card-body"
   }, [_c('div', {
     staticClass: "form-group"
@@ -1563,17 +2650,17 @@ var render = function render() {
       "form": _vm.form,
       "field": "notes"
     }
-  })], 1)])])]), _vm._v(" "), _c('div', {
-    staticClass: "col-md-6"
-  }, [_c('div', {
-    staticClass: "form-card"
+  })], 1)])]), _vm._v(" "), _c('div', {
+    staticClass: "form-card-enhanced"
   }, [_c('div', {
     staticClass: "card-header"
   }, [_c('h5', {
     staticClass: "section-title"
   }, [_c('i', {
     staticClass: "fas fa-file-alt mr-2"
-  }), _vm._v("\n            " + _vm._s(_vm.$t("Documents & Settings")) + "\n          ")])]), _vm._v(" "), _c('div', {
+  }), _vm._v("\n            " + _vm._s(_vm.$t("Documents & Settings")) + "\n          ")]), _vm._v(" "), _c('p', {
+    staticClass: "card-header-subtitle"
+  }, [_vm._v("\n            " + _vm._s(_vm.$t("Upload attachments and manage document settings")) + "\n          ")])]), _vm._v(" "), _c('div', {
     staticClass: "card-body"
   }, [_c('div', {
     staticClass: "form-group"
@@ -1673,14 +2760,16 @@ var render = function render() {
   }, [_c('div', {
     staticClass: "col-md-12"
   }, [_c('div', {
-    staticClass: "form-card"
+    staticClass: "form-card-enhanced"
   }, [_c('div', {
     staticClass: "card-header"
   }, [_c('h5', {
     staticClass: "section-title"
   }, [_c('i', {
     staticClass: "fas fa-bell mr-2"
-  }), _vm._v("\n            " + _vm._s(_vm.$t("Communication Preferences")) + "\n          ")])]), _vm._v(" "), _c('div', {
+  }), _vm._v("\n            " + _vm._s(_vm.$t("Communication Preferences")) + "\n          ")]), _vm._v(" "), _c('p', {
+    staticClass: "card-header-subtitle"
+  }, [_vm._v("\n            " + _vm._s(_vm.$t("Configure welcome messages and notifications")) + "\n          ")])]), _vm._v(" "), _c('div', {
     staticClass: "card-body"
   }, [_c('div', {
     staticClass: "row"
@@ -1728,22 +2817,6 @@ var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
-    staticClass: "tax-status-icon-compact taxable-icon"
-  }, [_c('i', {
-    staticClass: "fas fa-file-invoice-dollar"
-  })]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', {
-    staticClass: "tax-status-icon-compact non-taxable-icon"
-  }, [_c('i', {
-    staticClass: "fas fa-file-invoice"
-  })]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', {
     staticClass: "col-md-12"
   }, [_c('hr', {
     staticStyle: {
@@ -1753,7 +2826,7 @@ var staticRenderFns = [function () {
   })]);
 }];
 
-;// ./resources/js/components/SupplierForm.vue?vue&type=template&id=47408498&scoped=true
+;// ./resources/js/components/SupplierForm.vue?vue&type=template&id=493e4a0c&scoped=true
 
 // EXTERNAL MODULE: ./node_modules/vform/dist/vform.es.js
 var vform_es = __webpack_require__(63216);
@@ -1815,6 +2888,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
   },
   data: function data() {
     return {
+      activeTab: 'required',
       isDemoMode: window.config.isDemoMode,
       loading: true,
       url: null,
@@ -2473,6 +3547,10 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       console.log('taxStatus after setting:', this.form.taxStatus);
       console.log('form object keys:', Object.keys(this.form));
       console.log('form.data() taxStatus:', this.form.data ? this.form.data().taxStatus : 'N/A');
+    },
+    // Switch between tabs
+    switchTab: function switchTab(tab) {
+      this.activeTab = tab;
     },
     // Validate form before submission
     validateForm: function validateForm() {
@@ -3383,9 +4461,9 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
 // EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(85072);
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierForm.vue?vue&type=style&index=0&id=47408498&prod&scoped=true&lang=css
-var SupplierFormvue_type_style_index_0_id_47408498_prod_scoped_true_lang_css = __webpack_require__(35640);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierForm.vue?vue&type=style&index=0&id=47408498&prod&scoped=true&lang=css
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierForm.vue?vue&type=style&index=0&id=493e4a0c&prod&scoped=true&lang=css
+var SupplierFormvue_type_style_index_0_id_493e4a0c_prod_scoped_true_lang_css = __webpack_require__(33483);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierForm.vue?vue&type=style&index=0&id=493e4a0c&prod&scoped=true&lang=css
 
             
 
@@ -3394,12 +4472,12 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = injectStylesIntoStyleTag_default()(SupplierFormvue_type_style_index_0_id_47408498_prod_scoped_true_lang_css/* default */.A, options);
+var update = injectStylesIntoStyleTag_default()(SupplierFormvue_type_style_index_0_id_493e4a0c_prod_scoped_true_lang_css/* default */.A, options);
 
 
 
-/* harmony default export */ const components_SupplierFormvue_type_style_index_0_id_47408498_prod_scoped_true_lang_css = (SupplierFormvue_type_style_index_0_id_47408498_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/components/SupplierForm.vue?vue&type=style&index=0&id=47408498&prod&scoped=true&lang=css
+/* harmony default export */ const components_SupplierFormvue_type_style_index_0_id_493e4a0c_prod_scoped_true_lang_css = (SupplierFormvue_type_style_index_0_id_493e4a0c_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/components/SupplierForm.vue?vue&type=style&index=0&id=493e4a0c&prod&scoped=true&lang=css
 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(14486);
@@ -3418,1027 +4496,12 @@ var component = (0,componentNormalizer/* default */.A)(
   staticRenderFns,
   false,
   null,
-  "47408498",
+  "493e4a0c",
   null
   
 )
 
 /* harmony default export */ const SupplierForm = (component.exports);
-
-/***/ }),
-
-/***/ 35640:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".form-card[data-v-47408498]{background:#fff;border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:20px}.form-card .card-header[data-v-47408498]{background-color:#33a0d9;border-bottom:none;border-radius:20px 20px 0 0;color:#fff;padding:22px 16px}.form-card .section-title[data-v-47408498]{color:#fff;font-size:14px;font-weight:600;margin:0}.form-card .card-body[data-v-47408498]{padding:16px}.form-control[data-v-47408498]{background:#fff!important}input[readonly][data-v-47408498]{background-color:#f8f9fa!important;border-color:#ced4da;color:#6c757d;cursor:not-allowed}.form-control[data-v-47408498]:focus,select.form-control[data-v-47408498]:focus,textarea.form-control[data-v-47408498]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.radio-group[data-v-47408498]{align-items:center;display:flex;gap:16px}.radio-group .radio-inline[data-v-47408498]{align-items:center;display:inline-flex;gap:6px;margin:0}.v-select .vs__dropdown-toggle[data-v-47408498]{border-color:#ced4da;border-radius:6px}.v-select .vs__dropdown-toggle.vs__open[data-v-47408498],.v-select .vs__dropdown-toggle[data-v-47408498]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.v-select .vs__dropdown-menu[data-v-47408498],.v-select .vs__search[data-v-47408498],.v-select .vs__selected[data-v-47408498]{font-size:.95rem}.custom-file-input:focus~.custom-file-label[data-v-47408498]{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.custom-file-label[data-v-47408498]{border-radius:6px}.file-upload-area[data-v-47408498]{background:#f8fdfe;border:2px dashed #33a0d9;border-radius:12px;padding:20px;position:relative;text-align:center}.file-upload-area .file-input[data-v-47408498]{cursor:pointer;height:100%;inset:0;opacity:0;position:absolute;width:100%}.file-upload-area .file-upload-content[data-v-47408498]{color:#33a0d9}.selected-files .selected-file-item[data-v-47408498]{align-items:center;background:#f5faff;border:1px solid #e3f3f7;border-radius:6px;display:inline-flex;margin-bottom:8px;margin-right:8px;padding:6px 10px}.d-flex.align-items-center span.ml-3[data-v-47408498]{font-weight:500}.required[data-v-47408498]{color:#dc3545}.tax-status-options[data-v-47408498]{margin-top:.5rem}.tax-status-card-compact[data-v-47408498]{background-color:#fff;border:2px solid #e0e0e0;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,.06);cursor:pointer;display:block;padding:.75rem 1rem;position:relative;transition:all .2s ease}.tax-status-card-compact[data-v-47408498]:hover{border-color:#007bff;box-shadow:0 2px 8px rgba(0,123,255,.12);transform:translateY(-1px)}.tax-status-card-compact.active[data-v-47408498]{background:linear-gradient(135deg,#f8f9ff,#fff);border-color:#007bff;box-shadow:0 2px 10px rgba(0,123,255,.15)}.tax-status-card-compact.border-success.active[data-v-47408498]{background:linear-gradient(135deg,#f0fff4,#fff);border-color:#28a745;box-shadow:0 2px 10px rgba(40,167,69,.15)}.tax-status-card-compact.border-primary.active[data-v-47408498]{background:linear-gradient(135deg,#f8f9ff,#fff);border-color:#007bff;box-shadow:0 2px 10px rgba(0,123,255,.15)}.tax-status-header-compact[data-v-47408498]{align-items:center;display:flex;position:relative}.tax-status-radio[data-v-47408498]{opacity:0;pointer-events:none;position:absolute}.tax-status-icon-compact[data-v-47408498]{align-items:center;border-radius:8px;display:flex;flex-shrink:0;font-size:1rem;height:32px;justify-content:center;margin-right:.75rem;transition:all .2s ease;width:32px}.tax-status-icon-compact.taxable-icon[data-v-47408498]{background:linear-gradient(135deg,#007bff,#0056b3);box-shadow:0 2px 6px rgba(0,123,255,.25);color:#fff}.tax-status-icon-compact.non-taxable-icon[data-v-47408498]{background:linear-gradient(135deg,#28a745,#1e7e34);box-shadow:0 2px 6px rgba(40,167,69,.25);color:#fff}.tax-status-card-compact.active .tax-status-icon-compact.taxable-icon[data-v-47408498]{box-shadow:0 3px 10px rgba(0,123,255,.35);transform:scale(1.05)}.tax-status-card-compact.active .tax-status-icon-compact.non-taxable-icon[data-v-47408498]{box-shadow:0 3px 10px rgba(40,167,69,.35);transform:scale(1.05)}.tax-status-title-compact[data-v-47408498]{color:#2c3e50;flex:1;font-size:.95rem;font-weight:600}.tax-status-card-compact.active .tax-status-title-compact[data-v-47408498]{color:#007bff}.tax-status-card-compact.border-success.active .tax-status-title-compact[data-v-47408498]{color:#28a745}[dir=rtl] .tax-status-icon-compact[data-v-47408498]{margin-left:.75rem;margin-right:0}[dir=rtl] .form-card .card-header[data-v-47408498]{border-radius:20px 20px 0 0}.custom-file-label[data-v-47408498],[dir=rtl] .custom-file-label[data-v-47408498]{text-align:left!important}.btn-primary[data-v-47408498]{background:#33a0d9!important;border-color:#33a0d9!important}.btn-primary[data-v-47408498]:hover{filter:brightness(.95)}.equal-height>[class*=\" col-\"][data-v-47408498],.equal-height>[class^=col-][data-v-47408498]{display:flex}.equal-height .form-card[data-v-47408498]{display:flex;flex-direction:column;width:100%}.equal-height .form-card .card-body[data-v-47408498]{flex:1 1 auto}.country-select[data-v-47408498]{width:100%}.country-select .vs__dropdown-toggle[data-v-47408498]{border:1px solid #ced4da;border-radius:6px;max-width:100%;min-height:2.5rem;overflow:hidden;padding:.5rem 1rem}.country-select .vs__search[data-v-47408498]{font-size:.95rem;margin:0;padding:0}.country-select .vs__selected[data-v-47408498]{align-items:center;display:flex;gap:.5rem;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.country-option[data-v-47408498],.country-selected[data-v-47408498]{align-items:center;display:flex;gap:.5rem;min-width:0}.country-flag[data-v-47408498]{flex-shrink:0;font-size:1.25rem;line-height:1}.country-name[data-v-47408498]{flex:1;font-size:.95rem;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.country-select.is-invalid .vs__dropdown-toggle[data-v-47408498]{border-color:#dc3545}.country-select .vs__dropdown-menu[data-v-47408498]{border-radius:6px;box-shadow:0 .5rem 1rem rgba(0,0,0,.15);margin-top:.5rem}.country-select .vs__dropdown-option[data-v-47408498]{padding:.75rem 1rem}.country-select .vs__dropdown-option--highlight[data-v-47408498]{background-color:#33a0d9;color:#fff}.saudi-location-select[data-v-47408498]{width:100%}.saudi-location-select .vs__dropdown-toggle[data-v-47408498]{background-color:#fff;border:1px solid #ced4da;border-radius:6px;min-height:2.5rem;padding:.375rem .75rem}.saudi-location-select .vs__dropdown-toggle.vs__open[data-v-47408498],.saudi-location-select .vs__dropdown-toggle[data-v-47408498]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15);outline:none}.saudi-location-select.is-invalid .vs__dropdown-toggle[data-v-47408498]{border-color:#dc3545}.saudi-location-select .vs__search[data-v-47408498]{font-size:.95rem;margin:0;padding:0}.saudi-location-select .vs__dropdown-menu[data-v-47408498]{border-radius:6px;box-shadow:0 .5rem 1rem rgba(0,0,0,.15);margin-top:.5rem}.saudi-location-select .vs__dropdown-option[data-v-47408498]{padding:.75rem 1rem}.saudi-location-select .vs__dropdown-option--highlight[data-v-47408498]{background-color:#33a0d9;color:#fff}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
-/***/ 47462:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  "default": () => (/* binding */ create)
-});
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/suppliers/create.vue?vue&type=template&id=6d3eb230&scoped=true
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', {
-    staticClass: "mb-50"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-lg-12 col-xl-12"
-  }, [_c('div', {
-    staticClass: "card custom-card w-100"
-  }, [_c('div', {
-    staticClass: "card-header setings-header"
-  }, [_c('breadcrumbs', {
-    attrs: {
-      "items": _vm.breadcrumbs,
-      "current": _vm.breadcrumbsCurrent
-    }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "col-xl-8 col-8 float-right text-right"
-  }, [_c('div', {
-    staticClass: "btn-group c-w-100 header-buttons"
-  }, [_c('router-link', {
-    staticClass: "btn btn-info",
-    attrs: {
-      "to": {
-        name: 'suppliers.index'
-      }
-    }
-  }, [_vm.$i18n.locale === 'ar' || typeof _vm.document !== 'undefined' && _vm.document.documentElement.getAttribute('dir') === 'rtl' ? [_vm._v("\n\n                  " + _vm._s(_vm.$t('Back')) + " "), _c('i', {
-    staticClass: "fas fa-long-arrow-alt-left"
-  })] : [_vm.$i18n.locale === 'ar' || typeof _vm.document !== 'undefined' && _vm.document.documentElement.getAttribute('dir') === 'rtl' ? [_vm._v("\n\n\n                    " + _vm._s(_vm.$t('Back')) + " "), _c('i', {
-    staticClass: "fas fa-long-arrow-alt-left"
-  })] : [_c('i', {
-    staticClass: "fas fa-long-arrow-alt-left"
-  }), _vm._v(" " + _vm._s(_vm.$t('Back')) + "\n\n\n                  ")]]], 2), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-success",
-    attrs: {
-      "type": "button",
-      "disabled": _vm.isSubmitting,
-      "title": _vm.$t('Save')
-    },
-    on: {
-      "click": _vm.submitForm
-    }
-  }, [_vm.isSubmitting ? _c('i', {
-    staticClass: "fas fa-spinner fa-spin"
-  }) : _c('i', {
-    staticClass: "fas fa-save"
-  })])], 1)])], 1), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('SupplierForm', {
-    ref: "supplierForm",
-    attrs: {
-      "showCardBody": false,
-      "fullWidthSections": true
-    },
-    on: {
-      "submit": _vm.saveSupplier
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "card-footer"
-  }, [_c('div', {
-    staticClass: "dtable-footer"
-  }, [_c('div', {
-    staticClass: "form-group row display-per-page footer-buttons d-flex justify-content-between w-100"
-  }, [_c('button', {
-    staticClass: "btn btn-success",
-    attrs: {
-      "disabled": _vm.isSubmitting
-    },
-    on: {
-      "click": _vm.submitForm
-    }
-  }, [_vm.isSubmitting ? _c('i', {
-    staticClass: "fas fa-spinner fa-spin"
-  }) : _c('i', {
-    staticClass: "fas fa-save"
-  }), _vm._v("\n                " + _vm._s(_vm.isSubmitting ? _vm.$t("Saving...") : _vm.$t("Save")) + "\n              ")]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-info",
-    attrs: {
-      "type": "reset"
-    },
-    on: {
-      "click": _vm.resetForm
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-power-off"
-  }), _vm._v(" " + _vm._s(_vm.$t("Reset")) + "\n              ")])])])])])])])]);
-};
-var staticRenderFns = [];
-
-// EXTERNAL MODULE: ./resources/js/components/SupplierForm.vue + 6 modules
-var SupplierForm = __webpack_require__(29424);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/suppliers/create.vue?vue&type=script&lang=js
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-/* harmony default export */ const createvue_type_script_lang_js = ({
-  middleware: ["auth", "check-permissions"],
-  metaInfo: function metaInfo() {
-    return {
-      title: this.$t("Create Supplier")
-    };
-  },
-  components: {
-    SupplierForm: SupplierForm/* default */.A
-  },
-  data: function data() {
-    return {
-      breadcrumbsCurrent: "Create Supplier",
-      breadcrumbs: [{
-        name: "Dashboard",
-        url: "home"
-      }, {
-        name: "Suppliers",
-        url: "suppliers.index"
-      }, {
-        name: "Create",
-        url: ""
-      }],
-      form: null,
-      isSubmitting: false
-    };
-  },
-  mounted: function mounted() {
-    var _this = this;
-    // Load temporary data after child form is mounted
-    this.$nextTick(function () {
-      _this.loadTemporaryData();
-    });
-  },
-  methods: {
-    // Submit form by calling SupplierForm's submitForm method
-    submitForm: function submitForm() {
-      if (this.$refs.supplierForm) {
-        this.$refs.supplierForm.submitForm();
-      }
-    },
-    // save supplier
-    saveSupplier: function saveSupplier(formData) {
-      var _this2 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var _this2$$refs$supplier, fd, appendIfDefined, taxStatusValue, taxStatusToSend, name, formDataEntries, _iterator, _step, pair, response;
-        return _regeneratorRuntime().wrap(function _callee$(_context) {
-          while (1) switch (_context.prev = _context.next) {
-            case 0:
-              if (!_this2.isSubmitting) {
-                _context.next = 2;
-                break;
-              }
-              return _context.abrupt("return");
-            case 2:
-              _this2.isSubmitting = true;
-              _context.prev = 3;
-              // Build FormData to properly send all fields including taxStatus
-              fd = new FormData();
-              appendIfDefined = function appendIfDefined(key, value) {
-                if (value !== undefined && value !== null && value !== '') {
-                  fd.append(key, value);
-                }
-              }; // Debug: Log formData before building FormData - CRITICAL
-              console.log('=== SUPPLIER CREATE - FORM DATA RECEIVED ===');
-              console.log('Supplier Create - formData received:', {
-                taxStatus: formData.taxStatus,
-                tax_status: formData.tax_status,
-                allFormData: formData
-              });
-              console.log('Supplier Create - formData keys:', Object.keys(formData || {}));
-              console.log('Supplier Create - formData.taxStatus type:', _typeof(formData.taxStatus));
-              console.log('Supplier Create - formData.taxStatus value:', formData.taxStatus);
-              console.log('Supplier Create - formData.tax_status value:', formData.tax_status);
-              console.log('Supplier Create - $refs.supplierForm exists:', !!_this2.$refs.supplierForm);
-              console.log('Supplier Create - $refs.supplierForm.form exists:', !!(_this2.$refs.supplierForm && _this2.$refs.supplierForm.form));
-              if (_this2.$refs.supplierForm && _this2.$refs.supplierForm.form) {
-                console.log('Supplier Create - form.taxStatus:', _this2.$refs.supplierForm.form.taxStatus);
-                console.log('Supplier Create - form.data() taxStatus:', _this2.$refs.supplierForm.form.data ? _this2.$refs.supplierForm.form.data().taxStatus : 'N/A');
-              }
-
-              // Explicitly append all fields to ensure taxStatus is sent
-              appendIfDefined('codeNumber', formData.codeNumber);
-              appendIfDefined('notes', formData.notes);
-              appendIfDefined('displayLanguage', formData.displayLanguage);
-              appendIfDefined('type', formData.type);
-
-              // CRITICAL: Always append taxStatus - don't use appendIfDefined to ensure it's always sent
-              // Get taxStatus from formData, or try to get it from form object if available
-              taxStatusValue = formData.taxStatus || formData.tax_status;
-              console.log('Supplier Create - Initial taxStatus check:', {
-                formDataTaxStatus: formData.taxStatus,
-                formDataTax_status: formData.tax_status,
-                currentTaxStatusValue: taxStatusValue
-              });
-
-              // If still not found, try to get it from the form component
-              if (!taxStatusValue && _this2.$refs.supplierForm && _this2.$refs.supplierForm.form) {
-                taxStatusValue = _this2.$refs.supplierForm.form.taxStatus;
-                console.log('Supplier Create - Got taxStatus from form object:', taxStatusValue);
-              }
-
-              // Default to non_taxable if still not found
-              taxStatusValue = taxStatusValue || 'non_taxable';
-              console.log('Supplier Create - Final taxStatusValue before appending:', taxStatusValue);
-
-              // Always append taxStatus - never skip it, even if it's the default value
-              // CRITICAL: Use explicit string conversion and ensure it's never null/undefined
-              taxStatusToSend = String(taxStatusValue || 'non_taxable');
-              fd.append('taxStatus', taxStatusToSend);
-              fd.append('tax_status', taxStatusToSend);
-              console.log('=== SUPPLIER CREATE - APPENDING TAX STATUS ===');
-              console.log('Supplier Create - taxStatusValue:', taxStatusValue);
-              console.log('Supplier Create - taxStatusToSend:', taxStatusToSend);
-              console.log('Supplier Create - Appended taxStatus to FormData:', taxStatusToSend);
-              console.log('Supplier Create - formData.taxStatus:', formData.taxStatus);
-              console.log('Supplier Create - formData.tax_status:', formData.tax_status);
-              console.log('Supplier Create - form.taxStatus:', (_this2$$refs$supplier = _this2.$refs.supplierForm) === null || _this2$$refs$supplier === void 0 || (_this2$$refs$supplier = _this2$$refs$supplier.form) === null || _this2$$refs$supplier === void 0 ? void 0 : _this2$$refs$supplier.taxStatus);
-
-              // Verify it was added
-              console.log('Supplier Create - FormData has taxStatus:', fd.has('taxStatus'));
-              console.log('Supplier Create - FormData has tax_status:', fd.has('tax_status'));
-              appendIfDefined('fullName', formData.fullName);
-              appendIfDefined('businessName', formData.businessName);
-              appendIfDefined('companyName', formData.companyName || formData.businessName);
-              appendIfDefined('firstName', formData.firstName);
-              appendIfDefined('lastName', formData.lastName);
-              appendIfDefined('phone', formData.phone);
-              appendIfDefined('phoneNumber', formData.phoneNumber);
-              appendIfDefined('email', formData.email);
-              appendIfDefined('streetAddress1', formData.streetAddress1);
-              appendIfDefined('streetAddress2', formData.streetAddress2);
-              appendIfDefined('city', formData.city);
-              appendIfDefined('state', formData.state);
-              appendIfDefined('postalCode', formData.postalCode);
-              appendIfDefined('country', formData.country);
-              appendIfDefined('neighbourhood', formData.neighbourhood);
-              appendIfDefined('commercialRegister', formData.commercialRegister);
-              appendIfDefined('taxCard', formData.taxCard);
-              appendIfDefined('taxRegistrationNumber', formData.taxRegistrationNumber || formData.taxCard);
-              appendIfDefined('buildingNumber', formData.buildingNumber);
-              appendIfDefined('streetNumber', formData.streetNumber);
-              appendIfDefined('districtNumber', formData.districtNumber);
-              appendIfDefined('unitNumber', formData.unitNumber);
-              appendIfDefined('additionalNumber', formData.additionalNumber);
-              appendIfDefined('status', formData.status);
-              appendIfDefined('isSendEmail', formData.isSendEmail ? 1 : 0);
-              appendIfDefined('isSendSMS', formData.isSendSMS ? 1 : 0);
-              appendIfDefined('chartOfAccountId', formData.chartOfAccountId);
-              appendIfDefined('saudi_region', formData.saudi_region);
-
-              // Handle name field - always required when type is Individual
-              name = formData.name || (formData.type === 'Individual' ? formData.fullName : formData.businessName);
-              if (name) {
-                fd.append('name', name);
-              }
-
-              // Handle address field
-              appendIfDefined('address', formData.address || formData.streetAddress1);
-
-              // Handle image if it's a File object
-              if (formData.image instanceof File) {
-                fd.append('image', formData.image);
-              } else if (formData.image) {
-                // If it's a base64 string, we might need to handle it differently
-                // For now, skip it as it's handled in the controller
-              }
-
-              // Handle attachments
-              if (formData.attachments && Array.isArray(formData.attachments)) {
-                formData.attachments.forEach(function (file, index) {
-                  if (file instanceof File) {
-                    fd.append("attachments[".concat(index, "]"), file);
-                  }
-                });
-              }
-
-              // Handle representatives
-              if (formData.representatives && Array.isArray(formData.representatives)) {
-                formData.representatives.forEach(function (rep, index) {
-                  if (rep && rep.name) {
-                    appendIfDefined("representatives[".concat(index, "][name]"), rep.name);
-                    appendIfDefined("representatives[".concat(index, "][email]"), rep.email);
-                    appendIfDefined("representatives[".concat(index, "][phone]"), rep.phone);
-                    appendIfDefined("representatives[".concat(index, "][position]"), rep.position);
-                    appendIfDefined("representatives[".concat(index, "][is_primary]"), rep.is_primary ? 1 : 0);
-                    appendIfDefined("representatives[".concat(index, "][notes]"), rep.notes);
-                  }
-                });
-              }
-
-              // Debug: Log FormData contents - CRITICAL for debugging
-              console.log('Supplier Create - FormData contents:');
-              formDataEntries = [];
-              _iterator = _createForOfIteratorHelper(fd.entries());
-              try {
-                for (_iterator.s(); !(_step = _iterator.n()).done;) {
-                  pair = _step.value;
-                  console.log(pair[0] + ': ' + pair[1]);
-                  formDataEntries.push({
-                    key: pair[0],
-                    value: pair[1]
-                  });
-                }
-              } catch (err) {
-                _iterator.e(err);
-              } finally {
-                _iterator.f();
-              }
-              console.log('Supplier Create - FormData entries array:', formDataEntries);
-              console.log('Supplier Create - taxStatus in FormData:', formDataEntries.find(function (e) {
-                return e.key === 'taxStatus';
-              }));
-              console.log('Supplier Create - tax_status in FormData:', formDataEntries.find(function (e) {
-                return e.key === 'tax_status';
-              }));
-
-              // Use FormData with proper headers
-              _context.next = 79;
-              return _this2.$http.post("/api/suppliers", fd, {
-                headers: {
-                  'Content-Type': 'multipart/form-data'
-                }
-              });
-            case 79:
-              response = _context.sent;
-              if (!response.data.success) {
-                _context.next = 86;
-                break;
-              }
-              toast.fire({
-                type: "success",
-                title: _this2.$t("Supplier added successfully")
-              });
-              _this2.clearTemporaryData();
-              _this2.$router.push({
-                name: "suppliers.index"
-              });
-              _context.next = 87;
-              break;
-            case 86:
-              throw new Error(response.data.message || 'Failed to create supplier');
-            case 87:
-              _context.next = 92;
-              break;
-            case 89:
-              _context.prev = 89;
-              _context.t0 = _context["catch"](3);
-              _this2.handleSubmitError(_context.t0);
-            case 92:
-              _context.prev = 92;
-              _this2.isSubmitting = false;
-              return _context.finish(92);
-            case 95:
-            case "end":
-              return _context.stop();
-          }
-        }, _callee, null, [[3, 89, 92, 95]]);
-      }))();
-    },
-    // handle form submission errors
-    handleSubmitError: function handleSubmitError(error) {
-      var _error$response,
-        _error$response2,
-        _this3 = this;
-      if ((error === null || error === void 0 || (_error$response = error.response) === null || _error$response === void 0 ? void 0 : _error$response.status) === 422 && (_error$response2 = error.response) !== null && _error$response2 !== void 0 && (_error$response2 = _error$response2.data) !== null && _error$response2 !== void 0 && _error$response2.errors) {
-        var serverErrors = error.response.data.errors || {};
-        var translatedErrors = {};
-        var errorMessages = [];
-        Object.keys(serverErrors).forEach(function (field) {
-          var fieldErrors = serverErrors[field] || [];
-          var translatedFieldErrors = fieldErrors.map(function (message) {
-            return _this3.translateValidationMessage(message, field);
-          });
-          translatedErrors[field] = translatedFieldErrors;
-
-          // Collect error messages for toast notification
-          translatedFieldErrors.forEach(function (msg) {
-            errorMessages.push(msg);
-          });
-        });
-
-        // Set errors on the form if it exists
-        if (this.$refs.supplierForm && this.$refs.supplierForm.form) {
-          if (typeof this.$refs.supplierForm.form.errors.set === 'function') {
-            this.$refs.supplierForm.form.errors.set(translatedErrors);
-            console.log('Supplier Create - Set errors on form:', translatedErrors);
-          } else if (typeof this.$refs.supplierForm.form.errors.record === 'function') {
-            // Fallback to record method if set is not available
-            var mapped = {};
-            Object.keys(translatedErrors).forEach(function (key) {
-              mapped[key] = Array.isArray(translatedErrors[key]) ? translatedErrors[key][0] : translatedErrors[key];
-            });
-            this.$refs.supplierForm.form.errors.record(mapped);
-            console.log('Supplier Create - Recorded errors on form (fallback):', mapped);
-          } else {
-            console.warn('Supplier Create - Form errors object not available or invalid');
-          }
-        }
-
-        // Show detailed error messages in toast
-        var errorTitle = errorMessages.length > 0 ? errorMessages.slice(0, 3).join(' | ') + (errorMessages.length > 3 ? " (+".concat(errorMessages.length - 3, " more)") : '') : this.$t('Please fix the highlighted errors and try again');
-        console.log('Supplier Create - Error messages for toast:', errorMessages);
-        console.log('Supplier Create - Error title:', errorTitle);
-        console.log('Supplier Create - Translated errors:', translatedErrors);
-        toast.fire({
-          type: 'error',
-          title: this.$t('Validation Error'),
-          text: errorTitle,
-          html: errorMessages.length > 0 ? "<div style=\"text-align: left; max-height: 200px; overflow-y: auto;\">".concat(errorMessages.map(function (msg) {
-            return "<div>\u2022 ".concat(msg, "</div>");
-          }).join(''), "</div>") : undefined
-        });
-      } else {
-        var _error$response3;
-        var message = (error === null || error === void 0 || (_error$response3 = error.response) === null || _error$response3 === void 0 || (_error$response3 = _error$response3.data) === null || _error$response3 === void 0 ? void 0 : _error$response3.message) || (error === null || error === void 0 ? void 0 : error.message) || this.$t('Please check your input and try again.');
-        toast.fire({
-          type: 'error',
-          title: this.$t('Error'),
-          text: message
-        });
-      }
-    },
-    // translate validation messages from backend to localized messages
-    translateValidationMessage: function translateValidationMessage(message, field) {
-      // If there is a direct translation key, use it
-      var direct = this.$t(message);
-      if (direct && direct !== message) return direct;
-
-      // Get current locale
-      var currentLocale = this.$i18n.locale || 'en';
-      var isArabic = currentLocale === 'ar';
-
-      // Field label mapping for supplier form fields
-      var fieldLabelMap = {
-        codeNumber: this.$t('Code Number'),
-        notes: this.$t('Notes'),
-        displayLanguage: this.$t('Display Language'),
-        type: this.$t('Type'),
-        fullName: this.$t('Full Name'),
-        businessName: this.$t('Business Name'),
-        firstName: this.$t('First Name'),
-        lastName: this.$t('Last Name'),
-        phone: this.$t('Phone'),
-        phoneNumber: this.$t('Mobile Number'),
-        email: this.$t('Email'),
-        streetAddress1: this.$t('Street Address 1'),
-        streetAddress2: this.$t('Street Address 2'),
-        city: this.$t('City'),
-        state: this.$t('State'),
-        postalCode: this.$t('Postal Code'),
-        country: this.$t('Country'),
-        neighbourhood: this.$t('Neighbourhood'),
-        commercialRegister: this.$t('Commercial Register'),
-        taxCard: this.$t('Tax Card'),
-        buildingNumber: this.$t('Building Number'),
-        streetNumber: this.$t('Street Number'),
-        districtNumber: this.$t('District Number'),
-        unitNumber: this.$t('Unit Number'),
-        additionalNumber: this.$t('Additional Number'),
-        taxStatus: this.$t('Tax Status'),
-        taxRegistrationNumber: this.$t('Tax Registration Number'),
-        image: this.$t('Image'),
-        attachments: this.$t('Attachments'),
-        status: this.$t('Status'),
-        isSendEmail: this.$t('Send Email'),
-        isSendSMS: this.$t('Send SMS'),
-        chartOfAccountId: this.$t('Chart of Account'),
-        representatives: this.$t('Representatives'),
-        // Legacy field mappings
-        name: this.$t('Name'),
-        companyName: this.$t('Company Name'),
-        address: this.$t('Address')
-      };
-      var fieldLabel = fieldLabelMap[field] || field;
-
-      // Common Laravel validation patterns with localized messages
-      var patterns = [
-      // Required field patterns
-      {
-        re: /The\s+.+?\s+field\s+is\s+required\.?/i,
-        en: "This field is required",
-        ar: "\u0647\u0630\u0627 \u0627\u0644\u062D\u0642\u0644 \u0645\u0637\u0644\u0648\u0628"
-      }, {
-        re: /Please\s+select\s+an?\s+.+?\.?/i,
-        en: "Please select",
-        ar: "\u064A\u0631\u062C\u0649 \u0627\u062E\u062A\u064A\u0627\u0631"
-      }, {
-        re: /Please\s+enter\s+a\s+.+?\.?/i,
-        en: "Please enter",
-        ar: "\u064A\u0631\u062C\u0649 \u0625\u062F\u062E\u0627\u0644"
-      }, {
-        re: /Please\s+provide\s+a\s+.+?\.?/i,
-        en: "Please provide",
-        ar: "\u064A\u0631\u062C\u0649 \u062A\u0642\u062F\u064A\u0645"
-      },
-      // Selection and choice patterns
-      {
-        re: /The\s+selected\s+.+?\s+is\s+invalid\.?/i,
-        en: "The selected value is invalid",
-        ar: "\u0627\u0644\u0642\u064A\u0645\u0629 \u0627\u0644\u0645\u062D\u062F\u062F\u0629 \u063A\u064A\u0631 \u0635\u0627\u0644\u062D\u0629"
-      }, {
-        re: /The\s+selected\s+.+?\s+does\s+not\s+exist\.?/i,
-        en: "The selected value does not exist",
-        ar: "\u0627\u0644\u0642\u064A\u0645\u0629 \u0627\u0644\u0645\u062D\u062F\u062F\u0629 \u063A\u064A\u0631 \u0645\u0648\u062C\u0648\u062F\u0629"
-      }, {
-        re: /Please\s+choose\s+a\s+.+?\.?/i,
-        en: "Please choose",
-        ar: "\u064A\u0631\u062C\u0649 \u0627\u062E\u062A\u064A\u0627\u0631"
-      }, {
-        re: /You\s+must\s+select\s+a\s+.+?\.?/i,
-        en: "You must select",
-        ar: "\u064A\u062C\u0628 \u0627\u062E\u062A\u064A\u0627\u0631"
-      },
-      // Data type patterns
-      {
-        re: /The\s+.+?\s+must\s+be\s+a\s+number\.?/i,
-        en: "Must be a number",
-        ar: "\u064A\u062C\u0628 \u0623\u0646 \u064A\u0643\u0648\u0646 \u0631\u0642\u0645\u0627\u064B"
-      }, {
-        re: /The\s+.+?\s+must\s+be\s+an\s+integer\.?/i,
-        en: "Must be an integer",
-        ar: "\u064A\u062C\u0628 \u0623\u0646 \u064A\u0643\u0648\u0646 \u0639\u062F\u062F\u0627\u064B \u0635\u062D\u064A\u062D\u0627\u064B"
-      }, {
-        re: /The\s+.+?\s+must\s+be\s+a\s+string\.?/i,
-        en: "Must be a string",
-        ar: "\u064A\u062C\u0628 \u0623\u0646 \u064A\u0643\u0648\u0646 \u0646\u0635\u0627\u064B"
-      }, {
-        re: /The\s+.+?\s+must\s+be\s+an\s+array\.?/i,
-        en: "Must be an array",
-        ar: "\u064A\u062C\u0628 \u0623\u0646 \u064A\u0643\u0648\u0646 \u0645\u0635\u0641\u0648\u0641\u0629"
-      }, {
-        re: /The\s+.+?\s+must\s+be\s+a\s+boolean\.?/i,
-        en: "Must be true or false",
-        ar: "\u064A\u062C\u0628 \u0623\u0646 \u064A\u0643\u0648\u0646 \u0635\u062D\u064A\u062D \u0623\u0648 \u062E\u0637\u0623"
-      }, {
-        re: /The\s+.+?\s+must\s+be\s+a\s+valid\s+email\.?/i,
-        en: "Must be a valid email",
-        ar: "\u064A\u062C\u0628 \u0623\u0646 \u064A\u0643\u0648\u0646 \u0628\u0631\u064A\u062F \u0625\u0644\u0643\u062A\u0631\u0648\u0646\u064A \u0635\u062D\u064A\u062D"
-      }, {
-        re: /The\s+.+?\s+must\s+be\s+a\s+valid\s+url\.?/i,
-        en: "Must be a valid URL",
-        ar: "\u064A\u062C\u0628 \u0623\u0646 \u064A\u0643\u0648\u0646 \u0631\u0627\u0628\u0637 \u0635\u062D\u064A\u062D"
-      },
-      // Numeric validation patterns
-      {
-        re: /The\s+.+?\s+must\s+be\s+at\s+least\s+(\d+)\.?/i,
-        en: function en(_, n) {
-          return "Must be at least ".concat(n);
-        },
-        ar: function ar(_, n) {
-          return "\u064A\u062C\u0628 \u0623\u0644\u0627 \u064A\u0642\u0644 \u0639\u0646 ".concat(n);
-        }
-      }, {
-        re: /The\s+.+?\s+must\s+be\s+greater\s+than\s+(\d+)\.?/i,
-        en: function en(_, n) {
-          return "Must be greater than ".concat(n);
-        },
-        ar: function ar(_, n) {
-          return "\u064A\u062C\u0628 \u0623\u0646 \u064A\u0643\u0648\u0646 \u0623\u0643\u0628\u0631 \u0645\u0646 ".concat(n);
-        }
-      }, {
-        re: /The\s+.+?\s+may\s+not\s+be\s+greater\s+than\s+(\d+)\.?/i,
-        en: function en(_, n) {
-          return "May not be greater than ".concat(n);
-        },
-        ar: function ar(_, n) {
-          return "\u064A\u062C\u0628 \u0623\u0644\u0627 \u064A\u0632\u064A\u062F \u0639\u0646 ".concat(n);
-        }
-      }, {
-        re: /The\s+.+?\s+must\s+be\s+between\s+(\d+)\s+and\s+(\d+)\.?/i,
-        en: function en(_, min, max) {
-          return "Must be between ".concat(min, " and ").concat(max);
-        },
-        ar: function ar(_, min, max) {
-          return "\u064A\u062C\u0628 \u0623\u0646 \u064A\u0643\u0648\u0646 \u0628\u064A\u0646 ".concat(min, " \u0648 ").concat(max);
-        }
-      }, {
-        re: /The\s+.+?\s+must\s+be\s+exactly\s+(\d+)\.?/i,
-        en: function en(_, n) {
-          return "Must be exactly ".concat(n);
-        },
-        ar: function ar(_, n) {
-          return "\u064A\u062C\u0628 \u0623\u0646 \u064A\u0643\u0648\u0646 \u0628\u0627\u0644\u0636\u0628\u0637 ".concat(n);
-        }
-      },
-      // String length patterns
-      {
-        re: /The\s+.+?\s+may\s+not\s+be\s+greater\s+than\s+(\d+)\s+characters\.?/i,
-        en: function en(_, n) {
-          return "May not be greater than ".concat(n, " characters");
-        },
-        ar: function ar(_, n) {
-          return "\u064A\u062C\u0628 \u0623\u0644\u0627 \u064A\u062A\u062C\u0627\u0648\u0632 ".concat(n, " \u062D\u0631\u0641\u0627\u064B");
-        }
-      }, {
-        re: /The\s+.+?\s+must\s+be\s+at\s+least\s+(\d+)\s+characters\.?/i,
-        en: function en(_, n) {
-          return "Must be at least ".concat(n, " characters");
-        },
-        ar: function ar(_, n) {
-          return "\u064A\u062C\u0628 \u0623\u0646 \u064A\u0643\u0648\u0646 \u0639\u0644\u0649 \u0627\u0644\u0623\u0642\u0644 ".concat(n, " \u062D\u0631\u0641\u0627\u064B");
-        }
-      }, {
-        re: /The\s+.+?\s+must\s+be\s+between\s+(\d+)\s+and\s+(\d+)\s+characters\.?/i,
-        en: function en(_, min, max) {
-          return "Must be between ".concat(min, " and ").concat(max, " characters");
-        },
-        ar: function ar(_, min, max) {
-          return "\u064A\u062C\u0628 \u0623\u0646 \u064A\u0643\u0648\u0646 \u0628\u064A\u0646 ".concat(min, " \u0648 ").concat(max, " \u062D\u0631\u0641\u0627\u064B");
-        }
-      },
-      // Date validation patterns
-      {
-        re: /The\s+.+?\s+is\s+not\s+a\s+valid\s+date\.?/i,
-        en: "Is not a valid date",
-        ar: "\u0644\u064A\u0633 \u062A\u0627\u0631\u064A\u062E\u0627\u064B \u0635\u062D\u064A\u062D\u0627\u064B"
-      }, {
-        re: /The\s+.+?\s+does\s+not\s+match\s+the\s+format\s+.+?\.?/i,
-        en: "Does not match the required format",
-        ar: "\u0644\u0627 \u064A\u0637\u0627\u0628\u0642 \u0627\u0644\u062A\u0646\u0633\u064A\u0642 \u0627\u0644\u0645\u0637\u0644\u0648\u0628"
-      }, {
-        re: /The\s+.+?\s+must\s+be\s+after\s+or\s+equal\s+to\s+.+?\.?/i,
-        en: "Must be after or equal to the specified date",
-        ar: "\u064A\u062C\u0628 \u0623\u0646 \u064A\u0643\u0648\u0646 \u0628\u0639\u062F \u0623\u0648 \u064A\u0633\u0627\u0648\u064A \u0627\u0644\u062A\u0627\u0631\u064A\u062E \u0627\u0644\u0645\u062D\u062F\u062F"
-      }, {
-        re: /The\s+.+?\s+must\s+be\s+before\s+or\s+equal\s+to\s+.+?\.?/i,
-        en: "Must be before or equal to the specified date",
-        ar: "\u064A\u062C\u0628 \u0623\u0646 \u064A\u0643\u0648\u0646 \u0642\u0628\u0644 \u0623\u0648 \u064A\u0633\u0627\u0648\u064A \u0627\u0644\u062A\u0627\u0631\u064A\u062E \u0627\u0644\u0645\u062D\u062F\u062F"
-      }, {
-        re: /The\s+.+?\s+must\s+be\s+after\s+.+?\.?/i,
-        en: "Must be after the specified date",
-        ar: "\u064A\u062C\u0628 \u0623\u0646 \u064A\u0643\u0648\u0646 \u0628\u0639\u062F \u0627\u0644\u062A\u0627\u0631\u064A\u062E \u0627\u0644\u0645\u062D\u062F\u062F"
-      }, {
-        re: /The\s+.+?\s+must\s+be\s+before\s+.+?\.?/i,
-        en: "Must be before the specified date",
-        ar: "\u064A\u062C\u0628 \u0623\u0646 \u064A\u0643\u0648\u0646 \u0642\u0628\u0644 \u0627\u0644\u062A\u0627\u0631\u064A\u062E \u0627\u0644\u0645\u062D\u062F\u062F"
-      }, {
-        re: /The\s+.+?\s+must\s+be\s+a\s+date\s+after\s+or\s+equal\s+to\s+today\.?/i,
-        en: "Must be a date after or equal to today",
-        ar: "\u064A\u062C\u0628 \u0623\u0646 \u064A\u0643\u0648\u0646 \u062A\u0627\u0631\u064A\u062E \u0628\u0639\u062F \u0623\u0648 \u064A\u0633\u0627\u0648\u064A \u0627\u0644\u064A\u0648\u0645"
-      },
-      // Format validation patterns
-      {
-        re: /The\s+.+?\s+format\s+is\s+invalid\.?/i,
-        en: "Invalid format",
-        ar: "\u062A\u0646\u0633\u064A\u0642 \u063A\u064A\u0631 \u0635\u0627\u0644\u062D"
-      }, {
-        re: /The\s+.+?\s+does\s+not\s+match\s+the\s+required\s+format\.?/i,
-        en: "Does not match the required format",
-        ar: "\u0644\u0627 \u064A\u0637\u0627\u0628\u0642 \u0627\u0644\u062A\u0646\u0633\u064A\u0642 \u0627\u0644\u0645\u0637\u0644\u0648\u0628"
-      }, {
-        re: /The\s+.+?\s+must\s+match\s+the\s+pattern\.?/i,
-        en: "Must match the required pattern",
-        ar: "\u064A\u062C\u0628 \u0623\u0646 \u064A\u0637\u0627\u0628\u0642 \u0627\u0644\u0646\u0645\u0637 \u0627\u0644\u0645\u0637\u0644\u0648\u0628"
-      },
-      // Uniqueness patterns
-      {
-        re: /The\s+.+?\s+has\s+already\s+been\s+taken\.?/i,
-        en: "This value has already been taken",
-        ar: "\u0647\u0630\u0647 \u0627\u0644\u0642\u064A\u0645\u0629 \u0645\u0633\u062A\u062E\u062F\u0645\u0629 \u0628\u0627\u0644\u0641\u0639\u0644"
-      }, {
-        re: /The\s+.+?\s+already\s+exists\.?/i,
-        en: "Already exists",
-        ar: "\u0645\u0648\u062C\u0648\u062F \u0628\u0627\u0644\u0641\u0639\u0644"
-      }, {
-        re: /This\s+.+?\s+is\s+already\s+in\s+use\.?/i,
-        en: "This is already in use",
-        ar: "\u0647\u0630\u0627 \u0645\u0633\u062A\u062E\u062F\u0645 \u0628\u0627\u0644\u0641\u0639\u0644"
-      },
-      // File upload patterns
-      {
-        re: /The\s+.+?\s+must\s+be\s+a\s+file\.?/i,
-        en: "Must be a file",
-        ar: "\u064A\u062C\u0628 \u0623\u0646 \u064A\u0643\u0648\u0646 \u0645\u0644\u0641\u0627\u064B"
-      }, {
-        re: /The\s+.+?\s+must\s+be\s+an\s+image\.?/i,
-        en: "Must be an image",
-        ar: "\u064A\u062C\u0628 \u0623\u0646 \u064A\u0643\u0648\u0646 \u0635\u0648\u0631\u0629"
-      }, {
-        re: /The\s+.+?\s+must\s+be\s+a\s+valid\s+image\.?/i,
-        en: "Must be a valid image",
-        ar: "\u064A\u062C\u0628 \u0623\u0646 \u064A\u0643\u0648\u0646 \u0635\u0648\u0631\u0629 \u0635\u062D\u064A\u062D\u0629"
-      }, {
-        re: /The\s+.+?\s+file\s+is\s+too\s+large\.?/i,
-        en: "File is too large",
-        ar: "\u0627\u0644\u0645\u0644\u0641 \u0643\u0628\u064A\u0631 \u062C\u062F\u0627\u064B"
-      }, {
-        re: /The\s+.+?\s+file\s+size\s+must\s+not\s+exceed\s+(\d+)\s+KB\.?/i,
-        en: function en(_, n) {
-          return "File size must not exceed ".concat(n, " KB");
-        },
-        ar: function ar(_, n) {
-          return "\u062D\u062C\u0645 \u0627\u0644\u0645\u0644\u0641 \u064A\u062C\u0628 \u0623\u0644\u0627 \u064A\u062A\u062C\u0627\u0648\u0632 ".concat(n, " \u0643\u064A\u0644\u0648\u0628\u0627\u064A\u062A");
-        }
-      },
-      // Confirmation patterns
-      {
-        re: /The\s+.+?\s+confirmation\s+does\s+not\s+match\.?/i,
-        en: "Confirmation does not match",
-        ar: "\u0627\u0644\u062A\u0623\u0643\u064A\u062F \u063A\u064A\u0631 \u0645\u062A\u0637\u0627\u0628\u0642"
-      }, {
-        re: /The\s+.+?\s+and\s+.+?\s+must\s+match\.?/i,
-        en: "Must match",
-        ar: "\u064A\u062C\u0628 \u0623\u0646 \u064A\u062A\u0637\u0627\u0628\u0642\u0627"
-      },
-      // Custom validation patterns for supplier form
-      {
-        re: /Mobile\s+number\s+is\s+required\.?/i,
-        en: "Mobile number is required",
-        ar: "\u0631\u0642\u0645 \u0627\u0644\u0647\u0627\u062A\u0641 \u0627\u0644\u0645\u062D\u0645\u0648\u0644 \u0645\u0637\u0644\u0648\u0628"
-      }, {
-        re: /Business\s+name\s+is\s+required\s+for\s+company\s+suppliers\.?/i,
-        en: "Business name is required for company suppliers",
-        ar: "\u0627\u0633\u0645 \u0627\u0644\u0634\u0631\u0643\u0629 \u0645\u0637\u0644\u0648\u0628 \u0644\u0645\u0648\u0631\u062F\u064A \u0627\u0644\u0634\u0631\u0643\u0627\u062A"
-      }, {
-        re: /Phone\s+number\s+is\s+required\.?/i,
-        en: "Phone number is required",
-        ar: "\u0631\u0642\u0645 \u0627\u0644\u0647\u0627\u062A\u0641 \u0645\u0637\u0644\u0648\u0628"
-      }, {
-        re: /Email\s+is\s+required\.?/i,
-        en: "Email is required",
-        ar: "\u0627\u0644\u0628\u0631\u064A\u062F \u0627\u0644\u0625\u0644\u0643\u062A\u0631\u0648\u0646\u064A \u0645\u0637\u0644\u0648\u0628"
-      }, {
-        re: /Full\s+name\s+is\s+required\.?/i,
-        en: "Full name is required",
-        ar: "\u0627\u0644\u0627\u0633\u0645 \u0627\u0644\u0643\u0627\u0645\u0644 \u0645\u0637\u0644\u0648\u0628"
-      }, {
-        re: /First\s+name\s+is\s+required\.?/i,
-        en: "First name is required",
-        ar: "\u0627\u0644\u0627\u0633\u0645 \u0627\u0644\u0623\u0648\u0644 \u0645\u0637\u0644\u0648\u0628"
-      }, {
-        re: /Last\s+name\s+is\s+required\.?/i,
-        en: "Last name is required",
-        ar: "\u0627\u0644\u0627\u0633\u0645 \u0627\u0644\u0623\u062E\u064A\u0631 \u0645\u0637\u0644\u0648\u0628"
-      }, {
-        re: /Company\s+name\s+is\s+required\.?/i,
-        en: "Company name is required",
-        ar: "\u0627\u0633\u0645 \u0627\u0644\u0634\u0631\u0643\u0629 \u0645\u0637\u0644\u0648\u0628"
-      }, {
-        re: /Please\s+enter\s+a\s+mobile\s+number\.?/i,
-        en: "Please enter a mobile number",
-        ar: "\u064A\u0631\u062C\u0649 \u0625\u062F\u062E\u0627\u0644 \u0631\u0642\u0645 \u0647\u0627\u062A\u0641 \u0645\u062D\u0645\u0648\u0644"
-      }, {
-        re: /Please\s+enter\s+a\s+business\s+name\.?/i,
-        en: "Please enter a business name",
-        ar: "\u064A\u0631\u062C\u0649 \u0625\u062F\u062E\u0627\u0644 \u0627\u0633\u0645 \u0634\u0631\u0643\u0629"
-      }, {
-        re: /Please\s+enter\s+a\s+phone\s+number\.?/i,
-        en: "Please enter a phone number",
-        ar: "\u064A\u0631\u062C\u0649 \u0625\u062F\u062E\u0627\u0644 \u0631\u0642\u0645 \u0647\u0627\u062A\u0641"
-      }, {
-        re: /Please\s+enter\s+an\s+email\.?/i,
-        en: "Please enter an email",
-        ar: "\u064A\u0631\u062C\u0649 \u0625\u062F\u062E\u0627\u0644 \u0628\u0631\u064A\u062F \u0625\u0644\u0643\u062A\u0631\u0648\u0646\u064A"
-      }, {
-        re: /Please\s+enter\s+a\s+full\s+name\.?/i,
-        en: "Please enter a full name",
-        ar: "\u064A\u0631\u062C\u0649 \u0625\u062F\u062E\u0627\u0644 \u0627\u0633\u0645 \u0643\u0627\u0645\u0644"
-      }, {
-        re: /Please\s+enter\s+a\s+first\s+name\.?/i,
-        en: "Please enter a first name",
-        ar: "\u064A\u0631\u062C\u0649 \u0625\u062F\u062E\u0627\u0644 \u0627\u0633\u0645 \u0623\u0648\u0644"
-      }, {
-        re: /Please\s+enter\s+a\s+last\s+name\.?/i,
-        en: "Please enter a last name",
-        ar: "\u064A\u0631\u062C\u0649 \u0625\u062F\u062E\u0627\u0644 \u0627\u0633\u0645 \u0623\u062E\u064A\u0631"
-      }, {
-        re: /Please\s+enter\s+a\s+company\s+name\.?/i,
-        en: "Please enter a company name",
-        ar: "\u064A\u0631\u062C\u0649 \u0625\u062F\u062E\u0627\u0644 \u0627\u0633\u0645 \u0634\u0631\u0643\u0629"
-      }, {
-        re: /Please\s+select\s+a\s+type\.?/i,
-        en: "Please select a type",
-        ar: "\u064A\u0631\u062C\u0649 \u0627\u062E\u062A\u064A\u0627\u0631 \u0646\u0648\u0639"
-      }, {
-        re: /Type\s+is\s+required\.?/i,
-        en: "Type is required",
-        ar: "\u0627\u0644\u0646\u0648\u0639 \u0645\u0637\u0644\u0648\u0628"
-      }, {
-        re: /Status\s+is\s+required\.?/i,
-        en: "Status is required",
-        ar: "\u0627\u0644\u062D\u0627\u0644\u0629 \u0645\u0637\u0644\u0648\u0628\u0629"
-      }, {
-        re: /Please\s+select\s+a\s+status\.?/i,
-        en: "Please select a status",
-        ar: "\u064A\u0631\u062C\u0649 \u0627\u062E\u062A\u064A\u0627\u0631 \u062D\u0627\u0644\u0629"
-      },
-      // Generic fallback patterns
-      {
-        re: /This\s+field\s+is\s+required\.?/i,
-        en: "This field is required",
-        ar: "\u0647\u0630\u0627 \u0627\u0644\u062D\u0642\u0644 \u0645\u0637\u0644\u0648\u0628"
-      }, {
-        re: /This\s+field\s+must\s+be\s+filled\.?/i,
-        en: "This field must be filled",
-        ar: "\u064A\u062C\u0628 \u0645\u0644\u0621 \u0647\u0630\u0627 \u0627\u0644\u062D\u0642\u0644"
-      }, {
-        re: /This\s+value\s+is\s+invalid\.?/i,
-        en: "This value is invalid",
-        ar: "\u0647\u0630\u0647 \u0627\u0644\u0642\u064A\u0645\u0629 \u063A\u064A\u0631 \u0635\u0627\u0644\u062D\u0629"
-      }, {
-        re: /Invalid\s+input\.?/i,
-        en: "Invalid input",
-        ar: "\u0625\u062F\u062E\u0627\u0644 \u063A\u064A\u0631 \u0635\u0627\u0644\u062D"
-      }, {
-        re: /Please\s+check\s+your\s+input\.?/i,
-        en: "Please check your input",
-        ar: "\u064A\u0631\u062C\u0649 \u0627\u0644\u062A\u062D\u0642\u0642 \u0645\u0646 \u0627\u0644\u0645\u062F\u062E\u0644\u0627\u062A"
-      }];
-      for (var _i = 0, _patterns = patterns; _i < _patterns.length; _i++) {
-        var _patterns$_i = _patterns[_i],
-          re = _patterns$_i.re,
-          en = _patterns$_i.en,
-          ar = _patterns$_i.ar;
-        var match = message.match(re);
-        if (match) {
-          var text = typeof (isArabic ? ar : en) === 'function' ? (isArabic ? ar : en).apply(void 0, _toConsumableArray(match)) : isArabic ? ar : en;
-          return "".concat(fieldLabel, ": ").concat(text);
-        }
-      }
-
-      // Fallback: return original message if nothing matched
-      return message;
-    },
-    // Reset form
-    resetForm: function resetForm() {
-      this.$refs.supplierForm.resetForm();
-    },
-    // save form data temporarily
-    saveTemporary: function saveTemporary() {
-      if (this.$refs.supplierForm && this.$refs.supplierForm.form) {
-        var f = this.$refs.supplierForm.form;
-        var tempData = {
-          codeNumber: f.codeNumber,
-          notes: f.notes,
-          displayLanguage: f.displayLanguage,
-          type: f.type,
-          fullName: f.fullName,
-          businessName: f.businessName,
-          firstName: f.firstName,
-          lastName: f.lastName,
-          phone: f.phone,
-          phoneNumber: f.phoneNumber,
-          email: f.email,
-          streetAddress1: f.streetAddress1,
-          streetAddress2: f.streetAddress2,
-          city: f.city,
-          state: f.state,
-          postalCode: f.postalCode,
-          country: f.country,
-          neighbourhood: f.neighbourhood,
-          commercialRegister: f.commercialRegister,
-          taxCard: f.taxCard,
-          attachments: f.attachments,
-          status: f.status,
-          isSendEmail: f.isSendEmail,
-          isSendSMS: f.isSendSMS,
-          chartOfAccountId: f.chartOfAccountId,
-          representatives: f.representatives,
-          timestamp: new Date().toISOString()
-        };
-        localStorage.setItem('supplierTempData', JSON.stringify(tempData));
-      }
-    },
-    // load temporary data
-    loadTemporaryData: function loadTemporaryData() {
-      var tempData = localStorage.getItem('supplierTempData');
-      if (tempData && this.$refs.supplierForm && this.$refs.supplierForm.form) {
-        try {
-          var d = JSON.parse(tempData);
-          var f = this.$refs.supplierForm.form;
-          f.codeNumber = d.codeNumber || f.codeNumber;
-          f.notes = d.notes || f.notes;
-          f.displayLanguage = d.displayLanguage || f.displayLanguage;
-          f.type = d.type || f.type;
-          f.fullName = d.fullName || f.fullName;
-          f.businessName = d.businessName || f.businessName;
-          f.firstName = d.firstName || f.firstName;
-          f.lastName = d.lastName || f.lastName;
-          f.phone = d.phone || f.phone;
-          f.phoneNumber = d.phoneNumber || f.phoneNumber;
-          f.email = d.email || f.email;
-          f.streetAddress1 = d.streetAddress1 || f.streetAddress1;
-          f.streetAddress2 = d.streetAddress2 || f.streetAddress2;
-          f.city = d.city || f.city;
-          f.state = d.state || f.state;
-          f.postalCode = d.postalCode || f.postalCode;
-          f.country = d.country || f.country;
-          f.neighbourhood = d.neighbourhood || f.neighbourhood;
-          f.commercialRegister = d.commercialRegister || f.commercialRegister;
-          f.taxCard = d.taxCard || f.taxCard;
-          f.attachments = d.attachments || f.attachments;
-          f.status = d.status !== undefined ? d.status : f.status;
-          f.isSendEmail = d.isSendEmail !== undefined ? d.isSendEmail : f.isSendEmail;
-          f.isSendSMS = d.isSendSMS !== undefined ? d.isSendSMS : f.isSendSMS;
-          f.chartOfAccountId = d.chartOfAccountId || f.chartOfAccountId;
-          f.representatives = d.representatives || f.representatives;
-        } catch (e) {
-          console.error('Error loading temporary data:', e);
-        }
-      }
-    },
-    // clear temporary data
-    clearTemporaryData: function clearTemporaryData() {
-      localStorage.removeItem('supplierTempData');
-    }
-  }
-});
-;// ./resources/js/pages/suppliers/create.vue?vue&type=script&lang=js
- /* harmony default export */ const suppliers_createvue_type_script_lang_js = (createvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-var injectStylesIntoStyleTag = __webpack_require__(85072);
-var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-tel-input/dist/vue-tel-input.css?vue&type=style&index=0&prod&lang=css&external
-var vue_tel_inputvue_type_style_index_0_prod_lang_css_external = __webpack_require__(13561);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-tel-input/dist/vue-tel-input.css?vue&type=style&index=0&prod&lang=css&external
-
-            
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = injectStylesIntoStyleTag_default()(vue_tel_inputvue_type_style_index_0_prod_lang_css_external/* default */.A, options);
-
-
-
-/* harmony default export */ const dist_vue_tel_inputvue_type_style_index_0_prod_lang_css_external = (vue_tel_inputvue_type_style_index_0_prod_lang_css_external/* default */.A.locals || {});
-;// ./node_modules/vue-tel-input/dist/vue-tel-input.css?vue&type=style&index=0&prod&lang=css&external
-
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/suppliers/create.vue?vue&type=style&index=1&id=6d3eb230&prod&scoped=true&lang=css
-var createvue_type_style_index_1_id_6d3eb230_prod_scoped_true_lang_css = __webpack_require__(21644);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/suppliers/create.vue?vue&type=style&index=1&id=6d3eb230&prod&scoped=true&lang=css
-
-            
-
-var createvue_type_style_index_1_id_6d3eb230_prod_scoped_true_lang_css_options = {};
-
-createvue_type_style_index_1_id_6d3eb230_prod_scoped_true_lang_css_options.insert = "head";
-createvue_type_style_index_1_id_6d3eb230_prod_scoped_true_lang_css_options.singleton = false;
-
-var createvue_type_style_index_1_id_6d3eb230_prod_scoped_true_lang_css_update = injectStylesIntoStyleTag_default()(createvue_type_style_index_1_id_6d3eb230_prod_scoped_true_lang_css/* default */.A, createvue_type_style_index_1_id_6d3eb230_prod_scoped_true_lang_css_options);
-
-
-
-/* harmony default export */ const suppliers_createvue_type_style_index_1_id_6d3eb230_prod_scoped_true_lang_css = (createvue_type_style_index_1_id_6d3eb230_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/pages/suppliers/create.vue?vue&type=style&index=1&id=6d3eb230&prod&scoped=true&lang=css
-
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/pages/suppliers/create.vue
-
-
-
-;
-
-
-
-/* normalize component */
-
-var component = (0,componentNormalizer/* default */.A)(
-  suppliers_createvue_type_script_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  "6d3eb230",
-  null
-  
-)
-
-/* harmony default export */ const create = (component.exports);
 
 /***/ })
 

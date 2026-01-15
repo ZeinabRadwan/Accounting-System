@@ -1,86 +1,111 @@
 <template>
   <div :class="{ 'card-body': showCardBody }">
-    <!-- Supplier Details Section - Now First -->
-    <div class="row">
-      <div :class="sectionColumnClass">
-        <div class="form-card">
+    <!-- Tab Navigation -->
+    <div class="client-form-tabs">
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button 
+            class="nav-link" 
+            :class="{ active: activeTab === 'required' }" 
+            @click="switchTab('required')"
+            type="button"
+            role="tab">
+            <i class="fas fa-check-circle mr-2"></i>
+            {{ form.taxStatus === 'taxable' ? $t('ZATCA Required Information') : $t('Required Information') }}
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button 
+            class="nav-link" 
+            :class="{ active: activeTab === 'additional' }" 
+            @click="switchTab('additional')"
+            type="button"
+            role="tab">
+            <i class="fas fa-info-circle mr-2"></i>
+            {{ $t('Additional Information') }}
+          </button>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Tab Content -->
+    <div class="tab-content">
+      <!-- Required Information Tab -->
+      <div class="tab-pane fade" :class="{ 'show active': activeTab === 'required' }" role="tabpanel">
+        <!-- Supplier Details Section -->
+        <div class="form-card-enhanced">
           <div class="card-header">
             <h5 class="section-title">
               <i class="fas fa-user-circle mr-2"></i>
               {{ $t("Supplier Details") }}
             </h5>
+            <p class="card-header-subtitle">
+              {{ $t("Basic information about the supplier") }}
+            </p>
           </div>
           <div class="card-body">
-            <div class="form-group">
-              <label for="codeNumber">
-                {{ $t("Supplier Number") }}
-              </label>
-              <input id="codeNumber" v-model="form.codeNumber" type="text" class="form-control"
-                :class="{ 'is-invalid': form.errors.has('codeNumber') }" name="codeNumber"
-                :placeholder="$t('Loading...')" readonly aria-readonly="true" />
-              <small class="form-text text-muted">
-                {{ $t("This supplier number is automatically generated and cannot be changed") }}
-              </small>
-              <has-error :form="form" field="codeNumber" />
-            </div>
-
-            <div class="form-group">
-              <label>{{ $t("Supplier Type") }}</label>
-              <div class="radio-group">
-                <label class="radio-inline">
-                  <input type="radio" v-model="form.type" value="Individual" />
-                  {{ $t("Individual") }}
+            <!-- Supplier Number, Type, and Tax Status in Single Row -->
+            <div class="form-row-modern form-row-three">
+              <!-- Supplier Number -->
+              <div class="form-group form-col-third">
+                <label for="codeNumber" class="form-label">
+                  {{ $t("Supplier Number") }}
                 </label>
-                <label class="radio-inline">
-                  <input type="radio" v-model="form.type" value="Company" />
-                  {{ $t("Business") }}
-                </label>
+                <input id="codeNumber" v-model="form.codeNumber" type="text" class="form-control form-control-modern"
+                  :class="{ 'is-invalid': form.errors.has('codeNumber') }" name="codeNumber"
+                  :placeholder="$t('Auto-generated...')" readonly aria-readonly="true" />
+                <small class="form-text form-helper-text">
+                  <i class="fas fa-info-circle mr-1"></i>
+                  {{ $t("Auto-generated") }}
+                </small>
+                <has-error :form="form" field="codeNumber" />
               </div>
-              <has-error :form="form" field="type" />
-            </div>
 
-            <div class="form-group">
-              <label class="form-label font-weight-bold text-primary mb-2 d-block">
-                <i class="fas fa-receipt mr-2"></i>
-                {{ $t("Tax Status") }}
-                <span class="required text-danger">*</span>
-              </label>
-              <div class="tax-status-options">
-                <div class="row">
-                  <div class="col-md-6">
+              <!-- Supplier Type -->
+              <div class="form-group form-col-third">
+                <label class="form-label">{{ $t("Supplier Type") }}</label>
+                <div class="radio-group-modern">
+                  <label class="radio-option-modern" :class="{ 'active': form.type === 'Individual' }">
+                    <input type="radio" v-model="form.type" value="Individual" />
+                    <span class="radio-label-text">{{ $t("Individual") }}</span>
+                  </label>
+                  <label class="radio-option-modern" :class="{ 'active': form.type === 'Company' }">
+                    <input type="radio" v-model="form.type" value="Company" />
+                    <span class="radio-label-text">{{ $t("Business") }}</span>
+                  </label>
+                </div>
+                <has-error :form="form" field="type" />
+              </div>
+
+              <!-- Tax Status -->
+              <div class="form-group form-col-third">
+                <label class="form-label">
+                  {{ $t("Tax Status") }}
+                </label>
+                <div class="tax-status-options">
+                  <div class="tax-status-row">
                     <label class="tax-status-card-compact"
                       :class="{ 'active': form.taxStatus === 'taxable', 'border-primary': form.taxStatus === 'taxable' }"
                       @click="setTaxStatus('taxable')">
                       <div class="tax-status-header-compact">
-                        <input type="radio" :checked="form.taxStatus === 'taxable'" value="taxable"
-                          class="tax-status-radio" @change="setTaxStatus('taxable')"
-                          @click.stop="setTaxStatus('taxable')" />
-                        <div class="tax-status-icon-compact taxable-icon">
-                          <i class="fas fa-file-invoice-dollar"></i>
-                        </div>
+                        <input type="radio" v-model="form.taxStatus" value="taxable" class="tax-status-radio" />
                         <span class="tax-status-title-compact">{{ $t("Taxable") }}</span>
                       </div>
                     </label>
-                  </div>
-                  <div class="col-md-6">
                     <label class="tax-status-card-compact"
                       :class="{ 'active': form.taxStatus === 'non_taxable', 'border-success': form.taxStatus === 'non_taxable' }"
                       @click="setTaxStatus('non_taxable')">
                       <div class="tax-status-header-compact">
-                        <input type="radio" :checked="form.taxStatus === 'non_taxable'" value="non_taxable"
-                          class="tax-status-radio" @change="setTaxStatus('non_taxable')"
-                          @click.stop="setTaxStatus('non_taxable')" />
-                        <div class="tax-status-icon-compact non-taxable-icon">
-                          <i class="fas fa-file-invoice"></i>
-                        </div>
+                        <input type="radio" v-model="form.taxStatus" value="non_taxable" class="tax-status-radio" />
                         <span class="tax-status-title-compact">{{ $t("Non-Taxable") }}</span>
                       </div>
                     </label>
                   </div>
                 </div>
+                <has-error :form="form" field="taxStatus" />
               </div>
-              <has-error :form="form" field="taxStatus" />
             </div>
+
 
             <!-- Individual Supplier Fields -->
             <div v-if="form.type === 'Individual'">
@@ -149,16 +174,17 @@
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- National Address Section - Now Second, beside Supplier Details -->
-      <div :class="sectionColumnClass">
-        <div class="form-card">
+        <!-- National Address Section -->
+        <div class="form-card-enhanced">
           <div class="card-header">
             <h5 class="section-title">
               <i class="fas fa-map-marked-alt mr-2"></i>
               {{ $t("National Address") }}
             </h5>
+            <p class="card-header-subtitle">
+              {{ form.taxStatus === 'taxable' ? $t("All fields required for ZATCA compliance") : $t("Complete address information") }}
+            </p>
           </div>
           <div class="card-body">
             <!-- Country and Region -->
@@ -411,17 +437,19 @@
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- Account Details Section - Now on its own row -->
-    <div class="row mt-4">
-      <div class="col-md-12">
-        <div class="form-card">
+      <!-- Additional Information Tab -->
+      <div class="tab-pane fade" :class="{ 'show active': activeTab === 'additional' }" role="tabpanel">
+        <!-- Account Details Section -->
+        <div class="form-card-enhanced">
           <div class="card-header">
             <h5 class="section-title">
               <i class="fas fa-cog mr-2"></i>
               {{ $t("Account Details") }}
             </h5>
+            <p class="card-header-subtitle">
+              {{ $t("Account settings and preferences") }}
+            </p>
           </div>
           <div class="card-body">
             <div class="row">
@@ -464,37 +492,34 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
 
-    <!-- Supplier Representative Info Section -->
-    <div class="row mt-4" v-if="form.type === 'Company'">
-      <div class="col-md-12">
-        <div class="form-card">
+        <!-- Supplier Representative Info Section -->
+        <div v-if="form.type === 'Company'" class="form-card-enhanced">
           <div class="card-header">
             <h5 class="section-title">
               <i class="fas fa-users mr-2"></i>
               {{ $t("Supplier Representative Info") }}
             </h5>
+            <p class="card-header-subtitle">
+              {{ $t("Manage company representatives and authorized persons") }}
+            </p>
           </div>
           <div class="card-body">
             <RepresentativesList :representatives="form.representatives || []"
               @representatives-changed="handleRepresentativesChanged" />
           </div>
         </div>
-      </div>
-    </div>
 
-
-    <!-- Additional Fields Section -->
-    <div class="row mt-4 equal-height">
-      <div class="col-md-6">
-        <div class="form-card">
+        <!-- Additional Fields Section -->
+        <div class="form-card-enhanced">
           <div class="card-header">
             <h5 class="section-title">
               <i class="fas fa-info-circle mr-2"></i>
               {{ $t("Additional Information") }}
             </h5>
+            <p class="card-header-subtitle">
+              {{ $t("Optional notes and additional details") }}
+            </p>
           </div>
           <div class="card-body">
             <div class="form-group">
@@ -506,15 +531,17 @@
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="col-md-6">
-        <div class="form-card">
+        <!-- Documents & Settings Section -->
+        <div class="form-card-enhanced">
           <div class="card-header">
             <h5 class="section-title">
               <i class="fas fa-file-alt mr-2"></i>
               {{ $t("Documents & Settings") }}
             </h5>
+            <p class="card-header-subtitle">
+              {{ $t("Upload attachments and manage document settings") }}
+            </p>
           </div>
           <div class="card-body">
             <div class="form-group">
@@ -586,15 +613,18 @@
       </div>
     </div>
 
-    <!-- Toggle Buttons Section -->
+    <!-- Communication Preferences Section -->
     <div class="row mt-4">
       <div class="col-md-12">
-        <div class="form-card">
+        <div class="form-card-enhanced">
           <div class="card-header">
             <h5 class="section-title">
               <i class="fas fa-bell mr-2"></i>
               {{ $t("Communication Preferences") }}
             </h5>
+            <p class="card-header-subtitle">
+              {{ $t("Configure welcome messages and notifications") }}
+            </p>
           </div>
           <div class="card-body">
             <div class="row">
@@ -624,8 +654,8 @@
           </div>
         </div>
       </div>
+      </div>
     </div>
-
   </div>
 </template>
 
@@ -663,6 +693,7 @@ export default {
   },
   data() {
     return {
+      activeTab: 'required',
       isDemoMode: window.config.isDemoMode,
       loading: true,
       url: null,
@@ -1137,6 +1168,11 @@ export default {
       console.log('taxStatus after setting:', this.form.taxStatus);
       console.log('form object keys:', Object.keys(this.form));
       console.log('form.data() taxStatus:', this.form.data ? this.form.data().taxStatus : 'N/A');
+    },
+
+    // Switch between tabs
+    switchTab(tab) {
+      this.activeTab = tab;
     },
 
     // Validate form before submission
@@ -2260,5 +2296,330 @@ textarea.form-control:focus {
 .saudi-location-select .vs__dropdown-option--highlight {
   background-color: #33a0d9;
   color: white;
+}
+/* ============================================
+   TAB NAVIGATION (from ClientForm)
+   ============================================ */
+.client-form-tabs {
+  margin-bottom: 2rem;
+  background: #f8f9fa;
+  padding: 0.5rem;
+  border-radius: 12px;
+}
+
+.client-form-tabs .nav-tabs {
+  display: flex;
+  gap: 0.5rem;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.client-form-tabs .nav-item {
+  flex: 1;
+}
+
+.client-form-tabs .nav-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 24px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: #6b7280;
+  font-weight: 500;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.client-form-tabs .nav-link:hover {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.client-form-tabs .nav-link.active {
+  background: #0775AF;
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(7, 117, 175, 0.2);
+}
+
+.client-form-tabs .nav-link i {
+  margin-right: 8px;
+  font-size: 16px;
+}
+
+[dir="rtl"] .client-form-tabs .nav-link i {
+  margin-right: 0;
+  margin-left: 8px;
+}
+
+/* ============================================
+   TAB CONTENT
+   ============================================ */
+.tab-content {
+  margin-top: 0;
+}
+
+.tab-pane {
+  display: none;
+}
+
+.tab-pane.show.active {
+  display: block;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================
+   FORM CARDS ENHANCED
+   ============================================ */
+.form-card-enhanced {
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  margin-bottom: 2rem;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.form-card-enhanced:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-color: #d1d5db;
+}
+
+.form-card-enhanced .card-header {
+  background: #eceff3;
+  padding: 20px 24px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.form-card-enhanced .section-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.form-card-enhanced .section-title i {
+  color: #0775AF;
+  font-size: 20px;
+}
+
+.form-card-enhanced .card-header-subtitle {
+  font-size: 13px;
+  color: #6b7280;
+  margin-top: 6px;
+  margin-bottom: 0;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.form-card-enhanced .card-body {
+  padding: 24px;
+}
+
+/* ============================================
+   FORM CONTROLS MODERN
+   ============================================ */
+.form-control-modern,
+.form-control {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #111827;
+  background-color: #ffffff;
+  border: 1.5px solid #d1d5db;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  height: 44px;
+}
+
+.form-control-modern:focus,
+.form-control:focus {
+  outline: none;
+  border-color: #0775AF;
+  box-shadow: 0 0 0 3px rgba(7, 117, 175, 0.1);
+  background-color: #ffffff;
+}
+
+.form-control-modern[readonly] {
+  background-color: #f9fafb;
+  color: #6b7280;
+  cursor: not-allowed;
+}
+
+/* ============================================
+   FORM LAYOUT
+   ============================================ */
+.form-row-modern {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-bottom: 0;
+}
+
+.form-row-three {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.form-col-third {
+  width: 100%;
+}
+
+@media (max-width: 1200px) {
+  .form-row-three {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .form-row-three .form-col-third:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 768px) {
+  .form-row-modern,
+  .form-row-three {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  
+  .form-row-three .form-col-third:last-child {
+    grid-column: 1;
+  }
+}
+
+/* ============================================
+   RADIO GROUPS MODERN
+   ============================================ */
+.radio-group-modern {
+  display: flex;
+  gap: 12px;
+}
+
+.radio-option-modern {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px;
+  border: 1.5px solid #d1d5db;
+  border-radius: 8px;
+  background: #ffffff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  height: 44px;
+}
+
+.radio-option-modern:hover {
+  border-color: #0775AF;
+  background: #f0f9ff;
+}
+
+.radio-option-modern.active {
+  border-color: #0775AF;
+  background: #e6f4ff;
+  box-shadow: 0 0 0 3px rgba(7, 117, 175, 0.1);
+}
+
+.radio-option-modern input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.radio-label-text {
+  font-weight: 500;
+  color: #374151;
+  font-size: 14px;
+}
+
+.radio-option-modern.active .radio-label-text {
+  color: #0775AF;
+  font-weight: 600;
+}
+
+/* ============================================
+   TAX STATUS CARDS (Updated)
+   ============================================ */
+.tax-status-row {
+  display: flex;
+  gap: 8px;
+}
+
+.tax-status-row .tax-status-card-compact {
+  flex: 1;
+  min-width: 0;
+}
+
+.tax-status-card-compact {
+  display: flex;
+  align-items: center;
+  padding: 0;
+  border: 1.5px solid #d1d5db;
+  border-radius: 8px;
+  background: #ffffff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  height: 44px;
+}
+
+.tax-status-card-compact:hover {
+  border-color: #0775AF;
+  box-shadow: 0 2px 8px rgba(7, 117, 175, 0.15);
+}
+
+.tax-status-card-compact.active {
+  border-color: #0775AF;
+  background: #f0f9ff;
+  box-shadow: 0 0 0 3px rgba(7, 117, 175, 0.1);
+}
+
+.tax-status-card-compact.border-success.active {
+  border-color: #10b981;
+  background: #f0fdf4;
+}
+
+.tax-status-header-compact {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 0 12px;
+}
+
+.tax-status-title-compact {
+  font-weight: 500;
+  font-size: 14px;
+  color: #374151;
+  text-align: center;
+}
+
+.tax-status-card-compact.active .tax-status-title-compact {
+  color: #0775AF;
+}
+
+.tax-status-card-compact.border-success.active .tax-status-title-compact {
+  color: #10b981;
+  font-weight: 600;
 }
 </style>
