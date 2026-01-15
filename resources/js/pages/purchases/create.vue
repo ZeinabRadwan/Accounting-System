@@ -737,151 +737,15 @@
                   <has-error :form="form" field="netTotal" />
                 </div>
                 <div class="form-group col-12 col-sm-6 col-md-4">
-                  <label for="addPayment">{{ $t("Add Payment?") }}</label>
-                  <select
-                    id="addPayment"
-                    v-model="form.addPayment"
-                    class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('addPayment') }"
-                    name="addPayment"
-                  >
-                    <option value="0" selected>{{ $t("No") }}</option>
-                    <option value="1">{{ $t("Yes") }}</option>
-                  </select>
-                  <has-error :form="form" field="addPayment" />
-                </div>
-              </div>
-            </div>
-            <!-- Payment Information Section -->
-            <div
-              v-if="
-                form.addPayment == 1 &&
-                accounts &&
-                form.selectedProducts &&
-                form.selectedProducts.length > 0
-              "
-            >
-              <div class="row">
-                <div class="form-group col-12 col-md-6">
-                  <label for="account"
-                    >{{ $t("Account") }} <span class="required">*</span></label
-                  >
-                  <v-select
-                    v-model="form.account"
-                    :options="accounts"
-                    label="label"
-                    :class="{ 'is-invalid': form.errors.has('account') }"
-                    name="account"
-                    :placeholder="$t('Select an account')"
-                    @input="updateBalance"
-                  >
-                    <template slot="option" slot-scope="option">
-                      <img
-                        :src="option.image"
-                        style="width: 30px; height: 30px"
-                      />
-                      {{ option.label }}
-                    </template>
-                  </v-select>
-                  <has-error :form="form" field="account" />
-                </div>
-                <div class="form-group col-12 col-md-6">
-                  <label for="availableBalance">{{
-                    $t("Available Balance")
-                  }}</label>
-                  <input
-                    id="availableBalance"
-                    v-model="form.availableBalance"
-                    type="number"
-                    step="any"
-                    class="form-control"
-                    :class="{
-                      'is-invalid': form.errors.has('availableBalance'),
-                    }"
-                    name="availableBalance"
-                    readonly
-                  />
-                  <has-error :form="form" field="availableBalance" />
-                </div>
-                <div class="form-group col-12 col-sm-6 col-md-4">
-                  <label for="totalPaid"
-                    >{{ $t("Total Paid") }}
-                    <span class="required">*</span></label
-                  >
-                  <input
-                    id="totalPaid"
-                    v-model="form.totalPaid"
-                    type="number"
-                    step="any"
-                    class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('totalPaid') }"
-                    name="totalPaid"
-                    min="1"
-                    :max="form.netTotal"
-                    :placeholder="$t('Enter an amount')"
-                  />
-                  <has-error :form="form" field="totalPaid" />
-                </div>
-                <div class="form-group col-12 col-sm-6 col-md-4">
-                  <label for="receiptNo">{{ $t("Receipt No") }}</label>
-                  <input
-                    id="receiptNo"
-                    v-model="form.receiptNo"
-                    type="text"
-                    class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('receiptNo') }"
-                    name="receiptNo"
-                    :placeholder="$t('Enter a receipt no')"
-                  />
-                  <has-error :form="form" field="receiptNo" />
-                </div>
-                <div
-                  class="form-group col-12 col-sm-6 col-md-4"
-                  v-if="form.addPayment == 1"
-                >
-                  <label for="payment_method_id"
-                    >{{ $t("Payment Method") }} ({{ $t("وسيلة الدفع") }})</label
-                  >
-                  <select
-                    id="payment_method_id"
-                    v-model="form.payment_method_id"
-                    class="form-control"
-                    :class="{
-                      'is-invalid': form.errors.has('payment_method_id'),
-                    }"
-                    name="payment_method_id"
-                    :disabled="loadingPaymentMethods"
-                    @change="clearFieldError('payment_method_id')"
-                  >
-                    <option value="">
-                      {{
-                        loadingPaymentMethods ? $t("Loading...") : $t("Select")
-                      }}
-                    </option>
-                    <option
-                      v-if="
-                        !loadingPaymentMethods && paymentMethods.length === 0
-                      "
-                      value=""
-                      disabled
-                    >
-                      {{ $t("No payment methods available") }}
-                    </option>
-                    <option
-                      v-for="method in paymentMethods"
-                      :key="method.id"
-                      :value="method.id"
-                    >
-                      {{ method.name }}
-                    </option>
-                  </select>
-                  <has-error :form="form" field="payment_method_id" />
-                  <small
-                    v-if="loadingPaymentMethods"
-                    class="form-text text-muted"
-                  >
-                    <i class="fas fa-spinner fa-spin"></i>
-                    {{ $t("Loading payment methods...") }}
+                  <label>{{ $t("Payment Type") }} ({{ $t("نوع الدفع") }})</label>
+                  <div class="d-flex align-items-center">
+                    <toggle-button v-model="form.isPaid" :labels="{ checked: $t('Paid'), unchecked: $t('On Credit') }"
+                      :color="{ checked: '#2AB930', unchecked: '#dc3545' }" :sync="true" @change="onPaymentTypeChange"
+                      class="mr-2" />
+                    <span class="ml-2">{{ form.isPaid ? $t("Paid") : $t("On Credit") }}</span>
+                  </div>
+                  <small class="form-text text-muted">
+                    {{ form.isPaid ? $t("Payment will be added after purchase creation") : $t("Purchase will be created on credit") }}
                   </small>
                 </div>
               </div>
@@ -1072,6 +936,20 @@
         </div>
       </div>
     </div>
+    <InvoicePaymentModal
+      v-if="createdPurchaseData"
+      type="purchase"
+      :show="showPaymentModal"
+      :invoice-id="createdPurchaseData.id"
+      :invoice-no="createdPurchaseData.purchaseNo"
+      :invoice-prefix="purchasePrefix"
+      :invoice-total="createdPurchaseData.subTotal || createdPurchaseData.netTotal || form.netTotal"
+      :due-amount="createdPurchaseData.subTotal || createdPurchaseData.netTotal || form.netTotal"
+      :invoice-status="createdPurchaseData.status || 1"
+      :purchase-slug="createdPurchaseData.slug"
+      @close="handlePaymentModalClose"
+      @payment-saved="handlePaymentSaved"
+    />
   </div>
 </template>
 
@@ -1083,6 +961,7 @@ import { ToggleButton } from "vue-js-toggle-button";
 import ProductCreateModal from "~/components/ProductCreateModal";
 import SupplierCreateModal from "~/components/SupplierCreateModal";
 import ItemsTable from "~/components/ItemsTable";
+import InvoicePaymentModal from "~/components/InvoicePaymentModal";
 import RTLMixin from "~/mixins/RTLMixin";
 import Swal from "sweetalert2";
 
@@ -1099,6 +978,7 @@ export default {
     ProductCreateModal,
     SupplierCreateModal,
     ItemsTable,
+    InvoicePaymentModal,
   },
   data: () => ({
     isDemoMode: window.config.isDemoMode,
@@ -1142,10 +1022,7 @@ export default {
       poReference: "",
       reference: "",
       paymentTerms: "",
-      addPayment: "0", // Default to "No" (field is hidden)
-      chequeNo: "",
-      receiptNo: "",
-      payment_method_id: null,
+      isPaid: true, // Default to Paid (مدفوع)
       poDate: new Date().toISOString().slice(0, 10),
       purchaseDate: new Date().toISOString().slice(0, 10),
       purchase_status: "",
@@ -1165,8 +1042,9 @@ export default {
     taxes: "",
     costCenters: [],
     branches: [],
-    paymentMethods: [],
-    loadingPaymentMethods: false,
+    showPaymentModal: false,
+    createdPurchaseData: null,
+    purchasePrefix: "",
 
     // Communication configuration status
     communicationConfig: {
@@ -1562,7 +1440,6 @@ export default {
       this.getTaxes(),
       this.getCostCenters(),
       this.getBranches(),
-      this.getPaymentMethods(),
       this.loadCommunicationConfigStatus(),
     ]);
 
@@ -2712,29 +2589,8 @@ export default {
       this.isSubmitting = true;
 
       try {
-        // Validate payment fields first if payment is enabled
-        if (this.form.addPayment == 1) {
-          if (!this.form.account) {
-            event.preventDefault();
-            toast.fire({
-              type: "error",
-              title: this.$t("Validation Error"),
-              text: this.$t("Please select an account"),
-            });
-            return;
-          }
-          if (!this.form.totalPaid || Number(this.form.totalPaid) <= 0) {
-            event.preventDefault();
-            toast.fire({
-              type: "error",
-              title: this.$t("Validation Error"),
-              text: this.$t("Please enter the total amount paid"),
-            });
-            return;
-          }
-        }
-
-        // If payment validation passes, proceed with purchase creation
+        // Payment validation removed - payment is handled through modal after purchase creation
+        // Proceed with purchase creation
         await this.savePurchase();
       } finally {
         // Reset submitting flag
@@ -2765,18 +2621,7 @@ export default {
         validationErrors.push(this.$t("Please add at least one product"));
       }
 
-      // Check account (only required if adding payment)
-      if (this.form.addPayment == 1 && !this.form.account) {
-        validationErrors.push(this.$t("Please select an account"));
-      }
-
-      // Check total paid (only required if adding payment)
-      if (
-        this.form.addPayment == 1 &&
-        (!this.form.totalPaid || Number(this.form.totalPaid) <= 0)
-      ) {
-        validationErrors.push(this.$t("Please enter the total amount paid"));
-      }
+      // Payment validation removed - payment is handled through modal after purchase creation
 
       // Check product details
       if (this.form.selectedProducts && this.form.selectedProducts.length > 0) {
@@ -2886,7 +2731,7 @@ export default {
           appendIfDefined("status", formDataObj.status);
           appendIfDefined("isSendEmail", formDataObj.isSendEmail ? 1 : 0);
           appendIfDefined("isSendSMS", formDataObj.isSendSMS ? 1 : 0);
-          appendIfDefined("addPayment", this.form.addPayment == 1 ? 1 : 0);
+          appendIfDefined("isPaid", formDataObj.isPaid ? 1 : 0);
           appendIfDefined("cost_center_id", formDataObj.cost_center_id);
           appendIfDefined("branch_id", formDataObj.branch_id);
           appendIfDefined("purchase_status", formDataObj.purchase_status);
@@ -2894,13 +2739,6 @@ export default {
           // Handle orderTax - only include if country is NOT Saudi Arabia
           if (!this.isSaudiArabia && formDataObj.orderTax) {
             appendIfDefined("orderTax[id]", formDataObj.orderTax.id);
-          }
-
-          // Only include payment-related fields if payment is being added
-          if (this.form.addPayment == 1) {
-            appendIfDefined("account[id]", formDataObj.account?.id);
-            appendIfDefined("totalPaid", formDataObj.totalPaid);
-            appendIfDefined("availableBalance", formDataObj.availableBalance);
           }
 
           // Append selectedProducts array
@@ -2966,16 +2804,24 @@ export default {
           }
 
           this.clearTemporaryData();
-          this.$router.push({
-            name: "purchases.show",
-            params: { slug: response.data.data.slug },
-          });
+          
+          // If payment type is Paid, open payment modal instead of redirecting
+          if (this.form.isPaid) {
+            this.createdPurchaseData = response.data.data;
+            this.showPaymentModal = true;
+          } else {
+            this.$router.push({
+              name: "purchases.show",
+              params: { slug: response.data.data.slug },
+            });
+          }
         } else {
           // No attachments, use regular form data
           formData = this.form.data();
 
-          // Convert addPayment to boolean for backend validation
-          formData.addPayment = this.form.addPayment == 1;
+          // Payment is handled through modal after purchase creation
+          // Ensure isPaid is set correctly
+          formData.isPaid = this.form.isPaid ? 1 : 0;
 
           // CRITICAL: Ensure transport fields are always sent correctly
           // For non-taxable transport, use transportCost (the actual amount entered)
@@ -3019,17 +2865,15 @@ export default {
             // Keep transportIsTaxable for backward compatibility
           }
 
-          // Only include payment-related fields if payment is being added
-          if (this.form.addPayment == 1) {
-            formData.account = this.form.account;
-            formData.totalPaid = this.form.totalPaid;
-            formData.availableBalance = this.form.availableBalance;
-          } else {
-            // Remove payment-related fields if not adding payment
-            delete formData.account;
-            delete formData.totalPaid;
-            delete formData.availableBalance;
-          }
+          // Payment is handled through modal after purchase creation
+          // Remove payment-related fields from form data
+          delete formData.account;
+          delete formData.totalPaid;
+          delete formData.availableBalance;
+          delete formData.addPayment;
+          delete formData.chequeNo;
+          delete formData.receiptNo;
+          delete formData.payment_method_id;
 
           // Handle orderTax - only include if country is NOT Saudi Arabia
           if (this.isSaudiArabia) {
@@ -3057,10 +2901,17 @@ export default {
           }
 
           this.clearTemporaryData();
-          this.$router.push({
-            name: "purchases.show",
-            params: { slug: response.data.data.slug },
-          });
+          
+          // If payment type is Paid, open payment modal instead of redirecting
+          if (this.form.isPaid) {
+            this.createdPurchaseData = response.data.data;
+            this.showPaymentModal = true;
+          } else {
+            this.$router.push({
+              name: "purchases.show",
+              params: { slug: response.data.data.slug },
+            });
+          }
         }
       } catch (error) {
         if (
@@ -3283,37 +3134,33 @@ export default {
       this.clearFieldError("cost_center_id");
     },
 
-    // get all payment methods
-    async getPaymentMethods() {
-      this.loadingPaymentMethods = true;
-      try {
-        const response = await axios.get(
-          window.location.origin + "/api/payment-methods",
-          {
-            params: { perPage: 1000 }, // Get all payment methods
-          }
-        );
-        // Handle both paginated and non-paginated responses
-        if (response.data) {
-          if (Array.isArray(response.data)) {
-            this.paymentMethods = response.data;
-          } else if (response.data.data && Array.isArray(response.data.data)) {
-            this.paymentMethods = response.data.data;
-          } else {
-            this.paymentMethods = [];
-          }
-        } else {
-          this.paymentMethods = [];
-        }
-      } catch (error) {
-        this.paymentMethods = [];
-        toast.fire({
-          type: "error",
-          title: this.$t("Error"),
-          text: this.$t("Failed to load payment methods"),
+    // Handle payment type change
+    onPaymentTypeChange(value) {
+      // The v-model already updates form.isPaid
+      // Payment will be handled through modal after purchase creation
+    },
+
+    // Handle payment modal close
+    handlePaymentModalClose() {
+      this.showPaymentModal = false;
+      // Redirect to purchase show page
+      if (this.createdPurchaseData && this.createdPurchaseData.slug) {
+        const slug = this.createdPurchaseData.slug;
+        this.createdPurchaseData = null;
+        this.$router.push({ name: "purchases.show", params: { slug } });
+      } else {
+        this.createdPurchaseData = null;
+      }
+    },
+
+    // Handle payment saved
+    handlePaymentSaved() {
+      // Redirect to purchase show page after payment is saved
+      if (this.createdPurchaseData && this.createdPurchaseData.slug) {
+        this.$router.push({
+          name: "purchases.show",
+          params: { slug: this.createdPurchaseData.slug },
         });
-      } finally {
-        this.loadingPaymentMethods = false;
       }
     },
     async getBranches() {
@@ -3413,9 +3260,7 @@ export default {
         paymentTerms: this.form.paymentTerms,
         poDate: this.form.poDate,
         purchaseDate: this.form.purchaseDate,
-        addPayment: this.form.addPayment,
-        account: this.form.account,
-        totalPaid: this.form.totalPaid,
+        isPaid: this.form.isPaid,
         note: this.form.note,
         status: this.form.status,
         timestamp: new Date().toISOString(),
@@ -3449,9 +3294,7 @@ export default {
           this.form.paymentTerms = data.paymentTerms || this.form.paymentTerms;
           this.form.poDate = data.poDate || this.form.poDate;
           this.form.purchaseDate = data.purchaseDate || this.form.purchaseDate;
-          this.form.addPayment = data.addPayment || this.form.addPayment;
-          this.form.account = data.account || this.form.account;
-          this.form.totalPaid = data.totalPaid || this.form.totalPaid;
+          this.form.isPaid = data.isPaid !== undefined ? data.isPaid : this.form.isPaid;
           this.form.note = data.note || this.form.note;
           this.form.status =
             data.status !== undefined ? data.status : this.form.status;
@@ -3509,9 +3352,7 @@ export default {
           this.form.poReference = "";
           this.form.reference = "";
           this.form.paymentTerms = "";
-          this.form.addPayment = "0"; // Default to "No"
-          this.form.chequeNo = "";
-          this.form.receiptNo = "";
+          this.form.isPaid = true; // Default to Paid
           this.form.poDate = new Date().toISOString().slice(0, 10);
           this.form.purchaseDate = new Date().toISOString().slice(0, 10);
           this.form.purchase_status = "";

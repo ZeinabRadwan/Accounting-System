@@ -92,10 +92,20 @@ class PurchasePaymentController extends Controller
             foreach ($request->selectedPurchases as $key => $selectedPurchase) {
                 $purchase = Purchase::where('slug', $selectedPurchase['slug'])->first();
                 
-                // Prevent adding payment to inactive purchases
-                if (!$purchase || (int)$purchase->status !== 1) {
+                // Check if purchase exists and has journal entry (which means it's been processed)
+                // Since journal entries are now created automatically on purchase creation,
+                // we allow payments if journal entry exists, regardless of status
+                if (!$purchase) {
                     DB::rollBack();
-                    return $this->responseWithError('Cannot add payment to an inactive purchase. You have to send the purchase first.');
+                    return $this->responseWithError('Purchase not found.');
+                }
+
+                // Check if purchase has a journal entry (indicates it's been processed)
+                $hasJournalEntry = $purchase->journalEntry || \App\Models\PurchaseJournal::where('purchase_id', $purchase->id)->exists();
+                
+                if (!$hasJournalEntry) {
+                    DB::rollBack();
+                    return $this->responseWithError('Cannot add payment. Purchase must have a journal entry. Please ensure the purchase was created successfully.');
                 }
                 
                 // Prepare voucher data for purchase payment

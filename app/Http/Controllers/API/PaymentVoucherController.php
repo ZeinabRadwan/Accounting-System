@@ -12,6 +12,7 @@ use App\Models\AccountTransaction;
 use App\Models\Invoice;
 use App\Models\PaymentVoucher;
 use App\Models\Purchase;
+use App\Models\PurchaseJournal;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -177,14 +178,21 @@ class PaymentVoucherController extends Controller
                 }
             } elseif ($request->paymentMethod === 'purchase' && isset($request->purchase['id'])) {
                 $voucherData['purchase_id'] = $request->purchase['id'];
-                // Validate purchase exists and is active
+                // Validate purchase exists
                 $purchase = Purchase::find($request->purchase['id']);
                 if (! $purchase) {
                     return $this->responseWithError('Purchase not found.');
                 }
-                if ((int) $purchase->status !== 1) {
-                    return $this->responseWithError('Cannot add payment to an inactive purchase.');
+                
+                // Check if purchase has a journal entry (indicates it's been processed)
+                // Since journal entries are now created automatically on purchase creation,
+                // we allow payments if journal entry exists, regardless of status
+                $hasJournalEntry = $purchase->journalEntry || PurchaseJournal::where('purchase_id', $purchase->id)->exists();
+                
+                if (! $hasJournalEntry) {
+                    return $this->responseWithError('Cannot add payment. Purchase must have a journal entry. Please ensure the purchase was created successfully.');
                 }
+                // If journal entry exists, allow payment regardless of status
             }
 
             // Create transaction

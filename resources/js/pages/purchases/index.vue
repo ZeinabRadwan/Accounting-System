@@ -133,7 +133,7 @@
                       </button>
                     </div>
                     <ul>
-                      <li v-if="$can('purchase-view') && row.due > 0 && row.status === 1">
+                      <li v-if="$can('purchase-view') && row.due > 0 && (row.journalEntry || row.journal_entry)">
                         <a href="#" @click.prevent="handleModal(row)">
                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
                             fill="none">
@@ -143,7 +143,7 @@
                           {{ $t('Add Payment?') }}
                         </a>
                       </li>
-                      <li v-if="$can('purchase-view') && row.due > 0 && row.status !== 1">
+                      <li v-if="$can('purchase-view') && row.due > 0 && !row.journalEntry && !row.journal_entry">
                         <a href="#" @click.prevent="showInactiveMessage()" class="text-muted"
                           style="cursor: not-allowed;">
                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
@@ -724,11 +724,11 @@ export default {
         }
       });
     },
-    // Show message for inactive purchases
+    // Show message for purchases without journal entry
     showInactiveMessage() {
       this.$toast.warning(
         this.$t("Cannot Add Payment"),
-        this.$t("You have to send the purchase first before adding payments.")
+        this.$t("Purchase must have a journal entry. Please ensure the purchase was created successfully.")
       );
     },
 

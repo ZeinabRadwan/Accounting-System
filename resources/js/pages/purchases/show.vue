@@ -28,11 +28,10 @@
             <a @click="downloadPDF" href="#" class="btn btn-info">
               <i class="fas fa-download"></i> {{ $t("download") }}
             </a>
-            <!-- Add Payment button hidden -->
-            <!-- <a v-if="allData && allData.status === 1 && calculateDueAmount > 0" @click.prevent="addPayment()" href="#"
+            <a v-if="allData && (allData.journalEntry || allData.journal_entry) && calculateDueAmount > 0" @click.prevent="addPayment()" href="#"
               class="btn btn-primary">
               <i class="fas fa-money-bill" /> {{ $t("Add Payment") }}
-            </a> -->
+            </a>
             <a v-if="$can('purchase-return-create') && allData"
               @click.prevent="returnPurchase(allData)" href="#" class="btn btn-warning">
               <i class="fas fa-undo"></i> {{ $t("Return Purchase") }}
@@ -411,6 +410,19 @@
         </div>
       </template>
     </DetailsActivityTabs>
+    <InvoicePaymentModal
+      :show="showPaymentModal"
+      type="purchase"
+      :invoice-id="allData ? allData.id : null"
+      :invoice-no="allData ? allData.purchaseNo : ''"
+      :invoice-prefix="purchasePrefix"
+      :invoice-total="grandTotal"
+      :due-amount="calculateDueAmount"
+      :invoice-status="allData ? allData.status : 1"
+      :purchase-slug="allData ? allData.slug : null"
+      @close="showPaymentModal = false"
+      @payment-saved="handlePaymentSaved"
+    />
   </div>
 </template>
 
@@ -423,6 +435,7 @@ import GeneralTable from "~/components/GeneralTable";
 import InvoiceSummaryTable from "~/components/sales/InvoiceSummaryTable";
 import InfoAlert from "~/components/shared/InfoAlert";
 import DetailsActivityTabs from "~/components/DetailsActivityTabs";
+import InvoicePaymentModal from "~/components/InvoicePaymentModal";
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -434,6 +447,7 @@ export default {
     InvoiceSummaryTable,
     InfoAlert,
     DetailsActivityTabs,
+    InvoicePaymentModal,
   },
   data: () => ({
     breadcrumbsCurrent: "Purchase Details",
@@ -470,6 +484,7 @@ export default {
       sms_configured: false,
       loading: true,
     },
+    showPaymentModal: false,
   }),
   computed: {
     ...mapGetters("operations", ["appInfo", "items", "loading", "pagination"]),
@@ -1246,14 +1261,17 @@ export default {
 
     // Add payment to purchase
     addPayment() {
-      // Navigate to send voucher create page with the purchase data
-      this.$router.push({
-        name: 'sendVouchers.create',
-        query: {
-          purchase: this.allData.slug,
-          supplier: this.allData.supplier?.slug
-        }
-      });
+      // Open payment modal
+      if (!this.allData) {
+        return;
+      }
+      this.showPaymentModal = true;
+    },
+
+    // Handle payment saved event from modal
+    handlePaymentSaved() {
+      // Refresh purchase data to show updated payment
+      this.getPurchase();
     },
   },
 };

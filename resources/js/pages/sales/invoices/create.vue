@@ -834,133 +834,18 @@
                 </div>
               </div>
 
-              <!-- Row 6: Payment Type + Payment Method -->
+              <!-- Row 6: Payment Type Toggle -->
               <div class="row">
                 <div class="form-group col-md-6">
-                  <label>{{ $t("Payment Type") }}</label>
+                  <label>{{ $t("Payment Type") }} ({{ $t("نوع الدفع") }})</label>
                   <div class="d-flex align-items-center">
                     <toggle-button v-model="form.isPaid" :labels="{ checked: $t('Paid'), unchecked: $t('On Credit') }"
                       :color="{ checked: '#2AB930', unchecked: '#dc3545' }" :sync="true" @change="onPaymentTypeChange"
                       class="mr-2" />
                     <span class="ml-2">{{ form.isPaid ? $t("Paid") : $t("On Credit") }}</span>
                   </div>
-                </div>
-                <div class="form-group col-md-6" v-if="form.isPaid">
-                  <label for="payment_method_id">{{ $t("Payment Method") }} ({{ $t("وسيلة الدفع") }})</label>
-                  <select id="payment_method_id" v-model="form.payment_method_id" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('payment_method_id') }" name="payment_method_id"
-                    :disabled="loadingPaymentMethods"
-                    @change="onPaymentMethodChange">
-                    <option value="">{{ loadingPaymentMethods ? $t("Loading...") : $t("Select") }}</option>
-                    <option v-if="!loadingPaymentMethods && paymentMethods.length === 0" value="" disabled>
-                      {{ $t("No payment methods available") }}
-                    </option>
-                    <option v-for="method in paymentMethods" :key="method.id" :value="method.id">
-                      {{ method.name }}
-                    </option>
-                  </select>
-                  <has-error :form="form" field="payment_method_id" />
-                  <small v-if="loadingPaymentMethods" class="form-text text-muted">
-                    <i class="fas fa-spinner fa-spin"></i> {{ $t("Loading payment methods...") }}
-                  </small>
-                  <!-- Payment Method Status Indicator -->
-                  <div v-if="selectedPaymentMethod && !selectedPaymentMethod.status" class="mt-2">
-                    <small class="text-warning">
-                      <i class="fas fa-exclamation-triangle"></i> {{ $t("Payment method is inactive") }}
-                    </small>
-                  </div>
-                </div>
-              </div>
-              
-              <!-- Payment Fields - Show when Payment Type is Paid and Payment Method is selected -->
-              <div class="row" v-if="form.isPaid && form.payment_method_id">
-                <!-- Account Field - Always shown when payment method is selected -->
-                <div class="form-group col-md-4">
-                  <label for="account">
-                    {{ $t("Account") }} ({{ $t("الحساب") }})
-                    <span v-if="selectedPaymentMethod && selectedPaymentMethod.status" class="required">*</span>
-                  </label>
-                  <v-select 
-                    v-model="form.account" 
-                    :options="accounts" 
-                    label="label"
-                    :class="{ 'is-invalid': form.errors.has('account') }" 
-                    name="account"
-                    :placeholder="$t('Select an account')" 
-                    :disabled="!selectedPaymentMethod || !selectedPaymentMethod.status"
-                    @input="onAccountChange">
-                    <template slot="option" slot-scope="option">
-                      <img v-if="option.image" :src="option.image" style="width: 30px; height: 30px;" />
-                      {{ option.label }}
-                    </template>
-                  </v-select>
-                  <has-error :form="form" field="account" />
-                  
-                  <!-- Account validation hint -->
-                  <div v-if="selectedPaymentMethod && selectedPaymentMethod.status && !form.account" class="text-warning mt-1">
-                    <small><i class="fas fa-exclamation-triangle"></i> {{ $t("Please choose a bank account") }}</small>
-                  </div>
-                  
-                  <!-- Bank Account Chart of Account Status -->
-                  <div class="account-status mt-2" v-if="form.account">
-                    <div v-if="!form.account.chartOfAccountId" class="account-warning">
-                      <i class="fas fa-exclamation-triangle text-warning"></i>
-                      <span class="ml-2">{{ $t('Bank Account needs Chart of Account') }}</span>
-                      <button type="button" class="btn btn-sm btn-outline-warning ml-2" @click="goToBankAccounts">
-                        <i class="fas fa-external-link-alt"></i>
-                        {{ $t('Go to Bank Accounts') }}
-                      </button>
-                    </div>
-                    <div v-else class="account-success">
-                      <i class="fas fa-check-circle text-success"></i>
-                      <span class="ml-2">{{ $t('Bank Account Chart of Account ready') }}</span>
-                    </div>
-                  </div>
-                </div>
-                
-                <!-- Cheque Number Field - Only shown when payment method is inactive -->
-                <div class="form-group col-md-4" v-if="selectedPaymentMethod && !selectedPaymentMethod.status">
-                  <label for="chequeNo">
-                    {{ $t("Cheque No") }} ({{ $t("رقم الشيك") }})
-                  </label>
-                  <input 
-                    id="chequeNo" 
-                    v-model="form.chequeNo" 
-                    type="text" 
-                    class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('chequeNo') }" 
-                    name="chequeNo"
-                    :placeholder="$t('Enter a cheque number')" 
-                    :disabled="true"
-                    readonly
-                    style="background-color: #e9ecef; cursor: not-allowed;" />
-                  <has-error :form="form" field="chequeNo" />
                   <small class="form-text text-muted">
-                    <i class="fas fa-info-circle"></i> {{ $t("Read-only field for inactive payment method") }}
-                  </small>
-                </div>
-                
-                <!-- Receipt Number Field - Always shown when payment method is selected -->
-                <div class="form-group col-md-4">
-                  <label for="receiptNo">
-                    {{ $t("Receipt No") }} ({{ $t("رقم الإيصال") }})
-                    <span v-if="selectedPaymentMethod && selectedPaymentMethod.status" class="required">*</span>
-                  </label>
-                  <input 
-                    id="receiptNo" 
-                    v-model="form.receiptNo" 
-                    type="text" 
-                    class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('receiptNo') }" 
-                    name="receiptNo"
-                    :placeholder="$t('Enter a receipt no')" 
-                    :disabled="!selectedPaymentMethod || !selectedPaymentMethod.status"
-                    :readonly="!selectedPaymentMethod || !selectedPaymentMethod.status"
-                    :style="(!selectedPaymentMethod || !selectedPaymentMethod.status) ? 'background-color: #e9ecef; cursor: not-allowed;' : ''"
-                    @input="clearFieldError('receiptNo')" />
-                  <has-error :form="form" field="receiptNo" />
-                  <small v-if="selectedPaymentMethod && !selectedPaymentMethod.status" class="form-text text-muted">
-                    <i class="fas fa-info-circle"></i> {{ $t("Read-only field for inactive payment method") }}
+                    {{ form.isPaid ? $t("Payment will be added after invoice creation") : $t("Invoice will be created on credit") }}
                   </small>
                 </div>
               </div>
@@ -1263,6 +1148,18 @@
         </div>
       </div>
     </div>
+    <InvoicePaymentModal
+      v-if="createdInvoiceData"
+      :show="showPaymentModal"
+      :invoice-id="createdInvoiceData.id"
+      :invoice-no="createdInvoiceData.invoiceNo"
+      :invoice-prefix="prefix"
+      :invoice-total="createdInvoiceData.subTotal || createdInvoiceData.netTotal || form.netTotal"
+      :due-amount="createdInvoiceData.subTotal || createdInvoiceData.netTotal || form.netTotal"
+      :invoice-status="createdInvoiceData.status || 1"
+      @close="handlePaymentModalClose"
+      @payment-saved="handlePaymentSaved"
+    />
   </div>
 </template>
 
@@ -1276,6 +1173,7 @@ import ProductCreateModal from '~/components/ProductCreateModal'
 import ProductEditModal from '~/components/ProductEditModal'
 import StockAdjustmentModal from '~/components/StockAdjustmentModal'
 import ItemsTable from '~/components/ItemsTable'
+import InvoicePaymentModal from '~/components/InvoicePaymentModal'
 import RTLMixin from '~/mixins/RTLMixin'
 
 import { ToWords } from 'to-words';
@@ -1293,6 +1191,7 @@ export default {
     ProductEditModal,
     StockAdjustmentModal,
     ItemsTable,
+    InvoicePaymentModal,
   },
   data() {
     return {
@@ -1357,7 +1256,6 @@ export default {
         current_date: new Date().toISOString().slice(0, 10),
         attachments: [],
         isPaid: true, // Default to Paid (مدفوع)
-        payment_method_id: null,
         discount_type: "percentage", // "percentage" or "fixed"
         discount_value: 0,
       }),
@@ -1369,9 +1267,9 @@ export default {
       representatives: [],
       cashiers: [],
       branches: [],
-      paymentMethods: [],
-      loadingPaymentMethods: false,
       prefix: "",
+      showPaymentModal: false,
+      createdInvoiceData: null,
       isUpdatingChartOfAccount: false, // Flag to prevent form submission during chart of account updates
 
       isAutoAssigningClient: false, // Add this back for the auto-assign button
@@ -1760,18 +1658,6 @@ export default {
         Number(this.form.paidAmount) > 0;
     },
 
-    // Get the selected payment method object
-    selectedPaymentMethod() {
-      if (!this.form.payment_method_id || !this.paymentMethods || this.paymentMethods.length === 0) {
-        return null;
-      }
-      return this.paymentMethods.find(method => method.id == this.form.payment_method_id) || null;
-    },
-
-    // Check if payment method is active
-    isPaymentMethodActive() {
-      return this.selectedPaymentMethod && this.selectedPaymentMethod.status === 1;
-    },
 
     // Check if payment fields are filled (for warning hints)
     arePaymentFieldsFilled() {
@@ -2010,7 +1896,6 @@ export default {
     this.getCostCenters();
     this.getEmployees();
     this.getBranches();
-    this.getPaymentMethods();
     this.loadCommunicationConfigStatus();
     this.prefix = this.appInfo.productPrefix;
     this.ensureDiscountProperties();
@@ -2548,37 +2433,6 @@ export default {
       this.clearFieldError('cashier_id');
     },
 
-    // get all payment methods
-    async getPaymentMethods() {
-      this.loadingPaymentMethods = true;
-      try {
-        const response = await axios.get(window.location.origin + '/api/payment-methods', {
-          params: { perPage: 1000 } // Get all payment methods
-        });
-        // Handle both paginated and non-paginated responses
-        if (response.data) {
-          if (Array.isArray(response.data)) {
-            this.paymentMethods = response.data;
-          } else if (response.data.data && Array.isArray(response.data.data)) {
-            this.paymentMethods = response.data.data;
-          } else {
-            this.paymentMethods = [];
-          }
-        } else {
-          this.paymentMethods = [];
-        }
-      } catch (error) {
-        console.error('Error loading payment methods:', error);
-        this.paymentMethods = [];
-        toast.fire({
-          type: 'error',
-          title: this.$t('Error'),
-          text: this.$t('Failed to load payment methods'),
-        });
-      } finally {
-        this.loadingPaymentMethods = false;
-      }
-    },
     async getBranches() {
       try {
         const user = this.$store.getters['auth/user'];
@@ -2662,22 +2516,29 @@ export default {
 
     // handle payment type change
     onPaymentTypeChange(value) {
-      // The v-model already updates form.isPaid, but we need to handle side effects
-      // Clear payment method when switching to credit
-      if (!value) {
-        this.form.payment_method_id = null;
-        this.form.account = null;
-        this.form.chequeNo = null;
-        this.form.receiptNo = null;
+      // The v-model already updates form.isPaid
+      // Payment will be handled through modal after invoice creation
+    },
+
+    // Handle payment modal close
+    handlePaymentModalClose() {
+      this.showPaymentModal = false;
+      // Redirect to invoice show page
+      if (this.createdInvoiceData && this.createdInvoiceData.slug) {
+        const slug = this.createdInvoiceData.slug;
+        this.createdInvoiceData = null;
+        this.$router.push({ name: "invoices.show", params: { slug } });
+      } else {
+        this.createdInvoiceData = null;
       }
     },
 
-    // handle payment method change
-    onPaymentMethodChange() {
-      this.clearFieldError('payment_method_id');
-      // Clear payment fields when payment method changes (user can re-enter)
-      // Only clear if switching to a different method
-      // Note: We keep account, chequeNo, and receiptNo to allow user to edit if needed
+    // Handle payment saved
+    handlePaymentSaved() {
+      // Redirect to invoice show page after payment is saved
+      if (this.createdInvoiceData && this.createdInvoiceData.slug) {
+        this.$router.push({ name: "invoices.show", params: { slug: this.createdInvoiceData.slug } });
+      }
     },
 
     async getTaxes() {
@@ -3713,11 +3574,7 @@ export default {
 
         // VAT rate validation removed per business request
 
-        // Validate payment fields when "Add Payment" is set to "Yes"
-        const paymentValidation = this.validatePaymentFields();
-        if (!paymentValidation.isValid) {
-          validationErrors.push(...paymentValidation.errors);
-        }
+        // Payment validation removed - payment is handled through modal after invoice creation
 
         // NOTE: Calculation validation disabled because invoice-level discount logic
         // now differs from the original net total calculation and was blocking save.
@@ -3764,12 +3621,6 @@ export default {
           appendIfDefined('status', formDataObj.status);
           appendIfDefined('isSendEmail', formDataObj.isSendEmail ? 1 : 0);
           appendIfDefined('isSendSMS', formDataObj.isSendSMS ? 1 : 0);
-          appendIfDefined('addPayment', formDataObj.addPayment ? 1 : 0);
-          appendIfDefined('paidAmount', formDataObj.paidAmount);
-          appendIfDefined('paymentMethod', formDataObj.paymentMethod);
-          appendIfDefined('chequeNo', formDataObj.chequeNo);
-          appendIfDefined('receiptNo', formDataObj.receiptNo);
-          appendIfDefined('account[id]', formDataObj.account?.id);
           appendIfDefined('netTotal', formDataObj.netTotal);
           appendIfDefined('cost_center_id', formDataObj.cost_center_id);
           appendIfDefined('sale_status', formDataObj.sale_status);
@@ -3778,7 +3629,6 @@ export default {
           appendIfDefined('branch_id', formDataObj.branch_id);
           appendIfDefined('current_date', formDataObj.current_date);
           appendIfDefined('isPaid', formDataObj.isPaid ? 1 : 0);
-          appendIfDefined('payment_method_id', formDataObj.payment_method_id);
 
           // Append selectedProducts array
           if (Array.isArray(formDataObj.selectedProducts)) {
@@ -3838,7 +3688,14 @@ export default {
               }
               
               this.clearTemporaryData();
-              this.$router.push({ name: "invoices.show", params: { slug: data.data.slug } });
+              
+              // If payment type is Paid, open payment modal instead of redirecting
+              if (this.form.isPaid) {
+                this.createdInvoiceData = data.data;
+                this.showPaymentModal = true;
+              } else {
+                this.$router.push({ name: "invoices.show", params: { slug: data.data.slug } });
+              }
             } else {
               toast.fire({
                 type: "error",
@@ -3878,7 +3735,14 @@ export default {
             }
             
             this.clearTemporaryData();
-            this.$router.push({ name: "invoices.show", params: { slug: data.data.slug } });
+            
+            // If payment type is Paid, open payment modal instead of redirecting
+            if (this.form.isPaid) {
+              this.createdInvoiceData = data.data;
+              this.showPaymentModal = true;
+            } else {
+              this.$router.push({ name: "invoices.show", params: { slug: data.data.slug } });
+            }
           } else {
             toast.fire({
               type: "error",
@@ -4189,50 +4053,10 @@ export default {
       }
     },
 
-    // Validate payment fields when "Add Payment" is set to "Yes"
+    // Validate payment fields - payment is handled through modal after invoice creation
     validatePaymentFields() {
-      if (this.form.addPayment != 1) {
-        return { isValid: true, errors: [] };
-      }
-
-      const errors = [];
-
-      // Check if bank account is selected
-      if (!this.form.account) {
-        errors.push({
-          type: "warning",
-          title: this.$t("Bank Account Required"),
-          message: this.$t("Please choose a bank account for the payment."),
-          field: "account"
-        });
-      }
-
-      // Check if paid amount is entered and greater than 0
-      if (!this.form.paidAmount || Number(this.form.paidAmount) <= 0) {
-        errors.push({
-          type: "warning",
-          title: this.$t("Paid Amount Required"),
-          message: this.$t("Paid amount must be greater than 0."),
-          field: "paidAmount"
-        });
-      }
-
-      // Validate bank account chart of account if account is selected
-      if (this.form.account && !this.form.account.chartOfAccountId) {
-        errors.push({
-          type: "warning",
-          title: this.$t("Bank Account Chart of Account Required"),
-          message: this.$t("Bank Account must have a Chart of Account assigned for journal entries."),
-          field: "account",
-          timer: 8000,
-          timerProgressBar: true
-        });
-      }
-
-      return {
-        isValid: errors.length === 0,
-        errors: errors
-      };
+      // Payment validation removed - payment is handled through modal after invoice creation
+      return { isValid: true, errors: [] };
     },
 
     // save client
@@ -4270,17 +4094,7 @@ export default {
       // Do not override user selection; keep current client even if missing chart_of_account_id
       // Validation UI will prompt auto-assign if needed
 
-      // Reset payment fields when client changes
-      this.form.addPayment = 0; // Reset to 0 (No) by default
-      this.form.account = "";
-      this.form.paidAmount = "";
-      this.form.chequeNo = "";
-      this.form.receiptNo = "";
-      this.clearFieldError('addPayment');
-      this.clearFieldError('account');
-      this.clearFieldError('paidAmount');
-      this.clearFieldError('chequeNo');
-      this.clearFieldError('receiptNo');
+      // Payment fields are no longer used - payment is handled through modal after invoice creation
     },
 
     // Add back the autoAssignClientChartOfAccount method

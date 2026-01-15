@@ -11,6 +11,7 @@ use App\Models\GeneralSetting;
 use App\Models\PaymentVoucher;
 use App\Models\Product;
 use App\Models\Purchase;
+use App\Models\PurchaseJournal;
 use App\Models\PurchasePayment;
 use App\Models\PurchaseProduct;
 use App\Notifications\PurchaseNotification;
@@ -625,7 +626,7 @@ class PurchaseController extends Controller
                 ]);
 
                 // Check if purchase_journals record was created
-                $purchaseJournal = \App\Models\PurchaseJournal::where('purchase_id', $purchase->id)
+                $purchaseJournal = PurchaseJournal::where('purchase_id', $purchase->id)
                     ->where('journal_entry_id', $journalEntry->id)
                     ->first();
 
@@ -633,6 +634,15 @@ class PurchaseController extends Controller
                     Log::info('Purchase journal bridge record created successfully: '.$purchaseJournal->id);
                 } else {
                     Log::error('Purchase journal bridge record NOT created for purchase: '.$purchase->purchase_no);
+                }
+
+                // Since journal entry is created automatically, mark purchase as active (sent)
+                // This allows payments to be added immediately after purchase creation
+                if ($purchase->status != 1) {
+                    $purchase->update(['status' => 1]);
+                    Log::info('Purchase status updated to active (1) after journal entry creation', [
+                        'purchase_no' => $purchase->purchase_no,
+                    ]);
                 }
             } catch (\Exception $e) {
                 // Log the error but don't fail the purchase creation
@@ -1243,9 +1253,18 @@ class PurchaseController extends Controller
 
             $purchase = Purchase::where('slug', $request->selectedPurchase['slug'])->first();
 
-            // Prevent adding payment to inactive purchases
-            if (! $purchase || (int) $purchase->status !== 1) {
-                return $this->responseWithError('Cannot add payment to an inactive purchase. You have to send the purchase first.');
+            // Check if purchase exists and has journal entry (which means it's been processed)
+            // Since journal entries are now created automatically on purchase creation,
+            // we allow payments if journal entry exists, regardless of status
+            if (! $purchase) {
+                return $this->responseWithError('Purchase not found.');
+            }
+
+            // Check if purchase has a journal entry (indicates it's been processed)
+            $hasJournalEntry = $purchase->journalEntry || PurchaseJournal::where('purchase_id', $purchase->id)->exists();
+            
+            if (! $hasJournalEntry) {
+                return $this->responseWithError('Cannot add payment. Purchase must have a journal entry. Please ensure the purchase was created successfully.');
             }
 
             $user = auth()->user();
