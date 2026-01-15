@@ -63613,12 +63613,14 @@ input.vs__search::placeholder {
 }
 
 .nav-link.router-link-exact-active.router-link-active {
-  background-color: #33a0d9 !important;
-  color: #fff !important;
+  background: #eceff3 !important;
+  color: #111827 !important;
+  font-weight: 600 !important;
+  border-bottom: 1px solid #e5e7eb !important;
 }
 
 .nav-pills .nav-link.router-link-exact-active.router-link-active .nav-icon {
-  color: #fff !important;
+  color: #0775AF !important;
 }
 
 .dark-mode .navbar-light .navbar-nav .nav-link {

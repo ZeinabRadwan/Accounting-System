@@ -8,7 +8,6 @@
       <!-- Sidebar Navigation -->
       <div class="col-12 col-xl-3">
         <div class="card settings-card no-print">
-          <div class="card-header">{{ $t('اعدادات الحسابات العامة') }}</div>
           <div class="card-body">
             <ul class="nav flex-column nav-pills m-1">
               <li 

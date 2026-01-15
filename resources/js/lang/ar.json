@@ -4157,5 +4157,11 @@
     "Configure welcome messages and notifications": "تكوين رسائل الترحيب والإشعارات",
     "Optional Business Information": "معلومات الشركة الاختيارية",
     "All fields below are required by ZATCA for taxable clients": "جميع الحقول أدناه مطلوبة من زاتكا للعملاء الخاضعين للضريبة",
-    "Tax Registration Number (VAT)": "رقم التسجيل الضريبي (ضريبة القيمة المضافة)"
+    "Tax Registration Number (VAT)": "رقم التسجيل الضريبي (ضريبة القيمة المضافة)",
+    "Code Prefixes": "بادئات الأكواد",
+    "Code Symbols": "رموز الرموز",
+    "Default Elements": "العناصر الافتراضية",
+    "Basic company details and contact information": "تفاصيل الشركة الأساسية ومعلومات الاتصال",
+    "Configure prefixes for document and entity numbering": "تكوين البادئات لترقيم المستندات والكيانات",
+    "Set default values for system operations and preferences": "تعيين القيم الافتراضية لعمليات النظام والتفضيلات"
 }

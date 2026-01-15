@@ -9,9 +9,6 @@
       </div>
       <div class="col-12 col-xl-9">
         <div class="card custom-card w-100">
-          <div class="card-header setings-header">
-            <h3 class="card-title">{{ $t("Currencies") }}</h3>
-          </div>
           <!-- /.card-header -->
           <div class="card-body position-relative">
             <div class="row">

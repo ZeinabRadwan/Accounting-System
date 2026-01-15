@@ -11,25 +11,62 @@
             <div class="col-12 col-xl-9">
                 <form role="form" @submit.prevent="updateSettings" @keydown="form.onKeydown($event)">
                     <div class="card">
-                        <div class="card-header setings-header">
-                            <h3 class="card-title">
-                                {{
-                                    $t(
-                                        'General Settings'
-                                    )
-                                }}
-                            </h3>
-                        </div>
+                       
                         <div class="card-body">
-                            <div class="card inner-card">
-                                <div class="card-header">
-                                    {{
-                                        $t(
-                                            'Add Your Company Information'
-                                        )
-                                    }}
-                                </div>
-                                <div class="card-body">
+                            <!-- Tab Navigation -->
+                            <div class="client-form-tabs">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <button 
+                                            class="nav-link" 
+                                            :class="{ active: activeTab === 'company' }" 
+                                            @click="switchTab('company')"
+                                            type="button"
+                                            role="tab">
+                                            <i class="fas fa-building mr-2"></i>
+                                            {{ $t('Company Information') }}
+                                        </button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button 
+                                            class="nav-link" 
+                                            :class="{ active: activeTab === 'prefixes' }" 
+                                            @click="switchTab('prefixes')"
+                                            type="button"
+                                            role="tab">
+                                            <i class="fas fa-code mr-2"></i>
+                                            {{ $t('Code Symbols') }}
+                                        </button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button 
+                                            class="nav-link" 
+                                            :class="{ active: activeTab === 'defaults' }" 
+                                            @click="switchTab('defaults')"
+                                            type="button"
+                                            role="tab">
+                                            <i class="fas fa-cog mr-2"></i>
+                                            {{ $t('Default Elements') }}
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- Tab Content -->
+                            <div class="tab-content">
+                                <!-- Company Information Tab -->
+                                <div class="tab-pane fade" :class="{ 'show active': activeTab === 'company' }" role="tabpanel">
+                                    <div class="form-card-enhanced">
+                                        <div class="card-header">
+                                            <h5 class="section-title">
+                                                <i class="fas fa-building mr-2"></i>
+                                                {{ $t('Add Your Company Information') }}
+                                            </h5>
+                                            <p class="card-header-subtitle">
+                                                {{ $t('Basic company details and contact information') }}
+                                            </p>
+                                        </div>
+                                        <div class="card-body">
                                     <div class="row">
                                         <div class="form-group col-md-6">
                                             <label for="companyName">{{
@@ -67,8 +104,8 @@
                                                     " />
                                             <has-error :form="form" field="companyTagline" />
                                         </div>
-                                    </div>
-                                    <div class="row">
+                                            </div>
+                                            <div class="row">
                                         <div class="form-group col-md-6">
                                             <label for="emailAddress">{{
                                                 $t(
@@ -107,8 +144,8 @@
                                                     " />
                                             <has-error :form="form" field="name" />
                                         </div>
-                                    </div>
-                                    <div class="form-group">
+                                            </div>
+                                            <div class="form-group">
                                         <label for="address">{{
                                             $t('Address')
                                             }}</label>
@@ -117,373 +154,383 @@
                                                 form.errors.has('address'),
                                         }" :placeholder="$t('Enter an address')
                                             " />
-                                        <has-error :form="form" field="address" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card inner-card">
-                                <div class="card-header">
-                                    {{
-                                        $t(
-                                            'Add the code prefixes'
-                                        )
-                                    }}
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="form-group col-md-4">
-                                            <label for="clientPrefix">{{
-                                                $t(
-                                                    'Client Prefix'
-                                                )
-                                            }}
-                                                <span class="required">*</span></label>
-                                            <input id="clientPrefix" v-model="form.clientPrefix" type="text"
-                                                class="form-control" :class="{
-                                                    'is-invalid':
-                                                        form.errors.has(
-                                                            'clientPrefix'
-                                                        ),
-                                                }" name="clientPrefix" :placeholder="$t(
-                                                    'Enter a client prefix'
-                                                )
-                                                    " />
-                                            <has-error :form="form" field="clientPrefix" />
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="supplierPrefix">{{
-                                                $t(
-                                                    'Supplier Prefix'
-                                                )
-                                            }}
-                                                <span class="required">*</span></label>
-                                            <input id="supplierPrefix" v-model="form.supplierPrefix" type="text"
-                                                class="form-control" :class="{
-                                                    'is-invalid':
-                                                        form.errors.has(
-                                                            'supplierPrefix'
-                                                        ),
-                                                }" name="supplierPrefix" :placeholder="$t(
-                                                    'Enter a supplier prefix'
-                                                )
-                                                    " />
-                                            <has-error :form="form" field="supplierPrefix" />
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="employeePrefix">{{
-                                                $t(
-                                                    'Employee Prefix'
-                                                )
-                                            }}
-                                                <span class="required">*</span></label>
-                                            <input id="employeePrefix" v-model="form.employeePrefix" type="text"
-                                                class="form-control" :class="{
-                                                    'is-invalid':
-                                                        form.errors.has(
-                                                            'employeePrefix'
-                                                        ),
-                                                }" name="employeePrefix" :placeholder="$t(
-                                                    'Enter an employee prefix'
-                                                )
-                                                    " />
-                                            <has-error :form="form" field="employeePrefix" />
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col-md-4">
-                                            <label for="proCatPrefix">{{
-                                                $t(
-                                                    'Item Category Prefix'
-                                                )
-                                            }}
-                                                <span class="required">*</span></label>
-                                            <input id="proCatPrefix" v-model="form.proCatPrefix" type="text"
-                                                class="form-control" :class="{
-                                                    'is-invalid':
-                                                        form.errors.has(
-                                                            'proCatPrefix'
-                                                        ),
-                                                }" name="proCatPrefix" :placeholder="$t(
-                                                    'Enter an item category prefix'
-                                                )
-                                                    " />
-                                            <has-error :form="form" field="proCatPrefix" />
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="proSubCatPrefix">{{
-                                                $t(
-                                                    'Item Sub Category Prefix'
-                                                )
-                                            }}
-                                                <span class="required">*</span></label>
-                                            <input id="proSubCatPrefix" v-model="form.proSubCatPrefix" type="text"
-                                                class="form-control" :class="{
-                                                    'is-invalid':
-                                                        form.errors.has(
-                                                            'proSubCatPrefix'
-                                                        ),
-                                                }" name="proSubCatPrefix" :placeholder="$t(
-                                                    'Enter an item sub category prefix'
-                                                )
-                                                    " />
-                                            <has-error :form="form" field="proSubCatPrefix" />
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="productPrefix">{{
-                                                $t(
-                                                    'Item Prefix'
-                                                )
-                                            }}
-                                                <span class="required">*</span></label>
-                                            <input id="productPrefix" v-model="form.productPrefix" type="text"
-                                                class="form-control" :class="{
-                                                    'is-invalid':
-                                                        form.errors.has(
-                                                            'productPrefix'
-                                                        ),
-                                                }" name="productPrefix" :placeholder="$t(
-                                                    'Enter an item prefix'
-                                                )
-                                                    " />
-                                            <has-error :form="form" field="productPrefix" />
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col-lg-6 col-xl-3">
-                                            <label for="expCatPrefix">{{
-                                                $t(
-                                                    'Expense Category Prefix'
-                                                )
-                                            }}
-                                                <span class="required">*</span></label>
-                                            <input id="expCatPrefix" v-model="form.expCatPrefix" type="text"
-                                                class="form-control" :class="{
-                                                    'is-invalid':
-                                                        form.errors.has(
-                                                            'expCatPrefix'
-                                                        ),
-                                                }" name="expCatPrefix" :placeholder="$t(
-                                                    'Enter an expense category prefix'
-                                                )
-                                                    " />
-                                            <has-error :form="form" field="expCatPrefix" />
-                                        </div>
-                                        <div class="form-group col-lg-6 col-xl-3">
-                                            <label for="expSubCatPrefix">{{
-                                                $t(
-                                                    'Expense Sub Category Prefix'
-                                                )
-                                            }}
-                                                <span class="required">*</span></label>
-                                            <input id="expSubCatPrefix" v-model="form.expSubCatPrefix" type="text"
-                                                class="form-control" :class="{
-                                                    'is-invalid':
-                                                        form.errors.has(
-                                                            'expSubCatPrefix'
-                                                        ),
-                                                }" name="expSubCatPrefix" :placeholder="$t(
-                                                    'Enter an expense sub category prefix'
-                                                )
-                                                    " />
-                                            <has-error :form="form" field="expSubCatPrefix" />
-                                        </div>
-                                        <div class="form-group col-lg-6 col-xl-3">
-                                            <label for="purchasePrefix">{{
-                                                $t(
-                                                    'Purchase Prefix'
-                                                )
-                                            }}
-                                                <span class="required">*</span></label>
-                                            <input id="purchasePrefix" v-model="form.purchasePrefix" type="text"
-                                                class="form-control" :class="{
-                                                    'is-invalid':
-                                                        form.errors.has(
-                                                            'purchasePrefix'
-                                                        ),
-                                                }" name="purchasePrefix" :placeholder="$t(
-                                                    'Enter a purchase prefix'
-                                                )
-                                                    " />
-                                            <has-error :form="form" field="purchasePrefix" />
-                                        </div>
-                                        <div class="form-group col-lg-6 col-xl-3">
-                                            <label for="purchaseReturnPrefix">{{
-                                                $t(
-                                                    'Purchase Return Prefix'
-                                                )
-                                            }}
-                                                <span class="required">*</span></label>
-                                            <input id="purchaseReturnPrefix" v-model="form.purchaseReturnPrefix
-                                                " type="text" class="form-control" :class="{
-                                                    'is-invalid':
-                                                        form.errors.has(
-                                                            'purchaseReturnPrefix'
-                                                        ),
-                                                }" name="purchaseReturnPrefix" :placeholder="$t(
-                                                    'Enter a purchase return prefix'
-                                                )
-                                                    " />
-                                            <has-error :form="form" field="purchaseReturnPrefix" />
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col-lg-6 col-xl-3">
-                                            <label for="quotationPrefix">{{
-                                                $t(
-                                                    'Quotation Prefix'
-                                                )
-                                            }}
-                                                <span class="required">*</span></label>
-                                            <input id="quotationPrefix" v-model="form.quotationPrefix" type="text"
-                                                class="form-control" :class="{
-                                                    'is-invalid':
-                                                        form.errors.has(
-                                                            'quotationPrefix'
-                                                        ),
-                                                }" name="quotationPrefix" :placeholder="$t(
-                                                    'Enter a quotation prefix'
-                                                )
-                                                    " />
-                                            <has-error :form="form" field="quotationPrefix" />
-                                        </div>
-                                        <div class="form-group col-lg-6 col-xl-3">
-                                            <label for="invoicePrefix">{{
-                                                $t(
-                                                    'Invoice Prefix'
-                                                )
-                                            }}
-                                                <span class="required">*</span></label>
-                                            <input id="invoicePrefix" v-model="form.invoicePrefix" type="text"
-                                                class="form-control" :class="{
-                                                    'is-invalid':
-                                                        form.errors.has(
-                                                            'invoicePrefix'
-                                                        ),
-                                                }" name="invoicePrefix" :placeholder="$t(
-                                                    'Enter an invoice prefix'
-                                                )
-                                                    " />
-                                            <has-error :form="form" field="invoicePrefix" />
-                                        </div>
-                                        <div class="form-group col-lg-6 col-xl-3">
-                                            <label for="invoiceReturnPrefix">{{
-                                                $t(
-                                                    'Invoice Return Prefix'
-                                                )
-                                            }}
-                                                <span class="required">*</span></label>
-                                            <input id="invoiceReturnPrefix" v-model="form.invoiceReturnPrefix
-                                                " type="text" class="form-control" :class="{
-                                                    'is-invalid':
-                                                        form.errors.has(
-                                                            'invoiceReturnPrefix'
-                                                        ),
-                                                }" name="invoiceReturnPrefix" :placeholder="$t(
-                                                    'Enter an invoice return prefix'
-                                                )
-                                                    " />
-                                            <has-error :form="form" field="invoiceReturnPrefix" />
-                                        </div>
-                                        <div class="form-group col-lg-6 col-xl-3">
-                                            <label for="adjustmentPrefix">{{
-                                                $t(
-                                                    'Inventory Adjustment Prefix'
-                                                )
-                                            }}
-                                                <span class="required">*</span></label>
-                                            <input id="adjustmentPrefix" v-model="form.adjustmentPrefix" type="text"
-                                                class="form-control" :class="{
-                                                    'is-invalid':
-                                                        form.errors.has(
-                                                            'adjustmentPrefix'
-                                                        ),
-                                                }" name="adjustmentPrefix" :placeholder="$t(
-                                                    'Enter an inventory adjustment prefix'
-                                                )
-                                                    " />
-                                            <has-error :form="form" field="adjustmentPrefix" />
+                                            <has-error :form="form" field="address" />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="card inner-card">
-                                <div class="card-header">
-                                    {{
-                                        $t(
-                                            'Add your default elements'
-                                        )
-                                    }}
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="form-group col-md-4">
-                                            <label for="country">{{
-                                                $t(
-                                                    'Country'
-                                                )
-                                            }}
-                                                <span class="required">*</span></label>
-                                            <select v-model="form.country" name="country" class="form-control" :class="{
-                                                'is-invalid':
-                                                    form.errors.has(
-                                                        'country'
-                                                    ),
-                                            }">
-                                                <option value="">{{ $t('Select a country') }}</option>
-                                                <option v-for="country in countries" :key="country.code"
-                                                    :value="country.code">
-                                                    {{ country.name }}
-                                                </option>
-                                            </select>
-                                            <has-error :form="form" field="country" />
+
+                                <!-- Code Prefixes Tab -->
+                                <div class="tab-pane fade" :class="{ 'show active': activeTab === 'prefixes' }" role="tabpanel">
+                                    <div class="form-card-enhanced">
+                                        <div class="card-header">
+                                            <h5 class="section-title">
+                                                <i class="fas fa-code mr-2"></i>
+                                                {{ $t('Add the code prefixes') }}
+                                            </h5>
+                                            <p class="card-header-subtitle">
+                                                {{ $t('Configure prefixes for document and entity numbering') }}
+                                            </p>
                                         </div>
-                                        <div v-if="items" class="form-group col-md-4">
-                                            <label for="currency">{{
-                                                $t(
-                                                    'Default Currency'
-                                                )
-                                            }}
-                                                <span class="required">*</span></label>
-                                            <v-select v-model="form.currency" :options="items" label="label" :class="{
-                                                'is-invalid': form.errors.has('currency'),
-                                                'text-uppercase': true
-                                            }" name="currency" :placeholder="$t(
-                                                'Select a currency'
-                                            )
-                                                " />
-                                            <has-error :form="form" field="currency" />
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="language">{{
-                                                $t(
-                                                    'Default Language'
-                                                )
-                                            }}
-                                                <span class="required">*</span></label>
-                                            <select v-model="form.language" name="" class="form-control" :class="{
-                                                'is-invalid':
-                                                    form.errors.has(
-                                                        'language'
-                                                    ),
-                                            }">
-                                                <option v-for="(value, key) in locales" :key="key" :value="key">
-                                                    {{ value[1] }}
-                                                </option>
-                                            </select>
-                                            <has-error :form="form" field="language" />
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="taxRegistrationNumber">{{
-                                                $t("Tax Registration Number")
-                                                }}</label>
-                                            <input id="taxRegistrationNumber" v-model="form.taxRegistrationNumber"
-                                                type="taxRegistrationNumber" class="form-control"
-                                                :class="{ 'is-invalid': form.errors.has('taxRegistrationNumber') }"
-                                                name="taxRegistrationNumber"
-                                                :placeholder="$t('Enter a tax registration number')" />
-                                            <has-error :form="form" field="taxRegistrationNumber" />
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="form-group col-md-4">
+                                                    <label for="clientPrefix">{{
+                                                        $t(
+                                                            'Client Prefix'
+                                                        )
+                                                    }}
+                                                        <span class="required">*</span></label>
+                                                    <input id="clientPrefix" v-model="form.clientPrefix" type="text"
+                                                        class="form-control" :class="{
+                                                            'is-invalid':
+                                                                form.errors.has(
+                                                                    'clientPrefix'
+                                                                ),
+                                                        }" name="clientPrefix" :placeholder="$t(
+                                                            'Enter a client prefix'
+                                                        )
+                                                            " />
+                                                    <has-error :form="form" field="clientPrefix" />
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label for="supplierPrefix">{{
+                                                        $t(
+                                                            'Supplier Prefix'
+                                                        )
+                                                    }}
+                                                        <span class="required">*</span></label>
+                                                    <input id="supplierPrefix" v-model="form.supplierPrefix" type="text"
+                                                        class="form-control" :class="{
+                                                            'is-invalid':
+                                                                form.errors.has(
+                                                                    'supplierPrefix'
+                                                                ),
+                                                        }" name="supplierPrefix" :placeholder="$t(
+                                                            'Enter a supplier prefix'
+                                                        )
+                                                            " />
+                                                    <has-error :form="form" field="supplierPrefix" />
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label for="employeePrefix">{{
+                                                        $t(
+                                                            'Employee Prefix'
+                                                        )
+                                                    }}
+                                                        <span class="required">*</span></label>
+                                                    <input id="employeePrefix" v-model="form.employeePrefix" type="text"
+                                                        class="form-control" :class="{
+                                                            'is-invalid':
+                                                                form.errors.has(
+                                                                    'employeePrefix'
+                                                                ),
+                                                        }" name="employeePrefix" :placeholder="$t(
+                                                            'Enter an employee prefix'
+                                                        )
+                                                            " />
+                                                    <has-error :form="form" field="employeePrefix" />
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-md-4">
+                                                    <label for="proCatPrefix">{{
+                                                        $t(
+                                                            'Item Category Prefix'
+                                                        )
+                                                    }}
+                                                        <span class="required">*</span></label>
+                                                    <input id="proCatPrefix" v-model="form.proCatPrefix" type="text"
+                                                        class="form-control" :class="{
+                                                            'is-invalid':
+                                                                form.errors.has(
+                                                                    'proCatPrefix'
+                                                                ),
+                                                        }" name="proCatPrefix" :placeholder="$t(
+                                                            'Enter an item category prefix'
+                                                        )
+                                                            " />
+                                                    <has-error :form="form" field="proCatPrefix" />
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label for="proSubCatPrefix">{{
+                                                        $t(
+                                                            'Item Sub Category Prefix'
+                                                        )
+                                                    }}
+                                                        <span class="required">*</span></label>
+                                                    <input id="proSubCatPrefix" v-model="form.proSubCatPrefix" type="text"
+                                                        class="form-control" :class="{
+                                                            'is-invalid':
+                                                                form.errors.has(
+                                                                    'proSubCatPrefix'
+                                                                ),
+                                                        }" name="proSubCatPrefix" :placeholder="$t(
+                                                            'Enter an item sub category prefix'
+                                                        )
+                                                            " />
+                                                    <has-error :form="form" field="proSubCatPrefix" />
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label for="productPrefix">{{
+                                                        $t(
+                                                            'Item Prefix'
+                                                        )
+                                                    }}
+                                                        <span class="required">*</span></label>
+                                                    <input id="productPrefix" v-model="form.productPrefix" type="text"
+                                                        class="form-control" :class="{
+                                                            'is-invalid':
+                                                                form.errors.has(
+                                                                    'productPrefix'
+                                                                ),
+                                                        }" name="productPrefix" :placeholder="$t(
+                                                            'Enter an item prefix'
+                                                        )
+                                                            " />
+                                                    <has-error :form="form" field="productPrefix" />
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-lg-6 col-xl-3">
+                                                    <label for="expCatPrefix">{{
+                                                        $t(
+                                                            'Expense Category Prefix'
+                                                        )
+                                                    }}
+                                                        <span class="required">*</span></label>
+                                                    <input id="expCatPrefix" v-model="form.expCatPrefix" type="text"
+                                                        class="form-control" :class="{
+                                                            'is-invalid':
+                                                                form.errors.has(
+                                                                    'expCatPrefix'
+                                                                ),
+                                                        }" name="expCatPrefix" :placeholder="$t(
+                                                            'Enter an expense category prefix'
+                                                        )
+                                                            " />
+                                                    <has-error :form="form" field="expCatPrefix" />
+                                                </div>
+                                                <div class="form-group col-lg-6 col-xl-3">
+                                                    <label for="expSubCatPrefix">{{
+                                                        $t(
+                                                            'Expense Sub Category Prefix'
+                                                        )
+                                                    }}
+                                                        <span class="required">*</span></label>
+                                                    <input id="expSubCatPrefix" v-model="form.expSubCatPrefix" type="text"
+                                                        class="form-control" :class="{
+                                                            'is-invalid':
+                                                                form.errors.has(
+                                                                    'expSubCatPrefix'
+                                                                ),
+                                                        }" name="expSubCatPrefix" :placeholder="$t(
+                                                            'Enter an expense sub category prefix'
+                                                        )
+                                                            " />
+                                                    <has-error :form="form" field="expSubCatPrefix" />
+                                                </div>
+                                                <div class="form-group col-lg-6 col-xl-3">
+                                                    <label for="purchasePrefix">{{
+                                                        $t(
+                                                            'Purchase Prefix'
+                                                        )
+                                                    }}
+                                                        <span class="required">*</span></label>
+                                                    <input id="purchasePrefix" v-model="form.purchasePrefix" type="text"
+                                                        class="form-control" :class="{
+                                                            'is-invalid':
+                                                                form.errors.has(
+                                                                    'purchasePrefix'
+                                                                ),
+                                                        }" name="purchasePrefix" :placeholder="$t(
+                                                            'Enter a purchase prefix'
+                                                        )
+                                                            " />
+                                                    <has-error :form="form" field="purchasePrefix" />
+                                                </div>
+                                                <div class="form-group col-lg-6 col-xl-3">
+                                                    <label for="purchaseReturnPrefix">{{
+                                                        $t(
+                                                            'Purchase Return Prefix'
+                                                        )
+                                                    }}
+                                                        <span class="required">*</span></label>
+                                                    <input id="purchaseReturnPrefix" v-model="form.purchaseReturnPrefix" type="text" class="form-control" :class="{
+                                                            'is-invalid':
+                                                                form.errors.has(
+                                                                    'purchaseReturnPrefix'
+                                                                ),
+                                                        }" name="purchaseReturnPrefix" :placeholder="$t(
+                                                            'Enter a purchase return prefix'
+                                                        )
+                                                            " />
+                                                    <has-error :form="form" field="purchaseReturnPrefix" />
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-lg-6 col-xl-3">
+                                                    <label for="quotationPrefix">{{
+                                                        $t(
+                                                            'Quotation Prefix'
+                                                        )
+                                                    }}
+                                                        <span class="required">*</span></label>
+                                                    <input id="quotationPrefix" v-model="form.quotationPrefix" type="text"
+                                                        class="form-control" :class="{
+                                                            'is-invalid':
+                                                                form.errors.has(
+                                                                    'quotationPrefix'
+                                                                ),
+                                                        }" name="quotationPrefix" :placeholder="$t(
+                                                            'Enter a quotation prefix'
+                                                        )
+                                                            " />
+                                                    <has-error :form="form" field="quotationPrefix" />
+                                                </div>
+                                                <div class="form-group col-lg-6 col-xl-3">
+                                                    <label for="invoicePrefix">{{
+                                                        $t(
+                                                            'Invoice Prefix'
+                                                        )
+                                                    }}
+                                                        <span class="required">*</span></label>
+                                                    <input id="invoicePrefix" v-model="form.invoicePrefix" type="text"
+                                                        class="form-control" :class="{
+                                                            'is-invalid':
+                                                                form.errors.has(
+                                                                    'invoicePrefix'
+                                                                ),
+                                                        }" name="invoicePrefix" :placeholder="$t(
+                                                            'Enter an invoice prefix'
+                                                        )
+                                                            " />
+                                                    <has-error :form="form" field="invoicePrefix" />
+                                                </div>
+                                                <div class="form-group col-lg-6 col-xl-3">
+                                                    <label for="invoiceReturnPrefix">{{
+                                                        $t(
+                                                            'Invoice Return Prefix'
+                                                        )
+                                                    }}
+                                                        <span class="required">*</span></label>
+                                                    <input id="invoiceReturnPrefix" v-model="form.invoiceReturnPrefix" type="text" class="form-control" :class="{
+                                                            'is-invalid':
+                                                                form.errors.has(
+                                                                    'invoiceReturnPrefix'
+                                                                ),
+                                                        }" name="invoiceReturnPrefix" :placeholder="$t(
+                                                            'Enter an invoice return prefix'
+                                                        )
+                                                            " />
+                                                    <has-error :form="form" field="invoiceReturnPrefix" />
+                                                </div>
+                                                <div class="form-group col-lg-6 col-xl-3">
+                                                    <label for="adjustmentPrefix">{{
+                                                        $t(
+                                                            'Inventory Adjustment Prefix'
+                                                        )
+                                                    }}
+                                                        <span class="required">*</span></label>
+                                                    <input id="adjustmentPrefix" v-model="form.adjustmentPrefix" type="text"
+                                                        class="form-control" :class="{
+                                                            'is-invalid':
+                                                                form.errors.has(
+                                                                    'adjustmentPrefix'
+                                                                ),
+                                                        }" name="adjustmentPrefix" :placeholder="$t(
+                                                            'Enter an inventory adjustment prefix'
+                                                        )
+                                                            " />
+                                                    <has-error :form="form" field="adjustmentPrefix" />
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
+                                </div>
+
+                                <!-- Default Elements Tab -->
+                                <div class="tab-pane fade" :class="{ 'show active': activeTab === 'defaults' }" role="tabpanel">
+                                    <div class="form-card-enhanced">
+                                        <div class="card-header">
+                                            <h5 class="section-title">
+                                                <i class="fas fa-cog mr-2"></i>
+                                                {{ $t('Add your default elements') }}
+                                            </h5>
+                                            <p class="card-header-subtitle">
+                                                {{ $t('Set default values for system operations and preferences') }}
+                                            </p>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="form-group col-md-3">
+                                                    <label for="country">{{
+                                                        $t(
+                                                            'Country'
+                                                        )
+                                                    }}
+                                                        <span class="required">*</span></label>
+                                                    <select v-model="form.country" name="country" class="form-control" :class="{
+                                                        'is-invalid':
+                                                            form.errors.has(
+                                                                'country'
+                                                            ),
+                                                    }">
+                                                        <option value="">{{ $t('Select a country') }}</option>
+                                                        <option v-for="country in countries" :key="country.code"
+                                                            :value="country.code">
+                                                            {{ country.name }}
+                                                        </option>
+                                                    </select>
+                                                    <has-error :form="form" field="country" />
+                                                </div>
+                                                <div v-if="items" class="form-group col-md-3">
+                                                    <label for="currency">{{
+                                                        $t(
+                                                            'Default Currency'
+                                                        )
+                                                    }}
+                                                        <span class="required">*</span></label>
+                                                    <v-select v-model="form.currency" :options="items" label="label" :class="{
+                                                        'is-invalid': form.errors.has('currency'),
+                                                        'text-uppercase': true
+                                                    }" name="currency" :placeholder="$t(
+                                                        'Select a currency'
+                                                    )
+                                                        " />
+                                                    <has-error :form="form" field="currency" />
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <label for="language">{{
+                                                        $t(
+                                                            'Default Language'
+                                                        )
+                                                    }}
+                                                        <span class="required">*</span></label>
+                                                    <select v-model="form.language" name="" class="form-control" :class="{
+                                                        'is-invalid':
+                                                            form.errors.has(
+                                                                'language'
+                                                            ),
+                                                    }">
+                                                        <option v-for="(value, key) in locales" :key="key" :value="key">
+                                                            {{ value[1] }}
+                                                        </option>
+                                                    </select>
+                                                    <has-error :form="form" field="language" />
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <label for="taxRegistrationNumber">{{
+                                                        $t("Tax Registration Number")
+                                                        }}</label>
+                                                    <input id="taxRegistrationNumber" v-model="form.taxRegistrationNumber"
+                                                        type="taxRegistrationNumber" class="form-control"
+                                                        :class="{ 'is-invalid': form.errors.has('taxRegistrationNumber') }"
+                                                        name="taxRegistrationNumber"
+                                                        :placeholder="$t('Enter a tax registration number')" />
+                                                    <has-error :form="form" field="taxRegistrationNumber" />
+                                                </div>
+                                            </div>
                                     <div class="row">
                                         <div class="form-group col-md-12">
                                             <label for="systemType">{{
@@ -741,6 +788,8 @@
                                             <has-error :form="form" field="copyrightText" />
                                         </div>
                                     </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -769,6 +818,7 @@ export default {
         return { title: this.$t('General Settings') };
     },
     data: () => ({
+        activeTab: 'company',
         isDemoMode: window.config.isDemoMode,
         allClients: [],
         allAccounts: [],
@@ -1247,6 +1297,11 @@ export default {
             }
         },
 
+        // Switch between tabs
+        switchTab(tab) {
+            this.activeTab = tab;
+        },
+
         // update settings
         async updateSettings() {
             if (this.isDemoMode) {
@@ -1294,6 +1349,145 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+/* ============================================
+   TAB NAVIGATION
+   ============================================ */
+.client-form-tabs {
+  margin-bottom: 2rem;
+  background: #f8f9fa;
+  padding: 0.5rem;
+  border-radius: 12px;
+}
+
+.client-form-tabs .nav-tabs {
+  display: flex;
+  gap: 0.5rem;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.client-form-tabs .nav-item {
+  flex: 1;
+}
+
+.client-form-tabs .nav-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 24px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: #6b7280;
+  font-weight: 500;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.client-form-tabs .nav-link:hover {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.client-form-tabs .nav-link.active {
+  background: #0775AF;
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(7, 117, 175, 0.2);
+}
+
+.client-form-tabs .nav-link i {
+  margin-right: 8px;
+  font-size: 16px;
+}
+
+[dir="rtl"] .client-form-tabs .nav-link i {
+  margin-right: 0;
+  margin-left: 8px;
+}
+
+/* ============================================
+   TAB CONTENT
+   ============================================ */
+.tab-content {
+  margin-top: 0;
+}
+
+.tab-pane {
+  display: none;
+}
+
+.tab-pane.show.active {
+  display: block;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================
+   FORM CARDS
+   ============================================ */
+.form-card-enhanced {
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  margin-bottom: 2rem;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.form-card-enhanced:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-color: #d1d5db;
+}
+
+.form-card-enhanced .card-header {
+  background: #eceff3;
+  padding: 20px 24px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.form-card-enhanced .section-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.form-card-enhanced .section-title i {
+  color: #0775AF;
+  font-size: 20px;
+}
+
+.form-card-enhanced .card-header-subtitle {
+  font-size: 13px;
+  color: #6b7280;
+  margin-top: 6px;
+  margin-bottom: 0;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.form-card-enhanced .card-body {
+  padding: 24px;
+}
+
+/* Legacy inner-card styles for backward compatibility */
 .inner-card {
     margin-top: 20px;
     border-radius: 20px;

@@ -10,11 +10,6 @@
       <div class="col-12 col-xl-9">
         <div class="card">
           <div class="card-header setings-header">
-            <div class="col-xl-4 col-4">
-              <h3 class="card-title">
-                {{ $t("Permissions") }}
-              </h3>
-            </div>
             <div class="col-xl-8 col-8 float-right text-right">
               <div class="btn-group">
                 <a href="/setup/currencies/pdf" v-tooltip="$t('Export Table')" class="btn btn-secondary">

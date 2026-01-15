@@ -3774,5 +3774,11 @@
 "Configure welcome messages and notifications": "Configure welcome messages and notifications",
 "Optional Business Information": "Optional Business Information",
 "All fields below are required by ZATCA for taxable clients": "All fields below are required by ZATCA for taxable clients",
-"Tax Registration Number (VAT)": "Tax Registration Number (VAT)"
+"Tax Registration Number (VAT)": "Tax Registration Number (VAT)",
+"Code Prefixes": "Code Prefixes",
+"Code Symbols": "Code Symbols",
+"Default Elements": "Default Elements",
+"Basic company details and contact information": "Basic company details and contact information",
+"Configure prefixes for document and entity numbering": "Configure prefixes for document and entity numbering",
+"Set default values for system operations and preferences": "Set default values for system operations and preferences"
 }

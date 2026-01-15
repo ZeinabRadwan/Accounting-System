@@ -14,15 +14,6 @@
                     @keydown="form.onKeydown($event)"
                 >
                     <div class="card">
-                        <div class="card-header setings-header">
-                            <h3 class="card-title">
-                                {{
-                                    $t(
-                                        'SMS Configuration'
-                                    )
-                                }}
-                            </h3>
-                        </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="form-group col-md-12">

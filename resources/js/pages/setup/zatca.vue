@@ -15,12 +15,6 @@
           @keydown="form.onKeydown($event)"
         >
           <div class="card">
-            <div class="card-header setings-header">
-              <h3 class="card-title">
-                <i class="fas fa-file-invoice mr-2"></i>
-                {{ $t('ZATCA E-Invoicing Settings') }}
-              </h3>
-            </div>
             
             <!-- Wizard Steps -->
             <div class="wizard-steps">
