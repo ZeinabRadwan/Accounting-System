@@ -4155,5 +4155,7 @@
     "Optional notes and additional details": "ملاحظات اختيارية وتفاصيل إضافية",
     "Upload attachments and manage document settings": "رفع المرفقات وإدارة إعدادات المستندات",
     "Configure welcome messages and notifications": "تكوين رسائل الترحيب والإشعارات",
-    "Optional Business Information": "معلومات الشركة الاختيارية"
+    "Optional Business Information": "معلومات الشركة الاختيارية",
+    "All fields below are required by ZATCA for taxable clients": "جميع الحقول أدناه مطلوبة من زاتكا للعملاء الخاضعين للضريبة",
+    "Tax Registration Number (VAT)": "رقم التسجيل الضريبي (ضريبة القيمة المضافة)"
 }
