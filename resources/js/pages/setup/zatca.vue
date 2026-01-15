@@ -37,8 +37,13 @@
               <div v-if="currentStep === 1" class="wizard-step">
                 <div class="card inner-card">
                   <div class="card-header">
-                    <h4 class="step-header">{{ $t('Generate Certificate') }}</h4>
-                    <p class="step-description">{{ $t('Fill in your company information to generate a ZATCA certificate') }}</p>
+                    <h5 class="section-title">
+                      <i class="fas fa-certificate mr-2"></i>
+                      {{ $t('Generate Certificate') }}
+                    </h5>
+                    <p class="card-header-subtitle">
+                      {{ $t('Fill in your company information to generate a ZATCA certificate') }}
+                    </p>
                   </div>
                   <div class="card-body">
                     <div class="row">
@@ -265,8 +270,13 @@
               <div v-if="currentStep === 2" class="wizard-step">
                 <div class="card inner-card">
                   <div class="card-header">
-                    <h4 class="step-header">{{ $t('Testing') }}</h4>
-                    <p class="step-description">{{ $t('Testing your ZATCA integration and compliance') }}</p>
+                    <h5 class="section-title">
+                      <i class="fas fa-vial mr-2"></i>
+                      {{ $t('Testing') }}
+                    </h5>
+                    <p class="card-header-subtitle">
+                      {{ $t('Testing your ZATCA integration and compliance') }}
+                    </p>
                   </div>
                   <div class="card-body">
                     <div class="compliance-tests">
@@ -305,8 +315,13 @@
               <div v-if="currentStep === 3" class="wizard-step">
                 <div class="card inner-card">
                   <div class="card-header">
-                    <h4 class="step-header">{{ $t('Confirmation') }}</h4>
-                    <p class="step-description">{{ $t('ZATCA integration completed successfully!') }}</p>
+                    <h5 class="section-title">
+                      <i class="fas fa-check-circle mr-2"></i>
+                      {{ $t('Confirmation') }}
+                    </h5>
+                    <p class="card-header-subtitle">
+                      {{ $t('ZATCA integration completed successfully!') }}
+                    </p>
                   </div>
                   <div class="card-body">
                     <div class="success-summary">
@@ -555,11 +570,35 @@ export default {
 }
 
 .inner-card .card-header {
-  background-color: #33a0d9;
-  color: #ffffff;
+  background: #eceff3;
+  padding: 20px 24px;
+  border-bottom: 1px solid #e5e7eb;
   border-radius: 20px 20px 0 0;
-  padding: 22px 16px;
-  border-bottom: none;
+}
+
+.inner-card .section-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.inner-card .section-title i {
+  color: #0775AF;
+  font-size: 20px;
+}
+
+.inner-card .card-header-subtitle {
+  font-size: 13px;
+  color: #6b7280;
+  margin-top: 6px;
+  margin-bottom: 0;
+  font-weight: 400;
+  line-height: 1.5;
 }
 
 .wizard-steps {
@@ -638,16 +677,6 @@ export default {
   min-height: 400px;
 }
 
-.step-header {
-  color: #33a0d9;
-  margin-bottom: 0.5rem;
-  font-weight: 600;
-}
-
-.step-description {
-  color: #ffffff;
-  margin-bottom: 2rem;
-}
 
 .wizard-actions {
   text-align: center;
