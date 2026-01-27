@@ -79,6 +79,35 @@ export default {
         }
       }
 
+      // Validate numeric fields
+      if (formData.additionalNumber && formData.additionalNumber.trim() !== '') {
+        if (!/^\d+$/.test(formData.additionalNumber.trim())) {
+          this.validationErrors.additionalNumber = this.$t('Additional Number must be numeric');
+          isValid = false;
+        }
+      }
+
+      if (formData.commercialRegister && formData.commercialRegister.trim() !== '') {
+        if (!/^\d+$/.test(formData.commercialRegister.trim())) {
+          this.validationErrors.commercialRegister = this.$t('Commercial Register must be numeric');
+          isValid = false;
+        }
+      }
+
+      if (formData.taxCard && formData.taxCard.trim() !== '') {
+        if (!/^\d+$/.test(formData.taxCard.trim())) {
+          this.validationErrors.taxCard = this.$t('Tax Number must be numeric');
+          isValid = false;
+        }
+      }
+
+      if (formData.taxRegistrationNumber && formData.taxRegistrationNumber.trim() !== '') {
+        if (!/^\d+$/.test(formData.taxRegistrationNumber.trim())) {
+          this.validationErrors.taxRegistrationNumber = this.$t('Tax Number must be numeric');
+          isValid = false;
+        }
+      }
+
       return { isValid, clientName };
     },
 

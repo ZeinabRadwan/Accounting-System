@@ -429,9 +429,19 @@
                   <span class="text-muted" style="font-weight: normal; font-size: 12px;">({{ $t("Optional") }})</span>
                 </label>
                 <input id="additionalNumber" v-model="form.additionalNumber" type="text" class="form-control form-control-modern"
-                  :class="{ 'is-invalid': form.errors.has('additionalNumber'), 'is-valid': form.additionalNumber && !form.errors.has('additionalNumber') }" 
-                  name="additionalNumber" :placeholder="$t('Enter additional number')" maxlength="5" />
+                  :class="{ 
+                    'is-invalid': form.errors.has('additionalNumber') || (form.additionalNumber && !isAdditionalNumberValid), 
+                    'is-valid': form.additionalNumber && !form.errors.has('additionalNumber') && isAdditionalNumberValid 
+                  }" 
+                  name="additionalNumber" :placeholder="$t('Enter additional number')" maxlength="5" 
+                  @input="validateAdditionalNumber" />
                 <has-error :form="form" field="additionalNumber" />
+                <!-- Inline validation alert -->
+                <div v-if="form.additionalNumber && !isAdditionalNumberValid" class="alert alert-danger mt-2" role="alert">
+                  <i class="fas fa-exclamation-triangle mr-2"></i>
+                  <strong>{{ $t("Error") }}:</strong>
+                  {{ $t("Additional Number must be numeric") }}
+                </div>
               </div>
             </div>
 
@@ -456,13 +466,23 @@
                     <span class="required-indicator">*</span>
                   </label>
                   <input id="commercialRegister" v-model="form.commercialRegister" type="text" class="form-control form-control-modern"
-                    :class="{ 'is-invalid': form.errors.has('commercialRegister'), 'is-valid': form.commercialRegister && !form.errors.has('commercialRegister') }" 
-                    name="commercialRegister" :placeholder="$t('Enter commercial register number')" />
+                    :class="{ 
+                      'is-invalid': form.errors.has('commercialRegister') || (form.commercialRegister && !isCommercialRegisterValid), 
+                      'is-valid': form.commercialRegister && !form.errors.has('commercialRegister') && isCommercialRegisterValid 
+                    }" 
+                    name="commercialRegister" :placeholder="$t('Enter commercial register number')" 
+                    @input="validateCommercialRegister" />
                   <small class="form-text form-helper-text" v-if="form.country === 'SA'">
                     <i class="fas fa-info-circle mr-1"></i>
                     {{ $t("Required for Saudi taxable companies (ZATCA)") }}
                   </small>
                   <has-error :form="form" field="commercialRegister" />
+                  <!-- Inline validation alert -->
+                  <div v-if="form.commercialRegister && !isCommercialRegisterValid" class="alert alert-danger mt-2" role="alert">
+                    <i class="fas fa-exclamation-triangle mr-2"></i>
+                    <strong>{{ $t("Error") }}:</strong>
+                    {{ $t("Commercial Register must be numeric") }}
+                  </div>
                 </div>
                 <div class="form-group form-col-half">
                   <label for="taxRegistrationNumber" class="form-label">
@@ -471,14 +491,24 @@
                     <span class="required-indicator">*</span>
                   </label>
                   <input id="taxRegistrationNumber" v-model="form.taxRegistrationNumber" type="text" class="form-control form-control-modern"
-                    :class="{ 'is-invalid': form.errors.has('taxRegistrationNumber'), 'is-valid': form.taxRegistrationNumber && !form.errors.has('taxRegistrationNumber') }" 
+                    :class="{ 
+                      'is-invalid': form.errors.has('taxRegistrationNumber') || (form.taxRegistrationNumber && !isTaxRegistrationNumberValid), 
+                      'is-valid': form.taxRegistrationNumber && !form.errors.has('taxRegistrationNumber') && isTaxRegistrationNumberValid 
+                    }" 
                     name="taxRegistrationNumber" :placeholder="$t('Enter 15-digit tax registration number')" maxlength="15" 
-                    pattern="[0-9]{15}" />
+                    pattern="[0-9]{15}" 
+                    @input="validateTaxRegistrationNumber" />
                   <small class="form-text form-helper-text">
                     <i class="fas fa-info-circle mr-1"></i>
                     {{ $t("Must be exactly 15 digits (ZATCA requirement)") }}
                   </small>
                   <has-error :form="form" field="taxRegistrationNumber" />
+                  <!-- Inline validation alert -->
+                  <div v-if="form.taxRegistrationNumber && !isTaxRegistrationNumberValid" class="alert alert-danger mt-2" role="alert">
+                    <i class="fas fa-exclamation-triangle mr-2"></i>
+                    <strong>{{ $t("Error") }}:</strong>
+                    {{ $t("Tax Number must be numeric") }}
+                  </div>
                 </div>
               </div>
             </div>
@@ -506,9 +536,19 @@
                     {{ $t("Tax ID (Optional)") }}
                   </label>
                   <input id="taxCard" v-model="form.taxCard" type="text" class="form-control form-control-modern"
-                    :class="{ 'is-invalid': form.errors.has('taxCard'), 'is-valid': form.taxCard && !form.errors.has('taxCard') }" 
-                    name="taxCard" :placeholder="$t('Enter tax ID number')" />
+                    :class="{ 
+                      'is-invalid': form.errors.has('taxCard') || (form.taxCard && !isTaxCardValid), 
+                      'is-valid': form.taxCard && !form.errors.has('taxCard') && isTaxCardValid 
+                    }" 
+                    name="taxCard" :placeholder="$t('Enter tax ID number')" 
+                    @input="validateTaxCard" />
                   <has-error :form="form" field="taxCard" />
+                  <!-- Inline validation alert -->
+                  <div v-if="form.taxCard && !isTaxCardValid" class="alert alert-danger mt-2" role="alert">
+                    <i class="fas fa-exclamation-triangle mr-2"></i>
+                    <strong>{{ $t("Error") }}:</strong>
+                    {{ $t("Tax Number must be numeric") }}
+                  </div>
                 </div>
               </div>
             </div>
@@ -790,6 +830,11 @@ export default {
 
       // Phone number validation
       phoneNumberValid: false,
+      // Numeric field validation flags
+      isAdditionalNumberValid: true,
+      isCommercialRegisterValid: true,
+      isTaxCardValid: true,
+      isTaxRegistrationNumberValid: true,
 
       // Saudi Arabia location data
       saudiRegions: [],
@@ -990,6 +1035,28 @@ export default {
           this.form.city = '';
         }
       }
+    },
+    
+    // Watch for numeric field changes to validate
+    'form.additionalNumber': {
+      handler() {
+        this.validateAdditionalNumber();
+      }
+    },
+    'form.commercialRegister': {
+      handler() {
+        this.validateCommercialRegister();
+      }
+    },
+    'form.taxCard': {
+      handler() {
+        this.validateTaxCard();
+      }
+    },
+    'form.taxRegistrationNumber': {
+      handler() {
+        this.validateTaxRegistrationNumber();
+      }
     }
   },
   computed: {
@@ -1014,6 +1081,14 @@ export default {
         // For non-Saudi countries, show City when Country is selected
         return !!this.form.country;
       }
+    },
+    
+    // Check if form has numeric validation errors
+    hasNumericValidationErrors() {
+      return !this.isAdditionalNumberValid || 
+             !this.isCommercialRegisterValid || 
+             !this.isTaxCardValid || 
+             !this.isTaxRegistrationNumberValid;
     }
   },
   created() {
@@ -1027,6 +1102,14 @@ export default {
 
     // Load next code number for new clients
     this.loadNextCodeNumber();
+    
+    // Validate numeric fields if they have initial values
+    this.$nextTick(() => {
+      this.validateAdditionalNumber();
+      this.validateCommercialRegister();
+      this.validateTaxCard();
+      this.validateTaxRegistrationNumber();
+    });
 
     // Load communication configuration status
     this.loadCommunicationConfigStatus();
@@ -1289,6 +1372,12 @@ export default {
 
       // Reset phone number validation
       this.phoneNumberValid = false;
+      
+      // Reset numeric field validation flags
+      this.isAdditionalNumberValid = true;
+      this.isCommercialRegisterValid = true;
+      this.isTaxCardValid = true;
+      this.isTaxRegistrationNumberValid = true;
     },
 
     // Handle country change
@@ -1459,6 +1548,35 @@ export default {
       // Note: Business name and full name are optional now
       // Only ZATCA-required fields are validated (handled by backend)
 
+      // Validate numeric fields
+      if (this.hasNumericValidationErrors) {
+        // Set errors on form for invalid numeric fields
+        if (this.form.additionalNumber && !this.isAdditionalNumberValid) {
+          this.form.errors.set('additionalNumber', [this.$t('Additional Number must be numeric')]);
+        }
+        if (this.form.commercialRegister && !this.isCommercialRegisterValid) {
+          this.form.errors.set('commercialRegister', [this.$t('Commercial Register must be numeric')]);
+        }
+        if (this.form.taxCard && !this.isTaxCardValid) {
+          this.form.errors.set('taxCard', [this.$t('Tax Number must be numeric')]);
+        }
+        if (this.form.taxRegistrationNumber && !this.isTaxRegistrationNumberValid) {
+          this.form.errors.set('taxRegistrationNumber', [this.$t('Tax Number must be numeric')]);
+        }
+        
+        // Show toast notification
+        if (window.toast && typeof window.toast.fire === 'function') {
+          window.toast.fire({
+            type: "error",
+            title: this.$t("Validation Error"),
+            text: this.$t("Please correct the numeric field errors"),
+            timer: 5000,
+            timerProgressBar: true,
+          });
+        }
+        return false;
+      }
+
       // For new clients, use the main account from routing setting if none selected
       if (this.isNewClient && this.routingSetting && this.routingSetting.main_account_id) {
         if (!this.form.chartOfAccountId) {
@@ -1468,6 +1586,98 @@ export default {
       }
 
       return true;
+    },
+    
+    // Validate Additional Number - must be numeric only
+    validateAdditionalNumber() {
+      const value = this.form.additionalNumber;
+      if (!value || value.trim() === '') {
+        this.isAdditionalNumberValid = true;
+        this.form.errors.clear('additionalNumber');
+        return;
+      }
+      // Remove any non-numeric characters
+      const numericOnly = value.replace(/\D/g, '');
+      if (numericOnly !== value) {
+        this.form.additionalNumber = numericOnly;
+      }
+      // Check if value contains only digits
+      const isNumeric = /^\d+$/.test(numericOnly.trim());
+      this.isAdditionalNumberValid = isNumeric;
+      if (!isNumeric) {
+        this.form.errors.set('additionalNumber', [this.$t('Additional Number must be numeric')]);
+      } else {
+        this.form.errors.clear('additionalNumber');
+      }
+    },
+    
+    // Validate Commercial Register - must be numeric only
+    validateCommercialRegister() {
+      const value = this.form.commercialRegister;
+      if (!value || value.trim() === '') {
+        this.isCommercialRegisterValid = true;
+        this.form.errors.clear('commercialRegister');
+        return;
+      }
+      // Remove any non-numeric characters
+      const numericOnly = value.replace(/\D/g, '');
+      if (numericOnly !== value) {
+        this.form.commercialRegister = numericOnly;
+      }
+      // Check if value contains only digits
+      const isNumeric = /^\d+$/.test(numericOnly.trim());
+      this.isCommercialRegisterValid = isNumeric;
+      if (!isNumeric) {
+        this.form.errors.set('commercialRegister', [this.$t('Commercial Register must be numeric')]);
+      } else {
+        this.form.errors.clear('commercialRegister');
+      }
+    },
+    
+    // Validate Tax Card - must be numeric only
+    validateTaxCard() {
+      const value = this.form.taxCard;
+      if (!value || value.trim() === '') {
+        this.isTaxCardValid = true;
+        this.form.errors.clear('taxCard');
+        return;
+      }
+      // Remove any non-numeric characters
+      const numericOnly = value.replace(/\D/g, '');
+      if (numericOnly !== value) {
+        this.form.taxCard = numericOnly;
+      }
+      // Check if value contains only digits
+      const isNumeric = /^\d+$/.test(numericOnly.trim());
+      this.isTaxCardValid = isNumeric;
+      if (!isNumeric) {
+        this.form.errors.set('taxCard', [this.$t('Tax Number must be numeric')]);
+      } else {
+        this.form.errors.clear('taxCard');
+      }
+    },
+    
+    // Validate Tax Registration Number - must be numeric only
+    validateTaxRegistrationNumber() {
+      const value = this.form.taxRegistrationNumber;
+      if (!value || value.trim() === '') {
+        this.isTaxRegistrationNumberValid = true;
+        this.form.errors.clear('taxRegistrationNumber');
+        return;
+      }
+      // Remove any non-numeric characters
+      const numericOnly = value.replace(/\D/g, '');
+      if (numericOnly !== value) {
+        this.form.taxRegistrationNumber = numericOnly;
+      }
+      // Check if value contains only digits
+      const isNumeric = /^\d+$/.test(numericOnly.trim());
+      this.isTaxRegistrationNumberValid = isNumeric;
+      if (!isNumeric) {
+        this.form.errors.set('taxRegistrationNumber', [this.$t('Tax Number must be numeric')]);
+      } else {
+        this.form.errors.clear('taxRegistrationNumber');
+      }
     },
 
     // Load representatives for existing client
