@@ -36,8 +36,52 @@ export default {
     showClientCreateModal: false,
     form: null,
     isSubmitting: false,
+    validationErrors: {},
   }),
   methods: {
+    // Validate required fields before submission
+    validateRequiredFields(formData) {
+      this.validationErrors = {};
+      let isValid = true;
+
+      // Validate phoneNumber (required)
+      if (!formData.phoneNumber || formData.phoneNumber.trim() === '') {
+        this.validationErrors.phoneNumber = this.$t('Client phone number is required');
+        isValid = false;
+      }
+
+      // Validate name field - derive from fullName or businessName based on type
+      const clientType = formData.type || 'Individual';
+      let clientName = null;
+      
+      if (clientType === 'Individual') {
+        if (!formData.fullName || formData.fullName.trim() === '') {
+          this.validationErrors.fullName = this.$t('Client name is required');
+          isValid = false;
+        } else {
+          clientName = formData.fullName.trim();
+        }
+      } else if (clientType === 'Company') {
+        if (!formData.businessName || formData.businessName.trim() === '') {
+          this.validationErrors.businessName = this.$t('Business name is required');
+          isValid = false;
+        } else {
+          clientName = formData.businessName.trim();
+        }
+      }
+
+      // Validate email format if provided
+      if (formData.email && formData.email.trim() !== '') {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(formData.email.trim())) {
+          this.validationErrors.email = this.$t('Invalid email format');
+          isValid = false;
+        }
+      }
+
+      return { isValid, clientName };
+    },
+
     // save client
     async saveClient() {
       if (this.isSubmitting) return;
@@ -53,6 +97,15 @@ export default {
 
         // Get the form data from the ClientForm component
         const formData = this.$refs.clientForm.getFormData();
+        
+        // Validate required fields
+        const validation = this.validateRequiredFields(formData);
+        if (!validation.isValid) {
+          this.isSubmitting = false;
+          // Show validation errors
+          this.showValidationErrors();
+          return;
+        }
         
         // Build multipart/form-data to properly send files and handle boolean conversion
         const fd = new FormData();
@@ -124,6 +177,14 @@ export default {
         // Verify it was added
         console.log('ClientCreateModal - FormData has taxStatus:', fd.has('taxStatus'));
         console.log('ClientCreateModal - FormData has tax_status:', fd.has('tax_status'));
+        
+        // CRITICAL: Append name field - required by database
+        // Derive name from fullName (Individual) or businessName (Company)
+        const clientType = formData.type || 'Individual';
+        const clientName = validation.clientName || (clientType === 'Individual' ? formData.fullName : formData.businessName);
+        if (clientName && clientName.trim() !== '') {
+          fd.append('name', clientName.trim());
+        }
         
         appendIfDefined('fullName', formData.fullName);
         appendIfDefined('businessName', formData.businessName);
@@ -208,6 +269,24 @@ export default {
         console.error("Error creating client:", error);
         const status = error && error.response && error.response.status;
         const serverErrors = error && error.response && error.response.data && error.response.data.errors;
+        const errorMessage = error.response?.data?.message || error.message;
+        
+        // Handle SQL integrity constraint violations (e.g., Column 'name' cannot be null)
+        if (errorMessage && (
+          errorMessage.includes('Column \'name\' cannot be null') ||
+          errorMessage.includes('Integrity constraint violation') ||
+          errorMessage.includes('cannot be null')
+        )) {
+          toast.fire({
+            type: "error",
+            title: this.$t("Validation Error"),
+            text: this.$t("Please fill in all required fields. Client name is required."),
+            timer: 5000,
+            timerProgressBar: true,
+          });
+          this.isSubmitting = false;
+          return;
+        }
         
         if (status === 422 && serverErrors && this.$refs.clientForm) {
           // Get form object directly from ClientForm component
@@ -269,11 +348,69 @@ export default {
               : undefined
           });
         } else {
-          const errorMessage = error.response?.data?.message || this.$t("Please check your input and try again.");
-          toast.fire({ type: "error", title: errorMessage });
+          // Handle other server errors (500, network errors, etc.)
+          let errorMessage = this.$t("An error occurred while creating the client. Please try again.");
+          
+          if (error.response?.data?.message) {
+            // Try to translate common error messages
+            const rawMessage = error.response.data.message;
+            if (rawMessage.includes('cannot be null') || rawMessage.includes('required')) {
+              errorMessage = this.$t("Please fill in all required fields.");
+            } else {
+              errorMessage = rawMessage;
+            }
+          } else if (error.message) {
+            errorMessage = error.message;
+          }
+          
+          toast.fire({
+            type: "error",
+            title: this.$t("Error"),
+            text: errorMessage,
+            timer: 5000,
+            timerProgressBar: true,
+          });
         }
       } finally {
         this.isSubmitting = false;
+      }
+    },
+
+    // Show validation errors as inline alerts
+    showValidationErrors() {
+      // Clear previous errors
+      if (this.$refs.clientForm && this.$refs.clientForm.form) {
+        const form = this.$refs.clientForm.form;
+        if (form.errors && typeof form.errors.clear === 'function') {
+          form.errors.clear();
+        }
+      }
+      
+      // Set new validation errors
+      if (this.$refs.clientForm && this.$refs.clientForm.form) {
+        const form = this.$refs.clientForm.form;
+        if (form.errors && typeof form.errors.set === 'function') {
+          const errorsObject = {};
+          Object.keys(this.validationErrors).forEach(key => {
+            errorsObject[key] = [this.validationErrors[key]];
+          });
+          form.errors.set(errorsObject);
+        }
+      }
+      
+      // Show toast with validation errors
+      const errorMessages = Object.values(this.validationErrors);
+      if (errorMessages.length > 0) {
+        toast.fire({
+          type: "error",
+          title: this.$t("Validation Error"),
+          text: errorMessages[0],
+          html: errorMessages.length > 1 
+            ? `<div style="text-align: left;">${errorMessages.map(msg => `<div>• ${msg}</div>`).join('')}</div>`
+            : undefined,
+          timer: 5000,
+          timerProgressBar: true,
+        });
       }
     },
 
@@ -283,6 +420,10 @@ export default {
       if (this.showClientCreateModal) {
         this.form = null;
         this.isSubmitting = false;
+        this.validationErrors = {};
+      } else {
+        // Clear validation errors when closing modal
+        this.validationErrors = {};
       }
     },
 
