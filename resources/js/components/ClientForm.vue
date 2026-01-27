@@ -2191,7 +2191,8 @@ export default {
   border-radius: 12px;
   border: 1px solid #e5e7eb;
   margin-bottom: 2rem;
-  overflow: hidden;
+  /* Changed overflow to visible to allow dropdowns (like country selector) to display properly */
+  overflow: visible;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
 }
@@ -2234,6 +2235,8 @@ export default {
 
 .form-card-enhanced .card-body {
   padding: 24px;
+  /* Allow overflow for dropdowns like country selector */
+  overflow: visible;
 }
 
 /* ============================================
@@ -2241,6 +2244,8 @@ export default {
    ============================================ */
 .form-group {
   margin-bottom: 24px;
+  /* Allow overflow for dropdowns like country selector */
+  overflow: visible;
 }
 
 .form-group:last-child {

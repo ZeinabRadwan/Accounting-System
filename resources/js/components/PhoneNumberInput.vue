@@ -532,10 +532,12 @@ export default {
 <style scoped>
 .phone-number-input {
   position: relative;
+  z-index: 1;
 }
 
 .phone-input-container {
   position: relative;
+  z-index: 1;
 }
 
 .phone-input-wrapper {
@@ -637,7 +639,8 @@ export default {
   background: white;
   border-radius: 15px;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-  z-index: 1000;
+  /* High z-index to ensure dropdown appears above modals (z-index: 2000-2001) and other elements */
+  z-index: 10000 !important;
   max-height: 300px;
   overflow: hidden;
   display: flex;
@@ -719,6 +722,7 @@ export default {
   
   .country-dropdown {
     max-height: 250px;
+    z-index: 10000 !important;
   }
   
   .country-list {
