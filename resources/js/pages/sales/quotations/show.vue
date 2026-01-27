@@ -198,12 +198,18 @@
             <!-- /.row -->
             <div class="row mt-4">
               <div class="col-lg-12 col-xl-4 text-lg-right mt-4">
+                <!-- Validation message if discount exceeds total -->
+                <div v-if="totalProductDiscount > totalPrice" class="alert alert-danger mb-2" role="alert">
+                  <i class="fas fa-exclamation-triangle mr-2"></i>
+                  <strong>{{ $t("Validation Error") }}:</strong> 
+                  {{ $t("Total discount cannot exceed total price. Discount has been capped at total price.") }}
+                </div>
                 <InvoiceSummaryTable
                   :subtotal="totalPrice"
-                  :after-discount="totalPrice - totalProductDiscount"
+                  :after-discount="Math.max(0, totalPrice - totalProductDiscount)"
                   :total-tax="totalProductVat"
                   :transport="0"
-                  :grand-total="totalPrice - totalProductDiscount + totalProductVat"
+                  :grand-total="Math.max(0, totalPrice - totalProductDiscount + totalProductVat)"
                   :paid-amount="0"
                   :due-amount="0"
                 />
@@ -377,11 +383,16 @@ export default {
     },
 
     // calculate total product discount
+    // Ensure discount is calculated only once per product
     totalProductDiscount() {
-      if (!this.allData.products) return 0;
-      return this.allData.products.reduce((total, product) => {
-        return total + this.calculateProductDiscountAmount(product);
+      if (!this.allData || !this.allData.products) return 0;
+      const total = this.allData.products.reduce((sum, product) => {
+        const discount = parseFloat(this.calculateProductDiscountAmount(product)) || 0;
+        return sum + discount;
       }, 0);
+      // Validate that total discount doesn't exceed total price
+      const totalPrice = this.totalPrice;
+      return total > totalPrice ? totalPrice : total;
     },
 
     // Quotation products columns
@@ -403,19 +414,29 @@ export default {
     // Quotation products rows
     quotationProductsRows() {
       if (!this.allData || !this.allData.products) return [];
-      return this.allData.products.map((product, index) => ({
-        index: index + 1,
-        code: product.productCode,
-        name: product.productName,
-        quantity: product.quantity,
-        price: product.salePrice,
-        total: product.salePrice * product.quantity,
-        discount: product,
-        totalAfterDiscount: (product.salePrice * product.quantity) - parseFloat(this.calculateProductDiscountAmount(product)),
-        vat: product,
-        totalWithVat: (product.salePrice * product.quantity) - parseFloat(this.calculateProductDiscountAmount(product)) + (parseFloat(product.taxAmount) || 0),
-        _raw: product,
-      }));
+      return this.allData.products.map((product, index) => {
+        const totalPrice = (parseFloat(product.salePrice) || 0) * (parseFloat(product.quantity) || 1);
+        const discountAmount = parseFloat(this.calculateProductDiscountAmount(product)) || 0;
+        // Ensure discount doesn't exceed item total
+        const validDiscount = discountAmount > totalPrice ? totalPrice : discountAmount;
+        const totalAfterDiscount = totalPrice - validDiscount;
+        const taxAmount = parseFloat(product.taxAmount) || 0;
+        const totalWithVat = totalAfterDiscount + taxAmount;
+        
+        return {
+          index: index + 1,
+          code: product.productCode,
+          name: product.productName,
+          quantity: product.quantity,
+          price: product.salePrice,
+          total: totalPrice,
+          discount: product,
+          totalAfterDiscount: totalAfterDiscount,
+          vat: product,
+          totalWithVat: totalWithVat,
+          _raw: product,
+        };
+      });
     },
 
     // Calculate total price (sum of Total column in items table)
@@ -672,13 +693,30 @@ export default {
     },
 
     // calculate product discount amount
+    // Ensure discount is calculated only once and not applied repeatedly
     calculateProductDiscountAmount(data) {
-      if (data.discountType === 'percentage') {
-        return ((data.salePrice * data.quantity) * data.discount / 100).toFixed(2);
-      } else if (data.discountAmount && data.discountAmount > 0) {
-        return Number(data.discountAmount).toFixed(2);
+      // If discountAmount is already calculated and stored, use it directly
+      // This prevents double calculation
+      if (data.discountAmount !== undefined && data.discountAmount !== null) {
+        const discountAmount = Number(data.discountAmount) || 0;
+        // Validate that discount doesn't exceed total price
+        const totalPrice = (parseFloat(data.salePrice) || 0) * (parseFloat(data.quantity) || 1);
+        return discountAmount > totalPrice ? totalPrice.toFixed(2) : discountAmount.toFixed(2);
       }
-      return 0;
+      
+      // Otherwise, calculate from discount and discountType
+      if (data.discountType === 'percentage' && data.discount) {
+        const totalPrice = (parseFloat(data.salePrice) || 0) * (parseFloat(data.quantity) || 1);
+        const calculatedDiscount = (totalPrice * parseFloat(data.discount)) / 100;
+        // Ensure discount doesn't exceed total price
+        return calculatedDiscount > totalPrice ? totalPrice.toFixed(2) : calculatedDiscount.toFixed(2);
+      } else if (data.discount && data.discount > 0) {
+        const totalPrice = (parseFloat(data.salePrice) || 0) * (parseFloat(data.quantity) || 1);
+        const discountAmount = Number(data.discount) || 0;
+        // Ensure discount doesn't exceed total price
+        return discountAmount > totalPrice ? totalPrice.toFixed(2) : discountAmount.toFixed(2);
+      }
+      return '0.00';
     },
 
     // Format number to 2 decimal places

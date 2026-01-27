@@ -721,6 +721,7 @@
 "Search products": "Search products",
 "Reference": "Reference",
 "Enter reference": "Enter reference",
+"Enter reference number": "Enter reference number",
 "Purchase Price": "Purchase Price",
 "Unit Price": "Unit Price",
 "Unit Cost": "Unit Cost",
@@ -803,6 +804,8 @@
 "Credit": "Credit",
 "Debit": "Debit",
 "Payment Type": "Payment Type",
+"Payment will be added after invoice creation": "Payment will be added after invoice creation",
+"Invoice will be created on credit": "Invoice will be created on credit",
 "Payment Details": "Payment Details",
 "Ref. No": "Ref. No",
 "Reference No": "Reference No",
@@ -1084,6 +1087,8 @@
 "Total Tax": "Total Tax",
 "Discount": "Discount",
 "Enter discount": "Enter discount",
+"Discount amount cannot exceed the invoice total amount": "Discount amount cannot exceed the invoice total amount",
+"Discount amount cannot exceed the quotation total amount": "Discount amount cannot exceed the quotation total amount",
 "Transport Cost": "Transport Cost",
 "Purchase Date": "Purchase Date",
 "Enter transport cost": "Enter transport cost",
@@ -3521,6 +3526,7 @@
 "Cost Centers": "Cost Centers",
 "cost_centers": "Cost Centers",
 "Cost Center": "Cost Center",
+"Add New Cost Center": "Add New Cost Center",
 "Sale Status": "Sale Status",
 "Sales Representative": "Sales Representative",
 "Cashier": "Cashier",
@@ -3793,5 +3799,6 @@
 "Default Elements": "Default Elements",
 "Basic company details and contact information": "Basic company details and contact information",
 "Configure prefixes for document and entity numbering": "Configure prefixes for document and entity numbering",
-"Set default values for system operations and preferences": "Set default values for system operations and preferences"
+"Set default values for system operations and preferences": "Set default values for system operations and preferences",
+"Copyright": "Copyright © 2026 All rights reserved."
 }

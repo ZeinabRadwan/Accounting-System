@@ -45,7 +45,7 @@
 
       <!-- Main content -->
       <footer class="main-footer">
-        <strong v-if="appInfo">{{ appInfo.copyright }}</strong>
+        <strong>{{ $t('Copyright') }}</strong>
         <!-- Developed by
         <a href="https://codeshaper.net/" target="__blank">Codeshaper</a> -->
         <div v-if="appInfo" class="float-right d-none d-sm-inline-block"><b>Version</b> {{ appInfo.version }}</div>

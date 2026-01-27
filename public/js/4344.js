@@ -429,7 +429,7 @@ var vuex_esm = __webpack_require__(95353);
 // EXTERNAL MODULE: ./resources/js/components/GeneralTable.vue + 5 modules
 var GeneralTable = __webpack_require__(33107);
 // EXTERNAL MODULE: ./resources/js/components/sales/InvoiceSummaryTable.vue + 5 modules
-var InvoiceSummaryTable = __webpack_require__(94895);
+var InvoiceSummaryTable = __webpack_require__(64951);
 // EXTERNAL MODULE: ./resources/js/components/shared/InfoAlert.vue + 5 modules
 var InfoAlert = __webpack_require__(91640);
 // EXTERNAL MODULE: ./resources/js/components/DetailsActivityTabs.vue + 5 modules
@@ -872,7 +872,7 @@ var component = (0,componentNormalizer/* default */.A)(
 
 /***/ }),
 
-/***/ 35053:
+/***/ 43733:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -884,7 +884,7 @@ var component = (0,componentNormalizer/* default */.A)(
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".table-responsive[data-v-08784666]{background-color:#fff}.invoices-table[data-v-08784666]{border:1px solid #cbd0dd;border-collapse:separate;border-radius:10px;border-spacing:0;padding:15px 25px;width:100%}.invoices-table tbody th[data-v-08784666]{border:none;font-weight:500;padding:8px 12px;text-align:right}.invoices-table tbody td[data-v-08784666]{border:none;padding:8px 12px;text-align:left}.invoices-table tbody tr[data-v-08784666]{background-color:#fff;border-bottom:1px solid #e5e7eb}.invoices-table tbody tr[data-v-08784666]:last-child{border-bottom:none}.text-bold[data-v-08784666]{font-weight:700}.equal-sign[data-v-08784666]{font-weight:600;margin-left:4px;margin-right:4px}.saudi-riyal[data-v-08784666]{font-family:Arial,sans-serif}[dir=rtl] .invoices-table tbody th[data-v-08784666]{text-align:right}[dir=rtl] .invoices-table tbody td[data-v-08784666]{text-align:left}[dir=ltr] .invoices-table tbody th[data-v-08784666]{text-align:right}[dir=ltr] .invoices-table tbody td[data-v-08784666]{text-align:left}.invoices-table tbody tr[data-v-08784666]{margin-bottom:2px}.table-custom[data-v-08784666]{border:none!important}.table-border-y-0[data-v-08784666]{border-bottom:none!important;border-top:none!important}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".table-responsive[data-v-08f90a30]{background-color:#fff}.invoices-table[data-v-08f90a30]{border:1px solid #cbd0dd;border-collapse:separate;border-radius:8px;border-spacing:0;font-size:.9rem;padding:10px 15px;width:100%}.invoices-table tbody th[data-v-08f90a30]{border:none;font-size:.9rem;font-weight:500;padding:6px 10px;text-align:right}.invoices-table tbody td[data-v-08f90a30]{border:none;font-size:.9rem;padding:6px 10px;text-align:left}.invoices-table tbody tr[data-v-08f90a30]{background-color:#fff;border-bottom:1px solid #e5e7eb}.invoices-table tbody tr[data-v-08f90a30]:last-child{border-bottom:none}.text-bold[data-v-08f90a30]{font-weight:700}.equal-sign[data-v-08f90a30]{font-weight:600;margin-left:4px;margin-right:4px}.saudi-riyal[data-v-08f90a30]{font-family:Arial,sans-serif}[dir=rtl] .invoices-table tbody th[data-v-08f90a30]{text-align:right}[dir=rtl] .invoices-table tbody td[data-v-08f90a30]{text-align:left}[dir=ltr] .invoices-table tbody th[data-v-08f90a30]{text-align:right}[dir=ltr] .invoices-table tbody td[data-v-08f90a30]{text-align:left}.invoices-table tbody tr[data-v-08f90a30]{margin-bottom:2px}.table-custom[data-v-08f90a30]{border:none!important}.table-border-y-0[data-v-08f90a30]{border-bottom:none!important;border-top:none!important}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1071,6 +1071,151 @@ var component = (0,componentNormalizer/* default */.A)(
 
 /***/ }),
 
+/***/ 64951:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  A: () => (/* binding */ InvoiceSummaryTable)
+});
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/sales/InvoiceSummaryTable.vue?vue&type=template&id=08f90a30&scoped=true
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c,
+    _setup = _vm._self._setupProxy;
+  return _c('div', {
+    staticClass: "table-responsive table-custom table-border-y-0"
+  }, [_c('table', {
+    staticClass: "table invoices-table"
+  }, [_c('tbody', [_c('tr', {
+    staticClass: "text-bold"
+  }, [_c('th', [_vm._v("الإجمالي الفرعي:")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_setup.formatNumber(_vm.subtotal)) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])])]), _vm._v(" "), _c('tr', {
+    staticClass: "text-bold"
+  }, [_c('th', [_vm._v("بعد الخصم:")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_setup.formatNumber(_vm.afterDiscount)) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v("إجمالي الضريبة:")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_setup.formatNumber(_vm.totalTax)) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])])]), _vm._v(" "), _vm.transport > 0 ? _c('tr', [_c('th', [_vm._v("النقل:")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_setup.formatNumber(_vm.transport)) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])])]) : _vm._e(), _vm._v(" "), _c('tr', {
+    staticClass: "text-bold"
+  }, [_c('th', [_vm._v("الإجمالي الكلي:")]), _vm._v(" "), _c('td', [_vm._v("\n           \n          " + _vm._s(_setup.formatNumber(_vm.grandTotal)) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v("إجمالي المدفوع:")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_setup.formatNumber(_vm.paidAmount)) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])])]), _vm._v(" "), _c('tr', {
+    staticClass: "text-bold"
+  }, [_c('th', [_vm._v("المستحق:")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_setup.formatNumber(_vm.dueAmount)) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])])])])])]);
+};
+var staticRenderFns = [];
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/sales/InvoiceSummaryTable.vue?vue&type=script&setup=true&lang=js
+/* harmony default export */ const InvoiceSummaryTablevue_type_script_setup_true_lang_js = ({
+  __name: 'InvoiceSummaryTable',
+  props: {
+    subtotal: {
+      type: Number,
+      "default": 0
+    },
+    afterDiscount: {
+      type: Number,
+      "default": 0
+    },
+    totalTax: {
+      type: Number,
+      "default": 0
+    },
+    transport: {
+      type: Number,
+      "default": 0
+    },
+    grandTotal: {
+      type: Number,
+      "default": 0
+    },
+    paidAmount: {
+      type: Number,
+      "default": 0
+    },
+    dueAmount: {
+      type: Number,
+      "default": 0
+    }
+  },
+  setup: function setup(__props) {
+    var props = __props;
+
+    /**
+     * Format number to 2 decimal places
+     */
+    var formatNumber = function formatNumber(value) {
+      if (value === null || value === undefined || isNaN(value)) {
+        return '0.00';
+      }
+      return parseFloat(value).toFixed(2);
+    };
+    return {
+      __sfc: true,
+      props: props,
+      formatNumber: formatNumber
+    };
+  }
+});
+;// ./resources/js/components/sales/InvoiceSummaryTable.vue?vue&type=script&setup=true&lang=js
+ /* harmony default export */ const sales_InvoiceSummaryTablevue_type_script_setup_true_lang_js = (InvoiceSummaryTablevue_type_script_setup_true_lang_js); 
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__(85072);
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/sales/InvoiceSummaryTable.vue?vue&type=style&index=0&id=08f90a30&prod&scoped=true&lang=css
+var InvoiceSummaryTablevue_type_style_index_0_id_08f90a30_prod_scoped_true_lang_css = __webpack_require__(43733);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/sales/InvoiceSummaryTable.vue?vue&type=style&index=0&id=08f90a30&prod&scoped=true&lang=css
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = injectStylesIntoStyleTag_default()(InvoiceSummaryTablevue_type_style_index_0_id_08f90a30_prod_scoped_true_lang_css/* default */.A, options);
+
+
+
+/* harmony default export */ const sales_InvoiceSummaryTablevue_type_style_index_0_id_08f90a30_prod_scoped_true_lang_css = (InvoiceSummaryTablevue_type_style_index_0_id_08f90a30_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/components/sales/InvoiceSummaryTable.vue?vue&type=style&index=0&id=08f90a30&prod&scoped=true&lang=css
+
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(14486);
+;// ./resources/js/components/sales/InvoiceSummaryTable.vue
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,componentNormalizer/* default */.A)(
+  sales_InvoiceSummaryTablevue_type_script_setup_true_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  "08f90a30",
+  null
+  
+)
+
+/* harmony default export */ const InvoiceSummaryTable = (component.exports);
+
+/***/ }),
+
 /***/ 90709:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
@@ -1211,151 +1356,6 @@ var component = (0,componentNormalizer/* default */.A)(
 )
 
 /* harmony default export */ const InfoAlert = (component.exports);
-
-/***/ }),
-
-/***/ 94895:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  A: () => (/* binding */ InvoiceSummaryTable)
-});
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/sales/InvoiceSummaryTable.vue?vue&type=template&id=08784666&scoped=true
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c,
-    _setup = _vm._self._setupProxy;
-  return _c('div', {
-    staticClass: "table-responsive table-custom table-border-y-0"
-  }, [_c('table', {
-    staticClass: "table invoices-table"
-  }, [_c('tbody', [_c('tr', {
-    staticClass: "text-bold"
-  }, [_c('th', [_vm._v("الإجمالي الفرعي:")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_setup.formatNumber(_vm.subtotal)) + " "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])])]), _vm._v(" "), _c('tr', {
-    staticClass: "text-bold"
-  }, [_c('th', [_vm._v("بعد الخصم:")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_setup.formatNumber(_vm.afterDiscount)) + " "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v("إجمالي الضريبة:")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_setup.formatNumber(_vm.totalTax)) + " "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])])]), _vm._v(" "), _vm.transport > 0 ? _c('tr', [_c('th', [_vm._v("النقل:")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_setup.formatNumber(_vm.transport)) + " "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])])]) : _vm._e(), _vm._v(" "), _c('tr', {
-    staticClass: "text-bold"
-  }, [_c('th', [_vm._v("الإجمالي الكلي:")]), _vm._v(" "), _c('td', [_vm._v("\n           \n          " + _vm._s(_setup.formatNumber(_vm.grandTotal)) + " "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v("إجمالي المدفوع:")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_setup.formatNumber(_vm.paidAmount)) + " "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])])]), _vm._v(" "), _c('tr', {
-    staticClass: "text-bold"
-  }, [_c('th', [_vm._v("المستحق:")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_setup.formatNumber(_vm.dueAmount)) + " "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])])])])])]);
-};
-var staticRenderFns = [];
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/sales/InvoiceSummaryTable.vue?vue&type=script&setup=true&lang=js
-/* harmony default export */ const InvoiceSummaryTablevue_type_script_setup_true_lang_js = ({
-  __name: 'InvoiceSummaryTable',
-  props: {
-    subtotal: {
-      type: Number,
-      "default": 0
-    },
-    afterDiscount: {
-      type: Number,
-      "default": 0
-    },
-    totalTax: {
-      type: Number,
-      "default": 0
-    },
-    transport: {
-      type: Number,
-      "default": 0
-    },
-    grandTotal: {
-      type: Number,
-      "default": 0
-    },
-    paidAmount: {
-      type: Number,
-      "default": 0
-    },
-    dueAmount: {
-      type: Number,
-      "default": 0
-    }
-  },
-  setup: function setup(__props) {
-    var props = __props;
-
-    /**
-     * Format number to 2 decimal places
-     */
-    var formatNumber = function formatNumber(value) {
-      if (value === null || value === undefined || isNaN(value)) {
-        return '0.00';
-      }
-      return parseFloat(value).toFixed(2);
-    };
-    return {
-      __sfc: true,
-      props: props,
-      formatNumber: formatNumber
-    };
-  }
-});
-;// ./resources/js/components/sales/InvoiceSummaryTable.vue?vue&type=script&setup=true&lang=js
- /* harmony default export */ const sales_InvoiceSummaryTablevue_type_script_setup_true_lang_js = (InvoiceSummaryTablevue_type_script_setup_true_lang_js); 
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-var injectStylesIntoStyleTag = __webpack_require__(85072);
-var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/sales/InvoiceSummaryTable.vue?vue&type=style&index=0&id=08784666&prod&scoped=true&lang=css
-var InvoiceSummaryTablevue_type_style_index_0_id_08784666_prod_scoped_true_lang_css = __webpack_require__(35053);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/sales/InvoiceSummaryTable.vue?vue&type=style&index=0&id=08784666&prod&scoped=true&lang=css
-
-            
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = injectStylesIntoStyleTag_default()(InvoiceSummaryTablevue_type_style_index_0_id_08784666_prod_scoped_true_lang_css/* default */.A, options);
-
-
-
-/* harmony default export */ const sales_InvoiceSummaryTablevue_type_style_index_0_id_08784666_prod_scoped_true_lang_css = (InvoiceSummaryTablevue_type_style_index_0_id_08784666_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/components/sales/InvoiceSummaryTable.vue?vue&type=style&index=0&id=08784666&prod&scoped=true&lang=css
-
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/components/sales/InvoiceSummaryTable.vue
-
-
-
-;
-
-
-/* normalize component */
-
-var component = (0,componentNormalizer/* default */.A)(
-  sales_InvoiceSummaryTablevue_type_script_setup_true_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  "08784666",
-  null
-  
-)
-
-/* harmony default export */ const InvoiceSummaryTable = (component.exports);
 
 /***/ })
 

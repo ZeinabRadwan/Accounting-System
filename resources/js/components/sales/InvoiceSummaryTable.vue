@@ -88,24 +88,27 @@ const formatNumber = (value) => {
 
 .invoices-table {
   border: 1px solid #CBD0DD;
-  border-radius: 10px;
-  padding: 15px 25px;
+  border-radius: 8px;
+  padding: 10px 15px;
   border-collapse: separate;
   border-spacing: 0;
   width: 100%;
+  font-size: 0.9rem;
 }
 
 .invoices-table tbody th {
   text-align: right;
-  padding: 8px 12px;
+  padding: 6px 10px;
   font-weight: 500;
   border: none;
+  font-size: 0.9rem;
 }
 
 .invoices-table tbody td {
   text-align: left;
-  padding: 8px 12px;
+  padding: 6px 10px;
   border: none;
+  font-size: 0.9rem;
 }
 
 .invoices-table tbody tr {

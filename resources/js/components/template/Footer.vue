@@ -132,7 +132,7 @@
       </div>
     </div>
     <div class="footer-btm">
-      <p v-if="appInfo && appInfo.copyright">{{ appInfo && appInfo.copyright }}</p>
+      <p>{{ $t('Copyright') }}</p>
     </div>
   </footer>
 </template>

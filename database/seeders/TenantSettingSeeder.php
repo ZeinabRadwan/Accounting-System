@@ -19,14 +19,14 @@ class TenantSettingSeeder extends Seeder
             // Fiscal Year and Accounting Period Settings
             'current_fiscal_year_id' => null,
             'current_accounting_period_id' => null,
-            
+
             // Country and Basic Settings
             'country' => 'SA',
-            
+
             // Tenant initialization settings
             'tenant_initialized' => '0',
             'system_type' => '',
-            
+
             // ZATCA Settings with professional defaults
             'zatca_organization_identifier' => '',
             'zatca_serial_number' => '',
@@ -44,7 +44,7 @@ class TenantSettingSeeder extends Seeder
             'zatca_private_key_path' => '',
             'zatca_compliance_status' => 'pending',
             'zatca_integration_complete' => '0',
-            
+
             // Company Information with professional defaults
             'company_name' => 'Arqam',
             'company_tagline' => 'Arqam',
@@ -52,7 +52,7 @@ class TenantSettingSeeder extends Seeder
             'phone_number' => '0555555555',
             'address' => 'Arqam',
             'client_prefix' => 'AC',
-            
+
             // Additional Basic Settings
             'supplier_prefix' => 'AS',
             'employee_prefix' => 'AE',
@@ -73,9 +73,12 @@ class TenantSettingSeeder extends Seeder
             'black_logo' => 'black_logo.png',
             'small_logo' => 'small_logo.png',
             'favicon' => 'favicon.png',
-            'copyright' => 'Copyright © 2024 All rights reserved.',
+            'copyright' => 'Copyright © 2026 All rights reserved.',
             'invoice_thank_you_message' => 'Thank you for your business!',
             'tax_registration_number' => '',
+            'default_client_slug' => 'walking-customer',
+            'default_account_slug' => '',
+            'default_vat_rate_slug' => '',
         ];
 
         foreach ($settingElements as $key => $value) {

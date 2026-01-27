@@ -103,7 +103,7 @@
                     label="name"
                     :class="{ 'is-invalid': form.errors.has('representative_id') }"
                     name="representative"
-                    :placeholder="$t('Select a sales representative')"
+                    :placeholder="$t('اختر مندوب مبيعات')"
                     @input="onRepresentativeChange"
                   />
                   <has-error :form="form" field="representative_id" />
@@ -117,7 +117,7 @@
                     label="name"
                     :class="{ 'is-invalid': form.errors.has('cashier_id') }"
                     name="cashier"
-                    :placeholder="$t('Select a cashier')"
+                    :placeholder="$t('اختر كاشير')"
                     @input="onCashierChange"
                   />
                   <has-error :form="form" field="cashier_id" />
@@ -125,7 +125,7 @@
               </div>
 
               <!-- Client Information Section -->
-              <div v-if="items">
+              <div>
                 <div class="row">
                   <div class="form-group col-12 col-md-6">
                     <label for="client"
@@ -136,7 +136,7 @@
                       <v-select
                         class="flex-grow-1"
                         v-model="form.client"
-                        :options="items"
+                        :options="items || []"
                         label="name"
                         :class="{ 'is-invalid': form.errors.has('client') }"
                         name="client"
@@ -206,7 +206,7 @@
                       id="current_date"
                       v-model="form.current_date"
                       type="date"
-                      class="form-control"
+                      class="form-control readonly-field"
                       :class="{ 'is-invalid': form.errors.has('current_date') }"
                       name="current_date"
                       readonly
@@ -355,104 +355,6 @@
                 @discount-change="calculateProductDiscount" @vat-change="calculateProductVat" @remove-item="removeItem"
                 @open-stock-modal="openStockAdjustmentModal" @edit-product="editProductFromTable" />
 
-              <!-- Financial Summary Section -->
-              <div
-                v-if="form.selectedProducts && form.selectedProducts.length > 0"
-                class="summary-footer-wrapper mt-4 mb-4"
-              >
-                <div class="summary-card">
-                  <div class="summary-header">
-                    <h6 class="summary-title">
-                      <i class="fas fa-calculator mr-2"></i>
-                      {{ $t("Summary") }}
-                    </h6>
-                  </div>
-                  <div class="summary-body">
-                    <div class="summary-row">
-                      <span class="summary-label">
-                        <i class="fas fa-boxes mr-2"></i>
-                        {{ $t("Number of Items") }}
-                      </span>
-                      <span class="summary-value">{{ numberOfItems }}</span>
-                    </div>
-                    
-                    <div class="summary-row">
-                      <span class="summary-label">
-                        <i class="fas fa-list-alt mr-2"></i>
-                        {{ $t("Subtotal") }}
-                      </span>
-                      <span class="summary-value">
-                        {{ formatToTwoDecimals(invoiceSubtotal) }}
-                        <span class="saudi-riyal">ê</span>
-                      </span>
-                    </div>
-
-                    <div
-                      v-if="invoiceLevelDiscountTotal > 0"
-                      class="summary-row summary-row-discount"
-                    >
-                      <span class="summary-label">
-                        <i class="fas fa-tag mr-2"></i>
-                        {{ $t("Total Discount") }}
-                      </span>
-                      <span class="summary-value text-danger">
-                        -{{ formatToTwoDecimals(invoiceLevelDiscountTotal) }}
-                        <span class="saudi-riyal">ê</span>
-                      </span>
-                    </div>
-
-                    <div
-                      v-if="shippingCostTotal > 0"
-                      class="summary-row"
-                    >
-                      <span class="summary-label">
-                        <i class="fas fa-truck mr-2"></i>
-                        {{ $t("Total Shipping Cost") }}
-                      </span>
-                      <span class="summary-value">
-                        {{ formatToTwoDecimals(shippingCostTotal) }}
-                        <span class="saudi-riyal">ê</span>
-                      </span>
-                    </div>
-
-                    <div class="summary-row summary-row-net">
-                      <span class="summary-label">
-                        <i class="fas fa-coins mr-2"></i>
-                        {{ $t("Net Amount") }}
-                      </span>
-                      <span class="summary-value">
-                        {{ formatToTwoDecimals(netAmountBeforeVAT) }}
-                        <span class="saudi-riyal">ê</span>
-                      </span>
-                    </div>
-
-                    <div class="summary-row">
-                      <span class="summary-label">
-                        <i class="fas fa-percentage mr-2"></i>
-                        {{ $t("VAT") }}
-                      </span>
-                      <span class="summary-value">
-                        {{ formatToTwoDecimals(vatAmount) }}
-                        <span class="saudi-riyal">ê</span>
-                      </span>
-                    </div>
-
-                    <div class="summary-row summary-row-total">
-                      <span class="summary-label">
-                        <i class="fas fa-money-bill-wave mr-2"></i>
-                        <strong>{{ $t("Grand Total") }}</strong>
-                      </span>
-                      <span class="summary-value summary-total">
-                        <strong>
-                          {{ formatToTwoDecimals(grandTotal) }}
-                          <span class="saudi-riyal">ê</span>
-                        </strong>
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
               <!-- Insufficient Stock Warning -->
               <div v-if="hasInsufficientStock" class="row mt-3 mb-3">
                 <div class="col-12">
@@ -502,7 +404,7 @@
                       id="totalTax"
                       v-model="form.totalTax"
                       type="text"
-                      class="form-control"
+                      class="form-control readonly-field"
                       :class="{ 'is-invalid': form.errors.has('totalTax') }"
                       name="totalTax"
                       readonly
@@ -511,9 +413,9 @@
                   </div>
                 </div>
 
-                <!-- Discount Section -->
+                <!-- Discount, Shipping Cost, and Amount Section -->
                 <div class="row mb-3">
-                  <div class="form-group col-12 col-md-6">
+                  <div class="form-group col-12 col-md-4">
                     <label for="discount_type">{{ $t("Discount Type") }}</label>
                     <div class="input-group">
                       <select
@@ -540,12 +442,14 @@
                         min="0"
                         :max="form.discountType == 1 ? 100 : form.subTotal"
                         class="form-control"
-                        :class="{ 'is-invalid': form.errors.has('discount') }"
+                        :class="{ 
+                          'is-invalid': form.errors.has('discount') || isDiscountExceedingTotal
+                        }"
                         name="discount"
                         :placeholder="$t('Enter discount')"
                         @change="calculateSum"
                         @keyup="calculateSum"
-                        @input="clearFieldError('discount')"
+                        @input="onDiscountInput"
                       />
                     </div>
                     <div
@@ -566,24 +470,18 @@
                         >{{ form.errors.get("discount") }}</span
                       >
                     </div>
+                    <!-- Discount Exceeds Total Error Alert -->
+                    <div
+                      v-if="isDiscountExceedingTotal"
+                      class="alert alert-danger mt-2"
+                      role="alert"
+                    >
+                      <i class="fas fa-exclamation-triangle mr-2"></i>
+                      <strong>{{ $t("Error") }}:</strong>
+                      {{ $t("Discount amount cannot exceed the invoice total amount") }}
+                    </div>
                   </div>
-                  <div class="form-group col-12 col-md-6">
-                    <label for="total_amount">{{ $t("Amount") }}</label>
-                    <input
-                      id="total_amount"
-                      :value="grandTotal"
-                      type="number"
-                      step="any"
-                      class="form-control"
-                      name="total_amount"
-                      readonly
-                    />
-                  </div>
-                </div>
-
-                <!-- Transport Cost Fields -->
-                <div class="row mb-3">
-                  <div class="form-group col-12 col-sm-6 col-md-4">
+                  <div class="form-group col-12 col-md-4">
                     <label for="transportCost">{{
                       $t("Transport Cost")
                     }}</label>
@@ -601,11 +499,23 @@
                       @input="clearFieldError('transportCost')"
                     />
                   </div>
-                  <!-- Transport Taxability Control -->
-                  <div
-                    v-if="Number(form.transportCost || 0) > 0"
-                    class="form-group col-12 col-sm-6 col-md-4"
-                  >
+                  <div class="form-group col-12 col-md-4">
+                    <label for="total_amount">{{ $t("Amount") }}</label>
+                    <input
+                      id="total_amount"
+                      :value="grandTotal"
+                      type="number"
+                      step="any"
+                      class="form-control form-control-sm readonly-field"
+                      name="total_amount"
+                      readonly
+                    />
+                  </div>
+                </div>
+
+                <!-- Transport Taxability Control -->
+                <div class="row mb-3" v-if="Number(form.transportCost || 0) > 0">
+                  <div class="form-group col-12 col-md-4">
                     <div class="transport-taxability-card">
                       <div class="transport-taxability-header">
                         <i
@@ -802,39 +712,7 @@
                 </div>
               </div>
 
-              <!-- Row 5: Discount Type + Total Amount (read-only) -->
-              <div class="row">
-                <div class="form-group col-md-6">
-                  <label for="discount_type">{{ $t("Discount Type") }}</label>
-                  <div class="input-group">
-                    <select id="discount_type" v-model="form.discount_type" class="form-control form-control-sm"
-                      style="width: 85px;" :class="{ 'is-invalid': form.errors.has('discount_type') }"
-                      name="discount_type" @change="calculateSum(); clearFieldError('discount_type')">
-                      <option value="fixed">{{ $t("Fixed") }}</option>
-                      <option value="percentage">{{ $t("%") }}</option>
-                    </select>
-                    <input id="discount_value" v-model="form.discount_value" type="number" step="any" min="0"
-                      :max="form.discount_type === 'percentage' ? 100 : form.netTotal"
-                      class="form-control form-control-sm" style="width: 80px;"
-                      :class="{ 'is-invalid': form.errors.has('discount_value') }" name="discount_value" placeholder="0"
-                      @change="calculateSum" @keyup="calculateSum" @input="clearFieldError('discount_value')" />
-                  </div>
-                  <div v-if="form.errors.has('discount_type') || form.errors.has('discount_value')"
-                    class="invalid-feedback d-block">
-                    <span v-if="form.errors.has('discount_type')" class="d-block">{{ form.errors.get('discount_type')
-                    }}</span>
-                    <span v-if="form.errors.has('discount_value')" class="d-block">{{ form.errors.get('discount_value')
-                    }}</span>
-                  </div>
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="total_amount">{{ $t("Amount") }}</label>
-                  <input id="total_amount" v-model="form.netTotal" type="number" step="any" class="form-control"
-                    name="total_amount" readonly />
-                </div>
-              </div>
-
-              <!-- Row 6: Payment Type Toggle -->
+              <!-- Row 5: Payment Type Toggle -->
               <div class="row">
                 <div class="form-group col-md-6">
                   <label>{{ $t("Payment Type") }} ({{ $t("نوع الدفع") }})</label>
@@ -850,30 +728,7 @@
                 </div>
               </div>
 
-              <!-- Row 7: Attachments -->
-              <div class="form-group">
-                <label for="attachments">{{ $t("Attachments") }}</label>
-                <input id="attachments" type="file" multiple class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('attachments') }" name="attachments"
-                  @change="onAttachmentChange" />
-                <has-error :form="form" field="attachments" />
-                <div v-if="form.attachments && form.attachments.length > 0" class="mt-2">
-                  <small class="text-muted">{{ $t("Selected files") }}:</small>
-                  <ul class="list-unstyled mt-1">
-                    <li v-for="(file, index) in form.attachments" :key="index"
-                      class="d-flex justify-content-between align-items-center mb-1">
-                      <span class="text-truncate" style="max-width: 70%;">
-                        <i class="fas fa-file mr-1"></i>{{ file.name }}
-                      </span>
-                      <button type="button" class="btn btn-sm btn-danger" @click="removeAttachment(index)">
-                        <i class="fas fa-times"></i>
-                      </button>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-
-              <!-- Row 8: Notes -->
+              <!-- Row 7: Notes -->
               <div class="form-group">
                 <label for="note">{{ $t("Notes") }}</label>
                 <textarea id="note" v-model="form.note" class="form-control"
@@ -881,6 +736,98 @@
                   @input="clearFieldError('note')" />
                 <has-error :form="form" field="note" />
               </div>
+
+              <!-- Row 8: Attachments -->
+              <div class="form-group">
+                <label for="attachments" class="mb-2">{{ $t("Attachments") }}</label>
+                <input id="attachments" type="file" multiple class="form-control form-control-sm"
+                  :class="{ 'is-invalid': form.errors.has('attachments') }" name="attachments"
+                  @change="onAttachmentChange" />
+                <has-error :form="form" field="attachments" />
+                <div v-if="form.attachments && form.attachments.length > 0" class="mt-2">
+                  <small class="text-muted d-block mb-1">{{ $t("Selected files") }}:</small>
+                  <ul class="list-unstyled mb-0">
+                    <li v-for="(file, index) in form.attachments" :key="index"
+                      class="d-flex justify-content-between align-items-center mb-1 py-1 px-2 bg-light rounded">
+                      <span class="text-truncate small" style="max-width: 70%;">
+                        <i class="fas fa-file mr-1"></i>{{ file.name }}
+                      </span>
+                      <button type="button" class="btn btn-sm btn-danger p-1" style="min-width: 28px;" @click="removeAttachment(index)">
+                        <i class="fas fa-times"></i>
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Financial Summary Section - Single Row -->
+              <div
+                v-if="form.selectedProducts && form.selectedProducts.length > 0"
+                class="summary-footer-wrapper mt-3 mb-3"
+              >
+                <div class="summary-card summary-card-horizontal">
+                  <div class="summary-row-horizontal">
+                    <div class="summary-item">
+                      <span class="summary-item-label">{{ $t("Items") }}</span>
+                      <span class="summary-item-value">{{ numberOfItems }}</span>
+                    </div>
+                    <div class="summary-divider"></div>
+                    <div class="summary-item">
+                      <span class="summary-item-label">{{ $t("Subtotal") }}</span>
+                      <span class="summary-item-value">
+                        {{ formatToTwoDecimals(invoiceSubtotal) }}
+                        <span class="saudi-riyal">ê</span>
+                      </span>
+                    </div>
+                    <div
+                      v-if="invoiceLevelDiscountTotal > 0"
+                      class="summary-divider"
+                    ></div>
+                    <div
+                      v-if="invoiceLevelDiscountTotal > 0"
+                      class="summary-item summary-item-discount"
+                    >
+                      <span class="summary-item-label">{{ $t("Discount") }}</span>
+                      <span class="summary-item-value text-danger">
+                        -{{ formatToTwoDecimals(invoiceLevelDiscountTotal) }}
+                        <span class="saudi-riyal">ê</span>
+                      </span>
+                    </div>
+                    <div
+                      v-if="shippingCostTotal > 0"
+                      class="summary-divider"
+                    ></div>
+                    <div
+                      v-if="shippingCostTotal > 0"
+                      class="summary-item"
+                    >
+                      <span class="summary-item-label">{{ $t("Shipping") }}</span>
+                      <span class="summary-item-value">
+                        {{ formatToTwoDecimals(shippingCostTotal) }}
+                        <span class="saudi-riyal">ê</span>
+                      </span>
+                    </div>
+                    <div class="summary-divider"></div>
+                    <div class="summary-item">
+                      <span class="summary-item-label">{{ $t("VAT") }}</span>
+                      <span class="summary-item-value">
+                        {{ formatToTwoDecimals(vatAmount) }}
+                        <span class="saudi-riyal">ê</span>
+                      </span>
+                    </div>
+                    <div class="summary-divider summary-divider-bold"></div>
+                    <div class="summary-item summary-item-total">
+                      <span class="summary-item-label"><strong>{{ $t("Grand Total") }}</strong></span>
+                      <span class="summary-item-value summary-total">
+                        <strong>
+                          {{ formatToTwoDecimals(grandTotal) }}
+                          <span class="saudi-riyal">ê</span>
+                        </strong>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>              
 
               <div class="form-group col-12 d-flex flex-wrap">
                 <div class="pr-5 d-flex align-items-center">
@@ -1386,6 +1333,29 @@ export default {
         : discountAmount;
     },
 
+    // Check if discount exceeds invoice total (before capping)
+    isDiscountExceedingTotal() {
+      const subtotal = this.invoiceSubtotal;
+      if (!this.form.discount || this.form.discount <= 0 || subtotal <= 0) {
+        return false;
+      }
+
+      let discountAmount = 0;
+      if (this.form.discountType == 1) {
+        // Percentage discount
+        discountAmount = this.roundToTwoDecimals(
+          (subtotal * this.form.discount) / 100
+        );
+      } else {
+        // Fixed discount
+        discountAmount = this.roundToTwoDecimals(
+          Number(this.form.discount)
+        );
+      }
+
+      return discountAmount > subtotal;
+    },
+
     // Gets transport amount
     shippingCostTotal() {
       const transportCost = Number(this.form.transportCost || 0);
@@ -1626,6 +1596,10 @@ export default {
 
     // Check if form is ready for submission
     isFormReady() {
+      // Block form submission if discount exceeds total
+      if (this.isDiscountExceedingTotal) {
+        return false;
+      }
       const basicRequirements = this.hasChartOfAccount &&
         this.allProductsHaveSalesAccounts &&
         this.hasBankAccountChartOfAccount &&
@@ -1777,28 +1751,28 @@ export default {
       }
     },
 
-    // Watch for changes in discount_type to sync with discountType
-    'form.discount_type': {
+    // Watch for changes in discountType to sync with discount_type (for backend compatibility)
+    'form.discountType': {
       handler(newVal) {
-        if (newVal) {
-          // Sync discount_type to discountType (0 = fixed, 1 = percentage)
-          const newDiscountType = newVal === 'percentage' ? 1 : 0;
-          if (this.form.discountType !== newDiscountType) {
-            this.form.discountType = newDiscountType;
+        if (newVal !== null && newVal !== undefined) {
+          // Sync discountType to discount_type (0 = fixed, 1 = percentage)
+          const newDiscountType = newVal == 1 ? 'percentage' : 'fixed';
+          if (this.form.discount_type !== newDiscountType) {
+            this.form.discount_type = newDiscountType;
           }
         }
       },
       immediate: true
     },
 
-    // Watch for changes in discount_value to sync with discount
-    'form.discount_value': {
+    // Watch for changes in discount to sync with discount_value (for backend compatibility)
+    'form.discount': {
       handler(newVal) {
         if (newVal !== null && newVal !== undefined) {
-          // Sync discount_value to discount
-          const newDiscount = parseFloat(newVal) || 0;
-          if (this.form.discount !== newDiscount) {
-            this.form.discount = newDiscount;
+          // Sync discount to discount_value
+          const newDiscountValue = parseFloat(newVal) || 0;
+          if (this.form.discount_value !== newDiscountValue) {
+            this.form.discount_value = newDiscountValue;
           }
         }
       },
@@ -1876,6 +1850,14 @@ export default {
                 this._reloadingClients = false;
               });
             }
+          } else if (hasClientProperties && !this.form.client) {
+            // If items are clients and no client is selected, select default client
+            this.$nextTick(() => {
+              const items = this.items || [];
+              if (items.length > 0) {
+                this.selectDefaultClient();
+              }
+            });
           }
         }
       },
@@ -1910,6 +1892,27 @@ export default {
     if (!this.form.current_date) {
       this.form.current_date = new Date().toISOString().slice(0, 10);
     }
+
+    // Set default cashier after temporary data is loaded (if not already set)
+    this.$nextTick(() => {
+      this.setDefaultCashier();
+    });
+
+    // Ensure default client is selected after everything is loaded
+    this.$nextTick(() => {
+      const items = this.items || [];
+      if (!this.form.client && items.length > 0) {
+        this.selectDefaultClient();
+      } else if (items.length === 0) {
+        // If items are not loaded yet, try again after a short delay
+        setTimeout(() => {
+          const retryItems = this.items || [];
+          if (!this.form.client && retryItems.length > 0) {
+            this.selectDefaultClient();
+          }
+        }, 500);
+      }
+    });
 
     // Ensure VAT calculations are up to date after component is mounted
     this.$nextTick(() => {
@@ -1982,6 +1985,8 @@ export default {
     // get all clients
     async getClients(selectedClient = 'default') {
       try {
+        console.log('[Invoice] Fetching clients from API...');
+        
         await this.$store.dispatch("operations/allData", {
           path: "/api/all-clients",
         });
@@ -1992,12 +1997,13 @@ export default {
         // Verify that items are actually clients (not categories or other data)
         // Clients should have properties like 'name', 'slug', and typically 'clientTotalAdvance' or 'email'
         // Categories would have different structure (e.g., 'sub_categories', 'note' as category-specific)
-        const items = this.items || [];
+        const currentItems = this.items || [];
+        console.log(`[Invoice] Loaded ${currentItems.length} items from store`);
 
         // Check if items look like clients
         // Clients typically have: name, slug, and may have clientTotalAdvance, email, phone
         // Categories typically have: name, slug, but may have sub_categories or different structure
-        const areClients = items.length === 0 || items.some(item => {
+        const areClients = currentItems.length === 0 || currentItems.some(item => {
           if (!item || typeof item !== 'object') return false;
 
           // Check for client-specific properties
@@ -2014,9 +2020,9 @@ export default {
           return item.name && item.slug && (hasClientProperties || !hasCategoryProperties);
         });
 
-        if (!areClients && items.length > 0) {
+        if (!areClients && currentItems.length > 0) {
           // If items don't look like clients, force reload
-          console.warn('Items do not appear to be clients, force reloading clients...');
+          console.warn('[Invoice] Items do not appear to be clients, force reloading clients...');
           // Clear the store first
           this.$store.commit('operations/FETCH_DATA', { items: { data: [] }, loading: false });
           // Then reload
@@ -2026,32 +2032,95 @@ export default {
           await this.$nextTick();
         }
 
-        if (!this.items || this.items.length === 0) return;
+        // Don't return early - allow the dropdown to show even if empty
+        // The default selection will happen below if items exist
+
+        // Get fresh items after potential reload
+        const finalItems = this.items || [];
+        console.log(`[Invoice] Final items count: ${finalItems.length}`);
+
+        // Check if Walking Customer exists in the list
+        const walkingCustomerExists = finalItems.some(item => item.slug === 'walking-customer');
+        if (!walkingCustomerExists && finalItems.length > 0) {
+          console.warn('[Invoice] ⚠️ Walking Customer not found in clients list!');
+          console.warn('[Invoice] Available client slugs:', finalItems.map(c => c.slug).join(', '));
+        } else if (walkingCustomerExists) {
+          console.log('[Invoice] ✅ Walking Customer found in clients list');
+        }
 
         // If explicitly requesting latest (e.g., after creating a client)
         if (selectedClient === 'latest') {
-          this.form.client = this.items[0];
+          if (finalItems.length > 0) {
+            this.form.client = finalItems[0];
+            console.log('[Invoice] Selected latest client:', finalItems[0].name);
+          }
           return;
         }
 
         // If a client was restored from temp or already selected, normalize to an option from items
         if (this.form.client && (this.form.client.id || this.form.client.slug)) {
+          console.log('[Invoice] Client already selected, normalizing selection');
           this.normalizeClientSelection();
           return;
         }
 
         // Otherwise, assign default client
-        if (this.items && this.items.length > 0) {
-          let defaultClientSlug = this.appInfo.defaultClientSlug;
-          const defaultClient = this.items.find(
+        // Ensure we have items before trying to select
+        if (finalItems.length > 0) {
+          // Wait for appInfo to be available
+          let retryCount = 0;
+          const maxRetries = 10;
+          while (!this.appInfo && retryCount < maxRetries) {
+            await this.$nextTick();
+            await new Promise(resolve => setTimeout(resolve, 100));
+            retryCount++;
+          }
+
+          // Try to get default client slug from appInfo, fallback to 'walking-customer'
+          let defaultClientSlug = (this.appInfo && this.appInfo.defaultClientSlug) 
+            ? this.appInfo.defaultClientSlug 
+            : 'walking-customer';
+          
+          console.log(`[Invoice] Looking for default client with slug: ${defaultClientSlug}`);
+          
+          const defaultClient = finalItems.find(
             (item) => item.slug === defaultClientSlug
           );
+          
           if (defaultClient) {
             this.form.client = defaultClient;
+            console.log(`[Invoice] ✅ Selected default client: ${defaultClient.name} (${defaultClient.slug})`);
+          } else {
+            // Fallback to Walking Customer if default client not found
+            console.warn(`[Invoice] Default client (${defaultClientSlug}) not found, trying Walking Customer...`);
+            const walkingCustomer = finalItems.find(
+              (item) => item.slug === 'walking-customer'
+            );
+            if (walkingCustomer) {
+              this.form.client = walkingCustomer;
+              console.log(`[Invoice] ✅ Selected Walking Customer as fallback: ${walkingCustomer.name}`);
+            } else {
+              // Last resort: select first available client
+              console.warn('[Invoice] ⚠️ Walking Customer not found! Selecting first available client.');
+              if (finalItems.length > 0) {
+                this.form.client = finalItems[0];
+                console.log(`[Invoice] Selected first available client: ${finalItems[0].name}`);
+              } else {
+                console.error('[Invoice] ❌ No clients available in the list!');
+              }
+            }
           }
+        } else {
+          console.error('[Invoice] ❌ No clients loaded from API!');
         }
       } catch (error) {
-        console.error('Error getting clients:', error);
+        console.error('[Invoice] ❌ Error getting clients:', error);
+        console.error('[Invoice] Error details:', {
+          message: error.message,
+          response: error.response?.data,
+          status: error.response?.status,
+          url: error.config?.url
+        });
 
         // Show error toast for client loading failures
         if (error.response?.status === 401) {
@@ -2087,6 +2156,22 @@ export default {
             timerProgressBar: true,
           });
         }
+
+        // Set empty array to prevent errors
+        this.$store.commit('operations/FETCH_DATA', { items: { data: [] }, loading: false });
+      } finally {
+        // Ensure default client is selected after clients are loaded
+        this.$nextTick(() => {
+          const items = this.items || [];
+          if (!this.form.client && items.length > 0) {
+            console.log('[Invoice] Finally block: Selecting default client...');
+            this.selectDefaultClient();
+          } else if (items.length === 0) {
+            console.warn('[Invoice] Finally block: No clients available to select');
+          } else if (this.form.client) {
+            console.log(`[Invoice] Finally block: Client already selected: ${this.form.client.name}`);
+          }
+        });
       }
     },
 
@@ -2140,6 +2225,74 @@ export default {
             timerProgressBar: true,
           });
         }
+      }
+    },
+
+    // Select default client (Walking Customer)
+    selectDefaultClient() {
+      const items = this.items || [];
+      if (items.length === 0) {
+        console.warn('[Invoice] selectDefaultClient: No clients available');
+        return;
+      }
+
+      // Skip if client is already selected
+      if (this.form.client && (this.form.client.id || this.form.client.slug)) {
+        console.log(`[Invoice] selectDefaultClient: Client already selected: ${this.form.client.name || this.form.client.slug}`);
+        return;
+      }
+
+      // Wait for appInfo to be available (with timeout)
+      let appInfoReady = false;
+      let retryCount = 0;
+      const maxRetries = 10;
+      
+      while (!this.appInfo && retryCount < maxRetries) {
+        this.$nextTick();
+        retryCount++;
+        if (retryCount >= maxRetries) {
+          console.warn('[Invoice] selectDefaultClient: appInfo not available after retries, using fallback');
+          break;
+        }
+      }
+
+      // Try to get default client slug from appInfo, fallback to 'walking-customer'
+      let defaultClientSlug = (this.appInfo && this.appInfo.defaultClientSlug) 
+        ? this.appInfo.defaultClientSlug 
+        : 'walking-customer';
+      
+      console.log(`[Invoice] selectDefaultClient: Looking for client with slug: ${defaultClientSlug}`);
+      console.log(`[Invoice] selectDefaultClient: Available slugs: ${items.map(c => c.slug).join(', ')}`);
+      
+      const defaultClient = items.find(
+        (item) => item.slug === defaultClientSlug
+      );
+      
+      if (defaultClient) {
+        this.form.client = defaultClient;
+        console.log(`[Invoice] selectDefaultClient: ✅ Selected default client: ${defaultClient.name} (${defaultClient.slug})`);
+        return;
+      }
+
+      // Fallback to Walking Customer if default client not found
+      console.warn(`[Invoice] selectDefaultClient: Default client (${defaultClientSlug}) not found, trying Walking Customer...`);
+      const walkingCustomer = items.find(
+        (item) => item.slug === 'walking-customer'
+      );
+      
+      if (walkingCustomer) {
+        this.form.client = walkingCustomer;
+        console.log(`[Invoice] selectDefaultClient: ✅ Selected Walking Customer: ${walkingCustomer.name}`);
+        return;
+      }
+
+      // Last resort: select first available client
+      console.warn('[Invoice] selectDefaultClient: ⚠️ Walking Customer not found! Selecting first available client.');
+      if (items.length > 0) {
+        this.form.client = items[0];
+        console.log(`[Invoice] selectDefaultClient: Selected first client: ${items[0].name} (${items[0].slug})`);
+      } else {
+        console.error('[Invoice] selectDefaultClient: ❌ No clients available!');
       }
     },
 
@@ -2392,24 +2545,40 @@ export default {
           this.employees = [];
         }
 
-        // Filter representatives (مندوب in Arabic, Sales Representative or Representative in English)
-        this.representatives = this.employees.filter(emp => {
-          const designation = (emp.designation || '').toLowerCase();
-          return designation === 'مندوب' ||
-            designation === 'sales representative' ||
-            designation === 'representative';
-        });
+        // Load all employees in both dropdowns regardless of roles or permissions
+        this.representatives = this.employees;
+        this.cashiers = this.employees;
 
-        // Filter cashiers (كاشير in Arabic, Cashier in English)
-        this.cashiers = this.employees.filter(emp => {
-          const designation = (emp.designation || '').toLowerCase();
-          return designation === 'كاشير' || designation === 'cashier';
-        });
+        // Set default cashier to currently logged-in user
+        this.setDefaultCashier();
       } catch (error) {
         console.error('Error getting employees:', error);
         this.employees = [];
         this.representatives = [];
         this.cashiers = [];
+      }
+    },
+
+    // Set default cashier to currently logged-in user
+    setDefaultCashier() {
+      // Only set default if cashier is not already set
+      if (this.form.cashier && this.form.cashier.id) {
+        return;
+      }
+
+      const user = this.$store.getters['auth/user'];
+      if (!user || !user.id) {
+        return;
+      }
+
+      // Find employee that matches the logged-in user
+      const currentUserEmployee = this.employees.find(emp => {
+        return emp.user && emp.user.id === user.id;
+      });
+
+      if (currentUserEmployee) {
+        this.form.cashier = currentUserEmployee;
+        this.form.cashier_id = currentUserEmployee.id;
       }
     },
 
@@ -2465,7 +2634,14 @@ export default {
           }
         }
 
-        this.branches = branchesData;
+        // Ensure branches have name property for display
+        this.branches = branchesData.map(branch => ({
+          id: branch.id,
+          name: branch.name || branch.label || `Branch ${branch.id}`,
+          slug: branch.slug,
+          code: branch.code,
+          ...branch
+        }));
       } catch (error) {
         console.error('Error getting branches:', error);
         this.branches = [];
@@ -2982,6 +3158,16 @@ export default {
       this.updateReactiveTotals();
 
       return;
+    },
+
+    // Handle discount input for real-time validation
+    onDiscountInput() {
+      // Clear any existing discount errors
+      this.clearFieldError('discount');
+      // Trigger calculation to update totals and validation
+      this.calculateSum();
+      // Force Vue to update the computed property
+      this.$forceUpdate();
     },
 
     // calculate sum
@@ -3513,15 +3699,15 @@ export default {
       }
     },
 
-    // Sync discount_type and discount_value to discountType and discount for backend compatibility
+    // Sync discountType and discount to discount_type and discount_value for backend compatibility
     syncDiscountFields() {
-      // Map discount_type ("fixed"/"percentage") to discountType (0/1)
-      if (this.form.discount_type) {
-        this.form.discountType = this.form.discount_type === 'percentage' ? 1 : 0;
+      // Map discountType (0/1) to discount_type ("fixed"/"percentage")
+      if (this.form.discountType !== null && this.form.discountType !== undefined) {
+        this.form.discount_type = this.form.discountType == 1 ? 'percentage' : 'fixed';
       }
-      // Map discount_value to discount
-      if (this.form.discount_value !== null && this.form.discount_value !== undefined) {
-        this.form.discount = parseFloat(this.form.discount_value) || 0;
+      // Map discount to discount_value
+      if (this.form.discount !== null && this.form.discount !== undefined) {
+        this.form.discount_value = parseFloat(this.form.discount) || 0;
       }
     },
 
@@ -4625,20 +4811,32 @@ export default {
     // Normalize form.client to an object from items by id/slug so v-select shows it
     normalizeClientSelection() {
       try {
-        if (!this.form.client || !this.items || this.items.length === 0) return;
+        const items = this.items || [];
+        if (!this.form.client || items.length === 0) {
+          console.warn('[Invoice] normalizeClientSelection: No client or items list available');
+          return;
+        }
         const current = this.form.client;
         let matched = null;
         if (current.id) {
-          matched = this.items.find(i => i.id === current.id);
+          matched = items.find(i => i.id === current.id);
+          if (matched) {
+            console.log(`[Invoice] normalizeClientSelection: Found client by ID: ${matched.name}`);
+          }
         }
         if (!matched && current.slug) {
-          matched = this.items.find(i => i.slug === current.slug);
+          matched = items.find(i => i.slug === current.slug);
+          if (matched) {
+            console.log(`[Invoice] normalizeClientSelection: Found client by slug: ${matched.name}`);
+          }
         }
         if (matched) {
           this.form.client = matched;
+        } else {
+          console.warn(`[Invoice] normalizeClientSelection: Could not find matching client for:`, current);
         }
       } catch (e) {
-        // silent
+        console.error('[Invoice] normalizeClientSelection error:', e);
       }
     },
 
@@ -4879,6 +5077,19 @@ export default {
       this.isSubmitting = true;
 
       try {
+        // Validate discount doesn't exceed invoice total
+        if (this.isDiscountExceedingTotal) {
+          event.preventDefault();
+          toast.fire({
+            type: "error",
+            title: this.$t("Validation Error"),
+            text: this.$t("Discount amount cannot exceed the invoice total amount"),
+            timer: 5000,
+            timerProgressBar: true,
+          });
+          return;
+        }
+
         // Validate payment fields first if payment is enabled
         if (this.form.addPayment == 1) {
           const paymentValidation = this.validatePaymentFields();
@@ -5112,13 +5323,13 @@ export default {
           // Normalize client selection to list option so v-select shows it
           this.normalizeClientSelection();
         } catch (error) {
-          console.error('Error loading temporary data:', error)
+          console.error('Error loading temporary data:', error);
         }
       }
     },
     // clear temporary data
     clearTemporaryData() {
-      localStorage.removeItem('invoiceTempData')
+      localStorage.removeItem('invoiceTempData');
     },
   },
 };
@@ -5571,6 +5782,150 @@ export default {
   margin-top: 10px;
 }
 
+/* Horizontal Summary Card Styles - Matching Quotation Page */
+.summary-card-horizontal {
+  padding: 12px 15px;
+}
+
+.summary-row-horizontal {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.summary-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 12px;
+  flex: 1;
+  min-width: 100px;
+}
+
+.summary-item-label {
+  font-size: 11px;
+  color: #6b7280;
+  font-weight: 500;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.summary-item-value {
+  font-size: 14px;
+  color: #111827;
+  font-weight: 600;
+  text-align: center;
+}
+
+.summary-item-discount .summary-item-value {
+  color: #dc2626;
+}
+
+.summary-item-total {
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  border-radius: 6px;
+  padding: 8px 15px;
+  margin: 0 -5px;
+}
+
+.summary-item-total .summary-item-label {
+  color: #1e40af;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.summary-item-total .summary-item-value {
+  color: #33a0d9;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.summary-divider {
+  width: 1px;
+  height: 40px;
+  background-color: #e5e7eb;
+  flex-shrink: 0;
+}
+
+.summary-divider-bold {
+  width: 2px;
+  background-color: #33a0d9;
+  height: 50px;
+}
+
+/* RTL Support for Horizontal Summary */
+[dir="rtl"] .summary-item {
+  direction: rtl;
+}
+
+/* Responsive Horizontal Summary */
+@media (max-width: 992px) {
+  .summary-row-horizontal {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .summary-item {
+    min-width: 80px;
+    padding: 0 8px;
+  }
+
+  .summary-divider {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .summary-card-horizontal {
+    padding: 10px 12px;
+  }
+
+  .summary-item {
+    min-width: 70px;
+    padding: 0 6px;
+  }
+
+  .summary-item-label {
+    font-size: 10px;
+  }
+
+  .summary-item-value {
+    font-size: 13px;
+  }
+
+  .summary-item-total {
+    width: 100%;
+    margin: 8px 0 0 0;
+    padding: 10px;
+  }
+
+  .summary-item-total .summary-item-value {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 576px) {
+  .summary-card-horizontal {
+    border-radius: 6px;
+  }
+
+  .summary-item {
+    min-width: 60px;
+    padding: 0 4px;
+  }
+
+  .summary-item-label {
+    font-size: 9px;
+  }
+
+  .summary-item-value {
+    font-size: 12px;
+  }
+}
+
 .summary-footer-row {
   background-color: #f8f9fa;
   border-top: 2px solid #dee2e6;
@@ -5663,6 +6018,7 @@ export default {
   border-radius: 0 !important;
   min-height: 50px !important;
   margin: 0 !important;
+  text-align: center;
 }
 
 .btn-primary {
@@ -5822,9 +6178,19 @@ export default {
   box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
 }
 
+.custom-qty-input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .custom-qty-input input.button-plus,
 .custom-qty-input input.button-minus {
   margin: 0 5px;
+}
+
+.fixed-qty-column {
+  text-align: center;
 }
 
 /* Enhanced Product Option Display */
@@ -6302,6 +6668,72 @@ export default {
   .transport-taxability-description {
     font-size: 12px;
     padding: 8px 10px;
+  }
+}
+
+/* Read-only Field Styling */
+.readonly-field {
+  background-color: #f8f9fa !important;
+  border-color: #dee2e6 !important;
+  color: #6c757d !important;
+  cursor: not-allowed !important;
+  font-weight: 500;
+}
+
+.readonly-field:focus {
+  background-color: #f8f9fa !important;
+  border-color: #dee2e6 !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* Amount Field Size Reduction */
+#total_amount {
+  max-width: 200px;
+}
+
+@media (max-width: 768px) {
+  #total_amount {
+    max-width: 100%;
+  }
+}
+
+/* Discount, Shipping Cost, and Amount Row Styling */
+.form-group.col-md-4 {
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+  .form-group.col-md-4 {
+    margin-bottom: 0;
+  }
+  
+  /* Ensure proper alignment in the three-column layout */
+  .form-group.col-md-4:first-child {
+    padding-right: 15px;
+  }
+  
+  .form-group.col-md-4:nth-child(2) {
+    padding-left: 7.5px;
+    padding-right: 7.5px;
+  }
+  
+  .form-group.col-md-4:last-child {
+    padding-left: 15px;
+  }
+}
+
+/* Responsive adjustments for the three-column layout */
+@media (max-width: 991px) {
+  .form-group.col-md-4 {
+    margin-bottom: 1rem;
+  }
+  
+  .form-group.col-md-4:first-child,
+  .form-group.col-md-4:nth-child(2),
+  .form-group.col-md-4:last-child {
+    padding-left: 15px;
+    padding-right: 15px;
   }
 }
 </style>

@@ -356,80 +356,51 @@
                 @discount-change="calculateProductDiscount" @vat-change="calculateProductVat" @remove-item="removeItem"
                 @open-stock-modal="openStockAdjustmentModal" @edit-product="editProductFromTable" />
 
-              <!-- Financial Summary Section -->
+              <!-- Financial Summary Section - Single Row -->
               <div
                 v-if="form.selectedProducts && form.selectedProducts.length > 0"
-                class="summary-footer-wrapper mt-4 mb-4"
+                class="summary-footer-wrapper mt-3 mb-3"
               >
-                <div class="summary-card">
-                  <div class="summary-header">
-                    <h6 class="summary-title">
-                      <i class="fas fa-calculator mr-2"></i>
-                      {{ $t("Summary") }}
-                    </h6>
-                  </div>
-                  <div class="summary-body">
-                    <div class="summary-row">
-                      <span class="summary-label">
-                        <i class="fas fa-boxes mr-2"></i>
-                        {{ $t("Number of Items") }}
-                      </span>
-                      <span class="summary-value">{{ numberOfItems }}</span>
+                <div class="summary-card summary-card-horizontal">
+                  <div class="summary-row-horizontal">
+                    <div class="summary-item">
+                      <span class="summary-item-label">{{ $t("Items") }}</span>
+                      <span class="summary-item-value">{{ numberOfItems }}</span>
                     </div>
-                    
-                    <div class="summary-row">
-                      <span class="summary-label">
-                        <i class="fas fa-list-alt mr-2"></i>
-                        {{ $t("Subtotal") }}
-                      </span>
-                      <span class="summary-value">
+                    <div class="summary-divider"></div>
+                    <div class="summary-item">
+                      <span class="summary-item-label">{{ $t("Subtotal") }}</span>
+                      <span class="summary-item-value">
                         {{ formatToTwoDecimals(invoiceSubtotal) }}
                         <span class="saudi-riyal">ê</span>
                       </span>
                     </div>
-
                     <div
                       v-if="invoiceLevelDiscountTotal > 0"
-                      class="summary-row summary-row-discount"
+                      class="summary-divider"
+                    ></div>
+                    <div
+                      v-if="invoiceLevelDiscountTotal > 0"
+                      class="summary-item summary-item-discount"
                     >
-                      <span class="summary-label">
-                        <i class="fas fa-tag mr-2"></i>
-                        {{ $t("Total Discount") }}
-                      </span>
-                      <span class="summary-value text-danger">
+                      <span class="summary-item-label">{{ $t("Discount") }}</span>
+                      <span class="summary-item-value text-danger">
                         -{{ formatToTwoDecimals(invoiceLevelDiscountTotal) }}
                         <span class="saudi-riyal">ê</span>
                       </span>
                     </div>
-
-                    <div class="summary-row summary-row-net">
-                      <span class="summary-label">
-                        <i class="fas fa-coins mr-2"></i>
-                        {{ $t("Net Amount") }}
-                      </span>
-                      <span class="summary-value">
-                        {{ formatToTwoDecimals(netAmountBeforeVAT) }}
-                        <span class="saudi-riyal">ê</span>
-                      </span>
-                    </div>
-
-                    <div class="summary-row">
-                      <span class="summary-label">
-                        <i class="fas fa-percentage mr-2"></i>
-                        {{ $t("VAT") }}
-                      </span>
-                      <span class="summary-value">
+                    <div class="summary-divider"></div>
+                    <div class="summary-item">
+                      <span class="summary-item-label">{{ $t("VAT") }}</span>
+                      <span class="summary-item-value">
                         {{ formatToTwoDecimals(vatAmount) }}
                         <span class="saudi-riyal">ê</span>
                       </span>
                     </div>
-
-                    <div class="summary-row summary-row-total">
-                      <span class="summary-label">
-                        <i class="fas fa-money-bill-wave mr-2"></i>
-                        <strong>{{ $t("Grand Total") }}</strong>
-                      </span>
-                      <span class="summary-value summary-total">
+                    <div class="summary-divider summary-divider-bold"></div>
+                    <div class="summary-item summary-item-total">
+                      <span class="summary-item-label"><strong>{{ $t("Grand Total") }}</strong></span>
+                      <span class="summary-item-value summary-total">
                         <strong>
                           {{ formatToTwoDecimals(grandTotal) }}
                           <span class="saudi-riyal">ê</span>
@@ -527,13 +498,25 @@
                         min="0"
                         :max="form.discountType == 1 ? 100 : form.subTotal"
                         class="form-control"
-                        :class="{ 'is-invalid': form.errors.has('discount') }"
+                        :class="{ 'is-invalid': form.errors.has('discount') || (form.discountType == 0 && form.discount > form.subTotal) }"
                         name="discount"
                         :placeholder="$t('Enter discount')"
                         @change="calculateSum"
                         @keyup="calculateSum"
                         @input="clearFieldError('discount')"
                       />
+                    </div>
+                    <!-- Validation message if discount exceeds total -->
+                    <div
+                      v-if="form.discountType == 0 && form.discount > form.subTotal && form.subTotal > 0"
+                      class="alert alert-warning mt-2 mb-0 py-2"
+                      role="alert"
+                    >
+                      <i class="fas fa-exclamation-triangle mr-2"></i>
+                      <small>
+                        <strong>{{ $t("Warning") }}:</strong> 
+                        {{ $t("Discount cannot exceed total price. Maximum allowed discount is") }} {{ formatToTwoDecimals(form.subTotal) }} <span class="saudi-riyal">ê</span>
+                      </small>
                     </div>
                     <div
                       v-if="
@@ -593,38 +576,6 @@
                     <option value="0">{{ $t("Inactive") }}</option>
                   </select>
                   <has-error :form="form" field="status" />
-                </div>
-              </div>
-
-              <!-- Row 5: Discount Type + Total Amount (read-only) -->
-              <div class="row">
-                <div class="form-group col-md-6">
-                  <label for="discount_type">{{ $t("Discount Type") }}</label>
-                  <div class="input-group">
-                    <select id="discount_type" v-model="form.discount_type" class="form-control form-control-sm"
-                      style="width: 85px;" :class="{ 'is-invalid': form.errors.has('discount_type') }"
-                      name="discount_type" @change="calculateSum(); clearFieldError('discount_type')">
-                      <option value="fixed">{{ $t("Fixed") }}</option>
-                      <option value="percentage">{{ $t("%") }}</option>
-                    </select>
-                    <input id="discount_value" v-model="form.discount_value" type="number" step="any" min="0"
-                      :max="form.discount_type === 'percentage' ? 100 : form.netTotal"
-                      class="form-control form-control-sm" style="width: 80px;"
-                      :class="{ 'is-invalid': form.errors.has('discount_value') }" name="discount_value" placeholder="0"
-                      @change="calculateSum" @keyup="calculateSum" @input="clearFieldError('discount_value')" />
-                  </div>
-                  <div v-if="form.errors.has('discount_type') || form.errors.has('discount_value')"
-                    class="invalid-feedback d-block">
-                    <span v-if="form.errors.has('discount_type')" class="d-block">{{ form.errors.get('discount_type')
-                    }}</span>
-                    <span v-if="form.errors.has('discount_value')" class="d-block">{{ form.errors.get('discount_value')
-                    }}</span>
-                  </div>
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="total_amount">{{ $t("Amount") }}</label>
-                  <input id="total_amount" v-model="form.netTotal" type="number" step="any" class="form-control"
-                    name="total_amount" readonly />
                 </div>
               </div>
 
@@ -953,12 +904,18 @@ export default {
   },
 
   async created() {
-    this.getClients();
-    this.getProducts();
-    this.getTaxes();
-    this.loadCommunicationConfigStatus();
+    // Load data in parallel for better performance
     this.prefix = this.appInfo.productPrefix;
     this.ensureDiscountProperties();
+    
+    // Load all required data in parallel
+    await Promise.all([
+      this.getClients(),
+      this.getProducts(),
+      this.getTaxes(),
+      this.loadCommunicationConfigStatus()
+    ]);
+    
     // Fetch quotation data after dependencies are loaded
     await this.$nextTick();
     await this.fetchQuotation();
@@ -1473,10 +1430,20 @@ export default {
       // Update form values for consistency with computed properties
       this.$set(this.form, 'subTotal', this.roundToTwoDecimals(this.subtotal));
       this.$set(this.form, 'productTotalTax', this.roundToTwoDecimals(this.totalProductTax));
-      this.$set(this.form, 'totalDiscount', this.roundToTwoDecimals(this.totalProductDiscount));
 
       // Sync discount fields before calculations
       this.syncDiscountFields();
+      
+      // Calculate quotation-level discount (if any)
+      const quotationLevelDiscount = this.invoiceLevelDiscountTotal;
+      
+      // Total discount = product-level discounts + quotation-level discount
+      // Ensure we don't duplicate discounts - product discounts are already in totalProductDiscount
+      const totalDiscount = this.roundToTwoDecimals(this.totalProductDiscount + quotationLevelDiscount);
+      
+      // Validate that total discount doesn't exceed subtotal
+      const validatedTotalDiscount = totalDiscount > this.subtotal ? this.roundToTwoDecimals(this.subtotal) : totalDiscount;
+      this.$set(this.form, 'totalDiscount', validatedTotalDiscount);
       
       // Global discount used ONLY for legacy quotation-level tax (orderTax)
       // NOTE: This is separate from the commercial quotation-level discount that we allocate proportionally.
@@ -1486,6 +1453,10 @@ export default {
           globalDiscount = this.roundToTwoDecimals((this.form.discount / 100) * this.form.subTotal);
         } else {
           globalDiscount = this.roundToTwoDecimals(Number(this.form.discount));
+        }
+        // Ensure global discount doesn't exceed subtotal
+        if (globalDiscount > this.form.subTotal) {
+          globalDiscount = this.roundToTwoDecimals(this.form.subTotal);
         }
       }
 
@@ -1499,12 +1470,6 @@ export default {
 
       // Total tax = product VAT + quotation-level tax
       this.$set(this.form, 'totalTax', this.roundToTwoDecimals(this.form.productTotalTax + this.form.invoiceTax));
-
-      // Apply commercial quotation-level discount (for allocation only)
-      // Business rule: quotation-level discount is applied on the QUOTATION SUBTOTAL (sum of qty × unit_price),
-      // not on a single line or on net/after-tax amounts.
-      // Use the computed invoiceLevelDiscountTotal which already handles the calculation correctly
-      const quotationLevelDiscount = this.invoiceLevelDiscountTotal;
 
       // Update netTotal to match the computed grandTotal
       // Grand total calculation is handled by the computed property (without transport)
@@ -1816,11 +1781,12 @@ export default {
           return;
         }
 
-        // Wait for taxes to be loaded before fetching quotation (needed for assignProducts)
+        // Ensure taxes are loaded (should already be loaded from created(), but check just in case)
         if (!this.taxes || this.taxes.length === 0) {
           await this.getTaxes();
         }
 
+        // Fetch quotation data
         const { data } = await axios.get(
           window.location.origin + "/api/quotations/" + slug
         );
@@ -2693,7 +2659,7 @@ export default {
   }
 }
 
-/* Summary Card Styles */
+/* Summary Card Styles - Single Row Layout */
 .summary-footer-wrapper {
   margin-top: 10px;
 }
@@ -2701,199 +2667,157 @@ export default {
 .summary-card {
   background: #ffffff;
   border: 1px solid #e5e7eb;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   overflow: hidden;
 }
 
-.summary-header {
-  background: linear-gradient(135deg, #33a0d9 0%, #2a8bc7 100%);
-  padding: 16px 20px;
-  border-bottom: 2px solid #2a8bc7;
+.summary-card-horizontal {
+  padding: 12px 15px;
 }
 
-.summary-title {
-  margin: 0;
-  color: #ffffff;
-  font-size: 16px;
-  font-weight: 600;
+.summary-row-horizontal {
   display: flex;
   align-items: center;
-}
-
-.summary-title i {
-  font-size: 18px;
-}
-
-.summary-body {
-  padding: 16px 20px;
-}
-
-.summary-row {
-  display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 12px 0;
-  border-bottom: 1px solid #f3f4f6;
-  transition: background-color 0.2s ease;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
-.summary-row:last-child {
-  border-bottom: none;
-}
-
-.summary-row:hover {
-  background-color: #f9fafb;
-  margin: 0 -20px;
-  padding-left: 20px;
-  padding-right: 20px;
-  border-radius: 4px;
-}
-
-.summary-row-net {
-  font-weight: 500;
-}
-
-.summary-row-discount {
-  background-color: #fef2f2;
-}
-
-.summary-row-discount:hover {
-  background-color: #fee2e2;
-}
-
-.summary-row-total {
-  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-  border-bottom: none;
-  margin-top: 12px;
-  padding: 16px 20px;
-  border-radius: 8px;
-  font-size: 18px;
-}
-
-.summary-row-total:hover {
-  background: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%);
-  margin: 12px -20px 0;
-  padding: 16px 20px;
-}
-
-.summary-label {
+.summary-item {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  font-size: 14px;
-  color: #374151;
-  font-weight: 500;
+  padding: 0 12px;
   flex: 1;
+  min-width: 100px;
 }
 
-.summary-label i {
+.summary-item-label {
+  font-size: 11px;
   color: #6b7280;
-  font-size: 14px;
-  width: 20px;
-  text-align: center;
+  font-weight: 500;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-.summary-value {
+.summary-item-value {
   font-size: 14px;
   color: #111827;
   font-weight: 600;
-  text-align: right;
-  min-width: 120px;
+  text-align: center;
+}
+
+.summary-item-discount .summary-item-value {
+  color: #dc2626;
+}
+
+.summary-item-total {
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  border-radius: 6px;
+  padding: 8px 15px;
+  margin: 0 -5px;
+}
+
+.summary-item-total .summary-item-label {
+  color: #1e40af;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.summary-item-total .summary-item-value {
+  color: #33a0d9;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.summary-divider {
+  width: 1px;
+  height: 40px;
+  background-color: #e5e7eb;
+  flex-shrink: 0;
+}
+
+.summary-divider-bold {
+  width: 2px;
+  background-color: #33a0d9;
+  height: 50px;
 }
 
 .summary-total {
-  font-size: 20px;
+  font-size: 16px;
   color: #33a0d9;
   font-weight: 700;
 }
 
 /* RTL Support for Summary Footer */
-[dir="rtl"] .summary-label i {
-  margin-left: 8px;
-  margin-right: 0;
-}
-
-[dir="rtl"] .summary-value {
-  text-align: left;
+[dir="rtl"] .summary-item {
+  direction: rtl;
 }
 
 /* Responsive Summary Footer */
-@media (max-width: 768px) {
-  .summary-header {
-    padding: 12px 16px;
-  }
-
-  .summary-title {
-    font-size: 14px;
-  }
-
-  .summary-body {
-    padding: 12px 16px;
-  }
-
-  .summary-row {
-    padding: 10px 0;
+@media (max-width: 992px) {
+  .summary-row-horizontal {
     flex-wrap: wrap;
+    justify-content: center;
   }
 
-  .summary-row:hover {
-    margin: 0 -16px;
-    padding-left: 16px;
-    padding-right: 16px;
+  .summary-item {
+    min-width: 80px;
+    padding: 0 8px;
   }
 
-  .summary-label {
+  .summary-divider {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .summary-card-horizontal {
+    padding: 10px 12px;
+  }
+
+  .summary-item {
+    min-width: 70px;
+    padding: 0 6px;
+  }
+
+  .summary-item-label {
+    font-size: 10px;
+  }
+
+  .summary-item-value {
     font-size: 13px;
-    margin-bottom: 4px;
+  }
+
+  .summary-item-total {
     width: 100%;
+    margin: 8px 0 0 0;
+    padding: 10px;
   }
 
-  .summary-value {
-    font-size: 13px;
-    width: 100%;
-    text-align: left;
-    min-width: auto;
-  }
-
-  .summary-row-total {
-    padding: 12px 16px;
-    font-size: 16px;
-  }
-
-  .summary-row-total:hover {
-    margin: 12px -16px 0;
-    padding: 12px 16px;
-  }
-
-  .summary-total {
+  .summary-item-total .summary-item-value {
     font-size: 18px;
-  }
-
-  [dir="rtl"] .summary-value {
-    text-align: right;
   }
 }
 
 @media (max-width: 576px) {
   .summary-card {
-    border-radius: 8px;
+    border-radius: 6px;
   }
 
-  .summary-header {
-    padding: 10px 12px;
+  .summary-item {
+    min-width: 60px;
+    padding: 0 4px;
   }
 
-  .summary-body {
-    padding: 10px 12px;
+  .summary-item-label {
+    font-size: 9px;
   }
 
-  .summary-row-total {
-    padding: 10px 12px;
-  }
-
-  .summary-row-total:hover {
-    margin: 12px -12px 0;
-    padding: 10px 12px;
+  .summary-item-value {
+    font-size: 12px;
   }
 }
 </style>

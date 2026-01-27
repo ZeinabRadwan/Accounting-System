@@ -63,14 +63,14 @@
                   <has-error :form="form" field="date" />
                 </div>
               </div>
-              <div class="row" v-if="clients">
+              <div class="row">
                 <div class="form-group col-md-6">
                   <label for="client">{{ $t("Client") }}
                     <span class="required">*</span></label>
                   <div class="row">
                     <div class="col">
                       <div class="d-flex w-100">
-                        <v-select class="flex-grow-1" v-model="form.client" :options="clients" label="name" :class="{
+                        <v-select class="flex-grow-1" v-model="form.client" :options="clients || []" label="name" :class="{
                           'is-invalid': form.errors.has('client'),
                           'rtl-select': isRTL
                         }" name="client" :placeholder="$t('Select a client')" />
@@ -356,80 +356,51 @@
                 @discount-change="calculateProductDiscount" @vat-change="calculateProductVat" @remove-item="removeItem"
                 @open-stock-modal="openStockAdjustmentModal" @edit-product="editProductFromTable" />
 
-              <!-- Financial Summary Section -->
+              <!-- Financial Summary Section - Single Row -->
               <div
                 v-if="form.selectedProducts && form.selectedProducts.length > 0"
-                class="summary-footer-wrapper mt-4 mb-4"
+                class="summary-footer-wrapper mt-3 mb-3"
               >
-                <div class="summary-card">
-                  <div class="summary-header">
-                    <h6 class="summary-title">
-                      <i class="fas fa-calculator mr-2"></i>
-                      {{ $t("Summary") }}
-                    </h6>
-                  </div>
-                  <div class="summary-body">
-                    <div class="summary-row">
-                      <span class="summary-label">
-                        <i class="fas fa-boxes mr-2"></i>
-                        {{ $t("Number of Items") }}
-                      </span>
-                      <span class="summary-value">{{ numberOfItems }}</span>
+                <div class="summary-card summary-card-horizontal">
+                  <div class="summary-row-horizontal">
+                    <div class="summary-item">
+                      <span class="summary-item-label">{{ $t("Items") }}</span>
+                      <span class="summary-item-value">{{ numberOfItems }}</span>
                     </div>
-                    
-                    <div class="summary-row">
-                      <span class="summary-label">
-                        <i class="fas fa-list-alt mr-2"></i>
-                        {{ $t("Subtotal") }}
-                      </span>
-                      <span class="summary-value">
+                    <div class="summary-divider"></div>
+                    <div class="summary-item">
+                      <span class="summary-item-label">{{ $t("Subtotal") }}</span>
+                      <span class="summary-item-value">
                         {{ formatToTwoDecimals(invoiceSubtotal) }}
                         <span class="saudi-riyal">ê</span>
                       </span>
                     </div>
-
                     <div
                       v-if="invoiceLevelDiscountTotal > 0"
-                      class="summary-row summary-row-discount"
+                      class="summary-divider"
+                    ></div>
+                    <div
+                      v-if="invoiceLevelDiscountTotal > 0"
+                      class="summary-item summary-item-discount"
                     >
-                      <span class="summary-label">
-                        <i class="fas fa-tag mr-2"></i>
-                        {{ $t("Total Discount") }}
-                      </span>
-                      <span class="summary-value text-danger">
+                      <span class="summary-item-label">{{ $t("Discount") }}</span>
+                      <span class="summary-item-value text-danger">
                         -{{ formatToTwoDecimals(invoiceLevelDiscountTotal) }}
                         <span class="saudi-riyal">ê</span>
                       </span>
                     </div>
-
-                    <div class="summary-row summary-row-net">
-                      <span class="summary-label">
-                        <i class="fas fa-coins mr-2"></i>
-                        {{ $t("Net Amount") }}
-                      </span>
-                      <span class="summary-value">
-                        {{ formatToTwoDecimals(netAmountBeforeVAT) }}
-                        <span class="saudi-riyal">ê</span>
-                      </span>
-                    </div>
-
-                    <div class="summary-row">
-                      <span class="summary-label">
-                        <i class="fas fa-percentage mr-2"></i>
-                        {{ $t("VAT") }}
-                      </span>
-                      <span class="summary-value">
+                    <div class="summary-divider"></div>
+                    <div class="summary-item">
+                      <span class="summary-item-label">{{ $t("VAT") }}</span>
+                      <span class="summary-item-value">
                         {{ formatToTwoDecimals(vatAmount) }}
                         <span class="saudi-riyal">ê</span>
                       </span>
                     </div>
-
-                    <div class="summary-row summary-row-total">
-                      <span class="summary-label">
-                        <i class="fas fa-money-bill-wave mr-2"></i>
-                        <strong>{{ $t("Grand Total") }}</strong>
-                      </span>
-                      <span class="summary-value summary-total">
+                    <div class="summary-divider summary-divider-bold"></div>
+                    <div class="summary-item summary-item-total">
+                      <span class="summary-item-label"><strong>{{ $t("Grand Total") }}</strong></span>
+                      <span class="summary-item-value summary-total">
                         <strong>
                           {{ formatToTwoDecimals(grandTotal) }}
                           <span class="saudi-riyal">ê</span>
@@ -527,12 +498,14 @@
                         min="0"
                         :max="form.discountType == 1 ? 100 : form.subTotal"
                         class="form-control"
-                        :class="{ 'is-invalid': form.errors.has('discount') }"
+                        :class="{ 
+                          'is-invalid': form.errors.has('discount') || isDiscountExceedingTotal
+                        }"
                         name="discount"
                         :placeholder="$t('Enter discount')"
                         @change="calculateSum"
                         @keyup="calculateSum"
-                        @input="clearFieldError('discount')"
+                        @input="onDiscountInput"
                       />
                     </div>
                     <div
@@ -552,6 +525,16 @@
                         class="d-block"
                         >{{ form.errors.get("discount") }}</span
                       >
+                    </div>
+                    <!-- Discount Exceeds Total Error Alert -->
+                    <div
+                      v-if="isDiscountExceedingTotal"
+                      class="alert alert-danger mt-2"
+                      role="alert"
+                    >
+                      <i class="fas fa-exclamation-triangle mr-2"></i>
+                      <strong>{{ $t("Error") }}:</strong>
+                      {{ $t("Discount amount cannot exceed the quotation total amount") }}
                     </div>
                   </div>
                   <div class="form-group col-12 col-md-6">
@@ -596,38 +579,6 @@
                 </div>
               </div>
 
-              <!-- Row 5: Discount Type + Total Amount (read-only) -->
-              <div class="row">
-                <div class="form-group col-md-6">
-                  <label for="discount_type">{{ $t("Discount Type") }}</label>
-                  <div class="input-group">
-                    <select id="discount_type" v-model="form.discount_type" class="form-control form-control-sm"
-                      style="width: 85px;" :class="{ 'is-invalid': form.errors.has('discount_type') }"
-                      name="discount_type" @change="calculateSum(); clearFieldError('discount_type')">
-                      <option value="fixed">{{ $t("Fixed") }}</option>
-                      <option value="percentage">{{ $t("%") }}</option>
-                    </select>
-                    <input id="discount_value" v-model="form.discount_value" type="number" step="any" min="0"
-                      :max="form.discount_type === 'percentage' ? 100 : form.netTotal"
-                      class="form-control form-control-sm" style="width: 80px;"
-                      :class="{ 'is-invalid': form.errors.has('discount_value') }" name="discount_value" placeholder="0"
-                      @change="calculateSum" @keyup="calculateSum" @input="clearFieldError('discount_value')" />
-                  </div>
-                  <div v-if="form.errors.has('discount_type') || form.errors.has('discount_value')"
-                    class="invalid-feedback d-block">
-                    <span v-if="form.errors.has('discount_type')" class="d-block">{{ form.errors.get('discount_type')
-                    }}</span>
-                    <span v-if="form.errors.has('discount_value')" class="d-block">{{ form.errors.get('discount_value')
-                    }}</span>
-                  </div>
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="total_amount">{{ $t("Amount") }}</label>
-                  <input id="total_amount" v-model="form.netTotal" type="number" step="any" class="form-control"
-                    name="total_amount" readonly />
-                </div>
-              </div>
-
               <!-- Row 8: Notes -->
               <div class="form-group">
                 <label for="note">{{ $t("Notes") }}</label>
@@ -663,7 +614,7 @@
             <div class="card-footer">
               <div class="dtable-footer">
                 <div class="form-group row display-per-page footer-buttons d-flex justify-content-between w-100">
-                  <v-button :loading="form.busy" type="success">
+                  <v-button :loading="form.busy" :disabled="isDiscountExceedingTotal" type="success">
                     <i class="fas fa-save" /> {{ $t("Save") }}
                   </v-button>
                   <button type="reset" class="btn btn-info ml-2" @click="form.reset()">
@@ -845,6 +796,29 @@ export default {
         : discountAmount;
     },
 
+    // Check if discount exceeds quotation total (before capping)
+    isDiscountExceedingTotal() {
+      const subtotal = this.invoiceSubtotal;
+      if (!this.form.discount || this.form.discount <= 0 || subtotal <= 0) {
+        return false;
+      }
+
+      let discountAmount = 0;
+      if (this.form.discountType == 1) {
+        // Percentage discount
+        discountAmount = this.roundToTwoDecimals(
+          (subtotal * this.form.discount) / 100
+        );
+      } else {
+        // Fixed discount
+        discountAmount = this.roundToTwoDecimals(
+          Number(this.form.discount)
+        );
+      }
+
+      return discountAmount > subtotal;
+    },
+
     // Calculate subtotal (reactive) - sum of line net_totals (line_total - discount)
     // Note: This is the sum of net amounts after discount, before VAT
     subtotal() {
@@ -948,6 +922,33 @@ export default {
     // Watch for any changes and ensure title stays correct
     '$route'() {
       this.setCorrectTitle();
+    },
+    // Watch for clients to be ready, then select default client
+    clients: {
+      handler(newClients, oldClients) {
+        const clients = newClients || [];
+        console.log(`[Quotation] Clients watcher: ${clients.length} clients available`);
+        
+        // Skip if clients haven't actually changed (prevent infinite loop)
+        if (oldClients && clients.length === oldClients.length &&
+          clients.length > 0 && oldClients.length > 0 &&
+          clients[0]?.id === oldClients[0]?.id) {
+          return;
+        }
+        
+        if (clients.length > 0 && !this.form.client) {
+          console.log('[Quotation] Clients watcher: Selecting default client...');
+          // Use a small delay to ensure appInfo is also loaded
+          setTimeout(() => {
+            this.selectDefaultClient();
+          }, 100);
+        } else if (clients.length === 0) {
+          console.warn('[Quotation] Clients watcher: No clients available');
+        } else if (this.form.client) {
+          console.log(`[Quotation] Clients watcher: Client already selected: ${this.form.client.name || this.form.client.slug}`);
+        }
+      },
+      immediate: false
     }
   },
 
@@ -987,32 +988,207 @@ export default {
     // get all clients
     async getClients(selectedClient = 'default') {
       try {
+        console.log('[Quotation] Fetching clients from API...');
+        
         const { data } = await axios.get(window.location.origin + "/api/all-clients");
         this.clients = data.data || [];
+        
+        console.log(`[Quotation] Loaded ${this.clients.length} clients from API`);
 
-        if (!this.clients || this.clients.length === 0) return;
+        // Check if Walking Customer exists in the list
+        const walkingCustomerExists = this.clients.some(item => item.slug === 'walking-customer');
+        if (!walkingCustomerExists && this.clients.length > 0) {
+          console.warn('[Quotation] ⚠️ Walking Customer not found in clients list!');
+          console.warn('[Quotation] Available client slugs:', this.clients.map(c => c.slug).join(', '));
+        } else if (walkingCustomerExists) {
+          console.log('[Quotation] ✅ Walking Customer found in clients list');
+        }
+
+        // Don't return early - allow the dropdown to show even if empty
+        // The default selection will happen below if clients exist
 
         // If explicitly requesting latest (e.g., after creating a client)
         if (selectedClient === 'latest') {
-          this.form.client = this.clients[0];
+          if (this.clients.length > 0) {
+            this.form.client = this.clients[0];
+            console.log('[Quotation] Selected latest client:', this.clients[0].name);
+          }
           return;
         }
 
         // If a client was restored from temp or already selected, normalize to an option from clients
         if (this.form.client && (this.form.client.id || this.form.client.slug)) {
+          console.log('[Quotation] Client already selected, normalizing selection');
           this.normalizeClientSelection();
           return;
         }
 
         // Otherwise, assign default client
-        let defaultClientSlug = this.appInfo.defaultClientSlug;
-        const defaultClient = this.clients.find((item) => item.slug === defaultClientSlug);
-        if (defaultClient) {
-          this.form.client = defaultClient;
+        // Ensure we have clients before trying to select
+        const clients = this.clients || [];
+        if (clients.length > 0) {
+          // Wait for appInfo to be available
+          let retryCount = 0;
+          const maxRetries = 10;
+          while (!this.appInfo && retryCount < maxRetries) {
+            await this.$nextTick();
+            await new Promise(resolve => setTimeout(resolve, 100));
+            retryCount++;
+          }
+
+          // Try to get default client slug from appInfo, fallback to 'walking-customer'
+          let defaultClientSlug = (this.appInfo && this.appInfo.defaultClientSlug) 
+            ? this.appInfo.defaultClientSlug 
+            : 'walking-customer';
+          
+          console.log(`[Quotation] Looking for default client with slug: ${defaultClientSlug}`);
+          
+          const defaultClient = clients.find((item) => item.slug === defaultClientSlug);
+          if (defaultClient) {
+            this.form.client = defaultClient;
+            console.log(`[Quotation] ✅ Selected default client: ${defaultClient.name} (${defaultClient.slug})`);
+          } else {
+            // Fallback to Walking Customer if default client not found
+            console.warn(`[Quotation] Default client (${defaultClientSlug}) not found, trying Walking Customer...`);
+            const walkingCustomer = clients.find((item) => item.slug === 'walking-customer');
+            if (walkingCustomer) {
+              this.form.client = walkingCustomer;
+              console.log(`[Quotation] ✅ Selected Walking Customer as fallback: ${walkingCustomer.name}`);
+            } else {
+              // Last resort: select first available client
+              console.warn('[Quotation] ⚠️ Walking Customer not found! Selecting first available client.');
+              if (clients.length > 0) {
+                this.form.client = clients[0];
+                console.log(`[Quotation] Selected first available client: ${clients[0].name}`);
+              } else {
+                console.error('[Quotation] ❌ No clients available in the list!');
+              }
+            }
+          }
+        } else {
+          console.error('[Quotation] ❌ No clients loaded from API!');
         }
       } catch (error) {
-        console.error('Error loading clients:', error);
+        console.error('[Quotation] ❌ Error loading clients:', error);
+        console.error('[Quotation] Error details:', {
+          message: error.message,
+          response: error.response?.data,
+          status: error.response?.status,
+          url: error.config?.url
+        });
+        
         this.clients = [];
+        
+        // Show error toast for client loading failures
+        if (error.response?.status === 401) {
+          toast.fire({
+            type: "error",
+            title: this.$t("Authentication Error"),
+            text: this.$t("You are not authorized to view clients. Please log in again."),
+            timer: 5000,
+            timerProgressBar: true,
+          });
+        } else if (error.response?.status === 403) {
+          toast.fire({
+            type: "error",
+            title: this.$t("Permission Error"),
+            text: this.$t("You don't have permission to view clients."),
+            timer: 5000,
+            timerProgressBar: true,
+          });
+        } else if (error.response?.status >= 500) {
+          toast.fire({
+            type: "error",
+            title: this.$t("Server Error"),
+            text: this.$t("Unable to load clients. Please try again later."),
+            timer: 5000,
+            timerProgressBar: true,
+          });
+        } else if (error.message) {
+          toast.fire({
+            type: "error",
+            title: this.$t("Client Loading Error"),
+            text: error.message,
+            timer: 5000,
+            timerProgressBar: true,
+          });
+        }
+      } finally {
+        // Ensure default client is selected after clients are loaded
+        this.$nextTick(() => {
+          const clients = this.clients || [];
+          if (!this.form.client && clients.length > 0) {
+            console.log('[Quotation] Finally block: Selecting default client...');
+            this.selectDefaultClient();
+          } else if (clients.length === 0) {
+            console.warn('[Quotation] Finally block: No clients available to select');
+          } else if (this.form.client) {
+            console.log(`[Quotation] Finally block: Client already selected: ${this.form.client.name}`);
+          }
+        });
+      }
+    },
+
+    // Select default client (Walking Customer)
+    selectDefaultClient() {
+      const clients = this.clients || [];
+      if (clients.length === 0) {
+        console.warn('[Quotation] selectDefaultClient: No clients available');
+        return;
+      }
+
+      // Skip if client is already selected
+      if (this.form.client && (this.form.client.id || this.form.client.slug)) {
+        console.log(`[Quotation] selectDefaultClient: Client already selected: ${this.form.client.name || this.form.client.slug}`);
+        return;
+      }
+
+      // Wait for appInfo to be available (with timeout)
+      let retryCount = 0;
+      const maxRetries = 10;
+      
+      while (!this.appInfo && retryCount < maxRetries) {
+        this.$nextTick();
+        retryCount++;
+        if (retryCount >= maxRetries) {
+          console.warn('[Quotation] selectDefaultClient: appInfo not available after retries, using fallback');
+          break;
+        }
+      }
+
+      // Try to get default client slug from appInfo, fallback to 'walking-customer'
+      let defaultClientSlug = (this.appInfo && this.appInfo.defaultClientSlug) 
+        ? this.appInfo.defaultClientSlug 
+        : 'walking-customer';
+      
+      console.log(`[Quotation] selectDefaultClient: Looking for client with slug: ${defaultClientSlug}`);
+      console.log(`[Quotation] selectDefaultClient: Available slugs: ${clients.map(c => c.slug).join(', ')}`);
+      
+      const defaultClient = clients.find((item) => item.slug === defaultClientSlug);
+      
+      if (defaultClient) {
+        this.form.client = defaultClient;
+        console.log(`[Quotation] selectDefaultClient: ✅ Selected default client: ${defaultClient.name} (${defaultClient.slug})`);
+        return;
+      }
+
+      // Fallback to Walking Customer if default client not found
+      console.warn(`[Quotation] selectDefaultClient: Default client (${defaultClientSlug}) not found, trying Walking Customer...`);
+      const walkingCustomer = clients.find((item) => item.slug === 'walking-customer');
+      
+      if (walkingCustomer) {
+        this.form.client = walkingCustomer;
+        console.log(`[Quotation] selectDefaultClient: ✅ Selected Walking Customer: ${walkingCustomer.name}`);
+        return;
+      }
+
+      // Last resort: select first available client
+      console.warn('[Quotation] selectDefaultClient: ⚠️ Walking Customer not found! Selecting first available client.');
+      if (clients.length > 0) {
+        this.form.client = clients[0];
+        console.log(`[Quotation] selectDefaultClient: Selected first client: ${clients[0].name} (${clients[0].slug})`);
+      } else {
+        console.error('[Quotation] selectDefaultClient: ❌ No clients available!');
       }
     },
 
@@ -1464,6 +1640,16 @@ export default {
       }
     },
 
+    // Handle discount input for real-time validation
+    onDiscountInput() {
+      // Clear any existing discount errors
+      this.clearFieldError('discount');
+      // Trigger calculation to update totals and validation
+      this.calculateSum();
+      // Force Vue to update the computed property
+      this.$forceUpdate();
+    },
+
     // calculate sum (aligned with invoice logic, without transport)
     calculateSum() {
       // Update form values for consistency with computed properties
@@ -1800,6 +1986,18 @@ export default {
     // save quotation
     async saveQuotation() {
       try {
+        // Validate discount doesn't exceed quotation total
+        if (this.isDiscountExceedingTotal) {
+          toast.fire({
+            type: "error",
+            title: this.$t("Validation Error"),
+            text: this.$t("Discount amount cannot exceed the quotation total amount"),
+            timer: 5000,
+            timerProgressBar: true,
+          });
+          return;
+        }
+
         // Sync discount fields before submission
         this.syncDiscountFields();
         
@@ -2112,26 +2310,53 @@ export default {
     // Normalize form.client to an object from clients by id/slug so v-select shows it
     normalizeClientSelection() {
       try {
-        if (!this.form.client || !this.clients || this.clients.length === 0) return;
+        if (!this.form.client || !this.clients || this.clients.length === 0) {
+          console.warn('[Quotation] normalizeClientSelection: No client or clients list available');
+          return;
+        }
         const current = this.form.client;
         let matched = null;
         if (current.id) {
           matched = this.clients.find(i => i.id === current.id);
+          if (matched) {
+            console.log(`[Quotation] normalizeClientSelection: Found client by ID: ${matched.name}`);
+          }
         }
         if (!matched && current.slug) {
           matched = this.clients.find(i => i.slug === current.slug);
+          if (matched) {
+            console.log(`[Quotation] normalizeClientSelection: Found client by slug: ${matched.name}`);
+          }
         }
         if (matched) {
           this.form.client = matched;
+        } else {
+          console.warn(`[Quotation] normalizeClientSelection: Could not find matching client for:`, current);
         }
       } catch (e) {
-        // silent
+        console.error('[Quotation] normalizeClientSelection error:', e);
       }
     },
   },
   mounted() {
     this.loadTemporaryData();
     this.setCorrectTitle();
+
+    // Ensure default client is selected after everything is loaded
+    this.$nextTick(() => {
+      const clients = this.clients || [];
+      if (!this.form.client && clients.length > 0) {
+        this.selectDefaultClient();
+      } else if (clients.length === 0) {
+        // If clients are not loaded yet, try again after a short delay
+        setTimeout(() => {
+          const retryClients = this.clients || [];
+          if (!this.form.client && retryClients.length > 0) {
+            this.selectDefaultClient();
+          }
+        }, 500);
+      }
+    });
 
     // Set up a periodic check to ensure title stays correct
     this.titleCheckInterval = setInterval(() => {
@@ -2543,7 +2768,7 @@ export default {
   }
 }
 
-/* Summary Card Styles */
+/* Summary Card Styles - Single Row Layout */
 .summary-footer-wrapper {
   margin-top: 10px;
 }
@@ -2551,199 +2776,157 @@ export default {
 .summary-card {
   background: #ffffff;
   border: 1px solid #e5e7eb;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   overflow: hidden;
 }
 
-.summary-header {
-  background: linear-gradient(135deg, #33a0d9 0%, #2a8bc7 100%);
-  padding: 16px 20px;
-  border-bottom: 2px solid #2a8bc7;
+.summary-card-horizontal {
+  padding: 12px 15px;
 }
 
-.summary-title {
-  margin: 0;
-  color: #ffffff;
-  font-size: 16px;
-  font-weight: 600;
+.summary-row-horizontal {
   display: flex;
   align-items: center;
-}
-
-.summary-title i {
-  font-size: 18px;
-}
-
-.summary-body {
-  padding: 16px 20px;
-}
-
-.summary-row {
-  display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 12px 0;
-  border-bottom: 1px solid #f3f4f6;
-  transition: background-color 0.2s ease;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
-.summary-row:last-child {
-  border-bottom: none;
-}
-
-.summary-row:hover {
-  background-color: #f9fafb;
-  margin: 0 -20px;
-  padding-left: 20px;
-  padding-right: 20px;
-  border-radius: 4px;
-}
-
-.summary-row-net {
-  font-weight: 500;
-}
-
-.summary-row-discount {
-  background-color: #fef2f2;
-}
-
-.summary-row-discount:hover {
-  background-color: #fee2e2;
-}
-
-.summary-row-total {
-  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-  border-bottom: none;
-  margin-top: 12px;
-  padding: 16px 20px;
-  border-radius: 8px;
-  font-size: 18px;
-}
-
-.summary-row-total:hover {
-  background: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%);
-  margin: 12px -20px 0;
-  padding: 16px 20px;
-}
-
-.summary-label {
+.summary-item {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  font-size: 14px;
-  color: #374151;
-  font-weight: 500;
+  padding: 0 12px;
   flex: 1;
+  min-width: 100px;
 }
 
-.summary-label i {
+.summary-item-label {
+  font-size: 11px;
   color: #6b7280;
-  font-size: 14px;
-  width: 20px;
-  text-align: center;
+  font-weight: 500;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-.summary-value {
+.summary-item-value {
   font-size: 14px;
   color: #111827;
   font-weight: 600;
-  text-align: right;
-  min-width: 120px;
+  text-align: center;
+}
+
+.summary-item-discount .summary-item-value {
+  color: #dc2626;
+}
+
+.summary-item-total {
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  border-radius: 6px;
+  padding: 8px 15px;
+  margin: 0 -5px;
+}
+
+.summary-item-total .summary-item-label {
+  color: #1e40af;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.summary-item-total .summary-item-value {
+  color: #33a0d9;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.summary-divider {
+  width: 1px;
+  height: 40px;
+  background-color: #e5e7eb;
+  flex-shrink: 0;
+}
+
+.summary-divider-bold {
+  width: 2px;
+  background-color: #33a0d9;
+  height: 50px;
 }
 
 .summary-total {
-  font-size: 20px;
+  font-size: 16px;
   color: #33a0d9;
   font-weight: 700;
 }
 
 /* RTL Support for Summary Footer */
-[dir="rtl"] .summary-label i {
-  margin-left: 8px;
-  margin-right: 0;
-}
-
-[dir="rtl"] .summary-value {
-  text-align: left;
+[dir="rtl"] .summary-item {
+  direction: rtl;
 }
 
 /* Responsive Summary Footer */
-@media (max-width: 768px) {
-  .summary-header {
-    padding: 12px 16px;
-  }
-
-  .summary-title {
-    font-size: 14px;
-  }
-
-  .summary-body {
-    padding: 12px 16px;
-  }
-
-  .summary-row {
-    padding: 10px 0;
+@media (max-width: 992px) {
+  .summary-row-horizontal {
     flex-wrap: wrap;
+    justify-content: center;
   }
 
-  .summary-row:hover {
-    margin: 0 -16px;
-    padding-left: 16px;
-    padding-right: 16px;
+  .summary-item {
+    min-width: 80px;
+    padding: 0 8px;
   }
 
-  .summary-label {
+  .summary-divider {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .summary-card-horizontal {
+    padding: 10px 12px;
+  }
+
+  .summary-item {
+    min-width: 70px;
+    padding: 0 6px;
+  }
+
+  .summary-item-label {
+    font-size: 10px;
+  }
+
+  .summary-item-value {
     font-size: 13px;
-    margin-bottom: 4px;
+  }
+
+  .summary-item-total {
     width: 100%;
+    margin: 8px 0 0 0;
+    padding: 10px;
   }
 
-  .summary-value {
-    font-size: 13px;
-    width: 100%;
-    text-align: left;
-    min-width: auto;
-  }
-
-  .summary-row-total {
-    padding: 12px 16px;
-    font-size: 16px;
-  }
-
-  .summary-row-total:hover {
-    margin: 12px -16px 0;
-    padding: 12px 16px;
-  }
-
-  .summary-total {
+  .summary-item-total .summary-item-value {
     font-size: 18px;
-  }
-
-  [dir="rtl"] .summary-value {
-    text-align: right;
   }
 }
 
 @media (max-width: 576px) {
   .summary-card {
-    border-radius: 8px;
+    border-radius: 6px;
   }
 
-  .summary-header {
-    padding: 10px 12px;
+  .summary-item {
+    min-width: 60px;
+    padding: 0 4px;
   }
 
-  .summary-body {
-    padding: 10px 12px;
+  .summary-item-label {
+    font-size: 9px;
   }
 
-  .summary-row-total {
-    padding: 10px 12px;
-  }
-
-  .summary-row-total:hover {
-    margin: 12px -12px 0;
-    padding: 10px 12px;
+  .summary-item-value {
+    font-size: 12px;
   }
 }
 </style>
