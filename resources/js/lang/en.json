@@ -2752,6 +2752,7 @@
 "Please enter a valid note.": "Please enter a valid note.",
 "The paid amount must be greater than 0.": "The paid amount must be greater than 0.",
 "The paid amount cannot exceed the due amount.": "The paid amount cannot exceed the due amount.",
+"Due Amount": "Due Amount",
 "Please enter a valid paid amount.": "Please enter a valid paid amount.",
 "Cancel Payment": "Cancel Payment",
 "Are you sure you want to cancel this payment? This will delete the related journal entries.": "Are you sure you want to cancel this payment? This will delete the related journal entries.",

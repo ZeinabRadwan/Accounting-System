@@ -3,34 +3,34 @@
     <table class="table invoices-table">
       <tbody>
         <tr class="text-bold">
-          <th>الإجمالي الفرعي:</th>
+          <th>{{ $t("Subtotal") }}:</th>
           <td>{{ formatNumber(subtotal) }} <span class="saudi-riyal">ê</span></td>
         </tr>
         <tr class="text-bold">
-          <th>بعد الخصم:</th>
+          <th>{{ $t("After Discount") }}:</th>
           <td>{{ formatNumber(afterDiscount) }} <span class="saudi-riyal">ê</span></td>
         </tr>
         <tr>
-          <th>إجمالي الضريبة:</th>
+          <th>{{ $t("Total Tax") }}:</th>
           <td>{{ formatNumber(totalTax) }} <span class="saudi-riyal">ê</span></td>
         </tr>
         <tr v-if="transport > 0">
-          <th>النقل:</th>
+          <th>{{ $t("Transport") }}:</th>
           <td>{{ formatNumber(transport) }} <span class="saudi-riyal">ê</span></td>
         </tr>
         <tr class="text-bold">
-          <th>الإجمالي الكلي:</th>
+          <th>{{ $t("Grand Total") }}:</th>
           <td>
              
             {{ formatNumber(grandTotal) }} <span class="saudi-riyal">ê</span>
           </td>
         </tr>
         <tr>
-          <th>إجمالي المدفوع:</th>
+          <th>{{ $t("Total Paid") }}:</th>
           <td>{{ formatNumber(paidAmount) }} <span class="saudi-riyal">ê</span></td>
         </tr>
         <tr class="text-bold">
-          <th>المستحق:</th>
+          <th>{{ $t("Due Amount") }}:</th>
           <td>{{ formatNumber(dueAmount) }} <span class="saudi-riyal">ê</span></td>
         </tr>
       </tbody>
@@ -38,46 +38,50 @@
   </div>
 </template>
 
-<script setup>
-const props = defineProps({
-  subtotal: {
-    type: Number,
-    default: 0,
+<script>
+export default {
+  name: 'InvoiceSummaryTable',
+  props: {
+    subtotal: {
+      type: Number,
+      default: 0,
+    },
+    afterDiscount: {
+      type: Number,
+      default: 0,
+    },
+    totalTax: {
+      type: Number,
+      default: 0,
+    },
+    transport: {
+      type: Number,
+      default: 0,
+    },
+    grandTotal: {
+      type: Number,
+      default: 0,
+    },
+    paidAmount: {
+      type: Number,
+      default: 0,
+    },
+    dueAmount: {
+      type: Number,
+      default: 0,
+    },
   },
-  afterDiscount: {
-    type: Number,
-    default: 0,
+  methods: {
+    /**
+     * Format number to 2 decimal places
+     */
+    formatNumber(value) {
+      if (value === null || value === undefined || isNaN(value)) {
+        return '0.00';
+      }
+      return parseFloat(value).toFixed(2);
+    },
   },
-  totalTax: {
-    type: Number,
-    default: 0,
-  },
-  transport: {
-    type: Number,
-    default: 0,
-  },
-  grandTotal: {
-    type: Number,
-    default: 0,
-  },
-  paidAmount: {
-    type: Number,
-    default: 0,
-  },
-  dueAmount: {
-    type: Number,
-    default: 0,
-  },
-});
-
-/**
- * Format number to 2 decimal places
- */
-const formatNumber = (value) => {
-  if (value === null || value === undefined || isNaN(value)) {
-    return '0.00';
-  }
-  return parseFloat(value).toFixed(2);
 };
 </script>
 
