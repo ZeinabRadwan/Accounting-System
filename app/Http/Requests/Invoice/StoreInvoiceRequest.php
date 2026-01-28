@@ -49,11 +49,17 @@ class StoreInvoiceRequest extends BaseRequest
             'paidAmount' => [
                 'nullable',
                 'required_if:addPayment,1',
-                Rule::when($this->input('addPayment') == 1, ['numeric', 'min:0.01', 'max:'.($this->input('netTotal', 0) + 0.01)]),
+                Rule::when($this->input('addPayment') == 1, ['numeric', 'min:0.01', 'max:' . ($this->input('netTotal', 0) + 0.01)]),
             ],
             'account' => [
                 'nullable',
                 'required_if:addPayment,1',
+                'required_if:isPaid,1',
+            ],
+            'payment_method_id' => [
+                'nullable',
+                'required_if:isPaid,1',
+                'exists:payment_methods,id',
             ],
             'chequeNo' => 'nullable|string|max:255',
             'receiptNo' => 'nullable|string|max:255',
