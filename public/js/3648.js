@@ -1,7 +1,45 @@
 "use strict";
 (self["webpackChunk"] = self["webpackChunk"] || []).push([[3648],{
 
-/***/ 20899:
+/***/ 25183:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".items-table-wrapper[data-v-7f512fbf]{display:block;margin-left:0;margin-right:0;width:100%}.table-custom[data-v-7f512fbf]{-webkit-overflow-scrolling:touch;border:none!important;overflow-x:auto;overflow-y:visible;width:100%}.table-custom table[data-v-7f512fbf]{border-collapse:separate;border-spacing:0;height:100%;min-width:100%;table-layout:auto;width:100%}.table-custom table thead th[data-v-7f512fbf]{background-color:#33a0d9;border:none!important;border-color:inherit!important;color:#fff;font-weight:400;padding:8px}.table-custom table thead tr[data-v-7f512fbf]{border:none!important}.table-custom table thead th[data-v-7f512fbf]:first-child{border-top-left-radius:10px}.table-custom table thead th[data-v-7f512fbf]:last-child{border-top-right-radius:10px}[dir=rtl] .table-custom table thead th[data-v-7f512fbf]:first-child{border-top-left-radius:0;border-top-right-radius:10px}[dir=rtl] .table-custom table thead th[data-v-7f512fbf]:last-child{border-top-left-radius:10px;border-top-right-radius:0}.custom-qty-input[data-v-7f512fbf]{align-items:center;display:flex;margin:0 auto;width:-moz-fit-content;width:fit-content}.button-minus[data-v-7f512fbf],.button-plus[data-v-7f512fbf]{align-items:center;border:none;border-radius:50%;cursor:pointer;display:flex;font-size:14px;font-weight:700;height:30px;justify-content:center;transition:all .2s ease;width:30px}.button-minus[data-v-7f512fbf]{background-color:#dc3545;color:#fff}.button-plus[data-v-7f512fbf]{background-color:#007bff;color:#fff}.button-minus[data-v-7f512fbf]:hover{background-color:#c82333;transform:scale(1.05)}.button-plus[data-v-7f512fbf]:hover{background-color:#0056b3;transform:scale(1.05)}.quantity-field[data-v-7f512fbf]{border:1px solid #ced4da;border-radius:5px;margin:0 5px;padding:5px;text-align:center;width:60px}.quantity-field[data-v-7f512fbf]:focus{border-color:#007bff;box-shadow:0 0 0 .2rem rgba(0,123,255,.25);outline:none}.clickable-badge[data-v-7f512fbf]{cursor:pointer;transition:all .3s ease;-webkit-user-select:none;-moz-user-select:none;user-select:none}.clickable-badge[data-v-7f512fbf]:hover{background-color:#c82333!important;box-shadow:0 2px 4px rgba(220,53,69,.3);transform:scale(1.05)}.clickable-badge[data-v-7f512fbf]:active{transform:scale(.95)}.insufficient-stock-input[data-v-7f512fbf]{background-color:#fff5f5!important;border:2px solid #dc3545!important;color:#dc3545!important}.insufficient-stock-input[data-v-7f512fbf]:focus{border-color:#dc3545!important;box-shadow:0 0 0 .2rem rgba(220,53,69,.25)!important}.table-custom table .badge.badge-danger[data-v-7f512fbf]{background:#fef4f4!important;color:#dc3545!important;font-size:12px!important;font-weight:500!important;padding:10px 16px}.table-custom table td.auto-width[data-v-7f512fbf]{min-width:0;white-space:nowrap;width:auto}.table-custom table td.fixed-qty-column[data-v-7f512fbf]{min-width:200px;width:auto}.table-custom table td.fixed-discount-column[data-v-7f512fbf]{min-width:180px;width:auto}.table-custom table td.fixed-vat-column[data-v-7f512fbf]{min-width:150px;width:auto}@media (max-width:768px){.table-custom[data-v-7f512fbf]{-webkit-overflow-scrolling:touch;display:block;overflow-x:auto;width:100%}.table-custom table[data-v-7f512fbf]{display:block;min-width:-moz-fit-content;min-width:fit-content;width:100%}.table-custom table thead[data-v-7f512fbf]{display:table-header-group}.table-custom table tbody[data-v-7f512fbf]{display:table-row-group}.table-custom table tr[data-v-7f512fbf]{display:table-row}.table-custom table td[data-v-7f512fbf],.table-custom table th[data-v-7f512fbf]{display:table-cell;white-space:nowrap}.table-custom table td.fixed-qty-column[data-v-7f512fbf]{min-width:200px}.table-custom table td.fixed-discount-column[data-v-7f512fbf]{min-width:180px}.table-custom table td.fixed-vat-column[data-v-7f512fbf]{min-width:150px}}@media (max-width:576px){.table-custom table[data-v-7f512fbf]{min-width:-moz-fit-content;min-width:fit-content}.table-custom table tbody td[data-v-7f512fbf],.table-custom table thead th[data-v-7f512fbf]{font-size:12px;padding:6px 4px}}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 26515:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".header-buttons[data-v-63d5e05d]{margin-bottom:15px}.footer-buttons[data-v-63d5e05d]{display:flex;gap:10px}.footer-buttons .btn[data-v-63d5e05d]{margin-right:10px}.footer-buttons .btn[data-v-63d5e05d]:last-child{margin-right:0}.create-btn[data-v-63d5e05d]{cursor:pointer;padding:11px;transition:background-color .2s ease}.create-btn[data-v-63d5e05d]:hover{background-color:#e9ecef}.edit-btn[data-v-63d5e05d]{background-color:#17a2b8!important;border-color:#17a2b8!important;color:#fff!important}.edit-btn[data-v-63d5e05d]:hover{background-color:#138496!important;border-color:#117a8b!important}.table-custom[data-v-63d5e05d]{border:none!important}.quotations-create-table[data-v-63d5e05d]{border-collapse:separate;border-spacing:0}.quotations-create-table thead th[data-v-63d5e05d]{background-color:#33a0d9;border:none!important;border-color:inherit!important;color:#fff;font-weight:400;padding:8px}.quotations-create-table thead tr[data-v-63d5e05d]{border:none!important}.quotations-create-table thead th[data-v-63d5e05d]:first-child{border-top-left-radius:10px}.quotations-create-table thead th[data-v-63d5e05d]:last-child{border-top-right-radius:10px}[dir=rtl] .quotations-create-table thead th[data-v-63d5e05d]:first-child{border-top-left-radius:0;border-top-right-radius:10px}[dir=rtl] .quotations-create-table thead th[data-v-63d5e05d]:last-child{border-top-left-radius:10px;border-top-right-radius:0}.btn-group.c-w-100[data-v-63d5e05d]{gap:10px}.card[data-v-63d5e05d]{border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:30px}.card-footer[data-v-63d5e05d]{background-color:#fff;border-radius:0 0 20px 20px;border-top:1px solid #ced4da;padding:0 1.25rem .625rem}.quotations-create-table .badge.badge-danger[data-v-63d5e05d]{background:#fef4f4!important;color:#dc3545!important;font-size:12px!important;font-weight:500!important;padding:10px 16px}.form-control[data-v-63d5e05d]{background:#fff!important}.btn-primary[data-v-63d5e05d]{background:#2ab930!important}.btn-secondary[data-v-63d5e05d]{background:#33a0d9!important;border:none!important;color:#fff!important;padding:10px 20px!important}.custom-qty-input[data-v-63d5e05d]{align-items:center;display:flex;margin:0 auto;width:-moz-fit-content;width:fit-content}.button-minus[data-v-63d5e05d],.button-plus[data-v-63d5e05d]{align-items:center;border:none;border-radius:50%;cursor:pointer;display:flex;font-size:12px;font-weight:700;height:24px;justify-content:center;transition:all .2s ease;width:24px}.button-minus[data-v-63d5e05d]{background-color:#dc3545;color:#fff}.button-plus[data-v-63d5e05d]{background-color:#007bff;color:#fff}.button-minus[data-v-63d5e05d]:hover{background-color:#c82333;transform:scale(1.05)}.button-plus[data-v-63d5e05d]:hover{background-color:#0056b3;transform:scale(1.05)}.quantity-field[data-v-63d5e05d]{border:1px solid #ced4da;border-radius:5px;margin:0 5px;padding:5px;text-align:center;width:60px}.quantity-field[data-v-63d5e05d]:focus{border-color:#007bff;box-shadow:0 0 0 .2rem rgba(0,123,255,.25);outline:none}[dir=rtl] .d-flex[data-v-63d5e05d]{direction:rtl}[dir=rtl] .create-btn[data-v-63d5e05d]{border-radius:.25rem 0 0 .25rem}[dir=ltr] .create-btn[data-v-63d5e05d]{border-radius:0 .25rem .25rem 0}[dir=rtl] .rtl-select .vs__dropdown-toggle[data-v-63d5e05d]{border-radius:.25rem 0 0 .25rem}[dir=ltr] .rtl-select .vs__dropdown-toggle[data-v-63d5e05d]{border-radius:.25rem}[dir=rtl] .flex-grow-1.rtl-select[data-v-63d5e05d]{border-right:none}[dir=ltr] .flex-grow-1.rtl-select[data-v-63d5e05d]{border-right:1px solid #ced4da}.clickable-badge[data-v-63d5e05d]{cursor:pointer;transition:all .3s ease;-webkit-user-select:none;-moz-user-select:none;user-select:none}.clickable-badge[data-v-63d5e05d]:hover{background-color:#c82333!important;box-shadow:0 2px 4px rgba(220,53,69,.3);transform:scale(1.05)}.clickable-badge[data-v-63d5e05d]:active{transform:scale(.95)}.insufficient-stock-input[data-v-63d5e05d]{background-color:#fff5f5!important;border:2px solid #dc3545!important;color:#dc3545!important}.insufficient-stock-input[data-v-63d5e05d]:focus{border-color:#dc3545!important;box-shadow:0 0 0 .2rem rgba(220,53,69,.25)!important}.debug-panel[data-v-63d5e05d]{border:2px solid #ffc107;border-radius:10px;box-shadow:0 4px 8px rgba(255,193,7,.2);display:none}.debug-panel .card-header[data-v-63d5e05d]{background:linear-gradient(45deg,#ffc107,#ffeb3b)!important;border-bottom:2px solid #ffc107;border-radius:8px 8px 0 0!important}.debug-item[data-v-63d5e05d]{background-color:#f8f9fa;border-left:4px solid #007bff!important;transition:all .3s ease}.debug-item[data-v-63d5e05d]:hover{background-color:#e9ecef;box-shadow:0 2px 4px rgba(0,0,0,.1);transform:translateY(-2px)}.debug-step[data-v-63d5e05d]{background-color:#fff;border:1px solid #dee2e6;border-radius:4px;font-family:Courier New,monospace;font-size:.9em;margin-bottom:8px;padding:4px 8px}.debug-summary[data-v-63d5e05d]{background-color:#f8f9fa;border:1px solid #dee2e6;border-radius:8px;padding:15px}.debug-summary ul li[data-v-63d5e05d]{border-bottom:1px solid #e9ecef;padding:4px 0}.debug-summary ul li[data-v-63d5e05d]:last-child{border-bottom:none}.debug-display[data-v-63d5e05d]{background:linear-gradient(135deg,#e3f2fd,#f3e5f5)!important;border:1px solid #bbdefb;font-family:Courier New,monospace}.debug-steps .step[data-v-63d5e05d]{background-color:#fff3cd;border:1px solid #ffeaa7;border-radius:6px;font-family:Courier New,monospace;font-size:.9em;margin-bottom:8px;padding:8px 12px}.debug-state[data-v-63d5e05d]{background-color:#f8f9fa;border:1px solid #dee2e6;border-radius:8px;padding:15px}.debug-state div[data-v-63d5e05d]{border-bottom:1px solid #e9ecef;padding:4px 0}.debug-state div[data-v-63d5e05d]:last-child{border-bottom:none}.debug-panel .table th[data-v-63d5e05d]{background-color:#f8f9fa;font-size:.85em;font-weight:600}.debug-panel .table td[data-v-63d5e05d]{font-size:.85em;vertical-align:middle}.debug-panel .table tbody tr[data-v-63d5e05d]:hover{background-color:#f8f9fa}@media (max-width:768px){.debug-panel .card-body[data-v-63d5e05d]{padding:15px}.debug-item .row[data-v-63d5e05d]{margin:0}.debug-item .col-md-6[data-v-63d5e05d]{padding:0 5px}.debug-step[data-v-63d5e05d]{font-size:.8em;padding:3px 6px}.debug-panel .table[data-v-63d5e05d]{font-size:.75em}}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 31961:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 
@@ -10,7 +48,7 @@ __webpack_require__.d(__webpack_exports__, {
   A: () => (/* binding */ ItemsTable)
 });
 
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemsTable.vue?vue&type=template&id=1cdc941e&scoped=true
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemsTable.vue?vue&type=template&id=7f512fbf&scoped=true
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -125,7 +163,7 @@ var render = function render() {
         "name": "quantity",
         "required": "",
         "min": "1",
-        "max": item.itemType == 'product' ? item.inventoryCount : item.maxQty || null,
+        "max": _vm.disableInventoryMaxRestriction ? null : item.itemType == 'product' ? item.inventoryCount : item.maxQty || null,
         "readonly": item.isFromQuotation,
         "placeholder": _vm.$t('Quantity')
       },
@@ -557,6 +595,10 @@ var staticRenderFns = [];
     showReturnPriceColumn: {
       type: Boolean,
       "default": false
+    },
+    disableInventoryMaxRestriction: {
+      type: Boolean,
+      "default": false
     }
   },
   methods: {
@@ -606,9 +648,9 @@ var staticRenderFns = [];
 // EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(85072);
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemsTable.vue?vue&type=style&index=0&id=1cdc941e&prod&scoped=true&lang=css
-var ItemsTablevue_type_style_index_0_id_1cdc941e_prod_scoped_true_lang_css = __webpack_require__(48128);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemsTable.vue?vue&type=style&index=0&id=1cdc941e&prod&scoped=true&lang=css
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemsTable.vue?vue&type=style&index=0&id=7f512fbf&prod&scoped=true&lang=css
+var ItemsTablevue_type_style_index_0_id_7f512fbf_prod_scoped_true_lang_css = __webpack_require__(25183);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemsTable.vue?vue&type=style&index=0&id=7f512fbf&prod&scoped=true&lang=css
 
             
 
@@ -617,12 +659,12 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = injectStylesIntoStyleTag_default()(ItemsTablevue_type_style_index_0_id_1cdc941e_prod_scoped_true_lang_css/* default */.A, options);
+var update = injectStylesIntoStyleTag_default()(ItemsTablevue_type_style_index_0_id_7f512fbf_prod_scoped_true_lang_css/* default */.A, options);
 
 
 
-/* harmony default export */ const components_ItemsTablevue_type_style_index_0_id_1cdc941e_prod_scoped_true_lang_css = (ItemsTablevue_type_style_index_0_id_1cdc941e_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/components/ItemsTable.vue?vue&type=style&index=0&id=1cdc941e&prod&scoped=true&lang=css
+/* harmony default export */ const components_ItemsTablevue_type_style_index_0_id_7f512fbf_prod_scoped_true_lang_css = (ItemsTablevue_type_style_index_0_id_7f512fbf_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/components/ItemsTable.vue?vue&type=style&index=0&id=7f512fbf&prod&scoped=true&lang=css
 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(14486);
@@ -641,50 +683,12 @@ var component = (0,componentNormalizer/* default */.A)(
   staticRenderFns,
   false,
   null,
-  "1cdc941e",
+  "7f512fbf",
   null
   
 )
 
 /* harmony default export */ const ItemsTable = (component.exports);
-
-/***/ }),
-
-/***/ 26515:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".header-buttons[data-v-63d5e05d]{margin-bottom:15px}.footer-buttons[data-v-63d5e05d]{display:flex;gap:10px}.footer-buttons .btn[data-v-63d5e05d]{margin-right:10px}.footer-buttons .btn[data-v-63d5e05d]:last-child{margin-right:0}.create-btn[data-v-63d5e05d]{cursor:pointer;padding:11px;transition:background-color .2s ease}.create-btn[data-v-63d5e05d]:hover{background-color:#e9ecef}.edit-btn[data-v-63d5e05d]{background-color:#17a2b8!important;border-color:#17a2b8!important;color:#fff!important}.edit-btn[data-v-63d5e05d]:hover{background-color:#138496!important;border-color:#117a8b!important}.table-custom[data-v-63d5e05d]{border:none!important}.quotations-create-table[data-v-63d5e05d]{border-collapse:separate;border-spacing:0}.quotations-create-table thead th[data-v-63d5e05d]{background-color:#33a0d9;border:none!important;border-color:inherit!important;color:#fff;font-weight:400;padding:8px}.quotations-create-table thead tr[data-v-63d5e05d]{border:none!important}.quotations-create-table thead th[data-v-63d5e05d]:first-child{border-top-left-radius:10px}.quotations-create-table thead th[data-v-63d5e05d]:last-child{border-top-right-radius:10px}[dir=rtl] .quotations-create-table thead th[data-v-63d5e05d]:first-child{border-top-left-radius:0;border-top-right-radius:10px}[dir=rtl] .quotations-create-table thead th[data-v-63d5e05d]:last-child{border-top-left-radius:10px;border-top-right-radius:0}.btn-group.c-w-100[data-v-63d5e05d]{gap:10px}.card[data-v-63d5e05d]{border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:30px}.card-footer[data-v-63d5e05d]{background-color:#fff;border-radius:0 0 20px 20px;border-top:1px solid #ced4da;padding:0 1.25rem .625rem}.quotations-create-table .badge.badge-danger[data-v-63d5e05d]{background:#fef4f4!important;color:#dc3545!important;font-size:12px!important;font-weight:500!important;padding:10px 16px}.form-control[data-v-63d5e05d]{background:#fff!important}.btn-primary[data-v-63d5e05d]{background:#2ab930!important}.btn-secondary[data-v-63d5e05d]{background:#33a0d9!important;border:none!important;color:#fff!important;padding:10px 20px!important}.custom-qty-input[data-v-63d5e05d]{align-items:center;display:flex;margin:0 auto;width:-moz-fit-content;width:fit-content}.button-minus[data-v-63d5e05d],.button-plus[data-v-63d5e05d]{align-items:center;border:none;border-radius:50%;cursor:pointer;display:flex;font-size:12px;font-weight:700;height:24px;justify-content:center;transition:all .2s ease;width:24px}.button-minus[data-v-63d5e05d]{background-color:#dc3545;color:#fff}.button-plus[data-v-63d5e05d]{background-color:#007bff;color:#fff}.button-minus[data-v-63d5e05d]:hover{background-color:#c82333;transform:scale(1.05)}.button-plus[data-v-63d5e05d]:hover{background-color:#0056b3;transform:scale(1.05)}.quantity-field[data-v-63d5e05d]{border:1px solid #ced4da;border-radius:5px;margin:0 5px;padding:5px;text-align:center;width:60px}.quantity-field[data-v-63d5e05d]:focus{border-color:#007bff;box-shadow:0 0 0 .2rem rgba(0,123,255,.25);outline:none}[dir=rtl] .d-flex[data-v-63d5e05d]{direction:rtl}[dir=rtl] .create-btn[data-v-63d5e05d]{border-radius:.25rem 0 0 .25rem}[dir=ltr] .create-btn[data-v-63d5e05d]{border-radius:0 .25rem .25rem 0}[dir=rtl] .rtl-select .vs__dropdown-toggle[data-v-63d5e05d]{border-radius:.25rem 0 0 .25rem}[dir=ltr] .rtl-select .vs__dropdown-toggle[data-v-63d5e05d]{border-radius:.25rem}[dir=rtl] .flex-grow-1.rtl-select[data-v-63d5e05d]{border-right:none}[dir=ltr] .flex-grow-1.rtl-select[data-v-63d5e05d]{border-right:1px solid #ced4da}.clickable-badge[data-v-63d5e05d]{cursor:pointer;transition:all .3s ease;-webkit-user-select:none;-moz-user-select:none;user-select:none}.clickable-badge[data-v-63d5e05d]:hover{background-color:#c82333!important;box-shadow:0 2px 4px rgba(220,53,69,.3);transform:scale(1.05)}.clickable-badge[data-v-63d5e05d]:active{transform:scale(.95)}.insufficient-stock-input[data-v-63d5e05d]{background-color:#fff5f5!important;border:2px solid #dc3545!important;color:#dc3545!important}.insufficient-stock-input[data-v-63d5e05d]:focus{border-color:#dc3545!important;box-shadow:0 0 0 .2rem rgba(220,53,69,.25)!important}.debug-panel[data-v-63d5e05d]{border:2px solid #ffc107;border-radius:10px;box-shadow:0 4px 8px rgba(255,193,7,.2);display:none}.debug-panel .card-header[data-v-63d5e05d]{background:linear-gradient(45deg,#ffc107,#ffeb3b)!important;border-bottom:2px solid #ffc107;border-radius:8px 8px 0 0!important}.debug-item[data-v-63d5e05d]{background-color:#f8f9fa;border-left:4px solid #007bff!important;transition:all .3s ease}.debug-item[data-v-63d5e05d]:hover{background-color:#e9ecef;box-shadow:0 2px 4px rgba(0,0,0,.1);transform:translateY(-2px)}.debug-step[data-v-63d5e05d]{background-color:#fff;border:1px solid #dee2e6;border-radius:4px;font-family:Courier New,monospace;font-size:.9em;margin-bottom:8px;padding:4px 8px}.debug-summary[data-v-63d5e05d]{background-color:#f8f9fa;border:1px solid #dee2e6;border-radius:8px;padding:15px}.debug-summary ul li[data-v-63d5e05d]{border-bottom:1px solid #e9ecef;padding:4px 0}.debug-summary ul li[data-v-63d5e05d]:last-child{border-bottom:none}.debug-display[data-v-63d5e05d]{background:linear-gradient(135deg,#e3f2fd,#f3e5f5)!important;border:1px solid #bbdefb;font-family:Courier New,monospace}.debug-steps .step[data-v-63d5e05d]{background-color:#fff3cd;border:1px solid #ffeaa7;border-radius:6px;font-family:Courier New,monospace;font-size:.9em;margin-bottom:8px;padding:8px 12px}.debug-state[data-v-63d5e05d]{background-color:#f8f9fa;border:1px solid #dee2e6;border-radius:8px;padding:15px}.debug-state div[data-v-63d5e05d]{border-bottom:1px solid #e9ecef;padding:4px 0}.debug-state div[data-v-63d5e05d]:last-child{border-bottom:none}.debug-panel .table th[data-v-63d5e05d]{background-color:#f8f9fa;font-size:.85em;font-weight:600}.debug-panel .table td[data-v-63d5e05d]{font-size:.85em;vertical-align:middle}.debug-panel .table tbody tr[data-v-63d5e05d]:hover{background-color:#f8f9fa}@media (max-width:768px){.debug-panel .card-body[data-v-63d5e05d]{padding:15px}.debug-item .row[data-v-63d5e05d]{margin:0}.debug-item .col-md-6[data-v-63d5e05d]{padding:0 5px}.debug-step[data-v-63d5e05d]{font-size:.8em;padding:3px 6px}.debug-panel .table[data-v-63d5e05d]{font-size:.75em}}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
-/***/ 48128:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".items-table-wrapper[data-v-1cdc941e]{display:block;margin-left:0;margin-right:0;width:100%}.table-custom[data-v-1cdc941e]{-webkit-overflow-scrolling:touch;border:none!important;overflow-x:auto;overflow-y:visible;width:100%}.table-custom table[data-v-1cdc941e]{border-collapse:separate;border-spacing:0;height:100%;min-width:100%;table-layout:auto;width:100%}.table-custom table thead th[data-v-1cdc941e]{background-color:#33a0d9;border:none!important;border-color:inherit!important;color:#fff;font-weight:400;padding:8px}.table-custom table thead tr[data-v-1cdc941e]{border:none!important}.table-custom table thead th[data-v-1cdc941e]:first-child{border-top-left-radius:10px}.table-custom table thead th[data-v-1cdc941e]:last-child{border-top-right-radius:10px}[dir=rtl] .table-custom table thead th[data-v-1cdc941e]:first-child{border-top-left-radius:0;border-top-right-radius:10px}[dir=rtl] .table-custom table thead th[data-v-1cdc941e]:last-child{border-top-left-radius:10px;border-top-right-radius:0}.custom-qty-input[data-v-1cdc941e]{align-items:center;display:flex;margin:0 auto;width:-moz-fit-content;width:fit-content}.button-minus[data-v-1cdc941e],.button-plus[data-v-1cdc941e]{align-items:center;border:none;border-radius:50%;cursor:pointer;display:flex;font-size:14px;font-weight:700;height:30px;justify-content:center;transition:all .2s ease;width:30px}.button-minus[data-v-1cdc941e]{background-color:#dc3545;color:#fff}.button-plus[data-v-1cdc941e]{background-color:#007bff;color:#fff}.button-minus[data-v-1cdc941e]:hover{background-color:#c82333;transform:scale(1.05)}.button-plus[data-v-1cdc941e]:hover{background-color:#0056b3;transform:scale(1.05)}.quantity-field[data-v-1cdc941e]{border:1px solid #ced4da;border-radius:5px;margin:0 5px;padding:5px;text-align:center;width:60px}.quantity-field[data-v-1cdc941e]:focus{border-color:#007bff;box-shadow:0 0 0 .2rem rgba(0,123,255,.25);outline:none}.clickable-badge[data-v-1cdc941e]{cursor:pointer;transition:all .3s ease;-webkit-user-select:none;-moz-user-select:none;user-select:none}.clickable-badge[data-v-1cdc941e]:hover{background-color:#c82333!important;box-shadow:0 2px 4px rgba(220,53,69,.3);transform:scale(1.05)}.clickable-badge[data-v-1cdc941e]:active{transform:scale(.95)}.insufficient-stock-input[data-v-1cdc941e]{background-color:#fff5f5!important;border:2px solid #dc3545!important;color:#dc3545!important}.insufficient-stock-input[data-v-1cdc941e]:focus{border-color:#dc3545!important;box-shadow:0 0 0 .2rem rgba(220,53,69,.25)!important}.table-custom table .badge.badge-danger[data-v-1cdc941e]{background:#fef4f4!important;color:#dc3545!important;font-size:12px!important;font-weight:500!important;padding:10px 16px}.table-custom table td.auto-width[data-v-1cdc941e]{min-width:0;white-space:nowrap;width:auto}.table-custom table td.fixed-qty-column[data-v-1cdc941e]{min-width:200px;width:auto}.table-custom table td.fixed-discount-column[data-v-1cdc941e]{min-width:180px;width:auto}.table-custom table td.fixed-vat-column[data-v-1cdc941e]{min-width:150px;width:auto}@media (max-width:768px){.table-custom[data-v-1cdc941e]{-webkit-overflow-scrolling:touch;display:block;overflow-x:auto;width:100%}.table-custom table[data-v-1cdc941e]{display:block;min-width:-moz-fit-content;min-width:fit-content;width:100%}.table-custom table thead[data-v-1cdc941e]{display:table-header-group}.table-custom table tbody[data-v-1cdc941e]{display:table-row-group}.table-custom table tr[data-v-1cdc941e]{display:table-row}.table-custom table td[data-v-1cdc941e],.table-custom table th[data-v-1cdc941e]{display:table-cell;white-space:nowrap}.table-custom table td.fixed-qty-column[data-v-1cdc941e]{min-width:200px}.table-custom table td.fixed-discount-column[data-v-1cdc941e]{min-width:180px}.table-custom table td.fixed-vat-column[data-v-1cdc941e]{min-width:150px}}@media (max-width:576px){.table-custom table[data-v-1cdc941e]{min-width:-moz-fit-content;min-width:fit-content}.table-custom table tbody td[data-v-1cdc941e],.table-custom table thead th[data-v-1cdc941e]{font-size:12px;padding:6px 4px}}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
 
 /***/ }),
 
@@ -1332,15 +1336,16 @@ var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
 // EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
 var vuex_esm = __webpack_require__(95353);
 // EXTERNAL MODULE: ./resources/js/components/ItemsTable.vue + 5 modules
-var ItemsTable = __webpack_require__(20899);
+var ItemsTable = __webpack_require__(31961);
 ;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/sales/returns/form.vue?vue&type=script&lang=js
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
@@ -1610,13 +1615,13 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
   },
   created: function created() {
     var _this = this;
-    return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-      return _regeneratorRuntime().wrap(function _callee$(_context) {
-        while (1) switch (_context.prev = _context.next) {
+    return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+      return _regenerator().w(function (_context) {
+        while (1) switch (_context.n) {
           case 0:
-            _context.next = 2;
+            _context.n = 1;
             return Promise.all([_this.getClients(), _this.getProducts(), _this.getAccounts(), _this.getTaxes()]);
-          case 2:
+          case 1:
             _this.prefix = _this.appInfo.productPrefix;
 
             // Set default status based on country
@@ -1625,9 +1630,8 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
             } else {
               _this.form.status = 1; // Active for other countries
             }
-          case 4:
-          case "end":
-            return _context.stop();
+          case 2:
+            return _context.a(2);
         }
       }, _callee);
     }))();
@@ -1636,17 +1640,16 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     // get all clients
     getClients: function getClients() {
       var _this2 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-          while (1) switch (_context2.prev = _context2.next) {
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+        return _regenerator().w(function (_context2) {
+          while (1) switch (_context2.n) {
             case 0:
-              _context2.next = 2;
+              _context2.n = 1;
               return _this2.$store.dispatch('operations/allData', {
                 path: '/api/all-clients'
               });
-            case 2:
-            case "end":
-              return _context2.stop();
+            case 1:
+              return _context2.a(2);
           }
         }, _callee2);
       }))();
@@ -1654,20 +1657,19 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     // get products
     getProducts: function getProducts() {
       var _this3 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
         var _yield$axios$get, data;
-        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-          while (1) switch (_context3.prev = _context3.next) {
+        return _regenerator().w(function (_context3) {
+          while (1) switch (_context3.n) {
             case 0:
-              _context3.next = 2;
+              _context3.n = 1;
               return axios_default().get(window.location.origin + '/api/all-products');
-            case 2:
-              _yield$axios$get = _context3.sent;
+            case 1:
+              _yield$axios$get = _context3.v;
               data = _yield$axios$get.data;
               _this3.products = data.data;
-            case 5:
-            case "end":
-              return _context3.stop();
+            case 2:
+              return _context3.a(2);
           }
         }, _callee3);
       }))();
@@ -1675,49 +1677,47 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     // get taxes
     getTaxes: function getTaxes() {
       var _this4 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
-        var _yield$axios$get2, data;
-        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
-          while (1) switch (_context4.prev = _context4.next) {
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
+        var _yield$axios$get2, data, _t;
+        return _regenerator().w(function (_context4) {
+          while (1) switch (_context4.p = _context4.n) {
             case 0:
-              _context4.prev = 0;
-              _context4.next = 3;
+              _context4.p = 0;
+              _context4.n = 1;
               return axios_default().get(window.location.origin + '/api/all-vat-rates');
-            case 3:
-              _yield$axios$get2 = _context4.sent;
+            case 1:
+              _yield$axios$get2 = _context4.v;
               data = _yield$axios$get2.data;
               _this4.taxes = data.data;
-              _context4.next = 12;
+              _context4.n = 3;
               break;
-            case 8:
-              _context4.prev = 8;
-              _context4.t0 = _context4["catch"](0);
-              console.error('Error getting taxes:', _context4.t0);
+            case 2:
+              _context4.p = 2;
+              _t = _context4.v;
+              console.error('Error getting taxes:', _t);
               _this4.taxes = [];
-            case 12:
-            case "end":
-              return _context4.stop();
+            case 3:
+              return _context4.a(2);
           }
-        }, _callee4, null, [[0, 8]]);
+        }, _callee4, null, [[0, 2]]);
       }))();
     },
     // get accounts
     getAccounts: function getAccounts() {
       var _this5 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
         var _yield$axios$get3, data;
-        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
-          while (1) switch (_context5.prev = _context5.next) {
+        return _regenerator().w(function (_context5) {
+          while (1) switch (_context5.n) {
             case 0:
-              _context5.next = 2;
+              _context5.n = 1;
               return axios_default().get(window.location.origin + '/api/all-accounts');
-            case 2:
-              _yield$axios$get3 = _context5.sent;
+            case 1:
+              _yield$axios$get3 = _context5.v;
               data = _yield$axios$get3.data;
               _this5.accounts = data.data;
-            case 5:
-            case "end":
-              return _context5.stop();
+            case 2:
+              return _context5.a(2);
           }
         }, _callee5);
       }))();
@@ -1725,34 +1725,34 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     // handle pre-selection from query parameters
     handlePreSelection: function handlePreSelection() {
       var _this6 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
-        var invoiceSlug, clientSlug, invoiceResponse, invoiceData, targetClientSlug, attempts, maxAttempts, selectedClient, selectedInvoice;
-        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
-          while (1) switch (_context6.prev = _context6.next) {
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
+        var invoiceSlug, clientSlug, invoiceResponse, invoiceData, targetClientSlug, attempts, maxAttempts, selectedClient, selectedInvoice, _t2;
+        return _regenerator().w(function (_context6) {
+          while (1) switch (_context6.p = _context6.n) {
             case 0:
               invoiceSlug = _this6.$route.query.invoice;
               clientSlug = _this6.$route.query.client;
               if (invoiceSlug) {
-                _context6.next = 4;
+                _context6.n = 1;
                 break;
               }
-              return _context6.abrupt("return");
-            case 4:
-              _context6.prev = 4;
+              return _context6.a(2);
+            case 1:
+              _context6.p = 1;
               console.log('Pre-selecting invoice:', invoiceSlug);
 
               // Step 1: Fetch the full invoice details
-              _context6.next = 8;
+              _context6.n = 2;
               return axios_default().get("/api/invoices/".concat(invoiceSlug));
-            case 8:
-              invoiceResponse = _context6.sent;
+            case 2:
+              invoiceResponse = _context6.v;
               if (!(!invoiceResponse.data || !invoiceResponse.data.data)) {
-                _context6.next = 12;
+                _context6.n = 3;
                 break;
               }
               console.warn('Invoice not found:', invoiceSlug);
-              return _context6.abrupt("return");
-            case 12:
+              return _context6.a(2);
+            case 3:
               invoiceData = invoiceResponse.data.data;
               console.log('Fetched invoice data:', invoiceData.id);
 
@@ -1762,82 +1762,82 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
                 targetClientSlug = invoiceData.client.slug || invoiceData.client.id;
               }
               if (targetClientSlug) {
-                _context6.next = 19;
+                _context6.n = 4;
                 break;
               }
               console.warn('No client found for invoice');
-              return _context6.abrupt("return");
-            case 19:
+              return _context6.a(2);
+            case 4:
               // Step 3: Wait for clients to be loaded
               attempts = 0;
               maxAttempts = 10;
-            case 21:
+            case 5:
               if (!(attempts < maxAttempts)) {
-                _context6.next = 29;
+                _context6.n = 8;
                 break;
               }
               if (!(_this6.items && Array.isArray(_this6.items) && _this6.items.length > 0)) {
-                _context6.next = 24;
+                _context6.n = 6;
                 break;
               }
-              return _context6.abrupt("break", 29);
-            case 24:
-              _context6.next = 26;
+              return _context6.a(3, 8);
+            case 6:
+              _context6.n = 7;
               return new Promise(function (resolve) {
                 return setTimeout(resolve, 200);
               });
-            case 26:
+            case 7:
               attempts++;
-              _context6.next = 21;
+              _context6.n = 5;
               break;
-            case 29:
+            case 8:
               if (!(!_this6.items || _this6.items.length === 0)) {
-                _context6.next = 32;
+                _context6.n = 9;
                 break;
               }
               console.warn('Clients not loaded yet');
-              return _context6.abrupt("return");
-            case 32:
+              return _context6.a(2);
+            case 9:
               // Step 4: Find and set the client
               selectedClient = _this6.items.find(function (client) {
                 return client.slug === targetClientSlug || client.id === targetClientSlug || invoiceData.client && (client.id === invoiceData.client.id || client.slug === invoiceData.client.slug);
               });
               if (selectedClient) {
-                _context6.next = 43;
+                _context6.n = 12;
                 break;
               }
               console.warn('Client not found:', targetClientSlug);
               // Try to use client from invoice data directly
               if (!invoiceData.client) {
-                _context6.next = 42;
+                _context6.n = 11;
                 break;
               }
               _this6.form.client = invoiceData.client;
-              _context6.next = 39;
+              _context6.n = 10;
               return _this6.assignInvoices();
-            case 39:
+            case 10:
               // Use invoice data directly
               _this6.form.invoice = invoiceData;
               _this6.storeProducts();
-              return _context6.abrupt("return");
-            case 42:
-              return _context6.abrupt("return");
-            case 43:
+              return _context6.a(2);
+            case 11:
+              return _context6.a(2);
+            case 12:
               console.log('Found client:', selectedClient.name);
               _this6.form.client = selectedClient;
 
               // Step 5: Load invoices for this client
-              _context6.next = 47;
+              _context6.n = 13;
               return _this6.assignInvoices();
-            case 47:
-              _context6.next = 49;
+            case 13:
+              _context6.n = 14;
               return _this6.$nextTick();
-            case 49:
-              _context6.next = 51;
+            case 14:
+              _context6.n = 15;
               return new Promise(function (resolve) {
                 return setTimeout(resolve, 300);
               });
-            case 51:
+            case 15:
               // Step 6: Find and select the invoice
               selectedInvoice = null;
               if (_this6.clientInvoices && _this6.clientInvoices.length > 0) {
@@ -1873,22 +1873,21 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
                 _this6.storeProducts();
               }
               console.log('Pre-selection completed successfully');
-              _context6.next = 61;
+              _context6.n = 17;
               break;
-            case 57:
-              _context6.prev = 57;
-              _context6.t0 = _context6["catch"](4);
-              console.error('Error in handlePreSelection:', _context6.t0);
+            case 16:
+              _context6.p = 16;
+              _t2 = _context6.v;
+              console.error('Error in handlePreSelection:', _t2);
               toast.fire({
                 type: 'error',
                 title: _this6.$t('Error'),
                 text: _this6.$t('Failed to load invoice. Please try again.')
               });
-            case 61:
-            case "end":
-              return _context6.stop();
+            case 17:
+              return _context6.a(2);
           }
-        }, _callee6, null, [[4, 57]]);
+        }, _callee6, null, [[1, 16]]);
       }))();
     },
     // update available balance
@@ -1935,9 +1934,9 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     // assign invoices
     assignInvoices: function assignInvoices() {
       var _this8 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
-        return _regeneratorRuntime().wrap(function _callee7$(_context7) {
-          while (1) switch (_context7.prev = _context7.next) {
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7() {
+        return _regenerator().w(function (_context7) {
+          while (1) switch (_context7.n) {
             case 0:
               _this8.form.selectedProducts = [];
               _this8.form.invoice = '';
@@ -1952,9 +1951,8 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
                 _this8.form.product = '';
                 _this8.form.client = '';
               }
-            case 3:
-            case "end":
-              return _context7.stop();
+            case 1:
+              return _context7.a(2);
           }
         }, _callee7);
       }))();
@@ -2356,19 +2354,19 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     // save return
     saveInvoiceReturn: function saveInvoiceReturn() {
       var _this1 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee8() {
         var _this1$form$invoice;
-        return _regeneratorRuntime().wrap(function _callee8$(_context8) {
-          while (1) switch (_context8.prev = _context8.next) {
+        return _regenerator().w(function (_context8) {
+          while (1) switch (_context8.n) {
             case 0:
               if (_this1.validateReturns()) {
-                _context8.next = 2;
+                _context8.n = 1;
                 break;
               }
-              return _context8.abrupt("return");
-            case 2:
+              return _context8.a(2);
+            case 1:
               if (!(!_this1.isSaudiArabia && _this1.form.returnAmount > 0 && !_this1.hasBankAccountChartOfAccount)) {
-                _context8.next = 5;
+                _context8.n = 2;
                 break;
               }
               toast.fire({
@@ -2386,14 +2384,14 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
                   _this1.goToBankAccounts();
                 }
               });
-              return _context8.abrupt("return");
-            case 5:
+              return _context8.a(2);
+            case 2:
               // Sync form fields with Calculation Summary just before save
               _this1.form.totalPaid = ((_this1$form$invoice = _this1.form.invoice) === null || _this1$form$invoice === void 0 ? void 0 : _this1$form$invoice.totalPaid) || 0;
               _this1.form.invoiceTax = _this1.form.newTax;
               _this1.form.newDue = _this1.form.invoiceDue;
               // invoiceTotal, invoiceDiscount and invoiceTransport are already current
-              _context8.next = 10;
+              _context8.n = 3;
               return _this1.form.post(window.location.origin + '/api/invoice-returns').then(function (_ref) {
                 var data = _ref.data;
                 if (_this1.isSaudiArabia) {
@@ -2423,9 +2421,8 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
                   title: _this1.$t('Please check your input and try again.')
                 });
               });
-            case 10:
-            case "end":
-              return _context8.stop();
+            case 3:
+              return _context8.a(2);
           }
         }, _callee8);
       }))();
@@ -2599,26 +2596,25 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
   },
   mounted: function mounted() {
     var _this10 = this;
-    return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
-      return _regeneratorRuntime().wrap(function _callee9$(_context9) {
-        while (1) switch (_context9.prev = _context9.next) {
+    return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee9() {
+      return _regenerator().w(function (_context9) {
+        while (1) switch (_context9.n) {
           case 0:
             _this10.loadTemporaryData();
             // Handle pre-selection from query parameters after component is mounted
             // Wait a bit to ensure data is loaded (clients, invoices, etc.)
-            _context9.next = 3;
+            _context9.n = 1;
             return _this10.$nextTick();
-          case 3:
-            _context9.next = 5;
+          case 1:
+            _context9.n = 2;
             return new Promise(function (resolve) {
               return setTimeout(resolve, 300);
             });
-          case 5:
-            _context9.next = 7;
+          case 2:
+            _context9.n = 3;
             return _this10.handlePreSelection();
-          case 7:
-          case "end":
-            return _context9.stop();
+          case 3:
+            return _context9.a(2);
         }
       }, _callee9);
     }))();

@@ -1299,12 +1299,98 @@ export default {
     },
 
     // Add payment to invoice
+    // Add payment to invoice
     addPayment() {
-      // Open payment modal
+      // Open payment modal instead of navigating
+      this.handlePaymentModal();
+    },
+
+    // Handle payment modal
+    handlePaymentModal() {
       if (!this.allData) {
+        console.error('Invoice data missing');
         return;
       }
+
+      console.log('Opening payment modal for invoice:', this.allData.id);
+
+      // Set invoice data
+      this.paymentForm.invoice_id = this.allData.id;
+      const dueAmount = this.calculateDueAmount;
+      // Set paid amount to total due amount as default
+      this.paymentForm.paidAmount = dueAmount > 0 ? dueAmount : 1;
+      this.paymentForm.status = this.allData.status === 0 ? 0 : 1;
+      this.paymentForm.payment_method_id = null; // Reset payment method
+
+      // Set default account if available
+      if (this.accounts && this.accounts.length > 0 && !this.paymentForm.account) {
+        let defaultAccountSlug = this.appInfo.defaultAccountSlug;
+        this.paymentForm.account = this.accounts.find(
+          (account) => account.slug == defaultAccountSlug
+        ) || this.accounts[0];
+      }
+
       this.showPaymentModal = true;
+    },
+
+    // Save payment
+    async savePayment() {
+      console.log('Saving payment for invoice:', this.paymentForm.invoice_id);
+      
+      if (!this.paymentForm.account || !this.paymentForm.account.id) {
+        this.$toast.error(
+          this.$t("Error"),
+          this.$t("Please select an account")
+        );
+        return;
+      }
+
+      // Prepare form data matching API expectations
+      const formData = {
+        invoice_id: this.paymentForm.invoice_id,
+        paidAmount: parseFloat(this.paymentForm.paidAmount),
+        account: this.paymentForm.account,
+        receiptNo: this.paymentForm.receiptNo || '',
+        date: this.paymentForm.paymentDate || new Date().toISOString().slice(0, 10),
+        note: this.paymentForm.note || '',
+        netTotal: this.calculateDueAmount,
+        isSendEmail: this.paymentForm.isSendEmail || false,
+        isSendSMS: this.paymentForm.isSendSMS || false,
+        payment_method_id: this.paymentForm.payment_method_id || null,
+      };
+
+      await axios
+        .post(window.location.origin + "/api/invoices-pay", formData)
+        .then(() => {
+          this.$toast.success(
+            this.$t("Success!"),
+            this.$t("Invoice payment added successfully")
+          );
+          this.showPaymentModal = false;
+          this.paymentForm.reset();
+          this.paymentForm.paymentDate = new Date().toISOString().slice(0, 10);
+          this.paymentForm.status = 1;
+          this.paymentForm.payment_method_id = null;
+          // Refresh invoice data to show updated payment
+          this.getInvoice();
+        })
+        .catch((error) => {
+          console.error("Payment Error:", error);
+          if (error.response && error.response.status === 422 && error.response.data && error.response.data.errors) {
+            const errors = error.response.data.errors;
+            this.paymentForm.errors.set(errors);
+            const messages = Object.values(errors).flat();
+            this.$toast.error(
+              this.$t('Validation Error'),
+              messages.join('\n')
+            );
+          } else {
+            this.$toast.error(
+              this.$t("Error"),
+              error.response?.data?.message || this.$t("Please check your input and try again.")
+            );
+          }
+        });
     },
 
     // Handle payment saved event from modal

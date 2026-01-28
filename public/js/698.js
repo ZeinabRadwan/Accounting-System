@@ -210,12 +210,13 @@ var sweetalert2_all = __webpack_require__(78465);
 var sweetalert2_all_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_all);
 ;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductForm.vue?vue&type=script&lang=js
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
@@ -359,13 +360,13 @@ var toast = sweetalert2_all_default().mixin({
     },
     loadData: function loadData() {
       var _this = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        return _regeneratorRuntime().wrap(function _callee$(_context) {
-          while (1) switch (_context.prev = _context.next) {
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+        return _regenerator().w(function (_context) {
+          while (1) switch (_context.n) {
             case 0:
-              _context.next = 2;
+              _context.n = 1;
               return Promise.all([_this.getSubCategories(), _this.getUnits(), _this.getTaxes(), _this.loadChartOfAccounts(), _this.loadAccountRoutingSettings()]);
-            case 2:
+            case 1:
               if (!_this.product) {
                 _this.getItemCode();
               } else {
@@ -374,9 +375,8 @@ var toast = sweetalert2_all_default().mixin({
                   _this.loadProductData(_this.product);
                 });
               }
-            case 3:
-            case "end":
-              return _context.stop();
+            case 2:
+              return _context.a(2);
           }
         }, _callee);
       }))();
@@ -394,9 +394,9 @@ var toast = sweetalert2_all_default().mixin({
     },
     submitForm: function submitForm() {
       var _this2 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-          while (1) switch (_context2.prev = _context2.next) {
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+        return _regenerator().w(function (_context2) {
+          while (1) switch (_context2.n) {
             case 0:
               console.log('ProductForm: submitForm called - EVENT RECEIVED!', {
                 isEditMode: !!_this2.product,
@@ -404,20 +404,19 @@ var toast = sweetalert2_all_default().mixin({
                 formErrors: _this2.form.errors.any()
               });
               if (!_this2.product) {
-                _context2.next = 6;
+                _context2.n = 2;
                 break;
               }
-              _context2.next = 4;
+              _context2.n = 1;
               return _this2.updateProduct();
-            case 4:
-              _context2.next = 8;
+            case 1:
+              _context2.n = 3;
               break;
-            case 6:
-              _context2.next = 8;
+            case 2:
+              _context2.n = 3;
               return _this2.saveProduct();
-            case 8:
-            case "end":
-              return _context2.stop();
+            case 3:
+              return _context2.a(2);
           }
         }, _callee2);
       }))();
@@ -450,100 +449,97 @@ var toast = sweetalert2_all_default().mixin({
     // get all product categories
     getSubCategories: function getSubCategories() {
       var _this3 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
-        var _yield$_this3$form$ge, data;
-        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-          while (1) switch (_context3.prev = _context3.next) {
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+        var _yield$_this3$form$ge, data, _t;
+        return _regenerator().w(function (_context3) {
+          while (1) switch (_context3.p = _context3.n) {
             case 0:
-              _context3.prev = 0;
-              _context3.next = 3;
+              _context3.p = 0;
+              _context3.n = 1;
               return _this3.form.get(window.location.origin + "/api/all-product-sub-categories");
-            case 3:
-              _yield$_this3$form$ge = _context3.sent;
+            case 1:
+              _yield$_this3$form$ge = _context3.v;
               data = _yield$_this3$form$ge.data;
               _this3.categories = data.data;
-              _context3.next = 11;
+              _context3.n = 3;
               break;
-            case 8:
-              _context3.prev = 8;
-              _context3.t0 = _context3["catch"](0);
-              console.error("Error fetching categories:", _context3.t0);
-            case 11:
-            case "end":
-              return _context3.stop();
+            case 2:
+              _context3.p = 2;
+              _t = _context3.v;
+              console.error("Error fetching categories:", _t);
+            case 3:
+              return _context3.a(2);
           }
-        }, _callee3, null, [[0, 8]]);
+        }, _callee3, null, [[0, 2]]);
       }))();
     },
     // get all brands
     getBrands: function getBrands() {
       var _this4 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
-        var _yield$axios$get, data;
-        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
-          while (1) switch (_context4.prev = _context4.next) {
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
+        var _yield$axios$get, data, _t2;
+        return _regenerator().w(function (_context4) {
+          while (1) switch (_context4.p = _context4.n) {
             case 0:
-              _context4.prev = 0;
-              _context4.next = 3;
+              _context4.p = 0;
+              _context4.n = 1;
               return axios_default().get(window.location.origin + "/api/all-brands");
-            case 3:
-              _yield$axios$get = _context4.sent;
+            case 1:
+              _yield$axios$get = _context4.v;
               data = _yield$axios$get.data;
               _this4.brands = data.data;
-              _context4.next = 11;
+              _context4.n = 3;
               break;
-            case 8:
-              _context4.prev = 8;
-              _context4.t0 = _context4["catch"](0);
-              console.error("Error fetching brands:", _context4.t0);
-            case 11:
-            case "end":
-              return _context4.stop();
+            case 2:
+              _context4.p = 2;
+              _t2 = _context4.v;
+              console.error("Error fetching brands:", _t2);
+            case 3:
+              return _context4.a(2);
           }
-        }, _callee4, null, [[0, 8]]);
+        }, _callee4, null, [[0, 2]]);
       }))();
     },
     // get all units
     getUnits: function getUnits() {
       var _this5 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
-        var _yield$axios$get2, data;
-        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
-          while (1) switch (_context5.prev = _context5.next) {
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
+        var _yield$axios$get2, data, _t3;
+        return _regenerator().w(function (_context5) {
+          while (1) switch (_context5.p = _context5.n) {
             case 0:
-              _context5.prev = 0;
-              _context5.next = 3;
+              _context5.p = 0;
+              _context5.n = 1;
               return axios_default().get(window.location.origin + "/api/all-units");
-            case 3:
-              _yield$axios$get2 = _context5.sent;
+            case 1:
+              _yield$axios$get2 = _context5.v;
               data = _yield$axios$get2.data;
               _this5.units = data.data;
-              _context5.next = 11;
+              _context5.n = 3;
               break;
-            case 8:
-              _context5.prev = 8;
-              _context5.t0 = _context5["catch"](0);
-              console.error("Error fetching units:", _context5.t0);
-            case 11:
-            case "end":
-              return _context5.stop();
+            case 2:
+              _context5.p = 2;
+              _t3 = _context5.v;
+              console.error("Error fetching units:", _t3);
+            case 3:
+              return _context5.a(2);
           }
-        }, _callee5, null, [[0, 8]]);
+        }, _callee5, null, [[0, 2]]);
       }))();
     },
     // get all taxes
     getTaxes: function getTaxes() {
       var _this6 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
-        var _yield$axios$get3, data, defaultVatRateSlug;
-        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
-          while (1) switch (_context6.prev = _context6.next) {
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
+        var _yield$axios$get3, data, defaultVatRateSlug, _t4;
+        return _regenerator().w(function (_context6) {
+          while (1) switch (_context6.p = _context6.n) {
             case 0:
-              _context6.prev = 0;
-              _context6.next = 3;
+              _context6.p = 0;
+              _context6.n = 1;
               return axios_default().get(window.location.origin + "/api/all-vat-rates");
-            case 3:
-              _yield$axios$get3 = _context6.sent;
+            case 1:
+              _yield$axios$get3 = _context6.v;
               data = _yield$axios$get3.data;
               _this6.taxes = data.data;
               // assign default vat rate
@@ -554,90 +550,87 @@ var toast = sweetalert2_all_default().mixin({
                 });
               }
               _this6.calculatePrice();
-              _context6.next = 13;
+              _context6.n = 3;
               break;
-            case 10:
-              _context6.prev = 10;
-              _context6.t0 = _context6["catch"](0);
-              console.error("Error fetching taxes:", _context6.t0);
-            case 13:
-            case "end":
-              return _context6.stop();
+            case 2:
+              _context6.p = 2;
+              _t4 = _context6.v;
+              console.error("Error fetching taxes:", _t4);
+            case 3:
+              return _context6.a(2);
           }
-        }, _callee6, null, [[0, 10]]);
+        }, _callee6, null, [[0, 2]]);
       }))();
     },
     // get item code
     getItemCode: function getItemCode() {
       var _this7 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
-        var _yield$axios$get4, data;
-        return _regeneratorRuntime().wrap(function _callee7$(_context7) {
-          while (1) switch (_context7.prev = _context7.next) {
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7() {
+        var _yield$axios$get4, data, _t5;
+        return _regenerator().w(function (_context7) {
+          while (1) switch (_context7.p = _context7.n) {
             case 0:
-              _context7.prev = 0;
-              _context7.next = 3;
+              _context7.p = 0;
+              _context7.n = 1;
               return axios_default().get(window.location.origin + "/api/generate-itemcode");
-            case 3:
-              _yield$axios$get4 = _context7.sent;
+            case 1:
+              _yield$axios$get4 = _context7.v;
               data = _yield$axios$get4.data;
               _this7.form.itemCode = data.code;
               _this7.prefix = data.prefix;
-              _context7.next = 12;
+              _context7.n = 3;
               break;
-            case 9:
-              _context7.prev = 9;
-              _context7.t0 = _context7["catch"](0);
-              console.error("Error fetching item code:", _context7.t0);
-            case 12:
-            case "end":
-              return _context7.stop();
+            case 2:
+              _context7.p = 2;
+              _t5 = _context7.v;
+              console.error("Error fetching item code:", _t5);
+            case 3:
+              return _context7.a(2);
           }
-        }, _callee7, null, [[0, 9]]);
+        }, _callee7, null, [[0, 2]]);
       }))();
     },
     // Load chart of accounts
     loadChartOfAccounts: function loadChartOfAccounts() {
       var _this8 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
-        var _yield$axios$get5, data;
-        return _regeneratorRuntime().wrap(function _callee8$(_context8) {
-          while (1) switch (_context8.prev = _context8.next) {
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee8() {
+        var _yield$axios$get5, data, _t6;
+        return _regenerator().w(function (_context8) {
+          while (1) switch (_context8.p = _context8.n) {
             case 0:
-              _context8.prev = 0;
-              _context8.next = 3;
+              _context8.p = 0;
+              _context8.n = 1;
               return axios_default().get(window.location.origin + "/api/products/chart-of-accounts");
-            case 3:
-              _yield$axios$get5 = _context8.sent;
+            case 1:
+              _yield$axios$get5 = _context8.v;
               data = _yield$axios$get5.data;
               _this8.chartOfAccounts = data || [];
-              _context8.next = 12;
+              _context8.n = 3;
               break;
-            case 8:
-              _context8.prev = 8;
-              _context8.t0 = _context8["catch"](0);
-              console.error("Error loading chart of accounts:", _context8.t0);
+            case 2:
+              _context8.p = 2;
+              _t6 = _context8.v;
+              console.error("Error loading chart of accounts:", _t6);
               _this8.chartOfAccounts = [];
-            case 12:
-            case "end":
-              return _context8.stop();
+            case 3:
+              return _context8.a(2);
           }
-        }, _callee8, null, [[0, 8]]);
+        }, _callee8, null, [[0, 2]]);
       }))();
     },
     // Load account routing settings
     loadAccountRoutingSettings: function loadAccountRoutingSettings() {
       var _this9 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
-        var response;
-        return _regeneratorRuntime().wrap(function _callee9$(_context9) {
-          while (1) switch (_context9.prev = _context9.next) {
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee9() {
+        var response, _t7;
+        return _regenerator().w(function (_context9) {
+          while (1) switch (_context9.p = _context9.n) {
             case 0:
-              _context9.prev = 0;
-              _context9.next = 3;
+              _context9.p = 0;
+              _context9.n = 1;
               return axios_default().get(window.location.origin + "/api/account-routing-settings/product-account-routing");
-            case 3:
-              response = _context9.sent;
+            case 1:
+              response = _context9.v;
               _this9.accountRoutingSettings = response.data.data || {};
 
               // Set flags for automatic routing
@@ -651,19 +644,18 @@ var toast = sweetalert2_all_default().mixin({
               if (_this9.isPurchaseAccountAutomatic && _this9.accountRoutingSettings.purchase.main_account_id) {
                 _this9.form.purchaseAccountId = _this9.accountRoutingSettings.purchase.main_account_id;
               }
-              _context9.next = 16;
+              _context9.n = 3;
               break;
-            case 11:
-              _context9.prev = 11;
-              _context9.t0 = _context9["catch"](0);
-              console.error("Error loading account routing settings:", _context9.t0);
+            case 2:
+              _context9.p = 2;
+              _t7 = _context9.v;
+              console.error("Error loading account routing settings:", _t7);
               _this9.isSalesAccountAutomatic = false;
               _this9.isPurchaseAccountAutomatic = false;
-            case 16:
-            case "end":
-              return _context9.stop();
+            case 3:
+              return _context9.a(2);
           }
-        }, _callee9, null, [[0, 11]]);
+        }, _callee9, null, [[0, 2]]);
       }))();
     },
     // calculate selling price
@@ -711,10 +703,10 @@ var toast = sweetalert2_all_default().mixin({
     // save product
     saveProduct: function saveProduct() {
       var _this1 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee0() {
-        var needsSalesAccount, message, needsPurchaseAccount, _message, formDataToSend, processedForm, response, newProduct, formattedProduct, autoAssignedSalesAccountId, autoAssignedPurchaseAccountId, _error$response, _error$response2, status, serverErrors, _error$response3, errorMessage;
-        return _regeneratorRuntime().wrap(function _callee0$(_context0) {
-          while (1) switch (_context0.prev = _context0.next) {
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee0() {
+        var needsSalesAccount, message, needsPurchaseAccount, _message, formDataToSend, processedForm, response, newProduct, formattedProduct, autoAssignedSalesAccountId, autoAssignedPurchaseAccountId, _error$response, _error$response2, status, serverErrors, _error$response3, errorMessage, _t8;
+        return _regenerator().w(function (_context0) {
+          while (1) switch (_context0.p = _context0.n) {
             case 0:
               console.log('ProductForm: saveProduct called', {
                 formData: _this1.form.data(),
@@ -726,15 +718,15 @@ var toast = sweetalert2_all_default().mixin({
 
               // Validate required fields based on item type
               if (!(_this1.form.itemType === 'service' && !_this1.form.servicePurchasePrice)) {
-                _context0.next = 4;
+                _context0.n = 1;
                 break;
               }
               toast.fire({
                 type: "error",
                 title: "Service Purchase Price is required for services"
               });
-              return _context0.abrupt("return");
-            case 4:
+              return _context0.a(2);
+            case 1:
               // Validate sales account - required if not automatic OR if override is checked
               needsSalesAccount = !_this1.isSalesAccountAutomatic || _this1.form.overrideSalesAccount;
               console.log('ProductForm: Sales account validation', {
@@ -752,7 +744,7 @@ var toast = sweetalert2_all_default().mixin({
                 }
               }
               if (!(needsSalesAccount && !_this1.form.salesAccountId)) {
-                _context0.next = 12;
+                _context0.n = 2;
                 break;
               }
               console.log('ProductForm: Sales account validation failed');
@@ -761,8 +753,8 @@ var toast = sweetalert2_all_default().mixin({
                 type: "error",
                 title: message
               });
-              return _context0.abrupt("return");
-            case 12:
+              return _context0.a(2);
+            case 2:
               // Validate purchase account - required if not automatic OR if override is checked
               needsPurchaseAccount = !_this1.isPurchaseAccountAutomatic || _this1.form.overridePurchaseAccount;
               console.log('ProductForm: Purchase account validation', {
@@ -780,7 +772,7 @@ var toast = sweetalert2_all_default().mixin({
                 }
               }
               if (!(needsPurchaseAccount && !_this1.form.purchaseAccountId)) {
-                _context0.next = 20;
+                _context0.n = 3;
                 break;
               }
               console.log('ProductForm: Purchase account validation failed');
@@ -789,10 +781,10 @@ var toast = sweetalert2_all_default().mixin({
                 type: "error",
                 title: _message
               });
-              return _context0.abrupt("return");
-            case 20:
+              return _context0.a(2);
+            case 3:
               if (!_this1.form.errors.any()) {
-                _context0.next = 24;
+                _context0.n = 4;
                 break;
               }
               console.log('ProductForm: Form has validation errors', _this1.form.errors.all());
@@ -800,8 +792,8 @@ var toast = sweetalert2_all_default().mixin({
                 type: "error",
                 title: "Please fix the form errors before submitting"
               });
-              return _context0.abrupt("return");
-            case 24:
+              return _context0.a(2);
+            case 4:
               console.log('ProductForm: Form validation passed, proceeding with submission');
               console.log('ProductForm: Making POST request to /api/products');
               formDataToSend = _this1.form.data();
@@ -825,14 +817,14 @@ var toast = sweetalert2_all_default().mixin({
               // Set form as busy before making the request
               _this1.form.busy = true;
               console.log('ProductForm: Form busy after setting:', _this1.form.busy);
-              _context0.prev = 34;
+              _context0.p = 5;
               // Create a new form instance with processed data
               processedForm = new vform_es/* default */.Ay(formDataToSend);
               processedForm.busy = true;
-              _context0.next = 39;
+              _context0.n = 6;
               return processedForm.post(window.location.origin + "/api/products");
-            case 39:
-              response = _context0.sent;
+            case 6:
+              response = _context0.v;
               console.log('ProductForm: POST request successful', response);
               toast.fire({
                 type: "success",
@@ -893,25 +885,25 @@ var toast = sweetalert2_all_default().mixin({
               // Reset form busy state
               _this1.form.busy = false;
               console.log('ProductForm: Form busy after success:', _this1.form.busy);
-              _context0.next = 67;
+              _context0.n = 8;
               break;
-            case 57:
-              _context0.prev = 57;
-              _context0.t0 = _context0["catch"](34);
-              console.error("Error creating product:", _context0.t0);
+            case 7:
+              _context0.p = 7;
+              _t8 = _context0.v;
+              console.error("Error creating product:", _t8);
               console.log('ProductForm: POST request failed', {
-                error: _context0.t0,
-                response: _context0.t0.response,
-                status: (_error$response = _context0.t0.response) === null || _error$response === void 0 ? void 0 : _error$response.status,
-                data: (_error$response2 = _context0.t0.response) === null || _error$response2 === void 0 ? void 0 : _error$response2.data
+                error: _t8,
+                response: _t8.response,
+                status: (_error$response = _t8.response) === null || _error$response === void 0 ? void 0 : _error$response.status,
+                data: (_error$response2 = _t8.response) === null || _error$response2 === void 0 ? void 0 : _error$response2.data
               });
 
               // Check if this is a validation error (status 422)
-              status = _context0.t0 && _context0.t0.response && _context0.t0.response.status;
-              serverErrors = _context0.t0 && _context0.t0.response && _context0.t0.response.data && _context0.t0.response.data.errors; // Handle validation errors
-              if (_context0.t0.response && _context0.t0.response.data && _context0.t0.response.data.errors) {
-                _this1.form.errors.set(_context0.t0.response.data.errors);
-                console.log('ProductForm: Validation errors set:', _context0.t0.response.data.errors);
+              status = _t8 && _t8.response && _t8.response.status;
+              serverErrors = _t8 && _t8.response && _t8.response.data && _t8.response.data.errors; // Handle validation errors
+              if (_t8.response && _t8.response.data && _t8.response.data.errors) {
+                _this1.form.errors.set(_t8.response.data.errors);
+                console.log('ProductForm: Validation errors set:', _t8.response.data.errors);
               }
               if (status === 422 && serverErrors) {
                 // Show toast notification for validation errors
@@ -936,7 +928,7 @@ var toast = sweetalert2_all_default().mixin({
                 });
               } else {
                 // For other errors, show generic error message
-                errorMessage = ((_error$response3 = _context0.t0.response) === null || _error$response3 === void 0 || (_error$response3 = _error$response3.data) === null || _error$response3 === void 0 ? void 0 : _error$response3.message) || _this1.$t("Please check your input and try again.");
+                errorMessage = ((_error$response3 = _t8.response) === null || _error$response3 === void 0 || (_error$response3 = _error$response3.data) === null || _error$response3 === void 0 ? void 0 : _error$response3.message) || _this1.$t("Please check your input and try again.");
                 toast.fire({
                   type: "error",
                   title: String(errorMessage)
@@ -946,24 +938,23 @@ var toast = sweetalert2_all_default().mixin({
               // Reset form busy state
               _this1.form.busy = false;
               console.log('ProductForm: Form busy after error:', _this1.form.busy);
-            case 67:
-            case "end":
-              return _context0.stop();
+            case 8:
+              return _context0.a(2);
           }
-        }, _callee0, null, [[34, 57]]);
+        }, _callee0, null, [[5, 7]]);
       }))();
     },
     // update product
     updateProduct: function updateProduct() {
       var _this10 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee1() {
-        var productSlug, productId, identifier, formData, response;
-        return _regeneratorRuntime().wrap(function _callee1$(_context1) {
-          while (1) switch (_context1.prev = _context1.next) {
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee1() {
+        var productSlug, productId, identifier, formData, response, _t9;
+        return _regenerator().w(function (_context1) {
+          while (1) switch (_context1.p = _context1.n) {
             case 0:
-              _context1.prev = 0;
+              _context1.p = 0;
               if (_this10.product) {
-                _context1.next = 5;
+                _context1.n = 1;
                 break;
               }
               console.error('No product available for update');
@@ -971,12 +962,12 @@ var toast = sweetalert2_all_default().mixin({
                 type: "error",
                 title: _this10.$t("No product selected for update")
               });
-              return _context1.abrupt("return");
-            case 5:
+              return _context1.a(2);
+            case 1:
               productSlug = _this10.product.slug || _this10.product.productSlug || _this10.product.product_slug;
               productId = _this10.product.id || _this10.product.productID || _this10.product.product_id;
               if (!(!productSlug && !productId)) {
-                _context1.next = 11;
+                _context1.n = 2;
                 break;
               }
               console.error('No product identifier (slug or ID) available for update');
@@ -984,8 +975,8 @@ var toast = sweetalert2_all_default().mixin({
                 type: "error",
                 title: _this10.$t("Product identifier missing. Cannot update product.")
               });
-              return _context1.abrupt("return");
-            case 11:
+              return _context1.a(2);
+            case 2:
               identifier = productSlug;
               if (!productSlug && productId) {
                 identifier = productId;
@@ -993,35 +984,35 @@ var toast = sweetalert2_all_default().mixin({
 
               // Validate required fields based on item type
               if (!(_this10.form.itemType === 'service' && !_this10.form.servicePurchasePrice)) {
-                _context1.next = 16;
+                _context1.n = 3;
                 break;
               }
               toast.fire({
                 type: "error",
                 title: _this10.$t("Service Purchase Price is required for services")
               });
-              return _context1.abrupt("return");
-            case 16:
+              return _context1.a(2);
+            case 3:
               if (_this10.form.salesAccountId) {
-                _context1.next = 19;
+                _context1.n = 4;
                 break;
               }
               toast.fire({
                 type: "error",
                 title: _this10.$t("Sales Account is required")
               });
-              return _context1.abrupt("return");
-            case 19:
+              return _context1.a(2);
+            case 4:
               if (_this10.form.purchaseAccountId) {
-                _context1.next = 22;
+                _context1.n = 5;
                 break;
               }
               toast.fire({
                 type: "error",
                 title: _this10.$t("Purchase Account is required")
               });
-              return _context1.abrupt("return");
-            case 22:
+              return _context1.a(2);
+            case 5:
               // Transform object fields to IDs before sending
               formData = _this10.form.data(); // Transform v-select objects to IDs
               if (formData.subCategory && _typeof(formData.subCategory) === 'object') {
@@ -1036,10 +1027,10 @@ var toast = sweetalert2_all_default().mixin({
               if (formData.productTax && _typeof(formData.productTax) === 'object') {
                 formData.productTax = formData.productTax.id;
               }
-              _context1.next = 29;
+              _context1.n = 6;
               return axios_default().put("/api/products/".concat(identifier), formData);
-            case 29:
-              response = _context1.sent;
+            case 6:
+              response = _context1.v;
               if (response.data.success) {
                 toast.fire({
                   type: "success",
@@ -1060,18 +1051,18 @@ var toast = sweetalert2_all_default().mixin({
                 _this10.form.reset();
                 _this10.url = null;
               }
-              _context1.next = 37;
+              _context1.n = 8;
               break;
-            case 33:
-              _context1.prev = 33;
-              _context1.t0 = _context1["catch"](0);
-              if (_context1.t0.response && _context1.t0.response.data) {
-                if (_context1.t0.response.data.errors) {
-                  _this10.form.errors.set(_context1.t0.response.data.errors);
+            case 7:
+              _context1.p = 7;
+              _t9 = _context1.v;
+              if (_t9.response && _t9.response.data) {
+                if (_t9.response.data.errors) {
+                  _this10.form.errors.set(_t9.response.data.errors);
                 } else {
                   toast.fire({
                     type: "error",
-                    title: _context1.t0.response.data.message || _this10.$t("Error updating product")
+                    title: _t9.response.data.message || _this10.$t("Error updating product")
                   });
                 }
               } else {
@@ -1080,12 +1071,11 @@ var toast = sweetalert2_all_default().mixin({
                   title: _this10.$t("Error updating product")
                 });
               }
-              console.error('Error updating product:', _context1.t0);
-            case 37:
-            case "end":
-              return _context1.stop();
+              console.error('Error updating product:', _t9);
+            case 8:
+              return _context1.a(2);
           }
-        }, _callee1, null, [[0, 33]]);
+        }, _callee1, null, [[0, 7]]);
       }))();
     },
     loadProductData: function loadProductData(product) {
@@ -1329,10 +1319,10 @@ var ProductForm = __webpack_require__(17646);
 var axios = __webpack_require__(72505);
 var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
 ;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/products/edit.vue?vue&type=script&lang=js
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 
 
 /* harmony default export */ const editvue_type_script_lang_js = ({
@@ -1352,15 +1342,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   created: function created() {
     var _this = this;
-    return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-      return _regeneratorRuntime().wrap(function _callee$(_context) {
-        while (1) switch (_context.prev = _context.next) {
+    return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+      return _regenerator().w(function (_context) {
+        while (1) switch (_context.n) {
           case 0:
-            _context.next = 2;
+            _context.n = 1;
             return _this.getProduct();
-          case 2:
-          case "end":
-            return _context.stop();
+          case 1:
+            return _context.a(2);
         }
       }, _callee);
     }))();
@@ -1368,32 +1357,31 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   methods: {
     getProduct: function getProduct() {
       var _this2 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-        var _yield$axios$get, data;
-        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-          while (1) switch (_context2.prev = _context2.next) {
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+        var _yield$axios$get, data, _t;
+        return _regenerator().w(function (_context2) {
+          while (1) switch (_context2.p = _context2.n) {
             case 0:
-              _context2.prev = 0;
-              _context2.next = 3;
+              _context2.p = 0;
+              _context2.n = 1;
               return axios_default().get(window.location.origin + '/api/products/' + _this2.$route.params.slug);
-            case 3:
-              _yield$axios$get = _context2.sent;
+            case 1:
+              _yield$axios$get = _context2.v;
               data = _yield$axios$get.data;
               _this2.product = data.data;
-              _context2.next = 12;
+              _context2.n = 3;
               break;
-            case 8:
-              _context2.prev = 8;
-              _context2.t0 = _context2["catch"](0);
-              console.error('Error fetching product:', _context2.t0);
+            case 2:
+              _context2.p = 2;
+              _t = _context2.v;
+              console.error('Error fetching product:', _t);
               _this2.$router.push({
                 name: 'products.index'
               });
-            case 12:
-            case "end":
-              return _context2.stop();
+            case 3:
+              return _context2.a(2);
           }
-        }, _callee2, null, [[0, 8]]);
+        }, _callee2, null, [[0, 2]]);
       }))();
     }
   }
