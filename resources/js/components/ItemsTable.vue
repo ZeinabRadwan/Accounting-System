@@ -67,7 +67,7 @@
 
                                 <input type="number" step="any" :id="`Qty-${i}`" v-model.number="item[qtyFieldName]"
                                     name="quantity" class="quantity-field border-0 incrementor" required min="1"
-                                    :max="item.itemType == 'product' ? item.inventoryCount : (item.maxQty || null)"
+                                    :max="disableInventoryMaxRestriction ? null : (item.itemType == 'product' ? item.inventoryCount : (item.maxQty || null))"
                                     :readonly="item.isFromQuotation" :class="{
                                         'is-invalid': getFieldError(`selectedProducts.${i - 1}.${qtyFieldName}`),
                                         'insufficient-stock-input': Number(item.inventoryCount) < Number(getItemField(item, qtyFieldName)) && item.itemType == 'product'
@@ -344,6 +344,10 @@ export default {
             default: false
         },
         showReturnPriceColumn: {
+            type: Boolean,
+            default: false
+        },
+        disableInventoryMaxRestriction: {
             type: Boolean,
             default: false
         }

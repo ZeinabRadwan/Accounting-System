@@ -348,6 +348,7 @@
               :subtotal="subtotal"
               :amount-in-words="toWord()"
               table-class="invoices-create-table"
+              :disable-inventory-max-restriction="true"
               @item-change="handleItemChange"
               @discount-change="calculateProductDiscount"
               @vat-change="calculateProductVat"

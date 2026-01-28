@@ -130,6 +130,7 @@
                 :show-return-price-column="!!form.purchaseReturnData"
                 :totals-colspan="5"
                 :custom-total-value="form.purchaseReturnData ? form.purchaseReturn : null"
+                :disable-inventory-max-restriction="true"
                 table-class="quotations-create-table"
                 @item-change="handleItemChange"
                 @discount-change="calculateProductDiscount"
@@ -193,14 +194,64 @@
               </div>
               <div class="row">
                 <div class="form-group col-md-6" :class="form.purchaseReturnData ? 'col-lg-3' : 'col-lg-4'">
-                  <label for="discount">{{
-                    $t('Discount')
-                  }}</label>
-                  <input id="discount" v-model="form.discount" type="number" step="any" min="1" :max="form.rowSubTotal"
-                    class="form-control" :class="{ 'is-invalid': form.errors.has('discount') }" name="discount"
-                    :placeholder="$t('Enter discount')
-                      " @change="calculateSum" @keyup="calculateSum" />
-                  <has-error :form="form" field="discount" />
+                  <label for="discount_type">{{ $t('Discount Type') }}</label>
+                  <div class="input-group">
+                    <select
+                      id="discount_type"
+                      v-model="form.discount_type"
+                      class="form-control"
+                      :class="{
+                        'is-invalid': form.errors.has('discount_type'),
+                      }"
+                      name="discount_type"
+                      @change="
+                        calculateSum();
+                        clearFieldError('discount_type');
+                      "
+                    >
+                      <option value="percentage">{{ $t('%') }}</option>
+                      <option value="fixed">{{ $t('Fixed') }}</option>
+                    </select>
+                    <input
+                      id="discount_value"
+                      v-model="form.discount_value"
+                      type="number"
+                      step="any"
+                      min="0"
+                      :max="
+                        form.discount_type === 'percentage'
+                          ? 100
+                          : form.netTotal
+                      "
+                      class="form-control"
+                      :class="{
+                        'is-invalid': form.errors.has('discount_value'),
+                      }"
+                      name="discount_value"
+                      placeholder="0"
+                      @change="calculateSum"
+                      @keyup="calculateSum"
+                      @input="clearFieldError('discount_value')"
+                    />
+                  </div>
+                  <div
+                    v-if="
+                      form.errors.has('discount_type') ||
+                      form.errors.has('discount_value')
+                    "
+                    class="invalid-feedback d-block"
+                  >
+                    <span
+                      v-if="form.errors.has('discount_type')"
+                      class="d-block"
+                      >{{ form.errors.get('discount_type') }}</span
+                    >
+                    <span
+                      v-if="form.errors.has('discount_value')"
+                      class="d-block"
+                      >{{ form.errors.get('discount_value') }}</span
+                    >
+                  </div>
                 </div>
                 <!-- Transport Cost Fields - Show based on supplier tax status -->
                 <div v-if="isSupplierTaxable" class="form-group col-md-6" :class="form.purchaseReturnData ? 'col-lg-3' : 'col-lg-4'">
@@ -821,10 +872,20 @@ export default {
       }
       
       // Trigger full recalculation after all data is loaded
+      // Use double nextTick to ensure all reactive updates are complete
       this.$nextTick(() => {
-        this.calculateSum();
-        this.updateTax();
-        this.updateNetTotal();
+        this.$nextTick(() => {
+          // First, recalculate all items individually to ensure proper initialization
+          if (this.form.selectedProducts && this.form.selectedProducts.length > 0) {
+            this.form.selectedProducts.forEach((item, index) => {
+              this.generateItemTotalPrice(index, true)
+            })
+          }
+          // Then trigger full calculation cycle
+          this.calculateSum();
+          this.updateTax();
+          this.updateNetTotal();
+        });
       });
     },
 
@@ -1577,8 +1638,8 @@ export default {
         0
       );
 
-      // Update netTotal to match grandTotal computed property
-      this.form.netTotal = this.grandTotal;
+      // Update Net Total using the dedicated method
+      this.updateNetTotal();
     },
 
     // update tax
@@ -1659,13 +1720,19 @@ export default {
       }
       
       // After loading products, recalculate all totals
+      // Use double nextTick to ensure all reactive updates are complete
       this.$nextTick(() => {
-        // Recalculate all items to ensure proper initialization
-        this.form.selectedProducts.forEach((item, index) => {
-          this.generateItemTotalPrice(index, true)
+        this.$nextTick(() => {
+          // Recalculate all items to ensure proper initialization
+          // This ensures proportional discounts and transport are properly allocated
+          this.form.selectedProducts.forEach((item, index) => {
+            this.generateItemTotalPrice(index, true)
+          })
+          // Trigger full calculation cycle
+          this.calculateSum()
+          this.updateTax()
+          this.updateNetTotal()
         })
-        this.calculateSum()
-        this.updateTax()
       })
       
       return this.form.selectedProducts
