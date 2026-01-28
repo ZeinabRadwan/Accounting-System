@@ -23989,12 +23989,12 @@ var map = {
 		321
 	],
 	"./sales/invoices/show": [
-		15943,
-		5943
+		90537,
+		537
 	],
 	"./sales/invoices/show.vue": [
-		15943,
-		5943
+		90537,
+		537
 	],
 	"./sales/pos/create": [
 		57286,
@@ -24366,11 +24366,11 @@ var map = {
 	],
 	"./setup/permissions/edit": [
 		65943,
-		8324
+		5943
 	],
 	"./setup/permissions/edit.vue": [
 		65943,
-		8324
+		5943
 	],
 	"./setup/permissions/index": [
 		56410,

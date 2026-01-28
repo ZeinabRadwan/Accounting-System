@@ -549,7 +549,7 @@ export default {
     invoiceProducts: [],
     productPrefix: "",
     clientPrefix: "",
-    invoicePrefix: "",
+
     loading: false,
     form: new Form({
       isSendEmail: false,
@@ -568,6 +568,10 @@ export default {
   // Map Getters
   computed: {
     ...mapGetters("operations", ["appInfo", "items", "pagination"]),
+    
+    invoicePrefix() {
+      return this.appInfo ? this.appInfo.invoicePrefix : '';
+    },
 
 
     // Check if country is Saudi Arabia or not selected (default to Saudi Arabia)
@@ -915,7 +919,7 @@ export default {
     this.loadCommunicationConfigStatus();
     this.productPrefix = this.appInfo.productPrefix;
     this.clientPrefix = this.appInfo.clientPrefix;
-    this.invoicePrefix = this.appInfo.invoicePrefix;
+    // this.invoicePrefix = this.appInfo.invoicePrefix; // Moved to computed
   },
   methods: {
     // Handle tab change (optional, for additional logic if needed)
