@@ -212,12 +212,18 @@
                         }}</span>
                       </td>
                     </tr>
-                    <tr v-if="allData.openingStockCount">
-                      <th>{{ $t("Opening Stock Quantity") }}</th>
+                    <tr v-if="allData.openingStockCount != null && allData.openingStockCount !== ''">
+                      <th>{{ $t("Opening Stock") }}</th>
                       <td>
-                        {{ allData.openingStockCount }} <span v-if="allData.itemUnit">{{
-                          allData.itemUnit.code
-                        }}</span>
+                        <span v-if="allData.itemUnit">
+                          {{ allData.openingStockCount }} {{ allData.itemUnit.name || allData.itemUnit.code }}
+                        </span>
+                        <template v-if="allData.unitConversions && allData.unitConversions.length">
+                          <span v-for="(conv, idx) in openingStockByUnit" :key="conv.unitId">
+                            <span v-if="idx > 0"> · </span>
+                            {{ conv.quantity }} {{ conv.unitName }}
+                          </span>
+                        </template>
                       </td>
                     </tr>
                     <tr v-if="allData.openingStockUnitPrice">
@@ -586,6 +592,23 @@ export default {
       if (!this.allData) return 0;
       const stockQty = parseFloat(this.allData.availableQty) || 0;
       return this.calculatedSellingPrice * stockQty;
+    },
+    // Opening stock expressed in each unit from product_unit_conversions (other than base)
+    openingStockByUnit() {
+      if (!this.allData || this.allData.openingStockCount == null || this.allData.openingStockCount === '') return [];
+      const count = parseFloat(this.allData.openingStockCount) || 0;
+      const conversions = this.allData.unitConversions || [];
+      return conversions
+        .filter(c => c.conversion_factor > 0 && Math.abs(c.conversion_factor - 1) > 0.0001)
+        .map(c => {
+          const qty = count / (parseFloat(c.conversion_factor) || 1);
+          return {
+            unitId: c.unit_id || (c.unit && c.unit.id),
+            unitName: (c.unit && (c.unit.name || c.unit.code)) || '',
+            quantity: Number.isInteger(qty) ? qty : Math.round(qty * 100) / 100
+          };
+        })
+        .filter(c => c.unitName);
     },
     // Get purchase history from allData (including opening stock, purchases, returns, discounts, freight)
     purchaseHistory() {

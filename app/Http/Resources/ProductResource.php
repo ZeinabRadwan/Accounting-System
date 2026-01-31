@@ -28,6 +28,19 @@ class ProductResource extends JsonResource
                 return new ProductCategoryResource($this->proSubCategory->category);
             }),
             'itemUnit' => new UnitResource($this->productUnit),
+            'unitConversions' => $this->whenLoaded('unitConversions', function () {
+                return $this->unitConversions->map(function ($conv) {
+                    return [
+                        'unit_id' => $conv->unit_id,
+                        'unit' => $conv->unit ? [
+                            'id' => $conv->unit->id,
+                            'name' => $conv->unit->name,
+                            'code' => $conv->unit->code,
+                        ] : null,
+                        'conversion_factor' => (float) $conv->conversion_factor,
+                    ];
+                })->values();
+            }),
             'itemBrand' => new BrandResource($this->productBrand),
             'itemTax' => new VatRateResource($this->productTax),
             'salesAccount' => $this->whenLoaded('salesAccount', function () {
