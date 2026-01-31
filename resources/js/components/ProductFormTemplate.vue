@@ -55,7 +55,7 @@
                 <span v-if="prefix" class="input-group-text">{{ prefix }}</span>
                 <input v-model="form.itemCode" type="text" class="form-control"
                   :class="{ 'is-invalid': form.errors.has('itemCode') }" name="itemCode"
-                  :placeholder="$t('Enter item code')" readonly />
+                  :placeholder="$t('Enter item code')" />
               </div>
               <has-error :form="form" field="itemCode" />
             </div>

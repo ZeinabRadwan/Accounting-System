@@ -63,7 +63,7 @@
                     <label for="itemCode">{{ $t("Item Code") }} <span class="required">*</span></label>
                     <div class="input-group">
                       <span v-if="prefix" class="input-group-text">{{ prefix }}</span>
-                      <input v-model="form.itemCode" type="text" class="form-control" readonly
+                      <input v-model="form.itemCode" type="text" class="form-control"
                         :class="{ 'is-invalid': form.errors.has('itemCode') }" name="itemCode"
                         :placeholder="$t('Enter item code')" />
                     </div>
