@@ -5366,9 +5366,9 @@ class ReportController extends Controller
                 'user_id' => 'nullable|exists:users,id',
                 'session_type' => 'nullable|in:invoice,return',
                 'opened_from' => 'nullable|date',
-                'opened_to' => 'nullable|date|after_or_equal:opened_from',
+                'opened_to' => 'nullable|date',
                 'closed_from' => 'nullable|date',
-                'closed_to' => 'nullable|date|after_or_equal:closed_from',
+                'closed_to' => 'nullable|date',
                 'search' => 'nullable|string|max:255',
                 'page' => 'nullable|integer|min:1',
                 'per_page' => 'nullable|integer|min:1|max:100',
@@ -5377,9 +5377,21 @@ class ReportController extends Controller
             $user = Auth::user();
             $query = POSInvoiceSession::with('user');
 
-            // Apply status filter
-            if ($request->has('status') && $request->status !== '') {
-                $query->where('status', $request->status);
+            // Restrict to current user's sessions for non-superadmin
+            if ((int) $user->account_role !== 1) {
+                $query->where('user_id', $user->id);
+            }
+
+            // Apply status filter (use DB status; closed sessions have status=closed and/or closed_at set)
+            if ($request->filled('status')) {
+                $status = $request->status;
+                if ($status === 'closed') {
+                    $query->where(function ($q) {
+                        $q->where('status', 'closed')->orWhereNotNull('closed_at');
+                    });
+                } else {
+                    $query->where('status', $status)->whereNull('closed_at');
+                }
             }
 
             // Apply user filter
@@ -5403,12 +5415,16 @@ class ReportController extends Controller
                 $query->whereDate('closed_at', '<=', $request->closed_to);
             }
 
-            // Apply search filter (session key)
-            if ($request->has('search') && $request->search) {
-                $search = $request->search;
+            // Apply search filter (session key, id, or session number like SESS-000001)
+            if ($request->filled('search')) {
+                $search = trim($request->search);
                 $query->where(function ($q) use ($search) {
-                    $q->where('session_key', 'like', "%{$search}%")
-                        ->orWhere('id', 'like', "%{$search}%");
+                    $q->where('session_key', 'like', '%'.$search.'%')
+                        ->orWhere('id', 'like', '%'.$search.'%');
+                    // Match SESS-000001 style (session number)
+                    if (preg_match('/^SESS-0*(\d+)$/i', $search, $m)) {
+                        $q->orWhere('id', (int) $m[1]);
+                    }
                 });
             }
 
@@ -5514,6 +5530,9 @@ class ReportController extends Controller
                     }
                 }
 
+                // Effective status: closed when closed_at is set, otherwise use DB status (active/suspended)
+                $effectiveStatus = $session->closed_at ? 'closed' : ($session->status ?? 'active');
+
                 return [
                     'id' => $session->id,
                     'session_key' => $session->session_key,
@@ -5521,7 +5540,7 @@ class ReportController extends Controller
                     'user_id' => $session->user_id,
                     'user_name' => $session->user->name ?? 'N/A',
                     'user_email' => $session->user->email ?? 'N/A',
-                    'status' => $session->status,
+                    'status' => $effectiveStatus,
                     'opened_at' => $session->opened_at->format('Y-m-d H:i:s'),
                     'opened_at_formatted' => $session->opened_at->format('d/m/Y H:i'),
                     'closed_at' => $session->closed_at ? $session->closed_at->format('Y-m-d H:i:s') : null,

@@ -3812,43 +3812,49 @@ export default {
       try {
         let invoices = [];
 
-        const searchResponse = await axios.get('/api/invoices/search', {
-          params: {
-            term: searchTerm,
-            perPage: 9999,
-          },
-        });
+        // Primary: GET /api/invoices?term=...&perPage=9999 (includes all invoices, including returned)
+        try {
+          const indexResponse = await axios.get('/api/invoices', {
+            params: {
+              term: searchTerm,
+              perPage: 9999,
+            },
+          });
 
-        if (searchResponse && searchResponse.data) {
-          if (Array.isArray(searchResponse.data.data)) {
-            invoices = searchResponse.data.data;
-          } else if (Array.isArray(searchResponse.data)) {
-            invoices = searchResponse.data;
+          if (indexResponse && indexResponse.data) {
+            if (Array.isArray(indexResponse.data.data)) {
+              invoices = indexResponse.data.data;
+            } else if (Array.isArray(indexResponse.data)) {
+              invoices = indexResponse.data;
+            }
           }
+        } catch (indexError) {
+          // Continue to search fallback
         }
 
         if (!Array.isArray(invoices)) {
           invoices = [];
         }
 
+        // Fallback: search endpoint if index returned no results
         if (invoices.length === 0) {
           try {
-            const indexResponse = await axios.get('/api/invoices', {
+            const searchResponse = await axios.get('/api/invoices/search', {
               params: {
                 term: searchTerm,
                 perPage: 9999,
               },
             });
 
-            if (indexResponse && indexResponse.data) {
-              if (Array.isArray(indexResponse.data.data)) {
-                invoices = indexResponse.data.data;
-              } else if (Array.isArray(indexResponse.data)) {
-                invoices = indexResponse.data;
+            if (searchResponse && searchResponse.data) {
+              if (Array.isArray(searchResponse.data.data)) {
+                invoices = searchResponse.data.data;
+              } else if (Array.isArray(searchResponse.data)) {
+                invoices = searchResponse.data;
               }
             }
-          } catch (indexError) {
-            // Fallback failed; keep invoices empty and show not-found below
+          } catch (searchError) {
+            // Keep invoices empty and show not-found below
           }
         }
 
@@ -4227,48 +4233,44 @@ export default {
       this.returnProducts = [];
 
       try {
-        // Use a very high perPage value to effectively remove pagination
-        // Also try the index endpoint as fallback if search returns empty
+        // Use GET /api/invoices?term=...&perPage=9999 to include all matching invoices (including returned)
         let invoices = [];
-        
-        // First, try the search endpoint
-        const searchResponse = await axios.get('/api/invoices/search', {
-          params: {
-            term: searchTerm,
-            perPage: 9999, // Very high value to get all matching results
-          },
-        });
 
-        // Handle paginated response structure
-        if (searchResponse.data) {
-          // Check if response is paginated (has data property) or direct array
-          if (searchResponse.data.data && Array.isArray(searchResponse.data.data)) {
-            invoices = searchResponse.data.data;
-          } else if (Array.isArray(searchResponse.data)) {
-            invoices = searchResponse.data;
+        // Primary: index endpoint with term (returns all matching invoices regardless of status/returned)
+        try {
+          const indexResponse = await axios.get('/api/invoices', {
+            params: {
+              term: searchTerm,
+              perPage: 9999,
+            },
+          });
+
+          if (indexResponse && indexResponse.data) {
+            if (Array.isArray(indexResponse.data.data)) {
+              invoices = indexResponse.data.data;
+            } else if (Array.isArray(indexResponse.data)) {
+              invoices = indexResponse.data;
+            }
           }
+        } catch (indexError) {
+          // Continue to search fallback
         }
 
-        // If search returns empty, try index endpoint with term filter
+        // Fallback: search endpoint if index returned no results
         if (invoices.length === 0) {
-          try {
-            const indexResponse = await axios.get('/api/invoices', {
-              params: {
-                term: searchTerm,
-                perPage: 9999,
-              },
-            });
-            
-            if (indexResponse.data) {
-              if (indexResponse.data.data && Array.isArray(indexResponse.data.data)) {
-                invoices = indexResponse.data.data;
-              } else if (Array.isArray(indexResponse.data)) {
-                invoices = indexResponse.data;
-              }
+          const searchResponse = await axios.get('/api/invoices/search', {
+            params: {
+              term: searchTerm,
+              perPage: 9999,
+            },
+          });
+
+          if (searchResponse && searchResponse.data) {
+            if (searchResponse.data.data && Array.isArray(searchResponse.data.data)) {
+              invoices = searchResponse.data.data;
+            } else if (Array.isArray(searchResponse.data)) {
+              invoices = searchResponse.data;
             }
-          } catch (indexError) {
-            // Ignore index endpoint errors, continue with search results
-            console.log('Index endpoint fallback failed:', indexError);
           }
         }
 

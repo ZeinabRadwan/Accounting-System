@@ -427,12 +427,20 @@ export default {
         const params = {
           page,
           per_page: this.perPage,
-          ...this.filters,
+          search: this.filters.search || undefined,
+          status: this.filters.status || undefined,
+          user_id: this.filters.user_id ?? undefined,
+          session_type: this.filters.session_type || undefined,
+          opened_from: this.filters.opened_from || undefined,
+          opened_to: this.filters.opened_to || undefined,
+          closed_from: this.filters.closed_from || undefined,
+          closed_to: this.filters.closed_to || undefined,
         };
 
-        // Remove empty filters
+        // Remove empty/undefined params so backend applies no filter for them
         Object.keys(params).forEach((key) => {
-          if (params[key] === '' || params[key] === null) {
+          const v = params[key];
+          if (v === '' || v === null || v === undefined) {
             delete params[key];
           }
         });
@@ -476,7 +484,6 @@ export default {
       this.loadSessions(1);
     },
     updatePerPage() {
-      this.pagination.current_page = 1;
       this.loadSessions(1);
     },
     async paginate() {

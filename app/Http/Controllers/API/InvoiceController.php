@@ -57,6 +57,27 @@ class InvoiceController extends Controller
         $query->whereIn('branch_id', $branchIds);
         // }
 
+        // When term is provided (e.g. POS return search), filter by invoice number and related fields.
+        // Include all matching invoices regardless of status or whether they have a return.
+        $term = $request->filled('term') ? trim((string) $request->term) : '';
+        if ($term !== '') {
+            $query->where(function ($q) use ($term) {
+                $q->where('invoice_no', 'LIKE', '%'.$term.'%')
+                    ->orWhere('reference', 'LIKE', '%'.$term.'%')
+                    ->orWhere('sub_total', 'LIKE', '%'.$term.'%')
+                    ->orWhere('po_reference', 'LIKE', '%'.$term.'%')
+                    ->orWhere('payment_terms', 'LIKE', '%'.$term.'%')
+                    ->orWhere('delivery_place', 'LIKE', '%'.$term.'%')
+                    ->orWhereHas('client', function ($clientQuery) use ($term) {
+                        $clientQuery->where('name', 'LIKE', '%'.$term.'%')
+                            ->orWhere('client_id', 'LIKE', '%'.$term.'%');
+                    })
+                    ->orWhereHas('user', function ($userQuery) use ($term) {
+                        $userQuery->where('name', 'LIKE', '%'.$term.'%');
+                    });
+            });
+        }
+
         return InvoiceListResource::collection($query->latest()->paginate($request->perPage));
     }
 
