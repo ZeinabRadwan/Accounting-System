@@ -228,7 +228,7 @@
                                 class="saudi-riyal">ê</span>
                         </td>
                         <td v-if="!hideVatColumn" class="no-currency">
-                            <strong>{{ formatToTwoDecimals(subtotal) }}</strong> <span class="saudi-riyal">ê</span>
+                            <strong>{{ formatToTwoDecimals(calculatedSubTotal) }}*</strong> <span class="saudi-riyal">ê</span>
                         </td>
                         <td v-if="showReturnPriceColumn && !hideDiscountColumn && !hideVatColumn" class="no-currency">
                             <strong>{{ formatToTwoDecimals(customTotalValue !== null ? customTotalValue : 0)
@@ -239,7 +239,7 @@
                                 class="saudi-riyal">ê</span>
                         </td>
                         <td v-if="showReturnPriceColumn && hideDiscountColumn && hideVatColumn" class="text-right">
-                            <strong>{{ formatToTwoDecimals(customTotalValue !== null ? customTotalValue : subtotal)
+                            <strong>{{ formatToTwoDecimals(customTotalValue !== null ? customTotalValue : calculatedSubTotal)
                             }}</strong> <span class="saudi-riyal">ê</span>
                         </td>
                         <td v-if="!showReturnPriceColumn && !hideDiscountColumn && !hideVatColumn"></td>
@@ -352,9 +352,36 @@ export default {
             default: false
         }
     },
+    computed: {
+        calculatedSubTotal() {
+            if (!this.items || this.items.length === 0) return 0;
+            return this.items.reduce((sum, item) => {
+                // Use totalPrice directly if available to ensure it matches the row display
+                let itemTotal = item.totalPrice;
+                if (itemTotal !== undefined && itemTotal !== null) {
+                    return sum + Number(itemTotal);
+                }
+
+                // Fallback logic
+                const unitPrice = item[this.unitPriceFieldName] || 0;
+                const qty = item[this.qtyFieldName] || 0;
+                
+                let net = item.totalAfterDiscount;
+                if (net === undefined || net === null) {
+                    net = (unitPrice * qty) - (item.discountAmount || 0);
+                }
+                net = Number(net);
+
+                const tax = Number(item.totalTax) || 0;
+                
+                return sum + net + tax;
+            }, 0);
+        }
+    },
     methods: {
         getItemField(item, fieldName) {
-            return item[fieldName] || 0;
+            // Helper to handle dynamic field names safely
+            return item[fieldName] !== undefined ? item[fieldName] : 0;
         },
         formatToTwoDecimals(value) {
             if (value === null || value === undefined || value === '') {

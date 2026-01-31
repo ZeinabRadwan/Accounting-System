@@ -609,7 +609,7 @@ export default {
       const { data } = await this.form.get(
         window.location.origin + "/api/all-product-sub-categories"
       );
-      this.categories = data.data;
+      this.categories = data.data || [];
     },
     // Handle category created event
     async handleCategoryCreated() {
@@ -655,17 +655,17 @@ export default {
     // get all brands
     async getBrands() {
       const { data } = await axios.get(window.location.origin + "/api/all-brands");
-      this.brands = data.data;
+      this.brands = data.data || [];
     },
     // get all units
     async getUnits() {
       const { data } = await axios.get(window.location.origin + "/api/all-units");
-      this.units = data.data;
+      this.units = data.data || [];
     },
     // get all taxes
     async getTaxes() {
       const { data } = await axios.get(window.location.origin + "/api/all-vat-rates");
-      this.taxes = data.data;
+      this.taxes = data.data || [];
       // assign default vat rate
       if (this.taxes && this.taxes.length > 0) {
         let defaultVatRateSlug = this.appInfo.defaultVatRateSlug;

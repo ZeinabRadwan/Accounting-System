@@ -2,7 +2,7 @@
   <Modal v-if="show" @close="handleClose">
     <h5 slot="header">
       {{ type === 'purchase' ? $t("Create purchase payment") : $t("Create invoice payment") }} :
-      {{ invoiceNo | withPrefix(invoicePrefix) }}
+      <span v-if="invoiceNo">{{ invoicePrefix }}{{ invoiceNo }}</span>
     </h5>
     <div slot="body" class="row">
       <form role="form" @submit.prevent="savePayment" @keydown="paymentForm.onKeydown($event)" class="w-100">
@@ -168,7 +168,7 @@ export default {
       validator: (value) => ['invoice', 'purchase'].includes(value),
     },
     invoiceId: {
-      type: Number,
+      type: [Number, String],
       required: true,
     },
     invoiceNo: {
@@ -237,15 +237,30 @@ export default {
     },
   },
   watch: {
-    show(newVal) {
-      if (newVal) {
-        this.initializeForm();
-      }
+    show: {
+      handler(newVal) {
+        if (newVal) {
+          this.initializeForm();
+        }
+      },
+      immediate: true
     },
-    dueAmount(newVal) {
-      if (newVal && this.show) {
-        this.paymentForm.paidAmount = newVal > 0 ? newVal : 1;
-      }
+    dueAmount: {
+      handler(newVal) {
+        if (newVal && this.show) {
+          this.paymentForm.paidAmount = newVal > 0 ? newVal : 1;
+        }
+      },
+      immediate: true
+    },
+    invoiceId: {
+      handler(newVal) {
+        if (newVal && this.show) {
+          console.log('Update form invoice_id from prop:', newVal);
+          this.paymentForm.invoice_id = newVal;
+        }
+      },
+      immediate: true
     },
   },
   created() {
@@ -382,6 +397,15 @@ export default {
 
     // Save payment
     async savePayment() {
+      // Ensure invoice_id is set from props
+      if (this.type !== 'purchase' && this.invoiceId) {
+        // Always update from prop to ensure we have the latest ID
+        this.paymentForm.invoice_id = this.invoiceId;
+      } else if (!this.paymentForm.invoice_id && this.type !== 'purchase' && this.invoiceId) {
+        console.log('Fallback: Setting invoice_id from prop:', this.invoiceId);
+        this.paymentForm.invoice_id = this.invoiceId;
+      }
+
       if (!this.paymentForm.account || !this.paymentForm.account.id) {
         this.$toast.error(
           this.$t("Error"),
@@ -414,9 +438,27 @@ export default {
         apiEndpoint = '/api/purchase-pay';
         successMessage = this.$t("Purchase payment added successfully");
       } else {
+        // Determine effective Invoice ID
+        // Try prop first (most reliable), then form data
+        let effectiveInvoiceId = this.invoiceId;
+        if (!effectiveInvoiceId && this.paymentForm.invoice_id) {
+            console.log('Using invoice_id from paymentForm fallback:', this.paymentForm.invoice_id);
+            effectiveInvoiceId = this.paymentForm.invoice_id;
+        }
+
+        // Validation: Check if we have an ID
+        if (!effectiveInvoiceId) {
+           console.error('CRITICAL: Invoice ID missing in both prop and form');
+           this.$toast.error(
+            this.$t("Error"),
+            "System Error: Invoice ID not found. Please try refreshing or checking the invoice details."
+           );
+           return;
+        }
+
         // Prepare form data for invoice payment
         formData = {
-          invoice_id: this.paymentForm.invoice_id,
+          invoice_id: effectiveInvoiceId,
           paidAmount: parseFloat(this.paymentForm.paidAmount),
           account: this.paymentForm.account,
           receiptNo: this.paymentForm.receiptNo || '',

@@ -63,21 +63,21 @@ class BusinessTransactionJournalService
         $currentAccountingPeriodId = GeneralSetting::where('key', 'current_accounting_period_id')->first()?->value;
 
         // Validate that the settings exist
-        if (! $currentFiscalYearId) {
+        if (!$currentFiscalYearId) {
             throw new Exception('Current fiscal year is not configured in system settings.');
         }
-        if (! $currentAccountingPeriodId) {
+        if (!$currentAccountingPeriodId) {
             throw new Exception('Current accounting period is not configured in system settings.');
         }
 
         // Validate that the fiscal year and accounting period exist in their respective tables
         $fiscalYear = FiscalYear::find($currentFiscalYearId);
-        if (! $fiscalYear) {
+        if (!$fiscalYear) {
             throw new Exception('The configured fiscal year does not exist.');
         }
 
         $accountingPeriod = AccountingPeriod::find($currentAccountingPeriodId);
-        if (! $accountingPeriod) {
+        if (!$accountingPeriod) {
             throw new Exception('The configured accounting period does not exist.');
         }
 
@@ -114,17 +114,17 @@ class BusinessTransactionJournalService
             }
 
             // Validate client exists and load relationship explicitly
-            if (! $invoice->client) {
+            if (!$invoice->client) {
                 throw new Exception('Invoice must have a client assigned for journal entries.');
             }
 
             // Ensure client relationship is loaded
-            if (! $invoice->relationLoaded('client')) {
+            if (!$invoice->relationLoaded('client')) {
                 $invoice->load('client');
             }
 
             // Ensure client's chartOfAccount relationship is loaded
-            if (! $invoice->client->relationLoaded('chartOfAccount')) {
+            if (!$invoice->client->relationLoaded('chartOfAccount')) {
                 $invoice->client->load('chartOfAccount');
             }
 
@@ -139,16 +139,16 @@ class BusinessTransactionJournalService
 
             if ($invoiceProducts && $invoiceProducts->count() > 0) {
                 foreach ($invoiceProducts as $invoiceProduct) {
-                    if (! $invoiceProduct->product || ! $invoiceProduct->product->hasSalesAccount()) {
-                        throw new Exception('Product '.($invoiceProduct->product->name ?? 'Unknown').' must have a Sales Account assigned.');
+                    if (!$invoiceProduct->product || !$invoiceProduct->product->hasSalesAccount()) {
+                        throw new Exception('Product ' . ($invoiceProduct->product->name ?? 'Unknown') . ' must have a Sales Account assigned.');
                     }
 
                     // Validate VAT account from product's tax rate (with fallback to default account)
                     if ($invoiceProduct->product && $invoiceProduct->product->productTax) {
                         // Pass branch_id to get the correct VAT account from account routing settings
                         $vatAccount = $invoiceProduct->product->productTax->getSalesVatAccount($invoice->branch_id);
-                        if (! $vatAccount) {
-                            throw new Exception('Product "'.$invoiceProduct->product->name.'" must have a Sales VAT Account assigned for journal entries. Please configure the VAT rate "'.$invoiceProduct->product->productTax->name.'" with a Sales VAT Account or ensure the default "Sales VAT Payable" account exists.');
+                        if (!$vatAccount) {
+                            throw new Exception('Product "' . $invoiceProduct->product->name . '" must have a Sales VAT Account assigned for journal entries. Please configure the VAT rate "' . $invoiceProduct->product->productTax->name . '" with a Sales VAT Account or ensure the default "Sales VAT Payable" account exists.');
                         }
 
                         // Store VAT account for this product
@@ -188,7 +188,7 @@ class BusinessTransactionJournalService
 
             // Check if client has chart_of_account_id assigned
             $needsNewAccount = false;
-            if (! $invoice->client->chart_of_account_id) {
+            if (!$invoice->client->chart_of_account_id) {
                 $needsNewAccount = true;
                 Log::info("Client {$invoice->client->name} (ID: {$invoice->client->id}) doesn't have a chart of account. Creating one automatically...");
             } else {
@@ -197,7 +197,7 @@ class BusinessTransactionJournalService
                 if ($currentAccount && $mainAccountCode && $currentAccount->code === $mainAccountCode) {
                     $needsNewAccount = true;
                     Log::warning(
-                        "Client {$invoice->client->name} (ID: {$invoice->client->id}) is using the main account {$mainAccountCode} ".
+                        "Client {$invoice->client->name} (ID: {$invoice->client->id}) is using the main account {$mainAccountCode} " .
                         'instead of a child account. Creating a child account automatically...'
                     );
                 }
@@ -218,19 +218,19 @@ class BusinessTransactionJournalService
                         $invoice->client->load('chartOfAccount');
 
                         Log::info(
-                            "Created chart of account for client {$invoice->client->name}: ".
-                            "Account ID {$clientAccount->id}, Code {$clientAccount->code}, Name {$clientAccount->name}. ".
+                            "Created chart of account for client {$invoice->client->name}: " .
+                            "Account ID {$clientAccount->id}, Code {$clientAccount->code}, Name {$clientAccount->name}. " .
                             'This is a child account under the main clients account, similar to how suppliers work.'
                         );
                     } else {
                         throw new Exception('Failed to create chart of account for client. Please configure client account routing settings (clients_account) with routing_type = main_account_per_each.');
                     }
                 } catch (\Exception $e) {
-                    Log::error("Failed to auto-create chart of account for client {$invoice->client->name}: ".$e->getMessage());
+                    Log::error("Failed to auto-create chart of account for client {$invoice->client->name}: " . $e->getMessage());
                     throw new Exception(
-                        'Client "'.($invoice->client->name ?? 'Unknown').'" does not have a Chart of Account assigned. '.
-                        'Please assign a Chart of Account to this client, or ensure client account routing is configured to auto-create accounts. '.
-                        'Error: '.$e->getMessage()
+                        'Client "' . ($invoice->client->name ?? 'Unknown') . '" does not have a Chart of Account assigned. ' .
+                        'Please assign a Chart of Account to this client, or ensure client account routing is configured to auto-create accounts. ' .
+                        'Error: ' . $e->getMessage()
                     );
                 }
             }
@@ -239,11 +239,11 @@ class BusinessTransactionJournalService
             $invoice->client->load('chartOfAccount');
             $clientAccountsReceivableAccount = $invoice->client->chartOfAccount;
 
-            if (! $clientAccountsReceivableAccount) {
+            if (!$clientAccountsReceivableAccount) {
                 throw new Exception(
-                    'Client "'.($invoice->client->name ?? 'Unknown').'" Chart of Account not found. '.
-                    'Please assign a Chart of Account to this client. '.
-                    'The client currently has chart_of_account_id = '.($invoice->client->chart_of_account_id ?? 'NULL').'. '.
+                    'Client "' . ($invoice->client->name ?? 'Unknown') . '" Chart of Account not found. ' .
+                    'Please assign a Chart of Account to this client. ' .
+                    'The client currently has chart_of_account_id = ' . ($invoice->client->chart_of_account_id ?? 'NULL') . '. ' .
                     'This should work the same way as Purchases where suppliers automatically get their own accounts.'
                 );
             }
@@ -251,8 +251,8 @@ class BusinessTransactionJournalService
             // Verify the account code is NOT the main account (12301) - it should be a child account like 12301-001
             if ($mainAccountCode && $clientAccountsReceivableAccount->code === $mainAccountCode) {
                 Log::warning(
-                    "WARNING: Client {$invoice->client->name} is using the main account {$mainAccountCode} instead of a child account. ".
-                    'This means the client was assigned the default account. '.
+                    "WARNING: Client {$invoice->client->name} is using the main account {$mainAccountCode} instead of a child account. " .
+                    'This means the client was assigned the default account. ' .
                     "Please ensure client account routing is configured with routing_type = 'main_account_per_each' to create child accounts."
                 );
             }
@@ -260,17 +260,17 @@ class BusinessTransactionJournalService
             // Log the account being used for debugging - verify it's not a static 12301
             // Compare with purchase behavior: purchases use supplier->chartOfAccount (actual account)
             Log::info(
-                "Invoice {$invoice->invoice_no} - Using client's actual chart of account (same as purchases use supplier account): ".
-                "Client ID: {$invoice->client->id}, Client Name: {$invoice->client->name}, ".
-                'Client chart_of_account_id: '.($invoice->client->chart_of_account_id ?? 'NULL').', '.
-                "Account ID: {$clientAccountsReceivableAccount->id}, Account Code: {$clientAccountsReceivableAccount->code}, ".
-                "Account Name: {$clientAccountsReceivableAccount->name}. ".
+                "Invoice {$invoice->invoice_no} - Using client's actual chart of account (same as purchases use supplier account): " .
+                "Client ID: {$invoice->client->id}, Client Name: {$invoice->client->name}, " .
+                'Client chart_of_account_id: ' . ($invoice->client->chart_of_account_id ?? 'NULL') . ', ' .
+                "Account ID: {$clientAccountsReceivableAccount->id}, Account Code: {$clientAccountsReceivableAccount->code}, " .
+                "Account Name: {$clientAccountsReceivableAccount->name}. " .
                 'If this shows 12301, the client was assigned the default account - assign a specific account to the client.'
             );
 
             if ($totalDiscountAmount > 0) {
                 $discountAccount = $this->getDiscountAllowedAccount($invoice->branch_id);
-                if (! $discountAccount) {
+                if (!$discountAccount) {
                     throw new Exception('Discount Allowed account must be configured in account routing settings to process discounts.');
                 }
             }
@@ -358,7 +358,7 @@ class BusinessTransactionJournalService
                 $netAmount = $originalAmount - $discountAmount;
 
                 // Add to sales account (net amount after discount, BEFORE adding transport)
-                if (! isset($salesByAccount[$accountId])) {
+                if (!isset($salesByAccount[$accountId])) {
                     $salesByAccount[$accountId] = 0;
                 }
                 $salesByAccount[$accountId] += $netAmount;
@@ -370,7 +370,7 @@ class BusinessTransactionJournalService
                     $productVatAmount = $invoiceProduct->tax_amount;
 
                     if ($productVatAmount > 0) {
-                        if (! isset($vatByAccount[$vatAccountId])) {
+                        if (!isset($vatByAccount[$vatAccountId])) {
                             $vatByAccount[$vatAccountId] = 0;
                         }
                         $vatByAccount[$vatAccountId] += $productVatAmount;
@@ -380,7 +380,7 @@ class BusinessTransactionJournalService
 
             // Allocate transport cost proportionally across sales accounts and include it in revenue
             // Business rule: transport should NOT be a separate journal line; it must be merged into revenue.
-            if ($transportCost > 0 && ! empty($salesByAccount)) {
+            if ($transportCost > 0 && !empty($salesByAccount)) {
                 $totalNetSalesForAllocation = array_sum($salesByAccount);
 
                 if ($totalNetSalesForAllocation > 0) {
@@ -432,8 +432,8 @@ class BusinessTransactionJournalService
 
             // Log the final totals for debugging
             Log::info("Journal entry totals - Debit: {$headerTotalAmount}, Credit: {$headerTotalAmount}");
-            Log::info('Sales accounts: '.json_encode($salesByAccount));
-            Log::info('VAT accounts: '.json_encode($vatByAccount));
+            Log::info('Sales accounts: ' . json_encode($salesByAccount));
+            Log::info('VAT accounts: ' . json_encode($vatByAccount));
 
             // Create discount journal entry if there are any discounts
             // Create bridge table record for the invoice journal
@@ -479,7 +479,7 @@ class BusinessTransactionJournalService
                 if ($invoiceProduct->unit_cost && $invoiceProduct->unit_cost > 0) {
                     $unitCost = (float) $invoiceProduct->unit_cost;
                     Log::info(
-                        "Using stored unit_cost for product {$product->name}: ".
+                        "Using stored unit_cost for product {$product->name}: " .
                         "unit_cost={$unitCost} (from invoice_products table)"
                     );
                 } else {
@@ -487,7 +487,7 @@ class BusinessTransactionJournalService
                     $invoiceDate = $invoice->invoice_date ?? now()->format('Y-m-d');
                     $unitCost = $product->calculatePurchaseHistoryAverageCost($invoiceDate);
                     Log::info(
-                        "Using weighted average cost for product {$product->name}: ".
+                        "Using weighted average cost for product {$product->name}: " .
                         "weighted_avg_cost={$unitCost} (calculated from purchase history)"
                     );
                 }
@@ -504,7 +504,7 @@ class BusinessTransactionJournalService
                 ];
 
                 Log::info(
-                    "COGS calculation for product {$product->name}: ".
+                    "COGS calculation for product {$product->name}: " .
                     "quantity={$quantity}, unit_cost={$unitCost}, lineCost={$lineCost}"
                 );
             }
@@ -518,18 +518,18 @@ class BusinessTransactionJournalService
                 $costOfSalesAccount = $this->getCostOfSalesAccount($branchId);
 
                 // COGS journal entry is required - provide detailed error message if accounts are not configured
-                if (! $inventoryAccount || ! $costOfSalesAccount) {
+                if (!$inventoryAccount || !$costOfSalesAccount) {
                     $missingAccounts = [];
-                    if (! $inventoryAccount) {
+                    if (!$inventoryAccount) {
                         $missingAccounts[] = 'Inventory Account (المخزون)';
                     }
-                    if (! $costOfSalesAccount) {
+                    if (!$costOfSalesAccount) {
                         $missingAccounts[] = 'Cost of Sales Account (تكلفة المبيعات)';
                     }
 
                     throw new Exception(
-                        'COGS journal entry is required for invoice '.$invoice->invoice_no.' but the following accounts must be configured in Account Routing Settings: '.
-                        implode(', ', $missingAccounts).'. '.
+                        'COGS journal entry is required for invoice ' . $invoice->invoice_no . ' but the following accounts must be configured in Account Routing Settings: ' .
+                        implode(', ', $missingAccounts) . '. ' .
                         'Please go to Settings > Account Routing and configure these accounts under the Inventory module.'
                     );
                 }
@@ -538,7 +538,7 @@ class BusinessTransactionJournalService
                 $cogsJournalEntry = JournalEntry::create([
                     'entry_number' => JournalEntry::generateEntryNumber(),
                     'entry_date' => $invoice->invoice_date,
-                    'reference' => $invoice->invoice_no.'-COGS', // Invoice number for matching JE ⇄ invoice
+                    'reference' => $invoice->invoice_no . '-COGS', // Invoice number for matching JE ⇄ invoice
                     'description' => __('journal.cogs_for_sale_invoice', ['number' => $invoice->invoice_no]),
                     'total_debit' => $totalCogsAmount,
                     'total_credit' => $totalCogsAmount,
@@ -583,9 +583,9 @@ class BusinessTransactionJournalService
                 ]);
 
                 Log::info(
-                    "COGS journal entry created for invoice {$invoice->invoice_no}: ".
-                    "Amount = {$totalCogsAmount} (calculated using unit_cost × quantity for each product). ".
-                    'Details: '.json_encode($cogsDetails)
+                    "COGS journal entry created for invoice {$invoice->invoice_no}: " .
+                    "Amount = {$totalCogsAmount} (calculated using unit_cost × quantity for each product). " .
+                    'Details: ' . json_encode($cogsDetails)
                 );
             } else {
                 // Log when COGS is skipped (only service products or no inventory products)
@@ -610,7 +610,7 @@ class BusinessTransactionJournalService
 
         try {
             // Generate unique reference for payment
-            $paymentReference = $invoice->invoice_no.'-PAY-'.time();
+            $paymentReference = $invoice->invoice_no . '-PAY-' . time();
 
             // Check if journal entry already exists for this payment (very unlikely but safe)
             $existingJournalEntry = JournalEntry::where('reference', $paymentReference)
@@ -626,7 +626,7 @@ class BusinessTransactionJournalService
             }
 
             // Validate client has chart of account
-            if (! $invoice->client || ! $invoice->client->isChartOfAccountConnected()) {
+            if (!$invoice->client || !$invoice->client->isChartOfAccountConnected()) {
                 throw new Exception('Client must have a Chart of Account assigned for journal entries.');
             }
 
@@ -646,11 +646,11 @@ class BusinessTransactionJournalService
             }
 
             // If no specific bank account found, throw error - we need a specific account
-            if (! $bankAccount) {
+            if (!$bankAccount) {
                 throw new Exception('Payment method must be connected to a Chart of Account for journal entries.');
             }
 
-            if (! $clientAccountsReceivableAccount) {
+            if (!$clientAccountsReceivableAccount) {
                 throw new Exception('Client Chart of Account not found.');
             }
 
@@ -726,7 +726,7 @@ class BusinessTransactionJournalService
 
             if ($existingByReference) {
                 Log::warning("Journal entry with reference '{$reference}' already exists (ID: {$existingByReference->id}). Using unique reference: {$reference}-PUR-{$purchase->id}");
-                $reference = $purchase->purchase_no.'-PUR-'.$purchase->id;
+                $reference = $purchase->purchase_no . '-PUR-' . $purchase->id;
             }
 
             // Determine payment account based on payment type
@@ -737,14 +737,14 @@ class BusinessTransactionJournalService
                 Log::info("Using payment account (cash/bank) for purchase journal: Account ID {$paymentAccount->id}");
             } else {
                 // Validate supplier has chart of account
-                if (! $purchase->supplier || ! $purchase->supplier->isChartOfAccountConnected()) {
+                if (!$purchase->supplier || !$purchase->supplier->isChartOfAccountConnected()) {
                     throw new Exception('Supplier must have a Chart of Account assigned for journal entries.');
                 }
 
                 // Get supplier-specific accounts payable account for credit purchases
                 $creditAccount = $purchase->supplier->chartOfAccount;
 
-                if (! $creditAccount) {
+                if (!$creditAccount) {
                     throw new Exception('Supplier Chart of Account not found.');
                 }
                 Log::info("Using supplier account (credit purchase) for purchase journal: Account ID {$creditAccount->id}");
@@ -752,7 +752,7 @@ class BusinessTransactionJournalService
 
             // Get purchase products
             $purchaseProducts = $purchase->purchaseProducts;
-            if (! $purchaseProducts || $purchaseProducts->count() === 0) {
+            if (!$purchaseProducts || $purchaseProducts->count() === 0) {
                 throw new Exception('No products found for this purchase.');
             }
             Log::info("Found {$purchaseProducts->count()} purchase products for PO {$purchase->purchase_no}");
@@ -837,7 +837,7 @@ class BusinessTransactionJournalService
 
             // Log transport values for debugging
             Log::info("Transport values for PO {$purchase->purchase_no}: transport={$transport}, transport_taxable={$isTransportTaxable} (raw: {$purchase->transport_taxable})");
-            Log::info('Purchase model attributes: '.json_encode([
+            Log::info('Purchase model attributes: ' . json_encode([
                 'id' => $purchase->id,
                 'transport' => $purchase->transport,
                 'transport_taxable' => $purchase->transport_taxable,
@@ -871,7 +871,7 @@ class BusinessTransactionJournalService
 
             // HARD VALIDATION: If transport > 0, it MUST be included in calculations
             if ($transport > 0) {
-                Log::info("Transport is present for PO {$purchase->purchase_no}: Amount={$transport}, Taxable=".($isTransportTaxable ? 'true' : 'false'));
+                Log::info("Transport is present for PO {$purchase->purchase_no}: Amount={$transport}, Taxable=" . ($isTransportTaxable ? 'true' : 'false'));
             }
 
             // Calculate transport cost before VAT when taxable
@@ -921,7 +921,7 @@ class BusinessTransactionJournalService
                 $transportVATAmount = 0;
             }
 
-            Log::info("Transport calculation for PO {$purchase->purchase_no}: Total={$transport}, CostForInventory={$transportCostForInventory}, VAT={$transportVATAmount}, IsTaxable=".($isTransportTaxable ? 'true' : 'false'));
+            Log::info("Transport calculation for PO {$purchase->purchase_no}: Total={$transport}, CostForInventory={$transportCostForInventory}, VAT={$transportVATAmount}, IsTaxable=" . ($isTransportTaxable ? 'true' : 'false'));
 
             // Skip journal entry if no products have inventory tracking (all are services)
             if ($totalInventoryAmount == 0) {
@@ -932,14 +932,14 @@ class BusinessTransactionJournalService
 
             // Get Inventory account from routing settings
             $inventoryAccount = $this->getInventoryAccount($purchase->branch_id);
-            if (! $inventoryAccount) {
+            if (!$inventoryAccount) {
                 throw new Exception('Inventory account must be configured in account routing settings to create purchase journal entry.');
             }
 
             // Get VAT Input account
             // Note: tax_amount already includes VAT on (net amount after discount + allocated transport share)
             $vatAccount = $totalVatAmount > 0 ? $this->getVatAccountForPurchase($purchase) : null;
-            if ($totalVatAmount > 0 && ! $vatAccount) {
+            if ($totalVatAmount > 0 && !$vatAccount) {
                 throw new Exception('VAT Input account must be configured in account routing settings to create purchase journal entry with VAT.');
             }
 
@@ -1014,7 +1014,7 @@ class BusinessTransactionJournalService
                 // CRITICAL: Non-taxable transport MUST be added to inventory cost
                 // Example: items = 16, invoice discount = 0, transport = 20, inventory = 16 + 20 = 36
                 $inventoryAmount = $inventoryBase + $transport;
-                Log::info("Creating journal line {$lineNumber}: Debit Inventory (after invoice discount + non-taxable transport) - Account ID: {$inventoryAccount->id}, Amount: {$inventoryAmount}, Base: {$inventoryBase}, Transport: {$transport}, IsTaxable: ".($isTransportTaxable ? 'true' : 'false'));
+                Log::info("Creating journal line {$lineNumber}: Debit Inventory (after invoice discount + non-taxable transport) - Account ID: {$inventoryAccount->id}, Amount: {$inventoryAmount}, Base: {$inventoryBase}, Transport: {$transport}, IsTaxable: " . ($isTransportTaxable ? 'true' : 'false'));
             }
 
             // HARD VALIDATION: If transport > 0, it MUST be included in inventory
@@ -1064,7 +1064,7 @@ class BusinessTransactionJournalService
                 // Use sum of item VATs (recalculated if discount applied)
                 // CRITICAL: Non-taxable transport MUST NOT generate VAT
                 $vatAmountForJournal = $totalVatAmount; // Only item VAT, no transport VAT
-                Log::info("VAT calculation (non-taxable transport): Item VAT only: {$vatAmountForJournal}, Transport: {$transport}, IsTaxable: ".($isTransportTaxable ? 'true' : 'false'));
+                Log::info("VAT calculation (non-taxable transport): Item VAT only: {$vatAmountForJournal}, Transport: {$transport}, IsTaxable: " . ($isTransportTaxable ? 'true' : 'false'));
             }
 
             if ($vatAmountForJournal > 0 && $vatAccount) {
@@ -1123,7 +1123,7 @@ class BusinessTransactionJournalService
                         'bill_discount_amount' => $billDiscountAmount,
                         'total_vat_amount' => $totalVatAmount,
                     ];
-                    Log::error('JOURNAL VALIDATION FAILED for PO '.$purchase->purchase_no.': '.json_encode($breakdown, JSON_PRETTY_PRINT));
+                    Log::error('JOURNAL VALIDATION FAILED for PO ' . $purchase->purchase_no . ': ' . json_encode($breakdown, JSON_PRETTY_PRINT));
 
                     // If transport is missing but expected, provide helpful error message
                     if (abs($expectedTransport) > 0.01 && abs($transport) < 0.01) {
@@ -1159,7 +1159,7 @@ class BusinessTransactionJournalService
             return $journalEntry;
         } catch (Exception $e) {
             DB::rollBack();
-            Log::error('Purchase journal creation failed: '.$e->getMessage());
+            Log::error('Purchase journal creation failed: ' . $e->getMessage());
             throw $e;
         }
     }
@@ -1195,7 +1195,7 @@ class BusinessTransactionJournalService
             return $this->createPurchaseJournal($purchase, $userId, $paymentAccount);
         } catch (Exception $e) {
             DB::rollBack();
-            Log::error('Failed to recreate purchase journal: '.$e->getMessage());
+            Log::error('Failed to recreate purchase journal: ' . $e->getMessage());
             throw $e;
         }
     }
@@ -1209,7 +1209,7 @@ class BusinessTransactionJournalService
 
         try {
             // Generate unique reference for payment
-            $paymentReference = $purchase->purchase_no.'-PAY-'.time();
+            $paymentReference = $purchase->purchase_no . '-PAY-' . time();
 
             // Get the purchase payment to check for existing journal entry
             $purchasePayment = $purchase->purchasePayments()->latest()->first();
@@ -1232,7 +1232,7 @@ class BusinessTransactionJournalService
             }
 
             // Validate supplier has chart of account
-            if (! $purchase->supplier || ! $purchase->supplier->isChartOfAccountConnected()) {
+            if (!$purchase->supplier || !$purchase->supplier->isChartOfAccountConnected()) {
                 throw new Exception('Supplier must have a Chart of Account assigned for journal entries.');
             }
 
@@ -1249,18 +1249,18 @@ class BusinessTransactionJournalService
                     $bankAccount = $transaction->account->chartOfAccount;
 
                     // Validate that the cashbook account is connected to a chart of account
-                    if (! $cashbookAccount->isChartOfAccountConnected()) {
+                    if (!$cashbookAccount->isChartOfAccountConnected()) {
                         throw new Exception($cashbookAccount->getChartOfAccountValidationMessage());
                     }
                 }
             }
 
             // If no specific bank account found, throw error - we need a specific account
-            if (! $bankAccount) {
+            if (!$bankAccount) {
                 throw new Exception('Payment method must be connected to a Chart of Account for journal entries.');
             }
 
-            if (! $supplierAccountsPayableAccount) {
+            if (!$supplierAccountsPayableAccount) {
                 throw new Exception('Supplier Chart of Account not found.');
             }
 
@@ -1331,7 +1331,7 @@ class BusinessTransactionJournalService
             }
 
             // Fallback to default if no specific account selected
-            if (! $expenseAccount) {
+            if (!$expenseAccount) {
                 $expenseAccount = $this->getDefaultAccount('Operating Expenses', 'Expense');
             }
 
@@ -1347,7 +1347,7 @@ class BusinessTransactionJournalService
                         $bankAccount = $account->chartOfAccount;
 
                         // Validate that the cashbook account is connected to a chart of account
-                        if (! $cashbookAccount->isChartOfAccountConnected()) {
+                        if (!$cashbookAccount->isChartOfAccountConnected()) {
                             throw new Exception($cashbookAccount->getChartOfAccountValidationMessage());
                         }
                     }
@@ -1355,21 +1355,21 @@ class BusinessTransactionJournalService
             }
 
             // Fall back to default bank account if no specific one found
-            if (! $bankAccount) {
+            if (!$bankAccount) {
                 $bankAccount = $this->getDefaultAccount('Bank Accounts', 'Asset');
             }
 
             // Provide detailed error messages for missing accounts
-            if (! $expenseAccount && ! $bankAccount) {
+            if (!$expenseAccount && !$bankAccount) {
                 throw new Exception('Required chart of accounts not found. Please ensure both an expense account and a bank/payment account are configured.');
-            } elseif (! $expenseAccount) {
+            } elseif (!$expenseAccount) {
                 throw new Exception('Expense account not found. Please configure an expense account in account routing settings or ensure a default "Operating Expenses" account exists in the chart of accounts.');
-            } elseif (! $bankAccount) {
+            } elseif (!$bankAccount) {
                 throw new Exception('Bank/payment account not found. Please ensure the payment account is connected to a Chart of Account, or configure a default "Bank Accounts" account in the chart of accounts.');
             }
 
             // Debug: Log the expense amount being used for journal
-            Log::info('Creating journal entry for expense ID: '.$expense->id.' with amount: '.$expense->amount);
+            Log::info('Creating journal entry for expense ID: ' . $expense->id . ' with amount: ' . $expense->amount);
 
             // Get default fiscal year and accounting period
             $defaults = $this->getDefaultFiscalYearAndPeriod();
@@ -1394,10 +1394,10 @@ class BusinessTransactionJournalService
             ]);
 
             // Create journal entry lines
-            Log::info('Creating journal line 1: Debit to expense account '.$expenseAccount->id.' with amount: '.$expense->amount);
+            Log::info('Creating journal line 1: Debit to expense account ' . $expenseAccount->id . ' with amount: ' . $expense->amount);
             $this->createJournalEntryLine($journalEntry, $expenseAccount->id, $expense->amount, 0, 1, __('journal.expense', ['reason' => $expense->reason]));
 
-            Log::info('Creating journal line 2: Credit to bank account '.$bankAccount->id.' with amount: '.$expense->amount);
+            Log::info('Creating journal line 2: Credit to bank account ' . $bankAccount->id . ' with amount: ' . $expense->amount);
             $this->createJournalEntryLine($journalEntry, $bankAccount->id, 0, $expense->amount, 2, __('journal.cash_bank_payment_for_expense'));
 
             // Create bridge table record
@@ -1424,14 +1424,14 @@ class BusinessTransactionJournalService
 
         try {
             // Validate client has chart of account
-            if (! $nonInvoicePayment->client || ! $nonInvoicePayment->client->isChartOfAccountConnected()) {
+            if (!$nonInvoicePayment->client || !$nonInvoicePayment->client->isChartOfAccountConnected()) {
                 throw new Exception('Client must have a Chart of Account assigned for journal entries.');
             }
 
             // Get client-specific accounts receivable account
             $clientAccountsReceivableAccount = $nonInvoicePayment->client->chartOfAccount;
 
-            if (! $clientAccountsReceivableAccount) {
+            if (!$clientAccountsReceivableAccount) {
                 throw new Exception('Client Chart of Account not found.');
             }
 
@@ -1445,14 +1445,14 @@ class BusinessTransactionJournalService
                     $bankAccount = $transaction->account->chartOfAccount;
 
                     // Validate that the cashbook account is connected to a chart of account
-                    if (! $cashbookAccount->isChartOfAccountConnected()) {
+                    if (!$cashbookAccount->isChartOfAccountConnected()) {
                         throw new Exception($cashbookAccount->getChartOfAccountValidationMessage());
                     }
                 }
             }
 
             // If no specific bank account found, throw error - we need a specific account
-            if (! $bankAccount) {
+            if (!$bankAccount) {
                 throw new Exception('Payment method must be connected to a Chart of Account for journal entries.');
             }
 
@@ -1466,7 +1466,7 @@ class BusinessTransactionJournalService
             $journalEntry = JournalEntry::create([
                 'entry_number' => JournalEntry::generateEntryNumber(),
                 'entry_date' => $nonInvoicePayment->date,
-                'reference' => 'NIP-'.$nonInvoicePayment->id.'-PAY-'.time(),
+                'reference' => 'NIP-' . $nonInvoicePayment->id . '-PAY-' . time(),
                 'description' => __('journal.non_invoice_payment', ['note' => $nonInvoicePayment->note]),
                 'total_debit' => $nonInvoicePayment->amount,
                 'total_credit' => $nonInvoicePayment->amount,
@@ -1529,18 +1529,18 @@ class BusinessTransactionJournalService
                     $bankAccount = $account->chartOfAccount;
 
                     // Validate that the cashbook account is connected to a chart of account
-                    if (! $cashbookAccount->isChartOfAccountConnected()) {
+                    if (!$cashbookAccount->isChartOfAccountConnected()) {
                         throw new Exception($cashbookAccount->getChartOfAccountValidationMessage());
                     }
                 }
             }
 
             // Fall back to default bank account if no specific one found
-            if (! $bankAccount) {
+            if (!$bankAccount) {
                 $bankAccount = $this->getDefaultAccount('Bank Accounts', 'Asset');
             }
 
-            if (! $loanAccount || ! $bankAccount) {
+            if (!$loanAccount || !$bankAccount) {
                 throw new Exception('Required chart of accounts not found.');
             }
 
@@ -1594,14 +1594,14 @@ class BusinessTransactionJournalService
 
         try {
             // Validate supplier has chart of account
-            if (! $nonPurchasePayment->supplier || ! $nonPurchasePayment->supplier->isChartOfAccountConnected()) {
+            if (!$nonPurchasePayment->supplier || !$nonPurchasePayment->supplier->isChartOfAccountConnected()) {
                 throw new Exception('Supplier must have a Chart of Account assigned for journal entries.');
             }
 
             // Get supplier-specific accounts payable account
             $supplierAccountsPayableAccount = $nonPurchasePayment->supplier->chartOfAccount;
 
-            if (! $supplierAccountsPayableAccount) {
+            if (!$supplierAccountsPayableAccount) {
                 throw new Exception('Supplier Chart of Account not found.');
             }
 
@@ -1615,14 +1615,14 @@ class BusinessTransactionJournalService
                     $bankAccount = $transaction->account->chartOfAccount;
 
                     // Validate that the cashbook account is connected to a chart of account
-                    if (! $cashbookAccount->isChartOfAccountConnected()) {
+                    if (!$cashbookAccount->isChartOfAccountConnected()) {
                         throw new Exception($cashbookAccount->getChartOfAccountValidationMessage());
                     }
                 }
             }
 
             // If no specific bank account found, throw error - we need a specific account
-            if (! $bankAccount) {
+            if (!$bankAccount) {
                 throw new Exception('Payment method must be connected to a Chart of Account for journal entries.');
             }
 
@@ -1633,7 +1633,7 @@ class BusinessTransactionJournalService
             $journalEntry = JournalEntry::create([
                 'entry_number' => JournalEntry::generateEntryNumber(),
                 'entry_date' => $nonPurchasePayment->date,
-                'reference' => 'NPP-'.$nonPurchasePayment->id.'-PAY-'.time(),
+                'reference' => 'NPP-' . $nonPurchasePayment->id . '-PAY-' . time(),
                 'description' => __('journal.supplier_non_purchase_payment'),
                 'total_debit' => $nonPurchasePayment->amount,
                 'total_credit' => $nonPurchasePayment->amount,
@@ -1687,14 +1687,14 @@ class BusinessTransactionJournalService
                     $bankAccount = $transaction->account->chartOfAccount;
 
                     // Validate that the cashbook account is connected to a chart of account
-                    if (! $transaction->account->isChartOfAccountConnected()) {
+                    if (!$transaction->account->isChartOfAccountConnected()) {
                         throw new Exception($transaction->account->getChartOfAccountValidationMessage());
                     }
                 }
             }
 
             // If no specific bank account found, throw error - we need a specific account
-            if (! $bankAccount) {
+            if (!$bankAccount) {
                 throw new Exception('Payment method must be connected to a Chart of Account for journal entries.');
             }
 
@@ -1703,33 +1703,33 @@ class BusinessTransactionJournalService
 
             if ($paymentVoucher->entity_type === 'client') {
                 // For client vouchers, use client's chart of account
-                if (! $paymentVoucher->client || ! $paymentVoucher->client->isChartOfAccountConnected()) {
+                if (!$paymentVoucher->client || !$paymentVoucher->client->isChartOfAccountConnected()) {
                     throw new Exception('Client must have a Chart of Account assigned for journal entries.');
                 }
                 $entityAccount = $paymentVoucher->client->chartOfAccount;
 
-                if (! $entityAccount) {
+                if (!$entityAccount) {
                     throw new Exception('Client Chart of Account not found.');
                 }
             } elseif ($paymentVoucher->entity_type === 'supplier') {
                 // For supplier vouchers, use supplier's chart of account
-                if (! $paymentVoucher->supplier || ! $paymentVoucher->supplier->isChartOfAccountConnected()) {
+                if (!$paymentVoucher->supplier || !$paymentVoucher->supplier->isChartOfAccountConnected()) {
                     throw new Exception('Supplier must have a Chart of Account assigned for journal entries.');
                 }
                 $entityAccount = $paymentVoucher->supplier->chartOfAccount;
 
-                if (! $entityAccount) {
+                if (!$entityAccount) {
                     throw new Exception('Supplier Chart of Account not found.');
                 }
             } elseif ($paymentVoucher->entity_type === 'chart_of_account') {
                 // For chart of account vouchers, use the chart of account directly
-                if (! $paymentVoucher->chartOfAccount) {
+                if (!$paymentVoucher->chartOfAccount) {
                     throw new Exception('Chart of Account not found.');
                 }
                 $entityAccount = $paymentVoucher->chartOfAccount;
             }
 
-            if (! $entityAccount) {
+            if (!$entityAccount) {
                 throw new Exception('Entity Chart of Account not found.');
             }
 
@@ -1740,7 +1740,7 @@ class BusinessTransactionJournalService
             $defaults = $this->getDefaultFiscalYearAndPeriod();
 
             // Generate reference
-            $voucherReference = 'VOUCHER-'.$paymentVoucher->id.'-'.($paymentVoucher->voucher_type ? 'RECEIVE' : 'SEND').'-'.time();
+            $voucherReference = 'VOUCHER-' . $paymentVoucher->id . '-' . ($paymentVoucher->voucher_type ? 'RECEIVE' : 'SEND') . '-' . time();
 
             // Create journal entry
             $journalEntry = JournalEntry::create([
@@ -1849,7 +1849,7 @@ class BusinessTransactionJournalService
             ->where('is_active', true)
             ->first();
 
-        if (! $setting || ! $setting->main_account_id) {
+        if (!$setting || !$setting->main_account_id) {
             return null;
         }
 
@@ -1869,7 +1869,7 @@ class BusinessTransactionJournalService
             ->where('is_active', true)
             ->first();
 
-        if (! $setting || ! $setting->main_account_id) {
+        if (!$setting || !$setting->main_account_id) {
             return null;
         }
 
@@ -1952,7 +1952,7 @@ class BusinessTransactionJournalService
             $salesVatAccount = $this->getDefaultAccount('Sales VAT Payable', 'Liability');
             $accountsReceivableAccount = $this->getDefaultAccount('Accounts Receivable', 'Asset');
 
-            if (! $salesVatAccount || ! $accountsReceivableAccount) {
+            if (!$salesVatAccount || !$accountsReceivableAccount) {
                 throw new Exception('Required VAT chart of accounts not found. Please ensure Sales VAT Payable and Accounts Receivable accounts exist.');
             }
 
@@ -2003,7 +2003,7 @@ class BusinessTransactionJournalService
             $purchaseVatAccount = $this->getDefaultAccount('Purchase VAT Receivable', 'Asset');
             $accountsPayableAccount = $this->getDefaultAccount('Accounts Payable', 'Liability');
 
-            if (! $purchaseVatAccount || ! $accountsPayableAccount) {
+            if (!$purchaseVatAccount || !$accountsPayableAccount) {
                 throw new Exception('Required VAT chart of accounts not found. Please ensure Purchase VAT Receivable and Accounts Payable accounts exist.');
             }
 
@@ -2093,7 +2093,7 @@ class BusinessTransactionJournalService
      */
     private function getDiscountAllowedAccount($branchId = null): ?ChartOfAccount
     {
-        if (! $branchId) {
+        if (!$branchId) {
             $branchId = Auth::user()->default_branch_id ?? null;
         }
 
@@ -2102,7 +2102,7 @@ class BusinessTransactionJournalService
             ->where('setting_key', 'discount_allowed_account')
             ->first();
 
-        if (! $setting || ! $setting->main_account_id) {
+        if (!$setting || !$setting->main_account_id) {
             return null;
         }
 
@@ -2116,7 +2116,7 @@ class BusinessTransactionJournalService
      */
     private function getTransportExpenseAccount($branchId = null): ?ChartOfAccount
     {
-        if (! $branchId) {
+        if (!$branchId) {
             $branchId = Auth::user()->default_branch_id ?? null;
         }
 
@@ -2125,7 +2125,7 @@ class BusinessTransactionJournalService
             ->where('is_active', true)
             ->first();
 
-        if (! $setting || ! $setting->main_account_id) {
+        if (!$setting || !$setting->main_account_id) {
             return null;
         }
 
@@ -2146,21 +2146,21 @@ class BusinessTransactionJournalService
             $invoiceReturn->load(['invoice.client.chartOfAccount', 'invoiceReturnProducts.product.productTax']);
 
             // Validate client has chart of account
-            if (! $invoiceReturn->invoice || ! $invoiceReturn->invoice->client || ! $invoiceReturn->invoice->client->isChartOfAccountConnected()) {
+            if (!$invoiceReturn->invoice || !$invoiceReturn->invoice->client || !$invoiceReturn->invoice->client->isChartOfAccountConnected()) {
                 throw new Exception('Client must have a Chart of Account assigned for journal entries.');
             }
 
             $client = $invoiceReturn->invoice->client;
             $clientAccountsReceivableAccount = $client->chartOfAccount;
 
-            if (! $clientAccountsReceivableAccount) {
+            if (!$clientAccountsReceivableAccount) {
                 throw new Exception('Client Chart of Account not found.');
             }
 
             $returnProducts = $invoiceReturn->invoiceReturnProducts;
             $branchId = $invoiceReturn->branch_id ?? (int) (Auth::user()->default_branch_id ?? 0);
 
-            Log::info('Invoice Return Journal Creation - Return Products Count: '.$returnProducts->count());
+            Log::info('Invoice Return Journal Creation - Return Products Count: ' . $returnProducts->count());
 
             if ($returnProducts->count() === 0) {
                 DB::rollBack();
@@ -2184,7 +2184,7 @@ class BusinessTransactionJournalService
                     ->where('product_id', $product->id)
                     ->first();
 
-                if (! $invoiceProduct) {
+                if (!$invoiceProduct) {
                     continue;
                 }
 
@@ -2207,7 +2207,7 @@ class BusinessTransactionJournalService
 
                 // Group by sales account (same as sale journal)
                 if ($product->sales_account_id) {
-                    if (! isset($salesByAccount[$product->sales_account_id])) {
+                    if (!isset($salesByAccount[$product->sales_account_id])) {
                         $salesByAccount[$product->sales_account_id] = 0;
                     }
                     $salesByAccount[$product->sales_account_id] += $returnNet;
@@ -2217,7 +2217,7 @@ class BusinessTransactionJournalService
                 if ($invoiceProduct->vatRate && $returnVat > 0) {
                     $vatAccount = $invoiceProduct->vatRate->getSalesVatAccount($branchId);
                     if ($vatAccount) {
-                        if (! isset($vatByAccount[$vatAccount->id])) {
+                        if (!isset($vatByAccount[$vatAccount->id])) {
                             $vatByAccount[$vatAccount->id] = 0;
                         }
                         $vatByAccount[$vatAccount->id] += $returnVat;
@@ -2225,7 +2225,7 @@ class BusinessTransactionJournalService
                 }
 
                 // COGS: Use exact original unit_cost (NO recalculation)
-                if ($product && ! $product->is_service) {
+                if ($product && !$product->is_service) {
                     $originalUnitCost = $returnProduct->unit_cost ?? $invoiceProduct->unit_cost ?? $returnProduct->purchase_price ?? 0;
                     $lineCogs = round($originalUnitCost * $returnQty, 2);
                     $totalCogsAmount += $lineCogs;
@@ -2317,7 +2317,7 @@ class BusinessTransactionJournalService
                     $cogsJournalEntry = JournalEntry::create([
                         'entry_number' => JournalEntry::generateEntryNumber(),
                         'entry_date' => $invoiceReturn->date,
-                        'reference' => $invoiceReturn->return_no.'-COGS',
+                        'reference' => $invoiceReturn->return_no . '-COGS',
                         'description' => __('journal.cogs_reversal_for_return', ['number' => $invoiceReturn->return_no]),
                         'total_debit' => $totalCogsAmount,
                         'total_credit' => $totalCogsAmount,
@@ -2398,7 +2398,7 @@ class BusinessTransactionJournalService
             ->where('is_active', true)
             ->first();
 
-        if (! $setting || ! $setting->main_account_id) {
+        if (!$setting || !$setting->main_account_id) {
             return null;
         }
 
@@ -2410,7 +2410,7 @@ class BusinessTransactionJournalService
      */
     private function getDiscountReceivedAccount($branchId = null): ?ChartOfAccount
     {
-        if (! $branchId) {
+        if (!$branchId) {
             $branchId = Auth::user()->default_branch_id ?? null;
         }
 
@@ -2419,7 +2419,7 @@ class BusinessTransactionJournalService
             ->where('setting_key', 'discount_received_account')
             ->first();
 
-        if (! $setting || ! $setting->main_account_id) {
+        if (!$setting || !$setting->main_account_id) {
             return null;
         }
 
@@ -2452,7 +2452,7 @@ class BusinessTransactionJournalService
             $debitTransaction = $balanceTransfer->debitTransaction;
             $creditTransaction = $balanceTransfer->creditTransaction;
 
-            if (! $debitTransaction || ! $creditTransaction) {
+            if (!$debitTransaction || !$creditTransaction) {
                 throw new Exception('Balance transfer transactions not found.');
             }
 
@@ -2460,16 +2460,16 @@ class BusinessTransactionJournalService
             $fromAccount = $debitTransaction->cashbookAccount;
             $toAccount = $creditTransaction->cashbookAccount;
 
-            if (! $fromAccount || ! $toAccount) {
+            if (!$fromAccount || !$toAccount) {
                 throw new Exception('Cashbook accounts not found for balance transfer.');
             }
 
             // Validate that both accounts are connected to chart of accounts
-            if (! $fromAccount->isChartOfAccountConnected()) {
+            if (!$fromAccount->isChartOfAccountConnected()) {
                 throw new Exception($fromAccount->getChartOfAccountValidationMessage());
             }
 
-            if (! $toAccount->isChartOfAccountConnected()) {
+            if (!$toAccount->isChartOfAccountConnected()) {
                 throw new Exception($toAccount->getChartOfAccountValidationMessage());
             }
 
@@ -2477,7 +2477,7 @@ class BusinessTransactionJournalService
             $fromChartOfAccountId = $fromAccount->getChartOfAccountIdForJournal();
             $toChartOfAccountId = $toAccount->getChartOfAccountIdForJournal();
 
-            if (! $fromChartOfAccountId || ! $toChartOfAccountId) {
+            if (!$fromChartOfAccountId || !$toChartOfAccountId) {
                 throw new Exception('Chart of accounts not found for balance transfer accounts.');
             }
 
@@ -2560,19 +2560,19 @@ class BusinessTransactionJournalService
             // Get the cashbook account
             $cashbookAccount = $accountTransaction->cashbookAccount;
 
-            if (! $cashbookAccount) {
+            if (!$cashbookAccount) {
                 throw new Exception('Cashbook account not found for balance adjustment.');
             }
 
             // Validate that the account is connected to a chart of account
-            if (! $cashbookAccount->isChartOfAccountConnected()) {
+            if (!$cashbookAccount->isChartOfAccountConnected()) {
                 throw new Exception($cashbookAccount->getChartOfAccountValidationMessage());
             }
 
             // Get chart of account ID
             $chartOfAccountId = $cashbookAccount->getChartOfAccountIdForJournal();
 
-            if (! $chartOfAccountId) {
+            if (!$chartOfAccountId) {
                 throw new Exception('Chart of accounts not found for balance adjustment account.');
             }
 
@@ -2586,7 +2586,7 @@ class BusinessTransactionJournalService
             // Get the selected second account
             $branchId = Auth::user()->default_branch_id ?? null;
             $secondAccount = ChartOfAccount::forBranch($branchId)->find($accountTransaction->second_account_id);
-            if (! $secondAccount) {
+            if (!$secondAccount) {
                 throw new Exception('Second account not found. Please select a valid chart of account.');
             }
 
@@ -2595,7 +2595,7 @@ class BusinessTransactionJournalService
                 'entry_number' => JournalEntry::generateEntryNumber(),
                 'entry_date' => $accountTransaction->transaction_date,
                 // Ensure reference is unique to avoid duplicate key violations
-                'reference' => $accountTransaction->slug.'-'.$accountTransaction->id,
+                'reference' => $accountTransaction->slug . '-' . $accountTransaction->id,
                 'description' => $accountTransaction->note ?? __('journal.balance_adjustment', ['reason' => $accountTransaction->reason]),
                 'total_debit' => $accountTransaction->amount,
                 'total_credit' => $accountTransaction->amount,
@@ -2672,21 +2672,21 @@ class BusinessTransactionJournalService
             $purchaseReturn->load(['purchase.supplier.chartOfAccount', 'purchase.purchaseTax', 'purchaseReturnProducts.product.productTax']);
 
             // Validate supplier has chart of account
-            if (! $purchaseReturn->purchase || ! $purchaseReturn->purchase->supplier || ! $purchaseReturn->purchase->supplier->isChartOfAccountConnected()) {
+            if (!$purchaseReturn->purchase || !$purchaseReturn->purchase->supplier || !$purchaseReturn->purchase->supplier->isChartOfAccountConnected()) {
                 throw new Exception('Supplier must have a Chart of Account assigned for journal entries.');
             }
 
             $supplier = $purchaseReturn->purchase->supplier;
             $supplierAccountsPayableAccount = $supplier->chartOfAccount;
 
-            if (! $supplierAccountsPayableAccount) {
+            if (!$supplierAccountsPayableAccount) {
                 throw new Exception('Supplier Chart of Account not found.');
             }
 
             $returnProducts = $purchaseReturn->purchaseReturnProducts;
             $branchId = $purchaseReturn->branch_id ?? (int) (Auth::user()->default_branch_id ?? 0);
 
-            Log::info('Purchase Return Journal Creation - Return Products Count: '.$returnProducts->count());
+            Log::info('Purchase Return Journal Creation - Return Products Count: ' . $returnProducts->count());
 
             if ($returnProducts->count() === 0) {
                 DB::rollBack();
@@ -2711,8 +2711,8 @@ class BusinessTransactionJournalService
             foreach ($returnProducts as $returnProduct) {
                 $product = $returnProduct->product;
 
-                if (! $product) {
-                    Log::warning('Product not found for return product ID: '.$returnProduct->id);
+                if (!$product) {
+                    Log::warning('Product not found for return product ID: ' . $returnProduct->id);
 
                     continue;
                 }
@@ -2769,14 +2769,14 @@ class BusinessTransactionJournalService
 
             // Get accounts from routing settings (same as purchase journal)
             $inventoryAccount = $this->getInventoryAccount($branchId);
-            if ($totalInventoryAmount > 0 && ! $inventoryAccount) {
+            if ($totalInventoryAmount > 0 && !$inventoryAccount) {
                 throw new Exception('Inventory account must be configured in account routing settings.');
             }
 
             $vatAccount = null;
             if ($totalVatAmount > 0) {
                 $vatAccount = $this->getVatAccountForPurchase($purchaseReturn->purchase);
-                if (! $vatAccount) {
+                if (!$vatAccount) {
                     throw new Exception('VAT Input account must be configured in account routing settings.');
                 }
             }
@@ -2797,7 +2797,7 @@ class BusinessTransactionJournalService
             $journalEntry = JournalEntry::create([
                 'entry_number' => JournalEntry::generateEntryNumber(),
                 'entry_date' => $purchaseReturn->date,
-                'reference' => 'PR-'.$purchaseReturn->code,
+                'reference' => 'PR-' . $purchaseReturn->code,
                 'description' => __('journal.purchase_return', ['code' => $purchaseReturn->code]),
                 'total_debit' => $totalAmount,
                 'total_credit' => $totalAmount,

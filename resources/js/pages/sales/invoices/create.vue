@@ -1098,12 +1098,12 @@
     <InvoicePaymentModal
       v-if="createdInvoiceData"
       :show="showPaymentModal"
-      :invoice-id="createdInvoiceData.id"
-      :invoice-no="createdInvoiceData.invoiceNo"
+      :invoice-id="paymentModalData.id"
+      :invoice-no="paymentModalData.invoiceNo"
       :invoice-prefix="prefix"
-      :invoice-total="createdInvoiceData.subTotal || createdInvoiceData.netTotal || form.netTotal"
-      :due-amount="createdInvoiceData.subTotal || createdInvoiceData.netTotal || form.netTotal"
-      :invoice-status="createdInvoiceData.status || 1"
+      :invoice-total="paymentModalData.netTotal"
+      :due-amount="paymentModalData.netTotal"
+      :invoice-status="paymentModalData.status || 1"
       @close="handlePaymentModalClose"
       @payment-saved="handlePaymentSaved"
     />
@@ -1216,6 +1216,12 @@ export default {
       branches: [],
       prefix: "",
       showPaymentModal: false,
+    paymentModalData: {
+      id: null,
+      invoiceNo: null,
+      netTotal: 0,
+      status: 1
+    },
       createdInvoiceData: null,
       isUpdatingChartOfAccount: false, // Flag to prevent form submission during chart of account updates
 
@@ -1362,10 +1368,12 @@ export default {
       return this.roundToTwoDecimals(transportCost);
     },
 
-    // Calculate subtotal (reactive) - sum of line net_totals (line_total - discount)
-    // Note: This is the sum of net amounts after discount, before VAT
+    // Calculate subtotal for ItemsTable footer (Total with VAT)
     subtotal() {
-      return this.roundToTwoDecimals(this.totalAfterDiscount);
+      // Must include tax to match the "Total with VAT" column in ItemsTable
+      const net = Number(this.totalAfterDiscount) || 0;
+      const tax = Number(this.totalProductTax) || 0;
+      return this.roundToTwoDecimals(net + tax);
     },
 
     // Net Amount Before VAT: Calculated based on transport taxability
@@ -2181,7 +2189,7 @@ export default {
         const { data } = await axios.get(
           window.location.origin + "/api/all-products"
         );
-        this.products = data.data;
+        this.products = data.data || [];
         this.products.sort(this.sortProducts);
         // After products are loaded/refreshed, sync inventory for selected items
         if (this.form.selectedProducts && this.form.selectedProducts.length > 0) {
@@ -2444,7 +2452,7 @@ export default {
         const { data } = await axios.get(
           window.location.origin + "/api/all-accounts"
         );
-        this.accounts = data.data;
+        this.accounts = data.data || [];
         // assign default account
         if (this.accounts && this.accounts.length > 0) {
           let defaultAccountSlug = this.appInfo.defaultAccountSlug;
@@ -2722,7 +2730,7 @@ export default {
         const { data } = await axios.get(
           window.location.origin + "/api/all-vat-rates"
         );
-        this.taxes = data.data;
+        this.taxes = data.data || [];
 
         // assign default vat rate
         if (this.taxes && this.taxes.length > 0) {
@@ -3054,7 +3062,10 @@ export default {
       // Calculate tax and total based on tax type
       let productTax, totalTax, totalPrice;
 
-      if (item.taxType == "Exclusive") {
+      // Default to Exclusive if taxType is not explicitly "Inclusive"
+      const isInclusive = item.taxType === "Inclusive";
+      
+      if (!isInclusive) {
         // VAT on vatBase (which includes transport only if transport is taxable)
         productTax = this.roundToTwoDecimals(vatBase * (vatRate / 100));
         totalTax = this.roundToTwoDecimals(productTax);
@@ -3177,7 +3188,7 @@ export default {
       this.updateProductsWithDefaultVatRate();
 
       // Update form values for consistency with computed properties
-      this.$set(this.form, 'subTotal', this.roundToTwoDecimals(this.subtotal));
+      this.$set(this.form, 'subTotal', this.roundToTwoDecimals(this.totalAfterDiscount));
       this.$set(this.form, 'productTotalTax', this.roundToTwoDecimals(this.totalProductTax));
       this.$set(this.form, 'totalDiscount', this.roundToTwoDecimals(this.totalProductDiscount));
 
@@ -3611,7 +3622,11 @@ export default {
       }, 0));
 
       this.reactiveTotals.subTotal = this.roundToTwoDecimals(this.form.selectedProducts.reduce((total, item) => {
-        return total + (item.totalAfterDiscount || 0) + (item.totalTax || 0);
+        // Strictly sum Net + Tax to ensure accuracy regardless of totalPrice state
+        const net = item.totalAfterDiscount || 0;
+        const tax = item.totalTax || 0;
+        // console.log(`[ReactiveUpdate] Item ${item.id}: Net=${net}, Tax=${tax}, Sum=${net+tax}`);
+        return total + net + tax;
       }, 0));
 
       console.log('[InvoiceCreate] updateReactiveTotals called:', this.reactiveTotals);
@@ -3665,8 +3680,11 @@ export default {
       if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
         return 0;
       }
+      // Strictly sum Net + Tax
       const total = this.form.selectedProducts.reduce((total, item) => {
-        return total + (item.totalAfterDiscount || 0) + (item.totalTax || 0);
+         const net = Number(item.totalAfterDiscount) || 0;
+         const tax = Number(item.totalTax) || 0;
+         return total + net + tax;
       }, 0);
       return this.roundToTwoDecimals(total);
     },
@@ -3716,6 +3734,9 @@ export default {
       try {
         // Sync discount fields before submission
         this.syncDiscountFields();
+
+        // Ensure calculations are up to date
+        this.calculateSum();
         
         // Ensure all monetary values are properly formatted to 2 decimal places before submission
         this.formatFormValues();
@@ -3878,6 +3899,12 @@ export default {
               // If payment type is Paid, open payment modal instead of redirecting
               if (this.form.isPaid) {
                 this.createdInvoiceData = data.data;
+                this.paymentModalData = {
+                    id: data.data.id || data.data.invoice_id,
+                    invoiceNo: data.data.invoiceNo || data.data.invoice_no,
+                    netTotal: data.data.netTotal, 
+                    status: data.data.status || 1
+                };
                 this.showPaymentModal = true;
               } else {
                 this.$router.push({ name: "invoices.show", params: { slug: data.data.slug } });
@@ -3925,6 +3952,21 @@ export default {
             // If payment type is Paid, open payment modal instead of redirecting
             if (this.form.isPaid) {
               this.createdInvoiceData = data.data;
+              // Use current form netTotal which has the correct calculation (e.g. 57.5) before reset takes effect effectively
+              // Actually we cleared data above, so we lost form.netTotal. 
+              // We must use the data from response strictly, but we know response netTotal is correct now.
+              // BUT to be absolutely safe given user feedback, let's look at what we sent.
+              // Wait, clearTemporaryData() was ALREADY called. The form is GONE.
+              // We must rely on 'data.data'.
+              // Let's ensure we use the 'netTotal' from response which we fixed in backend to be '$request->netTotal'.
+              
+              this.paymentModalData = {
+                  id: data.data.id || data.data.invoice_id,
+                  invoiceNo: data.data.invoiceNo || data.data.invoice_no,
+                  netTotal: data.data.netTotal, 
+                  status: data.data.status || 1
+              };
+              
               this.showPaymentModal = true;
             } else {
               this.$router.push({ name: "invoices.show", params: { slug: data.data.slug } });

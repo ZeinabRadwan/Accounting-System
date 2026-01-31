@@ -191,7 +191,12 @@ class InvoiceController extends Controller
             $isSaudiArabia = $country === 'SA';
 
             // Set status based on country
-            $invoiceStatus = $isSaudiArabia ? 0 : $request->status; // 0 = Inactive for KSA, use request value for others
+            // $invoiceStatus = $isSaudiArabia ? 0 : $request->status; // 0 = Inactive for KSA, use request value for others
+
+
+
+
+            $invoiceStatus = $isSaudiArabia ? 1 : $request->status; // 0 = Inactive for KSA, use request value for others
 
             // calculate is paid - use isPaid from request if provided, otherwise calculate from payment amount
             $isPaid = 0;
@@ -262,12 +267,25 @@ class InvoiceController extends Controller
                     }
                 }
 
-                // Calculate server-side unit cost to ensure receipt reflects edited price
-                $lineQty = (float) ($selectedProduct['qty'] ?? 0);
-                $lineUnitPrice = (float) ($selectedProduct['unitPrice'] ?? 0);
+                // Store purchase cost for COGS calculation (NOT sale price)
+                // unit_cost represents the actual cost basis of inventory (what we paid, not what we sold for)
+                // This is used by COGS journal entry to properly expense inventory at cost
+                // Fallback hierarchy: avgPurchasePrice → unitPrice (sale price as last resort)
+                $purchaseCost = (float) ($selectedProduct['avgPurchasePrice'] ?? 0);
+
+                // If no purchase history exists (avgPurchasePrice is 0), use sale price as fallback
+                // This ensures COGS is never 0 (better to use sale price than nothing)
+                if ($purchaseCost <= 0) {
+                    $purchaseCost = (float) ($selectedProduct['unitPrice'] ?? 0);
+                    Log::warning(
+                        "Product {$selectedProduct['name']} has no purchase history. " .
+                        "Using sale price ({$purchaseCost}) as COGS fallback. " .
+                        "Please add purchase records for accurate COGS."
+                    );
+                }
+
+                // Calculate tax amount for this line item
                 $lineTaxAmount = (float) ($selectedProduct['productTax'] ?? ($selectedProduct['totalTax'] ?? 0));
-                $lineSubtotalAfterDiscount = ($lineUnitPrice * $lineQty) - (float) $discountAmount;
-                $calculatedUnitCost = $lineQty > 0 ? (($lineSubtotalAfterDiscount + $lineTaxAmount) / $lineQty) : 0;
 
                 InvoiceProduct::create([
                     'invoice_id' => $invoice->id,
@@ -275,7 +293,7 @@ class InvoiceController extends Controller
                     'quantity' => $selectedProduct['qty'],
                     'purchase_price' => $selectedProduct['avgPurchasePrice'],
                     'sale_price' => $selectedProduct['unitPrice'],
-                    'unit_cost' => $calculatedUnitCost,
+                    'unit_cost' => $purchaseCost,
                     'tax_amount' => $lineTaxAmount,
                     // 'tax_amount' => $selectedProduct['productTax'],
                     'discount' => $selectedProduct['discount'] ?? 0,
@@ -286,17 +304,17 @@ class InvoiceController extends Controller
             }
 
             // Create journal entry for invoice sale (skip for Saudi Arabia)
-            $journalEntriesCreated = false;
-            if (!$isSaudiArabia) {
-                try {
-                    $journalService = new BusinessTransactionJournalService;
-                    $journalEntry = $journalService->createInvoiceSaleJournal($invoice, $userId);
-                    $journalEntriesCreated = true;
-                } catch (\Exception $e) {
-                    // Log the error but don't fail the invoice creation
-                    Log::error('Failed to create journal entry for invoice: ' . $e->getMessage());
-                }
+            // $journalEntriesCreated = false;
+            // if (!$isSaudiArabia) {
+            try {
+                $journalService = new BusinessTransactionJournalService;
+                $journalEntry = $journalService->createInvoiceSaleJournal($invoice, $userId);
+                $journalEntriesCreated = true;
+            } catch (\Exception $e) {
+                // Log the error but don't fail the invoice creation
+                Log::error('Failed to create journal entry for invoice: ' . $e->getMessage());
             }
+            // }
 
             // Handle payment creation when isPaid is true or addPayment is 1
             $shouldCreatePayment = ($isPaid == 1 && $request->payment_method_id) || ($request->addPayment == 1);
@@ -424,9 +442,14 @@ class InvoiceController extends Controller
             DB::commit();
 
             return $this->responseWithSuccess('Invoice added successfully', [
+                'id' => $invoice->id,
                 'invoice_id' => $invoice->id,
+                'invoiceNo' => $invoice->invoice_no,
                 'invoice_slug' => $invoice->slug,
                 'slug' => $invoice->slug,
+                'subTotal' => $invoice->sub_total,
+                'netTotal' => $request->netTotal,
+                'status' => $invoice->status,
                 'journal_entries_created' => $journalEntriesCreated,
             ]);
         } catch (Exception $e) {
@@ -452,9 +475,9 @@ class InvoiceController extends Controller
 
         $invoice = Invoice::findOrFail($request->invoice_id);
         // Block adding payment to inactive invoices
-        if ((int) $invoice->status !== 1) {
-            return $this->responseWithError('Cannot add payment to an inactive invoice.');
-        }
+        // if ((int) $invoice->status !== 1) {
+        //     return $this->responseWithError('Cannot add payment to an inactive invoice.');
+        // }
 
         $user = auth()->user();
         $userId = $user->id;
@@ -720,12 +743,25 @@ class InvoiceController extends Controller
                     }
                 }
 
-                // Calculate server-side unit cost to ensure receipt reflects edited price
-                $lineQty = (float) ($selectedProduct['qty'] ?? 0);
-                $lineUnitPrice = (float) ($selectedProduct['unitPrice'] ?? 0);
+                // Store purchase cost for COGS calculation (NOT sale price)
+                // unit_cost represents the actual cost basis of inventory (what we paid, not what we sold for)
+                // This is used by COGS journal entry to properly expense inventory at cost
+                // Fallback hierarchy: avgPurchasePrice → unitPrice (sale price as last resort)
+                $purchaseCost = (float) ($selectedProduct['avgPurchasePrice'] ?? 0);
+
+                // If no purchase history exists (avgPurchasePrice is 0), use sale price as fallback
+                // This ensures COGS is never 0 (better to use sale price than nothing)
+                if ($purchaseCost <= 0) {
+                    $purchaseCost = (float) ($selectedProduct['unitPrice'] ?? 0);
+                    Log::warning(
+                        "Product {$selectedProduct['name']} has no purchase history. " .
+                        "Using sale price ({$purchaseCost}) as COGS fallback. " .
+                        "Please add purchase records for accurate COGS."
+                    );
+                }
+
+                // Calculate tax amount for this line item
                 $lineTaxAmount = (float) ($selectedProduct['productTax'] ?? ($selectedProduct['totalTax'] ?? 0));
-                $lineSubtotalAfterDiscount = ($lineUnitPrice * $lineQty) - (float) $discountAmount;
-                $calculatedUnitCost = $lineQty > 0 ? (($lineSubtotalAfterDiscount + $lineTaxAmount) / $lineQty) : 0;
 
                 InvoiceProduct::create([
                     'invoice_id' => $invoice->id,
@@ -733,7 +769,7 @@ class InvoiceController extends Controller
                     'quantity' => $selectedProduct['qty'],
                     'purchase_price' => $selectedProduct['avgPurchasePrice'],
                     'sale_price' => $selectedProduct['unitPrice'],
-                    'unit_cost' => $calculatedUnitCost,
+                    'unit_cost' => $purchaseCost,
                     'tax_amount' => $lineTaxAmount,
                     'discount' => $selectedProduct['discount'] ?? 0,
                     'discount_type' => $selectedProduct['discountType'] ?? 'fixed',
