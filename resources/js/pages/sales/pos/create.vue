@@ -2490,8 +2490,8 @@ export default {
       }
 
       this.form.totalTax = this.roundToTwoDecimals(totalProductTax + invoiceTax);
-      // Net total = net amount + invoice tax (product tax is already included in product totals)
-      this.form.netTotal = this.roundToTwoDecimals(netAmount + invoiceTax);
+      // Net total = net amount + total tax (includes both product VAT and invoice tax)
+      this.form.netTotal = this.roundToTwoDecimals(netAmount + this.form.totalTax);
 
       // Ensure transportCost is set
       this.form.transportCost = this.form.transportCost || 0;
