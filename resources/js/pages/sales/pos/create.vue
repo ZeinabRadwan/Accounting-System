@@ -531,12 +531,6 @@
               </button>
             </div>
             <div class="col-12 col-lg-3 mb-2">
-              <button @click="openInvoicesPage" :title="$t('Open Invoices Page')" class="btn btn-info btn-block pos-btn">
-                <i class="fas fa-file-invoice" />
-                {{ $t('Invoices') }}
-              </button>
-            </div>
-            <div class="col-12 col-lg-3 mb-2">
               <button type="reset" class="btn btn-info btn-block pos-btn" @click="form.reset()">
                 <i class="fas fa-power-off" /> {{ $t("Reset") }}
               </button>
