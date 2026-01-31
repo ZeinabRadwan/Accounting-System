@@ -83,13 +83,14 @@
                 <i class="fas fa-plus"></i>
               </button>
 
-              <!-- Invoice Return Button -->
+              <!-- Invoice Return Button (Sales Return) -->
               <button
                 type="button"
                 class="invoice-return-btn"
                 @click="openInvoiceReturnModal"
-                :title="$t('Invoice Return')">
+                :title="$t('Sales Return')">
                 <i class="fas fa-undo"></i>
+                <span class="invoice-return-btn-label">{{ $t('Sales Return') }}</span>
               </button>
             </div>
           </div>
@@ -6021,6 +6022,10 @@ span.pqty {
   font-size: 14px;
 }
 
+.invoice-return-btn-label {
+  white-space: nowrap;
+}
+
 /* Invoice Return Modal Styles */
 .invoice-return-search-container {
   padding: 10px 0;
@@ -6300,6 +6305,10 @@ span.pqty {
     padding: 8px 12px;
     font-size: 12px;
     margin-left: 4px;
+  }
+
+  .invoice-return-btn-label {
+    display: none;
   }
 
   .invoice-return-btn i {

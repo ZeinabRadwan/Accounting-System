@@ -3503,6 +3503,7 @@
     "Import": "استيراد",
     "The product name field is required.": "حقل اسم المنتج مطلوب.",
     "Invoice Return": "إرجاع فاتورة",
+    "Sales Return": "إرجاع المبيعات",
     "Validation Errors": "أخطاء التحقق",
     "At least one product must have a return quantity greater than 0": "يجب أن يحتوي منتج واحد على الأقل على كمية إرجاع أكبر من 0",
     "Return quantity for {name} cannot exceed available quantity": "لا يمكن أن تتجاوز كمية الإرجاع للمنتج {name} الكمية المتاحة",
