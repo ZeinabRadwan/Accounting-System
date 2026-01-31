@@ -2540,6 +2540,8 @@
     "Chart of Account is required": "دليل الحساب مطلوب",
     "Mobile number is required": "رقم الهاتف المحمول مطلوب",
     "Business name is required for company clients": "اسم الشركة مطلوب للعملاء الشركات",
+    "Individual clients are always Non-Taxable.": "العملاء الأفراد دائماً غير خاضعين للضريبة.",
+    "Please select Taxable or Non-Taxable for company clients": "يرجى اختيار خاضع للضريبة أو غير خاضع للضريبة لعملاء الشركات",
     "Full name is required for individual clients": "الاسم الكامل مطلوب للعملاء الأفراد",
     "Loading...": "جاري التحميل...",
     "This code number is automatically generated and cannot be changed": "رقم الكود هذا يتم إنشاؤه تلقائياً ولا يمكن تغييره",

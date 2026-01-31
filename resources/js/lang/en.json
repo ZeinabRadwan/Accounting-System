@@ -2347,6 +2347,8 @@
 "Full name is required for individual suppliers": "Full name is required for individual suppliers",
 "Business name is required for company suppliers": "Business name is required for company suppliers",
 "Please select Taxable or Non-Taxable for company suppliers": "Please select Taxable or Non-Taxable for company suppliers",
+"Individual clients are always Non-Taxable.": "Individual clients are always Non-Taxable.",
+"Please select Taxable or Non-Taxable for company clients": "Please select Taxable or Non-Taxable for company clients",
 "Street number is required (Saudi National Address)": "Street number is required (Saudi National Address)",
 "Building number is required (Saudi National Address)": "Building number is required (Saudi National Address)",
 "District number is required (Saudi National Address)": "District number is required (Saudi National Address)",

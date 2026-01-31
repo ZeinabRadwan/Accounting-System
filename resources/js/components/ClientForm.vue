@@ -81,12 +81,24 @@
               <div class="form-group form-col-third">
                 <label class="form-label">
                   {{ $t("Tax Status") }}
+                  <span v-if="form.type === 'Company'" class="required-indicator">*</span>
                 </label>
-                <div class="tax-status-options">
+                <div v-if="form.type === 'Individual'" class="tax-status-individual-locked">
+                  <div class="tax-status-card-compact border-success active locked">
+                    <div class="tax-status-header-compact">
+                      <i class="fas fa-lock mr-2 text-muted"></i>
+                      <span class="tax-status-title-compact">{{ $t("Non-Taxable") }}</span>
+                    </div>
+                  </div>
+                  <small class="form-text form-helper-text text-muted d-block mt-1">
+                    {{ $t("Individual clients are always Non-Taxable.") }}
+                  </small>
+                </div>
+                <div v-else class="tax-status-options">
                   <div class="tax-status-row">
                     <label class="tax-status-card-compact"
                       :class="{ 'active': form.taxStatus === 'taxable', 'border-primary': form.taxStatus === 'taxable' }"
-                      @click="form.taxStatus = 'taxable'">
+                      @click="setTaxStatus('taxable')">
                       <div class="tax-status-header-compact">
                         <input type="radio" v-model="form.taxStatus" value="taxable" class="tax-status-radio" />
                         <span class="tax-status-title-compact">{{ $t("Taxable") }}</span>
@@ -94,7 +106,7 @@
                     </label>
                     <label class="tax-status-card-compact"
                       :class="{ 'active': form.taxStatus === 'non_taxable', 'border-success': form.taxStatus === 'non_taxable' }"
-                      @click="form.taxStatus = 'non_taxable'">
+                      @click="setTaxStatus('non_taxable')">
                       <div class="tax-status-header-compact">
                         <input type="radio" v-model="form.taxStatus" value="non_taxable" class="tax-status-radio" />
                         <span class="tax-status-title-compact">{{ $t("Non-Taxable") }}</span>
@@ -426,7 +438,8 @@
               <div class="form-group">
                 <label for="additionalNumber" class="form-label">
                   {{ $t("Additional Number") }}
-                  <span class="text-muted" style="font-weight: normal; font-size: 12px;">({{ $t("Optional") }})</span>
+                  <span v-if="form.taxStatus === 'taxable'" class="required-indicator">*</span>
+                  <span v-else class="text-muted" style="font-weight: normal; font-size: 12px;">({{ $t("Optional") }})</span>
                 </label>
                 <input id="additionalNumber" v-model="form.additionalNumber" type="text" class="form-control form-control-modern"
                   :class="{ 
@@ -1036,7 +1049,17 @@ export default {
         }
       }
     },
-    
+
+    // When client type is Individual, force tax status to Non-Taxable (no taxable individual clients)
+    'form.type': {
+      handler(newType) {
+        if (newType === 'Individual') {
+          this.form.taxStatus = 'non_taxable';
+        }
+      },
+      immediate: true
+    },
+
     // Watch for numeric field changes to validate
     'form.additionalNumber': {
       handler() {
@@ -1126,6 +1149,28 @@ export default {
     });
   },
   methods: {
+    // Set tax status explicitly. Individual clients are always Non-Taxable.
+    setTaxStatus(status) {
+      if (this.form.type === 'Individual') {
+        this.form.taxStatus = 'non_taxable';
+        return;
+      }
+
+      if (this.form && typeof this.form.taxStatus !== 'undefined') {
+        this.form.taxStatus = status;
+        if (this.form.$data && this.form.$data.taxStatus !== undefined) {
+          this.form.$data.taxStatus = status;
+        }
+      } else {
+        if (this.$set) {
+          this.$set(this.form, 'taxStatus', status);
+        } else {
+          this.form.taxStatus = status;
+        }
+      }
+      this.$forceUpdate();
+    },
+
     // Switch between tabs
     switchTab(tab) {
       this.activeTab = tab;
@@ -1190,6 +1235,11 @@ export default {
         // Spread initial data if available
         ...(this.initialData || {})
       });
+
+      // Individual clients are always Non-Taxable
+      if (this.form.type === 'Individual') {
+        this.form.taxStatus = 'non_taxable';
+      }
 
       console.log('Form initialized:', this.form);
       console.log('Form type:', typeof this.form);
@@ -1543,6 +1593,39 @@ export default {
           alert(this.$t("Invalid phone number format"));
         }
         return false;
+      }
+
+      // Company must have tax status selected (mirror SupplierForm)
+      if (this.form.type === 'Company') {
+        const taxStatus = this.form.taxStatus;
+        if (!taxStatus || (taxStatus !== 'taxable' && taxStatus !== 'non_taxable')) {
+          this.form.errors.set('taxStatus', this.$t('Please select Taxable or Non-Taxable for company clients'));
+          return false;
+        }
+      }
+
+      // Saudi National Address required for taxable clients when country is SA (mirror SupplierForm)
+      if (this.form.type === 'Company' && this.form.taxStatus === 'taxable' && this.form.country === 'SA') {
+        let addressValid = true;
+        if (!this.form.streetNumber || this.form.streetNumber.trim() === '') {
+          this.form.errors.set('streetNumber', this.$t('Street number is required (Saudi National Address)'));
+          addressValid = false;
+        }
+        if (!this.form.buildingNumber || this.form.buildingNumber.trim() === '') {
+          this.form.errors.set('buildingNumber', this.$t('Building number is required (Saudi National Address)'));
+          addressValid = false;
+        }
+        if (!this.form.districtNumber || this.form.districtNumber.trim() === '') {
+          this.form.errors.set('districtNumber', this.$t('District number is required (Saudi National Address)'));
+          addressValid = false;
+        }
+        if (!this.form.additionalNumber || this.form.additionalNumber.trim() === '') {
+          this.form.errors.set('additionalNumber', this.$t('Additional number is required (Saudi National Address)'));
+          addressValid = false;
+        }
+        if (!addressValid) {
+          return false;
+        }
       }
 
       // Note: Business name and full name are optional now
@@ -2531,6 +2614,17 @@ select.form-control:focus {
 
 .tax-status-card-compact.border-success.active .tax-status-title-compact {
   color: #10b981;
+}
+
+.tax-status-individual-locked .tax-status-card-compact.locked {
+  cursor: default;
+  background: #f0fdf4;
+  border-color: #10b981;
+}
+
+.tax-status-individual-locked .tax-status-card-compact.locked:hover {
+  border-color: #10b981;
+  box-shadow: none;
 }
 
 /* ============================================
