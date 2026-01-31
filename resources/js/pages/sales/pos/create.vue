@@ -57,7 +57,7 @@
                     type="button"
                     class="invoice-tab-close"
                     @click.stop.prevent="removeInvoice(visibleInvoiceIndices[index])"
-                    :title="$t('Remove Invoice')">
+                    :title="$t('Close Invoice')">
                     <i class="fas fa-times"></i>
                   </button>
                 </div>
