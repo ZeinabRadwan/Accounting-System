@@ -61,7 +61,7 @@ class ProductResource extends JsonResource
             }),
             'taxType' => $this->tax_type,
             'taxAmount' => $this->taxAmount(),
-            'avgPurchasePrice' => $this->purchase_price,
+            'avgPurchasePrice' => $this->calculatePurchaseHistoryAverageCost(),
             'servicePurchasePrice' => $this->purchase_price,
             'regularPrice' => $this->regular_price,
             'sellingPrice' => $this->sellingPrice(),
