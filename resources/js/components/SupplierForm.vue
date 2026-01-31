@@ -389,7 +389,8 @@
               </div>
               <div class="form-group col-md-4">
                 <label for="additionalNumber">
-                  {{ $t("Additional Number") }} <span class="text-muted">({{ $t("Optional") }})</span>
+                  {{ $t("Additional Number") }} <span v-if="form.taxStatus === 'taxable'" class="required">*</span><span
+                    v-else class="text-muted">({{ $t("Optional") }})</span>
                 </label>
                 <input id="additionalNumber" v-model="form.additionalNumber" type="text" class="form-control"
                   :class="{ 'is-invalid': form.errors.has('additionalNumber') }" name="additionalNumber"
@@ -1257,6 +1258,25 @@ export default {
         const taxStatus = this.form.taxStatus;
         if (!taxStatus || (taxStatus !== 'taxable' && taxStatus !== 'non_taxable')) {
           this.form.errors.set('taxStatus', this.$t('Please select Taxable or Non-Taxable for company suppliers'));
+          isValid = false;
+        }
+      }
+
+      if (this.form.type === 'Company' && this.form.taxStatus === 'taxable' && this.form.country === 'SA') {
+        if (!this.form.streetNumber || this.form.streetNumber.trim() === '') {
+          this.form.errors.set('streetNumber', this.$t('Street number is required (Saudi National Address)'));
+          isValid = false;
+        }
+        if (!this.form.buildingNumber || this.form.buildingNumber.trim() === '') {
+          this.form.errors.set('buildingNumber', this.$t('Building number is required (Saudi National Address)'));
+          isValid = false;
+        }
+        if (!this.form.districtNumber || this.form.districtNumber.trim() === '') {
+          this.form.errors.set('districtNumber', this.$t('District number is required (Saudi National Address)'));
+          isValid = false;
+        }
+        if (!this.form.additionalNumber || this.form.additionalNumber.trim() === '') {
+          this.form.errors.set('additionalNumber', this.$t('Additional number is required (Saudi National Address)'));
           isValid = false;
         }
       }
