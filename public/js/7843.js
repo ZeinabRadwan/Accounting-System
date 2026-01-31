@@ -441,3851 +441,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, ".items-table-wrapper[data-v-7f512fbf]{
 
 /***/ }),
 
-/***/ 26365:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'Rupee',
-                plural: 'Rupees',
-                singular: 'Rupee',
-                symbol: '₹',
-                fractionalUnit: {
-                    name: 'Paisa',
-                    singular: 'Paisa',
-                    plural: 'Paisa',
-                    symbol: '',
-                },
-            },
-            texts: {
-                and: 'And',
-                minus: 'Minus',
-                only: 'Only',
-                point: 'Point',
-            },
-            numberWordsMapping: [
-                { number: 100000000000, value: 'Kharab' },
-                { number: 1000000000, value: 'Arab' },
-                { number: 10000000, value: 'Crore' },
-                { number: 100000, value: 'Lakh' },
-                { number: 1000, value: 'Thousand' },
-                { number: 100, value: 'Hundred' },
-                { number: 90, value: 'Ninety' },
-                { number: 80, value: 'Eighty' },
-                { number: 70, value: 'Seventy' },
-                { number: 60, value: 'Sixty' },
-                { number: 50, value: 'Fifty' },
-                { number: 40, value: 'Forty' },
-                { number: 30, value: 'Thirty' },
-                { number: 20, value: 'Twenty' },
-                { number: 19, value: 'Nineteen' },
-                { number: 18, value: 'Eighteen' },
-                { number: 17, value: 'Seventeen' },
-                { number: 16, value: 'Sixteen' },
-                { number: 15, value: 'Fifteen' },
-                { number: 14, value: 'Fourteen' },
-                { number: 13, value: 'Thirteen' },
-                { number: 12, value: 'Twelve' },
-                { number: 11, value: 'Eleven' },
-                { number: 10, value: 'Ten' },
-                { number: 9, value: 'Nine' },
-                { number: 8, value: 'Eight' },
-                { number: 7, value: 'Seven' },
-                { number: 6, value: 'Six' },
-                { number: 5, value: 'Five' },
-                { number: 4, value: 'Four' },
-                { number: 3, value: 'Three' },
-                { number: 2, value: 'Two' },
-                { number: 1, value: 'One' },
-                { number: 0, value: 'Zero' },
-            ],
-            exactWordsMapping: [{ number: 100, value: 'One Hundred' }],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 27002:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'ರೂಪಾಯಿ',
-                plural: 'ರೂಪಾಯಿಗಳು',
-                singular: 'ರೂಪಾಯಿ',
-                symbol: '₹',
-                fractionalUnit: {
-                    name: 'ಪೈಸೆ',
-                    singular: 'ಪೈಸೆ',
-                    plural: 'ಪೈಸೆಗಳು',
-                    symbol: '',
-                },
-            },
-            texts: {
-                and: 'ಮತ್ತು',
-                minus: 'ಋಣ',
-                only: '',
-                point: 'ದಶಾಂಶ',
-            },
-            numberWordsMapping: [
-                { number: 10000000, value: 'ಕೋಟಿ' },
-                { number: 100000, value: 'ಲಕ್ಷ' },
-                { number: 1000, value: 'ಸಾವಿರ' },
-                { number: 100, value: 'ನೂರು' },
-                { number: 99, value: 'ತೊಂಬತ್ತೊಂಬತ್ತು' },
-                { number: 98, value: 'ತೊಂಬತ್ತೆಂಟು' },
-                { number: 97, value: 'ತೊಂಬತ್ತೇಳು' },
-                { number: 96, value: 'ತೊಂಬತ್ತಾರು' },
-                { number: 95, value: 'ತೊಂಬತ್ತೈದು' },
-                { number: 94, value: 'ತೊಂಬತ್ತನಾಲ್ಕು' },
-                { number: 93, value: 'ತೊಂಬತ್ತಮೂರು' },
-                { number: 92, value: 'ತೊಂಬತ್ತೆರಡು' },
-                { number: 91, value: 'ತೊಂಬತ್ತೊಂದು' },
-                { number: 90, value: 'ತೊಂಬತ್ತು' },
-                { number: 89, value: 'ಎಂಭತ್ತೊಂಬತ್ತು' },
-                { number: 88, value: 'ಎಂಭತ್ತೆಂಟು' },
-                { number: 87, value: 'ಎಂಭತ್ತೇಳು' },
-                { number: 86, value: 'ಎಂಭತ್ತಾರು' },
-                { number: 85, value: 'ಎಂಭತ್ತೈದು' },
-                { number: 84, value: 'ಎಂಭತ್ತನಾಲ್ಕು' },
-                { number: 83, value: 'ಎಂಭತ್ತಮೂರು' },
-                { number: 82, value: 'ಎಂಭತ್ತೆರಡು' },
-                { number: 81, value: 'ಎಂಭತ್ತೊಂದು' },
-                { number: 80, value: 'ಎಂಭತ್ತು' },
-                { number: 79, value: 'ಎಪ್ಪತ್ತೊಂಬತ್ತು' },
-                { number: 78, value: 'ಎಪ್ಪತ್ತೆಂಟು' },
-                { number: 77, value: 'ಎಪ್ಪತ್ತೇಳು' },
-                { number: 76, value: 'ಎಪ್ಪತ್ತಾರು' },
-                { number: 75, value: 'ಎಪ್ಪತ್ತೈದು' },
-                { number: 74, value: 'ಎಪ್ಪತ್ತನಾಲ್ಕು' },
-                { number: 73, value: 'ಎಪ್ಪತ್ತಮೂರು' },
-                { number: 72, value: 'ಎಪ್ಪತ್ತೆರಡು' },
-                { number: 71, value: 'ಎಪ್ಪತ್ತೊಂದು' },
-                { number: 70, value: 'ಎಪ್ಪತ್ತು' },
-                { number: 69, value: 'ಅರುವತ್ತೊಂಬತ್ತು' },
-                { number: 68, value: 'ಅರುವತ್ತೆಂಟು' },
-                { number: 67, value: 'ಅರುವತ್ತೇಳು' },
-                { number: 66, value: 'ಅರುವತ್ತಾರು' },
-                { number: 65, value: 'ಅರುವತ್ತೈದು' },
-                { number: 64, value: 'ಅರುವತ್ತನಾಲ್ಕು' },
-                { number: 63, value: 'ಅರುವತ್ತಮೂರು' },
-                { number: 62, value: 'ಅರುವತ್ತೆರಡು' },
-                { number: 61, value: 'ಅರುವತ್ತೊಂದು' },
-                { number: 60, value: 'ಅರುವತ್ತು' },
-                { number: 59, value: 'ಐವತ್ತೊಂಬತ್ತು' },
-                { number: 58, value: 'ಐವತ್ತೆಂಟು' },
-                { number: 57, value: 'ಐವತ್ತೇಳು' },
-                { number: 56, value: 'ಐವತ್ತಾರು' },
-                { number: 55, value: 'ಐವತ್ತೈದು' },
-                { number: 54, value: 'ಐವತ್ತನಾಲ್ಕು' },
-                { number: 53, value: 'ಐವತ್ತಮೂರು' },
-                { number: 52, value: 'ಐವತ್ತೆರಡು' },
-                { number: 51, value: 'ಐವತ್ತೊಂದು' },
-                { number: 50, value: 'ಐವತ್ತು' },
-                { number: 49, value: 'ನಲವತ್ತೊಂಬತ್ತು' },
-                { number: 48, value: 'ನಲವತ್ತೆಂಟು' },
-                { number: 47, value: 'ನಲವತ್ತೇಳು' },
-                { number: 46, value: 'ನಲವತ್ತಾರು' },
-                { number: 45, value: 'ನಲವತ್ತೈದು' },
-                { number: 44, value: 'ನಲವತ್ತನಾಲ್ಕು' },
-                { number: 43, value: 'ನಲವತ್ತಮೂರು' },
-                { number: 42, value: 'ನಲವತ್ತೆರಡು' },
-                { number: 41, value: 'ನಲವತ್ತೊಂದು' },
-                { number: 40, value: 'ನಲವತ್ತು' },
-                { number: 39, value: 'ಮೂವತ್ತೊಂಬತ್ತು' },
-                { number: 38, value: 'ಮೂವತ್ತೆಂಟು' },
-                { number: 37, value: 'ಮೂವತ್ತೇಳು' },
-                { number: 36, value: 'ಮೂವತ್ತಾರು' },
-                { number: 35, value: 'ಮೂವತ್ತೈದು' },
-                { number: 34, value: 'ಮೂವತ್ತನಾಲ್ಕು' },
-                { number: 33, value: 'ಮೂವತ್ತಮೂರು' },
-                { number: 32, value: 'ಮೂವತ್ತೆರಡು' },
-                { number: 31, value: 'ಮೂವತ್ತೊಂದು' },
-                { number: 30, value: 'ಮೂವತ್ತು' },
-                { number: 29, value: 'ಇಪ್ಪತ್ತೊಂಬತ್ತು' },
-                { number: 28, value: 'ಇಪ್ಪತ್ತೆಂಟು' },
-                { number: 27, value: 'ಇಪ್ಪತ್ತೇಳು' },
-                { number: 26, value: 'ಇಪ್ಪತ್ತಾರು' },
-                { number: 25, value: 'ಇಪ್ಪತ್ತೈದು' },
-                { number: 24, value: 'ಇಪ್ಪತ್ತನಾಲ್ಕು' },
-                { number: 23, value: 'ಇಪ್ಪತ್ತಮೂರು' },
-                { number: 22, value: 'ಇಪ್ಪತ್ತೆರಡು' },
-                { number: 21, value: 'ಇಪ್ಪತ್ತೊಂದು' },
-                { number: 20, value: 'ಇಪ್ಪತ್ತು' },
-                { number: 19, value: 'ಹತ್ತೊಂಬತ್ತು' },
-                { number: 18, value: 'ಹದಿನೆಂಟು' },
-                { number: 17, value: 'ಹದಿನೇಳು' },
-                { number: 16, value: 'ಹದಿನಾರು' },
-                { number: 15, value: 'ಹದಿನೈದು' },
-                { number: 14, value: 'ಹದಿನಾಲ್ಕು' },
-                { number: 13, value: 'ಹದಿಮೂರು' },
-                { number: 12, value: 'ಹನ್ನೆರಡು' },
-                { number: 11, value: 'ಹನ್ನೊಂದು' },
-                { number: 10, value: 'ಹತ್ತು' },
-                { number: 9, value: 'ಒಂಬತ್ತು' },
-                { number: 8, value: 'ಎಂಟು' },
-                { number: 7, value: 'ಏಳು' },
-                { number: 6, value: 'ಆರು' },
-                { number: 5, value: 'ಐದು' },
-                { number: 4, value: 'ನಾಲ್ಕು' },
-                { number: 3, value: 'ಮೂರು' },
-                { number: 2, value: 'ಎರಡು' },
-                { number: 1, value: 'ಒಂದು' },
-                { number: 0, value: 'ಶೂನ್ಯ' },
-            ],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 28787:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'Omani Rial',
-                plural: 'Omani Rials',
-                singular: 'Omani Rial',
-                symbol: 'OMR',
-                fractionalUnit: {
-                    name: 'Baisa',
-                    singular: 'Baisa',
-                    plural: 'Baisa',
-                    symbol: '',
-                },
-            },
-            texts: {
-                and: 'And',
-                minus: 'Minus',
-                only: 'Only',
-                point: 'Point',
-            },
-            numberWordsMapping: [
-                { number: 1000000000000000, value: 'Quadrillion' },
-                { number: 1000000000000, value: 'Trillion' },
-                { number: 1000000000, value: 'Billion' },
-                { number: 1000000, value: 'Million' },
-                { number: 1000, value: 'Thousand' },
-                { number: 100, value: 'Hundred' },
-                { number: 90, value: 'Ninety' },
-                { number: 80, value: 'Eighty' },
-                { number: 70, value: 'Seventy' },
-                { number: 60, value: 'Sixty' },
-                { number: 50, value: 'Fifty' },
-                { number: 40, value: 'Forty' },
-                { number: 30, value: 'Thirty' },
-                { number: 20, value: 'Twenty' },
-                { number: 19, value: 'Nineteen' },
-                { number: 18, value: 'Eighteen' },
-                { number: 17, value: 'Seventeen' },
-                { number: 16, value: 'Sixteen' },
-                { number: 15, value: 'Fifteen' },
-                { number: 14, value: 'Fourteen' },
-                { number: 13, value: 'Thirteen' },
-                { number: 12, value: 'Twelve' },
-                { number: 11, value: 'Eleven' },
-                { number: 10, value: 'Ten' },
-                { number: 9, value: 'Nine' },
-                { number: 8, value: 'Eight' },
-                { number: 7, value: 'Seven' },
-                { number: 6, value: 'Six' },
-                { number: 5, value: 'Five' },
-                { number: 4, value: 'Four' },
-                { number: 3, value: 'Three' },
-                { number: 2, value: 'Two' },
-                { number: 1, value: 'One' },
-                { number: 0, value: 'Zero' },
-            ],
-            exactWordsMapping: [{ number: 100, value: 'One Hundred' }],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 28834:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'Euro',
-                plural: 'Euros',
-                singular: 'Euro',
-                symbol: '€',
-                fractionalUnit: {
-                    name: 'Centime',
-                    singular: 'Centime',
-                    plural: 'Centimes',
-                    symbol: 'Cts',
-                },
-            },
-            texts: {
-                and: 'Et',
-                minus: 'Moins',
-                only: '',
-                point: 'Virgule',
-            },
-            numberWordsMapping: [
-                { number: 1000000000000000, value: 'Billiard' },
-                { number: 1000000000000, value: 'Billion' },
-                { number: 1000000000, value: 'Milliard' },
-                { number: 1000000, value: 'Million' },
-                { number: 1000, value: 'Mille' },
-                { number: 100, value: 'Cent' },
-                { number: 99, value: 'Quatre-Vingt-Dix-Neuf' },
-                { number: 98, value: 'Quatre-Vingt-Dix-Huit' },
-                { number: 97, value: 'Quatre-Vingt-Dix-Sept' },
-                { number: 96, value: 'Quatre-Vingt-Seize' },
-                { number: 95, value: 'Quatre-Vingt-Quinze' },
-                { number: 94, value: 'Quatre-Vingt-Quatorze' },
-                { number: 93, value: 'Quatre-Vingt-Treize' },
-                { number: 92, value: 'Quatre-Vingt-Douze' },
-                { number: 91, value: 'Quatre-Vingt-Onze' },
-                { number: 90, value: 'Quatre-Vingt-Dix' },
-                { number: 89, value: 'Quatre-Vingt-Neuf' },
-                { number: 88, value: 'Quatre-Vingt-Huit' },
-                { number: 87, value: 'Quatre-Vingt-Sept' },
-                { number: 86, value: 'Quatre-Vingt-Six' },
-                { number: 85, value: 'Quatre-Vingt-Cinq' },
-                { number: 84, value: 'Quatre-Vingt-Quatre' },
-                { number: 83, value: 'Quatre-Vingt-Trois' },
-                { number: 82, value: 'Quatre-Vingt-Deux' },
-                { number: 81, value: 'Quatre-Vingt-Un' },
-                { number: 80, value: 'Quatre-Vingt' },
-                { number: 79, value: 'Soixante-Dix-Neuf' },
-                { number: 78, value: 'Soixante-Dix-Huit' },
-                { number: 77, value: 'Soixante-Dix-Sept' },
-                { number: 76, value: 'Soixante-Seize' },
-                { number: 75, value: 'Soixante-Quinze' },
-                { number: 74, value: 'Soixante-Quatorze' },
-                { number: 73, value: 'Soixante-Treize' },
-                { number: 72, value: 'Soixante-Douze' },
-                { number: 71, value: 'Soixante Et Onze' },
-                { number: 70, value: 'Soixante-dix' },
-                { number: 69, value: 'Soixante-Neuf' },
-                { number: 68, value: 'Soixante-Huit' },
-                { number: 67, value: 'Soixante-Sept' },
-                { number: 66, value: 'Soixante-Six' },
-                { number: 65, value: 'Soixante-Cinq' },
-                { number: 64, value: 'Soixante-Quatre' },
-                { number: 63, value: 'Soixante-Trois' },
-                { number: 62, value: 'Soixante-Deux' },
-                { number: 61, value: 'Soixante Et Un' },
-                { number: 60, value: 'Soixante' },
-                { number: 59, value: 'Cinquante-Neuf' },
-                { number: 58, value: 'Cinquante-Huit' },
-                { number: 57, value: 'Cinquante-Sept' },
-                { number: 56, value: 'Cinquante-Six' },
-                { number: 55, value: 'Cinquante-Cinq' },
-                { number: 54, value: 'Cinquante-Quatre' },
-                { number: 53, value: 'Cinquante-Trois' },
-                { number: 52, value: 'Cinquante-Deux' },
-                { number: 51, value: 'Cinquante Et Un' },
-                { number: 50, value: 'Cinquante' },
-                { number: 49, value: 'Quarante-Neuf' },
-                { number: 48, value: 'Quarante-Huit' },
-                { number: 47, value: 'Quarante-Sept' },
-                { number: 46, value: 'Quarante-Six' },
-                { number: 45, value: 'Quarante-Cinq' },
-                { number: 44, value: 'Quarante-Quatre' },
-                { number: 43, value: 'Quarante-Trois' },
-                { number: 42, value: 'Quarante-Deux' },
-                { number: 41, value: 'Quarante Et Un' },
-                { number: 40, value: 'Quarante' },
-                { number: 39, value: 'Trente-Neuf' },
-                { number: 38, value: 'Trente-Huit' },
-                { number: 37, value: 'Trente-Sept' },
-                { number: 36, value: 'Trente-Six' },
-                { number: 35, value: 'Trente-Cinq' },
-                { number: 34, value: 'Trente-Quatre' },
-                { number: 33, value: 'Trente-Trois' },
-                { number: 32, value: 'Trente-Deux' },
-                { number: 31, value: 'Trente Et Un' },
-                { number: 30, value: 'Trente' },
-                { number: 29, value: 'Vingt-Neuf' },
-                { number: 28, value: 'Vingt-Huit' },
-                { number: 27, value: 'Vingt-Sept' },
-                { number: 26, value: 'Vingt-Six' },
-                { number: 25, value: 'Vingt-Cinq' },
-                { number: 24, value: 'Vingt-Quatre' },
-                { number: 23, value: 'Vingt-Trois' },
-                { number: 22, value: 'Vingt-Deux' },
-                { number: 21, value: 'Vingt Et Un' },
-                { number: 20, value: 'Vingt' },
-                { number: 19, value: 'Dix-Neuf' },
-                { number: 18, value: 'Dix-Huit' },
-                { number: 17, value: 'Dix-Sept' },
-                { number: 16, value: 'Seize' },
-                { number: 15, value: 'Quinze' },
-                { number: 14, value: 'Quatorze' },
-                { number: 13, value: 'Treize' },
-                { number: 12, value: 'Douze' },
-                { number: 11, value: 'Onze' },
-                { number: 10, value: 'Dix' },
-                { number: 9, value: 'Neuf' },
-                { number: 8, value: 'Huit' },
-                { number: 7, value: 'Sept' },
-                { number: 6, value: 'Six' },
-                { number: 5, value: 'Cinq' },
-                { number: 4, value: 'Quatre' },
-                { number: 3, value: 'Trois' },
-                { number: 2, value: 'Deux' },
-                { number: 1, value: 'Un' },
-                { number: 0, value: 'Zéro' },
-            ],
-            ignoreOneForWords: ['Cent', 'Mille'],
-            pluralMark: 's',
-            pluralWords: ['Billiard', 'Billion', 'Milliard', 'Million'],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 31961:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  A: () => (/* binding */ ItemsTable)
-});
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemsTable.vue?vue&type=template&id=7f512fbf&scoped=true
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _vm.items && _vm.items.length > 0 ? _c('div', {
-    staticClass: "items-table-wrapper mt-3 mb-4"
-  }, [_c('div', {
-    staticClass: "table-responsive table-custom w-100 m-auto",
-    staticStyle: {
-      "max-width": "100%"
-    }
-  }, [_c('table', {
-    "class": ['table', 'table-hover', 'table-sm', 'text-center', _vm.tableClass]
-  }, [_c('thead', [_c('th', [_vm._v(_vm._s(_vm.$t("#")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Code")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Item Name")))]), _vm._v(" "), _vm.showInvoiceQtyColumn ? _c('th', [_vm._v(_vm._s(_vm.$t("Invoice Qty")))]) : _vm._e(), _vm._v(" "), _vm.showCurrentQtyColumn ? _c('th', [_vm._v(_vm._s(_vm.$t("Current Qty")))]) : _vm._e(), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Qty")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Price")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Total")))]), _vm._v(" "), !_vm.hideDiscountColumn ? _c('th', [_vm._v(_vm._s(_vm.$t("Discount")))]) : _vm._e(), _vm._v(" "), !_vm.hideDiscountColumn ? _c('th', [_vm._v(_vm._s(_vm.$t("Total After Discount")))]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('th', [_vm._v(_vm._s(_vm.$t("VAT Type")))]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('th', [_vm._v(_vm._s(_vm.$t("VAT")))]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('th', [_vm._v(_vm._s(_vm.$t("Total with VAT")))]) : _vm._e(), _vm._v(" "), _vm.showReturnPriceColumn ? _c('th', {
-    staticClass: "text-right"
-  }, [_vm._v(_vm._s(_vm.$t("Return Price")))]) : _vm._e(), _vm._v(" "), !_vm.showReturnPriceColumn ? _c('th', {
-    staticClass: "text-right"
-  }, [_vm._v(_vm._s(_vm.$t("Action")))]) : _vm._e()]), _vm._v(" "), _c('tbody', [_vm._l(_vm.items, function (item, i) {
-    return _c('tr', {
-      key: i
-    }, [_c('td', {
-      staticClass: "auto-width"
-    }, [_vm._v(_vm._s(++i))]), _vm._v(" "), _c('td', {
-      staticClass: "auto-width"
-    }, [_vm._v(_vm._s(_vm._f("withPrefix")(item.code, _vm.prefix)))]), _vm._v(" "), _c('td', {
-      staticClass: "auto-width"
-    }, [_c('div', {
-      staticClass: "d-flex align-items-center"
-    }, [Number(item.inventoryCount) < Number(_vm.getItemField(item, _vm.qtyFieldName)) && item.itemType == 'product' ? _c('span', {
-      directives: [{
-        name: "tooltip",
-        rawName: "v-tooltip",
-        value: _vm.$t('Click to manage stock'),
-        expression: "$t('Click to manage stock')"
-      }],
-      staticClass: "badge badge-danger p-2 mr-2 clickable-badge",
-      on: {
-        "click": function click($event) {
-          return _vm.$emit('open-stock-modal', item);
-        }
-      }
-    }, [_c('i', {
-      staticClass: "fas fa-exclamation"
-    })]) : _vm._e(), _vm._v(" "), _c('div', {
-      staticClass: "flex-grow-1"
-    }, [_vm.$can('product-view') ? _c('router-link', {
-      attrs: {
-        "to": {
-          name: 'products.show',
-          params: {
-            slug: item.slug
-          }
-        }
-      }
-    }, [_vm._v("\n                                    " + _vm._s(item.name) + "\n                                ")]) : _c('span', [_vm._v(_vm._s(item.name))])], 1), _vm._v(" "), _vm.showEditButton ? _c('button', {
-      directives: [{
-        name: "tooltip",
-        rawName: "v-tooltip",
-        value: _vm.$t('Edit Product'),
-        expression: "$t('Edit Product')"
-      }],
-      staticClass: "btn btn-sm btn-outline-primary ml-2",
-      attrs: {
-        "type": "button"
-      },
-      on: {
-        "click": function click($event) {
-          return _vm.$emit('edit-product', item);
-        }
-      }
-    }, [_c('i', {
-      staticClass: "fas fa-edit"
-    })]) : _vm._e()])]), _vm._v(" "), _vm.showInvoiceQtyColumn ? _c('td', {
-      staticClass: "auto-width"
-    }, [_vm._v("\n                        " + _vm._s(item.invoiceQty || item.qty) + " " + _vm._s(item.unit || '') + "\n                    ")]) : _vm._e(), _vm._v(" "), _vm.showCurrentQtyColumn ? _c('td', {
-      staticClass: "auto-width"
-    }, [_vm._v("\n                        " + _vm._s(item.returnQty !== undefined ? item.returnQty : (item.invoiceQty || item.qty) - (item.oldQty || 0)) + " " + _vm._s(item.unit || '') + "\n                    ")]) : _vm._e(), _vm._v(" "), _c('td', {
-      staticClass: "fixed-qty-column"
-    }, [_c('div', {
-      staticClass: "input-group custom-qty-input"
-    }, [_c('input', {
-      staticClass: "button-minus icon-shape icon-sm btn-danger",
-      attrs: {
-        "type": "button",
-        "value": "-",
-        "data-field": "quantity",
-        "disabled": item.isFromQuotation
-      },
-      on: {
-        "click": function click($event) {
-          _vm.handleItemChange(_vm.getItemField(item, _vm.qtyFieldName), 'qty', i - 1, 'decrement');
-        }
-      }
-    }), _vm._v(" "), _c('input', {
-      directives: [{
-        name: "model",
-        rawName: "v-model.number",
-        value: item[_vm.qtyFieldName],
-        expression: "item[qtyFieldName]",
-        modifiers: {
-          "number": true
-        }
-      }],
-      staticClass: "quantity-field border-0 incrementor",
-      "class": {
-        'is-invalid': _vm.getFieldError("selectedProducts.".concat(i - 1, ".").concat(_vm.qtyFieldName)),
-        'insufficient-stock-input': Number(item.inventoryCount) < Number(_vm.getItemField(item, _vm.qtyFieldName)) && item.itemType == 'product'
-      },
-      attrs: {
-        "type": "number",
-        "step": "any",
-        "id": "Qty-".concat(i),
-        "name": "quantity",
-        "required": "",
-        "min": "1",
-        "max": _vm.disableInventoryMaxRestriction ? null : item.itemType == 'product' ? item.inventoryCount : item.maxQty || null,
-        "readonly": item.isFromQuotation,
-        "placeholder": _vm.$t('Quantity')
-      },
-      domProps: {
-        "value": item[_vm.qtyFieldName]
-      },
-      on: {
-        "change": function change($event) {
-          return _vm.handleItemChange($event.target.value, 'qty', i - 1, '');
-        },
-        "keyup": function keyup($event) {
-          return _vm.handleItemChange($event.target.value, 'qty', i - 1, '');
-        },
-        "input": [function ($event) {
-          if ($event.target.composing) return;
-          _vm.$set(item, _vm.qtyFieldName, _vm._n($event.target.value));
-        }, function ($event) {
-          return _vm.handleItemChange($event.target.value, 'qty', i - 1, '');
-        }],
-        "blur": function blur($event) {
-          return _vm.$forceUpdate();
-        }
-      }
-    }), _vm._v(" "), _c('input', {
-      staticClass: "button-plus icon-shape icon-sm btn-primary",
-      attrs: {
-        "type": "button",
-        "value": "+",
-        "data-field": "quantity",
-        "disabled": item.isFromQuotation
-      },
-      on: {
-        "click": function click($event) {
-          _vm.handleItemChange(_vm.getItemField(item, _vm.qtyFieldName), 'qty', i - 1, 'increment');
-        }
-      }
-    })])]), _vm._v(" "), _c('td', {
-      staticClass: "auto-width"
-    }, [!_vm.priceReadonly ? _c('div', {
-      staticClass: "input-group custom-qty-input"
-    }, [_c('input', {
-      directives: [{
-        name: "model",
-        rawName: "v-model.number",
-        value: item[_vm.unitPriceFieldName],
-        expression: "item[unitPriceFieldName]",
-        modifiers: {
-          "number": true
-        }
-      }],
-      staticClass: "quantity-field border-0",
-      attrs: {
-        "type": "number",
-        "step": "any",
-        "min": "0",
-        "id": "unitPrice-".concat(i),
-        "name": "unitPrice",
-        "required": "",
-        "readonly": item.isFromQuotation
-      },
-      domProps: {
-        "value": item[_vm.unitPriceFieldName]
-      },
-      on: {
-        "input": [function ($event) {
-          if ($event.target.composing) return;
-          _vm.$set(item, _vm.unitPriceFieldName, _vm._n($event.target.value));
-        }, function ($event) {
-          return _vm.handleItemChange(item[_vm.unitPriceFieldName], 'price', i - 1, '');
-        }],
-        "blur": function blur($event) {
-          return _vm.$forceUpdate();
-        }
-      }
-    })]) : _c('div', [_vm._v("\n                            " + _vm._s(_vm.formatToTwoDecimals(_vm.getItemField(item, _vm.unitPriceFieldName))) + "\n                        ")])]), _vm._v(" "), _c('td', {
-      staticClass: "no-currency auto-width"
-    }, [_vm._v(_vm._s(_vm.formatToTwoDecimals((item.originalPrice || _vm.getItemField(item, _vm.unitPriceFieldName)) * (item.invoiceQty || _vm.getItemField(item, _vm.qtyFieldName) || 1))) + " "), _c('span', {
-      staticClass: "saudi-riyal"
-    }, [_vm._v("ê")])]), _vm._v(" "), !_vm.hideDiscountColumn ? _c('td', {
-      staticStyle: {
-        "min-width": "180px"
-      }
-    }, [_c('div', {
-      staticClass: "input-group"
-    }, [_c('select', {
-      directives: [{
-        name: "model",
-        rawName: "v-model",
-        value: item.discountType,
-        expression: "item.discountType"
-      }],
-      staticClass: "form-control form-control-sm",
-      "class": {
-        'is-invalid': _vm.getFieldError("selectedProducts.".concat(i - 1, ".discountType"))
-      },
-      staticStyle: {
-        "width": "85px"
-      },
-      attrs: {
-        "disabled": item.isFromQuotation
-      },
-      on: {
-        "change": [function ($event) {
-          var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-            return o.selected;
-          }).map(function (o) {
-            var val = "_value" in o ? o._value : o.value;
-            return val;
-          });
-          _vm.$set(item, "discountType", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-        }, function ($event) {
-          return _vm.handleDiscountChange(i - 1);
-        }]
-      }
-    }, [_c('option', {
-      attrs: {
-        "value": "fixed"
-      }
-    }, [_vm._v(_vm._s(_vm.$t("Fixed")))]), _vm._v(" "), _c('option', {
-      attrs: {
-        "value": "percentage"
-      }
-    }, [_vm._v(_vm._s(_vm.$t("%")))])]), _vm._v(" "), _c('input', {
-      directives: [{
-        name: "model",
-        rawName: "v-model",
-        value: item.discount,
-        expression: "item.discount"
-      }],
-      staticClass: "form-control form-control-sm",
-      "class": {
-        'is-invalid': _vm.getFieldError("selectedProducts.".concat(i - 1, ".discount"))
-      },
-      staticStyle: {
-        "width": "80px"
-      },
-      attrs: {
-        "type": "number",
-        "step": "any",
-        "min": "0",
-        "max": item.discountType == 'percentage' ? 100 : _vm.getItemField(item, _vm.unitPriceFieldName) * _vm.getItemField(item, _vm.qtyFieldName),
-        "readonly": item.isFromQuotation,
-        "placeholder": "0"
-      },
-      domProps: {
-        "value": item.discount
-      },
-      on: {
-        "change": function change($event) {
-          return _vm.handleDiscountChange(i - 1);
-        },
-        "keyup": function keyup($event) {
-          return _vm.handleDiscountChange(i - 1);
-        },
-        "input": function input($event) {
-          if ($event.target.composing) return;
-          _vm.$set(item, "discount", $event.target.value);
-        }
-      }
-    })]), _vm._v(" "), _vm.getFieldError("selectedProducts.".concat(i - 1, ".discount")) || _vm.getFieldError("selectedProducts.".concat(i - 1, ".discountType")) ? _c('div', {
-      staticClass: "invalid-feedback d-block"
-    }, [_vm.getFieldError("selectedProducts.".concat(i - 1, ".discount")) ? _c('span', {
-      staticClass: "d-block"
-    }, [_vm._v(_vm._s(_vm.getFieldErrorMessage("selectedProducts.".concat(i - 1, ".discount"))))]) : _vm._e(), _vm._v(" "), _vm.getFieldError("selectedProducts.".concat(i - 1, ".discountType")) ? _c('span', {
-      staticClass: "d-block"
-    }, [_vm._v(_vm._s(_vm.getFieldErrorMessage("selectedProducts.".concat(i - 1, ".discountType"))))]) : _vm._e()]) : _vm._e()]) : _vm._e(), _vm._v(" "), !_vm.hideDiscountColumn ? _c('td', {
-      staticClass: "no-currency auto-width"
-    }, [_vm._v(_vm._s(_vm.formatToTwoDecimals(item.totalAfterDiscount !== undefined ? item.totalAfterDiscount : _vm.getItemField(item, _vm.unitPriceFieldName) * _vm.getItemField(item, _vm.qtyFieldName) - (item.discountAmount || 0))) + " "), _c('span', {
-      staticClass: "saudi-riyal"
-    }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('td', {
-      staticClass: "fixed-vat-column"
-    }, [_vm.useVatRateId ? _c('select', {
-      directives: [{
-        name: "model",
-        rawName: "v-model",
-        value: item.vat_rate_id,
-        expression: "item.vat_rate_id"
-      }],
-      staticClass: "form-control form-control-sm",
-      "class": {
-        'is-invalid': _vm.getFieldError("selectedProducts.".concat(i - 1, ".vat_rate_id"))
-      },
-      staticStyle: {
-        "min-width": "120px"
-      },
-      attrs: {
-        "disabled": item.isFromQuotation
-      },
-      on: {
-        "change": [function ($event) {
-          var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-            return o.selected;
-          }).map(function (o) {
-            var val = "_value" in o ? o._value : o.value;
-            return val;
-          });
-          _vm.$set(item, "vat_rate_id", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-        }, function ($event) {
-          return _vm.handleVatChange(i - 1);
-        }]
-      }
-    }, [_c('option', {
-      attrs: {
-        "value": ""
-      }
-    }, [_vm._v(_vm._s(_vm.$t('Select VAT')))]), _vm._v(" "), _vm._l(_vm.taxes, function (tax) {
-      return _c('option', {
-        key: tax.id,
-        domProps: {
-          "value": tax.id
-        }
-      }, [_vm._v("\n                                " + _vm._s(tax.code) + " (" + _vm._s(tax.rate) + "%)\n                            ")]);
-    })], 2) : _c('select', {
-      directives: [{
-        name: "model",
-        rawName: "v-model",
-        value: item.selectedVatRate,
-        expression: "item.selectedVatRate"
-      }],
-      staticClass: "form-control form-control-sm",
-      "class": {
-        'is-invalid': _vm.getFieldError("selectedProducts.".concat(i - 1, ".selectedVatRate"))
-      },
-      staticStyle: {
-        "min-width": "120px"
-      },
-      attrs: {
-        "disabled": item.isFromQuotation
-      },
-      on: {
-        "change": [function ($event) {
-          var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-            return o.selected;
-          }).map(function (o) {
-            var val = "_value" in o ? o._value : o.value;
-            return val;
-          });
-          _vm.$set(item, "selectedVatRate", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-        }, function ($event) {
-          return _vm.handleVatChange(i - 1);
-        }]
-      }
-    }, [_c('option', {
-      attrs: {
-        "value": ""
-      }
-    }, [_vm._v(_vm._s(_vm.$t('Select VAT')))]), _vm._v(" "), _vm._l(_vm.taxes, function (tax) {
-      return _c('option', {
-        key: tax.id,
-        domProps: {
-          "value": tax
-        }
-      }, [_vm._v("\n                                " + _vm._s(tax.code) + " (" + _vm._s(tax.rate) + "%)\n                            ")]);
-    })], 2), _vm._v(" "), _vm.useVatRateId && _vm.getFieldError("selectedProducts.".concat(i - 1, ".vat_rate_id")) ? _c('div', {
-      staticClass: "invalid-feedback d-block"
-    }, [_vm._v("\n                            " + _vm._s(_vm.getFieldErrorMessage("selectedProducts.".concat(i - 1, ".vat_rate_id"))) + "\n                        ")]) : _vm._e(), _vm._v(" "), !_vm.useVatRateId && _vm.getFieldError("selectedProducts.".concat(i - 1, ".selectedVatRate")) ? _c('div', {
-      staticClass: "invalid-feedback d-block"
-    }, [_vm._v("\n                            " + _vm._s(_vm.getFieldErrorMessage("selectedProducts.".concat(i - 1, ".selectedVatRate"))) + "\n                        ")]) : _vm._e()]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('td', {
-      staticClass: "no-currency fixed-vat-column"
-    }, [_c('div', [_vm._v("\n                            " + _vm._s(_vm.formatToTwoDecimals(item.totalTax || 0)) + "\n                            "), _c('span', {
-      staticClass: "saudi-riyal"
-    }, [_vm._v("ê")])])]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('td', {
-      staticClass: "no-currency auto-width"
-    }, [_vm._v(_vm._s(_vm.formatToTwoDecimals(item.totalPrice)) + "\n                        "), _c('span', {
-      staticClass: "saudi-riyal"
-    }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), _vm.showReturnPriceColumn ? _c('td', {
-      staticClass: "text-right auto-width"
-    }, [_vm._v("\n                        " + _vm._s(_vm.formatToTwoDecimals(item.returnTotal !== undefined ? item.returnTotal : item.totalReturn || 0)) + " "), _c('span', {
-      staticClass: "saudi-riyal"
-    }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), !_vm.showReturnPriceColumn ? _c('td', {
-      staticClass: "text-right auto-width"
-    }, [_c('button', {
-      staticClass: "btn btn-danger",
-      attrs: {
-        "type": "button"
-      },
-      on: {
-        "click": function click($event) {
-          return _vm.$emit('remove-item', item);
-        }
-      }
-    }, [_c('i', {
-      staticClass: "fas fa-times"
-    })])]) : _vm._e()]);
-  }), _vm._v(" "), _c('tr', [_c('td', {
-    staticClass: "text-right",
-    attrs: {
-      "colspan": _vm.totalsColspan + (_vm.showInvoiceQtyColumn ? 1 : 0) + (_vm.showCurrentQtyColumn ? 1 : 0)
-    }
-  }, [!_vm.hideDiscountColumn && !_vm.hideVatColumn ? _c('strong', [_vm._v(" " + _vm._s(_vm.$t("Total")) + " : " + _vm._s(_vm.amountInWords) + " ")]) : _c('strong', [_vm._v(_vm._s(_vm.$t("Subtotal")))])]), _vm._v(" "), _vm.totalsColspan === 4 && !_vm.hideDiscountColumn && !_vm.hideVatColumn ? _c('td', {
-    staticClass: "no-currency"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.totalUnitPrice)))]), _vm._v(" "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), !_vm.hideDiscountColumn && !_vm.hideVatColumn ? _c('td', {
-    staticClass: "no-currency"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.customTotalValue !== null ? _vm.customTotalValue : _vm.totalUnitPrice)))]), _vm._v(" "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), !_vm.hideDiscountColumn && !_vm.hideVatColumn ? _c('td', {
-    staticClass: "no-currency"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.totalProductDiscount)))]), _vm._v(" "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), !_vm.hideDiscountColumn && !_vm.hideVatColumn ? _c('td', {
-    staticClass: "no-currency"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.totalAfterDiscount)))]), _vm._v(" "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('td', [_c('strong')]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('td', {
-    staticClass: "no-currency"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.totalProductTax)))]), _vm._v(" "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('td', {
-    staticClass: "no-currency"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.subtotal)))]), _vm._v(" "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), _vm.showReturnPriceColumn && !_vm.hideDiscountColumn && !_vm.hideVatColumn ? _c('td', {
-    staticClass: "no-currency"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.customTotalValue !== null ? _vm.customTotalValue : 0)))]), _vm._v(" "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), _vm.hideDiscountColumn && _vm.hideVatColumn ? _c('td', {
-    staticClass: "no-currency"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.totalUnitPrice)))]), _vm._v(" "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), _vm.showReturnPriceColumn && _vm.hideDiscountColumn && _vm.hideVatColumn ? _c('td', {
-    staticClass: "text-right"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.customTotalValue !== null ? _vm.customTotalValue : _vm.subtotal)))]), _vm._v(" "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), !_vm.showReturnPriceColumn && !_vm.hideDiscountColumn && !_vm.hideVatColumn ? _c('td') : _vm._e()])], 2)])])]) : _vm._e();
-};
-var staticRenderFns = [];
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemsTable.vue?vue&type=script&lang=js
-/* harmony default export */ const ItemsTablevue_type_script_lang_js = ({
-  name: 'ItemsTable',
-  props: {
-    items: {
-      type: Array,
-      required: true,
-      "default": function _default() {
-        return [];
-      }
-    },
-    prefix: {
-      type: String,
-      "default": ''
-    },
-    taxes: {
-      type: Array,
-      "default": function _default() {
-        return [];
-      }
-    },
-    formErrors: {
-      type: Object,
-      "default": function _default() {
-        return {};
-      }
-    },
-    totalUnitPrice: {
-      type: Number,
-      "default": 0
-    },
-    totalProductDiscount: {
-      type: Number,
-      "default": 0
-    },
-    totalAfterDiscount: {
-      type: Number,
-      "default": 0
-    },
-    totalProductTax: {
-      type: Number,
-      "default": 0
-    },
-    subtotal: {
-      type: Number,
-      "default": 0
-    },
-    amountInWords: {
-      type: String,
-      "default": ''
-    },
-    showEditButton: {
-      type: Boolean,
-      "default": true
-    },
-    useVatRateId: {
-      type: Boolean,
-      "default": false
-    },
-    tableClass: {
-      type: String,
-      "default": 'quotations-create-table'
-    },
-    qtyFieldName: {
-      type: String,
-      "default": 'qty'
-    },
-    unitPriceFieldName: {
-      type: String,
-      "default": 'unitPrice'
-    },
-    priceReadonly: {
-      type: Boolean,
-      "default": false
-    },
-    customTotalValue: {
-      type: Number,
-      "default": null
-    },
-    totalsColspan: {
-      type: Number,
-      "default": 5
-    },
-    hideDiscountColumn: {
-      type: Boolean,
-      "default": false
-    },
-    hideVatColumn: {
-      type: Boolean,
-      "default": false
-    },
-    showInvoiceQtyColumn: {
-      type: Boolean,
-      "default": false
-    },
-    showCurrentQtyColumn: {
-      type: Boolean,
-      "default": false
-    },
-    showReturnPriceColumn: {
-      type: Boolean,
-      "default": false
-    },
-    disableInventoryMaxRestriction: {
-      type: Boolean,
-      "default": false
-    }
-  },
-  methods: {
-    getItemField: function getItemField(item, fieldName) {
-      return item[fieldName] || 0;
-    },
-    formatToTwoDecimals: function formatToTwoDecimals(value) {
-      if (value === null || value === undefined || value === '') {
-        return '0.00';
-      }
-      var numValue = Number(value);
-      if (isNaN(numValue)) {
-        return '0.00';
-      }
-      return numValue.toFixed(2);
-    },
-    getFieldError: function getFieldError(field) {
-      if (!this.formErrors || typeof this.formErrors.has !== 'function') {
-        return false;
-      }
-      return this.formErrors.has(field);
-    },
-    getFieldErrorMessage: function getFieldErrorMessage(field) {
-      if (!this.formErrors || typeof this.formErrors.get !== 'function') {
-        return '';
-      }
-      return this.formErrors.get(field);
-    },
-    handleItemChange: function handleItemChange(value, type, index, action) {
-      this.$emit('item-change', {
-        value: value,
-        type: type,
-        index: index,
-        action: action
-      });
-    },
-    handleDiscountChange: function handleDiscountChange(index) {
-      this.$emit('discount-change', index);
-    },
-    handleVatChange: function handleVatChange(index) {
-      this.$emit('vat-change', index);
-    }
-  }
-});
-;// ./resources/js/components/ItemsTable.vue?vue&type=script&lang=js
- /* harmony default export */ const components_ItemsTablevue_type_script_lang_js = (ItemsTablevue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-var injectStylesIntoStyleTag = __webpack_require__(85072);
-var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemsTable.vue?vue&type=style&index=0&id=7f512fbf&prod&scoped=true&lang=css
-var ItemsTablevue_type_style_index_0_id_7f512fbf_prod_scoped_true_lang_css = __webpack_require__(25183);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemsTable.vue?vue&type=style&index=0&id=7f512fbf&prod&scoped=true&lang=css
-
-            
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = injectStylesIntoStyleTag_default()(ItemsTablevue_type_style_index_0_id_7f512fbf_prod_scoped_true_lang_css/* default */.A, options);
-
-
-
-/* harmony default export */ const components_ItemsTablevue_type_style_index_0_id_7f512fbf_prod_scoped_true_lang_css = (ItemsTablevue_type_style_index_0_id_7f512fbf_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/components/ItemsTable.vue?vue&type=style&index=0&id=7f512fbf&prod&scoped=true&lang=css
-
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/components/ItemsTable.vue
-
-
-
-;
-
-
-/* normalize component */
-
-var component = (0,componentNormalizer/* default */.A)(
-  components_ItemsTablevue_type_script_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  "7f512fbf",
-  null
-  
-)
-
-/* harmony default export */ const ItemsTable = (component.exports);
-
-/***/ }),
-
-/***/ 33483:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".form-card[data-v-493e4a0c]{background:#fff;border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:20px}.form-card .card-header[data-v-493e4a0c]{background-color:#33a0d9;border-bottom:none;border-radius:20px 20px 0 0;color:#fff;padding:22px 16px}.form-card .section-title[data-v-493e4a0c]{color:#fff;font-size:14px;font-weight:600;margin:0}.form-card .card-body[data-v-493e4a0c]{padding:16px}.form-control[data-v-493e4a0c]{background:#fff!important}input[readonly][data-v-493e4a0c]{background-color:#f8f9fa!important;border-color:#ced4da;color:#6c757d;cursor:not-allowed}.form-control[data-v-493e4a0c]:focus,select.form-control[data-v-493e4a0c]:focus,textarea.form-control[data-v-493e4a0c]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.radio-group[data-v-493e4a0c]{align-items:center;display:flex;gap:16px}.radio-group .radio-inline[data-v-493e4a0c]{align-items:center;display:inline-flex;gap:6px;margin:0}.v-select .vs__dropdown-toggle[data-v-493e4a0c]{border-color:#ced4da;border-radius:6px}.v-select .vs__dropdown-toggle.vs__open[data-v-493e4a0c],.v-select .vs__dropdown-toggle[data-v-493e4a0c]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.v-select .vs__dropdown-menu[data-v-493e4a0c],.v-select .vs__search[data-v-493e4a0c],.v-select .vs__selected[data-v-493e4a0c]{font-size:.95rem}.custom-file-input:focus~.custom-file-label[data-v-493e4a0c]{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.custom-file-label[data-v-493e4a0c]{border-radius:6px}.file-upload-area[data-v-493e4a0c]{background:#f8fdfe;border:2px dashed #33a0d9;border-radius:12px;padding:20px;position:relative;text-align:center}.file-upload-area .file-input[data-v-493e4a0c]{cursor:pointer;height:100%;inset:0;opacity:0;position:absolute;width:100%}.file-upload-area .file-upload-content[data-v-493e4a0c]{color:#33a0d9}.selected-files .selected-file-item[data-v-493e4a0c]{align-items:center;background:#f5faff;border:1px solid #e3f3f7;border-radius:6px;display:inline-flex;margin-bottom:8px;margin-right:8px;padding:6px 10px}.d-flex.align-items-center span.ml-3[data-v-493e4a0c]{font-weight:500}.required[data-v-493e4a0c]{color:#dc3545}.tax-status-options[data-v-493e4a0c]{margin-top:.5rem}.tax-status-card-compact[data-v-493e4a0c]{background-color:#fff;border:2px solid #e0e0e0;box-shadow:0 1px 4px rgba(0,0,0,.06);display:block;padding:.75rem 1rem;position:relative}.tax-status-card-compact[data-v-493e4a0c]:hover{border-color:#007bff;box-shadow:0 2px 8px rgba(0,123,255,.12);transform:translateY(-1px)}.tax-status-card-compact.active[data-v-493e4a0c]{background:linear-gradient(135deg,#f8f9ff,#fff);border-color:#007bff;box-shadow:0 2px 10px rgba(0,123,255,.15)}.tax-status-card-compact.border-success.active[data-v-493e4a0c]{background:linear-gradient(135deg,#f0fff4,#fff);border-color:#28a745;box-shadow:0 2px 10px rgba(40,167,69,.15)}.tax-status-card-compact.border-primary.active[data-v-493e4a0c]{background:linear-gradient(135deg,#f8f9ff,#fff);border-color:#007bff;box-shadow:0 2px 10px rgba(0,123,255,.15)}.tax-status-header-compact[data-v-493e4a0c]{position:relative}.tax-status-radio[data-v-493e4a0c]{opacity:0;pointer-events:none;position:absolute}.tax-status-icon-compact[data-v-493e4a0c]{align-items:center;border-radius:8px;display:flex;flex-shrink:0;font-size:1rem;height:32px;justify-content:center;margin-right:.75rem;transition:all .2s ease;width:32px}.tax-status-icon-compact.taxable-icon[data-v-493e4a0c]{background:linear-gradient(135deg,#007bff,#0056b3);box-shadow:0 2px 6px rgba(0,123,255,.25);color:#fff}.tax-status-icon-compact.non-taxable-icon[data-v-493e4a0c]{background:linear-gradient(135deg,#28a745,#1e7e34);box-shadow:0 2px 6px rgba(40,167,69,.25);color:#fff}.tax-status-card-compact.active .tax-status-icon-compact.taxable-icon[data-v-493e4a0c]{box-shadow:0 3px 10px rgba(0,123,255,.35);transform:scale(1.05)}.tax-status-card-compact.active .tax-status-icon-compact.non-taxable-icon[data-v-493e4a0c]{box-shadow:0 3px 10px rgba(40,167,69,.35);transform:scale(1.05)}.tax-status-title-compact[data-v-493e4a0c]{color:#2c3e50;flex:1;font-size:.95rem;font-weight:600}.tax-status-card-compact.active .tax-status-title-compact[data-v-493e4a0c]{color:#007bff}.tax-status-card-compact.border-success.active .tax-status-title-compact[data-v-493e4a0c]{color:#28a745}[dir=rtl] .tax-status-icon-compact[data-v-493e4a0c]{margin-left:.75rem;margin-right:0}[dir=rtl] .form-card .card-header[data-v-493e4a0c]{border-radius:20px 20px 0 0}.custom-file-label[data-v-493e4a0c],[dir=rtl] .custom-file-label[data-v-493e4a0c]{text-align:left!important}.btn-primary[data-v-493e4a0c]{background:#33a0d9!important;border-color:#33a0d9!important}.btn-primary[data-v-493e4a0c]:hover{filter:brightness(.95)}.equal-height>[class*=\" col-\"][data-v-493e4a0c],.equal-height>[class^=col-][data-v-493e4a0c]{display:flex}.equal-height .form-card[data-v-493e4a0c]{display:flex;flex-direction:column;width:100%}.equal-height .form-card .card-body[data-v-493e4a0c]{flex:1 1 auto}.country-select[data-v-493e4a0c]{width:100%}.country-select .vs__dropdown-toggle[data-v-493e4a0c]{border:1px solid #ced4da;border-radius:6px;max-width:100%;min-height:2.5rem;overflow:hidden;padding:.5rem 1rem}.country-select .vs__search[data-v-493e4a0c]{font-size:.95rem;margin:0;padding:0}.country-select .vs__selected[data-v-493e4a0c]{align-items:center;display:flex;gap:.5rem;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.country-option[data-v-493e4a0c],.country-selected[data-v-493e4a0c]{align-items:center;display:flex;gap:.5rem;min-width:0}.country-flag[data-v-493e4a0c]{flex-shrink:0;font-size:1.25rem;line-height:1}.country-name[data-v-493e4a0c]{flex:1;font-size:.95rem;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.country-select.is-invalid .vs__dropdown-toggle[data-v-493e4a0c]{border-color:#dc3545}.country-select .vs__dropdown-menu[data-v-493e4a0c]{border-radius:6px;box-shadow:0 .5rem 1rem rgba(0,0,0,.15);margin-top:.5rem}.country-select .vs__dropdown-option[data-v-493e4a0c]{padding:.75rem 1rem}.country-select .vs__dropdown-option--highlight[data-v-493e4a0c]{background-color:#33a0d9;color:#fff}.saudi-location-select[data-v-493e4a0c]{width:100%}.saudi-location-select .vs__dropdown-toggle[data-v-493e4a0c]{background-color:#fff;border:1px solid #ced4da;border-radius:6px;min-height:2.5rem;padding:.375rem .75rem}.saudi-location-select .vs__dropdown-toggle.vs__open[data-v-493e4a0c],.saudi-location-select .vs__dropdown-toggle[data-v-493e4a0c]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15);outline:none}.saudi-location-select.is-invalid .vs__dropdown-toggle[data-v-493e4a0c]{border-color:#dc3545}.saudi-location-select .vs__search[data-v-493e4a0c]{font-size:.95rem;margin:0;padding:0}.saudi-location-select .vs__dropdown-menu[data-v-493e4a0c]{border-radius:6px;box-shadow:0 .5rem 1rem rgba(0,0,0,.15);margin-top:.5rem}.saudi-location-select .vs__dropdown-option[data-v-493e4a0c]{padding:.75rem 1rem}.saudi-location-select .vs__dropdown-option--highlight[data-v-493e4a0c]{background-color:#33a0d9;color:#fff}.client-form-tabs[data-v-493e4a0c]{background:#f8f9fa;border-radius:12px;margin-bottom:2rem;padding:.5rem}.client-form-tabs .nav-tabs[data-v-493e4a0c]{border:none;display:flex;gap:.5rem;margin:0;padding:0}.client-form-tabs .nav-item[data-v-493e4a0c]{flex:1}.client-form-tabs .nav-link[data-v-493e4a0c]{align-items:center;background:transparent;border:none;border-radius:8px;color:#6b7280;cursor:pointer;display:flex;font-size:15px;font-weight:500;justify-content:center;padding:14px 24px;transition:all .3s ease}.client-form-tabs .nav-link[data-v-493e4a0c]:hover{background:#e5e7eb;color:#374151}.client-form-tabs .nav-link.active[data-v-493e4a0c]{background:#0775af;box-shadow:0 2px 8px rgba(7,117,175,.2);color:#fff}.client-form-tabs .nav-link i[data-v-493e4a0c]{font-size:16px;margin-right:8px}[dir=rtl] .client-form-tabs .nav-link i[data-v-493e4a0c]{margin-left:8px;margin-right:0}.tab-content[data-v-493e4a0c]{margin-top:0}.tab-pane[data-v-493e4a0c]{display:none}.tab-pane.show.active[data-v-493e4a0c]{animation:fadeIn-493e4a0c .3s ease;display:block}@keyframes fadeIn-493e4a0c{0%{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}.form-card-enhanced[data-v-493e4a0c]{background:#fff;border:1px solid #e5e7eb;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.05);margin-bottom:2rem;overflow:hidden;transition:all .3s ease}.form-card-enhanced[data-v-493e4a0c]:hover{border-color:#d1d5db;box-shadow:0 4px 12px rgba(0,0,0,.08)}.form-card-enhanced .card-header[data-v-493e4a0c]{background:#eceff3;border-bottom:1px solid #e5e7eb;padding:20px 24px}.form-card-enhanced .section-title[data-v-493e4a0c]{align-items:center;color:#111827;display:flex;flex-wrap:wrap;font-size:18px;font-weight:600;gap:8px;margin:0}.form-card-enhanced .section-title i[data-v-493e4a0c]{color:#0775af;font-size:20px}.form-card-enhanced .card-header-subtitle[data-v-493e4a0c]{color:#6b7280;font-size:13px;font-weight:400;line-height:1.5;margin-bottom:0;margin-top:6px}.form-card-enhanced .card-body[data-v-493e4a0c]{padding:24px}.form-control[data-v-493e4a0c],.form-control-modern[data-v-493e4a0c]{background-color:#fff;border:1.5px solid #d1d5db;border-radius:8px;color:#111827;font-size:14px;height:44px;line-height:1.5;padding:12px 16px;transition:all .2s ease;width:100%}.form-control-modern[data-v-493e4a0c]:focus,.form-control[data-v-493e4a0c]:focus{background-color:#fff;border-color:#0775af;box-shadow:0 0 0 3px rgba(7,117,175,.1);outline:none}.form-control-modern[readonly][data-v-493e4a0c]{background-color:#f9fafb;color:#6b7280;cursor:not-allowed}.form-row-modern[data-v-493e4a0c]{display:grid;gap:20px;grid-template-columns:repeat(2,1fr);margin-bottom:0}.form-row-three[data-v-493e4a0c]{grid-template-columns:repeat(3,1fr)}.form-col-third[data-v-493e4a0c]{width:100%}@media (max-width:1200px){.form-row-three[data-v-493e4a0c]{grid-template-columns:repeat(2,1fr)}.form-row-three .form-col-third[data-v-493e4a0c]:last-child{grid-column:1/-1}}@media (max-width:768px){.form-row-modern[data-v-493e4a0c],.form-row-three[data-v-493e4a0c]{gap:0;grid-template-columns:1fr}.form-row-three .form-col-third[data-v-493e4a0c]:last-child{grid-column:1}}.radio-group-modern[data-v-493e4a0c]{display:flex;gap:12px}.radio-option-modern[data-v-493e4a0c]{align-items:center;background:#fff;border:1.5px solid #d1d5db;border-radius:8px;cursor:pointer;display:flex;flex:1;height:44px;justify-content:center;padding:0 16px;position:relative;transition:all .2s ease}.radio-option-modern[data-v-493e4a0c]:hover{background:#f0f9ff;border-color:#0775af}.radio-option-modern.active[data-v-493e4a0c]{background:#e6f4ff;border-color:#0775af;box-shadow:0 0 0 3px rgba(7,117,175,.1)}.radio-option-modern input[type=radio][data-v-493e4a0c]{opacity:0;pointer-events:none;position:absolute}.radio-label-text[data-v-493e4a0c]{color:#374151;font-size:14px;font-weight:500}.radio-option-modern.active .radio-label-text[data-v-493e4a0c]{color:#0775af;font-weight:600}.tax-status-row[data-v-493e4a0c]{display:flex;gap:8px}.tax-status-row .tax-status-card-compact[data-v-493e4a0c]{flex:1;min-width:0}.tax-status-card-compact[data-v-493e4a0c]{align-items:center;background:#fff;border:1.5px solid #d1d5db;border-radius:8px;cursor:pointer;display:flex;height:44px;padding:0;transition:all .2s ease}.tax-status-card-compact[data-v-493e4a0c]:hover{border-color:#0775af;box-shadow:0 2px 8px rgba(7,117,175,.15)}.tax-status-card-compact.active[data-v-493e4a0c]{background:#f0f9ff;border-color:#0775af;box-shadow:0 0 0 3px rgba(7,117,175,.1)}.tax-status-card-compact.border-success.active[data-v-493e4a0c]{background:#f0fdf4;border-color:#10b981}.tax-status-header-compact[data-v-493e4a0c]{align-items:center;display:flex;height:100%;justify-content:center;padding:0 12px;width:100%}.tax-status-title-compact[data-v-493e4a0c]{color:#374151;font-size:14px;font-weight:500;text-align:center}.tax-status-card-compact.active .tax-status-title-compact[data-v-493e4a0c]{color:#0775af}.tax-status-card-compact.border-success.active .tax-status-title-compact[data-v-493e4a0c]{color:#10b981;font-weight:600}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
-/***/ 33972:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'रुपया',
-                plural: 'रुपये',
-                singular: 'रुपया',
-                symbol: '₹',
-                fractionalUnit: {
-                    name: 'पैसा',
-                    singular: 'पैसा',
-                    plural: 'पैसे',
-                    symbol: '',
-                },
-            },
-            texts: {
-                and: 'आणि',
-                minus: 'वजा',
-                only: '',
-                point: 'पूर्णांक',
-            },
-            numberWordsMapping: [
-                { number: 10000000, value: 'कोटी' },
-                { number: 100000, value: 'लाख' },
-                { number: 1000, value: 'हजार' },
-                { number: 900, value: 'नऊशे' },
-                { number: 800, value: 'आठशे' },
-                { number: 700, value: 'सातशे' },
-                { number: 600, value: 'सहाशे' },
-                { number: 500, value: 'पाचशे' },
-                { number: 400, value: 'चारशे' },
-                { number: 300, value: 'तीनशे' },
-                { number: 200, value: 'दोनशे' },
-                { number: 100, value: 'एकशे' },
-                { number: 99, value: 'नव्व्याण्णव' },
-                { number: 98, value: 'अठ्ठ्याण्णव' },
-                { number: 97, value: 'सत्त्याण्णव' },
-                { number: 96, value: 'शहाण्णव' },
-                { number: 95, value: 'पंच्याण्णव' },
-                { number: 94, value: 'चौऱ्याण्णव' },
-                { number: 93, value: 'त्र्याण्णव' },
-                { number: 92, value: 'ब्याण्णव' },
-                { number: 91, value: 'एक्क्याण्णव' },
-                { number: 90, value: 'नव्वद' },
-                { number: 89, value: 'एकोणनव्वद' },
-                { number: 88, value: 'अठ्ठ्याऐंशी' },
-                { number: 87, value: 'सत्त्याऐंशी' },
-                { number: 86, value: 'शहाऐंशी' },
-                { number: 85, value: 'पंच्याऐंशी' },
-                { number: 84, value: 'चौऱ्याऐंशी' },
-                { number: 83, value: 'त्र्याऐंशी' },
-                { number: 82, value: 'ब्याऐंशी' },
-                { number: 81, value: 'एक्क्याऐंशी' },
-                { number: 80, value: 'ऐंशी' },
-                { number: 79, value: 'एकोणऐंशी' },
-                { number: 78, value: 'अठ्ठ्याहत्तर' },
-                { number: 77, value: 'सत्याहत्तर' },
-                { number: 76, value: 'शहात्तर' },
-                { number: 75, value: 'पंच्याहत्तर' },
-                { number: 74, value: 'चौर्‍याहत्तर' },
-                { number: 73, value: 'त्र्याहत्तर' },
-                { number: 72, value: 'बाहत्तर' },
-                { number: 71, value: 'एक्काहत्तर' },
-                { number: 70, value: 'सत्तर' },
-                { number: 69, value: 'एकोणसत्तर' },
-                { number: 68, value: 'अडुसष्ठ' },
-                { number: 67, value: 'सदुसष्ठ' },
-                { number: 66, value: 'सहासष्ठ' },
-                { number: 65, value: 'पासष्ठ' },
-                { number: 64, value: 'चौसष्ठ' },
-                { number: 63, value: 'त्रेसष्ठ' },
-                { number: 62, value: 'बासष्ठ' },
-                { number: 61, value: 'एकसष्ठ' },
-                { number: 60, value: 'साठ' },
-                { number: 59, value: 'एकोणसाठ' },
-                { number: 58, value: 'अठ्ठावन्न' },
-                { number: 57, value: 'सत्तावन्न' },
-                { number: 56, value: 'छप्पन्न' },
-                { number: 55, value: 'पंचावन्न' },
-                { number: 54, value: 'चोपन्न' },
-                { number: 53, value: 'त्रेपन्न' },
-                { number: 52, value: 'बावन्न' },
-                { number: 51, value: 'एक्कावन्न' },
-                { number: 50, value: 'पन्नास' },
-                { number: 49, value: 'एकोणपन्नास' },
-                { number: 48, value: 'अठ्ठेचाळीस' },
-                { number: 47, value: 'सत्तेचाळीस' },
-                { number: 46, value: 'सेहेचाळीस' },
-                { number: 45, value: 'पंचेचाळीस' },
-                { number: 44, value: 'चव्वेचाळीस' },
-                { number: 43, value: 'त्रेचाळीस' },
-                { number: 42, value: 'बेचाळीस' },
-                { number: 41, value: 'एक्केचाळीस' },
-                { number: 40, value: 'चाळीस' },
-                { number: 39, value: 'एकोणचाळीस' },
-                { number: 38, value: 'अडतीस' },
-                { number: 37, value: 'सदतीस' },
-                { number: 36, value: 'छत्तीस' },
-                { number: 35, value: 'पस्तीस' },
-                { number: 34, value: 'चौतीस' },
-                { number: 33, value: 'तेहेतीस' },
-                { number: 32, value: 'बत्तीस' },
-                { number: 31, value: 'एकतीस' },
-                { number: 30, value: 'तीस' },
-                { number: 29, value: 'एकोणतीस' },
-                { number: 28, value: 'अठ्ठावीस' },
-                { number: 27, value: 'सत्तावीस' },
-                { number: 26, value: 'सव्वीस' },
-                { number: 25, value: 'पंचवीस' },
-                { number: 24, value: 'चोवीस' },
-                { number: 23, value: 'तेवीस' },
-                { number: 22, value: 'बावीस' },
-                { number: 21, value: 'एकवीस' },
-                { number: 20, value: 'वीस' },
-                { number: 19, value: 'एकोणीस' },
-                { number: 18, value: 'अठरा' },
-                { number: 17, value: 'सतरा' },
-                { number: 16, value: 'सोळा' },
-                { number: 15, value: 'पंधरा' },
-                { number: 14, value: 'चौदा' },
-                { number: 13, value: 'तेरा' },
-                { number: 12, value: 'बारा' },
-                { number: 11, value: 'अकरा' },
-                { number: 10, value: 'दहा' },
-                { number: 9, value: 'नऊ' },
-                { number: 8, value: 'आठ' },
-                { number: 7, value: 'सात' },
-                { number: 6, value: 'सहा' },
-                { number: 5, value: 'पाच' },
-                { number: 4, value: 'चार' },
-                { number: 3, value: 'तीन' },
-                { number: 2, value: 'दोन' },
-                { number: 1, value: 'एक' },
-                { number: 0, value: 'शून्य' },
-            ],
-            namedLessThan1000: true,
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 34922:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'eiro',
-                plural: 'eiro',
-                symbol: '€',
-                fractionalUnit: {
-                    name: 'cents',
-                    plural: 'centi',
-                    symbol: '',
-                },
-            },
-            texts: {
-                and: 'un',
-                minus: 'mīnus',
-                only: '',
-                point: 'komats',
-            },
-            numberWordsMapping: [
-                { number: 1000000000000000, value: 'kvadriljon' },
-                { number: 1000000000000, value: 'triljon' },
-                { number: 1000000000, value: 'miljard' },
-                { number: 1000000, value: 'miljoni', singularValue: 'miljons' },
-                { number: 1000, value: 'tūkstoši', singularValue: 'tūkstotis' },
-                { number: 900, value: 'deviņi simti' },
-                { number: 800, value: 'astoņi simti' },
-                { number: 700, value: 'septiņi simti' },
-                { number: 600, value: 'seši simti' },
-                { number: 500, value: 'pieci simti' },
-                { number: 400, value: 'četri simti' },
-                { number: 300, value: 'trīs simti' },
-                { number: 200, value: 'divi simti' },
-                { number: 100, value: 'simtu' },
-                { number: 90, value: 'deviņdesmit' },
-                { number: 80, value: 'astoņdesmit' },
-                { number: 70, value: 'septiņdesmit' },
-                { number: 60, value: 'sešdesmit' },
-                { number: 50, value: 'piecdesmit' },
-                { number: 40, value: 'četrdesmit' },
-                { number: 30, value: 'trīsdesmit' },
-                { number: 20, value: 'divdesmit' },
-                { number: 19, value: 'deviņpadsmit' },
-                { number: 18, value: 'astoņpadsmit' },
-                { number: 17, value: 'septiņpadsmit' },
-                { number: 16, value: 'sešpadsmit' },
-                { number: 15, value: 'piecpadsmit' },
-                { number: 14, value: 'četrdpadsmit' },
-                { number: 13, value: 'trīspadsmit' },
-                { number: 12, value: 'divpadsmit' },
-                { number: 11, value: 'vienpadsmit' },
-                { number: 10, value: 'desmit' },
-                { number: 9, value: 'deviņi' },
-                { number: 8, value: 'astoņi' },
-                { number: 7, value: 'septiņi' },
-                { number: 6, value: 'seši' },
-                { number: 5, value: 'pieci' },
-                { number: 4, value: 'četri' },
-                { number: 3, value: 'trīs' },
-                { number: 2, value: 'divi' },
-                { number: 1, value: 'viens' },
-                { number: 0, value: 'nulle' },
-            ],
-            ignoreOneForWords: [
-                'simtu',
-                'divi simti',
-                'trīs simti',
-                'četri simti',
-                'pieci simti',
-                'seši simti',
-                'septiņi simti',
-                'astoņi simti',
-                'deviņi simti',
-            ],
-            exactWordsMapping: [{ number: 100, value: 'Simtu' }],
-            pluralMark: 'i',
-            pluralWords: ['kvadriljon', 'triljon', 'miljard'],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 35262:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'रुपैयाँ',
-                plural: 'रुपैयाँ',
-                singular: 'रुपैयाँ',
-                symbol: 'रु',
-                fractionalUnit: {
-                    name: 'पैसा',
-                    singular: 'पैसा',
-                    plural: 'पैसा',
-                    symbol: '',
-                },
-            },
-            texts: {
-                and: 'र',
-                minus: 'माइनस',
-                only: 'मात्र',
-                point: 'दशमलब',
-            },
-            numberWordsMapping: [
-                { number: 100000000000, value: 'खर्ब' },
-                { number: 1000000000, value: 'अर्ब' },
-                { number: 10000000, value: 'करोड' },
-                { number: 100000, value: 'लाख' },
-                { number: 1000, value: 'हजार' },
-                { number: 100, value: 'सय' },
-                { number: 99, value: 'उनान्सय' },
-                { number: 98, value: 'अन्ठानब्बे' },
-                { number: 97, value: 'सन्तानब्बे' },
-                { number: 96, value: 'छयानब्बे' },
-                { number: 95, value: 'पन्चानब्बे' },
-                { number: 94, value: 'चौरानब्बे' },
-                { number: 93, value: 'त्रियानब्बे' },
-                { number: 92, value: 'बयान्नब्बे' },
-                { number: 91, value: 'एकानब्बे' },
-                { number: 90, value: 'नब्बे' },
-                { number: 89, value: 'उनान्नब्बे' },
-                { number: 88, value: 'अठासी' },
-                { number: 87, value: 'सतासी' },
-                { number: 86, value: 'छयासी' },
-                { number: 85, value: 'पचासी' },
-                { number: 84, value: 'चौरासी' },
-                { number: 83, value: 'त्रियासी' },
-                { number: 82, value: 'बयासी' },
-                { number: 81, value: 'एकासी' },
-                { number: 80, value: 'अस्सी' },
-                { number: 79, value: 'उनासी' },
-                { number: 78, value: 'अठहत्तर' },
-                { number: 77, value: 'सतहत्तर' },
-                { number: 76, value: 'छयहत्तर' },
-                { number: 75, value: 'पचहत्तर' },
-                { number: 74, value: 'चौहत्तर' },
-                { number: 73, value: 'त्रिहत्तर' },
-                { number: 72, value: 'बहत्तर' },
-                { number: 71, value: 'एकहत्तर' },
-                { number: 70, value: 'सत्तरी' },
-                { number: 69, value: 'उनन्सत्तरी' },
-                { number: 68, value: 'अठसट्ठी' },
-                { number: 67, value: 'सड्सट्ठी' },
-                { number: 66, value: 'छैंसट्ठी' },
-                { number: 65, value: 'पैंसट्ठी' },
-                { number: 64, value: 'चौंसट्ठी' },
-                { number: 63, value: 'त्रिसट्ठी' },
-                { number: 62, value: 'बइसट्ठी' },
-                { number: 61, value: 'एकसट्ठी' },
-                { number: 60, value: 'साठी' },
-                { number: 59, value: 'उनन्साठी' },
-                { number: 58, value: 'अन्ठाउन्न' },
-                { number: 57, value: 'सन्ताउन्न' },
-                { number: 56, value: 'छपन्न' },
-                { number: 55, value: 'पचपन्न' },
-                { number: 54, value: 'चवन्न' },
-                { number: 53, value: 'त्रिपन्न' },
-                { number: 52, value: 'बाउन्न' },
-                { number: 51, value: 'एकाउन्न' },
-                { number: 50, value: 'पचास' },
-                { number: 49, value: 'उनन्चास' },
-                { number: 48, value: 'अठचालीस' },
-                { number: 47, value: 'सट्चालीस' },
-                { number: 46, value: 'छयालीस' },
-                { number: 45, value: 'पैंतालीस' },
-                { number: 44, value: 'चवालीस' },
-                { number: 43, value: 'त्रिचालीस' },
-                { number: 42, value: 'बयालीस' },
-                { number: 41, value: 'एकचालीस' },
-                { number: 40, value: 'चालीस' },
-                { number: 39, value: 'उनन्चालीस' },
-                { number: 38, value: 'अठतीस' },
-                { number: 37, value: 'सैंतीस' },
-                { number: 36, value: 'छत्तीस' },
-                { number: 35, value: 'पैंतीस' },
-                { number: 34, value: 'चौँतीस' },
-                { number: 33, value: 'तेत्तीस' },
-                { number: 32, value: 'बत्तीस' },
-                { number: 31, value: 'एकतीस' },
-                { number: 30, value: 'तीस' },
-                { number: 29, value: 'उनन्तिस' },
-                { number: 28, value: 'अठ्ठाइस' },
-                { number: 27, value: 'सत्ताइस' },
-                { number: 26, value: 'छब्बिस' },
-                { number: 25, value: 'पच्चिस' },
-                { number: 24, value: 'चौबीस' },
-                { number: 23, value: 'तेइस' },
-                { number: 22, value: 'बाइस' },
-                { number: 21, value: 'एक्काइस' },
-                { number: 20, value: 'बीस' },
-                { number: 19, value: 'उन्नाइस' },
-                { number: 18, value: 'अठार' },
-                { number: 17, value: 'सत्र' },
-                { number: 16, value: 'सोह्र' },
-                { number: 15, value: 'पन्ध्र' },
-                { number: 14, value: 'चौध' },
-                { number: 13, value: 'तेह्र' },
-                { number: 12, value: 'बाह्र' },
-                { number: 11, value: 'एघार' },
-                { number: 10, value: 'दश' },
-                { number: 9, value: 'नौ' },
-                { number: 8, value: 'आठ' },
-                { number: 7, value: 'सात' },
-                { number: 6, value: 'छ' },
-                { number: 5, value: 'पाँच' },
-                { number: 4, value: 'चार' },
-                { number: 3, value: 'तीन' },
-                { number: 2, value: 'दुई' },
-                { number: 1, value: 'एक' },
-                { number: 0, value: 'शून्य' },
-            ],
-            exactWordsMapping: [{ number: 100, value: 'एक सय' }],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 36694:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   ErrorHandler: () => (/* binding */ ErrorHandler),
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _plugins_i18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(37225);
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
-function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
-function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
-function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
-function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
-function _classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
-function _defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o); } }
-function _createClass(e, r, t) { return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", { writable: !1 }), e; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-
-
-/**
- * Centralized error handling utility
- * Provides consistent error display across the application
- */
-var ErrorHandler = /*#__PURE__*/function () {
-  function ErrorHandler() {
-    _classCallCheck(this, ErrorHandler);
-  }
-  return _createClass(ErrorHandler, null, [{
-    key: "handleApiError",
-    value:
-    /**
-     * Handle API errors with proper error messages
-     * @param {Object} error - The error object from axios
-     * @param {Object} options - Additional options for error handling
-     * @returns {void}
-     */
-    function handleApiError(error) {
-      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-      var _options$showValidati = options.showValidationErrors,
-        showValidationErrors = _options$showValidati === void 0 ? true : _options$showValidati,
-        _options$customMessag = options.customMessage,
-        customMessage = _options$customMessag === void 0 ? null : _options$customMessag,
-        _options$title = options.title,
-        title = _options$title === void 0 ? null : _options$title,
-        _options$timer = options.timer,
-        timer = _options$timer === void 0 ? 6000 : _options$timer,
-        _options$showTimerPro = options.showTimerProgressBar,
-        showTimerProgressBar = _options$showTimerPro === void 0 ? true : _options$showTimerPro;
-
-      // Log detailed error information for debugging
-      this.logErrorDetails(error, options.context || 'API Error');
-
-      // If custom message is provided, show it
-      if (customMessage) {
-        this.showError(title || _plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Error'), customMessage, timer, showTimerProgressBar);
-        return;
-      }
-
-      // Handle different error types
-      if (error.response) {
-        var _error$response = error.response,
-          status = _error$response.status,
-          data = _error$response.data;
-        switch (status) {
-          case 400:
-            this.handleBadRequest(data, showValidationErrors);
-            break;
-          case 401:
-            this.handleUnauthorized();
-            break;
-          case 403:
-            this.handleForbidden(data);
-            break;
-          case 404:
-            this.handleNotFound(data);
-            break;
-          case 409:
-            this.handleConflict(data);
-            break;
-          case 422:
-            this.handleValidationErrors(data, showValidationErrors);
-            break;
-          case 499:
-            // Demo version message - handled by interceptors
-            break;
-          default:
-            if (status >= 500) {
-              this.handleServerError(data);
-            } else {
-              this.handleGenericError(data, error.message);
-            }
-        }
-      } else if (error.request) {
-        // Network error
-        this.showError(_plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Network Error'), _plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Unable to connect to server. Please check your internet connection.'), 8000, true);
-      } else {
-        // Other errors
-        this.handleGenericError(null, error.message);
-      }
-    }
-
-    /**
-     * Handle 400 Bad Request errors
-     */
-  }, {
-    key: "handleBadRequest",
-    value: function handleBadRequest(data) {
-      var showValidationErrors = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
-      var errorMessage = (data === null || data === void 0 ? void 0 : data.message) || _plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Bad Request Error');
-      if (showValidationErrors && data !== null && data !== void 0 && data.validation_errors && Array.isArray(data.validation_errors)) {
-        this.showBackendValidationErrors(data.validation_errors, errorMessage);
-      } else {
-        this.showError(_plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Bad Request'), errorMessage);
-      }
-    }
-
-    /**
-     * Handle 401 Unauthorized errors
-     */
-  }, {
-    key: "handleUnauthorized",
-    value: function handleUnauthorized() {
-      this.showError(_plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Authentication Error'), _plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('You are not authorized to perform this action. Please log in again.'), 5000);
-    }
-
-    /**
-     * Handle 403 Forbidden errors
-     */
-  }, {
-    key: "handleForbidden",
-    value: function handleForbidden(data) {
-      var errorMessage = (data === null || data === void 0 ? void 0 : data.message) || _plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t("You don't have permission to perform this action.");
-      this.showError(_plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Permission Error'), errorMessage);
-    }
-
-    /**
-     * Handle 404 Not Found errors
-     */
-  }, {
-    key: "handleNotFound",
-    value: function handleNotFound(data) {
-      var errorMessage = (data === null || data === void 0 ? void 0 : data.message) || _plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('The requested resource was not found. Please check your data and try again.');
-      this.showError(_plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Resource Not Found'), errorMessage);
-    }
-
-    /**
-     * Handle 409 Conflict errors
-     */
-  }, {
-    key: "handleConflict",
-    value: function handleConflict(data) {
-      var errorMessage = (data === null || data === void 0 ? void 0 : data.message) || _plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Data Conflict Error');
-      this.showError(_plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Data Conflict'), errorMessage);
-    }
-
-    /**
-     * Handle 422 Validation errors
-     */
-  }, {
-    key: "handleValidationErrors",
-    value: function handleValidationErrors(data) {
-      var showValidationErrors = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
-      if (!showValidationErrors) return;
-      if (data !== null && data !== void 0 && data.errors) {
-        // Laravel validation errors
-        var validationErrors = data.errors;
-        var errorMessages = Object.values(validationErrors).flat();
-        if (errorMessages.length > 0) {
-          var errorList = errorMessages.map(function (error) {
-            return "\u2022 ".concat(error);
-          }).join('\n');
-          this.showError(_plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Validation Error'), errorList, 8000, true);
-        }
-      } else if (data !== null && data !== void 0 && data.validation_errors && Array.isArray(data.validation_errors)) {
-        // Backend validation errors
-        this.showBackendValidationErrors(data.validation_errors, data.message);
-      } else {
-        // Show specific error message if available, otherwise show generic message
-        var errorMessage = (data === null || data === void 0 ? void 0 : data.message) || _plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Please check your input and try again.');
-        this.showError(_plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Validation Error'), errorMessage);
-      }
-    }
-
-    /**
-     * Handle server errors (5xx)
-     */
-  }, {
-    key: "handleServerError",
-    value: function handleServerError(data) {
-      var errorMessage = (data === null || data === void 0 ? void 0 : data.message) || _plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Server Error');
-      this.showError(_plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Server Error'), "".concat(errorMessage, " (").concat(_plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Please try again later or contact support'), ")"), 8000, true);
-    }
-
-    /**
-     * Handle generic errors
-     */
-  }, {
-    key: "handleGenericError",
-    value: function handleGenericError(data, fallbackMessage) {
-      var errorMessage = (data === null || data === void 0 ? void 0 : data.message) || fallbackMessage || _plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Please check your input and try again.');
-      this.showError(_plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Error'), errorMessage);
-    }
-
-    /**
-     * Show backend validation errors
-     */
-  }, {
-    key: "showBackendValidationErrors",
-    value: function showBackendValidationErrors(validationErrors, mainMessage) {
-      if (!Array.isArray(validationErrors) || validationErrors.length === 0) {
-        this.showError(_plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Validation Error'), mainMessage);
-        return;
-      }
-      var errorList = validationErrors.map(function (error) {
-        return "\u2022 ".concat(error);
-      }).join('\n');
-      this.showError(_plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Validation Error'), "".concat(mainMessage, "\n\n").concat(errorList), 10000, true);
-    }
-
-    /**
-     * Show error using SweetAlert2
-     */
-  }, {
-    key: "showError",
-    value: function showError(title, message) {
-      var timer = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 6000;
-      var showTimerProgressBar = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
-      if (typeof window !== 'undefined' && window.toast && typeof window.toast.fire === 'function') {
-        window.toast.fire({
-          type: 'error',
-          title: "".concat(title !== null && title !== void 0 ? title : _plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Error')).concat(message ? ': ' + message : ''),
-          timer: timer,
-          timerProgressBar: showTimerProgressBar
-        });
-        return;
-      }
-      // Fallback to console if toast not available
-      // eslint-disable-next-line no-console
-      console.error(title, message);
-    }
-
-    /**
-     * Show success message
-     */
-  }, {
-    key: "showSuccess",
-    value: function showSuccess(title, message) {
-      var timer = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 3000;
-      if (typeof window !== 'undefined' && window.toast && typeof window.toast.fire === 'function') {
-        window.toast.fire({
-          type: 'success',
-          title: "".concat(title !== null && title !== void 0 ? title : _plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Success')).concat(message ? ': ' + message : ''),
-          timer: timer,
-          timerProgressBar: true
-        });
-        return;
-      }
-      // eslint-disable-next-line no-console
-      console.log(title, message);
-    }
-
-    /**
-     * Show warning message
-     */
-  }, {
-    key: "showWarning",
-    value: function showWarning(title, message) {
-      var timer = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 5000;
-      if (typeof window !== 'undefined' && window.toast && typeof window.toast.fire === 'function') {
-        window.toast.fire({
-          type: 'warning',
-          title: "".concat(title !== null && title !== void 0 ? title : _plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Warning')).concat(message ? ': ' + message : ''),
-          timer: timer,
-          timerProgressBar: true
-        });
-        return;
-      }
-      // eslint-disable-next-line no-console
-      console.warn(title, message);
-    }
-
-    /**
-     * Log detailed error information for debugging
-     * @param {Object} error - The error object
-     * @param {String} context - Context where the error occurred
-     */
-  }, {
-    key: "logErrorDetails",
-    value: function logErrorDetails(error) {
-      var _error$response2, _error$response3;
-      var context = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'Unknown';
-      var errorInfo = {
-        context: context,
-        timestamp: new Date().toISOString(),
-        url: window.location.href,
-        userAgent: navigator.userAgent,
-        error: {
-          message: error.message,
-          stack: error.stack,
-          name: error.name
-        }
-      };
-
-      // Add response details if available
-      if (error.response) {
-        var _error$response$confi, _error$response$confi2, _error$response$confi3, _error$response$confi4;
-        errorInfo.response = {
-          status: error.response.status,
-          statusText: error.response.statusText,
-          data: error.response.data,
-          headers: error.response.headers,
-          config: {
-            url: (_error$response$confi = error.response.config) === null || _error$response$confi === void 0 ? void 0 : _error$response$confi.url,
-            method: (_error$response$confi2 = error.response.config) === null || _error$response$confi2 === void 0 ? void 0 : _error$response$confi2.method,
-            params: (_error$response$confi3 = error.response.config) === null || _error$response$confi3 === void 0 ? void 0 : _error$response$confi3.params,
-            data: (_error$response$confi4 = error.response.config) === null || _error$response$confi4 === void 0 ? void 0 : _error$response$confi4.data
-          }
-        };
-      }
-
-      // Add request details if available
-      if (error.request) {
-        errorInfo.request = {
-          readyState: error.request.readyState,
-          status: error.request.status,
-          responseText: error.request.responseText
-        };
-      }
-
-      // Log to console with detailed information
-      console.group("\uD83D\uDEA8 Error in ".concat(context));
-      console.error('Full Error Object:', error);
-      console.error('Error Details:', errorInfo);
-      if ((_error$response2 = error.response) !== null && _error$response2 !== void 0 && (_error$response2 = _error$response2.data) !== null && _error$response2 !== void 0 && _error$response2.message) {
-        console.error('Backend Error Message:', error.response.data.message);
-      }
-      if ((_error$response3 = error.response) !== null && _error$response3 !== void 0 && (_error$response3 = _error$response3.data) !== null && _error$response3 !== void 0 && _error$response3.errors) {
-        console.error('Backend Validation Errors:', error.response.data.errors);
-      }
-      console.groupEnd();
-
-      // Send to backend logging endpoint if available
-      this.sendErrorToBackend(errorInfo);
-    }
-
-    /**
-     * Send error details to backend for logging
-     * @param {Object} errorInfo - Error information to log
-     */
-  }, {
-    key: "sendErrorToBackend",
-    value: (function () {
-      var _sendErrorToBackend = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee(errorInfo) {
-        var _window$auth, _window$auth2, _t;
-        return _regenerator().w(function (_context) {
-          while (1) switch (_context.p = _context.n) {
-            case 0:
-              _context.p = 0;
-              if (!(window.axios && "production" === 'production')) {
-                _context.n = 1;
-                break;
-              }
-              _context.n = 1;
-              return window.axios.post('/api/log-frontend-error', _objectSpread(_objectSpread({}, errorInfo), {}, {
-                user_id: ((_window$auth = window.auth) === null || _window$auth === void 0 || (_window$auth = _window$auth.user) === null || _window$auth === void 0 ? void 0 : _window$auth.id) || null,
-                tenant_id: ((_window$auth2 = window.auth) === null || _window$auth2 === void 0 || (_window$auth2 = _window$auth2.tenant) === null || _window$auth2 === void 0 ? void 0 : _window$auth2.id) || null
-              }));
-            case 1:
-              _context.n = 3;
-              break;
-            case 2:
-              _context.p = 2;
-              _t = _context.v;
-              console.warn('Failed to send error to backend:', _t);
-            case 3:
-              return _context.a(2);
-          }
-        }, _callee, null, [[0, 2]]);
-      }));
-      function sendErrorToBackend(_x) {
-        return _sendErrorToBackend.apply(this, arguments);
-      }
-      return sendErrorToBackend;
-    }())
-  }]);
-}();
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ErrorHandler);
-
-/***/ }),
-
-/***/ 37460:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'रुपया',
-                plural: 'रुपये',
-                singular: 'रुपया',
-                symbol: '₹',
-                fractionalUnit: {
-                    name: 'पैसा',
-                    singular: 'पैसा',
-                    plural: 'पैसे',
-                    symbol: '',
-                },
-            },
-            texts: {
-                and: 'और',
-                minus: 'ऋण',
-                only: '',
-                point: 'दशांश',
-            },
-            numberWordsMapping: [
-                { number: 10000000, value: 'करोड़' },
-                { number: 100000, value: 'लाख' },
-                { number: 1000, value: 'हज़ार' },
-                { number: 100, value: 'सौ' },
-                { number: 99, value: 'निन्यानवे' },
-                { number: 98, value: 'अट्ठानवे' },
-                { number: 97, value: 'सत्तानवे' },
-                { number: 96, value: 'छियानवे' },
-                { number: 95, value: 'पचानवे' },
-                { number: 94, value: 'चौरानवे' },
-                { number: 93, value: 'तिरानवे' },
-                { number: 92, value: 'बानवे' },
-                { number: 91, value: 'इक्यानबे' },
-                { number: 90, value: 'नब्बे' },
-                { number: 89, value: 'नवासी' },
-                { number: 88, value: 'अठासी' },
-                { number: 87, value: 'सतासी' },
-                { number: 86, value: 'छियासी' },
-                { number: 85, value: 'पचासी' },
-                { number: 84, value: 'चौरासी' },
-                { number: 83, value: 'तिरासी' },
-                { number: 82, value: 'बयासी' },
-                { number: 81, value: 'इक्यासी' },
-                { number: 80, value: 'अस्सी' },
-                { number: 79, value: 'उनासी' },
-                { number: 78, value: 'अठहत्तर' },
-                { number: 77, value: 'सतहत्तर' },
-                { number: 76, value: 'छिहत्तर' },
-                { number: 75, value: 'पचहत्तर' },
-                { number: 74, value: 'चौहत्तर' },
-                { number: 73, value: 'तिहत्तर' },
-                { number: 72, value: 'बहत्तर' },
-                { number: 71, value: 'इकहत्तर' },
-                { number: 70, value: 'सत्तर' },
-                { number: 69, value: 'उनहत्तर' },
-                { number: 68, value: 'अड़सठ' },
-                { number: 67, value: 'सड़सठ' },
-                { number: 66, value: 'छियासठ' },
-                { number: 65, value: 'पैंसठ' },
-                { number: 64, value: 'चौंसठ' },
-                { number: 63, value: 'तिरसठ' },
-                { number: 62, value: 'बासठ' },
-                { number: 61, value: 'इकसठ' },
-                { number: 60, value: 'साठ' },
-                { number: 59, value: 'उनसठ' },
-                { number: 58, value: 'अट्ठावन' },
-                { number: 57, value: 'सत्तावन' },
-                { number: 56, value: 'छप्पन' },
-                { number: 55, value: 'पचपन' },
-                { number: 54, value: 'चौबन' },
-                { number: 53, value: 'तिरेपन' },
-                { number: 52, value: 'बावन' },
-                { number: 51, value: 'इक्याबन' },
-                { number: 50, value: 'पचास' },
-                { number: 49, value: 'उनचास' },
-                { number: 48, value: 'अड़तालीस' },
-                { number: 47, value: 'सैंतालीस' },
-                { number: 46, value: 'छियालीस' },
-                { number: 45, value: 'पैंतालीस' },
-                { number: 44, value: 'चौंतालीस' },
-                { number: 43, value: 'तैंतालीस' },
-                { number: 42, value: 'बयालीस' },
-                { number: 41, value: 'इकतालीस' },
-                { number: 40, value: 'चालीस' },
-                { number: 39, value: 'उनतालीस' },
-                { number: 38, value: 'अड़तीस' },
-                { number: 37, value: 'सैंतीस' },
-                { number: 36, value: 'छत्तीस' },
-                { number: 35, value: 'पैंतीस' },
-                { number: 34, value: 'चौंतीस' },
-                { number: 33, value: 'तैंतीस' },
-                { number: 32, value: 'बत्तीस' },
-                { number: 31, value: 'इकतीस' },
-                { number: 30, value: 'तीस' },
-                { number: 29, value: 'उनतीस' },
-                { number: 28, value: 'अट्ठाईस' },
-                { number: 27, value: 'सत्ताईस' },
-                { number: 26, value: 'छब्बीस' },
-                { number: 25, value: 'पच्चीस' },
-                { number: 24, value: 'चौबीस' },
-                { number: 23, value: 'तेईस' },
-                { number: 22, value: 'बाईस' },
-                { number: 21, value: 'इक्कीस' },
-                { number: 20, value: 'बीस' },
-                { number: 19, value: 'उन्नीस' },
-                { number: 18, value: 'अठारह' },
-                { number: 17, value: 'सत्रह' },
-                { number: 16, value: 'सोलह' },
-                { number: 15, value: 'पंद्रह' },
-                { number: 14, value: 'चौदह' },
-                { number: 13, value: 'तेरह' },
-                { number: 12, value: 'बारह' },
-                { number: 11, value: 'ग्यारह' },
-                { number: 10, value: 'दस' },
-                { number: 9, value: 'नौ' },
-                { number: 8, value: 'आठ' },
-                { number: 7, value: 'सात' },
-                { number: 6, value: 'छह' },
-                { number: 5, value: 'पांच' },
-                { number: 4, value: 'चार' },
-                { number: 3, value: 'तीन' },
-                { number: 2, value: 'दो' },
-                { number: 1, value: 'एक' },
-                { number: 0, value: 'शून्य' },
-            ],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 38765:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'Kyat',
-                plural: 'Kyats',
-                singular: 'Kyat',
-                symbol: 'K',
-                fractionalUnit: {
-                    name: 'Pya',
-                    singular: 'Pya',
-                    plural: 'Pyas',
-                    symbol: '',
-                },
-            },
-            texts: {
-                and: 'And',
-                minus: 'Minus',
-                only: 'Only',
-                point: 'Point',
-            },
-            numberWordsMapping: [
-                { number: 1000000000000000, value: 'Quadrillion' },
-                { number: 1000000000000, value: 'Trillion' },
-                { number: 1000000000, value: 'Billion' },
-                { number: 1000000, value: 'Million' },
-                { number: 1000, value: 'Thousand' },
-                { number: 100, value: 'Hundred' },
-                { number: 90, value: 'Ninety' },
-                { number: 80, value: 'Eighty' },
-                { number: 70, value: 'Seventy' },
-                { number: 60, value: 'Sixty' },
-                { number: 50, value: 'Fifty' },
-                { number: 40, value: 'Forty' },
-                { number: 30, value: 'Thirty' },
-                { number: 20, value: 'Twenty' },
-                { number: 19, value: 'Nineteen' },
-                { number: 18, value: 'Eighteen' },
-                { number: 17, value: 'Seventeen' },
-                { number: 16, value: 'Sixteen' },
-                { number: 15, value: 'Fifteen' },
-                { number: 14, value: 'Fourteen' },
-                { number: 13, value: 'Thirteen' },
-                { number: 12, value: 'Twelve' },
-                { number: 11, value: 'Eleven' },
-                { number: 10, value: 'Ten' },
-                { number: 9, value: 'Nine' },
-                { number: 8, value: 'Eight' },
-                { number: 7, value: 'Seven' },
-                { number: 6, value: 'Six' },
-                { number: 5, value: 'Five' },
-                { number: 4, value: 'Four' },
-                { number: 3, value: 'Three' },
-                { number: 2, value: 'Two' },
-                { number: 1, value: 'One' },
-                { number: 0, value: 'Zero' },
-            ],
-            exactWordsMapping: [{ number: 100, value: 'One Hundred' }],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 41061:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'Taka',
-                plural: 'Taka',
-                singular: 'Taka',
-                symbol: '৳',
-                fractionalUnit: {
-                    name: 'Poysha',
-                    singular: 'Poysha',
-                    plural: 'Poysha',
-                    symbol: '',
-                },
-            },
-            texts: {
-                and: 'And',
-                minus: 'Minus',
-                only: 'Only',
-                point: 'Point',
-            },
-            numberWordsMapping: [
-                { number: 10000000, value: 'Crore' },
-                { number: 100000, value: 'Lakh' },
-                { number: 1000, value: 'Thousand' },
-                { number: 100, value: 'Hundred' },
-                { number: 90, value: 'Ninety' },
-                { number: 80, value: 'Eighty' },
-                { number: 70, value: 'Seventy' },
-                { number: 60, value: 'Sixty' },
-                { number: 50, value: 'Fifty' },
-                { number: 40, value: 'Forty' },
-                { number: 30, value: 'Thirty' },
-                { number: 20, value: 'Twenty' },
-                { number: 19, value: 'Nineteen' },
-                { number: 18, value: 'Eighteen' },
-                { number: 17, value: 'Seventeen' },
-                { number: 16, value: 'Sixteen' },
-                { number: 15, value: 'Fifteen' },
-                { number: 14, value: 'Fourteen' },
-                { number: 13, value: 'Thirteen' },
-                { number: 12, value: 'Twelve' },
-                { number: 11, value: 'Eleven' },
-                { number: 10, value: 'Ten' },
-                { number: 9, value: 'Nine' },
-                { number: 8, value: 'Eight' },
-                { number: 7, value: 'Seven' },
-                { number: 6, value: 'Six' },
-                { number: 5, value: 'Five' },
-                { number: 4, value: 'Four' },
-                { number: 3, value: 'Three' },
-                { number: 2, value: 'Two' },
-                { number: 1, value: 'One' },
-                { number: 0, value: 'Zero' },
-            ],
-            exactWordsMapping: [{ number: 100, value: 'One Hundred' }],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 44130:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'lira',
-                plural: '',
-                singular: '',
-                symbol: '₺',
-                fractionalUnit: {
-                    name: '',
-                    singular: 'lira',
-                    plural: 'lira',
-                    symbol: '',
-                },
-            },
-            texts: {
-                and: 'virgül',
-                minus: 'eksi',
-                only: '',
-                point: 'virgül',
-            },
-            numberWordsMapping: [
-                { number: 1000000000000000, value: 'katrilyon' },
-                { number: 1000000000000, value: 'trilyon' },
-                { number: 1000000000, value: 'milyar' },
-                { number: 1000000, value: 'milyon' },
-                { number: 1000, value: 'bin' },
-                { number: 900, value: 'dokuz yüz' },
-                { number: 800, value: 'sekiz yüz' },
-                { number: 700, value: 'yedi yüz' },
-                { number: 600, value: 'altı yüz' },
-                { number: 500, value: 'beş yüz' },
-                { number: 400, value: 'dört yüz' },
-                { number: 300, value: 'üç yüz' },
-                { number: 200, value: 'iki yüz' },
-                { number: 100, value: 'yüz' },
-                { number: 90, value: 'doksan' },
-                { number: 80, value: 'seksen' },
-                { number: 70, value: 'yetmiş' },
-                { number: 60, value: 'altmış' },
-                { number: 50, value: 'elli' },
-                { number: 40, value: 'kırk' },
-                { number: 30, value: 'otuz' },
-                { number: 20, value: 'yirmi' },
-                { number: 19, value: 'on dokuz' },
-                { number: 18, value: 'on sekiz' },
-                { number: 17, value: 'on yedi' },
-                { number: 16, value: 'on altı' },
-                { number: 15, value: 'on beş' },
-                { number: 14, value: 'on dört' },
-                { number: 13, value: 'on üç' },
-                { number: 12, value: 'on iki' },
-                { number: 11, value: 'on bir' },
-                { number: 10, value: 'on' },
-                { number: 9, value: 'dokuz' },
-                { number: 8, value: 'sekiz' },
-                { number: 7, value: 'yedi' },
-                { number: 6, value: 'altı' },
-                { number: 5, value: 'beş' },
-                { number: 4, value: 'dört' },
-                { number: 3, value: 'üç' },
-                { number: 2, value: 'iki' },
-                { number: 1, value: 'bir' },
-                { number: 0, value: 'sıfır' },
-            ],
-            namedLessThan1000: true,
-            ignoreZeroInDecimals: true,
-            decimalLengthWordMapping: {
-                1: 'onuncu',
-                2: 'yüzüncü',
-                3: 'bininci',
-                4: 'on bininci',
-                5: 'yüz bininci',
-                6: 'on milyonuncu',
-                7: 'milyonuncu',
-                8: 'yüz milyonuncu',
-            },
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 44659:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".form-group[data-v-3d82b5ae]{margin-bottom:1rem}.form-group label[data-v-3d82b5ae]{color:#495057;font-size:.95rem;font-weight:500;margin-bottom:.5rem}.required[data-v-3d82b5ae]{color:#dc3545;font-weight:700}.form-control[data-v-3d82b5ae]{background:#fff!important;border:1px solid #e5e7eb;font-size:14px;padding:10px 16px}.form-control[data-v-3d82b5ae]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(51,160,217,.25)}.is-invalid[data-v-3d82b5ae]{border-color:#dc3545!important}textarea.form-control[data-v-3d82b5ae]{min-height:100px;resize:vertical}.btn-success[data-v-3d82b5ae]{background:#2ab930!important;border:none!important;color:#fff!important;font-weight:500;padding:10px 20px!important}.btn-success[data-v-3d82b5ae]:hover{background:#229a26!important;box-shadow:0 4px 8px rgba(42,185,48,.3);transform:translateY(-1px)}.btn-secondary[data-v-3d82b5ae]{background:#6c757d!important;border:none!important;color:#fff!important;font-weight:500;padding:10px 20px!important}.btn-secondary[data-v-3d82b5ae]:hover{background:#5a6268!important;box-shadow:0 4px 8px hsla(208,7%,46%,.3);transform:translateY(-1px)}.create-button[data-v-3d82b5ae]{cursor:pointer;text-decoration:none}.unit-code-tooltip[data-v-3d82b5ae]{transition:all .2s ease}.unit-code-tooltip[data-v-3d82b5ae]:hover{color:#33a0d9!important;transform:scale(1.1)}.form-text[data-v-3d82b5ae]{color:#6c757d;font-size:.85rem;margin-top:.25rem}@media (max-width:768px){.form-group[data-v-3d82b5ae]{margin-bottom:.75rem}.form-text[data-v-3d82b5ae]{font-size:.8rem}}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
-/***/ 46709:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'Peso Argentino',
-                plural: 'Pesos Argentinos',
-                singular: 'Peso Argentino',
-                symbol: '$',
-                fractionalUnit: {
-                    name: 'Centavo',
-                    plural: 'Centavos',
-                    singular: 'Centavo',
-                    symbol: '¢',
-                },
-            },
-            texts: {
-                and: 'Y',
-                minus: 'Menos',
-                only: '',
-                point: 'Coma',
-            },
-            numberWordsMapping: [
-                { number: 1000000000000000, value: 'Trillon' },
-                { number: 1000000000000, value: 'Billon' },
-                { number: 1000000, value: 'Millon' },
-                { number: 1000, value: 'Mil' },
-                { number: 900, value: 'Novecientos' },
-                { number: 800, value: 'Ochocientos' },
-                { number: 700, value: 'Setecientos' },
-                { number: 600, value: 'Seiscientos' },
-                { number: 500, value: 'Quinientos' },
-                { number: 400, value: 'Cuatrocientos' },
-                { number: 300, value: 'Trescientos' },
-                { number: 200, value: 'Doscientos' },
-                { number: 100, value: 'Ciento' },
-                { number: 90, value: 'Noventa Y' },
-                { number: 80, value: 'Ochenta Y' },
-                { number: 70, value: 'Setenta Y' },
-                { number: 60, value: 'Sesenta Y' },
-                { number: 50, value: 'Cincuenta Y' },
-                { number: 40, value: 'Cuarenta Y' },
-                { number: 30, value: 'Treinta Y' },
-                { number: 29, value: 'Veintinueve' },
-                { number: 28, value: 'Veintiocho' },
-                { number: 27, value: 'Veintisiete' },
-                { number: 26, value: 'Veintiseis' },
-                { number: 25, value: 'Veinticinco' },
-                { number: 24, value: 'Veinticuatro' },
-                { number: 23, value: 'Veintitrés' },
-                { number: 22, value: 'Veintidos' },
-                { number: 21, value: 'Veintiuno' },
-                { number: 20, value: 'Veinte' },
-                { number: 19, value: 'Diecinueve' },
-                { number: 18, value: 'Dieciocho' },
-                { number: 17, value: 'Dieciciete' },
-                { number: 16, value: 'Dieciseis' },
-                { number: 15, value: 'Quince' },
-                { number: 14, value: 'Catorce' },
-                { number: 13, value: 'Trece' },
-                { number: 12, value: 'Doce' },
-                { number: 11, value: 'Once' },
-                { number: 10, value: 'Diez' },
-                { number: 9, value: 'Nueve' },
-                { number: 8, value: 'Ocho' },
-                { number: 7, value: 'Siete' },
-                { number: 6, value: 'Seis' },
-                { number: 5, value: 'Cinco' },
-                { number: 4, value: 'Cuatro' },
-                { number: 3, value: 'Tres' },
-                { number: 2, value: 'Dos' },
-                { number: 1, value: 'Uno' },
-                { number: 0, value: 'Cero' },
-            ],
-            ignoreOneForWords: [
-                'Cien',
-                'Ciento',
-                'Doscientos',
-                'Trescientos',
-                'Cuatrocientos',
-                'Quinientos',
-                'Seiscientos',
-                'Setecientos',
-                'Ochocientos',
-                'Novecientos',
-                'Mil',
-            ],
-            pluralMark: 'es',
-            pluralWords: ['Millon', 'Billon', 'Trillon'],
-            exactWordsMapping: [
-                { number: 100, value: 'Cien' },
-                { number: 90, value: 'Noventa' },
-                { number: 80, value: 'Ochenta' },
-                { number: 70, value: 'Setenta' },
-                { number: 60, value: 'Sesenta' },
-                { number: 50, value: 'Cincuenta' },
-                { number: 40, value: 'Cuarenta' },
-                { number: 30, value: 'Treinta' },
-                { number: 1, value: ['Un', 'Uno'] },
-            ],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 47229:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'રૂપિયો',
-                plural: 'રૂપિયા',
-                singular: 'રૂપિયો',
-                symbol: '₹',
-                fractionalUnit: {
-                    name: 'પૈસા',
-                    singular: 'પૈસા',
-                    plural: 'પૈસા',
-                    symbol: '',
-                },
-            },
-            texts: {
-                and: 'અને',
-                minus: 'ઋણ',
-                // only: 'માત્ર',
-                only: '',
-                point: 'દશાંશ',
-            },
-            numberWordsMapping: [
-                { number: 10000000, value: 'કરોડ' },
-                { number: 100000, value: 'લાખ' },
-                { number: 1000, value: 'હજાર' },
-                { number: 100, value: 'સો' },
-                { number: 99, value: 'નવ્વાણું' },
-                { number: 98, value: 'અઠ્ઠાણું' },
-                { number: 97, value: 'સત્તાણું' },
-                { number: 96, value: 'છન્નું' },
-                { number: 95, value: 'પંચાણું' },
-                { number: 94, value: 'ચોરાણું' },
-                { number: 93, value: 'ત્રાણું' },
-                { number: 92, value: 'બાણું' },
-                { number: 91, value: 'એકાણું' },
-                { number: 90, value: 'નેવું' },
-                { number: 89, value: 'નેવ્યાસી' },
-                { number: 88, value: 'ઈઠ્યાસી' },
-                { number: 87, value: 'સિત્યાસી' },
-                { number: 86, value: 'છ્યાસી' },
-                { number: 85, value: 'પંચ્યાસી' },
-                { number: 84, value: 'ચોર્યાસી' },
-                { number: 83, value: 'ત્યાસી' },
-                { number: 82, value: 'બ્યાસી' },
-                { number: 81, value: 'એક્યાસી' },
-                { number: 80, value: 'એંસી' },
-                { number: 79, value: 'ઓગણાએંસી' },
-                { number: 78, value: 'ઇઠ્યોતેર' },
-                { number: 77, value: 'સિત્યોતેર' },
-                { number: 76, value: 'છોતેર' },
-                { number: 75, value: 'પંચોતેર' },
-                { number: 74, value: 'ચુમોતેર' },
-                { number: 73, value: 'તોતેર' },
-                { number: 72, value: 'બોતેર' },
-                { number: 71, value: 'એકોતેર' },
-                { number: 70, value: 'સિત્તેર' },
-                { number: 69, value: 'ઓગણોસિત્તેર' },
-                { number: 68, value: 'અડસઠ' },
-                { number: 67, value: 'સડસઠ' },
-                { number: 66, value: 'છાસઠ' },
-                { number: 65, value: 'પાંસઠ' },
-                { number: 64, value: 'ચોસઠ' },
-                { number: 63, value: 'ત્રેસઠ' },
-                { number: 62, value: 'બાસઠ' },
-                { number: 61, value: 'એકસઠ' },
-                { number: 60, value: 'સાઈઠ' },
-                { number: 59, value: 'ઓગણસાઠ' },
-                { number: 58, value: 'અઠ્ઠાવન' },
-                { number: 57, value: 'સત્તાવન' },
-                { number: 56, value: 'છપ્પન' },
-                { number: 55, value: 'પંચાવન' },
-                { number: 54, value: 'ચોપન' },
-                { number: 53, value: 'ત્રેપન' },
-                { number: 52, value: 'બાવન' },
-                { number: 51, value: 'એકાવન' },
-                { number: 50, value: 'પચાસ' },
-                { number: 49, value: 'ઓગણપચાસ' },
-                { number: 48, value: 'સુડતાલીસ' },
-                { number: 47, value: 'સુડતાલીસ' },
-                { number: 46, value: 'છેતાલીસ' },
-                { number: 45, value: 'પિસ્તાલીસ' },
-                { number: 44, value: 'ચુંમાલીસ' },
-                { number: 43, value: 'ત્રેતાલીસ' },
-                { number: 42, value: 'એકતાલીસ' },
-                { number: 41, value: 'એકતાલીસ' },
-                { number: 40, value: 'ચાલીસ' },
-                { number: 39, value: 'ઓગણચાલીસ' },
-                { number: 38, value: 'આડત્રીસ' },
-                { number: 37, value: 'સાડત્રીસ' },
-                { number: 36, value: 'છત્રીસ' },
-                { number: 35, value: 'પાંત્રીસ' },
-                { number: 34, value: 'ચોત્રીસ' },
-                { number: 33, value: 'તેત્રીસ' },
-                { number: 32, value: 'બત્રીસ' },
-                { number: 31, value: 'એકત્રીસ' },
-                { number: 30, value: 'ત્રીસ' },
-                { number: 29, value: 'ઓગણત્રીસ' },
-                { number: 28, value: 'અઠ્ઠાવીસ' },
-                { number: 27, value: 'સત્તાવીસ' },
-                { number: 26, value: 'છવીસ' },
-                { number: 25, value: 'પચ્ચીસ' },
-                { number: 24, value: 'ચોવીસ' },
-                { number: 23, value: 'તેવીસ' },
-                { number: 22, value: 'બાવીસ' },
-                { number: 21, value: 'એકવીસ' },
-                { number: 20, value: 'વીસ' },
-                { number: 19, value: 'ઓગણિસ' },
-                { number: 18, value: 'અઢાર' },
-                { number: 17, value: 'સત્તર' },
-                { number: 16, value: 'સોળ' },
-                { number: 15, value: 'પંદર' },
-                { number: 14, value: 'ચૌદ' },
-                { number: 13, value: 'તેર' },
-                { number: 12, value: 'બાર' },
-                { number: 11, value: 'અગિયાર' },
-                { number: 10, value: 'દસ' },
-                { number: 9, value: 'નવ' },
-                { number: 8, value: 'આઠ' },
-                { number: 7, value: 'સાત' },
-                { number: 6, value: 'છ' },
-                { number: 5, value: 'પાંચ' },
-                { number: 4, value: 'ચાર' },
-                { number: 3, value: 'ત્રણ' },
-                { number: 2, value: 'બે' },
-                { number: 1, value: 'એક' },
-                { number: 0, value: 'શૂન્ય' },
-            ],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 54330:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'Pound',
-                plural: 'Pounds',
-                singular: 'Pound',
-                symbol: '£',
-                fractionalUnit: {
-                    name: 'Pence',
-                    plural: 'Pence',
-                    singular: 'Penny',
-                    symbol: '',
-                },
-            },
-            texts: {
-                and: 'And',
-                minus: 'Minus',
-                only: 'Only',
-                point: 'Point',
-            },
-            numberWordsMapping: [
-                { number: 1000000000000000, value: 'Quadrillion' },
-                { number: 1000000000000, value: 'Trillion' },
-                { number: 1000000000, value: 'Billion' },
-                { number: 1000000, value: 'Million' },
-                { number: 1000, value: 'Thousand' },
-                { number: 100, value: 'Hundred' },
-                { number: 90, value: 'Ninety' },
-                { number: 80, value: 'Eighty' },
-                { number: 70, value: 'Seventy' },
-                { number: 60, value: 'Sixty' },
-                { number: 50, value: 'Fifty' },
-                { number: 40, value: 'Forty' },
-                { number: 30, value: 'Thirty' },
-                { number: 20, value: 'Twenty' },
-                { number: 19, value: 'Nineteen' },
-                { number: 18, value: 'Eighteen' },
-                { number: 17, value: 'Seventeen' },
-                { number: 16, value: 'Sixteen' },
-                { number: 15, value: 'Fifteen' },
-                { number: 14, value: 'Fourteen' },
-                { number: 13, value: 'Thirteen' },
-                { number: 12, value: 'Twelve' },
-                { number: 11, value: 'Eleven' },
-                { number: 10, value: 'Ten' },
-                { number: 9, value: 'Nine' },
-                { number: 8, value: 'Eight' },
-                { number: 7, value: 'Seven' },
-                { number: 6, value: 'Six' },
-                { number: 5, value: 'Five' },
-                { number: 4, value: 'Four' },
-                { number: 3, value: 'Three' },
-                { number: 2, value: 'Two' },
-                { number: 1, value: 'One' },
-                { number: 0, value: 'Zero' },
-            ],
-            exactWordsMapping: [{ number: 100, value: 'One Hundred' }],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 54923:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.ToWords = exports.DefaultToWordsOptions = exports.DefaultConverterOptions = exports.LOCALES = void 0;
-const locales_1 = __importDefault(__webpack_require__(71545));
-exports.LOCALES = locales_1.default;
-exports.DefaultConverterOptions = {
-    currency: false,
-    ignoreDecimal: false,
-    ignoreZeroCurrency: false,
-    doNotAddOnly: false,
-};
-exports.DefaultToWordsOptions = {
-    localeCode: 'en-IN',
-    converterOptions: exports.DefaultConverterOptions,
-};
-class ToWords {
-    constructor(options = {}) {
-        this.options = {};
-        this.locale = undefined;
-        this.options = Object.assign({}, exports.DefaultToWordsOptions, options);
-    }
-    getLocaleClass() {
-        if (!(this.options.localeCode in locales_1.default)) {
-            throw new Error(`Unknown Locale "${this.options.localeCode}"`);
-        }
-        return locales_1.default[this.options.localeCode];
-    }
-    getLocale() {
-        if (this.locale === undefined) {
-            const LocaleClass = this.getLocaleClass();
-            this.locale = new LocaleClass();
-        }
-        return this.locale;
-    }
-    convert(number, options = {}) {
-        var _a;
-        options = Object.assign({}, this.options.converterOptions, options);
-        if (!this.isValidNumber(number)) {
-            throw new Error(`Invalid Number "${number}"`);
-        }
-        if (options.ignoreDecimal) {
-            number = Number.parseInt(number.toString());
-        }
-        let words = [];
-        if (options.currency) {
-            words = this.convertCurrency(number, options);
-        }
-        else {
-            words = this.convertNumber(number);
-        }
-        if ((_a = this.locale) === null || _a === void 0 ? void 0 : _a.config.trim) {
-            return words.join('');
-        }
-        return words.join(' ');
-    }
-    convertNumber(number) {
-        var _a, _b, _c;
-        const locale = this.getLocale();
-        const isNegativeNumber = number < 0;
-        if (isNegativeNumber) {
-            number = Math.abs(number);
-        }
-        const split = number.toString().split('.');
-        const ignoreZero = this.isNumberZero(number) && locale.config.ignoreZeroInDecimals;
-        let words = this.convertInternal(Number(split[0]), true);
-        const isFloat = this.isFloat(number);
-        if (isFloat && ignoreZero) {
-            words = [];
-        }
-        const wordsWithDecimal = [];
-        if (isFloat) {
-            if (!ignoreZero) {
-                wordsWithDecimal.push(locale.config.texts.point);
-            }
-            if (split[1].startsWith('0') && !((_a = locale.config) === null || _a === void 0 ? void 0 : _a.decimalLengthWordMapping)) {
-                const zeroWords = [];
-                for (const num of split[1]) {
-                    zeroWords.push(...this.convertInternal(Number(num), true));
-                }
-                wordsWithDecimal.push(...zeroWords);
-            }
-            else {
-                wordsWithDecimal.push(...this.convertInternal(Number(split[1]), true));
-                const decimalLengthWord = (_c = (_b = locale.config) === null || _b === void 0 ? void 0 : _b.decimalLengthWordMapping) === null || _c === void 0 ? void 0 : _c[split[1].length];
-                if (decimalLengthWord) {
-                    wordsWithDecimal.push(decimalLengthWord);
-                }
-            }
-        }
-        const isEmpty = words.length <= 0;
-        if (!isEmpty && isNegativeNumber) {
-            words.unshift(locale.config.texts.minus);
-        }
-        words.push(...wordsWithDecimal);
-        return words;
-    }
-    convertCurrency(number, options = {}) {
-        var _a, _b, _c, _d;
-        const locale = this.getLocale();
-        const currencyOptions = (_a = options.currencyOptions) !== null && _a !== void 0 ? _a : locale.config.currency;
-        const isNegativeNumber = number < 0;
-        if (isNegativeNumber) {
-            number = Math.abs(number);
-        }
-        number = this.toFixed(number);
-        // Extra check for isFloat to overcome 1.999 rounding off to 2
-        const split = number.toString().split('.');
-        let words = [...this.convertInternal(Number(split[0]))];
-        // Determine if the main currency should be in singular form
-        // e.g. 1 Dollar Only instead of 1 Dollars Only
-        if (Number(split[0]) === 1 && currencyOptions.singular) {
-            words.push(currencyOptions.singular);
-        }
-        else if (currencyOptions.plural) {
-            words.push(currencyOptions.plural);
-        }
-        const ignoreZero = this.isNumberZero(number) &&
-            (options.ignoreZeroCurrency || (((_b = locale.config) === null || _b === void 0 ? void 0 : _b.ignoreZeroInDecimals) && number !== 0));
-        if (ignoreZero) {
-            words = [];
-        }
-        const wordsWithDecimal = [];
-        const isFloat = this.isFloat(number);
-        if (isFloat) {
-            if (!ignoreZero) {
-                wordsWithDecimal.push(locale.config.texts.and);
-            }
-            const decimalPart = Number(split[1]) * (!locale.config.decimalLengthWordMapping ? Math.pow(10, 2 - split[1].length) : 1);
-            wordsWithDecimal.push(...this.convertInternal(decimalPart));
-            const decimalLengthWord = (_d = (_c = locale.config) === null || _c === void 0 ? void 0 : _c.decimalLengthWordMapping) === null || _d === void 0 ? void 0 : _d[split[1].length];
-            if (decimalLengthWord === null || decimalLengthWord === void 0 ? void 0 : decimalLengthWord.length) {
-                wordsWithDecimal.push(decimalLengthWord);
-            }
-            // Determine if the fractional unit should be in singular form
-            // e.g. 1 Dollar and 1 Cent Only instead of 1 Dollar and 1 Cents Only
-            if (decimalPart === 1 && currencyOptions.fractionalUnit.singular) {
-                wordsWithDecimal.push(currencyOptions.fractionalUnit.singular);
-            }
-            else {
-                wordsWithDecimal.push(currencyOptions.fractionalUnit.plural);
-            }
-        }
-        else if (locale.config.decimalLengthWordMapping && words.length) {
-            wordsWithDecimal.push(currencyOptions.fractionalUnit.plural);
-        }
-        const isEmpty = words.length <= 0 && wordsWithDecimal.length <= 0;
-        if (!isEmpty && isNegativeNumber) {
-            words.unshift(locale.config.texts.minus);
-        }
-        if (!isEmpty && locale.config.texts.only && !options.doNotAddOnly && !locale.config.onlyInFront) {
-            wordsWithDecimal.push(locale.config.texts.only);
-        }
-        if (wordsWithDecimal.length) {
-            words.push(...wordsWithDecimal);
-        }
-        if (!isEmpty && !options.doNotAddOnly && locale.config.onlyInFront) {
-            words.splice(0, 0, locale.config.texts.only);
-        }
-        return words;
-    }
-    convertInternal(number, trailing = false) {
-        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o;
-        const locale = this.getLocale();
-        if (locale.config.exactWordsMapping) {
-            const exactMatch = (_b = (_a = locale.config) === null || _a === void 0 ? void 0 : _a.exactWordsMapping) === null || _b === void 0 ? void 0 : _b.find((elem) => {
-                return number === elem.number;
-            });
-            if (exactMatch) {
-                return [Array.isArray(exactMatch.value) ? exactMatch.value[+trailing] : exactMatch.value];
-            }
-        }
-        const match = locale.config.numberWordsMapping.find((elem) => {
-            return number >= elem.number;
-        });
-        const words = [];
-        if (number <= 100 || (number < 1000 && locale.config.namedLessThan1000)) {
-            words.push(Array.isArray(match.value) ? match.value[0] : match.value);
-            number -= match.number;
-            if (number > 0) {
-                if ((_d = (_c = locale.config) === null || _c === void 0 ? void 0 : _c.splitWord) === null || _d === void 0 ? void 0 : _d.length) {
-                    words.push(locale.config.splitWord);
-                }
-                words.push(...this.convertInternal(number, trailing));
-            }
-            return words;
-        }
-        const quotient = Math.floor(number / match.number);
-        const remainder = number % match.number;
-        let matchValue = Array.isArray(match.value) ? match.value[0] : match.value;
-        if (quotient > 1 && ((_f = (_e = locale.config) === null || _e === void 0 ? void 0 : _e.pluralWords) === null || _f === void 0 ? void 0 : _f.find((word) => word === match.value)) && ((_g = locale.config) === null || _g === void 0 ? void 0 : _g.pluralMark)) {
-            matchValue += locale.config.pluralMark;
-        }
-        if (quotient % 10 === 1) {
-            matchValue = match.singularValue || (Array.isArray(matchValue) ? matchValue[0] : matchValue);
-        }
-        if (quotient === 1 && ((_j = (_h = locale.config) === null || _h === void 0 ? void 0 : _h.ignoreOneForWords) === null || _j === void 0 ? void 0 : _j.includes(matchValue))) {
-            words.push(matchValue);
-        }
-        else {
-            words.push(...this.convertInternal(quotient, false), matchValue);
-        }
-        if (remainder > 0) {
-            if ((_l = (_k = locale.config) === null || _k === void 0 ? void 0 : _k.splitWord) === null || _l === void 0 ? void 0 : _l.length) {
-                if (!((_o = (_m = locale.config) === null || _m === void 0 ? void 0 : _m.noSplitWordAfter) === null || _o === void 0 ? void 0 : _o.find((word) => word === match.value))) {
-                    words.push(locale.config.splitWord);
-                }
-            }
-            words.push(...this.convertInternal(remainder, trailing));
-        }
-        return words;
-    }
-    toFixed(number, precision = 2) {
-        return Number(Number(number).toFixed(precision));
-    }
-    isFloat(number) {
-        return Number(number) === number && number % 1 !== 0;
-    }
-    isValidNumber(number) {
-        return !isNaN(parseFloat(number)) && isFinite(number);
-    }
-    isNumberZero(number) {
-        return number >= 0 && number < 1;
-    }
-}
-exports.ToWords = ToWords;
-
-
-/***/ }),
-
-/***/ 55101:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'Surinaamse dollar',
-                plural: 'Surinaamse dollars',
-                singular: 'Surinaamse dollar',
-                symbol: 'SRD',
-                fractionalUnit: {
-                    name: 'Cent',
-                    singular: 'Cent',
-                    plural: 'Centen',
-                    symbol: 'SRD',
-                },
-            },
-            texts: {
-                and: 'En',
-                minus: 'Negatief',
-                only: '',
-                point: 'Punt',
-            },
-            numberWordsMapping: [
-                { number: 1000000000000000, value: 'Biljard' },
-                { number: 1000000000000, value: 'Biljoen' },
-                { number: 1000000000, value: 'Miljard' },
-                { number: 1000000, value: 'Miljoen' },
-                { number: 1000, value: 'Duizend' },
-                { number: 100, value: 'Honderd' },
-                { number: 99, value: 'Negenennegentig' },
-                { number: 98, value: 'Achtennegentig' },
-                { number: 97, value: 'Zevenennegentig' },
-                { number: 96, value: 'Zesennegentig' },
-                { number: 95, value: 'Vijfennegentig' },
-                { number: 94, value: 'Vierennegentig' },
-                { number: 93, value: 'Drieënnegentig' },
-                { number: 92, value: 'Tweeënnegentig' },
-                { number: 91, value: 'Eenennegentig' },
-                { number: 90, value: 'Negentig' },
-                { number: 89, value: 'Negenentachtig' },
-                { number: 88, value: 'Achtentachtig' },
-                { number: 87, value: 'Zevenentachtig' },
-                { number: 86, value: 'Zesentachtig' },
-                { number: 85, value: 'Vijfentachtig' },
-                { number: 84, value: 'Vierentachtig' },
-                { number: 83, value: 'Drieëntachtig' },
-                { number: 82, value: 'Tweeëntachtig' },
-                { number: 81, value: 'Eenentachtig' },
-                { number: 80, value: 'Tachtig' },
-                { number: 79, value: 'Negenenzeventig' },
-                { number: 78, value: 'Achtenzeventig' },
-                { number: 77, value: 'Zevenenzeventig' },
-                { number: 76, value: 'Zesenzeventig' },
-                { number: 75, value: 'Vijfenzeventig' },
-                { number: 74, value: 'Vierenzeventig' },
-                { number: 73, value: 'Drieënzeventig' },
-                { number: 72, value: 'Tweeënzeventig' },
-                { number: 71, value: 'Eenenzeventig' },
-                { number: 70, value: 'Zeventig' },
-                { number: 69, value: 'Negenenzestig' },
-                { number: 68, value: 'Achtenzestig' },
-                { number: 67, value: 'Zevenenzestig' },
-                { number: 66, value: 'Zesenzestig' },
-                { number: 65, value: 'Vijfenzestig' },
-                { number: 64, value: 'Vierenzestig' },
-                { number: 63, value: 'Drieënzestig' },
-                { number: 62, value: 'Tweeënzestig' },
-                { number: 61, value: 'Eenenzestig' },
-                { number: 60, value: 'Zestig' },
-                { number: 59, value: 'Negenenvijftig' },
-                { number: 58, value: 'Achtenvijftig' },
-                { number: 57, value: 'Zevenenvijftig' },
-                { number: 56, value: 'Zesenvijftig' },
-                { number: 55, value: 'Vijfenvijftig' },
-                { number: 54, value: 'Vierenvijftig' },
-                { number: 53, value: 'Drieënvijftig' },
-                { number: 52, value: 'Tweeënvijftig' },
-                { number: 51, value: 'Eenenvijftig' },
-                { number: 50, value: 'Vijftig' },
-                { number: 49, value: 'Negenenveertig' },
-                { number: 48, value: 'Achtenveertig' },
-                { number: 47, value: 'Zevenenveertig' },
-                { number: 46, value: 'Zesenveertig' },
-                { number: 45, value: 'Vijfenveertig' },
-                { number: 44, value: 'Vierenveertig' },
-                { number: 43, value: 'Drieënveertig' },
-                { number: 42, value: 'Tweeënveertig' },
-                { number: 41, value: 'Eenenveertig' },
-                { number: 40, value: 'Veertig' },
-                { number: 39, value: 'Negenendertig' },
-                { number: 38, value: 'Achtendertig' },
-                { number: 37, value: 'Zevenendertig' },
-                { number: 36, value: 'Zesendertig' },
-                { number: 35, value: 'Vijfendertig' },
-                { number: 34, value: 'Vierendertig' },
-                { number: 33, value: 'Drieëndertig' },
-                { number: 32, value: 'Tweeëndertig' },
-                { number: 31, value: 'Eenendertig' },
-                { number: 30, value: 'Dertig' },
-                { number: 29, value: 'Negenentwintig' },
-                { number: 28, value: 'Achtentwintig' },
-                { number: 27, value: 'Zevenentwintig' },
-                { number: 26, value: 'Zesentwintig' },
-                { number: 25, value: 'Vijfentwintig' },
-                { number: 24, value: 'Vierentwintig' },
-                { number: 23, value: 'Drieëntwintig' },
-                { number: 22, value: 'Tweeëntwintig' },
-                { number: 21, value: 'Eenentwintig' },
-                { number: 20, value: 'Twintig' },
-                { number: 19, value: 'Negentien' },
-                { number: 18, value: 'Achttien' },
-                { number: 17, value: 'Zeventien' },
-                { number: 16, value: 'Zestien' },
-                { number: 15, value: 'Vijftien' },
-                { number: 14, value: 'Veertien' },
-                { number: 13, value: 'Dertien' },
-                { number: 12, value: 'Twaalf' },
-                { number: 11, value: 'Elf' },
-                { number: 10, value: 'Tien' },
-                { number: 9, value: 'Negen' },
-                { number: 8, value: 'Acht' },
-                { number: 7, value: 'Zeven' },
-                { number: 6, value: 'Zes' },
-                { number: 5, value: 'Vijf' },
-                { number: 4, value: 'Vier' },
-                { number: 3, value: 'Drie' },
-                { number: 2, value: 'Twee' },
-                { number: 1, value: 'Een' },
-                { number: 0, value: 'Nul' },
-            ],
-            exactWordsMapping: [{ number: 100, value: 'Honderd' }],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 56386:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'روپیہ',
-                plural: 'روپے',
-                singular: 'روپے',
-                symbol: '₨',
-                fractionalUnit: {
-                    name: 'پیسہ',
-                    plural: 'پیسے',
-                    singular: 'پیسہ',
-                    symbol: '',
-                },
-            },
-            texts: {
-                and: 'اور',
-                minus: 'منفی',
-                only: 'صرف',
-                point: 'اعشاریہ',
-            },
-            numberWordsMapping: [
-                { number: 10000000, value: 'کروڑ' },
-                { number: 100000, value: 'لاکھ' },
-                { number: 1000, value: 'ہزار' },
-                { number: 100, value: 'سو' },
-                { number: 99, value: 'نناوے' },
-                { number: 98, value: 'اٹھانوے' },
-                { number: 97, value: 'ستانوے' },
-                { number: 96, value: 'چھیانوے' },
-                { number: 95, value: 'پچانوے' },
-                { number: 94, value: 'چورانوے' },
-                { number: 93, value: 'ترانوے' },
-                { number: 92, value: 'بانوے' },
-                { number: 91, value: 'اکانوے' },
-                { number: 90, value: 'نوے' },
-                { number: 89, value: 'نواسی' },
-                { number: 88, value: 'اٹھاسی' },
-                { number: 87, value: 'ستاسی' },
-                { number: 86, value: 'چھیاسی' },
-                { number: 85, value: 'پچاسی' },
-                { number: 84, value: 'چوراسی' },
-                { number: 83, value: 'تراسی' },
-                { number: 82, value: 'بیاسی' },
-                { number: 81, value: 'اکیاسی' },
-                { number: 80, value: 'اسی' },
-                { number: 79, value: 'انہتر' },
-                { number: 78, value: 'اٹھہتر' },
-                { number: 77, value: 'ستتر' },
-                { number: 76, value: 'چھہتر' },
-                { number: 75, value: 'پچھتر' },
-                { number: 74, value: 'چوہتر' },
-                { number: 73, value: 'تہتر' },
-                { number: 72, value: 'بہتر' },
-                { number: 71, value: 'اکہتر' },
-                { number: 70, value: 'ستر' },
-                { number: 69, value: 'انہتر' },
-                { number: 68, value: 'اڑسٹھ' },
-                { number: 67, value: 'سڑسٹھ' },
-                { number: 66, value: 'چھیاسٹھ' },
-                { number: 65, value: 'پینسٹھ' },
-                { number: 64, value: 'چونسٹھ' },
-                { number: 63, value: 'تریسٹھ' },
-                { number: 62, value: 'باسٹھ' },
-                { number: 61, value: 'اکسٹھ' },
-                { number: 60, value: 'ساٹھ' },
-                { number: 59, value: 'انسٹھ' },
-                { number: 58, value: 'اٹھاون' },
-                { number: 57, value: 'ستاون' },
-                { number: 56, value: 'چھپن' },
-                { number: 55, value: 'پچپن' },
-                { number: 54, value: 'چون' },
-                { number: 53, value: 'ترپن' },
-                { number: 52, value: 'باون' },
-                { number: 51, value: 'اکیاون' },
-                { number: 50, value: 'پچاس' },
-                { number: 49, value: 'انچاس' },
-                { number: 48, value: 'اڑتالیس' },
-                { number: 47, value: 'سینتالیس' },
-                { number: 46, value: 'چھیالیس' },
-                { number: 45, value: 'پینتالیس' },
-                { number: 44, value: 'چوالیس' },
-                { number: 43, value: 'تینتالیس' },
-                { number: 42, value: 'بیالیس' },
-                { number: 41, value: 'اکتالیس' },
-                { number: 40, value: 'چالیس' },
-                { number: 39, value: 'انتالیس' },
-                { number: 38, value: 'اڑتیس' },
-                { number: 37, value: 'سینتیس' },
-                { number: 36, value: 'چھتیس' },
-                { number: 35, value: 'پینتیس' },
-                { number: 34, value: 'چونتیس' },
-                { number: 33, value: 'تینتیس' },
-                { number: 32, value: 'بتیس' },
-                { number: 31, value: 'اکتیس' },
-                { number: 30, value: 'تیس' },
-                { number: 29, value: 'انتیس' },
-                { number: 28, value: 'اٹھائیس' },
-                { number: 27, value: 'ستائیس' },
-                { number: 26, value: 'چھبیس' },
-                { number: 25, value: 'پچیس' },
-                { number: 24, value: 'چوبیس' },
-                { number: 23, value: 'تئیس' },
-                { number: 22, value: 'بائیس' },
-                { number: 21, value: 'اکیس' },
-                { number: 20, value: 'بیس' },
-                { number: 19, value: 'انیس' },
-                { number: 18, value: 'اٹھارہ' },
-                { number: 17, value: 'سترہ' },
-                { number: 16, value: 'سولہ' },
-                { number: 15, value: 'پندرہ' },
-                { number: 14, value: 'چودہ' },
-                { number: 13, value: 'تیرہ' },
-                { number: 12, value: 'بارہ' },
-                { number: 11, value: 'گیارہ' },
-                { number: 10, value: 'دس' },
-                { number: 9, value: 'نو' },
-                { number: 8, value: 'آٹھ' },
-                { number: 7, value: 'سات' },
-                { number: 6, value: 'چھ' },
-                { number: 5, value: 'پانچ' },
-                { number: 4, value: 'چار' },
-                { number: 3, value: 'تین' },
-                { number: 2, value: 'دو' },
-                { number: 1, value: 'ایک' },
-                { number: 0, value: 'صفر' },
-            ],
-            exactWordsMapping: [{ number: 100, value: 'ایک سو' }],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 58041:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: '원',
-                plural: '원',
-                symbol: '',
-                fractionalUnit: {
-                    name: '',
-                    plural: '',
-                    symbol: '',
-                },
-            },
-            texts: {
-                and: '하고 ',
-                minus: '마이너스',
-                only: '',
-                point: '점',
-            },
-            trim: true,
-            numberWordsMapping: [
-                { number: 1000000000000, value: '조' },
-                { number: 100000000, value: '억' },
-                { number: 10000, value: '만' },
-                { number: 1000, value: '천' },
-                { number: 100, value: '백' },
-                { number: 90, value: '구십' },
-                { number: 80, value: '팔십' },
-                { number: 70, value: '칠십' },
-                { number: 60, value: '육십' },
-                { number: 50, value: '오십' },
-                { number: 40, value: '사십' },
-                { number: 30, value: '삼십' },
-                { number: 20, value: '이십' },
-                { number: 19, value: '십구' },
-                { number: 18, value: '십팔' },
-                { number: 17, value: '십칠' },
-                { number: 16, value: '십육' },
-                { number: 15, value: '십오' },
-                { number: 14, value: '십사' },
-                { number: 13, value: '십삼' },
-                { number: 12, value: '십이' },
-                { number: 11, value: '십일' },
-                { number: 10, value: '십' },
-                { number: 9, value: '구' },
-                { number: 8, value: '팔' },
-                { number: 7, value: '칠' },
-                { number: 6, value: '육' },
-                { number: 5, value: '오' },
-                { number: 4, value: '사' },
-                { number: 3, value: '삼' },
-                { number: 2, value: '이' },
-                { number: 1, value: '일' },
-                { number: 0, value: '영' },
-            ],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 59096:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'Cedi',
-                plural: 'Cedis',
-                singular: 'Cedi',
-                symbol: 'GH¢',
-                fractionalUnit: {
-                    name: 'Pesewa',
-                    singular: 'Pesewa',
-                    plural: 'Pesewas',
-                    symbol: 'Gp',
-                },
-            },
-            texts: {
-                and: 'And',
-                minus: 'Minus',
-                only: 'Only',
-                point: 'Point',
-            },
-            numberWordsMapping: [
-                { number: 1000000000000000, value: 'Quadrillion' },
-                { number: 1000000000000, value: 'Trillion' },
-                { number: 1000000000, value: 'Billion' },
-                { number: 1000000, value: 'Million' },
-                { number: 1000, value: 'Thousand' },
-                { number: 100, value: 'Hundred' },
-                { number: 90, value: 'Ninety' },
-                { number: 80, value: 'Eighty' },
-                { number: 70, value: 'Seventy' },
-                { number: 60, value: 'Sixty' },
-                { number: 50, value: 'Fifty' },
-                { number: 40, value: 'Forty' },
-                { number: 30, value: 'Thirty' },
-                { number: 20, value: 'Twenty' },
-                { number: 19, value: 'Nineteen' },
-                { number: 18, value: 'Eighteen' },
-                { number: 17, value: 'Seventeen' },
-                { number: 16, value: 'Sixteen' },
-                { number: 15, value: 'Fifteen' },
-                { number: 14, value: 'Fourteen' },
-                { number: 13, value: 'Thirteen' },
-                { number: 12, value: 'Twelve' },
-                { number: 11, value: 'Eleven' },
-                { number: 10, value: 'Ten' },
-                { number: 9, value: 'Nine' },
-                { number: 8, value: 'Eight' },
-                { number: 7, value: 'Seven' },
-                { number: 6, value: 'Six' },
-                { number: 5, value: 'Five' },
-                { number: 4, value: 'Four' },
-                { number: 3, value: 'Three' },
-                { number: 2, value: 'Two' },
-                { number: 1, value: 'One' },
-                { number: 0, value: 'Zero' },
-            ],
-            exactWordsMapping: [{ number: 100, value: 'One Hundred' }],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 60130:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'Euro',
-                plural: 'Euros',
-                singular: 'Euro',
-                symbol: '€',
-                fractionalUnit: {
-                    name: 'Centimo',
-                    plural: 'Centimos',
-                    singular: 'Centimo',
-                    symbol: '¢',
-                },
-            },
-            texts: {
-                and: 'Y',
-                minus: 'Menos',
-                only: '',
-                point: 'Punto',
-            },
-            numberWordsMapping: [
-                { number: 1000000000000000, value: 'Trillon' },
-                { number: 1000000000000, value: 'Billon' },
-                { number: 1000000, value: 'Millon' },
-                { number: 1000, value: 'Mil' },
-                { number: 900, value: 'Novecientos' },
-                { number: 800, value: 'Ochocientos' },
-                { number: 700, value: 'Setecientos' },
-                { number: 600, value: 'Seiscientos' },
-                { number: 500, value: 'Quinientos' },
-                { number: 400, value: 'Cuatrocientos' },
-                { number: 300, value: 'Trescientos' },
-                { number: 200, value: 'Doscientos' },
-                { number: 100, value: 'Ciento' },
-                { number: 90, value: 'Noventa Y' },
-                { number: 80, value: 'Ochenta Y' },
-                { number: 70, value: 'Setenta Y' },
-                { number: 60, value: 'Sesenta Y' },
-                { number: 50, value: 'Cincuenta Y' },
-                { number: 40, value: 'Cuarenta Y' },
-                { number: 30, value: 'Treinta Y' },
-                { number: 29, value: 'Veintinueve' },
-                { number: 28, value: 'Veintiocho' },
-                { number: 27, value: 'Veintisiete' },
-                { number: 26, value: 'Veintiseis' },
-                { number: 25, value: 'Veinticinco' },
-                { number: 24, value: 'Veinticuatro' },
-                { number: 23, value: 'Veintitrés' },
-                { number: 22, value: 'Veintidos' },
-                { number: 21, value: 'Veintiuno' },
-                { number: 20, value: 'Veinte' },
-                { number: 19, value: 'Diecinueve' },
-                { number: 18, value: 'Dieciocho' },
-                { number: 17, value: 'Dieciciete' },
-                { number: 16, value: 'Dieciseis' },
-                { number: 15, value: 'Quince' },
-                { number: 14, value: 'Catorce' },
-                { number: 13, value: 'Trece' },
-                { number: 12, value: 'Doce' },
-                { number: 11, value: 'Once' },
-                { number: 10, value: 'Diez' },
-                { number: 9, value: 'Nueve' },
-                { number: 8, value: 'Ocho' },
-                { number: 7, value: 'Siete' },
-                { number: 6, value: 'Seis' },
-                { number: 5, value: 'Cinco' },
-                { number: 4, value: 'Cuatro' },
-                { number: 3, value: 'Tres' },
-                { number: 2, value: 'Dos' },
-                { number: 1, value: 'Uno' },
-                { number: 0, value: 'Cero' },
-            ],
-            ignoreOneForWords: [
-                'Cien',
-                'Ciento',
-                'Doscientos',
-                'Trescientos',
-                'Cuatrocientos',
-                'Quinientos',
-                'Seiscientos',
-                'Setecientos',
-                'Ochocientos',
-                'Novecientos',
-                'Mil',
-            ],
-            pluralMark: 'es',
-            pluralWords: ['Millon', 'Billon', 'Trillon'],
-            exactWordsMapping: [
-                { number: 100, value: 'Cien' },
-                { number: 90, value: 'Noventa' },
-                { number: 80, value: 'Ochenta' },
-                { number: 70, value: 'Setenta' },
-                { number: 60, value: 'Sesenta' },
-                { number: 50, value: 'Cincuenta' },
-                { number: 40, value: 'Cuarenta' },
-                { number: 30, value: 'Treinta' },
-                { number: 1, value: ['Un', 'Uno'] },
-            ],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 64744:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _services_RTLService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(73948);
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  data: function data() {
-    return {
-      isRTL: false,
-      currentLocale: 'en'
-    };
-  },
-  computed: {
-    /**
-     * Get RTL-aware CSS classes
-     */
-    rtlClasses: function rtlClasses() {
-      return {
-        'rtl': this.isRTL,
-        'ltr': !this.isRTL,
-        'text-right': this.isRTL,
-        'text-left': !this.isRTL,
-        'float-right': this.isRTL,
-        'float-left': !this.isRTL
-      };
-    },
-    /**
-     * Get RTL-aware text alignment
-     */
-    textAlign: function textAlign() {
-      return this.isRTL ? 'right' : 'left';
-    },
-    /**
-     * Get RTL-aware float direction
-     */
-    floatDirection: function floatDirection() {
-      return this.isRTL ? 'right' : 'left';
-    }
-  },
-  mounted: function mounted() {
-    // Initialize RTL status
-    this.updateRTLStatus();
-
-    // Listen for RTL changes
-    window.addEventListener('rtl-changed', this.handleRTLChange);
-  },
-  beforeDestroy: function beforeDestroy() {
-    // Clean up event listener
-    window.removeEventListener('rtl-changed', this.handleRTLChange);
-  },
-  methods: {
-    /**
-     * Update RTL status from service
-     */
-    updateRTLStatus: function updateRTLStatus() {
-      this.isRTL = _services_RTLService__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A.getRTLStatus();
-      this.currentLocale = _services_RTLService__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A.getCurrentLocale();
-    },
-    /**
-     * Handle RTL change events
-     */
-    handleRTLChange: function handleRTLChange(event) {
-      this.isRTL = event.detail.isRTL;
-      this.currentLocale = event.detail.locale || _services_RTLService__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A.getCurrentLocale();
-      this.$forceUpdate(); // Force component re-render
-    },
-    /**
-     * Set RTL mode for a specific locale
-     */
-    setRTLMode: function setRTLMode(locale) {
-      _services_RTLService__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A.setRTLModeByLocale(locale);
-    },
-    /**
-     * Check if current locale is RTL
-     */
-    isCurrentLocaleRTL: function isCurrentLocaleRTL() {
-      return _services_RTLService__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A.getLanguageRTLStatus(this.currentLocale);
-    },
-    /**
-     * Get RTL-aware margin/padding classes
-     */
-    getRTLSpacingClasses: function getRTLSpacingClasses(baseClass, size) {
-      if (this.isRTL) {
-        return _defineProperty(_defineProperty({}, "".concat(baseClass, "-right-").concat(size), true), "".concat(baseClass, "-left-").concat(size), false);
-      } else {
-        return _defineProperty(_defineProperty({}, "".concat(baseClass, "-left-").concat(size), true), "".concat(baseClass, "-right-").concat(size), false);
-      }
-    },
-    /**
-     * Get RTL-aware border classes
-     */
-    getRTLBorderClasses: function getRTLBorderClasses(baseClass, side) {
-      if (this.isRTL) {
-        var rtlSideMap = {
-          'left': 'right',
-          'right': 'left',
-          'start': 'end',
-          'end': 'start'
-        };
-        return _defineProperty({}, "".concat(baseClass, "-").concat(rtlSideMap[side] || side), true);
-      } else {
-        return _defineProperty({}, "".concat(baseClass, "-").concat(side), true);
-      }
-    }
-  }
-});
-
-/***/ }),
-
-/***/ 65903:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'Peso Mexicano',
-                plural: 'Pesos Mexicanos',
-                singular: 'Peso Mexicano',
-                symbol: '$',
-                fractionalUnit: {
-                    name: 'Centavo',
-                    plural: 'Centavos',
-                    singular: 'Centavo',
-                    symbol: '¢',
-                },
-            },
-            texts: {
-                and: 'Y',
-                minus: 'Menos',
-                only: '',
-                point: 'Punto',
-            },
-            numberWordsMapping: [
-                { number: 1000000000000000, value: 'Trillon' },
-                { number: 1000000000000, value: 'Billon' },
-                { number: 1000000, value: 'Millon' },
-                { number: 1000, value: 'Mil' },
-                { number: 900, value: 'Novecientos' },
-                { number: 800, value: 'Ochocientos' },
-                { number: 700, value: 'Setecientos' },
-                { number: 600, value: 'Seiscientos' },
-                { number: 500, value: 'Quinientos' },
-                { number: 400, value: 'Cuatrocientos' },
-                { number: 300, value: 'Trescientos' },
-                { number: 200, value: 'Doscientos' },
-                { number: 100, value: 'Ciento' },
-                { number: 90, value: 'Noventa Y' },
-                { number: 80, value: 'Ochenta Y' },
-                { number: 70, value: 'Setenta Y' },
-                { number: 60, value: 'Sesenta Y' },
-                { number: 50, value: 'Cincuenta Y' },
-                { number: 40, value: 'Cuarenta Y' },
-                { number: 30, value: 'Treinta Y' },
-                { number: 29, value: 'Veintinueve' },
-                { number: 28, value: 'Veintiocho' },
-                { number: 27, value: 'Veintisiete' },
-                { number: 26, value: 'Veintiseis' },
-                { number: 25, value: 'Veinticinco' },
-                { number: 24, value: 'Veinticuatro' },
-                { number: 23, value: 'Veintitrés' },
-                { number: 22, value: 'Veintidos' },
-                { number: 21, value: 'Veintiuno' },
-                { number: 20, value: 'Veinte' },
-                { number: 19, value: 'Diecinueve' },
-                { number: 18, value: 'Dieciocho' },
-                { number: 17, value: 'Dieciciete' },
-                { number: 16, value: 'Dieciseis' },
-                { number: 15, value: 'Quince' },
-                { number: 14, value: 'Catorce' },
-                { number: 13, value: 'Trece' },
-                { number: 12, value: 'Doce' },
-                { number: 11, value: 'Once' },
-                { number: 10, value: 'Diez' },
-                { number: 9, value: 'Nueve' },
-                { number: 8, value: 'Ocho' },
-                { number: 7, value: 'Siete' },
-                { number: 6, value: 'Seis' },
-                { number: 5, value: 'Cinco' },
-                { number: 4, value: 'Cuatro' },
-                { number: 3, value: 'Tres' },
-                { number: 2, value: 'Dos' },
-                { number: 1, value: 'Uno' },
-                { number: 0, value: 'Cero' },
-            ],
-            ignoreOneForWords: [
-                'Cien',
-                'Ciento',
-                'Doscientos',
-                'Trescientos',
-                'Cuatrocientos',
-                'Quinientos',
-                'Seiscientos',
-                'Setecientos',
-                'Ochocientos',
-                'Novecientos',
-                'Mil',
-            ],
-            pluralMark: 'es',
-            pluralWords: ['Millon', 'Billon', 'Trillon'],
-            exactWordsMapping: [
-                { number: 100, value: 'Cien' },
-                { number: 90, value: 'Noventa' },
-                { number: 80, value: 'Ochenta' },
-                { number: 70, value: 'Setenta' },
-                { number: 60, value: 'Sesenta' },
-                { number: 50, value: 'Cincuenta' },
-                { number: 40, value: 'Cuarenta' },
-                { number: 30, value: 'Treinta' },
-                { number: 1, value: ['Un', 'Uno'] },
-            ],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 68224:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'Bolivar',
-                plural: 'Bolivares',
-                singular: 'Bolivar',
-                symbol: '',
-                fractionalUnit: {
-                    name: 'Centimo',
-                    plural: 'Centimos',
-                    singular: 'Centimo',
-                    symbol: '',
-                },
-            },
-            texts: {
-                and: 'Con',
-                minus: 'Menos',
-                only: '',
-                point: 'Coma',
-            },
-            numberWordsMapping: [
-                { number: 1000000000000000, value: 'Trillon' },
-                { number: 1000000000000, value: 'Billon' },
-                { number: 1000000, value: 'Millon' },
-                { number: 1000, value: 'Mil' },
-                { number: 900, value: 'Novecientos' },
-                { number: 800, value: 'Ochocientos' },
-                { number: 700, value: 'Setecientos' },
-                { number: 600, value: 'Seiscientos' },
-                { number: 500, value: 'Quinientos' },
-                { number: 400, value: 'Cuatrocientos' },
-                { number: 300, value: 'Trescientos' },
-                { number: 200, value: 'Doscientos' },
-                { number: 100, value: 'Ciento' },
-                { number: 90, value: 'Noventa Y' },
-                { number: 80, value: 'Ochenta Y' },
-                { number: 70, value: 'Setenta Y' },
-                { number: 60, value: 'Sesenta Y' },
-                { number: 50, value: 'Cincuenta Y' },
-                { number: 40, value: 'Cuarenta Y' },
-                { number: 30, value: 'Treinta Y' },
-                { number: 29, value: 'Veintinueve' },
-                { number: 28, value: 'Veintiocho' },
-                { number: 27, value: 'Veintisiete' },
-                { number: 26, value: 'Veintiseis' },
-                { number: 25, value: 'Veinticinco' },
-                { number: 24, value: 'Veinticuatro' },
-                { number: 23, value: 'Veintitrés' },
-                { number: 22, value: 'Veintidos' },
-                { number: 21, value: 'Veintiuno' },
-                { number: 20, value: 'Veinte' },
-                { number: 19, value: 'Diecinueve' },
-                { number: 18, value: 'Dieciocho' },
-                { number: 17, value: 'Dieciciete' },
-                { number: 16, value: 'Dieciseis' },
-                { number: 15, value: 'Quince' },
-                { number: 14, value: 'Catorce' },
-                { number: 13, value: 'Trece' },
-                { number: 12, value: 'Doce' },
-                { number: 11, value: 'Once' },
-                { number: 10, value: 'Diez' },
-                { number: 9, value: 'Nueve' },
-                { number: 8, value: 'Ocho' },
-                { number: 7, value: 'Siete' },
-                { number: 6, value: 'Seis' },
-                { number: 5, value: 'Cinco' },
-                { number: 4, value: 'Cuatro' },
-                { number: 3, value: 'Tres' },
-                { number: 2, value: 'Dos' },
-                { number: 1, value: 'Uno' },
-                { number: 0, value: 'Cero' },
-            ],
-            ignoreOneForWords: [
-                'Cien',
-                'Ciento',
-                'Doscientos',
-                'Trescientos',
-                'Cuatrocientos',
-                'Quinientos',
-                'Seiscientos',
-                'Setecientos',
-                'Ochocientos',
-                'Novecientos',
-                'Mil',
-            ],
-            pluralMark: 'es',
-            pluralWords: ['Millon', 'Billon', 'Trillon'],
-            exactWordsMapping: [
-                { number: 100, value: 'Cien' },
-                { number: 90, value: 'Noventa' },
-                { number: 80, value: 'Ochenta' },
-                { number: 70, value: 'Setenta' },
-                { number: 60, value: 'Sesenta' },
-                { number: 50, value: 'Cincuenta' },
-                { number: 40, value: 'Cuarenta' },
-                { number: 30, value: 'Treinta' },
-                { number: 1, value: ['Un', 'Uno'] },
-            ],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 69543:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'Euro',
-                plural: 'Euros',
-                singular: 'Euro',
-                symbol: '€',
-                fractionalUnit: {
-                    name: 'Centime',
-                    singular: 'Centime',
-                    plural: 'Centimes',
-                    symbol: 'Cts',
-                },
-            },
-            texts: {
-                and: 'Et',
-                minus: 'Moins',
-                only: '',
-                point: 'Virgule',
-            },
-            numberWordsMapping: [
-                { number: 1000000000000000, value: 'Billiard' },
-                { number: 1000000000000, value: 'Billion' },
-                { number: 1000000000, value: 'Milliard' },
-                { number: 1000000, value: 'Million' },
-                { number: 1000, value: 'Mille' },
-                { number: 100, value: 'Cent' },
-                { number: 99, value: 'Nonante-Neuf' },
-                { number: 98, value: 'Nonante-Huit' },
-                { number: 97, value: 'Nonante-Sept' },
-                { number: 96, value: 'Nonante-Six' },
-                { number: 95, value: 'Nonante-Cinq' },
-                { number: 94, value: 'Nonante-Quatre' },
-                { number: 93, value: 'Nonante-Trois' },
-                { number: 92, value: 'Nonante-Deux' },
-                { number: 91, value: 'Nonante-Et-Un' },
-                { number: 90, value: 'Nonante' },
-                { number: 89, value: 'Quatre-Vingt-Neuf' },
-                { number: 88, value: 'Quatre-Vingt-Huit' },
-                { number: 87, value: 'Quatre-Vingt-Sept' },
-                { number: 86, value: 'Quatre-Vingt-Six' },
-                { number: 85, value: 'Quatre-Vingt-Cinq' },
-                { number: 84, value: 'Quatre-Vingt-Quatre' },
-                { number: 83, value: 'Quatre-Vingt-Trois' },
-                { number: 82, value: 'Quatre-Vingt-Deux' },
-                { number: 81, value: 'Quatre-Vingt-Un' },
-                { number: 80, value: 'Quatre-Vingt' },
-                { number: 79, value: 'Septante-Neuf' },
-                { number: 78, value: 'Septante-Huit' },
-                { number: 77, value: 'Septante-Sept' },
-                { number: 76, value: 'Septante-Six' },
-                { number: 75, value: 'Septante-Cinq' },
-                { number: 74, value: 'Septante-Quatre' },
-                { number: 73, value: 'Septante-Trois' },
-                { number: 72, value: 'Septante-Deux' },
-                { number: 71, value: 'Septante-Et-Un' },
-                { number: 70, value: 'Septante' },
-                { number: 69, value: 'Soixante-Neuf' },
-                { number: 68, value: 'Soixante-Huit' },
-                { number: 67, value: 'Soixante-Sept' },
-                { number: 66, value: 'Soixante-Six' },
-                { number: 65, value: 'Soixante-Cinq' },
-                { number: 64, value: 'Soixante-Quatre' },
-                { number: 63, value: 'Soixante-Trois' },
-                { number: 62, value: 'Soixante-Deux' },
-                { number: 61, value: 'Soixante-Et-Un' },
-                { number: 60, value: 'Soixante' },
-                { number: 59, value: 'Cinquante-Neuf' },
-                { number: 58, value: 'Cinquante-Huit' },
-                { number: 57, value: 'Cinquante-Sept' },
-                { number: 56, value: 'Cinquante-Six' },
-                { number: 55, value: 'Cinquante-Cinq' },
-                { number: 54, value: 'Cinquante-Quatre' },
-                { number: 53, value: 'Cinquante-Trois' },
-                { number: 52, value: 'Cinquante-Deux' },
-                { number: 51, value: 'Cinquante-Et-Un' },
-                { number: 50, value: 'Cinquante' },
-                { number: 49, value: 'Quarante-Neuf' },
-                { number: 48, value: 'Quarante-Huit' },
-                { number: 47, value: 'Quarante-Sept' },
-                { number: 46, value: 'Quarante-Six' },
-                { number: 45, value: 'Quarante-Cinq' },
-                { number: 44, value: 'Quarante-Quatre' },
-                { number: 43, value: 'Quarante-Trois' },
-                { number: 42, value: 'Quarante-Deux' },
-                { number: 41, value: 'Quarante-Et-Un' },
-                { number: 40, value: 'Quarante' },
-                { number: 39, value: 'Trente-Neuf' },
-                { number: 38, value: 'Trente-Huit' },
-                { number: 37, value: 'Trente-Sept' },
-                { number: 36, value: 'Trente-Six' },
-                { number: 35, value: 'Trente-Cinq' },
-                { number: 34, value: 'Trente-Quatre' },
-                { number: 33, value: 'Trente-Trois' },
-                { number: 32, value: 'Trente-Deux' },
-                { number: 31, value: 'Trente-Et-Un' },
-                { number: 30, value: 'Trente' },
-                { number: 29, value: 'Vingt-Neuf' },
-                { number: 28, value: 'Vingt-Huit' },
-                { number: 27, value: 'Vingt-Sept' },
-                { number: 26, value: 'Vingt-Six' },
-                { number: 25, value: 'Vingt-Cinq' },
-                { number: 24, value: 'Vingt-Quatre' },
-                { number: 23, value: 'Vingt-Trois' },
-                { number: 22, value: 'Vingt-Deux' },
-                { number: 21, value: 'Vingt-Et-Un' },
-                { number: 20, value: 'Vingt' },
-                { number: 19, value: 'Dix-Neuf' },
-                { number: 18, value: 'Dix-Huit' },
-                { number: 17, value: 'Dix-Sept' },
-                { number: 16, value: 'Seize' },
-                { number: 15, value: 'Quinze' },
-                { number: 14, value: 'Quatorze' },
-                { number: 13, value: 'Treize' },
-                { number: 12, value: 'Douze' },
-                { number: 11, value: 'Onze' },
-                { number: 10, value: 'Dix' },
-                { number: 9, value: 'Neuf' },
-                { number: 8, value: 'Huit' },
-                { number: 7, value: 'Sept' },
-                { number: 6, value: 'Six' },
-                { number: 5, value: 'Cinq' },
-                { number: 4, value: 'Quatre' },
-                { number: 3, value: 'Trois' },
-                { number: 2, value: 'Deux' },
-                { number: 1, value: 'Un' },
-                { number: 0, value: 'Zéro' },
-            ],
-            ignoreOneForWords: ['Cent', 'Mille'],
-            pluralMark: 's',
-            pluralWords: ['Billiard', 'Billion', 'Milliard', 'Million'],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 70269:
+/***/ 25539:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 
@@ -4294,7 +450,7 @@ __webpack_require__.d(__webpack_exports__, {
   A: () => (/* binding */ ProductCreateModal)
 });
 
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=template&id=043bcf2b&scoped=true
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=template&id=2ee3bdce&scoped=true
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -4507,6 +663,52 @@ var render = function render() {
     staticClass: "form-group"
   }, [_c('label', {
     attrs: {
+      "for": "barcodeSymbology"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Barcode Symbology")) + " "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.barcodeSymbology,
+      expression: "form.barcodeSymbology"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('barcodeSymbology')
+    },
+    attrs: {
+      "id": "barcodeSymbology",
+      "name": "barcodeSymbology"
+    },
+    on: {
+      "change": function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.form, "barcodeSymbology", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, _vm._l(_vm.barcodeSymbologyOptions, function (opt) {
+    return _c('option', {
+      key: opt,
+      domProps: {
+        "value": opt
+      }
+    }, [_vm._v(_vm._s(opt))]);
+  }), 0), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "barcodeSymbology"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
       "for": "subCategory"
     }
   }, [_vm._v(_vm._s(_vm.$t("Category")) + " "), _c('span', {
@@ -4583,12 +785,114 @@ var render = function render() {
     staticClass: "input-group-text create-btn"
   }, [_c('i', {
     staticClass: "fas fa-solid fa-plus-circle"
-  })])])], 1), _vm._v(" "), _c('has-error', {
+  })])])], 1), _vm._v(" "), _c('small', {
+    staticClass: "form-text text-muted"
+  }, [_vm._v(_vm._s(_vm.$t("Base unit (conversion factor = 1)")))]), _vm._v(" "), _c('has-error', {
     attrs: {
       "form": _vm.form,
       "field": "itemUnit"
     }
   })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group mt-3"
+  }, [_c('label', {
+    staticClass: "d-block"
+  }, [_vm._v(_vm._s(_vm.$t("Unit conversions")))]), _vm._v(" "), _c('small', {
+    staticClass: "form-text text-muted mb-2"
+  }, [_vm._v(_vm._s(_vm.$t("Link additional units with conversion factor relative to base unit (e.g. 1 Carton = 12 Pieces)")))]), _vm._v(" "), _c('div', {
+    staticClass: "table-responsive"
+  }, [_c('table', {
+    staticClass: "table table-sm table-bordered"
+  }, [_c('thead', [_c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Unit")))]), _vm._v(" "), _c('th', {
+    staticStyle: {
+      "width": "180px"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Conversion factor")))]), _vm._v(" "), _c('th', {
+    staticStyle: {
+      "width": "80px"
+    }
+  })])]), _vm._v(" "), _c('tbody', [_c('tr', [_c('td', [_vm.form.itemUnit ? _c('span', [_vm._v(_vm._s(_vm.form.itemUnit.name || _vm.form.itemUnit))]) : _c('span', {
+    staticClass: "text-muted"
+  }, [_vm._v("—")])]), _vm._v(" "), _c('td', [_vm._v("1 "), _c('span', {
+    staticClass: "text-muted"
+  }, [_vm._v("(" + _vm._s(_vm.$t("base")) + ")")])]), _vm._v(" "), _c('td')]), _vm._v(" "), _vm._l(_vm.form.unitConversions, function (row, index) {
+    return _c('tr', {
+      key: 'uc-' + index
+    }, [_c('td', [_c('v-select', {
+      staticClass: "form-control form-control-sm",
+      "class": {
+        'is-invalid': row.unit && !_vm.isValidConversionFactor(row.conversion_factor)
+      },
+      attrs: {
+        "options": _vm.additionalUnitOptions(index),
+        "label": "name",
+        "placeholder": _vm.$t('Select a unit')
+      },
+      model: {
+        value: row.unit,
+        callback: function callback($$v) {
+          _vm.$set(row, "unit", $$v);
+        },
+        expression: "row.unit"
+      }
+    })], 1), _vm._v(" "), _c('td', [_c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model.number",
+        value: row.conversion_factor,
+        expression: "row.conversion_factor",
+        modifiers: {
+          "number": true
+        }
+      }],
+      staticClass: "form-control form-control-sm",
+      "class": {
+        'is-invalid': !_vm.isValidConversionFactor(row.conversion_factor) && row.conversion_factor !== ''
+      },
+      attrs: {
+        "type": "number",
+        "step": "any",
+        "min": "0.0001",
+        "placeholder": _vm.$t('e.g. 12')
+      },
+      domProps: {
+        "value": row.conversion_factor
+      },
+      on: {
+        "input": function input($event) {
+          if ($event.target.composing) return;
+          _vm.$set(row, "conversion_factor", _vm._n($event.target.value));
+        },
+        "blur": function blur($event) {
+          return _vm.$forceUpdate();
+        }
+      }
+    }), _vm._v(" "), row.unit ? _c('small', {
+      staticClass: "form-text text-muted"
+    }, [_vm._v("1 " + _vm._s(row.unit.name) + " = " + _vm._s(row.conversion_factor || '?') + " " + _vm._s(_vm.baseUnitName))]) : _vm._e()]), _vm._v(" "), _c('td', [_c('button', {
+      staticClass: "btn btn-sm btn-outline-danger",
+      attrs: {
+        "type": "button",
+        "title": _vm.$t('Remove')
+      },
+      on: {
+        "click": function click($event) {
+          return _vm.removeUnitConversion(index);
+        }
+      }
+    }, [_c('i', {
+      staticClass: "fas fa-trash-alt"
+    })])])]);
+  })], 2)])]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-sm btn-outline-primary",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": _vm.addUnitConversion
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-plus mr-1"
+  }), _vm._v(_vm._s(_vm.$t("Add unit")) + "\n                  ")])]), _vm._v(" "), _c('div', {
     staticClass: "form-group"
   }, [_c('label', {
     attrs: {
@@ -4807,37 +1111,65 @@ var render = function render() {
     staticClass: "form-group"
   }, [_c('label', {
     attrs: {
-      "for": "openingStockCount"
+      "for": "openingStockEntryUnit"
     }
-  }, [_vm._v(_vm._s(_vm.$t("Opening Stock")))]), _vm._v(" "), _c('input', {
+  }, [_vm._v(_vm._s(_vm.$t("Opening Stock")))]), _vm._v(" "), _c('div', {
+    staticClass: "row no-gutters"
+  }, [_c('div', {
+    staticClass: "col-5 pr-1"
+  }, [_c('v-select', {
+    "class": {
+      'is-invalid': _vm.form.errors.has('openingStockCount') || _vm.openingStockEntryUnitError
+    },
+    attrs: {
+      "id": "openingStockEntryUnit",
+      "options": _vm.openingStockUnitOptions,
+      "label": "name",
+      "placeholder": _vm.$t('Select unit')
+    },
+    on: {
+      "input": _vm.updateOpeningStockFromEntry
+    },
+    model: {
+      value: _vm.form.openingStockEntryUnit,
+      callback: function callback($$v) {
+        _vm.$set(_vm.form, "openingStockEntryUnit", $$v);
+      },
+      expression: "form.openingStockEntryUnit"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "col-7 pl-1"
+  }, [_c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.form.openingStockCount,
-      expression: "form.openingStockCount"
+      value: _vm.form.openingStockEntryQuantity,
+      expression: "form.openingStockEntryQuantity"
     }],
     staticClass: "form-control",
     "class": {
-      'is-invalid': _vm.form.errors.has('openingStockCount')
+      'is-invalid': _vm.form.errors.has('openingStockCount') || _vm.openingStockEntryUnitError
     },
     attrs: {
-      "id": "openingStockCount",
+      "id": "openingStockEntryQuantity",
       "type": "number",
       "step": "any",
       "min": "0",
-      "name": "openingStockCount",
-      "placeholder": _vm.$t('Enter opening stock')
+      "placeholder": _vm.$t('Quantity')
     },
     domProps: {
-      "value": _vm.form.openingStockCount
+      "value": _vm.form.openingStockEntryQuantity
     },
     on: {
-      "input": function input($event) {
+      "input": [function ($event) {
         if ($event.target.composing) return;
-        _vm.$set(_vm.form, "openingStockCount", $event.target.value);
-      }
+        _vm.$set(_vm.form, "openingStockEntryQuantity", $event.target.value);
+      }, _vm.updateOpeningStockFromEntry],
+      "change": _vm.updateOpeningStockFromEntry
     }
-  }), _vm._v(" "), _c('has-error', {
+  })])]), _vm._v(" "), _vm.form.openingStockCount !== '' && _vm.form.openingStockCount !== null && _vm.baseUnitName ? _c('small', {
+    staticClass: "form-text text-muted"
+  }, [_vm._v("\n                    " + _vm._s(_vm.$t("Stored as")) + " " + _vm._s(_vm.form.openingStockCount) + " " + _vm._s(_vm.baseUnitName) + "\n                  ")]) : _vm._e(), _vm._v(" "), _c('has-error', {
     attrs: {
       "form": _vm.form,
       "field": "openingStockCount"
@@ -5811,10 +2143,10 @@ var CategorySubcategoryCreateModalvue_type_template_id_cd890c6e_scoped_true_rend
 var CategorySubcategoryCreateModalvue_type_template_id_cd890c6e_scoped_true_staticRenderFns = [];
 
 ;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/CategorySubcategoryCreateModal.vue?vue&type=script&lang=js
-function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
-function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
-function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
-function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 
 /* harmony default export */ const CategorySubcategoryCreateModalvue_type_script_lang_js = ({
@@ -5876,37 +2208,38 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
     // Uses local state instead of Vuex to avoid overwriting other data (like clients)
     getCategories: function getCategories() {
       var _this = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-        var _yield$axios$get, data, _t;
-        return _regenerator().w(function (_context) {
-          while (1) switch (_context.p = _context.n) {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        var _yield$axios$get, data;
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
             case 0:
-              _context.p = 0;
-              _context.n = 1;
+              _context.prev = 0;
+              _context.next = 3;
               return axios_default().get(window.location.origin + '/api/all-product-categories');
-            case 1:
-              _yield$axios$get = _context.v;
+            case 3:
+              _yield$axios$get = _context.sent;
               data = _yield$axios$get.data;
               _this.categories = data.data || [];
-              _context.n = 3;
+              _context.next = 12;
               break;
-            case 2:
-              _context.p = 2;
-              _t = _context.v;
-              console.error('Error loading categories:', _t);
+            case 8:
+              _context.prev = 8;
+              _context.t0 = _context["catch"](0);
+              console.error('Error loading categories:', _context.t0);
               _this.categories = [];
-            case 3:
-              return _context.a(2);
+            case 12:
+            case "end":
+              return _context.stop();
           }
-        }, _callee, null, [[0, 2]]);
+        }, _callee, null, [[0, 8]]);
       }))();
     },
     // Save based on active tab
     saveCurrent: function saveCurrent(event) {
       var _this2 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
-        return _regenerator().w(function (_context2) {
-          while (1) switch (_context2.n) {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
             case 0:
               // Stop event propagation to prevent closing parent modals
               if (event) {
@@ -5914,19 +2247,20 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
                 event.preventDefault();
               }
               if (!(_this2.activeTab === 'category')) {
-                _context2.n = 2;
+                _context2.next = 6;
                 break;
               }
-              _context2.n = 1;
+              _context2.next = 4;
               return _this2.saveCategory();
-            case 1:
-              _context2.n = 3;
+            case 4:
+              _context2.next = 8;
               break;
-            case 2:
-              _context2.n = 3;
+            case 6:
+              _context2.next = 8;
               return _this2.saveSubCategory();
-            case 3:
-              return _context2.a(2);
+            case 8:
+            case "end":
+              return _context2.stop();
           }
         }, _callee2);
       }))();
@@ -5934,27 +2268,27 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
     // Save category
     saveCategory: function saveCategory() {
       var _this3 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
         var categoryName;
-        return _regenerator().w(function (_context4) {
-          while (1) switch (_context4.n) {
+        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+          while (1) switch (_context4.prev = _context4.next) {
             case 0:
               // Store the category name before saving
               categoryName = _this3.categoryForm.name;
-              _context4.n = 1;
-              return _this3.categoryForm.post(window.location.origin + '/api/product-categories').then(/*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+              _context4.next = 3;
+              return _this3.categoryForm.post(window.location.origin + '/api/product-categories').then(/*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
                 var createdCategory, newCategory;
-                return _regenerator().w(function (_context3) {
-                  while (1) switch (_context3.n) {
+                return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+                  while (1) switch (_context3.prev = _context3.next) {
                     case 0:
                       toast.fire({
                         type: 'success',
                         title: _this3.$t('Category added successfully')
                       });
                       // Refresh categories list for subcategory form
-                      _context3.n = 1;
+                      _context3.next = 3;
                       return _this3.getCategories();
-                    case 1:
+                    case 3:
                       // Create a simple object with the name for parent to find it
                       createdCategory = {
                         name: categoryName
@@ -5966,17 +2300,18 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
                       // Navigate to subcategory tab instead of closing modal
                       _this3.activeTab = 'subcategory';
                       // Auto-select the newly created category in subcategory form
-                      _context3.n = 2;
+                      _context3.next = 10;
                       return _this3.$nextTick();
-                    case 2:
+                    case 10:
                       newCategory = _this3.categories.find(function (cat) {
                         return cat.name === categoryName;
                       });
                       if (newCategory) {
                         _this3.subcategoryForm.category = newCategory;
                       }
-                    case 3:
-                      return _context3.a(2);
+                    case 12:
+                    case "end":
+                      return _context3.stop();
                   }
                 }, _callee3);
               })))["catch"](function (error) {
@@ -6012,8 +2347,9 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
                   });
                 }
               });
-            case 1:
-              return _context4.a(2);
+            case 3:
+            case "end":
+              return _context4.stop();
           }
         }, _callee4);
       }))();
@@ -6021,18 +2357,18 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
     // Save subcategory
     saveSubCategory: function saveSubCategory() {
       var _this4 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
         var subcategoryName;
-        return _regenerator().w(function (_context6) {
-          while (1) switch (_context6.n) {
+        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+          while (1) switch (_context6.prev = _context6.next) {
             case 0:
               // Store the subcategory name before saving
               subcategoryName = _this4.subcategoryForm.name;
-              _context6.n = 1;
-              return _this4.subcategoryForm.post(window.location.origin + '/api/product-sub-categories').then(/*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
+              _context6.next = 3;
+              return _this4.subcategoryForm.post(window.location.origin + '/api/product-sub-categories').then(/*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
                 var createdSubcategory;
-                return _regenerator().w(function (_context5) {
-                  while (1) switch (_context5.n) {
+                return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+                  while (1) switch (_context5.prev = _context5.next) {
                     case 0:
                       toast.fire({
                         type: 'success',
@@ -6050,8 +2386,9 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
                       // Close only this modal, not parent modals
                       _this4.showModal = false;
                       _this4.resetForms();
-                    case 1:
-                      return _context5.a(2);
+                    case 8:
+                    case "end":
+                      return _context5.stop();
                   }
                 }, _callee5);
               })))["catch"](function (error) {
@@ -6087,8 +2424,9 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
                   });
                 }
               });
-            case 1:
-              return _context6.a(2);
+            case 3:
+            case "end":
+              return _context6.stop();
           }
         }, _callee6);
       }))();
@@ -6397,10 +2735,10 @@ var UnitCreateModalvue_type_template_id_3d82b5ae_scoped_true_render = function r
 var UnitCreateModalvue_type_template_id_3d82b5ae_scoped_true_staticRenderFns = [];
 
 ;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/UnitCreateModal.vue?vue&type=script&lang=js
-function UnitCreateModalvue_type_script_lang_js_regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return UnitCreateModalvue_type_script_lang_js_regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (UnitCreateModalvue_type_script_lang_js_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, UnitCreateModalvue_type_script_lang_js_regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, UnitCreateModalvue_type_script_lang_js_regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), UnitCreateModalvue_type_script_lang_js_regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", UnitCreateModalvue_type_script_lang_js_regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), UnitCreateModalvue_type_script_lang_js_regeneratorDefine2(u), UnitCreateModalvue_type_script_lang_js_regeneratorDefine2(u, o, "Generator"), UnitCreateModalvue_type_script_lang_js_regeneratorDefine2(u, n, function () { return this; }), UnitCreateModalvue_type_script_lang_js_regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (UnitCreateModalvue_type_script_lang_js_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
-function UnitCreateModalvue_type_script_lang_js_regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } UnitCreateModalvue_type_script_lang_js_regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { UnitCreateModalvue_type_script_lang_js_regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, UnitCreateModalvue_type_script_lang_js_regeneratorDefine2(e, r, n, t); }
-function UnitCreateModalvue_type_script_lang_js_asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
-function UnitCreateModalvue_type_script_lang_js_asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { UnitCreateModalvue_type_script_lang_js_asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { UnitCreateModalvue_type_script_lang_js_asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function UnitCreateModalvue_type_script_lang_js_typeof(o) { "@babel/helpers - typeof"; return UnitCreateModalvue_type_script_lang_js_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, UnitCreateModalvue_type_script_lang_js_typeof(o); }
+function UnitCreateModalvue_type_script_lang_js_regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ UnitCreateModalvue_type_script_lang_js_regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == UnitCreateModalvue_type_script_lang_js_typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(UnitCreateModalvue_type_script_lang_js_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function UnitCreateModalvue_type_script_lang_js_asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function UnitCreateModalvue_type_script_lang_js_asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { UnitCreateModalvue_type_script_lang_js_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { UnitCreateModalvue_type_script_lang_js_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 /* harmony default export */ const UnitCreateModalvue_type_script_lang_js = ({
   middleware: ["auth", "check-permissions"],
@@ -6439,10 +2777,10 @@ function UnitCreateModalvue_type_script_lang_js_asyncToGenerator(n) { return fun
     // Save unit
     saveUnit: function saveUnit(event) {
       var _this = this;
-      return UnitCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/UnitCreateModalvue_type_script_lang_js_regenerator().m(function _callee2() {
+      return UnitCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/UnitCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee2() {
         var unitName, unitCode;
-        return UnitCreateModalvue_type_script_lang_js_regenerator().w(function (_context2) {
-          while (1) switch (_context2.n) {
+        return UnitCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
             case 0:
               // Stop event propagation to prevent closing parent modals
               if (event) {
@@ -6453,11 +2791,11 @@ function UnitCreateModalvue_type_script_lang_js_asyncToGenerator(n) { return fun
               // Store the unit name before saving
               unitName = _this.form.name;
               unitCode = _this.form.code;
-              _context2.n = 1;
-              return _this.form.post(window.location.origin + '/api/units').then(/*#__PURE__*/UnitCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/UnitCreateModalvue_type_script_lang_js_regenerator().m(function _callee() {
+              _context2.next = 5;
+              return _this.form.post(window.location.origin + '/api/units').then(/*#__PURE__*/UnitCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/UnitCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee() {
                 var createdUnit;
-                return UnitCreateModalvue_type_script_lang_js_regenerator().w(function (_context) {
-                  while (1) switch (_context.n) {
+                return UnitCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee$(_context) {
+                  while (1) switch (_context.prev = _context.next) {
                     case 0:
                       toast.fire({
                         type: 'success',
@@ -6475,8 +2813,9 @@ function UnitCreateModalvue_type_script_lang_js_asyncToGenerator(n) { return fun
                       // Close only this modal, not parent modals
                       _this.showModal = false;
                       _this.resetForm();
-                    case 1:
-                      return _context.a(2);
+                    case 7:
+                    case "end":
+                      return _context.stop();
                   }
                 }, _callee);
               })))["catch"](function () {
@@ -6485,8 +2824,9 @@ function UnitCreateModalvue_type_script_lang_js_asyncToGenerator(n) { return fun
                   title: _this.$t('Please check your input and try again.')
                 });
               });
-            case 1:
-              return _context2.a(2);
+            case 5:
+            case "end":
+              return _context2.stop();
           }
         }, _callee2);
       }))();
@@ -6535,16 +2875,21 @@ var UnitCreateModal_component = (0,componentNormalizer/* default */.A)(
 
 /* harmony default export */ const UnitCreateModal = (UnitCreateModal_component.exports);
 ;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=script&lang=js
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function ProductCreateModalvue_type_script_lang_js_regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(u), ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(u, o, "Generator"), ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(u, n, function () { return this; }), ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (ProductCreateModalvue_type_script_lang_js_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
-function ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } ProductCreateModalvue_type_script_lang_js_regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(e, r, n, t); }
-function ProductCreateModalvue_type_script_lang_js_asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
-function ProductCreateModalvue_type_script_lang_js_asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { ProductCreateModalvue_type_script_lang_js_asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { ProductCreateModalvue_type_script_lang_js_asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function ProductCreateModalvue_type_script_lang_js_typeof(o) { "@babel/helpers - typeof"; return ProductCreateModalvue_type_script_lang_js_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, ProductCreateModalvue_type_script_lang_js_typeof(o); }
+function ProductCreateModalvue_type_script_lang_js_regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ ProductCreateModalvue_type_script_lang_js_regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == ProductCreateModalvue_type_script_lang_js_typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(ProductCreateModalvue_type_script_lang_js_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function ProductCreateModalvue_type_script_lang_js_asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function ProductCreateModalvue_type_script_lang_js_asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { ProductCreateModalvue_type_script_lang_js_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { ProductCreateModalvue_type_script_lang_js_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == ProductCreateModalvue_type_script_lang_js_typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != ProductCreateModalvue_type_script_lang_js_typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != ProductCreateModalvue_type_script_lang_js_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
 
 
@@ -6586,6 +2931,8 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
         regularPrice: "",
         servicePurchasePrice: "",
         openingStockCount: "",
+        openingStockEntryUnit: null,
+        openingStockEntryQuantity: "",
         openingStockUnitPrice: "",
         purchasePrice: "",
         isOpeningStock: false,
@@ -6599,10 +2946,12 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
         salesAccountId: "",
         purchaseAccountId: "",
         overrideSalesAccount: false,
-        overridePurchaseAccount: false
+        overridePurchaseAccount: false,
+        unitConversions: []
       }),
       categories: [],
       options: [],
+      barcodeSymbologyOptions: ['CODE128', 'EAN13', 'EAN8', 'UPC', 'CODE39', 'ITF-14'],
       units: [],
       brands: [],
       taxes: [],
@@ -6617,7 +2966,28 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
       showPurchasePriceWarning: false
     };
   },
-  computed: _objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["items", "appInfo"])),
+  computed: _objectSpread(_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["items", "appInfo"])), {}, {
+    baseUnitName: function baseUnitName() {
+      var u = this.form.itemUnit;
+      return u && u.name ? u.name : u ? String(u) : '';
+    },
+    openingStockUnitOptions: function openingStockUnitOptions() {
+      var base = this.form.itemUnit;
+      if (!base) return [];
+      return [base].concat(_toConsumableArray((this.form.unitConversions || []).filter(function (r) {
+        return r.unit;
+      }).map(function (r) {
+        return r.unit;
+      })));
+    },
+    openingStockEntryUnitError: function openingStockEntryUnitError() {
+      if (this.form.itemType !== 'product') return false;
+      var q = parseFloat(this.form.openingStockEntryQuantity);
+      if (isNaN(q) || q <= 0) return false;
+      var factor = this.getConversionFactor(this.form.openingStockEntryUnit);
+      return factor <= 0;
+    }
+  }),
   watch: {
     'form.openingStockUnitPrice': {
       handler: function handler() {
@@ -6654,6 +3024,14 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
         }
       },
       immediate: false
+    },
+    'form.itemUnit': {
+      handler: function handler(newUnit) {
+        if (newUnit && this.form.itemType === 'product') {
+          this.form.openingStockEntryUnit = newUnit;
+        }
+      },
+      immediate: false
     }
   },
   created: function created() {
@@ -6666,6 +3044,128 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
     this.loadAccountRoutingSettings();
   },
   methods: {
+    addUnitConversion: function addUnitConversion() {
+      if (!Array.isArray(this.form.unitConversions)) {
+        this.$set(this.form, 'unitConversions', []);
+      }
+      this.form.unitConversions.push({
+        unit: null,
+        conversion_factor: ''
+      });
+    },
+    removeUnitConversion: function removeUnitConversion(index) {
+      this.form.unitConversions.splice(index, 1);
+    },
+    additionalUnitOptions: function additionalUnitOptions(excludeIndex) {
+      var baseId = this.form.itemUnit && (this.form.itemUnit.id || this.form.itemUnit);
+      var selectedIds = (this.form.unitConversions || []).map(function (row, i) {
+        return i === excludeIndex ? null : row.unit && (row.unit.id || row.unit);
+      }).filter(Boolean);
+      return (this.units || []).filter(function (u) {
+        var id = u.id || u;
+        return id != baseId && !selectedIds.includes(id);
+      });
+    },
+    isValidConversionFactor: function isValidConversionFactor(value) {
+      var n = parseFloat(value);
+      return !isNaN(n) && n > 0;
+    },
+    getConversionFactor: function getConversionFactor(unit) {
+      if (!unit) return 0;
+      var baseId = this.form.itemUnit && (this.form.itemUnit.id || this.form.itemUnit);
+      var id = unit.id || unit;
+      if (id == baseId) return 1;
+      var row = (this.form.unitConversions || []).find(function (r) {
+        return (r.unit && (r.unit.id || r.unit)) == id;
+      });
+      return row ? parseFloat(row.conversion_factor) || 0 : 0;
+    },
+    updateOpeningStockFromEntry: function updateOpeningStockFromEntry() {
+      var q = parseFloat(this.form.openingStockEntryQuantity);
+      var factor = this.getConversionFactor(this.form.openingStockEntryUnit);
+      if (isNaN(q) || q < 0) {
+        this.form.openingStockCount = '';
+        return;
+      }
+      if (!this.form.openingStockEntryUnit || factor <= 0) {
+        this.form.openingStockCount = '';
+        return;
+      }
+      this.form.openingStockCount = q * factor;
+    },
+    validateUnitConversions: function validateUnitConversions() {
+      var baseUnitId = this.form.itemUnit && (this.form.itemUnit.id || this.form.itemUnit);
+      if (!baseUnitId) {
+        return {
+          valid: false,
+          message: this.$t("Unit is required (base unit).")
+        };
+      }
+      var additional = (this.form.unitConversions || []).filter(function (r) {
+        return r.unit || r.conversion_factor !== '' && r.conversion_factor !== null;
+      });
+      for (var i = 0; i < additional.length; i++) {
+        var r = additional[i];
+        if (!r.unit) {
+          return {
+            valid: false,
+            message: this.$t("Please select a unit for all conversion rows or remove empty rows.")
+          };
+        }
+        var factor = parseFloat(r.conversion_factor);
+        if (isNaN(factor) || factor <= 0) {
+          return {
+            valid: false,
+            message: this.$t("Conversion factor must be a number greater than 0.")
+          };
+        }
+      }
+      if (this.form.itemType === 'product') {
+        var q = parseFloat(this.form.openingStockEntryQuantity);
+        if (!isNaN(q) && q > 0) {
+          if (!this.form.openingStockEntryUnit) {
+            return {
+              valid: false,
+              message: this.$t("Please select a unit for opening stock.")
+            };
+          }
+          var _factor = this.getConversionFactor(this.form.openingStockEntryUnit);
+          if (_factor <= 0) {
+            return {
+              valid: false,
+              message: this.$t("Opening stock unit must have a valid conversion factor.")
+            };
+          }
+          if (q < 0) {
+            return {
+              valid: false,
+              message: this.$t("Opening stock quantity must be zero or greater.")
+            };
+          }
+        }
+      }
+      return {
+        valid: true,
+        message: ''
+      };
+    },
+    buildUnitConversionsPayload: function buildUnitConversionsPayload() {
+      var baseUnitId = this.form.itemUnit && (this.form.itemUnit.id || this.form.itemUnit);
+      if (!baseUnitId) return [];
+      return [{
+        unit_id: baseUnitId,
+        conversion_factor: 1
+      }].concat(_toConsumableArray((this.form.unitConversions || []).filter(function (r) {
+        return r.unit;
+      }).map(function (r) {
+        return {
+          unit_id: r.unit && (r.unit.id || r.unit),
+          conversion_factor: parseFloat(r.conversion_factor) || 0
+        };
+      }).filter(function (r) {
+        return r.unit_id && r.conversion_factor > 0;
+      })));
+    },
     toggleModal: function toggleModal() {
       this.showProductCreateModal = !this.showProductCreateModal;
 
@@ -6682,44 +3182,45 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
     // Load chart of accounts for sales and purchase account selection
     loadChartOfAccounts: function loadChartOfAccounts() {
       var _this4 = this;
-      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee() {
-        var _yield$axios$get, data, _t;
-        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context) {
-          while (1) switch (_context.p = _context.n) {
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee() {
+        var _yield$axios$get, data;
+        return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
             case 0:
-              _context.p = 0;
-              _context.n = 1;
+              _context.prev = 0;
+              _context.next = 3;
               return axios_default().get(window.location.origin + "/api/products/chart-of-accounts");
-            case 1:
-              _yield$axios$get = _context.v;
+            case 3:
+              _yield$axios$get = _context.sent;
               data = _yield$axios$get.data;
               _this4.chartOfAccounts = data || [];
-              _context.n = 3;
+              _context.next = 12;
               break;
-            case 2:
-              _context.p = 2;
-              _t = _context.v;
-              console.error("Error loading chart of accounts:", _t);
+            case 8:
+              _context.prev = 8;
+              _context.t0 = _context["catch"](0);
+              console.error("Error loading chart of accounts:", _context.t0);
               _this4.chartOfAccounts = [];
-            case 3:
-              return _context.a(2);
+            case 12:
+            case "end":
+              return _context.stop();
           }
-        }, _callee, null, [[0, 2]]);
+        }, _callee, null, [[0, 8]]);
       }))();
     },
     // Load account routing settings
     loadAccountRoutingSettings: function loadAccountRoutingSettings() {
       var _this5 = this;
-      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee2() {
-        var _this5$accountRouting, _this5$accountRouting2, _this5$accountRouting3, _this5$accountRouting4, response, _t2;
-        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context2) {
-          while (1) switch (_context2.p = _context2.n) {
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee2() {
+        var _this5$accountRouting, _this5$accountRouting2, _this5$accountRouting3, _this5$accountRouting4, response;
+        return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
             case 0:
-              _context2.p = 0;
-              _context2.n = 1;
+              _context2.prev = 0;
+              _context2.next = 3;
               return axios_default().get(window.location.origin + "/api/account-routing-settings/product-account-routing");
-            case 1:
-              response = _context2.v;
+            case 3:
+              response = _context2.sent;
               _this5.accountRoutingSettings = response.data.data || {};
 
               // Set flags for automatic routing
@@ -6746,37 +3247,39 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
               console.log('Form salesAccountId after auto-assignment:', _this5.form.salesAccountId);
               console.log('Form purchaseAccountId after auto-assignment:', _this5.form.purchaseAccountId);
               console.log('==============================');
-              _context2.n = 3;
+              _context2.next = 29;
               break;
-            case 2:
-              _context2.p = 2;
-              _t2 = _context2.v;
-              console.error("Error loading account routing settings:", _t2);
+            case 24:
+              _context2.prev = 24;
+              _context2.t0 = _context2["catch"](0);
+              console.error("Error loading account routing settings:", _context2.t0);
               // Set defaults if API fails
               _this5.isSalesAccountAutomatic = false;
               _this5.isPurchaseAccountAutomatic = false;
-            case 3:
-              return _context2.a(2);
+            case 29:
+            case "end":
+              return _context2.stop();
           }
-        }, _callee2, null, [[0, 2]]);
+        }, _callee2, null, [[0, 24]]);
       }))();
     },
     // get all product categories
     getSubCategories: function getSubCategories() {
       var _this6 = this;
-      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee3() {
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee3() {
         var _yield$_this6$form$ge, data;
-        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context3) {
-          while (1) switch (_context3.n) {
+        return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
             case 0:
-              _context3.n = 1;
+              _context3.next = 2;
               return _this6.form.get(window.location.origin + "/api/all-product-sub-categories");
-            case 1:
-              _yield$_this6$form$ge = _context3.v;
+            case 2:
+              _yield$_this6$form$ge = _context3.sent;
               data = _yield$_this6$form$ge.data;
               _this6.categories = data.data;
-            case 2:
-              return _context3.a(2);
+            case 5:
+            case "end":
+              return _context3.stop();
           }
         }, _callee3);
       }))();
@@ -6784,14 +3287,15 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
     // Handle category created event
     handleCategoryCreated: function handleCategoryCreated() {
       var _this7 = this;
-      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee4() {
-        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context4) {
-          while (1) switch (_context4.n) {
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee4() {
+        return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee4$(_context4) {
+          while (1) switch (_context4.prev = _context4.next) {
             case 0:
-              _context4.n = 1;
+              _context4.next = 2;
               return _this7.getSubCategories();
-            case 1:
-              return _context4.a(2);
+            case 2:
+            case "end":
+              return _context4.stop();
           }
         }, _callee4);
       }))();
@@ -6799,21 +3303,21 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
     // Handle subcategory created event
     handleSubcategoryCreated: function handleSubcategoryCreated(createdSubcategory) {
       var _this8 = this;
-      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee5() {
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee5() {
         var newSubcategory;
-        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context5) {
-          while (1) switch (_context5.n) {
+        return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee5$(_context5) {
+          while (1) switch (_context5.prev = _context5.next) {
             case 0:
-              _context5.n = 1;
+              _context5.next = 2;
               return _this8.getSubCategories();
-            case 1:
+            case 2:
               if (!(createdSubcategory && createdSubcategory.name)) {
-                _context5.n = 3;
+                _context5.next = 7;
                 break;
               }
-              _context5.n = 2;
+              _context5.next = 5;
               return _this8.$nextTick();
-            case 2:
+            case 5:
               // Find the newly created subcategory in the refreshed list by name
               newSubcategory = _this8.categories.find(function (cat) {
                 return cat.name === createdSubcategory.name;
@@ -6821,8 +3325,9 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
               if (newSubcategory) {
                 _this8.form.subCategory = newSubcategory;
               }
-            case 3:
-              return _context5.a(2);
+            case 7:
+            case "end":
+              return _context5.stop();
           }
         }, _callee5);
       }))();
@@ -6830,21 +3335,21 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
     // Handle unit created event
     handleUnitCreated: function handleUnitCreated(createdUnit) {
       var _this9 = this;
-      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee6() {
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee6() {
         var newUnit;
-        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context6) {
-          while (1) switch (_context6.n) {
+        return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee6$(_context6) {
+          while (1) switch (_context6.prev = _context6.next) {
             case 0:
-              _context6.n = 1;
+              _context6.next = 2;
               return _this9.getUnits();
-            case 1:
+            case 2:
               if (!(createdUnit && createdUnit.name)) {
-                _context6.n = 3;
+                _context6.next = 7;
                 break;
               }
-              _context6.n = 2;
+              _context6.next = 5;
               return _this9.$nextTick();
-            case 2:
+            case 5:
               // Find the newly created unit in the refreshed list by name or code
               newUnit = _this9.units.find(function (unit) {
                 return unit.name === createdUnit.name || unit.code === createdUnit.code;
@@ -6852,8 +3357,9 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
               if (newUnit) {
                 _this9.form.itemUnit = newUnit;
               }
-            case 3:
-              return _context6.a(2);
+            case 7:
+            case "end":
+              return _context6.stop();
           }
         }, _callee6);
       }))();
@@ -6861,19 +3367,20 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
     // get all brands
     getBrands: function getBrands() {
       var _this0 = this;
-      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee7() {
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee7() {
         var _yield$axios$get2, data;
-        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context7) {
-          while (1) switch (_context7.n) {
+        return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee7$(_context7) {
+          while (1) switch (_context7.prev = _context7.next) {
             case 0:
-              _context7.n = 1;
+              _context7.next = 2;
               return axios_default().get(window.location.origin + "/api/all-brands");
-            case 1:
-              _yield$axios$get2 = _context7.v;
+            case 2:
+              _yield$axios$get2 = _context7.sent;
               data = _yield$axios$get2.data;
               _this0.brands = data.data;
-            case 2:
-              return _context7.a(2);
+            case 5:
+            case "end":
+              return _context7.stop();
           }
         }, _callee7);
       }))();
@@ -6881,19 +3388,20 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
     // get all units
     getUnits: function getUnits() {
       var _this1 = this;
-      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee8() {
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee8() {
         var _yield$axios$get3, data;
-        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context8) {
-          while (1) switch (_context8.n) {
+        return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee8$(_context8) {
+          while (1) switch (_context8.prev = _context8.next) {
             case 0:
-              _context8.n = 1;
+              _context8.next = 2;
               return axios_default().get(window.location.origin + "/api/all-units");
-            case 1:
-              _yield$axios$get3 = _context8.v;
+            case 2:
+              _yield$axios$get3 = _context8.sent;
               data = _yield$axios$get3.data;
               _this1.units = data.data;
-            case 2:
-              return _context8.a(2);
+            case 5:
+            case "end":
+              return _context8.stop();
           }
         }, _callee8);
       }))();
@@ -6901,15 +3409,15 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
     // get all taxes
     getTaxes: function getTaxes() {
       var _this10 = this;
-      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee9() {
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee9() {
         var _yield$axios$get4, data, defaultVatRateSlug;
-        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context9) {
-          while (1) switch (_context9.n) {
+        return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee9$(_context9) {
+          while (1) switch (_context9.prev = _context9.next) {
             case 0:
-              _context9.n = 1;
+              _context9.next = 2;
               return axios_default().get(window.location.origin + "/api/all-vat-rates");
-            case 1:
-              _yield$axios$get4 = _context9.v;
+            case 2:
+              _yield$axios$get4 = _context9.sent;
               data = _yield$axios$get4.data;
               _this10.taxes = data.data;
               // assign default vat rate
@@ -6920,8 +3428,9 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
                 });
               }
               _this10.calculatePrice();
-            case 2:
-              return _context9.a(2);
+            case 7:
+            case "end":
+              return _context9.stop();
           }
         }, _callee9);
       }))();
@@ -6929,20 +3438,21 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
     // get item code
     getItemCode: function getItemCode() {
       var _this11 = this;
-      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee0() {
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee0() {
         var _yield$axios$get5, data;
-        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context0) {
-          while (1) switch (_context0.n) {
+        return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee0$(_context0) {
+          while (1) switch (_context0.prev = _context0.next) {
             case 0:
-              _context0.n = 1;
+              _context0.next = 2;
               return axios_default().get(window.location.origin + "/api/generate-itemcode");
-            case 1:
-              _yield$axios$get5 = _context0.v;
+            case 2:
+              _yield$axios$get5 = _context0.sent;
               data = _yield$axios$get5.data;
               _this11.form.itemCode = data.code;
               _this11.prefix = data.prefix;
-            case 2:
-              return _context0.a(2);
+            case 6:
+            case "end":
+              return _context0.stop();
           }
         }, _callee0);
       }))();
@@ -7007,19 +3517,19 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
     // save product
     saveProduct: function saveProduct() {
       var _this13 = this;
-      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee10() {
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee10() {
         var _this13$accountRoutin, _this13$accountRoutin2;
-        var openingStockUnitPrice, openingStockCount, servicePurchasePrice, needsSalesAccount, needsPurchaseAccount;
-        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context10) {
-          while (1) switch (_context10.n) {
+        var openingStockUnitPrice, openingStockCount, servicePurchasePrice, needsSalesAccount, needsPurchaseAccount, unitConvValidation, formData, formToPost;
+        return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee10$(_context10) {
+          while (1) switch (_context10.prev = _context10.next) {
             case 0:
               if (_this13.form.itemCode) {
-                _context10.n = 1;
+                _context10.next = 3;
                 break;
               }
-              _context10.n = 1;
+              _context10.next = 3;
               return _this13.getItemCode();
-            case 1:
+            case 3:
               // Ensure price calculation is up-to-date before submission
               _this13.calculatePrice();
 
@@ -7060,26 +3570,28 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
               if (_this13.form.itemType === 'service') {
                 _this13.form.isOpeningStock = false;
                 _this13.form.openingStockCount = "";
+                _this13.form.openingStockEntryUnit = null;
+                _this13.form.openingStockEntryQuantity = "";
                 _this13.form.openingStockUnitPrice = "";
                 _this13.form.purchasePrice = "";
               }
 
               // Validate required fields based on item type
               if (!(_this13.form.itemType === 'service')) {
-                _context10.n = 2;
+                _context10.next = 11;
                 break;
               }
               servicePurchasePrice = parseFloat(_this13.form.servicePurchasePrice) || 0;
               if (!(!_this13.form.servicePurchasePrice || servicePurchasePrice <= 0)) {
-                _context10.n = 2;
+                _context10.next = 11;
                 break;
               }
               ProductCreateModalvue_type_script_lang_js_toast.fire({
                 type: "error",
                 title: _this13.$t("Service Purchase Price is required for services")
               });
-              return _context10.a(2);
-            case 2:
+              return _context10.abrupt("return");
+            case 11:
               // Debug: Log validation state
               console.log("Validation state:", {
                 isSalesAccountAutomatic: _this13.isSalesAccountAutomatic,
@@ -7093,27 +3605,38 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
               // Validate sales account - required if not automatic OR if override is checked
               needsSalesAccount = !_this13.isSalesAccountAutomatic || _this13.form.overrideSalesAccount;
               if (!(needsSalesAccount && !_this13.form.salesAccountId)) {
-                _context10.n = 3;
+                _context10.next = 16;
                 break;
               }
               ProductCreateModalvue_type_script_lang_js_toast.fire({
                 type: "error",
                 title: _this13.$t("Sales Account is required")
               });
-              return _context10.a(2);
-            case 3:
+              return _context10.abrupt("return");
+            case 16:
               // Validate purchase account - required if not automatic OR if override is checked
               needsPurchaseAccount = !_this13.isPurchaseAccountAutomatic || _this13.form.overridePurchaseAccount;
               if (!(needsPurchaseAccount && !_this13.form.purchaseAccountId)) {
-                _context10.n = 4;
+                _context10.next = 20;
                 break;
               }
               ProductCreateModalvue_type_script_lang_js_toast.fire({
                 type: "error",
                 title: _this13.$t("Purchase Account is required")
               });
-              return _context10.a(2);
-            case 4:
+              return _context10.abrupt("return");
+            case 20:
+              unitConvValidation = _this13.validateUnitConversions();
+              if (unitConvValidation.valid) {
+                _context10.next = 24;
+                break;
+              }
+              ProductCreateModalvue_type_script_lang_js_toast.fire({
+                type: "error",
+                title: unitConvValidation.message
+              });
+              return _context10.abrupt("return");
+            case 24:
               // Debug: Log form data being sent
               console.log("=== FORM SUBMISSION DEBUG ===");
               console.log("Item Type:", _this13.form.itemType);
@@ -7131,12 +3654,27 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
               console.log("Form salesAccountId:", _this13.form.salesAccountId);
               console.log("Form purchaseAccountId:", _this13.form.purchaseAccountId);
               console.log("=============================");
-              _context10.n = 5;
-              return _this13.form.post(window.location.origin + "/api/products").then(/*#__PURE__*/function () {
-                var _ref = ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee1(response) {
-                  var openingStockCount, openingStockUnitPrice, purchasePrice, newProduct, formattedProduct, adjustmentPurchasePrice, _adjustmentError$resp, autoAssignedSalesAccountId, autoAssignedPurchaseAccountId, _t3;
-                  return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context1) {
-                    while (1) switch (_context1.p = _context1.n) {
+              formData = _this13.form.data();
+              formData.unit_conversions = _this13.buildUnitConversionsPayload();
+              if (formData.itemUnit && ProductCreateModalvue_type_script_lang_js_typeof(formData.itemUnit) === 'object') {
+                formData.itemUnit = formData.itemUnit.id;
+              }
+              if (formData.subCategory && ProductCreateModalvue_type_script_lang_js_typeof(formData.subCategory) === 'object') {
+                formData.subCategory = formData.subCategory.id;
+              }
+              if (formData.brand && ProductCreateModalvue_type_script_lang_js_typeof(formData.brand) === 'object') {
+                formData.brand = formData.brand.id;
+              }
+              if (formData.productTax && ProductCreateModalvue_type_script_lang_js_typeof(formData.productTax) === 'object') {
+                formData.productTax = formData.productTax.id;
+              }
+              formToPost = new vform_es/* default */.Ay(formData);
+              _context10.next = 49;
+              return formToPost.post(window.location.origin + "/api/products").then(/*#__PURE__*/function () {
+                var _ref = ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee1(response) {
+                  var openingStockCount, openingStockUnitPrice, purchasePrice, newProduct, formattedProduct, adjustmentPurchasePrice, _adjustmentError$resp, autoAssignedSalesAccountId, autoAssignedPurchaseAccountId;
+                  return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee1$(_context1) {
+                    while (1) switch (_context1.prev = _context1.next) {
                       case 0:
                         ProductCreateModalvue_type_script_lang_js_toast.fire({
                           type: "success",
@@ -7148,7 +3686,7 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
                         openingStockUnitPrice = parseFloat(_this13.form.openingStockUnitPrice) || 0; // Get purchasePrice from form (set before submission) or fallback to openingStockUnitPrice
                         purchasePrice = parseFloat(_this13.form.purchasePrice) || openingStockUnitPrice || 0; // Emit the newly created product data
                         if (!(response.data && response.data.data)) {
-                          _context1.n = 4;
+                          _context1.next = 19;
                           break;
                         }
                         newProduct = response.data.data; // Format the product data to match the expected structure for v-select
@@ -7177,32 +3715,32 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
 
                         // Create inventory adjustment if opening stock exists and item type is product
                         if (!(newProduct.itemType === 'product' && openingStockCount > 0 && newProduct.slug)) {
-                          _context1.n = 4;
+                          _context1.next = 19;
                           break;
                         }
-                        _context1.p = 1;
+                        _context1.prev = 9;
                         // Use purchasePrice (from form) or openingStockUnitPrice, with fallback to product's avgPurchasePrice
                         adjustmentPurchasePrice = purchasePrice > 0 ? purchasePrice : openingStockUnitPrice > 0 ? openingStockUnitPrice : newProduct.avgPurchasePrice || 0;
-                        _context1.n = 2;
+                        _context1.next = 13;
                         return _this13.createInventoryAdjustment({
                           productSlug: newProduct.slug,
                           quantity: openingStockCount,
                           purchasePrice: adjustmentPurchasePrice
                         });
-                      case 2:
-                        _context1.n = 4;
+                      case 13:
+                        _context1.next = 19;
                         break;
-                      case 3:
-                        _context1.p = 3;
-                        _t3 = _context1.v;
+                      case 15:
+                        _context1.prev = 15;
+                        _context1.t0 = _context1["catch"](9);
                         // Log error but don't block the product creation success
-                        console.error("Error creating inventory adjustment:", _t3);
+                        console.error("Error creating inventory adjustment:", _context1.t0);
                         ProductCreateModalvue_type_script_lang_js_toast.fire({
                           type: "warning",
                           title: _this13.$t("Product created, but inventory adjustment failed"),
-                          text: ((_adjustmentError$resp = _t3.response) === null || _adjustmentError$resp === void 0 || (_adjustmentError$resp = _adjustmentError$resp.data) === null || _adjustmentError$resp === void 0 ? void 0 : _adjustmentError$resp.message) || _this13.$t("Please create the adjustment manually.")
+                          text: ((_adjustmentError$resp = _context1.t0.response) === null || _adjustmentError$resp === void 0 || (_adjustmentError$resp = _adjustmentError$resp.data) === null || _adjustmentError$resp === void 0 ? void 0 : _adjustmentError$resp.message) || _this13.$t("Please create the adjustment manually.")
                         });
-                      case 4:
+                      case 19:
                         // Store auto-assigned account IDs before reset
                         autoAssignedSalesAccountId = _this13.isSalesAccountAutomatic ? _this13.form.salesAccountId : null;
                         autoAssignedPurchaseAccountId = _this13.isPurchaseAccountAutomatic ? _this13.form.purchaseAccountId : null;
@@ -7220,10 +3758,11 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
                         }
                         _this13.showProductCreateModal = false;
                         _this13.$emit('reloadProducts');
-                      case 5:
-                        return _context1.a(2);
+                      case 29:
+                      case "end":
+                        return _context1.stop();
                     }
-                  }, _callee1, null, [[1, 3]]);
+                  }, _callee1, null, [[9, 15]]);
                 }));
                 return function (_x) {
                   return _ref.apply(this, arguments);
@@ -7265,8 +3804,9 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
                   });
                 }
               });
-            case 5:
-              return _context10.a(2);
+            case 49:
+            case "end":
+              return _context10.stop();
           }
         }, _callee10);
       }))();
@@ -7274,10 +3814,10 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
     // Create inventory adjustment for opening stock
     createInventoryAdjustment: function createInventoryAdjustment(_ref2) {
       var _this14 = this;
-      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee11() {
-        var productSlug, quantity, purchasePrice, adjustmentForm, response, _t4;
-        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context11) {
-          while (1) switch (_context11.p = _context11.n) {
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee11() {
+        var productSlug, quantity, purchasePrice, adjustmentForm, response;
+        return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee11$(_context11) {
+          while (1) switch (_context11.prev = _context11.next) {
             case 0:
               productSlug = _ref2.productSlug, quantity = _ref2.quantity, purchasePrice = _ref2.purchasePrice;
               adjustmentForm = new vform_es/* default */.Ay({
@@ -7292,41 +3832,42 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
                   purchasePrice: purchasePrice
                 }]
               });
-              _context11.p = 1;
-              _context11.n = 2;
+              _context11.prev = 2;
+              _context11.next = 5;
               return adjustmentForm.post(window.location.origin + "/api/inventory-adjustments");
-            case 2:
-              response = _context11.v;
+            case 5:
+              response = _context11.sent;
               ProductCreateModalvue_type_script_lang_js_toast.fire({
                 type: "success",
                 title: _this14.$t("Inventory adjustment created successfully")
               });
-              return _context11.a(2, response);
-            case 3:
-              _context11.p = 3;
-              _t4 = _context11.v;
-              console.error("Error creating inventory adjustment:", _t4);
-              throw _t4;
-            case 4:
-              return _context11.a(2);
+              return _context11.abrupt("return", response);
+            case 10:
+              _context11.prev = 10;
+              _context11.t0 = _context11["catch"](2);
+              console.error("Error creating inventory adjustment:", _context11.t0);
+              throw _context11.t0;
+            case 14:
+            case "end":
+              return _context11.stop();
           }
-        }, _callee11, null, [[1, 3]]);
+        }, _callee11, null, [[2, 10]]);
       }))();
     },
     // Auto-assign sales account
     autoAssignSalesAccount: function autoAssignSalesAccount() {
       var _this15 = this;
-      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee12() {
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee12() {
         var defaultAccount;
-        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context12) {
-          while (1) switch (_context12.n) {
+        return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee12$(_context12) {
+          while (1) switch (_context12.prev = _context12.next) {
             case 0:
               if (!_this15.isAutoAssigningSales) {
-                _context12.n = 1;
+                _context12.next = 2;
                 break;
               }
-              return _context12.a(2);
-            case 1:
+              return _context12.abrupt("return");
+            case 2:
               _this15.isAutoAssigningSales = true;
               try {
                 // For new products, we need to simulate the auto-assignment logic
@@ -7376,8 +3917,9 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
               } finally {
                 _this15.isAutoAssigningSales = false;
               }
-            case 2:
-              return _context12.a(2);
+            case 4:
+            case "end":
+              return _context12.stop();
           }
         }, _callee12);
       }))();
@@ -7385,17 +3927,17 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
     // Auto-assign purchase account
     autoAssignPurchaseAccount: function autoAssignPurchaseAccount() {
       var _this16 = this;
-      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee13() {
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee13() {
         var defaultAccount;
-        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context13) {
-          while (1) switch (_context13.n) {
+        return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee13$(_context13) {
+          while (1) switch (_context13.prev = _context13.next) {
             case 0:
               if (!_this16.isAutoAssigningPurchase) {
-                _context13.n = 1;
+                _context13.next = 2;
                 break;
               }
-              return _context13.a(2);
-            case 1:
+              return _context13.abrupt("return");
+            case 2:
               _this16.isAutoAssigningPurchase = true;
               try {
                 // For new products, we need to simulate the auto-assignment logic
@@ -7445,8 +3987,9 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
               } finally {
                 _this16.isAutoAssigningPurchase = false;
               }
-            case 2:
-              return _context13.a(2);
+            case 4:
+            case "end":
+              return _context13.stop();
           }
         }, _callee13);
       }))();
@@ -7479,23 +4022,23 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
 });
 ;// ./resources/js/components/ProductCreateModal.vue?vue&type=script&lang=js
  /* harmony default export */ const components_ProductCreateModalvue_type_script_lang_js = (ProductCreateModalvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=style&index=0&id=043bcf2b&prod&scoped=true&lang=css
-var ProductCreateModalvue_type_style_index_0_id_043bcf2b_prod_scoped_true_lang_css = __webpack_require__(79338);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=style&index=0&id=043bcf2b&prod&scoped=true&lang=css
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=style&index=0&id=2ee3bdce&prod&scoped=true&lang=css
+var ProductCreateModalvue_type_style_index_0_id_2ee3bdce_prod_scoped_true_lang_css = __webpack_require__(34103);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=style&index=0&id=2ee3bdce&prod&scoped=true&lang=css
 
             
 
-var ProductCreateModalvue_type_style_index_0_id_043bcf2b_prod_scoped_true_lang_css_options = {};
+var ProductCreateModalvue_type_style_index_0_id_2ee3bdce_prod_scoped_true_lang_css_options = {};
 
-ProductCreateModalvue_type_style_index_0_id_043bcf2b_prod_scoped_true_lang_css_options.insert = "head";
-ProductCreateModalvue_type_style_index_0_id_043bcf2b_prod_scoped_true_lang_css_options.singleton = false;
+ProductCreateModalvue_type_style_index_0_id_2ee3bdce_prod_scoped_true_lang_css_options.insert = "head";
+ProductCreateModalvue_type_style_index_0_id_2ee3bdce_prod_scoped_true_lang_css_options.singleton = false;
 
-var ProductCreateModalvue_type_style_index_0_id_043bcf2b_prod_scoped_true_lang_css_update = injectStylesIntoStyleTag_default()(ProductCreateModalvue_type_style_index_0_id_043bcf2b_prod_scoped_true_lang_css/* default */.A, ProductCreateModalvue_type_style_index_0_id_043bcf2b_prod_scoped_true_lang_css_options);
+var ProductCreateModalvue_type_style_index_0_id_2ee3bdce_prod_scoped_true_lang_css_update = injectStylesIntoStyleTag_default()(ProductCreateModalvue_type_style_index_0_id_2ee3bdce_prod_scoped_true_lang_css/* default */.A, ProductCreateModalvue_type_style_index_0_id_2ee3bdce_prod_scoped_true_lang_css_options);
 
 
 
-/* harmony default export */ const components_ProductCreateModalvue_type_style_index_0_id_043bcf2b_prod_scoped_true_lang_css = (ProductCreateModalvue_type_style_index_0_id_043bcf2b_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/components/ProductCreateModal.vue?vue&type=style&index=0&id=043bcf2b&prod&scoped=true&lang=css
+/* harmony default export */ const components_ProductCreateModalvue_type_style_index_0_id_2ee3bdce_prod_scoped_true_lang_css = (ProductCreateModalvue_type_style_index_0_id_2ee3bdce_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/components/ProductCreateModal.vue?vue&type=style&index=0&id=2ee3bdce&prod&scoped=true&lang=css
 
 ;// ./resources/js/components/ProductCreateModal.vue
 
@@ -7512,7 +4055,7 @@ var ProductCreateModal_component = (0,componentNormalizer/* default */.A)(
   staticRenderFns,
   false,
   null,
-  "043bcf2b",
+  "2ee3bdce",
   null
   
 )
@@ -7521,88 +4064,7 @@ var ProductCreateModal_component = (0,componentNormalizer/* default */.A)(
 
 /***/ }),
 
-/***/ 71545:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-const bn_IN_1 = __importDefault(__webpack_require__(82689));
-const ee_EE_1 = __importDefault(__webpack_require__(74938));
-const en_AE_1 = __importDefault(__webpack_require__(8550));
-const en_BD_1 = __importDefault(__webpack_require__(41061));
-const en_GB_1 = __importDefault(__webpack_require__(54330));
-const en_GH_1 = __importDefault(__webpack_require__(59096));
-const en_IE_1 = __importDefault(__webpack_require__(21470));
-const en_IN_1 = __importDefault(__webpack_require__(144));
-const en_MM_1 = __importDefault(__webpack_require__(38765));
-const en_MU_1 = __importDefault(__webpack_require__(74261));
-const en_NG_1 = __importDefault(__webpack_require__(92952));
-const en_NP_1 = __importDefault(__webpack_require__(26365));
-const en_OM_1 = __importDefault(__webpack_require__(28787));
-const en_PH_1 = __importDefault(__webpack_require__(82779));
-const en_US_1 = __importDefault(__webpack_require__(84463));
-const es_AR_1 = __importDefault(__webpack_require__(46709));
-const es_ES_1 = __importDefault(__webpack_require__(60130));
-const es_MX_1 = __importDefault(__webpack_require__(65903));
-const fa_IR_1 = __importDefault(__webpack_require__(10982));
-const fr_BE_1 = __importDefault(__webpack_require__(69543));
-const fr_FR_1 = __importDefault(__webpack_require__(28834));
-const gu_IN_1 = __importDefault(__webpack_require__(47229));
-const hi_IN_1 = __importDefault(__webpack_require__(37460));
-const kn_IN_1 = __importDefault(__webpack_require__(27002));
-const ko_KR_1 = __importDefault(__webpack_require__(58041));
-const lv_LV_1 = __importDefault(__webpack_require__(34922));
-const mr_IN_1 = __importDefault(__webpack_require__(33972));
-const nl_SR_1 = __importDefault(__webpack_require__(55101));
-const np_NP_1 = __importDefault(__webpack_require__(35262));
-const pt_BR_1 = __importDefault(__webpack_require__(21722));
-const tr_TR_1 = __importDefault(__webpack_require__(44130));
-const ur_PK_1 = __importDefault(__webpack_require__(56386));
-const es_VE_1 = __importDefault(__webpack_require__(68224));
-const LOCALES = {
-    'bn-IN': bn_IN_1.default,
-    'ee-EE': ee_EE_1.default,
-    'en-AE': en_AE_1.default,
-    'en-BD': en_BD_1.default,
-    'en-GB': en_GB_1.default,
-    'en-GH': en_GH_1.default,
-    'en-IE': en_IE_1.default,
-    'en-IN': en_IN_1.default,
-    'en-MM': en_MM_1.default,
-    'en-MU': en_MU_1.default,
-    'en-NG': en_NG_1.default,
-    'en-NP': en_NP_1.default,
-    'en-OM': en_OM_1.default,
-    'en-PH': en_PH_1.default,
-    'en-US': en_US_1.default,
-    'es-AR': es_AR_1.default,
-    'es-ES': es_ES_1.default,
-    'es-MX': es_MX_1.default,
-    'fa-IR': fa_IR_1.default,
-    'fr-BE': fr_BE_1.default,
-    'fr-FR': fr_FR_1.default,
-    'gu-IN': gu_IN_1.default,
-    'hi-IN': hi_IN_1.default,
-    'kn-IN': kn_IN_1.default,
-    'ko-KR': ko_KR_1.default,
-    'lv-LV': lv_LV_1.default,
-    'mr-IN': mr_IN_1.default,
-    'nl-SR': nl_SR_1.default,
-    'np-NP': np_NP_1.default,
-    'pt-BR': pt_BR_1.default,
-    'tr-TR': tr_TR_1.default,
-    'ur-PK': ur_PK_1.default,
-    'es-VE': es_VE_1.default,
-};
-exports["default"] = LOCALES;
-
-
-/***/ }),
-
-/***/ 74261:
+/***/ 26365:
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -7614,11 +4076,11 @@ class Locale {
                 name: 'Rupee',
                 plural: 'Rupees',
                 singular: 'Rupee',
-                symbol: 'Rs',
+                symbol: '₹',
                 fractionalUnit: {
-                    name: 'Cent',
-                    singular: 'Cent',
-                    plural: 'Cents',
+                    name: 'Paisa',
+                    singular: 'Paisa',
+                    plural: 'Paisa',
                     symbol: '',
                 },
             },
@@ -7629,6 +4091,8 @@ class Locale {
                 point: 'Point',
             },
             numberWordsMapping: [
+                { number: 100000000000, value: 'Kharab' },
+                { number: 1000000000, value: 'Arab' },
                 { number: 10000000, value: 'Crore' },
                 { number: 100000, value: 'Lakh' },
                 { number: 1000, value: 'Thousand' },
@@ -7671,659 +4135,7 @@ exports["default"] = Locale;
 
 /***/ }),
 
-/***/ 74938:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'Euro',
-                plural: 'Eurot',
-                singular: 'Euro',
-                symbol: '€',
-                fractionalUnit: {
-                    name: 'Sent',
-                    singular: 'Sent',
-                    plural: 'Senti',
-                    symbol: '¢',
-                },
-            },
-            texts: {
-                and: 'Ja',
-                minus: 'Miinus',
-                only: 'Ainult',
-                point: 'Koma',
-            },
-            numberWordsMapping: [
-                { number: 1000000000000000, value: 'Kvadriljon' },
-                { number: 1000000000000, value: 'Triljon' },
-                { number: 1000000000, value: 'Miljard' },
-                { number: 1000000, value: 'Miljon' },
-                { number: 1000, value: 'Tuhat' },
-                { number: 900, value: 'Üheksasada' },
-                { number: 800, value: 'Kaheksasada' },
-                { number: 700, value: 'Seitsesada' },
-                { number: 600, value: 'Kuussada' },
-                { number: 500, value: 'Viissada' },
-                { number: 400, value: 'Nelisada' },
-                { number: 300, value: 'Kolmsada' },
-                { number: 200, value: 'Kakssada' },
-                { number: 100, value: 'Sada' },
-                { number: 90, value: 'Üheksakümmend' },
-                { number: 80, value: 'Kaheksakümmend' },
-                { number: 70, value: 'Seitsekümmend' },
-                { number: 60, value: 'Kuuskümmend' },
-                { number: 50, value: 'Viiskümmend' },
-                { number: 40, value: 'Nelikümmend' },
-                { number: 30, value: 'Kolmkümmend' },
-                { number: 20, value: 'Kakskümmend' },
-                { number: 19, value: 'Üheksateist' },
-                { number: 18, value: 'Kaheksateist' },
-                { number: 17, value: 'Seitseteist' },
-                { number: 16, value: 'Kuusteist' },
-                { number: 15, value: 'Viisteist' },
-                { number: 14, value: 'Neliteist' },
-                { number: 13, value: 'Kolmteist' },
-                { number: 12, value: 'Kaksteist' },
-                { number: 11, value: 'Üksteist' },
-                { number: 10, value: 'Kümme' },
-                { number: 9, value: 'Üheksa' },
-                { number: 8, value: 'Kaheksa' },
-                { number: 7, value: 'Seitse' },
-                { number: 6, value: 'Kuus' },
-                { number: 5, value: 'Viis' },
-                { number: 4, value: 'Neli' },
-                { number: 3, value: 'Kolm' },
-                { number: 2, value: 'Kaks' },
-                { number: 1, value: 'Üks' },
-                { number: 0, value: 'Null' },
-            ],
-            ignoreOneForWords: [
-                'Sada',
-                'Kakssada',
-                'Kolmsada',
-                'Nelisada',
-                'Viissada',
-                'Kuussada',
-                'Seitsesada',
-                'Kaheksasada',
-                'Üheksasada',
-            ],
-            exactWordsMapping: [
-                {
-                    number: 100,
-                    value: 'Ükssada',
-                },
-            ],
-            pluralWords: ['Miljon', 'Miljard', 'Trillion', 'Kvadriljon'],
-            pluralMark: 'it',
-            onlyInFront: true,
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 78159:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  A: () => (/* binding */ SupplierCreateModal)
-});
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierCreateModal.vue?vue&type=template&id=3a12f826&scoped=true
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', [_c('VModal', {
-    on: {
-      "close": function close($event) {
-        _vm.showSupplierCreateModal = false;
-      }
-    },
-    scopedSlots: _vm._u([{
-      key: "title",
-      fn: function fn() {
-        return [_vm._v(_vm._s(_vm.$t("Create Supplier")))];
-      },
-      proxy: true
-    }]),
-    model: {
-      value: _vm.showSupplierCreateModal,
-      callback: function callback($$v) {
-        _vm.showSupplierCreateModal = $$v;
-      },
-      expression: "showSupplierCreateModal"
-    }
-  }, [_vm._v(" "), [_c('SupplierForm', {
-    ref: "supplierForm",
-    attrs: {
-      "showCardBody": false,
-      "fullWidthSections": true
-    },
-    on: {
-      "submit": _vm.saveSupplier
-    }
-  }), _vm._v(" "), _c('div', {
-    attrs: {
-      "slot": "modal-footer"
-    },
-    slot: "modal-footer"
-  }, [_c('button', {
-    staticClass: "btn btn-success",
-    attrs: {
-      "disabled": _vm.isSubmitting
-    },
-    on: {
-      "click": function click($event) {
-        return _vm.submitItem($event);
-      }
-    }
-  }, [_vm.isSubmitting ? _c('i', {
-    staticClass: "fas fa-spinner fa-spin"
-  }) : _c('i', {
-    staticClass: "fas fa-save"
-  }), _vm._v("\n          " + _vm._s(_vm.isSubmitting ? _vm.$t("Saving...") : _vm.$t("Save")) + "\n        ")])])]], 2), _vm._v(" "), _c('a', {
-    staticClass: "create-button",
-    on: {
-      "click": _vm.toggleModal
-    }
-  }, [_vm._t("default")], 2)], 1);
-};
-var staticRenderFns = [];
-
-// EXTERNAL MODULE: ./resources/js/components/SupplierForm.vue + 6 modules
-var SupplierForm = __webpack_require__(82190);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierCreateModal.vue?vue&type=script&lang=js
-function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
-function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
-function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
-function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
-function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
-function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
-function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
-
-/* harmony default export */ const SupplierCreateModalvue_type_script_lang_js = ({
-  name: "SupplierCreateModal",
-  middleware: ["auth", "check-permissions"],
-  components: {
-    SupplierForm: SupplierForm/* default */.A
-  },
-  data: function data() {
-    return {
-      showSupplierCreateModal: false,
-      form: null,
-      isSubmitting: false
-    };
-  },
-  methods: {
-    // save supplier
-    saveSupplier: function saveSupplier() {
-      var _this = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-        var _this$$refs$supplierF, formData, fd, appendIfDefined, taxStatusValue, taxStatusToSend, name, address, response, status, serverErrors, form, errorMessages, errorsObject, mapped, errorTitle, _error$response, errorMessage, _t;
-        return _regenerator().w(function (_context) {
-          while (1) switch (_context.p = _context.n) {
-            case 0:
-              if (!_this.isSubmitting) {
-                _context.n = 1;
-                break;
-              }
-              return _context.a(2);
-            case 1:
-              _this.isSubmitting = true;
-              _context.p = 2;
-              if (_this.$refs.supplierForm.validateForm()) {
-                _context.n = 3;
-                break;
-              }
-              _this.isSubmitting = false;
-              return _context.a(2);
-            case 3:
-              // Get the form data from the SupplierForm component
-              formData = _this.$refs.supplierForm.getFormData(); // Build multipart/form-data to properly send files and handle boolean conversion
-              fd = new FormData();
-              appendIfDefined = function appendIfDefined(key, value) {
-                if (value !== undefined && value !== null && value !== '') {
-                  fd.append(key, value);
-                }
-              }; // Debug: Log formData before building FormData - CRITICAL
-              console.log('SupplierCreateModal - formData received:', {
-                taxStatus: formData.taxStatus,
-                tax_status: formData.tax_status,
-                allFormData: formData
-              });
-              console.log('SupplierCreateModal - formData keys:', Object.keys(formData || {}));
-              console.log('SupplierCreateModal - formData.taxStatus type:', _typeof(formData.taxStatus));
-              console.log('SupplierCreateModal - formData.taxStatus value:', formData.taxStatus);
-              console.log('SupplierCreateModal - formData.tax_status value:', formData.tax_status);
-              console.log('SupplierCreateModal - $refs.supplierForm exists:', !!_this.$refs.supplierForm);
-              console.log('SupplierCreateModal - $refs.supplierForm.form exists:', !!(_this.$refs.supplierForm && _this.$refs.supplierForm.form));
-              if (_this.$refs.supplierForm && _this.$refs.supplierForm.form) {
-                console.log('SupplierCreateModal - form.taxStatus:', _this.$refs.supplierForm.form.taxStatus);
-                console.log('SupplierCreateModal - form.data() taxStatus:', _this.$refs.supplierForm.form.data ? _this.$refs.supplierForm.form.data().taxStatus : 'N/A');
-              }
-
-              // Simple scalar fields
-              appendIfDefined('codeNumber', formData.codeNumber);
-              appendIfDefined('notes', formData.notes);
-              appendIfDefined('displayLanguage', formData.displayLanguage);
-              appendIfDefined('type', formData.type);
-
-              // CRITICAL: Always append taxStatus - don't use appendIfDefined to ensure it's always sent
-              // Get taxStatus from formData, or try to get it from form object if available
-              taxStatusValue = formData.taxStatus || formData.tax_status;
-              console.log('SupplierCreateModal - Initial taxStatus check:', {
-                formDataTaxStatus: formData.taxStatus,
-                formDataTax_status: formData.tax_status,
-                currentTaxStatusValue: taxStatusValue
-              });
-
-              // If still not found, try to get it from the form component
-              if (!taxStatusValue && _this.$refs.supplierForm && _this.$refs.supplierForm.form) {
-                taxStatusValue = _this.$refs.supplierForm.form.taxStatus;
-                console.log('SupplierCreateModal - Got taxStatus from form object:', taxStatusValue);
-              }
-
-              // Default to non_taxable if still not found
-              taxStatusValue = taxStatusValue || 'non_taxable';
-              console.log('SupplierCreateModal - Final taxStatusValue before appending:', taxStatusValue);
-
-              // Always append taxStatus - never skip it, even if it's the default value
-              // CRITICAL: Use explicit string conversion and ensure it's never null/undefined
-              taxStatusToSend = String(taxStatusValue || 'non_taxable');
-              fd.append('taxStatus', taxStatusToSend);
-              fd.append('tax_status', taxStatusToSend);
-              console.log('=== SUPPLIER CREATE MODAL - APPENDING TAX STATUS ===');
-              console.log('SupplierCreateModal - taxStatusValue:', taxStatusValue);
-              console.log('SupplierCreateModal - taxStatusToSend:', taxStatusToSend);
-              console.log('SupplierCreateModal - Appended taxStatus to FormData:', taxStatusToSend);
-              console.log('SupplierCreateModal - formData.taxStatus:', formData.taxStatus);
-              console.log('SupplierCreateModal - formData.tax_status:', formData.tax_status);
-              console.log('SupplierCreateModal - form.taxStatus:', (_this$$refs$supplierF = _this.$refs.supplierForm) === null || _this$$refs$supplierF === void 0 || (_this$$refs$supplierF = _this$$refs$supplierF.form) === null || _this$$refs$supplierF === void 0 ? void 0 : _this$$refs$supplierF.taxStatus);
-
-              // Verify it was added
-              console.log('SupplierCreateModal - FormData has taxStatus:', fd.has('taxStatus'));
-              console.log('SupplierCreateModal - FormData has tax_status:', fd.has('tax_status'));
-              appendIfDefined('fullName', formData.fullName);
-              appendIfDefined('businessName', formData.businessName);
-              appendIfDefined('companyName', formData.businessName);
-              appendIfDefined('firstName', formData.firstName);
-              appendIfDefined('lastName', formData.lastName);
-              appendIfDefined('phone', formData.phone);
-              appendIfDefined('phoneNumber', formData.phoneNumber);
-              appendIfDefined('email', formData.email);
-              appendIfDefined('streetAddress1', formData.streetAddress1);
-              appendIfDefined('streetAddress2', formData.streetAddress2);
-              appendIfDefined('city', formData.city);
-              appendIfDefined('state', formData.state);
-              appendIfDefined('postalCode', formData.postalCode);
-              appendIfDefined('country', formData.country);
-              appendIfDefined('saudi_region', formData.saudi_region);
-              appendIfDefined('neighbourhood', formData.neighbourhood);
-              appendIfDefined('commercialRegister', formData.commercialRegister);
-              appendIfDefined('taxCard', formData.taxCard);
-              appendIfDefined('status', formData.status);
-
-              // Saudi National Address Fields
-              appendIfDefined('buildingNumber', formData.buildingNumber);
-              appendIfDefined('streetNumber', formData.streetNumber);
-              appendIfDefined('districtNumber', formData.districtNumber);
-              appendIfDefined('unitNumber', formData.unitNumber);
-              appendIfDefined('additionalNumber', formData.additionalNumber);
-              appendIfDefined('taxRegistrationNumber', formData.taxRegistrationNumber || formData.taxCard);
-
-              // Handle name field - always required when type is Individual
-              name = formData.name || (formData.type === 'Individual' ? formData.fullName : formData.businessName);
-              if (name) {
-                fd.append('name', name);
-              }
-
-              // Handle address field
-              address = formData.address || formData.streetAddress1;
-              if (address) {
-                fd.append('address', address);
-              }
-
-              // Convert boolean values to integers for Laravel validation
-              appendIfDefined('isSendEmail', formData.isSendEmail ? 1 : 0);
-              appendIfDefined('isSendSMS', formData.isSendSMS ? 1 : 0);
-
-              // Chart of account id (number or object)
-              if (formData.chartOfAccountId && _typeof(formData.chartOfAccountId) === 'object' && formData.chartOfAccountId.id) {
-                appendIfDefined('chartOfAccountId', formData.chartOfAccountId.id);
-              } else {
-                appendIfDefined('chartOfAccountId', formData.chartOfAccountId);
-              }
-
-              // Image file
-              if (formData.image instanceof File) {
-                fd.append('image', formData.image);
-              }
-
-              // Attachments as files
-              if (Array.isArray(formData.attachments)) {
-                formData.attachments.forEach(function (file, idx) {
-                  if (file instanceof File) {
-                    fd.append("attachments[".concat(idx, "]"), file);
-                  }
-                });
-              }
-
-              // Representatives array (as nested fields)
-              if (Array.isArray(formData.representatives)) {
-                formData.representatives.forEach(function (rep, i) {
-                  if (!rep) return;
-                  if (rep.name !== undefined && rep.name !== null) fd.append("representatives[".concat(i, "][name]"), rep.name);
-                  if (rep.email) fd.append("representatives[".concat(i, "][email]"), rep.email);
-                  if (rep.phone) fd.append("representatives[".concat(i, "][phone]"), rep.phone);
-                  if (rep.position) fd.append("representatives[".concat(i, "][position]"), rep.position);
-                  if (rep.is_primary !== undefined && rep.is_primary !== null) fd.append("representatives[".concat(i, "][is_primary]"), rep.is_primary ? 1 : 0);
-                  if (rep.notes) fd.append("representatives[".concat(i, "][notes]"), rep.notes);
-                });
-              }
-              _context.n = 4;
-              return _this.$http.post("/api/suppliers", fd, {
-                headers: {
-                  'Content-Type': 'multipart/form-data'
-                }
-              });
-            case 4:
-              response = _context.v;
-              if (!response.data.success) {
-                _context.n = 5;
-                break;
-              }
-              toast.fire({
-                type: "success",
-                title: _this.$t("Supplier added successfully")
-              });
-              _this.$emit("reloadSuppliers");
-              _this.$refs.supplierForm.resetForm();
-              _this.showSupplierCreateModal = false;
-              _this.form = null; // Reset form reference
-              _context.n = 6;
-              break;
-            case 5:
-              throw new Error(response.data.message || 'Failed to create supplier');
-            case 6:
-              _context.n = 8;
-              break;
-            case 7:
-              _context.p = 7;
-              _t = _context.v;
-              console.error("Error creating supplier:", _t);
-              status = _t && _t.response && _t.response.status;
-              serverErrors = _t && _t.response && _t.response.data && _t.response.data.errors;
-              if (status === 422 && serverErrors && _this.$refs.supplierForm) {
-                // Get form object directly from SupplierForm component
-                form = _this.$refs.supplierForm.form;
-                errorMessages = []; // Prepare errors object for vform
-                errorsObject = {};
-                Object.keys(serverErrors).forEach(function (key) {
-                  var messages = serverErrors[key];
-                  if (Array.isArray(messages) && messages.length > 0) {
-                    // Translate messages before adding to errorsObject
-                    var translatedMessages = messages.map(function (msg) {
-                      return _this.translateValidationMessage(msg, key);
-                    });
-                    errorsObject[key] = translatedMessages;
-
-                    // Collect error messages for toast notification
-                    var fieldLabel = _this.getFieldLabel(key);
-                    translatedMessages.forEach(function (msg) {
-                      errorMessages.push("".concat(fieldLabel, ": ").concat(msg));
-                    });
-
-                    // Also map attachments.* to attachments field for UI display
-                    if (key.startsWith('attachments.')) {
-                      if (!errorsObject.attachments) {
-                        errorsObject.attachments = translatedMessages;
-                      }
-                    }
-                  }
-                });
-
-                // Set errors on form using vform's set method
-                if (form && form.errors && typeof form.errors.set === 'function') {
-                  form.errors.set(errorsObject);
-                  console.log('SupplierCreateModal - Set errors on form:', errorsObject);
-                } else if (form && form.errors && typeof form.errors.record === 'function') {
-                  // Fallback to record method if set is not available
-                  mapped = {};
-                  Object.keys(errorsObject).forEach(function (key) {
-                    mapped[key] = Array.isArray(errorsObject[key]) ? errorsObject[key][0] : errorsObject[key];
-                  });
-                  form.errors.record(mapped);
-                  console.log('SupplierCreateModal - Recorded errors on form (fallback):', mapped);
-                } else {
-                  console.warn('SupplierCreateModal - Form errors object not available or invalid');
-                }
-
-                // Show detailed error messages in toast
-                errorTitle = errorMessages.length > 0 ? errorMessages.slice(0, 3).join(' | ') + (errorMessages.length > 3 ? " (+".concat(errorMessages.length - 3, " more)") : '') : _this.$t("Please check the form for errors and try again.");
-                toast.fire({
-                  type: "error",
-                  title: _this.$t("Validation Error"),
-                  text: errorTitle,
-                  html: errorMessages.length > 0 ? "<div style=\"text-align: left; max-height: 200px; overflow-y: auto;\">".concat(errorMessages.map(function (msg) {
-                    return "<div>\u2022 ".concat(msg, "</div>");
-                  }).join(''), "</div>") : undefined
-                });
-              } else {
-                errorMessage = ((_error$response = _t.response) === null || _error$response === void 0 || (_error$response = _error$response.data) === null || _error$response === void 0 ? void 0 : _error$response.message) || _this.$t("Please check your input and try again.");
-                toast.fire({
-                  type: "error",
-                  title: errorMessage
-                });
-              }
-            case 8:
-              _context.p = 8;
-              _this.isSubmitting = false;
-              return _context.f(8);
-            case 9:
-              return _context.a(2);
-          }
-        }, _callee, null, [[2, 7, 8, 9]]);
-      }))();
-    },
-    toggleModal: function toggleModal() {
-      this.showSupplierCreateModal = !this.showSupplierCreateModal;
-      // Reset form when opening modal
-      if (this.showSupplierCreateModal) {
-        this.form = null;
-        this.isSubmitting = false;
-      }
-    },
-    submitItem: function submitItem(evt) {
-      evt.preventDefault();
-      this.saveSupplier();
-    },
-    // Get field label for error messages
-    getFieldLabel: function getFieldLabel(field) {
-      var fieldLabelMap = {
-        codeNumber: this.$t('Code Number'),
-        notes: this.$t('Notes'),
-        displayLanguage: this.$t('Display Language'),
-        type: this.$t('Type'),
-        fullName: this.$t('Full Name'),
-        businessName: this.$t('Business Name'),
-        firstName: this.$t('First Name'),
-        lastName: this.$t('Last Name'),
-        phone: this.$t('Phone'),
-        phoneNumber: this.$t('Mobile Number'),
-        email: this.$t('Email'),
-        streetAddress1: this.$t('Street Address 1'),
-        streetAddress2: this.$t('Street Address 2'),
-        city: this.$t('City'),
-        state: this.$t('State'),
-        postalCode: this.$t('Postal Code'),
-        country: this.$t('Country'),
-        neighbourhood: this.$t('Neighbourhood'),
-        commercialRegister: this.$t('Commercial Register'),
-        taxCard: this.$t('Tax Card'),
-        buildingNumber: this.$t('Building Number'),
-        streetNumber: this.$t('Street Number'),
-        districtNumber: this.$t('District Number'),
-        unitNumber: this.$t('Unit Number'),
-        additionalNumber: this.$t('Additional Number'),
-        taxStatus: this.$t('Tax Status'),
-        taxRegistrationNumber: this.$t('Tax Registration Number'),
-        image: this.$t('Image'),
-        attachments: this.$t('Attachments'),
-        status: this.$t('Status'),
-        chartOfAccountId: this.$t('Chart of Account')
-      };
-      return fieldLabelMap[field] || field;
-    },
-    // translate validation messages from backend to localized messages
-    translateValidationMessage: function translateValidationMessage(message, field) {
-      // If there is a direct translation key, use it
-      var direct = this.$t(message);
-      if (direct && direct !== message) return direct;
-
-      // Get current locale
-      var currentLocale = this.$i18n.locale || 'en';
-      var isArabic = currentLocale === 'ar';
-
-      // Field label mapping for supplier form fields
-      var fieldLabelMap = {
-        codeNumber: this.$t('Code Number'),
-        notes: this.$t('Notes'),
-        displayLanguage: this.$t('Display Language'),
-        type: this.$t('Type'),
-        fullName: this.$t('Full Name'),
-        businessName: this.$t('Business Name'),
-        firstName: this.$t('First Name'),
-        lastName: this.$t('Last Name'),
-        phone: this.$t('Phone'),
-        phoneNumber: this.$t('Mobile Number'),
-        email: this.$t('Email'),
-        streetAddress1: this.$t('Street Address 1'),
-        streetAddress2: this.$t('Street Address 2'),
-        city: this.$t('City'),
-        state: this.$t('State'),
-        postalCode: this.$t('Postal Code'),
-        country: this.$t('Country'),
-        neighbourhood: this.$t('Neighbourhood'),
-        commercialRegister: this.$t('Commercial Register'),
-        taxCard: this.$t('Tax Card'),
-        buildingNumber: this.$t('Building Number'),
-        streetNumber: this.$t('Street Number'),
-        districtNumber: this.$t('District Number'),
-        unitNumber: this.$t('Unit Number'),
-        additionalNumber: this.$t('Additional Number'),
-        taxStatus: this.$t('Tax Status'),
-        taxRegistrationNumber: this.$t('Tax Registration Number'),
-        image: this.$t('Image'),
-        attachments: this.$t('Attachments'),
-        status: this.$t('Status'),
-        chartOfAccountId: this.$t('Chart of Account')
-      };
-
-      // Try to translate common validation messages
-      var commonMessages = {
-        'required': isArabic ? 'مطلوب' : 'required',
-        'must be exactly 15 digits': isArabic ? 'يجب أن يكون 15 رقم بالضبط' : 'must be exactly 15 digits',
-        'must contain only numbers and be 15 digits': isArabic ? 'يجب أن يحتوي على أرقام فقط ويكون 15 رقم' : 'must contain only numbers and be 15 digits'
-      };
-
-      // Check if message contains common patterns
-      for (var _i = 0, _Object$entries = Object.entries(commonMessages); _i < _Object$entries.length; _i++) {
-        var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
-          pattern = _Object$entries$_i[0],
-          translation = _Object$entries$_i[1];
-        if (message.toLowerCase().includes(pattern.toLowerCase())) {
-          var fieldLabel = fieldLabelMap[field] || field;
-          return "".concat(fieldLabel, ": ").concat(translation);
-        }
-      }
-
-      // Return original message if no translation found
-      return message;
-    }
-  }
-});
-;// ./resources/js/components/SupplierCreateModal.vue?vue&type=script&lang=js
- /* harmony default export */ const components_SupplierCreateModalvue_type_script_lang_js = (SupplierCreateModalvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-var injectStylesIntoStyleTag = __webpack_require__(85072);
-var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierCreateModal.vue?vue&type=style&index=0&id=3a12f826&prod&scoped=true&lang=css
-var SupplierCreateModalvue_type_style_index_0_id_3a12f826_prod_scoped_true_lang_css = __webpack_require__(90372);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierCreateModal.vue?vue&type=style&index=0&id=3a12f826&prod&scoped=true&lang=css
-
-            
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = injectStylesIntoStyleTag_default()(SupplierCreateModalvue_type_style_index_0_id_3a12f826_prod_scoped_true_lang_css/* default */.A, options);
-
-
-
-/* harmony default export */ const components_SupplierCreateModalvue_type_style_index_0_id_3a12f826_prod_scoped_true_lang_css = (SupplierCreateModalvue_type_style_index_0_id_3a12f826_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/components/SupplierCreateModal.vue?vue&type=style&index=0&id=3a12f826&prod&scoped=true&lang=css
-
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/components/SupplierCreateModal.vue
-
-
-
-;
-
-
-/* normalize component */
-
-var component = (0,componentNormalizer/* default */.A)(
-  components_SupplierCreateModalvue_type_script_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  "3a12f826",
-  null
-  
-)
-
-/* harmony default export */ const SupplierCreateModal = (component.exports);
-
-/***/ }),
-
-/***/ 79338:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".form-card[data-v-043bcf2b]{background:#fff;border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-bottom:1.25rem;margin-top:20px;transition:all .2s ease}.form-card[data-v-043bcf2b]:hover{box-shadow:0 .1rem .5rem 0 rgba(58,59,69,.15)}.form-card .card-header[data-v-043bcf2b]{background-color:#33a0d9;border-bottom:none;border-radius:20px 20px 0 0;color:#fff;padding:12px 16px}.form-card .card-header .section-title[data-v-043bcf2b]{border:none;color:#fff;font-size:14px;font-weight:600;margin:0;padding:0}.form-card .card-header .section-title[data-v-043bcf2b]:after{display:none}.form-card .card-header .section-title i[data-v-043bcf2b]{color:hsla(0,0%,100%,.8)}.form-card .card-body[data-v-043bcf2b]{padding:16px}.section-title[data-v-043bcf2b]{border-bottom:1px solid #e9ecef;color:#495057;font-weight:600;margin-bottom:15px;padding-bottom:8px}.form-group[data-v-043bcf2b]{margin-bottom:1rem}.form-group label[data-v-043bcf2b]{color:#495057;font-size:.95rem;font-weight:500;margin-bottom:.5rem}.required[data-v-043bcf2b]{color:#dc3545;font-weight:700}.row[data-v-043bcf2b]{margin-bottom:1rem}.row[data-v-043bcf2b]:last-child{margin-bottom:0}.auto-assign-btn[data-v-043bcf2b]{min-width:40px;padding:.375rem .5rem;white-space:nowrap}.auto-assign-btn[data-v-043bcf2b]:disabled{cursor:not-allowed;opacity:.6}.form-text[data-v-043bcf2b]{color:#6c757d;font-size:.8rem;margin-top:3px}.image-preview[data-v-043bcf2b]{text-align:center}.image-preview img[data-v-043bcf2b]{border:1px solid #dee2e6;border-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,.1)}.custom-file-label[data-v-043bcf2b]{background-color:#f8f9fa;border:1px dashed #dee2e6;cursor:pointer;font-size:.85rem;transition:all .2s ease}.custom-file-label[data-v-043bcf2b]:hover{background-color:#e3f2fd;border-color:#007bff}.custom-file-label i[data-v-043bcf2b]{color:#6c757d}.create-button[data-v-043bcf2b]{cursor:pointer;text-decoration:none}.create-btn[data-v-043bcf2b]{border-left:none;border-radius:0 .25rem .25rem 0;cursor:pointer;padding:11px;transition:background-color .2s ease}.create-btn[data-v-043bcf2b]:hover{background-color:#e9ecef}.category-select[data-v-043bcf2b]{margin-right:0!important}.category-select .vs__dropdown-toggle[data-v-043bcf2b]{border-radius:.25rem 0 0 .25rem!important;border-right:none!important}[dir=rtl] .category-select .vs__dropdown-toggle[data-v-043bcf2b]{border-left:none!important;border-radius:0 .25rem .25rem 0!important;border-right:1px solid #ced4da!important}[dir=rtl] .create-btn[data-v-043bcf2b]{border-left:none;border-radius:.25rem 0 0 .25rem;border-right:1px solid #ced4da}[dir=ltr] .create-btn[data-v-043bcf2b]{border-left:1px solid #ced4da;border-radius:0 .25rem .25rem 0;border-right:none}.unit-select[data-v-043bcf2b]{margin-right:0!important}.unit-select .vs__dropdown-toggle[data-v-043bcf2b]{border-radius:.25rem 0 0 .25rem!important;border-right:none!important}[dir=rtl] .unit-select .vs__dropdown-toggle[data-v-043bcf2b]{border-left:none!important;border-radius:0 .25rem .25rem 0!important;border-right:1px solid #ced4da!important}@media (max-width:768px){.section-title[data-v-043bcf2b]{font-size:.95rem;margin-bottom:12px}.form-card .card-body[data-v-043bcf2b]{padding:.75rem}.auto-assign-btn[data-v-043bcf2b]{font-size:.75rem;min-width:35px}}.input-group-prepend .input-group-text[data-v-043bcf2b]{background-color:#f8f9fa;border-color:#ced4da;color:#495057;font-size:.85rem}.v-select[data-v-043bcf2b]{margin-bottom:0}.is-invalid[data-v-043bcf2b]{border-color:#dc3545!important}.invalid-feedback[data-v-043bcf2b]{color:#dc3545;display:block;font-size:75%;margin-top:.2rem;width:100%}.item-type-selector[data-v-043bcf2b]{display:flex;gap:.5rem;margin-top:.5rem}.item-type-option[data-v-043bcf2b]{cursor:pointer;flex:1;position:relative;transition:all .2s ease}.item-type-option input[type=radio][data-v-043bcf2b]{opacity:0;pointer-events:none;position:absolute}.option-content[data-v-043bcf2b]{align-items:center;background:#fff;border:2px solid #e3e6f0;border-radius:6px;display:flex;flex-direction:column;justify-content:center;min-height:55px;padding:.6rem .5rem;text-align:center;transition:all .2s ease}.item-type-option:hover .option-content[data-v-043bcf2b]{border-color:#33a0d9;box-shadow:0 2px 6px rgba(51,160,217,.15);transform:translateY(-1px)}.item-type-option.active .option-content[data-v-043bcf2b]{background:#33a0d9;border-color:#33a0d9;box-shadow:0 3px 10px rgba(51,160,217,.25);color:#fff;transform:translateY(-1px)}.option-content i[data-v-043bcf2b]{color:#6c757d;font-size:1.1rem;margin-bottom:.3rem;transition:all .2s ease}.item-type-option.active .option-content i[data-v-043bcf2b]{color:hsla(0,0%,100%,.9)}.option-content span[data-v-043bcf2b]{color:#495057;font-size:.85rem;font-weight:600;transition:all .2s ease}.item-type-option.active .option-content span[data-v-043bcf2b]{color:#fff}@media (max-width:768px){.item-type-selector[data-v-043bcf2b]{flex-direction:column;gap:.4rem}.option-content[data-v-043bcf2b]{min-height:50px;padding:.5rem .4rem}.option-content i[data-v-043bcf2b]{font-size:1rem;margin-bottom:.25rem}.option-content span[data-v-043bcf2b]{font-size:.8rem}.override-checkbox-container .form-check-label[data-v-043bcf2b]{min-height:44px;padding:.6rem .8rem}.checkbox-text[data-v-043bcf2b]{font-size:.9rem}.form-check-input[data-v-043bcf2b]{height:16px;width:16px}}.account-label-row[data-v-043bcf2b]{align-items:flex-start;display:flex;flex-direction:column;gap:1rem;justify-content:space-between;margin-bottom:.5rem}.account-label[data-v-043bcf2b]{color:#495057;flex:1;font-size:.95rem;font-weight:500;margin-bottom:0}.toggle-switch-container[data-v-043bcf2b]{align-items:center;display:flex;flex-shrink:0}.toggle-switch-label[data-v-043bcf2b]{align-items:center;cursor:pointer;display:inline-flex;gap:.75rem;-webkit-user-select:none;-moz-user-select:none;user-select:none}.toggle-switch-wrapper[data-v-043bcf2b]{display:inline-block;flex-shrink:0;height:26px;position:relative;width:50px}.toggle-switch-input[data-v-043bcf2b]{appearance:none;-webkit-appearance:none;-moz-appearance:none;background-color:#ced4da;border-radius:26px;cursor:pointer;height:26px;left:0;margin:0;outline:none;padding:0;position:absolute;top:0;transition:background-color .3s ease;width:50px}.toggle-switch-input[data-v-043bcf2b]:checked{background-color:#33a0d9}.toggle-switch-input[data-v-043bcf2b]:focus{box-shadow:0 0 0 .2rem rgba(51,160,217,.25)}.toggle-switch-slider[data-v-043bcf2b]{background-color:#fff;border-radius:50%;box-shadow:0 2px 4px rgba(0,0,0,.2);height:20px;left:3px;pointer-events:none;position:absolute;top:50%;transform:translateY(-50%);transition:transform .3s ease;width:20px}.toggle-switch-input:checked+.toggle-switch-slider[data-v-043bcf2b]{transform:translate(24px,-50%)}.toggle-switch-text[data-v-043bcf2b]{color:#495057;font-size:.9rem;font-weight:500;transition:color .2s ease;white-space:nowrap}.toggle-switch-label:has(.toggle-switch-input:checked) .toggle-switch-text[data-v-043bcf2b]{color:#33a0d9;font-weight:600}.alert-info[data-v-043bcf2b]{background-color:#d1ecf1;border-color:#bee5eb;border-radius:.375rem;font-size:.9rem;padding:.75rem 1rem}.alert-info[data-v-043bcf2b],.alert-info i[data-v-043bcf2b]{color:#0c5460}.col-form-6[data-v-043bcf2b]{flex:0 0 50%;max-width:50%}.col-form-6 .form-card[data-v-043bcf2b],.col-form-6 .form-card .card-body[data-v-043bcf2b]{width:100%}@media (max-width:1300px){.col-form-6[data-v-043bcf2b]{flex:0 0 100%;max-width:100%}}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
-/***/ 82190:
+/***/ 27140:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 
@@ -8332,7 +4144,7 @@ __webpack_require__.d(__webpack_exports__, {
   A: () => (/* binding */ SupplierForm)
 });
 
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierForm.vue?vue&type=template&id=493e4a0c&scoped=true
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierForm.vue?vue&type=template&id=66e2d5b4&scoped=true
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -8524,7 +4336,21 @@ var render = function render() {
     staticClass: "form-group form-col-third"
   }, [_c('label', {
     staticClass: "form-label"
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("Tax Status")) + "\n              ")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                " + _vm._s(_vm.$t("Tax Status")) + "\n                "), _vm.form.type === 'Company' ? _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")]) : _vm._e()]), _vm._v(" "), _vm.form.type === 'Individual' ? _c('div', {
+    staticClass: "tax-status-individual-locked"
+  }, [_c('div', {
+    staticClass: "tax-status-card-compact border-success active locked"
+  }, [_c('div', {
+    staticClass: "tax-status-header-compact"
+  }, [_c('i', {
+    staticClass: "fas fa-lock mr-2 text-muted"
+  }), _vm._v(" "), _c('span', {
+    staticClass: "tax-status-title-compact"
+  }, [_vm._v(_vm._s(_vm.$t("Non-Taxable")))])])]), _vm._v(" "), _c('small', {
+    staticClass: "form-text form-helper-text text-muted d-block mt-1"
+  }, [_vm._v("\n                  " + _vm._s(_vm.$t("Individual suppliers are always Non-Taxable.")) + "\n                ")])]) : _c('div', {
     staticClass: "tax-status-options"
   }, [_c('div', {
     staticClass: "tax-status-row"
@@ -9487,7 +5313,9 @@ var render = function render() {
     attrs: {
       "for": "additionalNumber"
     }
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("Additional Number")) + " "), _c('span', {
+  }, [_vm._v("\n                " + _vm._s(_vm.$t("Additional Number")) + " "), _vm.form.taxStatus === 'taxable' ? _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")]) : _c('span', {
     staticClass: "text-muted"
   }, [_vm._v("(" + _vm._s(_vm.$t("Optional")) + ")")])]), _vm._v(" "), _c('input', {
     directives: [{
@@ -10095,7 +5923,7 @@ var staticRenderFns = [function () {
   })]);
 }];
 
-;// ./resources/js/components/SupplierForm.vue?vue&type=template&id=493e4a0c&scoped=true
+;// ./resources/js/components/SupplierForm.vue?vue&type=template&id=66e2d5b4&scoped=true
 
 // EXTERNAL MODULE: ./node_modules/vform/dist/vform.es.js
 var vform_es = __webpack_require__(63216);
@@ -10109,20 +5937,19 @@ var PhoneNumberInput = __webpack_require__(77949);
 var axios = __webpack_require__(72505);
 var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
 ;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierForm.vue?vue&type=script&lang=js
-function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
-function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
-function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
-function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
-function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
-function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
-function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
@@ -10550,6 +6377,15 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
         }
       }
     },
+    // When supplier type is Individual, force tax status to Non-Taxable (no taxable individual suppliers)
+    'form.type': {
+      handler: function handler(newType) {
+        if (newType === 'Individual') {
+          this.form.taxStatus = 'non_taxable';
+        }
+      },
+      immediate: true
+    },
     // Watch for changes in phoneNumber field
     'form.phoneNumber': {
       handler: function handler(newValue, oldValue) {
@@ -10594,34 +6430,35 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     // Load communication configuration status
     loadCommunicationConfigStatus: function loadCommunicationConfigStatus() {
       var _this4 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-        var response, _t;
-        return _regenerator().w(function (_context) {
-          while (1) switch (_context.p = _context.n) {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        var response;
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
             case 0:
-              _context.p = 0;
+              _context.prev = 0;
               _this4.communicationConfig.loading = true;
-              _context.n = 1;
+              _context.next = 4;
               return axios_default().get('/api/communication-config-status');
-            case 1:
-              response = _context.v;
+            case 4:
+              response = _context.sent;
               _this4.communicationConfig.email_configured = response.data.email_configured;
               _this4.communicationConfig.sms_configured = response.data.sms_configured;
               _this4.communicationConfig.loading = false;
-              _context.n = 3;
+              _context.next = 16;
               break;
-            case 2:
-              _context.p = 2;
-              _t = _context.v;
-              console.error('Error loading communication config status:', _t);
+            case 10:
+              _context.prev = 10;
+              _context.t0 = _context["catch"](0);
+              console.error('Error loading communication config status:', _context.t0);
               // Default to false if there's an error
               _this4.communicationConfig.email_configured = false;
               _this4.communicationConfig.sms_configured = false;
               _this4.communicationConfig.loading = false;
-            case 3:
-              return _context.a(2);
+            case 16:
+            case "end":
+              return _context.stop();
           }
-        }, _callee, null, [[0, 2]]);
+        }, _callee, null, [[0, 10]]);
       }))();
     },
     // Initialize the form
@@ -10672,6 +6509,11 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
         // Chart of Account
         chartOfAccountId: null
       }, this.initialData || {}));
+
+      // Individual suppliers are always Non-Taxable
+      if (this.form.type === 'Individual') {
+        this.form.taxStatus = 'non_taxable';
+      }
       console.log('Form initialized:', this.form);
       console.log('Form type:', _typeof(this.form));
       console.log('Form methods:', Object.getOwnPropertyNames(this.form));
@@ -10679,20 +6521,20 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     // Load the next available code number for new suppliers
     loadNextCodeNumber: function loadNextCodeNumber() {
       var _this5 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
-        var response, _t2;
-        return _regenerator().w(function (_context2) {
-          while (1) switch (_context2.p = _context2.n) {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        var response;
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
             case 0:
-              _context2.p = 0;
+              _context2.prev = 0;
               if (!(!_this5.initialData || Object.keys(_this5.initialData).length === 0)) {
-                _context2.n = 2;
+                _context2.next = 6;
                 break;
               }
-              _context2.n = 1;
+              _context2.next = 4;
               return axios_default().get('/api/suppliers/next-code');
-            case 1:
-              response = _context2.v;
+            case 4:
+              response = _context2.sent;
               if (response.data.success) {
                 _this5.form.codeNumber = response.data.formatted_code;
               } else {
@@ -10700,19 +6542,20 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
                 // Fallback to default
                 _this5.form.codeNumber = '000001';
               }
-            case 2:
-              _context2.n = 4;
+            case 6:
+              _context2.next = 12;
               break;
-            case 3:
-              _context2.p = 3;
-              _t2 = _context2.v;
-              console.error('Error loading next code number:', _t2);
+            case 8:
+              _context2.prev = 8;
+              _context2.t0 = _context2["catch"](0);
+              console.error('Error loading next code number:', _context2.t0);
               // Fallback to default
               _this5.form.codeNumber = '000001';
-            case 4:
-              return _context2.a(2);
+            case 12:
+            case "end":
+              return _context2.stop();
           }
-        }, _callee2, null, [[0, 3]]);
+        }, _callee2, null, [[0, 8]]);
       }))();
     },
     // vue file upload
@@ -10784,37 +6627,25 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
         this.form.attachments.splice(index, 1);
       }
     },
-    // Set tax status explicitly to ensure it's reactive
+    // Set tax status explicitly to ensure it's reactive. Individual suppliers are always Non-Taxable.
     setTaxStatus: function setTaxStatus(status) {
-      console.log('Setting taxStatus to:', status);
-      console.log('form.taxStatus before:', this.form.taxStatus);
-
-      // CRITICAL: Use form object's method to set the value if available
-      // Otherwise, use Vue.set or direct assignment
+      if (this.form.type === 'Individual') {
+        this.form.taxStatus = 'non_taxable';
+        return;
+      }
       if (this.form && typeof this.form.taxStatus !== 'undefined') {
-        // Direct assignment
         this.form.taxStatus = status;
-
-        // Also try to update via form's internal data if it exists
         if (this.form.$data && this.form.$data.taxStatus !== undefined) {
           this.form.$data.taxStatus = status;
         }
       } else {
-        // Fallback: use Vue.set
         if (this.$set) {
           this.$set(this.form, 'taxStatus', status);
         } else {
           this.form.taxStatus = status;
         }
       }
-
-      // Force update
       this.$forceUpdate();
-
-      // Verify the value was set
-      console.log('taxStatus after setting:', this.form.taxStatus);
-      console.log('form object keys:', Object.keys(this.form));
-      console.log('form.data() taxStatus:', this.form.data ? this.form.data().taxStatus : 'N/A');
     },
     // Switch between tabs
     switchTab: function switchTab(tab) {
@@ -10878,6 +6709,31 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
         this.form.errors.set('businessName', this.$t('Business name is required for company suppliers'));
         isValid = false;
       }
+      if (this.form.type === 'Company') {
+        var taxStatus = this.form.taxStatus;
+        if (!taxStatus || taxStatus !== 'taxable' && taxStatus !== 'non_taxable') {
+          this.form.errors.set('taxStatus', this.$t('Please select Taxable or Non-Taxable for company suppliers'));
+          isValid = false;
+        }
+      }
+      if (this.form.type === 'Company' && this.form.taxStatus === 'taxable' && this.form.country === 'SA') {
+        if (!this.form.streetNumber || this.form.streetNumber.trim() === '') {
+          this.form.errors.set('streetNumber', this.$t('Street number is required (Saudi National Address)'));
+          isValid = false;
+        }
+        if (!this.form.buildingNumber || this.form.buildingNumber.trim() === '') {
+          this.form.errors.set('buildingNumber', this.$t('Building number is required (Saudi National Address)'));
+          isValid = false;
+        }
+        if (!this.form.districtNumber || this.form.districtNumber.trim() === '') {
+          this.form.errors.set('districtNumber', this.$t('District number is required (Saudi National Address)'));
+          isValid = false;
+        }
+        if (!this.form.additionalNumber || this.form.additionalNumber.trim() === '') {
+          this.form.errors.set('additionalNumber', this.$t('Additional number is required (Saudi National Address)'));
+          isValid = false;
+        }
+      }
 
       // Chart of account validation removed to match ClientForm behavior
 
@@ -10887,10 +6743,10 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     // Submit form
     submitForm: function submitForm() {
       var _this8 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
         var formDataObj, taxStatusValue, submitData;
-        return _regenerator().w(function (_context3) {
-          while (1) switch (_context3.n) {
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
             case 0:
               // Debug: Log form.taxStatus before validation
               console.log('SupplierForm submitForm - form.taxStatus before validation:', _this8.form.taxStatus);
@@ -10901,7 +6757,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
                 phoneNumber: _this8.form.phoneNumber
               });
               if (_this8.validateForm()) {
-                _context3.n = 1;
+                _context3.next = 5;
                 break;
               }
               // Provide clear feedback if validation fails
@@ -10911,8 +6767,8 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
                   title: _this8.$t('Please fix the highlighted errors and try again')
                 });
               }
-              return _context3.a(2);
-            case 1:
+              return _context3.abrupt("return");
+            case 5:
               // CRITICAL: Ensure taxStatus is set on form object before getting data
               if (!_this8.form.taxStatus) {
                 _this8.form.taxStatus = 'non_taxable';
@@ -10999,8 +6855,9 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
 
               // Emit submit event with form data
               _this8.$emit('submit', submitData);
-            case 2:
-              return _context3.a(2);
+            case 15:
+            case "end":
+              return _context3.stop();
           }
         }, _callee3);
       }))();
@@ -11063,43 +6920,44 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     // Load representatives for existing supplier
     loadRepresentatives: function loadRepresentatives() {
       var _this9 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
-        var slug, response, _t3;
-        return _regenerator().w(function (_context4) {
-          while (1) switch (_context4.p = _context4.n) {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+        var slug, response;
+        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+          while (1) switch (_context4.prev = _context4.next) {
             case 0:
               // Try to get slug from route params first, then from initialData
               slug = _this9.$route && _this9.$route.params && _this9.$route.params.slug || _this9.initialData && _this9.initialData.slug;
               console.log('Loading representatives for supplier:', slug);
               if (!(slug && slug !== 'new')) {
-                _context4.n = 5;
+                _context4.next = 16;
                 break;
               }
-              _context4.p = 1;
-              _context4.n = 2;
+              _context4.prev = 3;
+              _context4.next = 6;
               return axios_default().get("/api/supplier/".concat(slug, "/representatives"));
-            case 2:
-              response = _context4.v;
+            case 6:
+              response = _context4.sent;
               console.log('Representatives API response:', response.data);
               if (response.data.success) {
                 _this9.form.representatives = response.data.data;
                 console.log('Representatives loaded:', _this9.form.representatives);
               }
-              _context4.n = 4;
+              _context4.next = 14;
               break;
-            case 3:
-              _context4.p = 3;
-              _t3 = _context4.v;
-              console.error('Error loading representatives:', _t3);
-            case 4:
-              _context4.n = 6;
+            case 11:
+              _context4.prev = 11;
+              _context4.t0 = _context4["catch"](3);
+              console.error('Error loading representatives:', _context4.t0);
+            case 14:
+              _context4.next = 17;
               break;
-            case 5:
+            case 16:
               console.log('No slug or new supplier, skipping representatives load');
-            case 6:
-              return _context4.a(2);
+            case 17:
+            case "end":
+              return _context4.stop();
           }
-        }, _callee4, null, [[1, 3]]);
+        }, _callee4, null, [[3, 11]]);
       }))();
     },
     // Handle when representatives are changed (added, edited, deleted)
@@ -11114,23 +6972,23 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     // Load Saudi Arabia regions
     loadSaudiRegions: function loadSaudiRegions() {
       var _this0 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
-        var response, _t4;
-        return _regenerator().w(function (_context5) {
-          while (1) switch (_context5.p = _context5.n) {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+        var response;
+        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+          while (1) switch (_context5.prev = _context5.next) {
             case 0:
               if (!_this0.loadingRegions) {
-                _context5.n = 1;
+                _context5.next = 2;
                 break;
               }
-              return _context5.a(2);
-            case 1:
+              return _context5.abrupt("return");
+            case 2:
               _this0.loadingRegions = true;
-              _context5.p = 2;
-              _context5.n = 3;
+              _context5.prev = 3;
+              _context5.next = 6;
               return axios_default().get('/api/locations/saudi/regions');
-            case 3:
-              response = _context5.v;
+            case 6:
+              response = _context5.sent;
               if (response.data.success) {
                 _this0.saudiRegions = response.data.data.map(function (region) {
                   return {
@@ -11142,54 +7000,55 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
                   };
                 });
               }
-              _context5.n = 5;
+              _context5.next = 14;
               break;
-            case 4:
-              _context5.p = 4;
-              _t4 = _context5.v;
-              console.error('Error loading Saudi regions:', _t4);
+            case 10:
+              _context5.prev = 10;
+              _context5.t0 = _context5["catch"](3);
+              console.error('Error loading Saudi regions:', _context5.t0);
               _this0.$toast.error(_this0.$t('Error loading regions'));
-            case 5:
-              _context5.p = 5;
+            case 14:
+              _context5.prev = 14;
               _this0.loadingRegions = false;
-              return _context5.f(5);
-            case 6:
-              return _context5.a(2);
+              return _context5.finish(14);
+            case 17:
+            case "end":
+              return _context5.stop();
           }
-        }, _callee5, null, [[2, 4, 5, 6]]);
+        }, _callee5, null, [[3, 10, 14, 17]]);
       }))();
     },
     // Load Saudi Arabia cities by region
     loadSaudiCities: function loadSaudiCities(regionId) {
       var _this1 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
-        var response, cities, selectedRegion, _selectedRegion, _selectedRegion2, _t5;
-        return _regenerator().w(function (_context6) {
-          while (1) switch (_context6.p = _context6.n) {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+        var response, cities, selectedRegion, _selectedRegion, _selectedRegion2;
+        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+          while (1) switch (_context6.prev = _context6.next) {
             case 0:
               if (regionId) {
-                _context6.n = 1;
+                _context6.next = 3;
                 break;
               }
               _this1.saudiCities = [];
-              return _context6.a(2);
-            case 1:
+              return _context6.abrupt("return");
+            case 3:
               if (!_this1.loadingCities) {
-                _context6.n = 2;
+                _context6.next = 5;
                 break;
               }
-              return _context6.a(2);
-            case 2:
+              return _context6.abrupt("return");
+            case 5:
               _this1.loadingCities = true;
-              _context6.p = 3;
-              _context6.n = 4;
+              _context6.prev = 6;
+              _context6.next = 9;
               return axios_default().get('/api/locations/saudi/cities-by-region', {
                 params: {
                   region_id: regionId
                 }
               });
-            case 4:
-              response = _context6.v;
+            case 9:
+              response = _context6.sent;
               if (response.data.success) {
                 cities = response.data.data || [];
                 _this1.saudiCities = cities.map(function (city) {
@@ -11236,12 +7095,12 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
                   _this1.saudiCities = [];
                 }
               }
-              _context6.n = 6;
+              _context6.next = 19;
               break;
-            case 5:
-              _context6.p = 5;
-              _t5 = _context6.v;
-              console.error('Error loading Saudi cities:', _t5);
+            case 13:
+              _context6.prev = 13;
+              _context6.t0 = _context6["catch"](6);
+              console.error('Error loading Saudi cities:', _context6.t0);
               // If error occurred, add region name as fallback
               _selectedRegion2 = _this1.saudiRegions.find(function (region) {
                 return region.id === regionId;
@@ -11259,17 +7118,18 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
                 _this1.saudiCities = [];
               }
               // Don't show error toast for empty cities - it's normal for some regions
-              if (_t5.response && _t5.response.status !== 404) {
+              if (_context6.t0.response && _context6.t0.response.status !== 404) {
                 _this1.$toast.error(_this1.$t('Error loading cities'));
               }
-            case 6:
-              _context6.p = 6;
+            case 19:
+              _context6.prev = 19;
               _this1.loadingCities = false;
-              return _context6.f(6);
-            case 7:
-              return _context6.a(2);
+              return _context6.finish(19);
+            case 22:
+            case "end":
+              return _context6.stop();
           }
-        }, _callee6, null, [[3, 5, 6, 7]]);
+        }, _callee6, null, [[6, 13, 19, 22]]);
       }))();
     },
     // Handle Saudi region change
@@ -11292,18 +7152,18 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     // Load routing settings
     loadRoutingSettings: function loadRoutingSettings() {
       var _this10 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7() {
-        var response, _t6;
-        return _regenerator().w(function (_context7) {
-          while (1) switch (_context7.p = _context7.n) {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
+        var response;
+        return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+          while (1) switch (_context7.prev = _context7.next) {
             case 0:
-              _context7.p = 0;
+              _context7.prev = 0;
               console.log('Loading routing settings...');
               // Get the specific suppliers_account routing setting
-              _context7.n = 1;
+              _context7.next = 4;
               return _this10.$http.get('/api/account-routing-settings');
-            case 1:
-              response = _context7.v;
+            case 4:
+              response = _context7.sent;
               console.log('Routing settings response:', response);
               if (response.data && response.data.success) {
                 console.log('Routing settings data:', response.data.data);
@@ -11330,21 +7190,22 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
                 };
                 console.log('Using default routing setting due to API failure:', _this10.routingSetting);
               }
-              _context7.n = 3;
+              _context7.next = 14;
               break;
-            case 2:
-              _context7.p = 2;
-              _t6 = _context7.v;
-              console.error('Error loading routing settings:', _t6);
+            case 9:
+              _context7.prev = 9;
+              _context7.t0 = _context7["catch"](0);
+              console.error('Error loading routing settings:', _context7.t0);
               // Set a default routing setting if error occurs
               _this10.routingSetting = {
                 main_account_id: null
               };
               console.log('Using default routing setting due to error:', _this10.routingSetting);
-            case 3:
-              return _context7.a(2);
+            case 14:
+            case "end":
+              return _context7.stop();
           }
-        }, _callee7, null, [[0, 2]]);
+        }, _callee7, null, [[0, 9]]);
       }))();
     },
     // Set default routing setting
@@ -11358,12 +7219,12 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     // Load chart of accounts
     loadChartOfAccounts: function loadChartOfAccounts() {
       var _this11 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee8() {
-        var response, fallbackResponse, _response, altResponse, _t7, _t8, _t9;
-        return _regenerator().w(function (_context8) {
-          while (1) switch (_context8.p = _context8.n) {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
+        var response, fallbackResponse, _response, altResponse;
+        return _regeneratorRuntime().wrap(function _callee8$(_context8) {
+          while (1) switch (_context8.prev = _context8.next) {
             case 0:
-              _context8.p = 0;
+              _context8.prev = 0;
               console.log('Loading chart of accounts...');
               console.log('Current routing setting:', _this11.routingSetting);
               _this11.loadingChartOfAccounts = true;
@@ -11373,71 +7234,71 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
 
               // For other routing types, load accounts based on routing setting
               if (!(_this11.routingSetting && _this11.routingSetting.main_account_id)) {
-                _context8.n = 8;
+                _context8.next = 30;
                 break;
               }
               console.log('Loading accounts from routing setup...');
-              _context8.p = 1;
-              _context8.n = 2;
+              _context8.prev = 7;
+              _context8.next = 10;
               return _this11.$http.get("/api/account-routing-settings/".concat(_this11.routingSetting.setting_key, "/accounts"));
-            case 2:
-              response = _context8.v;
+            case 10:
+              response = _context8.sent;
               console.log('Routing accounts response:', response);
               if (!(response.data && response.data.success)) {
-                _context8.n = 3;
+                _context8.next = 17;
                 break;
               }
               _this11.chartOfAccounts = response.data.accounts || [];
               console.log('Loaded accounts from routing setup:', _this11.chartOfAccounts.length);
-              _context8.n = 4;
+              _context8.next = 18;
               break;
-            case 3:
+            case 17:
               throw new Error('Routing accounts response not successful');
-            case 4:
-              _context8.n = 7;
+            case 18:
+              _context8.next = 28;
               break;
-            case 5:
-              _context8.p = 5;
-              _t7 = _context8.v;
-              console.log('Routing accounts failed, falling back to all accounts:', _t7);
+            case 20:
+              _context8.prev = 20;
+              _context8.t0 = _context8["catch"](7);
+              console.log('Routing accounts failed, falling back to all accounts:', _context8.t0);
               // Fallback to all accounts
-              _context8.n = 6;
+              _context8.next = 25;
               return _this11.$http.get('/api/suppliers/chart-of-accounts');
-            case 6:
-              fallbackResponse = _context8.v;
+            case 25:
+              fallbackResponse = _context8.sent;
               _this11.chartOfAccounts = fallbackResponse.data || [];
               console.log('Loaded fallback accounts:', _this11.chartOfAccounts.length);
-            case 7:
-              _context8.n = 10;
+            case 28:
+              _context8.next = 36;
               break;
-            case 8:
+            case 30:
               console.log('No main account ID, loading all accounts as fallback');
               // Load all active accounts as fallback
-              _context8.n = 9;
+              _context8.next = 33;
               return _this11.$http.get('/api/suppliers/chart-of-accounts');
-            case 9:
-              _response = _context8.v;
+            case 33:
+              _response = _context8.sent;
               _this11.chartOfAccounts = _response.data || [];
               console.log('Loaded all accounts as fallback:', _this11.chartOfAccounts.length);
-            case 10:
+            case 36:
               if (!(_this11.chartOfAccounts.length === 0)) {
-                _context8.n = 14;
+                _context8.next = 51;
                 break;
               }
               console.log('No accounts loaded, trying alternative endpoint...');
-              _context8.p = 11;
-              _context8.n = 12;
+              _context8.prev = 38;
+              _context8.next = 41;
               return _this11.$http.get('/api/chart-of-accounts/dropdown');
-            case 12:
-              altResponse = _context8.v;
+            case 41:
+              altResponse = _context8.sent;
               _this11.chartOfAccounts = altResponse.data.data || altResponse.data || [];
               console.log('Loaded accounts from dropdown endpoint:', _this11.chartOfAccounts.length);
-              _context8.n = 14;
+              _context8.next = 51;
               break;
-            case 13:
-              _context8.p = 13;
-              _t8 = _context8.v;
-              console.error('Alternative endpoint also failed:', _t8);
+            case 46:
+              _context8.prev = 46;
+              _context8.t1 = _context8["catch"](38);
+              console.error('Alternative endpoint also failed:', _context8.t1);
               // Set a minimal fallback to prevent empty dropdown
               _this11.chartOfAccounts = [{
                 id: 'placeholder',
@@ -11446,23 +7307,24 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
                 type: 'Error'
               }];
               _this11.chartOfAccountsError = 'No chart of accounts available. Please check your configuration.';
-            case 14:
-              _context8.n = 16;
+            case 51:
+              _context8.next = 58;
               break;
-            case 15:
-              _context8.p = 15;
-              _t9 = _context8.v;
-              console.error('Error loading chart of accounts:', _t9);
-              _this11.chartOfAccountsError = _t9.message || 'Failed to load chart of accounts';
+            case 53:
+              _context8.prev = 53;
+              _context8.t2 = _context8["catch"](0);
+              console.error('Error loading chart of accounts:', _context8.t2);
+              _this11.chartOfAccountsError = _context8.t2.message || 'Failed to load chart of accounts';
               _this11.chartOfAccounts = [];
-            case 16:
-              _context8.p = 16;
+            case 58:
+              _context8.prev = 58;
               _this11.loadingChartOfAccounts = false;
-              return _context8.f(16);
-            case 17:
-              return _context8.a(2);
+              return _context8.finish(58);
+            case 61:
+            case "end":
+              return _context8.stop();
           }
-        }, _callee8, null, [[11, 13], [1, 5], [0, 15, 16, 17]]);
+        }, _callee8, null, [[0, 53, 58, 61], [7, 20], [38, 46]]);
       }))();
     },
     // Search chart of accounts (for v-select search)
@@ -11475,12 +7337,12 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
         loading(false);
         return Promise.resolve(result);
       }
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee9() {
-        var filtered, response, apiData, _filtered, _t0;
-        return _regenerator().w(function (_context9) {
-          while (1) switch (_context9.p = _context9.n) {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
+        var filtered, response, apiData, _filtered;
+        return _regeneratorRuntime().wrap(function _callee9$(_context9) {
+          while (1) switch (_context9.prev = _context9.next) {
             case 0:
-              _context9.p = 0;
+              _context9.prev = 0;
               // Filter locally first for better performance
               filtered = _this12.chartOfAccounts.filter(function (account) {
                 return account.name.toLowerCase().includes(search.toLowerCase()) || account.code.toLowerCase().includes(search.toLowerCase());
@@ -11489,75 +7351,76 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
 
               // If we have enough results locally, return them
               if (!(filtered.length >= 10)) {
-                _context9.n = 1;
+                _context9.next = 6;
                 break;
               }
               console.log('Enough local results, returning filtered');
-              return _context9.a(2, filtered.slice(0, 50));
-            case 1:
+              return _context9.abrupt("return", filtered.slice(0, 50));
+            case 6:
               // Otherwise, search from API
               console.log('Searching from API...');
-              _context9.n = 2;
+              _context9.next = 9;
               return _this12.$http.get('/api/chart-of-accounts/search', {
                 params: {
                   term: search
                 }
               });
-            case 2:
-              response = _context9.v;
+            case 9:
+              response = _context9.sent;
               console.log('API search response:', response);
               if (!(response.data && (response.data.data || response.data))) {
-                _context9.n = 3;
+                _context9.next = 17;
                 break;
               }
               console.log('API returned data, returning results');
               apiData = response.data.data || response.data;
-              return _context9.a(2, apiData.slice(0, 50));
-            case 3:
+              return _context9.abrupt("return", apiData.slice(0, 50));
+            case 17:
               console.log('API returned no data, returning local filtered');
-              return _context9.a(2, filtered.slice(0, 50));
-            case 4:
-              _context9.n = 6;
+              return _context9.abrupt("return", filtered.slice(0, 50));
+            case 19:
+              _context9.next = 26;
               break;
-            case 5:
-              _context9.p = 5;
-              _t0 = _context9.v;
-              console.error('Search error:', _t0);
+            case 21:
+              _context9.prev = 21;
+              _context9.t0 = _context9["catch"](0);
+              console.error('Search error:', _context9.t0);
               // Return local filtered results on error
               _filtered = _this12.chartOfAccounts.filter(function (account) {
                 return account.name.toLowerCase().includes(search.toLowerCase()) || account.code.toLowerCase().includes(search.toLowerCase());
               });
-              return _context9.a(2, _filtered.slice(0, 50));
-            case 6:
-              _context9.p = 6;
+              return _context9.abrupt("return", _filtered.slice(0, 50));
+            case 26:
+              _context9.prev = 26;
               loading(false);
-              return _context9.f(6);
-            case 7:
-              return _context9.a(2);
+              return _context9.finish(26);
+            case 29:
+            case "end":
+              return _context9.stop();
           }
-        }, _callee9, null, [[0, 5, 6, 7]]);
+        }, _callee9, null, [[0, 21, 26, 29]]);
       }))();
     },
     // Create new chart of account
     createNewAccount: function createNewAccount() {
       var _this13 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee0() {
-        var assetTypeResponse, typeId, assetType, parentId, codeResponse, accountCode, response, _newAccount$type, newAccount, errorMessage, _t1;
-        return _regenerator().w(function (_context0) {
-          while (1) switch (_context0.p = _context0.n) {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee0() {
+        var assetTypeResponse, typeId, assetType, parentId, codeResponse, accountCode, response, _newAccount$type, newAccount, errorMessage;
+        return _regeneratorRuntime().wrap(function _callee0$(_context0) {
+          while (1) switch (_context0.prev = _context0.next) {
             case 0:
               if (!_this13.isCreatingAccount) {
-                _context0.n = 1;
+                _context0.next = 2;
                 break;
               }
-              return _context0.a(2);
-            case 1:
+              return _context0.abrupt("return");
+            case 2:
               _this13.isCreatingAccount = true;
-              _context0.p = 2;
-              _context0.n = 3;
+              _context0.prev = 3;
+              _context0.next = 6;
               return axios_default().get('/api/chart-of-account-types');
-            case 3:
-              assetTypeResponse = _context0.v;
+            case 6:
+              assetTypeResponse = _context0.sent;
               typeId = 1; // Default fallback
               if (assetTypeResponse.data && assetTypeResponse.data.data) {
                 assetType = assetTypeResponse.data.data.find(function (type) {
@@ -11575,14 +7438,14 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
               }
 
               // Generate account code
-              _context0.n = 4;
+              _context0.next = 13;
               return axios_default().post('/api/chart-of-accounts/generate-code', {
                 parent_id: parentId
               });
-            case 4:
-              codeResponse = _context0.v;
+            case 13:
+              codeResponse = _context0.sent;
               accountCode = codeResponse.data.code || '1000';
-              _context0.n = 5;
+              _context0.next = 17;
               return axios_default().post('/api/chart-of-accounts', {
                 name: _this13.form.type === 'Individual' ? _this13.form.fullName : _this13.form.businessName,
                 code: accountCode,
@@ -11591,10 +7454,10 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
                 order: 0,
                 is_active: true
               });
-            case 5:
-              response = _context0.v;
+            case 17:
+              response = _context0.sent;
               if (!(response.data && response.data.data)) {
-                _context0.n = 6;
+                _context0.next = 25;
                 break;
               }
               // Add to local chartOfAccounts array
@@ -11609,67 +7472,68 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
               // Set as selected
               _this13.form.chartOfAccountId = newAccount.id;
               _this13.$toast.success("Success!", "New chart of account created successfully.");
-              _context0.n = 7;
+              _context0.next = 26;
               break;
-            case 6:
+            case 25:
               throw new Error(response.data.message || "Failed to create new chart of account.");
-            case 7:
-              _context0.n = 9;
+            case 26:
+              _context0.next = 34;
               break;
-            case 8:
-              _context0.p = 8;
-              _t1 = _context0.v;
-              console.error('Error creating chart of account:', _t1);
+            case 28:
+              _context0.prev = 28;
+              _context0.t0 = _context0["catch"](3);
+              console.error('Error creating chart of account:', _context0.t0);
               errorMessage = "Failed to create new chart of account.";
-              if (_t1.response && _t1.response.data) {
-                if (_t1.response.data.message) {
-                  errorMessage = _t1.response.data.message;
-                } else if (_t1.response.data.error) {
-                  errorMessage = _t1.response.data.error;
+              if (_context0.t0.response && _context0.t0.response.data) {
+                if (_context0.t0.response.data.message) {
+                  errorMessage = _context0.t0.response.data.message;
+                } else if (_context0.t0.response.data.error) {
+                  errorMessage = _context0.t0.response.data.error;
                 }
-              } else if (_t1.message) {
-                errorMessage = _t1.message;
+              } else if (_context0.t0.message) {
+                errorMessage = _context0.t0.message;
               }
               _this13.$toast.error("Error!", errorMessage);
-            case 9:
-              _context0.p = 9;
+            case 34:
+              _context0.prev = 34;
               _this13.isCreatingAccount = false;
-              return _context0.f(9);
-            case 10:
-              return _context0.a(2);
+              return _context0.finish(34);
+            case 37:
+            case "end":
+              return _context0.stop();
           }
-        }, _callee0, null, [[2, 8, 9, 10]]);
+        }, _callee0, null, [[3, 28, 34, 37]]);
       }))();
     },
     // Auto-assign Chart of Account for supplier
     autoAssignSupplierChartOfAccount: function autoAssignSupplierChartOfAccount() {
       var _this14 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee1() {
-        var supplierSlug, response, _t10;
-        return _regenerator().w(function (_context1) {
-          while (1) switch (_context1.p = _context1.n) {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee1() {
+        var supplierSlug, response;
+        return _regeneratorRuntime().wrap(function _callee1$(_context1) {
+          while (1) switch (_context1.prev = _context1.next) {
             case 0:
               if (!(!_this14.form || _this14.isAutoAssigningSupplier)) {
-                _context1.n = 1;
+                _context1.next = 2;
                 break;
               }
-              return _context1.a(2);
-            case 1:
+              return _context1.abrupt("return");
+            case 2:
               _this14.isAutoAssigningSupplier = true;
-              _context1.p = 2;
+              _context1.prev = 3;
               // Get the current supplier slug from the form or route
               supplierSlug = _this14.form.slug || _this14.$route && _this14.$route.params && _this14.$route.params.slug;
               if (!(!supplierSlug || supplierSlug === 'new')) {
-                _context1.n = 3;
+                _context1.next = 8;
                 break;
               }
               console.log('No supplier slug available for auto-assign');
-              return _context1.a(2);
-            case 3:
-              _context1.n = 4;
+              return _context1.abrupt("return");
+            case 8:
+              _context1.next = 10;
               return _this14.$http.post("/api/suppliers/".concat(supplierSlug, "/auto-assign-chart-of-account"));
-            case 4:
-              response = _context1.v;
+            case 10:
+              response = _context1.sent;
               if (response.data.success) {
                 console.log('Auto-assign response:', response.data);
 
@@ -11693,24 +7557,25 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
                   text: response.data.message || _this14.$t("Please try again or assign manually")
                 });
               }
-              _context1.n = 6;
+              _context1.next = 18;
               break;
-            case 5:
-              _context1.p = 5;
-              _t10 = _context1.v;
-              console.error('Error auto-assigning chart of account:', _t10);
+            case 14:
+              _context1.prev = 14;
+              _context1.t0 = _context1["catch"](3);
+              console.error('Error auto-assigning chart of account:', _context1.t0);
               _this14.$toast.fire({
                 type: "error",
                 title: _this14.$t("An error occurred while assigning Chart of Account")
               });
-            case 6:
-              _context1.p = 6;
+            case 18:
+              _context1.prev = 18;
               _this14.isAutoAssigningSupplier = false;
-              return _context1.f(6);
-            case 7:
-              return _context1.a(2);
+              return _context1.finish(18);
+            case 21:
+            case "end":
+              return _context1.stop();
           }
-        }, _callee1, null, [[2, 5, 6, 7]]);
+        }, _callee1, null, [[3, 14, 18, 21]]);
       }))();
     }
   }
@@ -11720,9 +7585,9 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
 // EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(85072);
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierForm.vue?vue&type=style&index=0&id=493e4a0c&prod&scoped=true&lang=css
-var SupplierFormvue_type_style_index_0_id_493e4a0c_prod_scoped_true_lang_css = __webpack_require__(33483);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierForm.vue?vue&type=style&index=0&id=493e4a0c&prod&scoped=true&lang=css
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierForm.vue?vue&type=style&index=0&id=66e2d5b4&prod&scoped=true&lang=css
+var SupplierFormvue_type_style_index_0_id_66e2d5b4_prod_scoped_true_lang_css = __webpack_require__(59366);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierForm.vue?vue&type=style&index=0&id=66e2d5b4&prod&scoped=true&lang=css
 
             
 
@@ -11731,12 +7596,12 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = injectStylesIntoStyleTag_default()(SupplierFormvue_type_style_index_0_id_493e4a0c_prod_scoped_true_lang_css/* default */.A, options);
+var update = injectStylesIntoStyleTag_default()(SupplierFormvue_type_style_index_0_id_66e2d5b4_prod_scoped_true_lang_css/* default */.A, options);
 
 
 
-/* harmony default export */ const components_SupplierFormvue_type_style_index_0_id_493e4a0c_prod_scoped_true_lang_css = (SupplierFormvue_type_style_index_0_id_493e4a0c_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/components/SupplierForm.vue?vue&type=style&index=0&id=493e4a0c&prod&scoped=true&lang=css
+/* harmony default export */ const components_SupplierFormvue_type_style_index_0_id_66e2d5b4_prod_scoped_true_lang_css = (SupplierFormvue_type_style_index_0_id_66e2d5b4_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/components/SupplierForm.vue?vue&type=style&index=0&id=66e2d5b4&prod&scoped=true&lang=css
 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(14486);
@@ -11755,7 +7620,7 @@ var component = (0,componentNormalizer/* default */.A)(
   staticRenderFns,
   false,
   null,
-  "493e4a0c",
+  "66e2d5b4",
   null
   
 )
@@ -11764,7 +7629,7 @@ var component = (0,componentNormalizer/* default */.A)(
 
 /***/ }),
 
-/***/ 82689:
+/***/ 28834:
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -11773,134 +7638,3520 @@ class Locale {
     constructor() {
         this.config = {
             currency: {
-                name: 'টাকা',
-                plural: 'টাকা',
-                singular: 'টাকা',
-                symbol: '৳',
+                name: 'Euro',
+                plural: 'Euros',
+                singular: 'Euro',
+                symbol: '€',
                 fractionalUnit: {
-                    name: 'পয়সা',
-                    singular: 'পয়সা',
-                    plural: 'পয়সা',
+                    name: 'Centime',
+                    singular: 'Centime',
+                    plural: 'Centimes',
+                    symbol: 'Cts',
+                },
+            },
+            texts: {
+                and: 'Et',
+                minus: 'Moins',
+                only: '',
+                point: 'Virgule',
+            },
+            numberWordsMapping: [
+                { number: 1000000000000000, value: 'Billiard' },
+                { number: 1000000000000, value: 'Billion' },
+                { number: 1000000000, value: 'Milliard' },
+                { number: 1000000, value: 'Million' },
+                { number: 1000, value: 'Mille' },
+                { number: 100, value: 'Cent' },
+                { number: 99, value: 'Quatre-Vingt-Dix-Neuf' },
+                { number: 98, value: 'Quatre-Vingt-Dix-Huit' },
+                { number: 97, value: 'Quatre-Vingt-Dix-Sept' },
+                { number: 96, value: 'Quatre-Vingt-Seize' },
+                { number: 95, value: 'Quatre-Vingt-Quinze' },
+                { number: 94, value: 'Quatre-Vingt-Quatorze' },
+                { number: 93, value: 'Quatre-Vingt-Treize' },
+                { number: 92, value: 'Quatre-Vingt-Douze' },
+                { number: 91, value: 'Quatre-Vingt-Onze' },
+                { number: 90, value: 'Quatre-Vingt-Dix' },
+                { number: 89, value: 'Quatre-Vingt-Neuf' },
+                { number: 88, value: 'Quatre-Vingt-Huit' },
+                { number: 87, value: 'Quatre-Vingt-Sept' },
+                { number: 86, value: 'Quatre-Vingt-Six' },
+                { number: 85, value: 'Quatre-Vingt-Cinq' },
+                { number: 84, value: 'Quatre-Vingt-Quatre' },
+                { number: 83, value: 'Quatre-Vingt-Trois' },
+                { number: 82, value: 'Quatre-Vingt-Deux' },
+                { number: 81, value: 'Quatre-Vingt-Un' },
+                { number: 80, value: 'Quatre-Vingt' },
+                { number: 79, value: 'Soixante-Dix-Neuf' },
+                { number: 78, value: 'Soixante-Dix-Huit' },
+                { number: 77, value: 'Soixante-Dix-Sept' },
+                { number: 76, value: 'Soixante-Seize' },
+                { number: 75, value: 'Soixante-Quinze' },
+                { number: 74, value: 'Soixante-Quatorze' },
+                { number: 73, value: 'Soixante-Treize' },
+                { number: 72, value: 'Soixante-Douze' },
+                { number: 71, value: 'Soixante Et Onze' },
+                { number: 70, value: 'Soixante-dix' },
+                { number: 69, value: 'Soixante-Neuf' },
+                { number: 68, value: 'Soixante-Huit' },
+                { number: 67, value: 'Soixante-Sept' },
+                { number: 66, value: 'Soixante-Six' },
+                { number: 65, value: 'Soixante-Cinq' },
+                { number: 64, value: 'Soixante-Quatre' },
+                { number: 63, value: 'Soixante-Trois' },
+                { number: 62, value: 'Soixante-Deux' },
+                { number: 61, value: 'Soixante Et Un' },
+                { number: 60, value: 'Soixante' },
+                { number: 59, value: 'Cinquante-Neuf' },
+                { number: 58, value: 'Cinquante-Huit' },
+                { number: 57, value: 'Cinquante-Sept' },
+                { number: 56, value: 'Cinquante-Six' },
+                { number: 55, value: 'Cinquante-Cinq' },
+                { number: 54, value: 'Cinquante-Quatre' },
+                { number: 53, value: 'Cinquante-Trois' },
+                { number: 52, value: 'Cinquante-Deux' },
+                { number: 51, value: 'Cinquante Et Un' },
+                { number: 50, value: 'Cinquante' },
+                { number: 49, value: 'Quarante-Neuf' },
+                { number: 48, value: 'Quarante-Huit' },
+                { number: 47, value: 'Quarante-Sept' },
+                { number: 46, value: 'Quarante-Six' },
+                { number: 45, value: 'Quarante-Cinq' },
+                { number: 44, value: 'Quarante-Quatre' },
+                { number: 43, value: 'Quarante-Trois' },
+                { number: 42, value: 'Quarante-Deux' },
+                { number: 41, value: 'Quarante Et Un' },
+                { number: 40, value: 'Quarante' },
+                { number: 39, value: 'Trente-Neuf' },
+                { number: 38, value: 'Trente-Huit' },
+                { number: 37, value: 'Trente-Sept' },
+                { number: 36, value: 'Trente-Six' },
+                { number: 35, value: 'Trente-Cinq' },
+                { number: 34, value: 'Trente-Quatre' },
+                { number: 33, value: 'Trente-Trois' },
+                { number: 32, value: 'Trente-Deux' },
+                { number: 31, value: 'Trente Et Un' },
+                { number: 30, value: 'Trente' },
+                { number: 29, value: 'Vingt-Neuf' },
+                { number: 28, value: 'Vingt-Huit' },
+                { number: 27, value: 'Vingt-Sept' },
+                { number: 26, value: 'Vingt-Six' },
+                { number: 25, value: 'Vingt-Cinq' },
+                { number: 24, value: 'Vingt-Quatre' },
+                { number: 23, value: 'Vingt-Trois' },
+                { number: 22, value: 'Vingt-Deux' },
+                { number: 21, value: 'Vingt Et Un' },
+                { number: 20, value: 'Vingt' },
+                { number: 19, value: 'Dix-Neuf' },
+                { number: 18, value: 'Dix-Huit' },
+                { number: 17, value: 'Dix-Sept' },
+                { number: 16, value: 'Seize' },
+                { number: 15, value: 'Quinze' },
+                { number: 14, value: 'Quatorze' },
+                { number: 13, value: 'Treize' },
+                { number: 12, value: 'Douze' },
+                { number: 11, value: 'Onze' },
+                { number: 10, value: 'Dix' },
+                { number: 9, value: 'Neuf' },
+                { number: 8, value: 'Huit' },
+                { number: 7, value: 'Sept' },
+                { number: 6, value: 'Six' },
+                { number: 5, value: 'Cinq' },
+                { number: 4, value: 'Quatre' },
+                { number: 3, value: 'Trois' },
+                { number: 2, value: 'Deux' },
+                { number: 1, value: 'Un' },
+                { number: 0, value: 'Zéro' },
+            ],
+            ignoreOneForWords: ['Cent', 'Mille'],
+            pluralMark: 's',
+            pluralWords: ['Billiard', 'Billion', 'Milliard', 'Million'],
+        };
+    }
+}
+exports["default"] = Locale;
+
+
+/***/ }),
+
+/***/ 31961:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  A: () => (/* binding */ ItemsTable)
+});
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemsTable.vue?vue&type=template&id=7f512fbf&scoped=true
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _vm.items && _vm.items.length > 0 ? _c('div', {
+    staticClass: "items-table-wrapper mt-3 mb-4"
+  }, [_c('div', {
+    staticClass: "table-responsive table-custom w-100 m-auto",
+    staticStyle: {
+      "max-width": "100%"
+    }
+  }, [_c('table', {
+    "class": ['table', 'table-hover', 'table-sm', 'text-center', _vm.tableClass]
+  }, [_c('thead', [_c('th', [_vm._v(_vm._s(_vm.$t("#")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Code")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Item Name")))]), _vm._v(" "), _vm.showInvoiceQtyColumn ? _c('th', [_vm._v(_vm._s(_vm.$t("Invoice Qty")))]) : _vm._e(), _vm._v(" "), _vm.showCurrentQtyColumn ? _c('th', [_vm._v(_vm._s(_vm.$t("Current Qty")))]) : _vm._e(), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Qty")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Price")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Total")))]), _vm._v(" "), !_vm.hideDiscountColumn ? _c('th', [_vm._v(_vm._s(_vm.$t("Discount")))]) : _vm._e(), _vm._v(" "), !_vm.hideDiscountColumn ? _c('th', [_vm._v(_vm._s(_vm.$t("Total After Discount")))]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('th', [_vm._v(_vm._s(_vm.$t("VAT Type")))]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('th', [_vm._v(_vm._s(_vm.$t("VAT")))]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('th', [_vm._v(_vm._s(_vm.$t("Total with VAT")))]) : _vm._e(), _vm._v(" "), _vm.showReturnPriceColumn ? _c('th', {
+    staticClass: "text-right"
+  }, [_vm._v(_vm._s(_vm.$t("Return Price")))]) : _vm._e(), _vm._v(" "), !_vm.showReturnPriceColumn ? _c('th', {
+    staticClass: "text-right"
+  }, [_vm._v(_vm._s(_vm.$t("Action")))]) : _vm._e()]), _vm._v(" "), _c('tbody', [_vm._l(_vm.items, function (item, i) {
+    return _c('tr', {
+      key: i
+    }, [_c('td', {
+      staticClass: "auto-width"
+    }, [_vm._v(_vm._s(++i))]), _vm._v(" "), _c('td', {
+      staticClass: "auto-width"
+    }, [_vm._v(_vm._s(_vm._f("withPrefix")(item.code, _vm.prefix)))]), _vm._v(" "), _c('td', {
+      staticClass: "auto-width"
+    }, [_c('div', {
+      staticClass: "d-flex align-items-center"
+    }, [Number(item.inventoryCount) < Number(_vm.getItemField(item, _vm.qtyFieldName)) && item.itemType == 'product' ? _c('span', {
+      directives: [{
+        name: "tooltip",
+        rawName: "v-tooltip",
+        value: _vm.$t('Click to manage stock'),
+        expression: "$t('Click to manage stock')"
+      }],
+      staticClass: "badge badge-danger p-2 mr-2 clickable-badge",
+      on: {
+        "click": function click($event) {
+          return _vm.$emit('open-stock-modal', item);
+        }
+      }
+    }, [_c('i', {
+      staticClass: "fas fa-exclamation"
+    })]) : _vm._e(), _vm._v(" "), _c('div', {
+      staticClass: "flex-grow-1"
+    }, [_vm.$can('product-view') ? _c('router-link', {
+      attrs: {
+        "to": {
+          name: 'products.show',
+          params: {
+            slug: item.slug
+          }
+        }
+      }
+    }, [_vm._v("\n                                    " + _vm._s(item.name) + "\n                                ")]) : _c('span', [_vm._v(_vm._s(item.name))])], 1), _vm._v(" "), _vm.showEditButton ? _c('button', {
+      directives: [{
+        name: "tooltip",
+        rawName: "v-tooltip",
+        value: _vm.$t('Edit Product'),
+        expression: "$t('Edit Product')"
+      }],
+      staticClass: "btn btn-sm btn-outline-primary ml-2",
+      attrs: {
+        "type": "button"
+      },
+      on: {
+        "click": function click($event) {
+          return _vm.$emit('edit-product', item);
+        }
+      }
+    }, [_c('i', {
+      staticClass: "fas fa-edit"
+    })]) : _vm._e()])]), _vm._v(" "), _vm.showInvoiceQtyColumn ? _c('td', {
+      staticClass: "auto-width"
+    }, [_vm._v("\n                        " + _vm._s(item.invoiceQty || item.qty) + " " + _vm._s(item.unit || '') + "\n                    ")]) : _vm._e(), _vm._v(" "), _vm.showCurrentQtyColumn ? _c('td', {
+      staticClass: "auto-width"
+    }, [_vm._v("\n                        " + _vm._s(item.returnQty !== undefined ? item.returnQty : (item.invoiceQty || item.qty) - (item.oldQty || 0)) + " " + _vm._s(item.unit || '') + "\n                    ")]) : _vm._e(), _vm._v(" "), _c('td', {
+      staticClass: "fixed-qty-column"
+    }, [_c('div', {
+      staticClass: "input-group custom-qty-input"
+    }, [_c('input', {
+      staticClass: "button-minus icon-shape icon-sm btn-danger",
+      attrs: {
+        "type": "button",
+        "value": "-",
+        "data-field": "quantity",
+        "disabled": item.isFromQuotation
+      },
+      on: {
+        "click": function click($event) {
+          _vm.handleItemChange(_vm.getItemField(item, _vm.qtyFieldName), 'qty', i - 1, 'decrement');
+        }
+      }
+    }), _vm._v(" "), _c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model.number",
+        value: item[_vm.qtyFieldName],
+        expression: "item[qtyFieldName]",
+        modifiers: {
+          "number": true
+        }
+      }],
+      staticClass: "quantity-field border-0 incrementor",
+      "class": {
+        'is-invalid': _vm.getFieldError("selectedProducts.".concat(i - 1, ".").concat(_vm.qtyFieldName)),
+        'insufficient-stock-input': Number(item.inventoryCount) < Number(_vm.getItemField(item, _vm.qtyFieldName)) && item.itemType == 'product'
+      },
+      attrs: {
+        "type": "number",
+        "step": "any",
+        "id": "Qty-".concat(i),
+        "name": "quantity",
+        "required": "",
+        "min": "1",
+        "max": _vm.disableInventoryMaxRestriction ? null : item.itemType == 'product' ? item.inventoryCount : item.maxQty || null,
+        "readonly": item.isFromQuotation,
+        "placeholder": _vm.$t('Quantity')
+      },
+      domProps: {
+        "value": item[_vm.qtyFieldName]
+      },
+      on: {
+        "change": function change($event) {
+          return _vm.handleItemChange($event.target.value, 'qty', i - 1, '');
+        },
+        "keyup": function keyup($event) {
+          return _vm.handleItemChange($event.target.value, 'qty', i - 1, '');
+        },
+        "input": [function ($event) {
+          if ($event.target.composing) return;
+          _vm.$set(item, _vm.qtyFieldName, _vm._n($event.target.value));
+        }, function ($event) {
+          return _vm.handleItemChange($event.target.value, 'qty', i - 1, '');
+        }],
+        "blur": function blur($event) {
+          return _vm.$forceUpdate();
+        }
+      }
+    }), _vm._v(" "), _c('input', {
+      staticClass: "button-plus icon-shape icon-sm btn-primary",
+      attrs: {
+        "type": "button",
+        "value": "+",
+        "data-field": "quantity",
+        "disabled": item.isFromQuotation
+      },
+      on: {
+        "click": function click($event) {
+          _vm.handleItemChange(_vm.getItemField(item, _vm.qtyFieldName), 'qty', i - 1, 'increment');
+        }
+      }
+    })])]), _vm._v(" "), _c('td', {
+      staticClass: "auto-width"
+    }, [!_vm.priceReadonly ? _c('div', {
+      staticClass: "input-group custom-qty-input"
+    }, [_c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model.number",
+        value: item[_vm.unitPriceFieldName],
+        expression: "item[unitPriceFieldName]",
+        modifiers: {
+          "number": true
+        }
+      }],
+      staticClass: "quantity-field border-0",
+      attrs: {
+        "type": "number",
+        "step": "any",
+        "min": "0",
+        "id": "unitPrice-".concat(i),
+        "name": "unitPrice",
+        "required": "",
+        "readonly": item.isFromQuotation
+      },
+      domProps: {
+        "value": item[_vm.unitPriceFieldName]
+      },
+      on: {
+        "input": [function ($event) {
+          if ($event.target.composing) return;
+          _vm.$set(item, _vm.unitPriceFieldName, _vm._n($event.target.value));
+        }, function ($event) {
+          return _vm.handleItemChange(item[_vm.unitPriceFieldName], 'price', i - 1, '');
+        }],
+        "blur": function blur($event) {
+          return _vm.$forceUpdate();
+        }
+      }
+    })]) : _c('div', [_vm._v("\n                            " + _vm._s(_vm.formatToTwoDecimals(_vm.getItemField(item, _vm.unitPriceFieldName))) + "\n                        ")])]), _vm._v(" "), _c('td', {
+      staticClass: "no-currency auto-width"
+    }, [_vm._v(_vm._s(_vm.formatToTwoDecimals((item.originalPrice || _vm.getItemField(item, _vm.unitPriceFieldName)) * (item.invoiceQty || _vm.getItemField(item, _vm.qtyFieldName) || 1))) + " "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])]), _vm._v(" "), !_vm.hideDiscountColumn ? _c('td', {
+      staticStyle: {
+        "min-width": "180px"
+      }
+    }, [_c('div', {
+      staticClass: "input-group"
+    }, [_c('select', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: item.discountType,
+        expression: "item.discountType"
+      }],
+      staticClass: "form-control form-control-sm",
+      "class": {
+        'is-invalid': _vm.getFieldError("selectedProducts.".concat(i - 1, ".discountType"))
+      },
+      staticStyle: {
+        "width": "85px"
+      },
+      attrs: {
+        "disabled": item.isFromQuotation
+      },
+      on: {
+        "change": [function ($event) {
+          var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+            return o.selected;
+          }).map(function (o) {
+            var val = "_value" in o ? o._value : o.value;
+            return val;
+          });
+          _vm.$set(item, "discountType", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+        }, function ($event) {
+          return _vm.handleDiscountChange(i - 1);
+        }]
+      }
+    }, [_c('option', {
+      attrs: {
+        "value": "fixed"
+      }
+    }, [_vm._v(_vm._s(_vm.$t("Fixed")))]), _vm._v(" "), _c('option', {
+      attrs: {
+        "value": "percentage"
+      }
+    }, [_vm._v(_vm._s(_vm.$t("%")))])]), _vm._v(" "), _c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: item.discount,
+        expression: "item.discount"
+      }],
+      staticClass: "form-control form-control-sm",
+      "class": {
+        'is-invalid': _vm.getFieldError("selectedProducts.".concat(i - 1, ".discount"))
+      },
+      staticStyle: {
+        "width": "80px"
+      },
+      attrs: {
+        "type": "number",
+        "step": "any",
+        "min": "0",
+        "max": item.discountType == 'percentage' ? 100 : _vm.getItemField(item, _vm.unitPriceFieldName) * _vm.getItemField(item, _vm.qtyFieldName),
+        "readonly": item.isFromQuotation,
+        "placeholder": "0"
+      },
+      domProps: {
+        "value": item.discount
+      },
+      on: {
+        "change": function change($event) {
+          return _vm.handleDiscountChange(i - 1);
+        },
+        "keyup": function keyup($event) {
+          return _vm.handleDiscountChange(i - 1);
+        },
+        "input": function input($event) {
+          if ($event.target.composing) return;
+          _vm.$set(item, "discount", $event.target.value);
+        }
+      }
+    })]), _vm._v(" "), _vm.getFieldError("selectedProducts.".concat(i - 1, ".discount")) || _vm.getFieldError("selectedProducts.".concat(i - 1, ".discountType")) ? _c('div', {
+      staticClass: "invalid-feedback d-block"
+    }, [_vm.getFieldError("selectedProducts.".concat(i - 1, ".discount")) ? _c('span', {
+      staticClass: "d-block"
+    }, [_vm._v(_vm._s(_vm.getFieldErrorMessage("selectedProducts.".concat(i - 1, ".discount"))))]) : _vm._e(), _vm._v(" "), _vm.getFieldError("selectedProducts.".concat(i - 1, ".discountType")) ? _c('span', {
+      staticClass: "d-block"
+    }, [_vm._v(_vm._s(_vm.getFieldErrorMessage("selectedProducts.".concat(i - 1, ".discountType"))))]) : _vm._e()]) : _vm._e()]) : _vm._e(), _vm._v(" "), !_vm.hideDiscountColumn ? _c('td', {
+      staticClass: "no-currency auto-width"
+    }, [_vm._v(_vm._s(_vm.formatToTwoDecimals(item.totalAfterDiscount !== undefined ? item.totalAfterDiscount : _vm.getItemField(item, _vm.unitPriceFieldName) * _vm.getItemField(item, _vm.qtyFieldName) - (item.discountAmount || 0))) + " "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('td', {
+      staticClass: "fixed-vat-column"
+    }, [_vm.useVatRateId ? _c('select', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: item.vat_rate_id,
+        expression: "item.vat_rate_id"
+      }],
+      staticClass: "form-control form-control-sm",
+      "class": {
+        'is-invalid': _vm.getFieldError("selectedProducts.".concat(i - 1, ".vat_rate_id"))
+      },
+      staticStyle: {
+        "min-width": "120px"
+      },
+      attrs: {
+        "disabled": item.isFromQuotation
+      },
+      on: {
+        "change": [function ($event) {
+          var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+            return o.selected;
+          }).map(function (o) {
+            var val = "_value" in o ? o._value : o.value;
+            return val;
+          });
+          _vm.$set(item, "vat_rate_id", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+        }, function ($event) {
+          return _vm.handleVatChange(i - 1);
+        }]
+      }
+    }, [_c('option', {
+      attrs: {
+        "value": ""
+      }
+    }, [_vm._v(_vm._s(_vm.$t('Select VAT')))]), _vm._v(" "), _vm._l(_vm.taxes, function (tax) {
+      return _c('option', {
+        key: tax.id,
+        domProps: {
+          "value": tax.id
+        }
+      }, [_vm._v("\n                                " + _vm._s(tax.code) + " (" + _vm._s(tax.rate) + "%)\n                            ")]);
+    })], 2) : _c('select', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: item.selectedVatRate,
+        expression: "item.selectedVatRate"
+      }],
+      staticClass: "form-control form-control-sm",
+      "class": {
+        'is-invalid': _vm.getFieldError("selectedProducts.".concat(i - 1, ".selectedVatRate"))
+      },
+      staticStyle: {
+        "min-width": "120px"
+      },
+      attrs: {
+        "disabled": item.isFromQuotation
+      },
+      on: {
+        "change": [function ($event) {
+          var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+            return o.selected;
+          }).map(function (o) {
+            var val = "_value" in o ? o._value : o.value;
+            return val;
+          });
+          _vm.$set(item, "selectedVatRate", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+        }, function ($event) {
+          return _vm.handleVatChange(i - 1);
+        }]
+      }
+    }, [_c('option', {
+      attrs: {
+        "value": ""
+      }
+    }, [_vm._v(_vm._s(_vm.$t('Select VAT')))]), _vm._v(" "), _vm._l(_vm.taxes, function (tax) {
+      return _c('option', {
+        key: tax.id,
+        domProps: {
+          "value": tax
+        }
+      }, [_vm._v("\n                                " + _vm._s(tax.code) + " (" + _vm._s(tax.rate) + "%)\n                            ")]);
+    })], 2), _vm._v(" "), _vm.useVatRateId && _vm.getFieldError("selectedProducts.".concat(i - 1, ".vat_rate_id")) ? _c('div', {
+      staticClass: "invalid-feedback d-block"
+    }, [_vm._v("\n                            " + _vm._s(_vm.getFieldErrorMessage("selectedProducts.".concat(i - 1, ".vat_rate_id"))) + "\n                        ")]) : _vm._e(), _vm._v(" "), !_vm.useVatRateId && _vm.getFieldError("selectedProducts.".concat(i - 1, ".selectedVatRate")) ? _c('div', {
+      staticClass: "invalid-feedback d-block"
+    }, [_vm._v("\n                            " + _vm._s(_vm.getFieldErrorMessage("selectedProducts.".concat(i - 1, ".selectedVatRate"))) + "\n                        ")]) : _vm._e()]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('td', {
+      staticClass: "no-currency fixed-vat-column"
+    }, [_c('div', [_vm._v("\n                            " + _vm._s(_vm.formatToTwoDecimals(item.totalTax || 0)) + "\n                            "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])])]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('td', {
+      staticClass: "no-currency auto-width"
+    }, [_vm._v(_vm._s(_vm.formatToTwoDecimals(item.totalPrice)) + "\n                        "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), _vm.showReturnPriceColumn ? _c('td', {
+      staticClass: "text-right auto-width"
+    }, [_vm._v("\n                        " + _vm._s(_vm.formatToTwoDecimals(item.returnTotal !== undefined ? item.returnTotal : item.totalReturn || 0)) + " "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), !_vm.showReturnPriceColumn ? _c('td', {
+      staticClass: "text-right auto-width"
+    }, [_c('button', {
+      staticClass: "btn btn-danger",
+      attrs: {
+        "type": "button"
+      },
+      on: {
+        "click": function click($event) {
+          return _vm.$emit('remove-item', item);
+        }
+      }
+    }, [_c('i', {
+      staticClass: "fas fa-times"
+    })])]) : _vm._e()]);
+  }), _vm._v(" "), _c('tr', [_c('td', {
+    staticClass: "text-right",
+    attrs: {
+      "colspan": _vm.totalsColspan + (_vm.showInvoiceQtyColumn ? 1 : 0) + (_vm.showCurrentQtyColumn ? 1 : 0)
+    }
+  }, [!_vm.hideDiscountColumn && !_vm.hideVatColumn ? _c('strong', [_vm._v(" " + _vm._s(_vm.$t("Total")) + " : " + _vm._s(_vm.amountInWords) + " ")]) : _c('strong', [_vm._v(_vm._s(_vm.$t("Subtotal")))])]), _vm._v(" "), _vm.totalsColspan === 4 && !_vm.hideDiscountColumn && !_vm.hideVatColumn ? _c('td', {
+    staticClass: "no-currency"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.totalUnitPrice)))]), _vm._v(" "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), !_vm.hideDiscountColumn && !_vm.hideVatColumn ? _c('td', {
+    staticClass: "no-currency"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.customTotalValue !== null ? _vm.customTotalValue : _vm.totalUnitPrice)))]), _vm._v(" "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), !_vm.hideDiscountColumn && !_vm.hideVatColumn ? _c('td', {
+    staticClass: "no-currency"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.totalProductDiscount)))]), _vm._v(" "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), !_vm.hideDiscountColumn && !_vm.hideVatColumn ? _c('td', {
+    staticClass: "no-currency"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.totalAfterDiscount)))]), _vm._v(" "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('td', [_c('strong')]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('td', {
+    staticClass: "no-currency"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.totalProductTax)))]), _vm._v(" "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('td', {
+    staticClass: "no-currency"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.subtotal)))]), _vm._v(" "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), _vm.showReturnPriceColumn && !_vm.hideDiscountColumn && !_vm.hideVatColumn ? _c('td', {
+    staticClass: "no-currency"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.customTotalValue !== null ? _vm.customTotalValue : 0)))]), _vm._v(" "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), _vm.hideDiscountColumn && _vm.hideVatColumn ? _c('td', {
+    staticClass: "no-currency"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.totalUnitPrice)))]), _vm._v(" "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), _vm.showReturnPriceColumn && _vm.hideDiscountColumn && _vm.hideVatColumn ? _c('td', {
+    staticClass: "text-right"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.customTotalValue !== null ? _vm.customTotalValue : _vm.subtotal)))]), _vm._v(" "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), !_vm.showReturnPriceColumn && !_vm.hideDiscountColumn && !_vm.hideVatColumn ? _c('td') : _vm._e()])], 2)])])]) : _vm._e();
+};
+var staticRenderFns = [];
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemsTable.vue?vue&type=script&lang=js
+/* harmony default export */ const ItemsTablevue_type_script_lang_js = ({
+  name: 'ItemsTable',
+  props: {
+    items: {
+      type: Array,
+      required: true,
+      "default": function _default() {
+        return [];
+      }
+    },
+    prefix: {
+      type: String,
+      "default": ''
+    },
+    taxes: {
+      type: Array,
+      "default": function _default() {
+        return [];
+      }
+    },
+    formErrors: {
+      type: Object,
+      "default": function _default() {
+        return {};
+      }
+    },
+    totalUnitPrice: {
+      type: Number,
+      "default": 0
+    },
+    totalProductDiscount: {
+      type: Number,
+      "default": 0
+    },
+    totalAfterDiscount: {
+      type: Number,
+      "default": 0
+    },
+    totalProductTax: {
+      type: Number,
+      "default": 0
+    },
+    subtotal: {
+      type: Number,
+      "default": 0
+    },
+    amountInWords: {
+      type: String,
+      "default": ''
+    },
+    showEditButton: {
+      type: Boolean,
+      "default": true
+    },
+    useVatRateId: {
+      type: Boolean,
+      "default": false
+    },
+    tableClass: {
+      type: String,
+      "default": 'quotations-create-table'
+    },
+    qtyFieldName: {
+      type: String,
+      "default": 'qty'
+    },
+    unitPriceFieldName: {
+      type: String,
+      "default": 'unitPrice'
+    },
+    priceReadonly: {
+      type: Boolean,
+      "default": false
+    },
+    customTotalValue: {
+      type: Number,
+      "default": null
+    },
+    totalsColspan: {
+      type: Number,
+      "default": 5
+    },
+    hideDiscountColumn: {
+      type: Boolean,
+      "default": false
+    },
+    hideVatColumn: {
+      type: Boolean,
+      "default": false
+    },
+    showInvoiceQtyColumn: {
+      type: Boolean,
+      "default": false
+    },
+    showCurrentQtyColumn: {
+      type: Boolean,
+      "default": false
+    },
+    showReturnPriceColumn: {
+      type: Boolean,
+      "default": false
+    },
+    disableInventoryMaxRestriction: {
+      type: Boolean,
+      "default": false
+    }
+  },
+  methods: {
+    getItemField: function getItemField(item, fieldName) {
+      return item[fieldName] || 0;
+    },
+    formatToTwoDecimals: function formatToTwoDecimals(value) {
+      if (value === null || value === undefined || value === '') {
+        return '0.00';
+      }
+      var numValue = Number(value);
+      if (isNaN(numValue)) {
+        return '0.00';
+      }
+      return numValue.toFixed(2);
+    },
+    getFieldError: function getFieldError(field) {
+      if (!this.formErrors || typeof this.formErrors.has !== 'function') {
+        return false;
+      }
+      return this.formErrors.has(field);
+    },
+    getFieldErrorMessage: function getFieldErrorMessage(field) {
+      if (!this.formErrors || typeof this.formErrors.get !== 'function') {
+        return '';
+      }
+      return this.formErrors.get(field);
+    },
+    handleItemChange: function handleItemChange(value, type, index, action) {
+      this.$emit('item-change', {
+        value: value,
+        type: type,
+        index: index,
+        action: action
+      });
+    },
+    handleDiscountChange: function handleDiscountChange(index) {
+      this.$emit('discount-change', index);
+    },
+    handleVatChange: function handleVatChange(index) {
+      this.$emit('vat-change', index);
+    }
+  }
+});
+;// ./resources/js/components/ItemsTable.vue?vue&type=script&lang=js
+ /* harmony default export */ const components_ItemsTablevue_type_script_lang_js = (ItemsTablevue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__(85072);
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemsTable.vue?vue&type=style&index=0&id=7f512fbf&prod&scoped=true&lang=css
+var ItemsTablevue_type_style_index_0_id_7f512fbf_prod_scoped_true_lang_css = __webpack_require__(25183);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemsTable.vue?vue&type=style&index=0&id=7f512fbf&prod&scoped=true&lang=css
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = injectStylesIntoStyleTag_default()(ItemsTablevue_type_style_index_0_id_7f512fbf_prod_scoped_true_lang_css/* default */.A, options);
+
+
+
+/* harmony default export */ const components_ItemsTablevue_type_style_index_0_id_7f512fbf_prod_scoped_true_lang_css = (ItemsTablevue_type_style_index_0_id_7f512fbf_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/components/ItemsTable.vue?vue&type=style&index=0&id=7f512fbf&prod&scoped=true&lang=css
+
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(14486);
+;// ./resources/js/components/ItemsTable.vue
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,componentNormalizer/* default */.A)(
+  components_ItemsTablevue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  "7f512fbf",
+  null
+  
+)
+
+/* harmony default export */ const ItemsTable = (component.exports);
+
+/***/ }),
+
+/***/ 33972:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+class Locale {
+    constructor() {
+        this.config = {
+            currency: {
+                name: 'रुपया',
+                plural: 'रुपये',
+                singular: 'रुपया',
+                symbol: '₹',
+                fractionalUnit: {
+                    name: 'पैसा',
+                    singular: 'पैसा',
+                    plural: 'पैसे',
                     symbol: '',
                 },
             },
             texts: {
-                and: 'এবং',
-                minus: 'ঋণ',
+                and: 'आणि',
+                minus: 'वजा',
                 only: '',
-                point: 'দশমিক',
+                point: 'पूर्णांक',
             },
             numberWordsMapping: [
-                { number: 10000000, value: 'কোটি' },
-                { number: 100000, value: 'লাখ' },
-                { number: 1000, value: 'হাজার' },
-                { number: 100, value: 'শত' },
-                { number: 99, value: 'নিরানব্বই' },
-                { number: 98, value: 'আটানব্বই' },
-                { number: 97, value: 'সাতানব্বই' },
-                { number: 96, value: 'ছিয়ানব্বই' },
-                { number: 95, value: 'পঁচানব্বই' },
-                { number: 94, value: 'চুরানব্বই' },
-                { number: 93, value: 'তিরানব্বই' },
-                { number: 92, value: 'বিরানব্বই' },
-                { number: 91, value: 'একানব্বই' },
-                { number: 90, value: 'নব্বই' },
-                { number: 89, value: 'ঊননব্বই' },
-                { number: 88, value: 'অষ্টআশি' },
-                { number: 87, value: 'সাতআশি' },
-                { number: 86, value: 'ছিয়াশী' },
-                { number: 85, value: 'পঁচাশী' },
-                { number: 84, value: 'চুরাশী' },
-                { number: 83, value: 'তিরাশী' },
-                { number: 82, value: 'বিরাশী' },
-                { number: 81, value: 'একাশী' },
-                { number: 80, value: 'আশি' },
-                { number: 79, value: 'ঊনআশি' },
-                { number: 78, value: 'অষ্টাত্তর' },
-                { number: 77, value: 'সাতাত্তর' },
-                { number: 76, value: 'ছিয়াত্তর' },
-                { number: 75, value: 'পঁচাত্তর' },
-                { number: 74, value: 'চুয়াত্তর' },
-                { number: 73, value: 'তিয়াত্তর' },
-                { number: 72, value: 'বাহাত্তর' },
-                { number: 71, value: 'একাত্তর' },
-                { number: 70, value: 'সত্তর' },
-                { number: 69, value: 'ঊনসত্তর' },
-                { number: 68, value: 'অষ্টষষ্টি' },
-                { number: 67, value: 'সাতষষ্টি' },
-                { number: 66, value: 'ছেষষ্টি' },
-                { number: 65, value: 'পঁয়ষট্টি' },
-                { number: 64, value: 'চৌষট্টি' },
-                { number: 63, value: 'তেষট্টি' },
-                { number: 62, value: 'বাষট্টি' },
-                { number: 61, value: 'একষট্টি' },
-                { number: 60, value: 'ষাট' },
-                { number: 59, value: 'ঊনষাট' },
-                { number: 58, value: 'আটান্ন' },
-                { number: 57, value: 'সাতান্ন' },
-                { number: 56, value: 'ছাপ্পান্ন' },
-                { number: 55, value: 'পঞ্চান্ন' },
-                { number: 54, value: 'চুয়ান্ন' },
-                { number: 53, value: 'তিপ্পান্ন' },
-                { number: 52, value: 'বায়ান্ন' },
-                { number: 51, value: 'একান্ন' },
-                { number: 50, value: 'পঞ্চাশ' },
-                { number: 49, value: 'ঊনপঞ্চাশ' },
-                { number: 48, value: 'আটচল্লিশ' },
-                { number: 47, value: 'সাতচল্লিশ' },
-                { number: 46, value: 'ছেচল্লিশ' },
-                { number: 45, value: 'পঁইঁতাল্লিশ' },
-                { number: 44, value: 'চুয়াল্লিশ' },
-                { number: 43, value: 'তেতাল্লিশ' },
-                { number: 42, value: 'বিয়াল্লিশ' },
-                { number: 41, value: 'একচল্লিশ' },
-                { number: 40, value: 'চল্লিশ' },
-                { number: 39, value: 'ঊনচল্লিশ' },
-                { number: 38, value: 'আটত্রিশ' },
-                { number: 37, value: 'সাঁইত্রিশ' },
-                { number: 36, value: 'ছত্রিশ' },
-                { number: 35, value: 'পঁইত্রিশ' },
-                { number: 34, value: 'চৌত্রিশ' },
-                { number: 33, value: 'তেত্রিশ' },
-                { number: 32, value: 'বত্রিশ' },
-                { number: 31, value: 'একত্রিশ' },
-                { number: 30, value: 'ত্রিশ' },
-                { number: 29, value: 'ঊনত্রিশ' },
-                { number: 28, value: 'আঠাশ' },
-                { number: 27, value: 'সাতাশ' },
-                { number: 26, value: 'ছাব্বিশ' },
-                { number: 25, value: 'পঁচিশ' },
-                { number: 24, value: 'চব্বিশ' },
-                { number: 23, value: 'তেইশ' },
-                { number: 22, value: 'বাইশ' },
-                { number: 21, value: 'একুশ' },
-                { number: 20, value: 'বিশ' },
-                { number: 19, value: 'ঊনিশ' },
-                { number: 18, value: 'আঠারো' },
-                { number: 17, value: 'সতেরো' },
-                { number: 16, value: 'ষোলো' },
-                { number: 15, value: 'পনেরো' },
-                { number: 14, value: 'চৌদ্দ' },
-                { number: 13, value: 'তেরো' },
-                { number: 12, value: 'বারো' },
-                { number: 11, value: 'এগারো' },
-                { number: 10, value: 'দশ' },
-                { number: 9, value: 'নয়' },
-                { number: 8, value: 'আট' },
-                { number: 7, value: 'সাত' },
-                { number: 6, value: 'ছয়' },
-                { number: 5, value: 'পাঁচ' },
-                { number: 4, value: 'চার' },
-                { number: 3, value: 'তিন' },
-                { number: 2, value: 'দুই' },
-                { number: 1, value: 'এক' },
-                { number: 0, value: 'শূন্য' },
+                { number: 10000000, value: 'कोटी' },
+                { number: 100000, value: 'लाख' },
+                { number: 1000, value: 'हजार' },
+                { number: 900, value: 'नऊशे' },
+                { number: 800, value: 'आठशे' },
+                { number: 700, value: 'सातशे' },
+                { number: 600, value: 'सहाशे' },
+                { number: 500, value: 'पाचशे' },
+                { number: 400, value: 'चारशे' },
+                { number: 300, value: 'तीनशे' },
+                { number: 200, value: 'दोनशे' },
+                { number: 100, value: 'एकशे' },
+                { number: 99, value: 'नव्व्याण्णव' },
+                { number: 98, value: 'अठ्ठ्याण्णव' },
+                { number: 97, value: 'सत्त्याण्णव' },
+                { number: 96, value: 'शहाण्णव' },
+                { number: 95, value: 'पंच्याण्णव' },
+                { number: 94, value: 'चौऱ्याण्णव' },
+                { number: 93, value: 'त्र्याण्णव' },
+                { number: 92, value: 'ब्याण्णव' },
+                { number: 91, value: 'एक्क्याण्णव' },
+                { number: 90, value: 'नव्वद' },
+                { number: 89, value: 'एकोणनव्वद' },
+                { number: 88, value: 'अठ्ठ्याऐंशी' },
+                { number: 87, value: 'सत्त्याऐंशी' },
+                { number: 86, value: 'शहाऐंशी' },
+                { number: 85, value: 'पंच्याऐंशी' },
+                { number: 84, value: 'चौऱ्याऐंशी' },
+                { number: 83, value: 'त्र्याऐंशी' },
+                { number: 82, value: 'ब्याऐंशी' },
+                { number: 81, value: 'एक्क्याऐंशी' },
+                { number: 80, value: 'ऐंशी' },
+                { number: 79, value: 'एकोणऐंशी' },
+                { number: 78, value: 'अठ्ठ्याहत्तर' },
+                { number: 77, value: 'सत्याहत्तर' },
+                { number: 76, value: 'शहात्तर' },
+                { number: 75, value: 'पंच्याहत्तर' },
+                { number: 74, value: 'चौर्‍याहत्तर' },
+                { number: 73, value: 'त्र्याहत्तर' },
+                { number: 72, value: 'बाहत्तर' },
+                { number: 71, value: 'एक्काहत्तर' },
+                { number: 70, value: 'सत्तर' },
+                { number: 69, value: 'एकोणसत्तर' },
+                { number: 68, value: 'अडुसष्ठ' },
+                { number: 67, value: 'सदुसष्ठ' },
+                { number: 66, value: 'सहासष्ठ' },
+                { number: 65, value: 'पासष्ठ' },
+                { number: 64, value: 'चौसष्ठ' },
+                { number: 63, value: 'त्रेसष्ठ' },
+                { number: 62, value: 'बासष्ठ' },
+                { number: 61, value: 'एकसष्ठ' },
+                { number: 60, value: 'साठ' },
+                { number: 59, value: 'एकोणसाठ' },
+                { number: 58, value: 'अठ्ठावन्न' },
+                { number: 57, value: 'सत्तावन्न' },
+                { number: 56, value: 'छप्पन्न' },
+                { number: 55, value: 'पंचावन्न' },
+                { number: 54, value: 'चोपन्न' },
+                { number: 53, value: 'त्रेपन्न' },
+                { number: 52, value: 'बावन्न' },
+                { number: 51, value: 'एक्कावन्न' },
+                { number: 50, value: 'पन्नास' },
+                { number: 49, value: 'एकोणपन्नास' },
+                { number: 48, value: 'अठ्ठेचाळीस' },
+                { number: 47, value: 'सत्तेचाळीस' },
+                { number: 46, value: 'सेहेचाळीस' },
+                { number: 45, value: 'पंचेचाळीस' },
+                { number: 44, value: 'चव्वेचाळीस' },
+                { number: 43, value: 'त्रेचाळीस' },
+                { number: 42, value: 'बेचाळीस' },
+                { number: 41, value: 'एक्केचाळीस' },
+                { number: 40, value: 'चाळीस' },
+                { number: 39, value: 'एकोणचाळीस' },
+                { number: 38, value: 'अडतीस' },
+                { number: 37, value: 'सदतीस' },
+                { number: 36, value: 'छत्तीस' },
+                { number: 35, value: 'पस्तीस' },
+                { number: 34, value: 'चौतीस' },
+                { number: 33, value: 'तेहेतीस' },
+                { number: 32, value: 'बत्तीस' },
+                { number: 31, value: 'एकतीस' },
+                { number: 30, value: 'तीस' },
+                { number: 29, value: 'एकोणतीस' },
+                { number: 28, value: 'अठ्ठावीस' },
+                { number: 27, value: 'सत्तावीस' },
+                { number: 26, value: 'सव्वीस' },
+                { number: 25, value: 'पंचवीस' },
+                { number: 24, value: 'चोवीस' },
+                { number: 23, value: 'तेवीस' },
+                { number: 22, value: 'बावीस' },
+                { number: 21, value: 'एकवीस' },
+                { number: 20, value: 'वीस' },
+                { number: 19, value: 'एकोणीस' },
+                { number: 18, value: 'अठरा' },
+                { number: 17, value: 'सतरा' },
+                { number: 16, value: 'सोळा' },
+                { number: 15, value: 'पंधरा' },
+                { number: 14, value: 'चौदा' },
+                { number: 13, value: 'तेरा' },
+                { number: 12, value: 'बारा' },
+                { number: 11, value: 'अकरा' },
+                { number: 10, value: 'दहा' },
+                { number: 9, value: 'नऊ' },
+                { number: 8, value: 'आठ' },
+                { number: 7, value: 'सात' },
+                { number: 6, value: 'सहा' },
+                { number: 5, value: 'पाच' },
+                { number: 4, value: 'चार' },
+                { number: 3, value: 'तीन' },
+                { number: 2, value: 'दोन' },
+                { number: 1, value: 'एक' },
+                { number: 0, value: 'शून्य' },
+            ],
+            namedLessThan1000: true,
+        };
+    }
+}
+exports["default"] = Locale;
+
+
+/***/ }),
+
+/***/ 34103:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".form-card[data-v-2ee3bdce]{background:#fff;border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-bottom:1.25rem;margin-top:20px;transition:all .2s ease}.form-card[data-v-2ee3bdce]:hover{box-shadow:0 .1rem .5rem 0 rgba(58,59,69,.15)}.form-card .card-header[data-v-2ee3bdce]{background-color:#33a0d9;border-bottom:none;border-radius:20px 20px 0 0;color:#fff;padding:12px 16px}.form-card .card-header .section-title[data-v-2ee3bdce]{border:none;color:#fff;font-size:14px;font-weight:600;margin:0;padding:0}.form-card .card-header .section-title[data-v-2ee3bdce]:after{display:none}.form-card .card-header .section-title i[data-v-2ee3bdce]{color:hsla(0,0%,100%,.8)}.form-card .card-body[data-v-2ee3bdce]{padding:16px}.section-title[data-v-2ee3bdce]{border-bottom:1px solid #e9ecef;color:#495057;font-weight:600;margin-bottom:15px;padding-bottom:8px}.form-group[data-v-2ee3bdce]{margin-bottom:1rem}.form-group label[data-v-2ee3bdce]{color:#495057;font-size:.95rem;font-weight:500;margin-bottom:.5rem}.required[data-v-2ee3bdce]{color:#dc3545;font-weight:700}.row[data-v-2ee3bdce]{margin-bottom:1rem}.row[data-v-2ee3bdce]:last-child{margin-bottom:0}.auto-assign-btn[data-v-2ee3bdce]{min-width:40px;padding:.375rem .5rem;white-space:nowrap}.auto-assign-btn[data-v-2ee3bdce]:disabled{cursor:not-allowed;opacity:.6}.form-text[data-v-2ee3bdce]{color:#6c757d;font-size:.8rem;margin-top:3px}.image-preview[data-v-2ee3bdce]{text-align:center}.image-preview img[data-v-2ee3bdce]{border:1px solid #dee2e6;border-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,.1)}.custom-file-label[data-v-2ee3bdce]{background-color:#f8f9fa;border:1px dashed #dee2e6;cursor:pointer;font-size:.85rem;transition:all .2s ease}.custom-file-label[data-v-2ee3bdce]:hover{background-color:#e3f2fd;border-color:#007bff}.custom-file-label i[data-v-2ee3bdce]{color:#6c757d}.create-button[data-v-2ee3bdce]{cursor:pointer;text-decoration:none}.create-btn[data-v-2ee3bdce]{border-left:none;border-radius:0 .25rem .25rem 0;cursor:pointer;padding:11px;transition:background-color .2s ease}.create-btn[data-v-2ee3bdce]:hover{background-color:#e9ecef}.category-select[data-v-2ee3bdce]{margin-right:0!important}.category-select .vs__dropdown-toggle[data-v-2ee3bdce]{border-radius:.25rem 0 0 .25rem!important;border-right:none!important}[dir=rtl] .category-select .vs__dropdown-toggle[data-v-2ee3bdce]{border-left:none!important;border-radius:0 .25rem .25rem 0!important;border-right:1px solid #ced4da!important}[dir=rtl] .create-btn[data-v-2ee3bdce]{border-left:none;border-radius:.25rem 0 0 .25rem;border-right:1px solid #ced4da}[dir=ltr] .create-btn[data-v-2ee3bdce]{border-left:1px solid #ced4da;border-radius:0 .25rem .25rem 0;border-right:none}.unit-select[data-v-2ee3bdce]{margin-right:0!important}.unit-select .vs__dropdown-toggle[data-v-2ee3bdce]{border-radius:.25rem 0 0 .25rem!important;border-right:none!important}[dir=rtl] .unit-select .vs__dropdown-toggle[data-v-2ee3bdce]{border-left:none!important;border-radius:0 .25rem .25rem 0!important;border-right:1px solid #ced4da!important}@media (max-width:768px){.section-title[data-v-2ee3bdce]{font-size:.95rem;margin-bottom:12px}.form-card .card-body[data-v-2ee3bdce]{padding:.75rem}.auto-assign-btn[data-v-2ee3bdce]{font-size:.75rem;min-width:35px}}.input-group-prepend .input-group-text[data-v-2ee3bdce]{background-color:#f8f9fa;border-color:#ced4da;color:#495057;font-size:.85rem}.v-select[data-v-2ee3bdce]{margin-bottom:0}.is-invalid[data-v-2ee3bdce]{border-color:#dc3545!important}.invalid-feedback[data-v-2ee3bdce]{color:#dc3545;display:block;font-size:75%;margin-top:.2rem;width:100%}.item-type-selector[data-v-2ee3bdce]{display:flex;gap:.5rem;margin-top:.5rem}.item-type-option[data-v-2ee3bdce]{cursor:pointer;flex:1;position:relative;transition:all .2s ease}.item-type-option input[type=radio][data-v-2ee3bdce]{opacity:0;pointer-events:none;position:absolute}.option-content[data-v-2ee3bdce]{align-items:center;background:#fff;border:2px solid #e3e6f0;border-radius:6px;display:flex;flex-direction:column;justify-content:center;min-height:55px;padding:.6rem .5rem;text-align:center;transition:all .2s ease}.item-type-option:hover .option-content[data-v-2ee3bdce]{border-color:#33a0d9;box-shadow:0 2px 6px rgba(51,160,217,.15);transform:translateY(-1px)}.item-type-option.active .option-content[data-v-2ee3bdce]{background:#33a0d9;border-color:#33a0d9;box-shadow:0 3px 10px rgba(51,160,217,.25);color:#fff;transform:translateY(-1px)}.option-content i[data-v-2ee3bdce]{color:#6c757d;font-size:1.1rem;margin-bottom:.3rem;transition:all .2s ease}.item-type-option.active .option-content i[data-v-2ee3bdce]{color:hsla(0,0%,100%,.9)}.option-content span[data-v-2ee3bdce]{color:#495057;font-size:.85rem;font-weight:600;transition:all .2s ease}.item-type-option.active .option-content span[data-v-2ee3bdce]{color:#fff}@media (max-width:768px){.item-type-selector[data-v-2ee3bdce]{flex-direction:column;gap:.4rem}.option-content[data-v-2ee3bdce]{min-height:50px;padding:.5rem .4rem}.option-content i[data-v-2ee3bdce]{font-size:1rem;margin-bottom:.25rem}.option-content span[data-v-2ee3bdce]{font-size:.8rem}.override-checkbox-container .form-check-label[data-v-2ee3bdce]{min-height:44px;padding:.6rem .8rem}.checkbox-text[data-v-2ee3bdce]{font-size:.9rem}.form-check-input[data-v-2ee3bdce]{height:16px;width:16px}}.account-label-row[data-v-2ee3bdce]{align-items:flex-start;display:flex;flex-direction:column;gap:1rem;justify-content:space-between;margin-bottom:.5rem}.account-label[data-v-2ee3bdce]{color:#495057;flex:1;font-size:.95rem;font-weight:500;margin-bottom:0}.toggle-switch-container[data-v-2ee3bdce]{align-items:center;display:flex;flex-shrink:0}.toggle-switch-label[data-v-2ee3bdce]{align-items:center;cursor:pointer;display:inline-flex;gap:.75rem;-webkit-user-select:none;-moz-user-select:none;user-select:none}.toggle-switch-wrapper[data-v-2ee3bdce]{display:inline-block;flex-shrink:0;height:26px;position:relative;width:50px}.toggle-switch-input[data-v-2ee3bdce]{appearance:none;-webkit-appearance:none;-moz-appearance:none;background-color:#ced4da;border-radius:26px;cursor:pointer;height:26px;left:0;margin:0;outline:none;padding:0;position:absolute;top:0;transition:background-color .3s ease;width:50px}.toggle-switch-input[data-v-2ee3bdce]:checked{background-color:#33a0d9}.toggle-switch-input[data-v-2ee3bdce]:focus{box-shadow:0 0 0 .2rem rgba(51,160,217,.25)}.toggle-switch-slider[data-v-2ee3bdce]{background-color:#fff;border-radius:50%;box-shadow:0 2px 4px rgba(0,0,0,.2);height:20px;left:3px;pointer-events:none;position:absolute;top:50%;transform:translateY(-50%);transition:transform .3s ease;width:20px}.toggle-switch-input:checked+.toggle-switch-slider[data-v-2ee3bdce]{transform:translate(24px,-50%)}.toggle-switch-text[data-v-2ee3bdce]{color:#495057;font-size:.9rem;font-weight:500;transition:color .2s ease;white-space:nowrap}.toggle-switch-label:has(.toggle-switch-input:checked) .toggle-switch-text[data-v-2ee3bdce]{color:#33a0d9;font-weight:600}.alert-info[data-v-2ee3bdce]{background-color:#d1ecf1;border-color:#bee5eb;border-radius:.375rem;font-size:.9rem;padding:.75rem 1rem}.alert-info[data-v-2ee3bdce],.alert-info i[data-v-2ee3bdce]{color:#0c5460}.col-form-6[data-v-2ee3bdce]{flex:0 0 50%;max-width:50%}.col-form-6 .form-card[data-v-2ee3bdce],.col-form-6 .form-card .card-body[data-v-2ee3bdce]{width:100%}@media (max-width:1300px){.col-form-6[data-v-2ee3bdce]{flex:0 0 100%;max-width:100%}}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 36694:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   ErrorHandler: () => (/* binding */ ErrorHandler),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _plugins_i18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(37225);
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+
+
+/**
+ * Centralized error handling utility
+ * Provides consistent error display across the application
+ */
+var ErrorHandler = /*#__PURE__*/function () {
+  function ErrorHandler() {
+    _classCallCheck(this, ErrorHandler);
+  }
+  return _createClass(ErrorHandler, null, [{
+    key: "handleApiError",
+    value:
+    /**
+     * Handle API errors with proper error messages
+     * @param {Object} error - The error object from axios
+     * @param {Object} options - Additional options for error handling
+     * @returns {void}
+     */
+    function handleApiError(error) {
+      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      var _options$showValidati = options.showValidationErrors,
+        showValidationErrors = _options$showValidati === void 0 ? true : _options$showValidati,
+        _options$customMessag = options.customMessage,
+        customMessage = _options$customMessag === void 0 ? null : _options$customMessag,
+        _options$title = options.title,
+        title = _options$title === void 0 ? null : _options$title,
+        _options$timer = options.timer,
+        timer = _options$timer === void 0 ? 6000 : _options$timer,
+        _options$showTimerPro = options.showTimerProgressBar,
+        showTimerProgressBar = _options$showTimerPro === void 0 ? true : _options$showTimerPro;
+
+      // Log detailed error information for debugging
+      this.logErrorDetails(error, options.context || 'API Error');
+
+      // If custom message is provided, show it
+      if (customMessage) {
+        this.showError(title || _plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Error'), customMessage, timer, showTimerProgressBar);
+        return;
+      }
+
+      // Handle different error types
+      if (error.response) {
+        var _error$response = error.response,
+          status = _error$response.status,
+          data = _error$response.data;
+        switch (status) {
+          case 400:
+            this.handleBadRequest(data, showValidationErrors);
+            break;
+          case 401:
+            this.handleUnauthorized();
+            break;
+          case 403:
+            this.handleForbidden(data);
+            break;
+          case 404:
+            this.handleNotFound(data);
+            break;
+          case 409:
+            this.handleConflict(data);
+            break;
+          case 422:
+            this.handleValidationErrors(data, showValidationErrors);
+            break;
+          case 499:
+            // Demo version message - handled by interceptors
+            break;
+          default:
+            if (status >= 500) {
+              this.handleServerError(data);
+            } else {
+              this.handleGenericError(data, error.message);
+            }
+        }
+      } else if (error.request) {
+        // Network error
+        this.showError(_plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Network Error'), _plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Unable to connect to server. Please check your internet connection.'), 8000, true);
+      } else {
+        // Other errors
+        this.handleGenericError(null, error.message);
+      }
+    }
+
+    /**
+     * Handle 400 Bad Request errors
+     */
+  }, {
+    key: "handleBadRequest",
+    value: function handleBadRequest(data) {
+      var showValidationErrors = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+      var errorMessage = (data === null || data === void 0 ? void 0 : data.message) || _plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Bad Request Error');
+      if (showValidationErrors && data !== null && data !== void 0 && data.validation_errors && Array.isArray(data.validation_errors)) {
+        this.showBackendValidationErrors(data.validation_errors, errorMessage);
+      } else {
+        this.showError(_plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Bad Request'), errorMessage);
+      }
+    }
+
+    /**
+     * Handle 401 Unauthorized errors
+     */
+  }, {
+    key: "handleUnauthorized",
+    value: function handleUnauthorized() {
+      this.showError(_plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Authentication Error'), _plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('You are not authorized to perform this action. Please log in again.'), 5000);
+    }
+
+    /**
+     * Handle 403 Forbidden errors
+     */
+  }, {
+    key: "handleForbidden",
+    value: function handleForbidden(data) {
+      var errorMessage = (data === null || data === void 0 ? void 0 : data.message) || _plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t("You don't have permission to perform this action.");
+      this.showError(_plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Permission Error'), errorMessage);
+    }
+
+    /**
+     * Handle 404 Not Found errors
+     */
+  }, {
+    key: "handleNotFound",
+    value: function handleNotFound(data) {
+      var errorMessage = (data === null || data === void 0 ? void 0 : data.message) || _plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('The requested resource was not found. Please check your data and try again.');
+      this.showError(_plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Resource Not Found'), errorMessage);
+    }
+
+    /**
+     * Handle 409 Conflict errors
+     */
+  }, {
+    key: "handleConflict",
+    value: function handleConflict(data) {
+      var errorMessage = (data === null || data === void 0 ? void 0 : data.message) || _plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Data Conflict Error');
+      this.showError(_plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Data Conflict'), errorMessage);
+    }
+
+    /**
+     * Handle 422 Validation errors
+     */
+  }, {
+    key: "handleValidationErrors",
+    value: function handleValidationErrors(data) {
+      var showValidationErrors = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+      if (!showValidationErrors) return;
+      if (data !== null && data !== void 0 && data.errors) {
+        // Laravel validation errors
+        var validationErrors = data.errors;
+        var errorMessages = Object.values(validationErrors).flat();
+        if (errorMessages.length > 0) {
+          var errorList = errorMessages.map(function (error) {
+            return "\u2022 ".concat(error);
+          }).join('\n');
+          this.showError(_plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Validation Error'), errorList, 8000, true);
+        }
+      } else if (data !== null && data !== void 0 && data.validation_errors && Array.isArray(data.validation_errors)) {
+        // Backend validation errors
+        this.showBackendValidationErrors(data.validation_errors, data.message);
+      } else {
+        // Show specific error message if available, otherwise show generic message
+        var errorMessage = (data === null || data === void 0 ? void 0 : data.message) || _plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Please check your input and try again.');
+        this.showError(_plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Validation Error'), errorMessage);
+      }
+    }
+
+    /**
+     * Handle server errors (5xx)
+     */
+  }, {
+    key: "handleServerError",
+    value: function handleServerError(data) {
+      var errorMessage = (data === null || data === void 0 ? void 0 : data.message) || _plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Server Error');
+      this.showError(_plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Server Error'), "".concat(errorMessage, " (").concat(_plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Please try again later or contact support'), ")"), 8000, true);
+    }
+
+    /**
+     * Handle generic errors
+     */
+  }, {
+    key: "handleGenericError",
+    value: function handleGenericError(data, fallbackMessage) {
+      var errorMessage = (data === null || data === void 0 ? void 0 : data.message) || fallbackMessage || _plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Please check your input and try again.');
+      this.showError(_plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Error'), errorMessage);
+    }
+
+    /**
+     * Show backend validation errors
+     */
+  }, {
+    key: "showBackendValidationErrors",
+    value: function showBackendValidationErrors(validationErrors, mainMessage) {
+      if (!Array.isArray(validationErrors) || validationErrors.length === 0) {
+        this.showError(_plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Validation Error'), mainMessage);
+        return;
+      }
+      var errorList = validationErrors.map(function (error) {
+        return "\u2022 ".concat(error);
+      }).join('\n');
+      this.showError(_plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Validation Error'), "".concat(mainMessage, "\n\n").concat(errorList), 10000, true);
+    }
+
+    /**
+     * Show error using SweetAlert2
+     */
+  }, {
+    key: "showError",
+    value: function showError(title, message) {
+      var timer = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 6000;
+      var showTimerProgressBar = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
+      if (typeof window !== 'undefined' && window.toast && typeof window.toast.fire === 'function') {
+        window.toast.fire({
+          type: 'error',
+          title: "".concat(title !== null && title !== void 0 ? title : _plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Error')).concat(message ? ': ' + message : ''),
+          timer: timer,
+          timerProgressBar: showTimerProgressBar
+        });
+        return;
+      }
+      // Fallback to console if toast not available
+      // eslint-disable-next-line no-console
+      console.error(title, message);
+    }
+
+    /**
+     * Show success message
+     */
+  }, {
+    key: "showSuccess",
+    value: function showSuccess(title, message) {
+      var timer = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 3000;
+      if (typeof window !== 'undefined' && window.toast && typeof window.toast.fire === 'function') {
+        window.toast.fire({
+          type: 'success',
+          title: "".concat(title !== null && title !== void 0 ? title : _plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Success')).concat(message ? ': ' + message : ''),
+          timer: timer,
+          timerProgressBar: true
+        });
+        return;
+      }
+      // eslint-disable-next-line no-console
+      console.log(title, message);
+    }
+
+    /**
+     * Show warning message
+     */
+  }, {
+    key: "showWarning",
+    value: function showWarning(title, message) {
+      var timer = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 5000;
+      if (typeof window !== 'undefined' && window.toast && typeof window.toast.fire === 'function') {
+        window.toast.fire({
+          type: 'warning',
+          title: "".concat(title !== null && title !== void 0 ? title : _plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Warning')).concat(message ? ': ' + message : ''),
+          timer: timer,
+          timerProgressBar: true
+        });
+        return;
+      }
+      // eslint-disable-next-line no-console
+      console.warn(title, message);
+    }
+
+    /**
+     * Log detailed error information for debugging
+     * @param {Object} error - The error object
+     * @param {String} context - Context where the error occurred
+     */
+  }, {
+    key: "logErrorDetails",
+    value: function logErrorDetails(error) {
+      var _error$response2, _error$response3;
+      var context = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'Unknown';
+      var errorInfo = {
+        context: context,
+        timestamp: new Date().toISOString(),
+        url: window.location.href,
+        userAgent: navigator.userAgent,
+        error: {
+          message: error.message,
+          stack: error.stack,
+          name: error.name
+        }
+      };
+
+      // Add response details if available
+      if (error.response) {
+        var _error$response$confi, _error$response$confi2, _error$response$confi3, _error$response$confi4;
+        errorInfo.response = {
+          status: error.response.status,
+          statusText: error.response.statusText,
+          data: error.response.data,
+          headers: error.response.headers,
+          config: {
+            url: (_error$response$confi = error.response.config) === null || _error$response$confi === void 0 ? void 0 : _error$response$confi.url,
+            method: (_error$response$confi2 = error.response.config) === null || _error$response$confi2 === void 0 ? void 0 : _error$response$confi2.method,
+            params: (_error$response$confi3 = error.response.config) === null || _error$response$confi3 === void 0 ? void 0 : _error$response$confi3.params,
+            data: (_error$response$confi4 = error.response.config) === null || _error$response$confi4 === void 0 ? void 0 : _error$response$confi4.data
+          }
+        };
+      }
+
+      // Add request details if available
+      if (error.request) {
+        errorInfo.request = {
+          readyState: error.request.readyState,
+          status: error.request.status,
+          responseText: error.request.responseText
+        };
+      }
+
+      // Log to console with detailed information
+      console.group("\uD83D\uDEA8 Error in ".concat(context));
+      console.error('Full Error Object:', error);
+      console.error('Error Details:', errorInfo);
+      if ((_error$response2 = error.response) !== null && _error$response2 !== void 0 && (_error$response2 = _error$response2.data) !== null && _error$response2 !== void 0 && _error$response2.message) {
+        console.error('Backend Error Message:', error.response.data.message);
+      }
+      if ((_error$response3 = error.response) !== null && _error$response3 !== void 0 && (_error$response3 = _error$response3.data) !== null && _error$response3 !== void 0 && _error$response3.errors) {
+        console.error('Backend Validation Errors:', error.response.data.errors);
+      }
+      console.groupEnd();
+
+      // Send to backend logging endpoint if available
+      this.sendErrorToBackend(errorInfo);
+    }
+
+    /**
+     * Send error details to backend for logging
+     * @param {Object} errorInfo - Error information to log
+     */
+  }, {
+    key: "sendErrorToBackend",
+    value: (function () {
+      var _sendErrorToBackend = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(errorInfo) {
+        var _window$auth, _window$auth2;
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              _context.prev = 0;
+              if (!(window.axios && "production" === 'production')) {
+                _context.next = 4;
+                break;
+              }
+              _context.next = 4;
+              return window.axios.post('/api/log-frontend-error', _objectSpread(_objectSpread({}, errorInfo), {}, {
+                user_id: ((_window$auth = window.auth) === null || _window$auth === void 0 || (_window$auth = _window$auth.user) === null || _window$auth === void 0 ? void 0 : _window$auth.id) || null,
+                tenant_id: ((_window$auth2 = window.auth) === null || _window$auth2 === void 0 || (_window$auth2 = _window$auth2.tenant) === null || _window$auth2 === void 0 ? void 0 : _window$auth2.id) || null
+              }));
+            case 4:
+              _context.next = 9;
+              break;
+            case 6:
+              _context.prev = 6;
+              _context.t0 = _context["catch"](0);
+              console.warn('Failed to send error to backend:', _context.t0);
+            case 9:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee, null, [[0, 6]]);
+      }));
+      function sendErrorToBackend(_x) {
+        return _sendErrorToBackend.apply(this, arguments);
+      }
+      return sendErrorToBackend;
+    }())
+  }]);
+}();
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ErrorHandler);
+
+/***/ }),
+
+/***/ 37460:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+class Locale {
+    constructor() {
+        this.config = {
+            currency: {
+                name: 'रुपया',
+                plural: 'रुपये',
+                singular: 'रुपया',
+                symbol: '₹',
+                fractionalUnit: {
+                    name: 'पैसा',
+                    singular: 'पैसा',
+                    plural: 'पैसे',
+                    symbol: '',
+                },
+            },
+            texts: {
+                and: 'और',
+                minus: 'ऋण',
+                only: '',
+                point: 'दशांश',
+            },
+            numberWordsMapping: [
+                { number: 10000000, value: 'करोड़' },
+                { number: 100000, value: 'लाख' },
+                { number: 1000, value: 'हज़ार' },
+                { number: 100, value: 'सौ' },
+                { number: 99, value: 'निन्यानवे' },
+                { number: 98, value: 'अट्ठानवे' },
+                { number: 97, value: 'सत्तानवे' },
+                { number: 96, value: 'छियानवे' },
+                { number: 95, value: 'पचानवे' },
+                { number: 94, value: 'चौरानवे' },
+                { number: 93, value: 'तिरानवे' },
+                { number: 92, value: 'बानवे' },
+                { number: 91, value: 'इक्यानबे' },
+                { number: 90, value: 'नब्बे' },
+                { number: 89, value: 'नवासी' },
+                { number: 88, value: 'अठासी' },
+                { number: 87, value: 'सतासी' },
+                { number: 86, value: 'छियासी' },
+                { number: 85, value: 'पचासी' },
+                { number: 84, value: 'चौरासी' },
+                { number: 83, value: 'तिरासी' },
+                { number: 82, value: 'बयासी' },
+                { number: 81, value: 'इक्यासी' },
+                { number: 80, value: 'अस्सी' },
+                { number: 79, value: 'उनासी' },
+                { number: 78, value: 'अठहत्तर' },
+                { number: 77, value: 'सतहत्तर' },
+                { number: 76, value: 'छिहत्तर' },
+                { number: 75, value: 'पचहत्तर' },
+                { number: 74, value: 'चौहत्तर' },
+                { number: 73, value: 'तिहत्तर' },
+                { number: 72, value: 'बहत्तर' },
+                { number: 71, value: 'इकहत्तर' },
+                { number: 70, value: 'सत्तर' },
+                { number: 69, value: 'उनहत्तर' },
+                { number: 68, value: 'अड़सठ' },
+                { number: 67, value: 'सड़सठ' },
+                { number: 66, value: 'छियासठ' },
+                { number: 65, value: 'पैंसठ' },
+                { number: 64, value: 'चौंसठ' },
+                { number: 63, value: 'तिरसठ' },
+                { number: 62, value: 'बासठ' },
+                { number: 61, value: 'इकसठ' },
+                { number: 60, value: 'साठ' },
+                { number: 59, value: 'उनसठ' },
+                { number: 58, value: 'अट्ठावन' },
+                { number: 57, value: 'सत्तावन' },
+                { number: 56, value: 'छप्पन' },
+                { number: 55, value: 'पचपन' },
+                { number: 54, value: 'चौबन' },
+                { number: 53, value: 'तिरेपन' },
+                { number: 52, value: 'बावन' },
+                { number: 51, value: 'इक्याबन' },
+                { number: 50, value: 'पचास' },
+                { number: 49, value: 'उनचास' },
+                { number: 48, value: 'अड़तालीस' },
+                { number: 47, value: 'सैंतालीस' },
+                { number: 46, value: 'छियालीस' },
+                { number: 45, value: 'पैंतालीस' },
+                { number: 44, value: 'चौंतालीस' },
+                { number: 43, value: 'तैंतालीस' },
+                { number: 42, value: 'बयालीस' },
+                { number: 41, value: 'इकतालीस' },
+                { number: 40, value: 'चालीस' },
+                { number: 39, value: 'उनतालीस' },
+                { number: 38, value: 'अड़तीस' },
+                { number: 37, value: 'सैंतीस' },
+                { number: 36, value: 'छत्तीस' },
+                { number: 35, value: 'पैंतीस' },
+                { number: 34, value: 'चौंतीस' },
+                { number: 33, value: 'तैंतीस' },
+                { number: 32, value: 'बत्तीस' },
+                { number: 31, value: 'इकतीस' },
+                { number: 30, value: 'तीस' },
+                { number: 29, value: 'उनतीस' },
+                { number: 28, value: 'अट्ठाईस' },
+                { number: 27, value: 'सत्ताईस' },
+                { number: 26, value: 'छब्बीस' },
+                { number: 25, value: 'पच्चीस' },
+                { number: 24, value: 'चौबीस' },
+                { number: 23, value: 'तेईस' },
+                { number: 22, value: 'बाईस' },
+                { number: 21, value: 'इक्कीस' },
+                { number: 20, value: 'बीस' },
+                { number: 19, value: 'उन्नीस' },
+                { number: 18, value: 'अठारह' },
+                { number: 17, value: 'सत्रह' },
+                { number: 16, value: 'सोलह' },
+                { number: 15, value: 'पंद्रह' },
+                { number: 14, value: 'चौदह' },
+                { number: 13, value: 'तेरह' },
+                { number: 12, value: 'बारह' },
+                { number: 11, value: 'ग्यारह' },
+                { number: 10, value: 'दस' },
+                { number: 9, value: 'नौ' },
+                { number: 8, value: 'आठ' },
+                { number: 7, value: 'सात' },
+                { number: 6, value: 'छह' },
+                { number: 5, value: 'पांच' },
+                { number: 4, value: 'चार' },
+                { number: 3, value: 'तीन' },
+                { number: 2, value: 'दो' },
+                { number: 1, value: 'एक' },
+                { number: 0, value: 'शून्य' },
             ],
         };
     }
 }
 exports["default"] = Locale;
 
+
+/***/ }),
+
+/***/ 38765:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+class Locale {
+    constructor() {
+        this.config = {
+            currency: {
+                name: 'Kyat',
+                plural: 'Kyats',
+                singular: 'Kyat',
+                symbol: 'K',
+                fractionalUnit: {
+                    name: 'Pya',
+                    singular: 'Pya',
+                    plural: 'Pyas',
+                    symbol: '',
+                },
+            },
+            texts: {
+                and: 'And',
+                minus: 'Minus',
+                only: 'Only',
+                point: 'Point',
+            },
+            numberWordsMapping: [
+                { number: 1000000000000000, value: 'Quadrillion' },
+                { number: 1000000000000, value: 'Trillion' },
+                { number: 1000000000, value: 'Billion' },
+                { number: 1000000, value: 'Million' },
+                { number: 1000, value: 'Thousand' },
+                { number: 100, value: 'Hundred' },
+                { number: 90, value: 'Ninety' },
+                { number: 80, value: 'Eighty' },
+                { number: 70, value: 'Seventy' },
+                { number: 60, value: 'Sixty' },
+                { number: 50, value: 'Fifty' },
+                { number: 40, value: 'Forty' },
+                { number: 30, value: 'Thirty' },
+                { number: 20, value: 'Twenty' },
+                { number: 19, value: 'Nineteen' },
+                { number: 18, value: 'Eighteen' },
+                { number: 17, value: 'Seventeen' },
+                { number: 16, value: 'Sixteen' },
+                { number: 15, value: 'Fifteen' },
+                { number: 14, value: 'Fourteen' },
+                { number: 13, value: 'Thirteen' },
+                { number: 12, value: 'Twelve' },
+                { number: 11, value: 'Eleven' },
+                { number: 10, value: 'Ten' },
+                { number: 9, value: 'Nine' },
+                { number: 8, value: 'Eight' },
+                { number: 7, value: 'Seven' },
+                { number: 6, value: 'Six' },
+                { number: 5, value: 'Five' },
+                { number: 4, value: 'Four' },
+                { number: 3, value: 'Three' },
+                { number: 2, value: 'Two' },
+                { number: 1, value: 'One' },
+                { number: 0, value: 'Zero' },
+            ],
+            exactWordsMapping: [{ number: 100, value: 'One Hundred' }],
+        };
+    }
+}
+exports["default"] = Locale;
+
+
+/***/ }),
+
+/***/ 41061:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+class Locale {
+    constructor() {
+        this.config = {
+            currency: {
+                name: 'Taka',
+                plural: 'Taka',
+                singular: 'Taka',
+                symbol: '৳',
+                fractionalUnit: {
+                    name: 'Poysha',
+                    singular: 'Poysha',
+                    plural: 'Poysha',
+                    symbol: '',
+                },
+            },
+            texts: {
+                and: 'And',
+                minus: 'Minus',
+                only: 'Only',
+                point: 'Point',
+            },
+            numberWordsMapping: [
+                { number: 10000000, value: 'Crore' },
+                { number: 100000, value: 'Lakh' },
+                { number: 1000, value: 'Thousand' },
+                { number: 100, value: 'Hundred' },
+                { number: 90, value: 'Ninety' },
+                { number: 80, value: 'Eighty' },
+                { number: 70, value: 'Seventy' },
+                { number: 60, value: 'Sixty' },
+                { number: 50, value: 'Fifty' },
+                { number: 40, value: 'Forty' },
+                { number: 30, value: 'Thirty' },
+                { number: 20, value: 'Twenty' },
+                { number: 19, value: 'Nineteen' },
+                { number: 18, value: 'Eighteen' },
+                { number: 17, value: 'Seventeen' },
+                { number: 16, value: 'Sixteen' },
+                { number: 15, value: 'Fifteen' },
+                { number: 14, value: 'Fourteen' },
+                { number: 13, value: 'Thirteen' },
+                { number: 12, value: 'Twelve' },
+                { number: 11, value: 'Eleven' },
+                { number: 10, value: 'Ten' },
+                { number: 9, value: 'Nine' },
+                { number: 8, value: 'Eight' },
+                { number: 7, value: 'Seven' },
+                { number: 6, value: 'Six' },
+                { number: 5, value: 'Five' },
+                { number: 4, value: 'Four' },
+                { number: 3, value: 'Three' },
+                { number: 2, value: 'Two' },
+                { number: 1, value: 'One' },
+                { number: 0, value: 'Zero' },
+            ],
+            exactWordsMapping: [{ number: 100, value: 'One Hundred' }],
+        };
+    }
+}
+exports["default"] = Locale;
+
+
+/***/ }),
+
+/***/ 44130:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+class Locale {
+    constructor() {
+        this.config = {
+            currency: {
+                name: 'lira',
+                plural: '',
+                singular: '',
+                symbol: '₺',
+                fractionalUnit: {
+                    name: '',
+                    singular: 'lira',
+                    plural: 'lira',
+                    symbol: '',
+                },
+            },
+            texts: {
+                and: 'virgül',
+                minus: 'eksi',
+                only: '',
+                point: 'virgül',
+            },
+            numberWordsMapping: [
+                { number: 1000000000000000, value: 'katrilyon' },
+                { number: 1000000000000, value: 'trilyon' },
+                { number: 1000000000, value: 'milyar' },
+                { number: 1000000, value: 'milyon' },
+                { number: 1000, value: 'bin' },
+                { number: 900, value: 'dokuz yüz' },
+                { number: 800, value: 'sekiz yüz' },
+                { number: 700, value: 'yedi yüz' },
+                { number: 600, value: 'altı yüz' },
+                { number: 500, value: 'beş yüz' },
+                { number: 400, value: 'dört yüz' },
+                { number: 300, value: 'üç yüz' },
+                { number: 200, value: 'iki yüz' },
+                { number: 100, value: 'yüz' },
+                { number: 90, value: 'doksan' },
+                { number: 80, value: 'seksen' },
+                { number: 70, value: 'yetmiş' },
+                { number: 60, value: 'altmış' },
+                { number: 50, value: 'elli' },
+                { number: 40, value: 'kırk' },
+                { number: 30, value: 'otuz' },
+                { number: 20, value: 'yirmi' },
+                { number: 19, value: 'on dokuz' },
+                { number: 18, value: 'on sekiz' },
+                { number: 17, value: 'on yedi' },
+                { number: 16, value: 'on altı' },
+                { number: 15, value: 'on beş' },
+                { number: 14, value: 'on dört' },
+                { number: 13, value: 'on üç' },
+                { number: 12, value: 'on iki' },
+                { number: 11, value: 'on bir' },
+                { number: 10, value: 'on' },
+                { number: 9, value: 'dokuz' },
+                { number: 8, value: 'sekiz' },
+                { number: 7, value: 'yedi' },
+                { number: 6, value: 'altı' },
+                { number: 5, value: 'beş' },
+                { number: 4, value: 'dört' },
+                { number: 3, value: 'üç' },
+                { number: 2, value: 'iki' },
+                { number: 1, value: 'bir' },
+                { number: 0, value: 'sıfır' },
+            ],
+            namedLessThan1000: true,
+            ignoreZeroInDecimals: true,
+            decimalLengthWordMapping: {
+                1: 'onuncu',
+                2: 'yüzüncü',
+                3: 'bininci',
+                4: 'on bininci',
+                5: 'yüz bininci',
+                6: 'on milyonuncu',
+                7: 'milyonuncu',
+                8: 'yüz milyonuncu',
+            },
+        };
+    }
+}
+exports["default"] = Locale;
+
+
+/***/ }),
+
+/***/ 44659:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".form-group[data-v-3d82b5ae]{margin-bottom:1rem}.form-group label[data-v-3d82b5ae]{color:#495057;font-size:.95rem;font-weight:500;margin-bottom:.5rem}.required[data-v-3d82b5ae]{color:#dc3545;font-weight:700}.form-control[data-v-3d82b5ae]{background:#fff!important;border:1px solid #e5e7eb;font-size:14px;padding:10px 16px}.form-control[data-v-3d82b5ae]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(51,160,217,.25)}.is-invalid[data-v-3d82b5ae]{border-color:#dc3545!important}textarea.form-control[data-v-3d82b5ae]{min-height:100px;resize:vertical}.btn-success[data-v-3d82b5ae]{background:#2ab930!important;border:none!important;color:#fff!important;font-weight:500;padding:10px 20px!important}.btn-success[data-v-3d82b5ae]:hover{background:#229a26!important;box-shadow:0 4px 8px rgba(42,185,48,.3);transform:translateY(-1px)}.btn-secondary[data-v-3d82b5ae]{background:#6c757d!important;border:none!important;color:#fff!important;font-weight:500;padding:10px 20px!important}.btn-secondary[data-v-3d82b5ae]:hover{background:#5a6268!important;box-shadow:0 4px 8px hsla(208,7%,46%,.3);transform:translateY(-1px)}.create-button[data-v-3d82b5ae]{cursor:pointer;text-decoration:none}.unit-code-tooltip[data-v-3d82b5ae]{transition:all .2s ease}.unit-code-tooltip[data-v-3d82b5ae]:hover{color:#33a0d9!important;transform:scale(1.1)}.form-text[data-v-3d82b5ae]{color:#6c757d;font-size:.85rem;margin-top:.25rem}@media (max-width:768px){.form-group[data-v-3d82b5ae]{margin-bottom:.75rem}.form-text[data-v-3d82b5ae]{font-size:.8rem}}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 47229:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+class Locale {
+    constructor() {
+        this.config = {
+            currency: {
+                name: 'રૂપિયો',
+                plural: 'રૂપિયા',
+                singular: 'રૂપિયો',
+                symbol: '₹',
+                fractionalUnit: {
+                    name: 'પૈસા',
+                    singular: 'પૈસા',
+                    plural: 'પૈસા',
+                    symbol: '',
+                },
+            },
+            texts: {
+                and: 'અને',
+                minus: 'ઋણ',
+                // only: 'માત્ર',
+                only: '',
+                point: 'દશાંશ',
+            },
+            numberWordsMapping: [
+                { number: 10000000, value: 'કરોડ' },
+                { number: 100000, value: 'લાખ' },
+                { number: 1000, value: 'હજાર' },
+                { number: 100, value: 'સો' },
+                { number: 99, value: 'નવ્વાણું' },
+                { number: 98, value: 'અઠ્ઠાણું' },
+                { number: 97, value: 'સત્તાણું' },
+                { number: 96, value: 'છન્નું' },
+                { number: 95, value: 'પંચાણું' },
+                { number: 94, value: 'ચોરાણું' },
+                { number: 93, value: 'ત્રાણું' },
+                { number: 92, value: 'બાણું' },
+                { number: 91, value: 'એકાણું' },
+                { number: 90, value: 'નેવું' },
+                { number: 89, value: 'નેવ્યાસી' },
+                { number: 88, value: 'ઈઠ્યાસી' },
+                { number: 87, value: 'સિત્યાસી' },
+                { number: 86, value: 'છ્યાસી' },
+                { number: 85, value: 'પંચ્યાસી' },
+                { number: 84, value: 'ચોર્યાસી' },
+                { number: 83, value: 'ત્યાસી' },
+                { number: 82, value: 'બ્યાસી' },
+                { number: 81, value: 'એક્યાસી' },
+                { number: 80, value: 'એંસી' },
+                { number: 79, value: 'ઓગણાએંસી' },
+                { number: 78, value: 'ઇઠ્યોતેર' },
+                { number: 77, value: 'સિત્યોતેર' },
+                { number: 76, value: 'છોતેર' },
+                { number: 75, value: 'પંચોતેર' },
+                { number: 74, value: 'ચુમોતેર' },
+                { number: 73, value: 'તોતેર' },
+                { number: 72, value: 'બોતેર' },
+                { number: 71, value: 'એકોતેર' },
+                { number: 70, value: 'સિત્તેર' },
+                { number: 69, value: 'ઓગણોસિત્તેર' },
+                { number: 68, value: 'અડસઠ' },
+                { number: 67, value: 'સડસઠ' },
+                { number: 66, value: 'છાસઠ' },
+                { number: 65, value: 'પાંસઠ' },
+                { number: 64, value: 'ચોસઠ' },
+                { number: 63, value: 'ત્રેસઠ' },
+                { number: 62, value: 'બાસઠ' },
+                { number: 61, value: 'એકસઠ' },
+                { number: 60, value: 'સાઈઠ' },
+                { number: 59, value: 'ઓગણસાઠ' },
+                { number: 58, value: 'અઠ્ઠાવન' },
+                { number: 57, value: 'સત્તાવન' },
+                { number: 56, value: 'છપ્પન' },
+                { number: 55, value: 'પંચાવન' },
+                { number: 54, value: 'ચોપન' },
+                { number: 53, value: 'ત્રેપન' },
+                { number: 52, value: 'બાવન' },
+                { number: 51, value: 'એકાવન' },
+                { number: 50, value: 'પચાસ' },
+                { number: 49, value: 'ઓગણપચાસ' },
+                { number: 48, value: 'સુડતાલીસ' },
+                { number: 47, value: 'સુડતાલીસ' },
+                { number: 46, value: 'છેતાલીસ' },
+                { number: 45, value: 'પિસ્તાલીસ' },
+                { number: 44, value: 'ચુંમાલીસ' },
+                { number: 43, value: 'ત્રેતાલીસ' },
+                { number: 42, value: 'એકતાલીસ' },
+                { number: 41, value: 'એકતાલીસ' },
+                { number: 40, value: 'ચાલીસ' },
+                { number: 39, value: 'ઓગણચાલીસ' },
+                { number: 38, value: 'આડત્રીસ' },
+                { number: 37, value: 'સાડત્રીસ' },
+                { number: 36, value: 'છત્રીસ' },
+                { number: 35, value: 'પાંત્રીસ' },
+                { number: 34, value: 'ચોત્રીસ' },
+                { number: 33, value: 'તેત્રીસ' },
+                { number: 32, value: 'બત્રીસ' },
+                { number: 31, value: 'એકત્રીસ' },
+                { number: 30, value: 'ત્રીસ' },
+                { number: 29, value: 'ઓગણત્રીસ' },
+                { number: 28, value: 'અઠ્ઠાવીસ' },
+                { number: 27, value: 'સત્તાવીસ' },
+                { number: 26, value: 'છવીસ' },
+                { number: 25, value: 'પચ્ચીસ' },
+                { number: 24, value: 'ચોવીસ' },
+                { number: 23, value: 'તેવીસ' },
+                { number: 22, value: 'બાવીસ' },
+                { number: 21, value: 'એકવીસ' },
+                { number: 20, value: 'વીસ' },
+                { number: 19, value: 'ઓગણિસ' },
+                { number: 18, value: 'અઢાર' },
+                { number: 17, value: 'સત્તર' },
+                { number: 16, value: 'સોળ' },
+                { number: 15, value: 'પંદર' },
+                { number: 14, value: 'ચૌદ' },
+                { number: 13, value: 'તેર' },
+                { number: 12, value: 'બાર' },
+                { number: 11, value: 'અગિયાર' },
+                { number: 10, value: 'દસ' },
+                { number: 9, value: 'નવ' },
+                { number: 8, value: 'આઠ' },
+                { number: 7, value: 'સાત' },
+                { number: 6, value: 'છ' },
+                { number: 5, value: 'પાંચ' },
+                { number: 4, value: 'ચાર' },
+                { number: 3, value: 'ત્રણ' },
+                { number: 2, value: 'બે' },
+                { number: 1, value: 'એક' },
+                { number: 0, value: 'શૂન્ય' },
+            ],
+        };
+    }
+}
+exports["default"] = Locale;
+
+
+/***/ }),
+
+/***/ 54330:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+class Locale {
+    constructor() {
+        this.config = {
+            currency: {
+                name: 'Pound',
+                plural: 'Pounds',
+                singular: 'Pound',
+                symbol: '£',
+                fractionalUnit: {
+                    name: 'Pence',
+                    plural: 'Pence',
+                    singular: 'Penny',
+                    symbol: '',
+                },
+            },
+            texts: {
+                and: 'And',
+                minus: 'Minus',
+                only: 'Only',
+                point: 'Point',
+            },
+            numberWordsMapping: [
+                { number: 1000000000000000, value: 'Quadrillion' },
+                { number: 1000000000000, value: 'Trillion' },
+                { number: 1000000000, value: 'Billion' },
+                { number: 1000000, value: 'Million' },
+                { number: 1000, value: 'Thousand' },
+                { number: 100, value: 'Hundred' },
+                { number: 90, value: 'Ninety' },
+                { number: 80, value: 'Eighty' },
+                { number: 70, value: 'Seventy' },
+                { number: 60, value: 'Sixty' },
+                { number: 50, value: 'Fifty' },
+                { number: 40, value: 'Forty' },
+                { number: 30, value: 'Thirty' },
+                { number: 20, value: 'Twenty' },
+                { number: 19, value: 'Nineteen' },
+                { number: 18, value: 'Eighteen' },
+                { number: 17, value: 'Seventeen' },
+                { number: 16, value: 'Sixteen' },
+                { number: 15, value: 'Fifteen' },
+                { number: 14, value: 'Fourteen' },
+                { number: 13, value: 'Thirteen' },
+                { number: 12, value: 'Twelve' },
+                { number: 11, value: 'Eleven' },
+                { number: 10, value: 'Ten' },
+                { number: 9, value: 'Nine' },
+                { number: 8, value: 'Eight' },
+                { number: 7, value: 'Seven' },
+                { number: 6, value: 'Six' },
+                { number: 5, value: 'Five' },
+                { number: 4, value: 'Four' },
+                { number: 3, value: 'Three' },
+                { number: 2, value: 'Two' },
+                { number: 1, value: 'One' },
+                { number: 0, value: 'Zero' },
+            ],
+            exactWordsMapping: [{ number: 100, value: 'One Hundred' }],
+        };
+    }
+}
+exports["default"] = Locale;
+
+
+/***/ }),
+
+/***/ 54923:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ToWords = exports.DefaultToWordsOptions = exports.DefaultConverterOptions = void 0;
+const en_AE_1 = __importDefault(__webpack_require__(8550));
+const en_BD_1 = __importDefault(__webpack_require__(41061));
+const en_GH_1 = __importDefault(__webpack_require__(59096));
+const en_IE_1 = __importDefault(__webpack_require__(21470));
+const en_IN_1 = __importDefault(__webpack_require__(144));
+const en_MM_1 = __importDefault(__webpack_require__(38765));
+const en_MU_1 = __importDefault(__webpack_require__(74261));
+const en_NG_1 = __importDefault(__webpack_require__(92952));
+const en_NP_1 = __importDefault(__webpack_require__(26365));
+const en_US_1 = __importDefault(__webpack_require__(84463));
+const en_GB_1 = __importDefault(__webpack_require__(54330));
+const en_PH_1 = __importDefault(__webpack_require__(82779));
+const fa_IR_1 = __importDefault(__webpack_require__(10982));
+const fr_BE_1 = __importDefault(__webpack_require__(69543));
+const fr_FR_1 = __importDefault(__webpack_require__(28834));
+const gu_IN_1 = __importDefault(__webpack_require__(47229));
+const hi_IN_1 = __importDefault(__webpack_require__(37460));
+const mr_IN_1 = __importDefault(__webpack_require__(33972));
+const pt_BR_1 = __importDefault(__webpack_require__(21722));
+const tr_TR_1 = __importDefault(__webpack_require__(44130));
+const nl_SR_1 = __importDefault(__webpack_require__(55101));
+const ee_EE_1 = __importDefault(__webpack_require__(74938));
+const ko_KR_1 = __importDefault(__webpack_require__(58041));
+exports.DefaultConverterOptions = {
+    currency: false,
+    ignoreDecimal: false,
+    ignoreZeroCurrency: false,
+    doNotAddOnly: false,
+};
+exports.DefaultToWordsOptions = {
+    localeCode: 'en-IN',
+    converterOptions: exports.DefaultConverterOptions,
+};
+class ToWords {
+    constructor(options = {}) {
+        this.options = {};
+        this.locale = undefined;
+        this.options = Object.assign({}, exports.DefaultToWordsOptions, options);
+    }
+    getLocaleClass() {
+        /* eslint-disable @typescript-eslint/no-var-requires */
+        switch (this.options.localeCode) {
+            case 'ee-EE':
+                return ee_EE_1.default;
+            case 'en-AE':
+                return en_AE_1.default;
+            case 'en-BD':
+                return en_BD_1.default;
+            case 'en-GH':
+                return en_GH_1.default;
+            case 'en-IE':
+                return en_IE_1.default;
+            case 'en-IN':
+                return en_IN_1.default;
+            case 'en-MM':
+                return en_MM_1.default;
+            case 'en-MU':
+                return en_MU_1.default;
+            case 'en-NG':
+                return en_NG_1.default;
+            case 'en-NP':
+                return en_NP_1.default;
+            case 'en-US':
+                return en_US_1.default;
+            case 'en-GB':
+                return en_GB_1.default;
+            case 'en-PH':
+                return en_PH_1.default;
+            case 'fa-IR':
+                return fa_IR_1.default;
+            case 'fr-BE':
+                return fr_BE_1.default;
+            case 'fr-FR':
+                return fr_FR_1.default;
+            case 'gu-IN':
+                return gu_IN_1.default;
+            case 'hi-IN':
+                return hi_IN_1.default;
+            case 'mr-IN':
+                return mr_IN_1.default;
+            case 'pt-BR':
+                return pt_BR_1.default;
+            case 'tr-TR':
+                return tr_TR_1.default;
+            case 'nl-SR':
+                return nl_SR_1.default;
+            case 'ko-KR':
+                return ko_KR_1.default;
+        }
+        /* eslint-enable @typescript-eslint/no-var-requires */
+        throw new Error(`Unknown Locale "${this.options.localeCode}"`);
+    }
+    getLocale() {
+        if (this.locale === undefined) {
+            const LocaleClass = this.getLocaleClass();
+            this.locale = new LocaleClass();
+        }
+        return this.locale;
+    }
+    convert(number, options = {}) {
+        var _a;
+        options = Object.assign({}, this.options.converterOptions, options);
+        if (!this.isValidNumber(number)) {
+            throw new Error(`Invalid Number "${number}"`);
+        }
+        if (options.ignoreDecimal) {
+            number = Number.parseInt(number.toString());
+        }
+        let words = [];
+        if (options.currency) {
+            words = this.convertCurrency(number, options);
+        }
+        else {
+            words = this.convertNumber(number);
+        }
+        if ((_a = this.locale) === null || _a === void 0 ? void 0 : _a.config.trim) {
+            return words.join('');
+        }
+        return words.join(' ');
+    }
+    convertNumber(number) {
+        var _a, _b, _c;
+        const locale = this.getLocale();
+        const isNegativeNumber = number < 0;
+        if (isNegativeNumber) {
+            number = Math.abs(number);
+        }
+        const split = number.toString().split('.');
+        const ignoreZero = this.isNumberZero(number) && locale.config.ignoreZeroInDecimals;
+        let words = this.convertInternal(Number(split[0]));
+        const isFloat = this.isFloat(number);
+        if (isFloat && ignoreZero) {
+            words = [];
+        }
+        const wordsWithDecimal = [];
+        if (isFloat) {
+            if (!ignoreZero) {
+                wordsWithDecimal.push(locale.config.texts.point);
+            }
+            if (split[1].startsWith('0') && !((_a = locale.config) === null || _a === void 0 ? void 0 : _a.decimalLengthWordMapping)) {
+                const zeroWords = [];
+                for (const num of split[1]) {
+                    zeroWords.push(...this.convertInternal(Number(num)));
+                }
+                wordsWithDecimal.push(...zeroWords);
+            }
+            else {
+                wordsWithDecimal.push(...this.convertInternal(Number(split[1])));
+                const decimalLengthWord = (_c = (_b = locale.config) === null || _b === void 0 ? void 0 : _b.decimalLengthWordMapping) === null || _c === void 0 ? void 0 : _c[split[1].length];
+                if (decimalLengthWord) {
+                    wordsWithDecimal.push(decimalLengthWord);
+                }
+            }
+        }
+        const isEmpty = words.length <= 0;
+        if (!isEmpty && isNegativeNumber) {
+            words.unshift(locale.config.texts.minus);
+        }
+        words.push(...wordsWithDecimal);
+        return words;
+    }
+    convertCurrency(number, options = {}) {
+        var _a, _b, _c, _d;
+        const locale = this.getLocale();
+        const currencyOptions = (_a = options.currencyOptions) !== null && _a !== void 0 ? _a : locale.config.currency;
+        const isNegativeNumber = number < 0;
+        if (isNegativeNumber) {
+            number = Math.abs(number);
+        }
+        number = this.toFixed(number);
+        // Extra check for isFloat to overcome 1.999 rounding off to 2
+        const split = number.toString().split('.');
+        let words = [...this.convertInternal(Number(split[0]))];
+        // Determine if the main currency should be in singular form
+        // e.g. 1 Dollar Only instead of 1 Dollars Only
+        if (Number(split[0]) === 1 && currencyOptions.singular) {
+            words.push(currencyOptions.name);
+        }
+        else if (currencyOptions.plural) {
+            words.push(currencyOptions.plural);
+        }
+        const ignoreZero = this.isNumberZero(number) &&
+            (options.ignoreZeroCurrency || (((_b = locale.config) === null || _b === void 0 ? void 0 : _b.ignoreZeroInDecimals) && number !== 0));
+        if (ignoreZero) {
+            words = [];
+        }
+        const wordsWithDecimal = [];
+        const isFloat = this.isFloat(number);
+        if (isFloat) {
+            if (!ignoreZero) {
+                wordsWithDecimal.push(locale.config.texts.and);
+            }
+            const decimalPart = Number(split[1]) * (!locale.config.decimalLengthWordMapping ? Math.pow(10, 2 - split[1].length) : 1);
+            wordsWithDecimal.push(...this.convertInternal(decimalPart));
+            const decimalLengthWord = (_d = (_c = locale.config) === null || _c === void 0 ? void 0 : _c.decimalLengthWordMapping) === null || _d === void 0 ? void 0 : _d[split[1].length];
+            if (decimalLengthWord === null || decimalLengthWord === void 0 ? void 0 : decimalLengthWord.length) {
+                wordsWithDecimal.push(decimalLengthWord);
+            }
+            // Determine if the fractional unit should be in singular form
+            // e.g. 1 Dollar and 1 Cent Only instead of 1 Dollar and 1 Cents Only
+            if (decimalPart === 1 && currencyOptions.fractionalUnit.singular) {
+                wordsWithDecimal.push(currencyOptions.fractionalUnit.singular);
+            }
+            else {
+                wordsWithDecimal.push(currencyOptions.fractionalUnit.plural);
+            }
+        }
+        else if (locale.config.decimalLengthWordMapping && words.length) {
+            wordsWithDecimal.push(currencyOptions.fractionalUnit.plural);
+        }
+        const isEmpty = words.length <= 0 && wordsWithDecimal.length <= 0;
+        if (!isEmpty && isNegativeNumber) {
+            words.unshift(locale.config.texts.minus);
+        }
+        if (!isEmpty && locale.config.texts.only && !options.doNotAddOnly && !locale.config.onlyInFront) {
+            wordsWithDecimal.push(locale.config.texts.only);
+        }
+        if (wordsWithDecimal.length) {
+            words.push(...wordsWithDecimal);
+        }
+        if (!isEmpty && !options.doNotAddOnly && locale.config.onlyInFront) {
+            words.splice(0, 0, locale.config.texts.only);
+        }
+        return words;
+    }
+    convertInternal(number) {
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o;
+        const locale = this.getLocale();
+        if (locale.config.exactWordsMapping) {
+            const exactMatch = (_b = (_a = locale.config) === null || _a === void 0 ? void 0 : _a.exactWordsMapping) === null || _b === void 0 ? void 0 : _b.find((elem) => {
+                return number === elem.number;
+            });
+            if (exactMatch) {
+                return [exactMatch.value];
+            }
+        }
+        const match = locale.config.numberWordsMapping.find((elem) => {
+            return number >= elem.number;
+        });
+        const words = [];
+        if (number <= 100 || (number < 1000 && locale.config.namedLessThan1000)) {
+            words.push(match.value);
+            number -= match.number;
+            if (number > 0) {
+                if ((_d = (_c = locale.config) === null || _c === void 0 ? void 0 : _c.splitWord) === null || _d === void 0 ? void 0 : _d.length) {
+                    words.push(locale.config.splitWord);
+                }
+                words.push(...this.convertInternal(number));
+            }
+            return words;
+        }
+        const quotient = Math.floor(number / match.number);
+        const remainder = number % match.number;
+        let matchValue = match.value;
+        if (quotient > 1 && ((_f = (_e = locale.config) === null || _e === void 0 ? void 0 : _e.pluralWords) === null || _f === void 0 ? void 0 : _f.find((word) => word === match.value)) && ((_g = locale.config) === null || _g === void 0 ? void 0 : _g.pluralMark)) {
+            matchValue += locale.config.pluralMark;
+        }
+        if (quotient === 1 && ((_j = (_h = locale.config) === null || _h === void 0 ? void 0 : _h.ignoreOneForWords) === null || _j === void 0 ? void 0 : _j.includes(matchValue))) {
+            words.push(matchValue);
+        }
+        else {
+            words.push(...this.convertInternal(quotient), matchValue);
+        }
+        if (remainder > 0) {
+            if ((_l = (_k = locale.config) === null || _k === void 0 ? void 0 : _k.splitWord) === null || _l === void 0 ? void 0 : _l.length) {
+                if (!((_o = (_m = locale.config) === null || _m === void 0 ? void 0 : _m.noSplitWordAfter) === null || _o === void 0 ? void 0 : _o.find((word) => word === match.value))) {
+                    words.push(locale.config.splitWord);
+                }
+            }
+            words.push(...this.convertInternal(remainder));
+        }
+        return words;
+    }
+    toFixed(number, precision = 2) {
+        return Number(Number(number).toFixed(precision));
+    }
+    isFloat(number) {
+        return Number(number) === number && number % 1 !== 0;
+    }
+    isValidNumber(number) {
+        return !isNaN(parseFloat(number)) && isFinite(number);
+    }
+    isNumberZero(number) {
+        return number >= 0 && number < 1;
+    }
+}
+exports.ToWords = ToWords;
+
+
+/***/ }),
+
+/***/ 55101:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+class Locale {
+    constructor() {
+        this.config = {
+            currency: {
+                name: 'Surinaamse dollar',
+                plural: 'Surinaamse dollars',
+                singular: 'Surinaamse dollar',
+                symbol: 'SRD',
+                fractionalUnit: {
+                    name: 'Cent',
+                    singular: 'Cent',
+                    plural: 'Centen',
+                    symbol: 'SRD',
+                },
+            },
+            texts: {
+                and: 'En',
+                minus: 'Negatief',
+                only: '',
+                point: 'Punt',
+            },
+            numberWordsMapping: [
+                { number: 1000000000000000, value: 'Biljard' },
+                { number: 1000000000000, value: 'Biljoen' },
+                { number: 1000000000, value: 'Miljard' },
+                { number: 1000000, value: 'Miljoen' },
+                { number: 1000, value: 'Duizend' },
+                { number: 100, value: 'Honderd' },
+                { number: 99, value: 'Negenennegentig' },
+                { number: 98, value: 'Achtennegentig' },
+                { number: 97, value: 'Zevenennegentig' },
+                { number: 96, value: 'Zesennegentig' },
+                { number: 95, value: 'Vijfennegentig' },
+                { number: 94, value: 'Vierennegentig' },
+                { number: 93, value: 'Drieënnegentig' },
+                { number: 92, value: 'Tweeënnegentig' },
+                { number: 91, value: 'Eenennegentig' },
+                { number: 90, value: 'Negentig' },
+                { number: 89, value: 'Negenentachtig' },
+                { number: 88, value: 'Achtentachtig' },
+                { number: 87, value: 'Zevenentachtig' },
+                { number: 86, value: 'Zesentachtig' },
+                { number: 85, value: 'Vijfentachtig' },
+                { number: 84, value: 'Vierentachtig' },
+                { number: 83, value: 'Drieëntachtig' },
+                { number: 82, value: 'Tweeëntachtig' },
+                { number: 81, value: 'Eenentachtig' },
+                { number: 80, value: 'Tachtig' },
+                { number: 79, value: 'Negenenzeventig' },
+                { number: 78, value: 'Achtenzeventig' },
+                { number: 77, value: 'Zevenenzeventig' },
+                { number: 76, value: 'Zesenzeventig' },
+                { number: 75, value: 'Vijfenzeventig' },
+                { number: 74, value: 'Vierenzeventig' },
+                { number: 73, value: 'Drieënzeventig' },
+                { number: 72, value: 'Tweeënzeventig' },
+                { number: 71, value: 'Eenenzeventig' },
+                { number: 70, value: 'Zeventig' },
+                { number: 69, value: 'Negenenzestig' },
+                { number: 68, value: 'Achtenzestig' },
+                { number: 67, value: 'Zevenenzestig' },
+                { number: 66, value: 'Zesenzestig' },
+                { number: 65, value: 'Vijfenzestig' },
+                { number: 64, value: 'Vierenzestig' },
+                { number: 63, value: 'Drieënzestig' },
+                { number: 62, value: 'Tweeënzestig' },
+                { number: 61, value: 'Eenenzestig' },
+                { number: 60, value: 'Zestig' },
+                { number: 59, value: 'Negenenvijftig' },
+                { number: 58, value: 'Achtenvijftig' },
+                { number: 57, value: 'Zevenenvijftig' },
+                { number: 56, value: 'Zesenvijftig' },
+                { number: 55, value: 'Vijfenvijftig' },
+                { number: 54, value: 'Vierenvijftig' },
+                { number: 53, value: 'Drieënvijftig' },
+                { number: 52, value: 'Tweeënvijftig' },
+                { number: 51, value: 'Eenenvijftig' },
+                { number: 50, value: 'Vijftig' },
+                { number: 49, value: 'Negenenveertig' },
+                { number: 48, value: 'Achtenveertig' },
+                { number: 47, value: 'Zevenenveertig' },
+                { number: 46, value: 'Zesenveertig' },
+                { number: 45, value: 'Vijfenveertig' },
+                { number: 44, value: 'Vierenveertig' },
+                { number: 43, value: 'Drieënveertig' },
+                { number: 42, value: 'Tweeënveertig' },
+                { number: 41, value: 'Eenenveertig' },
+                { number: 40, value: 'Veertig' },
+                { number: 39, value: 'Negenendertig' },
+                { number: 38, value: 'Achtendertig' },
+                { number: 37, value: 'Zevenendertig' },
+                { number: 36, value: 'Zesendertig' },
+                { number: 35, value: 'Vijfendertig' },
+                { number: 34, value: 'Vierendertig' },
+                { number: 33, value: 'Drieëndertig' },
+                { number: 32, value: 'Tweeëndertig' },
+                { number: 31, value: 'Eenendertig' },
+                { number: 30, value: 'Dertig' },
+                { number: 29, value: 'Negenentwintig' },
+                { number: 28, value: 'Achtentwintig' },
+                { number: 27, value: 'Zevenentwintig' },
+                { number: 26, value: 'Zesentwintig' },
+                { number: 25, value: 'Vijfentwintig' },
+                { number: 24, value: 'Vierentwintig' },
+                { number: 23, value: 'Drieëntwintig' },
+                { number: 22, value: 'Tweeëntwintig' },
+                { number: 21, value: 'Eenentwintig' },
+                { number: 20, value: 'Twintig' },
+                { number: 19, value: 'Negentien' },
+                { number: 18, value: 'Achttien' },
+                { number: 17, value: 'Zeventien' },
+                { number: 16, value: 'Zestien' },
+                { number: 15, value: 'Vijftien' },
+                { number: 14, value: 'Veertien' },
+                { number: 13, value: 'Dertien' },
+                { number: 12, value: 'Twaalf' },
+                { number: 11, value: 'Elf' },
+                { number: 10, value: 'Tien' },
+                { number: 9, value: 'Negen' },
+                { number: 8, value: 'Acht' },
+                { number: 7, value: 'Zeven' },
+                { number: 6, value: 'Zes' },
+                { number: 5, value: 'Vijf' },
+                { number: 4, value: 'Vier' },
+                { number: 3, value: 'Drie' },
+                { number: 2, value: 'Twee' },
+                { number: 1, value: 'Een' },
+                { number: 0, value: 'Nul' },
+            ],
+            exactWordsMapping: [{ number: 100, value: 'Honderd' }],
+        };
+    }
+}
+exports["default"] = Locale;
+
+
+/***/ }),
+
+/***/ 58041:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+class Locale {
+    constructor() {
+        this.config = {
+            currency: {
+                name: '원',
+                plural: '원',
+                symbol: '',
+                fractionalUnit: {
+                    name: '',
+                    plural: '',
+                    symbol: '',
+                },
+            },
+            texts: {
+                and: '하고 ',
+                minus: '마이너스',
+                only: '',
+                point: '점',
+            },
+            trim: true,
+            numberWordsMapping: [
+                { number: 1000000000000, value: '조' },
+                { number: 100000000, value: '억' },
+                { number: 10000, value: '만' },
+                { number: 1000, value: '천' },
+                { number: 100, value: '백' },
+                { number: 90, value: '구십' },
+                { number: 80, value: '팔십' },
+                { number: 70, value: '칠십' },
+                { number: 60, value: '육십' },
+                { number: 50, value: '오십' },
+                { number: 40, value: '사십' },
+                { number: 30, value: '삼십' },
+                { number: 20, value: '이십' },
+                { number: 19, value: '십구' },
+                { number: 18, value: '십팔' },
+                { number: 17, value: '십칠' },
+                { number: 16, value: '십육' },
+                { number: 15, value: '십오' },
+                { number: 14, value: '십사' },
+                { number: 13, value: '십삼' },
+                { number: 12, value: '십이' },
+                { number: 11, value: '십일' },
+                { number: 10, value: '십' },
+                { number: 9, value: '구' },
+                { number: 8, value: '팔' },
+                { number: 7, value: '칠' },
+                { number: 6, value: '육' },
+                { number: 5, value: '오' },
+                { number: 4, value: '사' },
+                { number: 3, value: '삼' },
+                { number: 2, value: '이' },
+                { number: 1, value: '일' },
+                { number: 0, value: '영' },
+            ],
+        };
+    }
+}
+exports["default"] = Locale;
+
+
+/***/ }),
+
+/***/ 59096:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+class Locale {
+    constructor() {
+        this.config = {
+            currency: {
+                name: 'Cedi',
+                plural: 'Cedis',
+                singular: 'Cedi',
+                symbol: 'GH¢',
+                fractionalUnit: {
+                    name: 'Pesewa',
+                    singular: 'Pesewa',
+                    plural: 'Pesewas',
+                    symbol: 'Gp',
+                },
+            },
+            texts: {
+                and: 'And',
+                minus: 'Minus',
+                only: 'Only',
+                point: 'Point',
+            },
+            numberWordsMapping: [
+                { number: 1000000000000000, value: 'Quadrillion' },
+                { number: 1000000000000, value: 'Trillion' },
+                { number: 1000000000, value: 'Billion' },
+                { number: 1000000, value: 'Million' },
+                { number: 1000, value: 'Thousand' },
+                { number: 100, value: 'Hundred' },
+                { number: 90, value: 'Ninety' },
+                { number: 80, value: 'Eighty' },
+                { number: 70, value: 'Seventy' },
+                { number: 60, value: 'Sixty' },
+                { number: 50, value: 'Fifty' },
+                { number: 40, value: 'Forty' },
+                { number: 30, value: 'Thirty' },
+                { number: 20, value: 'Twenty' },
+                { number: 19, value: 'Nineteen' },
+                { number: 18, value: 'Eighteen' },
+                { number: 17, value: 'Seventeen' },
+                { number: 16, value: 'Sixteen' },
+                { number: 15, value: 'Fifteen' },
+                { number: 14, value: 'Fourteen' },
+                { number: 13, value: 'Thirteen' },
+                { number: 12, value: 'Twelve' },
+                { number: 11, value: 'Eleven' },
+                { number: 10, value: 'Ten' },
+                { number: 9, value: 'Nine' },
+                { number: 8, value: 'Eight' },
+                { number: 7, value: 'Seven' },
+                { number: 6, value: 'Six' },
+                { number: 5, value: 'Five' },
+                { number: 4, value: 'Four' },
+                { number: 3, value: 'Three' },
+                { number: 2, value: 'Two' },
+                { number: 1, value: 'One' },
+                { number: 0, value: 'Zero' },
+            ],
+            exactWordsMapping: [{ number: 100, value: 'One Hundred' }],
+        };
+    }
+}
+exports["default"] = Locale;
+
+
+/***/ }),
+
+/***/ 59366:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".form-card[data-v-66e2d5b4]{background:#fff;border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:20px}.form-card .card-header[data-v-66e2d5b4]{background-color:#33a0d9;border-bottom:none;border-radius:20px 20px 0 0;color:#fff;padding:22px 16px}.form-card .section-title[data-v-66e2d5b4]{color:#fff;font-size:14px;font-weight:600;margin:0}.form-card .card-body[data-v-66e2d5b4]{padding:16px}.form-control[data-v-66e2d5b4]{background:#fff!important}input[readonly][data-v-66e2d5b4]{background-color:#f8f9fa!important;border-color:#ced4da;color:#6c757d;cursor:not-allowed}.form-control[data-v-66e2d5b4]:focus,select.form-control[data-v-66e2d5b4]:focus,textarea.form-control[data-v-66e2d5b4]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.radio-group[data-v-66e2d5b4]{align-items:center;display:flex;gap:16px}.radio-group .radio-inline[data-v-66e2d5b4]{align-items:center;display:inline-flex;gap:6px;margin:0}.v-select .vs__dropdown-toggle[data-v-66e2d5b4]{border-color:#ced4da;border-radius:6px}.v-select .vs__dropdown-toggle.vs__open[data-v-66e2d5b4],.v-select .vs__dropdown-toggle[data-v-66e2d5b4]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.v-select .vs__dropdown-menu[data-v-66e2d5b4],.v-select .vs__search[data-v-66e2d5b4],.v-select .vs__selected[data-v-66e2d5b4]{font-size:.95rem}.custom-file-input:focus~.custom-file-label[data-v-66e2d5b4]{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.custom-file-label[data-v-66e2d5b4]{border-radius:6px}.file-upload-area[data-v-66e2d5b4]{background:#f8fdfe;border:2px dashed #33a0d9;border-radius:12px;padding:20px;position:relative;text-align:center}.file-upload-area .file-input[data-v-66e2d5b4]{cursor:pointer;height:100%;inset:0;opacity:0;position:absolute;width:100%}.file-upload-area .file-upload-content[data-v-66e2d5b4]{color:#33a0d9}.selected-files .selected-file-item[data-v-66e2d5b4]{align-items:center;background:#f5faff;border:1px solid #e3f3f7;border-radius:6px;display:inline-flex;margin-bottom:8px;margin-right:8px;padding:6px 10px}.d-flex.align-items-center span.ml-3[data-v-66e2d5b4]{font-weight:500}.required[data-v-66e2d5b4]{color:#dc3545}.tax-status-options[data-v-66e2d5b4]{margin-top:.5rem}.tax-status-card-compact[data-v-66e2d5b4]{background-color:#fff;border:2px solid #e0e0e0;box-shadow:0 1px 4px rgba(0,0,0,.06);display:block;padding:.75rem 1rem;position:relative}.tax-status-card-compact[data-v-66e2d5b4]:hover{border-color:#007bff;box-shadow:0 2px 8px rgba(0,123,255,.12);transform:translateY(-1px)}.tax-status-card-compact.active[data-v-66e2d5b4]{background:linear-gradient(135deg,#f8f9ff,#fff);border-color:#007bff;box-shadow:0 2px 10px rgba(0,123,255,.15)}.tax-status-card-compact.border-success.active[data-v-66e2d5b4]{background:linear-gradient(135deg,#f0fff4,#fff);border-color:#28a745;box-shadow:0 2px 10px rgba(40,167,69,.15)}.tax-status-card-compact.border-primary.active[data-v-66e2d5b4]{background:linear-gradient(135deg,#f8f9ff,#fff);border-color:#007bff;box-shadow:0 2px 10px rgba(0,123,255,.15)}.tax-status-header-compact[data-v-66e2d5b4]{position:relative}.tax-status-radio[data-v-66e2d5b4]{opacity:0;pointer-events:none;position:absolute}.tax-status-icon-compact[data-v-66e2d5b4]{align-items:center;border-radius:8px;display:flex;flex-shrink:0;font-size:1rem;height:32px;justify-content:center;margin-right:.75rem;transition:all .2s ease;width:32px}.tax-status-icon-compact.taxable-icon[data-v-66e2d5b4]{background:linear-gradient(135deg,#007bff,#0056b3);box-shadow:0 2px 6px rgba(0,123,255,.25);color:#fff}.tax-status-icon-compact.non-taxable-icon[data-v-66e2d5b4]{background:linear-gradient(135deg,#28a745,#1e7e34);box-shadow:0 2px 6px rgba(40,167,69,.25);color:#fff}.tax-status-card-compact.active .tax-status-icon-compact.taxable-icon[data-v-66e2d5b4]{box-shadow:0 3px 10px rgba(0,123,255,.35);transform:scale(1.05)}.tax-status-card-compact.active .tax-status-icon-compact.non-taxable-icon[data-v-66e2d5b4]{box-shadow:0 3px 10px rgba(40,167,69,.35);transform:scale(1.05)}.tax-status-title-compact[data-v-66e2d5b4]{color:#2c3e50;flex:1;font-size:.95rem;font-weight:600}.tax-status-card-compact.active .tax-status-title-compact[data-v-66e2d5b4]{color:#007bff}.tax-status-card-compact.border-success.active .tax-status-title-compact[data-v-66e2d5b4]{color:#28a745}[dir=rtl] .tax-status-icon-compact[data-v-66e2d5b4]{margin-left:.75rem;margin-right:0}[dir=rtl] .form-card .card-header[data-v-66e2d5b4]{border-radius:20px 20px 0 0}.custom-file-label[data-v-66e2d5b4],[dir=rtl] .custom-file-label[data-v-66e2d5b4]{text-align:left!important}.btn-primary[data-v-66e2d5b4]{background:#33a0d9!important;border-color:#33a0d9!important}.btn-primary[data-v-66e2d5b4]:hover{filter:brightness(.95)}.equal-height>[class*=\" col-\"][data-v-66e2d5b4],.equal-height>[class^=col-][data-v-66e2d5b4]{display:flex}.equal-height .form-card[data-v-66e2d5b4]{display:flex;flex-direction:column;width:100%}.equal-height .form-card .card-body[data-v-66e2d5b4]{flex:1 1 auto}.country-select[data-v-66e2d5b4]{width:100%}.country-select .vs__dropdown-toggle[data-v-66e2d5b4]{border:1px solid #ced4da;border-radius:6px;max-width:100%;min-height:2.5rem;overflow:hidden;padding:.5rem 1rem}.country-select .vs__search[data-v-66e2d5b4]{font-size:.95rem;margin:0;padding:0}.country-select .vs__selected[data-v-66e2d5b4]{align-items:center;display:flex;gap:.5rem;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.country-option[data-v-66e2d5b4],.country-selected[data-v-66e2d5b4]{align-items:center;display:flex;gap:.5rem;min-width:0}.country-flag[data-v-66e2d5b4]{flex-shrink:0;font-size:1.25rem;line-height:1}.country-name[data-v-66e2d5b4]{flex:1;font-size:.95rem;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.country-select.is-invalid .vs__dropdown-toggle[data-v-66e2d5b4]{border-color:#dc3545}.country-select .vs__dropdown-menu[data-v-66e2d5b4]{border-radius:6px;box-shadow:0 .5rem 1rem rgba(0,0,0,.15);margin-top:.5rem}.country-select .vs__dropdown-option[data-v-66e2d5b4]{padding:.75rem 1rem}.country-select .vs__dropdown-option--highlight[data-v-66e2d5b4]{background-color:#33a0d9;color:#fff}.saudi-location-select[data-v-66e2d5b4]{width:100%}.saudi-location-select .vs__dropdown-toggle[data-v-66e2d5b4]{background-color:#fff;border:1px solid #ced4da;border-radius:6px;min-height:2.5rem;padding:.375rem .75rem}.saudi-location-select .vs__dropdown-toggle.vs__open[data-v-66e2d5b4],.saudi-location-select .vs__dropdown-toggle[data-v-66e2d5b4]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15);outline:none}.saudi-location-select.is-invalid .vs__dropdown-toggle[data-v-66e2d5b4]{border-color:#dc3545}.saudi-location-select .vs__search[data-v-66e2d5b4]{font-size:.95rem;margin:0;padding:0}.saudi-location-select .vs__dropdown-menu[data-v-66e2d5b4]{border-radius:6px;box-shadow:0 .5rem 1rem rgba(0,0,0,.15);margin-top:.5rem}.saudi-location-select .vs__dropdown-option[data-v-66e2d5b4]{padding:.75rem 1rem}.saudi-location-select .vs__dropdown-option--highlight[data-v-66e2d5b4]{background-color:#33a0d9;color:#fff}.client-form-tabs[data-v-66e2d5b4]{background:#f8f9fa;border-radius:12px;margin-bottom:2rem;padding:.5rem}.client-form-tabs .nav-tabs[data-v-66e2d5b4]{border:none;display:flex;gap:.5rem;margin:0;padding:0}.client-form-tabs .nav-item[data-v-66e2d5b4]{flex:1}.client-form-tabs .nav-link[data-v-66e2d5b4]{align-items:center;background:transparent;border:none;border-radius:8px;color:#6b7280;cursor:pointer;display:flex;font-size:15px;font-weight:500;justify-content:center;padding:14px 24px;transition:all .3s ease}.client-form-tabs .nav-link[data-v-66e2d5b4]:hover{background:#e5e7eb;color:#374151}.client-form-tabs .nav-link.active[data-v-66e2d5b4]{background:#0775af;box-shadow:0 2px 8px rgba(7,117,175,.2);color:#fff}.client-form-tabs .nav-link i[data-v-66e2d5b4]{font-size:16px;margin-right:8px}[dir=rtl] .client-form-tabs .nav-link i[data-v-66e2d5b4]{margin-left:8px;margin-right:0}.tab-content[data-v-66e2d5b4]{margin-top:0}.tab-pane[data-v-66e2d5b4]{display:none}.tab-pane.show.active[data-v-66e2d5b4]{animation:fadeIn-66e2d5b4 .3s ease;display:block}@keyframes fadeIn-66e2d5b4{0%{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}.form-card-enhanced[data-v-66e2d5b4]{background:#fff;border:1px solid #e5e7eb;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.05);margin-bottom:2rem;overflow:hidden;transition:all .3s ease}.form-card-enhanced[data-v-66e2d5b4]:hover{border-color:#d1d5db;box-shadow:0 4px 12px rgba(0,0,0,.08)}.form-card-enhanced .card-header[data-v-66e2d5b4]{background:#eceff3;border-bottom:1px solid #e5e7eb;padding:20px 24px}.form-card-enhanced .section-title[data-v-66e2d5b4]{align-items:center;color:#111827;display:flex;flex-wrap:wrap;font-size:18px;font-weight:600;gap:8px;margin:0}.form-card-enhanced .section-title i[data-v-66e2d5b4]{color:#0775af;font-size:20px}.form-card-enhanced .card-header-subtitle[data-v-66e2d5b4]{color:#6b7280;font-size:13px;font-weight:400;line-height:1.5;margin-bottom:0;margin-top:6px}.form-card-enhanced .card-body[data-v-66e2d5b4]{padding:24px}.form-control[data-v-66e2d5b4],.form-control-modern[data-v-66e2d5b4]{background-color:#fff;border:1.5px solid #d1d5db;border-radius:8px;color:#111827;font-size:14px;height:44px;line-height:1.5;padding:12px 16px;transition:all .2s ease;width:100%}.form-control-modern[data-v-66e2d5b4]:focus,.form-control[data-v-66e2d5b4]:focus{background-color:#fff;border-color:#0775af;box-shadow:0 0 0 3px rgba(7,117,175,.1);outline:none}.form-control-modern[readonly][data-v-66e2d5b4]{background-color:#f9fafb;color:#6b7280;cursor:not-allowed}.form-row-modern[data-v-66e2d5b4]{display:grid;gap:20px;grid-template-columns:repeat(2,1fr);margin-bottom:0}.form-row-three[data-v-66e2d5b4]{grid-template-columns:repeat(3,1fr)}.form-col-third[data-v-66e2d5b4]{width:100%}@media (max-width:1200px){.form-row-three[data-v-66e2d5b4]{grid-template-columns:repeat(2,1fr)}.form-row-three .form-col-third[data-v-66e2d5b4]:last-child{grid-column:1/-1}}@media (max-width:768px){.form-row-modern[data-v-66e2d5b4],.form-row-three[data-v-66e2d5b4]{gap:0;grid-template-columns:1fr}.form-row-three .form-col-third[data-v-66e2d5b4]:last-child{grid-column:1}}.radio-group-modern[data-v-66e2d5b4]{display:flex;gap:12px}.radio-option-modern[data-v-66e2d5b4]{align-items:center;background:#fff;border:1.5px solid #d1d5db;border-radius:8px;cursor:pointer;display:flex;flex:1;height:44px;justify-content:center;padding:0 16px;position:relative;transition:all .2s ease}.radio-option-modern[data-v-66e2d5b4]:hover{background:#f0f9ff;border-color:#0775af}.radio-option-modern.active[data-v-66e2d5b4]{background:#e6f4ff;border-color:#0775af;box-shadow:0 0 0 3px rgba(7,117,175,.1)}.radio-option-modern input[type=radio][data-v-66e2d5b4]{opacity:0;pointer-events:none;position:absolute}.radio-label-text[data-v-66e2d5b4]{color:#374151;font-size:14px;font-weight:500}.radio-option-modern.active .radio-label-text[data-v-66e2d5b4]{color:#0775af;font-weight:600}.tax-status-row[data-v-66e2d5b4]{display:flex;gap:8px}.tax-status-row .tax-status-card-compact[data-v-66e2d5b4]{flex:1;min-width:0}.tax-status-card-compact[data-v-66e2d5b4]{align-items:center;background:#fff;border:1.5px solid #d1d5db;border-radius:8px;cursor:pointer;display:flex;height:44px;padding:0;transition:all .2s ease}.tax-status-card-compact[data-v-66e2d5b4]:hover{border-color:#0775af;box-shadow:0 2px 8px rgba(7,117,175,.15)}.tax-status-card-compact.active[data-v-66e2d5b4]{background:#f0f9ff;border-color:#0775af;box-shadow:0 0 0 3px rgba(7,117,175,.1)}.tax-status-card-compact.border-success.active[data-v-66e2d5b4]{background:#f0fdf4;border-color:#10b981}.tax-status-header-compact[data-v-66e2d5b4]{align-items:center;display:flex;height:100%;justify-content:center;padding:0 12px;width:100%}.tax-status-title-compact[data-v-66e2d5b4]{color:#374151;font-size:14px;font-weight:500;text-align:center}.tax-status-card-compact.active .tax-status-title-compact[data-v-66e2d5b4]{color:#0775af}.tax-status-card-compact.border-success.active .tax-status-title-compact[data-v-66e2d5b4]{color:#10b981;font-weight:600}.tax-status-individual-locked .tax-status-card-compact.locked[data-v-66e2d5b4]{background:#f0fdf4;border-color:#10b981;cursor:default}.tax-status-individual-locked .tax-status-card-compact.locked[data-v-66e2d5b4]:hover{border-color:#10b981;box-shadow:none}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 64744:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _services_RTLService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(73948);
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      isRTL: false,
+      currentLocale: 'en'
+    };
+  },
+  computed: {
+    /**
+     * Get RTL-aware CSS classes
+     */
+    rtlClasses: function rtlClasses() {
+      return {
+        'rtl': this.isRTL,
+        'ltr': !this.isRTL,
+        'text-right': this.isRTL,
+        'text-left': !this.isRTL,
+        'float-right': this.isRTL,
+        'float-left': !this.isRTL
+      };
+    },
+    /**
+     * Get RTL-aware text alignment
+     */
+    textAlign: function textAlign() {
+      return this.isRTL ? 'right' : 'left';
+    },
+    /**
+     * Get RTL-aware float direction
+     */
+    floatDirection: function floatDirection() {
+      return this.isRTL ? 'right' : 'left';
+    }
+  },
+  mounted: function mounted() {
+    // Initialize RTL status
+    this.updateRTLStatus();
+
+    // Listen for RTL changes
+    window.addEventListener('rtl-changed', this.handleRTLChange);
+  },
+  beforeDestroy: function beforeDestroy() {
+    // Clean up event listener
+    window.removeEventListener('rtl-changed', this.handleRTLChange);
+  },
+  methods: {
+    /**
+     * Update RTL status from service
+     */
+    updateRTLStatus: function updateRTLStatus() {
+      this.isRTL = _services_RTLService__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A.getRTLStatus();
+      this.currentLocale = _services_RTLService__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A.getCurrentLocale();
+    },
+    /**
+     * Handle RTL change events
+     */
+    handleRTLChange: function handleRTLChange(event) {
+      this.isRTL = event.detail.isRTL;
+      this.currentLocale = event.detail.locale || _services_RTLService__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A.getCurrentLocale();
+      this.$forceUpdate(); // Force component re-render
+    },
+    /**
+     * Set RTL mode for a specific locale
+     */
+    setRTLMode: function setRTLMode(locale) {
+      _services_RTLService__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A.setRTLModeByLocale(locale);
+    },
+    /**
+     * Check if current locale is RTL
+     */
+    isCurrentLocaleRTL: function isCurrentLocaleRTL() {
+      return _services_RTLService__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A.getLanguageRTLStatus(this.currentLocale);
+    },
+    /**
+     * Get RTL-aware margin/padding classes
+     */
+    getRTLSpacingClasses: function getRTLSpacingClasses(baseClass, size) {
+      if (this.isRTL) {
+        return _defineProperty(_defineProperty({}, "".concat(baseClass, "-right-").concat(size), true), "".concat(baseClass, "-left-").concat(size), false);
+      } else {
+        return _defineProperty(_defineProperty({}, "".concat(baseClass, "-left-").concat(size), true), "".concat(baseClass, "-right-").concat(size), false);
+      }
+    },
+    /**
+     * Get RTL-aware border classes
+     */
+    getRTLBorderClasses: function getRTLBorderClasses(baseClass, side) {
+      if (this.isRTL) {
+        var rtlSideMap = {
+          'left': 'right',
+          'right': 'left',
+          'start': 'end',
+          'end': 'start'
+        };
+        return _defineProperty({}, "".concat(baseClass, "-").concat(rtlSideMap[side] || side), true);
+      } else {
+        return _defineProperty({}, "".concat(baseClass, "-").concat(side), true);
+      }
+    }
+  }
+});
+
+/***/ }),
+
+/***/ 69543:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+class Locale {
+    constructor() {
+        this.config = {
+            currency: {
+                name: 'Euro',
+                plural: 'Euros',
+                singular: 'Euro',
+                symbol: '€',
+                fractionalUnit: {
+                    name: 'Centime',
+                    singular: 'Centime',
+                    plural: 'Centimes',
+                    symbol: 'Cts',
+                },
+            },
+            texts: {
+                and: 'Et',
+                minus: 'Moins',
+                only: '',
+                point: 'Virgule',
+            },
+            numberWordsMapping: [
+                { number: 1000000000000000, value: 'Billiard' },
+                { number: 1000000000000, value: 'Billion' },
+                { number: 1000000000, value: 'Milliard' },
+                { number: 1000000, value: 'Million' },
+                { number: 1000, value: 'Mille' },
+                { number: 100, value: 'Cent' },
+                { number: 99, value: 'Nonante-Neuf' },
+                { number: 98, value: 'Nonante-Huit' },
+                { number: 97, value: 'Nonante-Sept' },
+                { number: 96, value: 'Nonante-Six' },
+                { number: 95, value: 'Nonante-Cinq' },
+                { number: 94, value: 'Nonante-Quatre' },
+                { number: 93, value: 'Nonante-Trois' },
+                { number: 92, value: 'Nonante-Deux' },
+                { number: 91, value: 'Nonante-Et-Un' },
+                { number: 90, value: 'Nonante' },
+                { number: 89, value: 'Quatre-Vingt-Neuf' },
+                { number: 88, value: 'Quatre-Vingt-Huit' },
+                { number: 87, value: 'Quatre-Vingt-Sept' },
+                { number: 86, value: 'Quatre-Vingt-Six' },
+                { number: 85, value: 'Quatre-Vingt-Cinq' },
+                { number: 84, value: 'Quatre-Vingt-Quatre' },
+                { number: 83, value: 'Quatre-Vingt-Trois' },
+                { number: 82, value: 'Quatre-Vingt-Deux' },
+                { number: 81, value: 'Quatre-Vingt-Un' },
+                { number: 80, value: 'Quatre-Vingt' },
+                { number: 79, value: 'Septante-Neuf' },
+                { number: 78, value: 'Septante-Huit' },
+                { number: 77, value: 'Septante-Sept' },
+                { number: 76, value: 'Septante-Six' },
+                { number: 75, value: 'Septante-Cinq' },
+                { number: 74, value: 'Septante-Quatre' },
+                { number: 73, value: 'Septante-Trois' },
+                { number: 72, value: 'Septante-Deux' },
+                { number: 71, value: 'Septante-Et-Un' },
+                { number: 70, value: 'Septante' },
+                { number: 69, value: 'Soixante-Neuf' },
+                { number: 68, value: 'Soixante-Huit' },
+                { number: 67, value: 'Soixante-Sept' },
+                { number: 66, value: 'Soixante-Six' },
+                { number: 65, value: 'Soixante-Cinq' },
+                { number: 64, value: 'Soixante-Quatre' },
+                { number: 63, value: 'Soixante-Trois' },
+                { number: 62, value: 'Soixante-Deux' },
+                { number: 61, value: 'Soixante-Et-Un' },
+                { number: 60, value: 'Soixante' },
+                { number: 59, value: 'Cinquante-Neuf' },
+                { number: 58, value: 'Cinquante-Huit' },
+                { number: 57, value: 'Cinquante-Sept' },
+                { number: 56, value: 'Cinquante-Six' },
+                { number: 55, value: 'Cinquante-Cinq' },
+                { number: 54, value: 'Cinquante-Quatre' },
+                { number: 53, value: 'Cinquante-Trois' },
+                { number: 52, value: 'Cinquante-Deux' },
+                { number: 51, value: 'Cinquante-Et-Un' },
+                { number: 50, value: 'Cinquante' },
+                { number: 49, value: 'Quarante-Neuf' },
+                { number: 48, value: 'Quarante-Huit' },
+                { number: 47, value: 'Quarante-Sept' },
+                { number: 46, value: 'Quarante-Six' },
+                { number: 45, value: 'Quarante-Cinq' },
+                { number: 44, value: 'Quarante-Quatre' },
+                { number: 43, value: 'Quarante-Trois' },
+                { number: 42, value: 'Quarante-Deux' },
+                { number: 41, value: 'Quarante-Et-Un' },
+                { number: 40, value: 'Quarante' },
+                { number: 39, value: 'Trente-Neuf' },
+                { number: 38, value: 'Trente-Huit' },
+                { number: 37, value: 'Trente-Sept' },
+                { number: 36, value: 'Trente-Six' },
+                { number: 35, value: 'Trente-Cinq' },
+                { number: 34, value: 'Trente-Quatre' },
+                { number: 33, value: 'Trente-Trois' },
+                { number: 32, value: 'Trente-Deux' },
+                { number: 31, value: 'Trente-Et-Un' },
+                { number: 30, value: 'Trente' },
+                { number: 29, value: 'Vingt-Neuf' },
+                { number: 28, value: 'Vingt-Huit' },
+                { number: 27, value: 'Vingt-Sept' },
+                { number: 26, value: 'Vingt-Six' },
+                { number: 25, value: 'Vingt-Cinq' },
+                { number: 24, value: 'Vingt-Quatre' },
+                { number: 23, value: 'Vingt-Trois' },
+                { number: 22, value: 'Vingt-Deux' },
+                { number: 21, value: 'Vingt-Et-Un' },
+                { number: 20, value: 'Vingt' },
+                { number: 19, value: 'Dix-Neuf' },
+                { number: 18, value: 'Dix-Huit' },
+                { number: 17, value: 'Dix-Sept' },
+                { number: 16, value: 'Seize' },
+                { number: 15, value: 'Quinze' },
+                { number: 14, value: 'Quatorze' },
+                { number: 13, value: 'Treize' },
+                { number: 12, value: 'Douze' },
+                { number: 11, value: 'Onze' },
+                { number: 10, value: 'Dix' },
+                { number: 9, value: 'Neuf' },
+                { number: 8, value: 'Huit' },
+                { number: 7, value: 'Sept' },
+                { number: 6, value: 'Six' },
+                { number: 5, value: 'Cinq' },
+                { number: 4, value: 'Quatre' },
+                { number: 3, value: 'Trois' },
+                { number: 2, value: 'Deux' },
+                { number: 1, value: 'Un' },
+                { number: 0, value: 'Zéro' },
+            ],
+            ignoreOneForWords: ['Cent', 'Mille'],
+            pluralMark: 's',
+            pluralWords: ['Billiard', 'Billion', 'Milliard', 'Million'],
+        };
+    }
+}
+exports["default"] = Locale;
+
+
+/***/ }),
+
+/***/ 74261:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+class Locale {
+    constructor() {
+        this.config = {
+            currency: {
+                name: 'Rupee',
+                plural: 'Rupees',
+                singular: 'Rupee',
+                symbol: 'Rs',
+                fractionalUnit: {
+                    name: 'Cent',
+                    singular: 'Cent',
+                    plural: 'Cents',
+                    symbol: '',
+                },
+            },
+            texts: {
+                and: 'And',
+                minus: 'Minus',
+                only: 'Only',
+                point: 'Point',
+            },
+            numberWordsMapping: [
+                { number: 10000000, value: 'Crore' },
+                { number: 100000, value: 'Lakh' },
+                { number: 1000, value: 'Thousand' },
+                { number: 100, value: 'Hundred' },
+                { number: 90, value: 'Ninety' },
+                { number: 80, value: 'Eighty' },
+                { number: 70, value: 'Seventy' },
+                { number: 60, value: 'Sixty' },
+                { number: 50, value: 'Fifty' },
+                { number: 40, value: 'Forty' },
+                { number: 30, value: 'Thirty' },
+                { number: 20, value: 'Twenty' },
+                { number: 19, value: 'Nineteen' },
+                { number: 18, value: 'Eighteen' },
+                { number: 17, value: 'Seventeen' },
+                { number: 16, value: 'Sixteen' },
+                { number: 15, value: 'Fifteen' },
+                { number: 14, value: 'Fourteen' },
+                { number: 13, value: 'Thirteen' },
+                { number: 12, value: 'Twelve' },
+                { number: 11, value: 'Eleven' },
+                { number: 10, value: 'Ten' },
+                { number: 9, value: 'Nine' },
+                { number: 8, value: 'Eight' },
+                { number: 7, value: 'Seven' },
+                { number: 6, value: 'Six' },
+                { number: 5, value: 'Five' },
+                { number: 4, value: 'Four' },
+                { number: 3, value: 'Three' },
+                { number: 2, value: 'Two' },
+                { number: 1, value: 'One' },
+                { number: 0, value: 'Zero' },
+            ],
+            exactWordsMapping: [{ number: 100, value: 'One Hundred' }],
+        };
+    }
+}
+exports["default"] = Locale;
+
+
+/***/ }),
+
+/***/ 74938:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+class Locale {
+    constructor() {
+        this.config = {
+            currency: {
+                name: 'Euro',
+                plural: 'Eurot',
+                singular: 'Euro',
+                symbol: '€',
+                fractionalUnit: {
+                    name: 'Sent',
+                    singular: 'Sent',
+                    plural: 'Senti',
+                    symbol: '¢',
+                },
+            },
+            texts: {
+                and: 'Ja',
+                minus: 'Miinus',
+                only: 'Ainult',
+                point: 'Koma',
+            },
+            numberWordsMapping: [
+                { number: 1000000000000000, value: 'Kvadriljon' },
+                { number: 1000000000000, value: 'Triljon' },
+                { number: 1000000000, value: 'Miljard' },
+                { number: 1000000, value: 'Miljon' },
+                { number: 1000, value: 'Tuhat' },
+                { number: 900, value: 'Üheksasada' },
+                { number: 800, value: 'Kaheksasada' },
+                { number: 700, value: 'Seitsesada' },
+                { number: 600, value: 'Kuussada' },
+                { number: 500, value: 'Viissada' },
+                { number: 400, value: 'Nelisada' },
+                { number: 300, value: 'Kolmsada' },
+                { number: 200, value: 'Kakssada' },
+                { number: 100, value: 'Sada' },
+                { number: 90, value: 'Üheksakümmend' },
+                { number: 80, value: 'Kaheksakümmend' },
+                { number: 70, value: 'Seitsekümmend' },
+                { number: 60, value: 'Kuuskümmend' },
+                { number: 50, value: 'Viiskümmend' },
+                { number: 40, value: 'Nelikümmend' },
+                { number: 30, value: 'Kolmkümmend' },
+                { number: 20, value: 'Kakskümmend' },
+                { number: 19, value: 'Üheksateist' },
+                { number: 18, value: 'Kaheksateist' },
+                { number: 17, value: 'Seitseteist' },
+                { number: 16, value: 'Kuusteist' },
+                { number: 15, value: 'Viisteist' },
+                { number: 14, value: 'Neliteist' },
+                { number: 13, value: 'Kolmteist' },
+                { number: 12, value: 'Kaksteist' },
+                { number: 11, value: 'Üksteist' },
+                { number: 10, value: 'Kümme' },
+                { number: 9, value: 'Üheksa' },
+                { number: 8, value: 'Kaheksa' },
+                { number: 7, value: 'Seitse' },
+                { number: 6, value: 'Kuus' },
+                { number: 5, value: 'Viis' },
+                { number: 4, value: 'Neli' },
+                { number: 3, value: 'Kolm' },
+                { number: 2, value: 'Kaks' },
+                { number: 1, value: 'Üks' },
+                { number: 0, value: 'Null' },
+            ],
+            ignoreOneForWords: [
+                'Sada',
+                'Kakssada',
+                'Kolmsada',
+                'Nelisada',
+                'Viissada',
+                'Kuussada',
+                'Seitsesada',
+                'Kaheksasada',
+                'Üheksasada',
+            ],
+            exactWordsMapping: [
+                {
+                    number: 100,
+                    value: 'Ükssada',
+                },
+            ],
+            pluralWords: ['Miljon', 'Miljard', 'Trillion', 'Kvadriljon'],
+            pluralMark: 'it',
+            onlyInFront: true,
+        };
+    }
+}
+exports["default"] = Locale;
+
+
+/***/ }),
+
+/***/ 78159:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  A: () => (/* binding */ SupplierCreateModal)
+});
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierCreateModal.vue?vue&type=template&id=3a12f826&scoped=true
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', [_c('VModal', {
+    on: {
+      "close": function close($event) {
+        _vm.showSupplierCreateModal = false;
+      }
+    },
+    scopedSlots: _vm._u([{
+      key: "title",
+      fn: function fn() {
+        return [_vm._v(_vm._s(_vm.$t("Create Supplier")))];
+      },
+      proxy: true
+    }]),
+    model: {
+      value: _vm.showSupplierCreateModal,
+      callback: function callback($$v) {
+        _vm.showSupplierCreateModal = $$v;
+      },
+      expression: "showSupplierCreateModal"
+    }
+  }, [_vm._v(" "), [_c('SupplierForm', {
+    ref: "supplierForm",
+    attrs: {
+      "showCardBody": false,
+      "fullWidthSections": true
+    },
+    on: {
+      "submit": _vm.saveSupplier
+    }
+  }), _vm._v(" "), _c('div', {
+    attrs: {
+      "slot": "modal-footer"
+    },
+    slot: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-success",
+    attrs: {
+      "disabled": _vm.isSubmitting
+    },
+    on: {
+      "click": function click($event) {
+        return _vm.submitItem($event);
+      }
+    }
+  }, [_vm.isSubmitting ? _c('i', {
+    staticClass: "fas fa-spinner fa-spin"
+  }) : _c('i', {
+    staticClass: "fas fa-save"
+  }), _vm._v("\n          " + _vm._s(_vm.isSubmitting ? _vm.$t("Saving...") : _vm.$t("Save")) + "\n        ")])])]], 2), _vm._v(" "), _c('a', {
+    staticClass: "create-button",
+    on: {
+      "click": _vm.toggleModal
+    }
+  }, [_vm._t("default")], 2)], 1);
+};
+var staticRenderFns = [];
+
+// EXTERNAL MODULE: ./resources/js/components/SupplierForm.vue + 6 modules
+var SupplierForm = __webpack_require__(27140);
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierCreateModal.vue?vue&type=script&lang=js
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+/* harmony default export */ const SupplierCreateModalvue_type_script_lang_js = ({
+  name: "SupplierCreateModal",
+  middleware: ["auth", "check-permissions"],
+  components: {
+    SupplierForm: SupplierForm/* default */.A
+  },
+  data: function data() {
+    return {
+      showSupplierCreateModal: false,
+      form: null,
+      isSubmitting: false
+    };
+  },
+  methods: {
+    // save supplier
+    saveSupplier: function saveSupplier() {
+      var _this = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        var _this$$refs$supplierF, formData, fd, appendIfDefined, taxStatusValue, taxStatusToSend, name, address, response, status, serverErrors, form, errorMessages, errorsObject, mapped, errorTitle, _error$response, errorMessage;
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              if (!_this.isSubmitting) {
+                _context.next = 2;
+                break;
+              }
+              return _context.abrupt("return");
+            case 2:
+              _this.isSubmitting = true;
+              _context.prev = 3;
+              if (_this.$refs.supplierForm.validateForm()) {
+                _context.next = 7;
+                break;
+              }
+              _this.isSubmitting = false;
+              return _context.abrupt("return");
+            case 7:
+              // Get the form data from the SupplierForm component
+              formData = _this.$refs.supplierForm.getFormData(); // Build multipart/form-data to properly send files and handle boolean conversion
+              fd = new FormData();
+              appendIfDefined = function appendIfDefined(key, value) {
+                if (value !== undefined && value !== null && value !== '') {
+                  fd.append(key, value);
+                }
+              }; // Debug: Log formData before building FormData - CRITICAL
+              console.log('SupplierCreateModal - formData received:', {
+                taxStatus: formData.taxStatus,
+                tax_status: formData.tax_status,
+                allFormData: formData
+              });
+              console.log('SupplierCreateModal - formData keys:', Object.keys(formData || {}));
+              console.log('SupplierCreateModal - formData.taxStatus type:', _typeof(formData.taxStatus));
+              console.log('SupplierCreateModal - formData.taxStatus value:', formData.taxStatus);
+              console.log('SupplierCreateModal - formData.tax_status value:', formData.tax_status);
+              console.log('SupplierCreateModal - $refs.supplierForm exists:', !!_this.$refs.supplierForm);
+              console.log('SupplierCreateModal - $refs.supplierForm.form exists:', !!(_this.$refs.supplierForm && _this.$refs.supplierForm.form));
+              if (_this.$refs.supplierForm && _this.$refs.supplierForm.form) {
+                console.log('SupplierCreateModal - form.taxStatus:', _this.$refs.supplierForm.form.taxStatus);
+                console.log('SupplierCreateModal - form.data() taxStatus:', _this.$refs.supplierForm.form.data ? _this.$refs.supplierForm.form.data().taxStatus : 'N/A');
+              }
+
+              // Simple scalar fields
+              appendIfDefined('codeNumber', formData.codeNumber);
+              appendIfDefined('notes', formData.notes);
+              appendIfDefined('displayLanguage', formData.displayLanguage);
+              appendIfDefined('type', formData.type);
+
+              // CRITICAL: Always append taxStatus - don't use appendIfDefined to ensure it's always sent
+              // Get taxStatus from formData, or try to get it from form object if available
+              taxStatusValue = formData.taxStatus || formData.tax_status;
+              console.log('SupplierCreateModal - Initial taxStatus check:', {
+                formDataTaxStatus: formData.taxStatus,
+                formDataTax_status: formData.tax_status,
+                currentTaxStatusValue: taxStatusValue
+              });
+
+              // If still not found, try to get it from the form component
+              if (!taxStatusValue && _this.$refs.supplierForm && _this.$refs.supplierForm.form) {
+                taxStatusValue = _this.$refs.supplierForm.form.taxStatus;
+                console.log('SupplierCreateModal - Got taxStatus from form object:', taxStatusValue);
+              }
+
+              // Default to non_taxable if still not found
+              taxStatusValue = taxStatusValue || 'non_taxable';
+              console.log('SupplierCreateModal - Final taxStatusValue before appending:', taxStatusValue);
+
+              // Always append taxStatus - never skip it, even if it's the default value
+              // CRITICAL: Use explicit string conversion and ensure it's never null/undefined
+              taxStatusToSend = String(taxStatusValue || 'non_taxable');
+              fd.append('taxStatus', taxStatusToSend);
+              fd.append('tax_status', taxStatusToSend);
+              console.log('=== SUPPLIER CREATE MODAL - APPENDING TAX STATUS ===');
+              console.log('SupplierCreateModal - taxStatusValue:', taxStatusValue);
+              console.log('SupplierCreateModal - taxStatusToSend:', taxStatusToSend);
+              console.log('SupplierCreateModal - Appended taxStatus to FormData:', taxStatusToSend);
+              console.log('SupplierCreateModal - formData.taxStatus:', formData.taxStatus);
+              console.log('SupplierCreateModal - formData.tax_status:', formData.tax_status);
+              console.log('SupplierCreateModal - form.taxStatus:', (_this$$refs$supplierF = _this.$refs.supplierForm) === null || _this$$refs$supplierF === void 0 || (_this$$refs$supplierF = _this$$refs$supplierF.form) === null || _this$$refs$supplierF === void 0 ? void 0 : _this$$refs$supplierF.taxStatus);
+
+              // Verify it was added
+              console.log('SupplierCreateModal - FormData has taxStatus:', fd.has('taxStatus'));
+              console.log('SupplierCreateModal - FormData has tax_status:', fd.has('tax_status'));
+              appendIfDefined('fullName', formData.fullName);
+              appendIfDefined('businessName', formData.businessName);
+              appendIfDefined('companyName', formData.businessName);
+              appendIfDefined('firstName', formData.firstName);
+              appendIfDefined('lastName', formData.lastName);
+              appendIfDefined('phone', formData.phone);
+              appendIfDefined('phoneNumber', formData.phoneNumber);
+              appendIfDefined('email', formData.email);
+              appendIfDefined('streetAddress1', formData.streetAddress1);
+              appendIfDefined('streetAddress2', formData.streetAddress2);
+              appendIfDefined('city', formData.city);
+              appendIfDefined('state', formData.state);
+              appendIfDefined('postalCode', formData.postalCode);
+              appendIfDefined('country', formData.country);
+              appendIfDefined('saudi_region', formData.saudi_region);
+              appendIfDefined('neighbourhood', formData.neighbourhood);
+              appendIfDefined('commercialRegister', formData.commercialRegister);
+              appendIfDefined('taxCard', formData.taxCard);
+              appendIfDefined('status', formData.status);
+
+              // Saudi National Address Fields
+              appendIfDefined('buildingNumber', formData.buildingNumber);
+              appendIfDefined('streetNumber', formData.streetNumber);
+              appendIfDefined('districtNumber', formData.districtNumber);
+              appendIfDefined('unitNumber', formData.unitNumber);
+              appendIfDefined('additionalNumber', formData.additionalNumber);
+              appendIfDefined('taxRegistrationNumber', formData.taxRegistrationNumber || formData.taxCard);
+
+              // Handle name field - always required when type is Individual
+              name = formData.name || (formData.type === 'Individual' ? formData.fullName : formData.businessName);
+              if (name) {
+                fd.append('name', name);
+              }
+
+              // Handle address field
+              address = formData.address || formData.streetAddress1;
+              if (address) {
+                fd.append('address', address);
+              }
+
+              // Convert boolean values to integers for Laravel validation
+              appendIfDefined('isSendEmail', formData.isSendEmail ? 1 : 0);
+              appendIfDefined('isSendSMS', formData.isSendSMS ? 1 : 0);
+
+              // Chart of account id (number or object)
+              if (formData.chartOfAccountId && _typeof(formData.chartOfAccountId) === 'object' && formData.chartOfAccountId.id) {
+                appendIfDefined('chartOfAccountId', formData.chartOfAccountId.id);
+              } else {
+                appendIfDefined('chartOfAccountId', formData.chartOfAccountId);
+              }
+
+              // Image file
+              if (formData.image instanceof File) {
+                fd.append('image', formData.image);
+              }
+
+              // Attachments as files
+              if (Array.isArray(formData.attachments)) {
+                formData.attachments.forEach(function (file, idx) {
+                  if (file instanceof File) {
+                    fd.append("attachments[".concat(idx, "]"), file);
+                  }
+                });
+              }
+
+              // Representatives array (as nested fields)
+              if (Array.isArray(formData.representatives)) {
+                formData.representatives.forEach(function (rep, i) {
+                  if (!rep) return;
+                  if (rep.name !== undefined && rep.name !== null) fd.append("representatives[".concat(i, "][name]"), rep.name);
+                  if (rep.email) fd.append("representatives[".concat(i, "][email]"), rep.email);
+                  if (rep.phone) fd.append("representatives[".concat(i, "][phone]"), rep.phone);
+                  if (rep.position) fd.append("representatives[".concat(i, "][position]"), rep.position);
+                  if (rep.is_primary !== undefined && rep.is_primary !== null) fd.append("representatives[".concat(i, "][is_primary]"), rep.is_primary ? 1 : 0);
+                  if (rep.notes) fd.append("representatives[".concat(i, "][notes]"), rep.notes);
+                });
+              }
+              _context.next = 76;
+              return _this.$http.post("/api/suppliers", fd, {
+                headers: {
+                  'Content-Type': 'multipart/form-data'
+                }
+              });
+            case 76:
+              response = _context.sent;
+              if (!response.data.success) {
+                _context.next = 85;
+                break;
+              }
+              toast.fire({
+                type: "success",
+                title: _this.$t("Supplier added successfully")
+              });
+              _this.$emit("reloadSuppliers");
+              _this.$refs.supplierForm.resetForm();
+              _this.showSupplierCreateModal = false;
+              _this.form = null; // Reset form reference
+              _context.next = 86;
+              break;
+            case 85:
+              throw new Error(response.data.message || 'Failed to create supplier');
+            case 86:
+              _context.next = 94;
+              break;
+            case 88:
+              _context.prev = 88;
+              _context.t0 = _context["catch"](3);
+              console.error("Error creating supplier:", _context.t0);
+              status = _context.t0 && _context.t0.response && _context.t0.response.status;
+              serverErrors = _context.t0 && _context.t0.response && _context.t0.response.data && _context.t0.response.data.errors;
+              if (status === 422 && serverErrors && _this.$refs.supplierForm) {
+                // Get form object directly from SupplierForm component
+                form = _this.$refs.supplierForm.form;
+                errorMessages = []; // Prepare errors object for vform
+                errorsObject = {};
+                Object.keys(serverErrors).forEach(function (key) {
+                  var messages = serverErrors[key];
+                  if (Array.isArray(messages) && messages.length > 0) {
+                    // Translate messages before adding to errorsObject
+                    var translatedMessages = messages.map(function (msg) {
+                      return _this.translateValidationMessage(msg, key);
+                    });
+                    errorsObject[key] = translatedMessages;
+
+                    // Collect error messages for toast notification
+                    var fieldLabel = _this.getFieldLabel(key);
+                    translatedMessages.forEach(function (msg) {
+                      errorMessages.push("".concat(fieldLabel, ": ").concat(msg));
+                    });
+
+                    // Also map attachments.* to attachments field for UI display
+                    if (key.startsWith('attachments.')) {
+                      if (!errorsObject.attachments) {
+                        errorsObject.attachments = translatedMessages;
+                      }
+                    }
+                  }
+                });
+
+                // Set errors on form using vform's set method
+                if (form && form.errors && typeof form.errors.set === 'function') {
+                  form.errors.set(errorsObject);
+                  console.log('SupplierCreateModal - Set errors on form:', errorsObject);
+                } else if (form && form.errors && typeof form.errors.record === 'function') {
+                  // Fallback to record method if set is not available
+                  mapped = {};
+                  Object.keys(errorsObject).forEach(function (key) {
+                    mapped[key] = Array.isArray(errorsObject[key]) ? errorsObject[key][0] : errorsObject[key];
+                  });
+                  form.errors.record(mapped);
+                  console.log('SupplierCreateModal - Recorded errors on form (fallback):', mapped);
+                } else {
+                  console.warn('SupplierCreateModal - Form errors object not available or invalid');
+                }
+
+                // Show detailed error messages in toast
+                errorTitle = errorMessages.length > 0 ? errorMessages.slice(0, 3).join(' | ') + (errorMessages.length > 3 ? " (+".concat(errorMessages.length - 3, " more)") : '') : _this.$t("Please check the form for errors and try again.");
+                toast.fire({
+                  type: "error",
+                  title: _this.$t("Validation Error"),
+                  text: errorTitle,
+                  html: errorMessages.length > 0 ? "<div style=\"text-align: left; max-height: 200px; overflow-y: auto;\">".concat(errorMessages.map(function (msg) {
+                    return "<div>\u2022 ".concat(msg, "</div>");
+                  }).join(''), "</div>") : undefined
+                });
+              } else {
+                errorMessage = ((_error$response = _context.t0.response) === null || _error$response === void 0 || (_error$response = _error$response.data) === null || _error$response === void 0 ? void 0 : _error$response.message) || _this.$t("Please check your input and try again.");
+                toast.fire({
+                  type: "error",
+                  title: errorMessage
+                });
+              }
+            case 94:
+              _context.prev = 94;
+              _this.isSubmitting = false;
+              return _context.finish(94);
+            case 97:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee, null, [[3, 88, 94, 97]]);
+      }))();
+    },
+    toggleModal: function toggleModal() {
+      this.showSupplierCreateModal = !this.showSupplierCreateModal;
+      // Reset form when opening modal
+      if (this.showSupplierCreateModal) {
+        this.form = null;
+        this.isSubmitting = false;
+      }
+    },
+    submitItem: function submitItem(evt) {
+      evt.preventDefault();
+      this.saveSupplier();
+    },
+    // Get field label for error messages
+    getFieldLabel: function getFieldLabel(field) {
+      var fieldLabelMap = {
+        codeNumber: this.$t('Code Number'),
+        notes: this.$t('Notes'),
+        displayLanguage: this.$t('Display Language'),
+        type: this.$t('Type'),
+        fullName: this.$t('Full Name'),
+        businessName: this.$t('Business Name'),
+        firstName: this.$t('First Name'),
+        lastName: this.$t('Last Name'),
+        phone: this.$t('Phone'),
+        phoneNumber: this.$t('Mobile Number'),
+        email: this.$t('Email'),
+        streetAddress1: this.$t('Street Address 1'),
+        streetAddress2: this.$t('Street Address 2'),
+        city: this.$t('City'),
+        state: this.$t('State'),
+        postalCode: this.$t('Postal Code'),
+        country: this.$t('Country'),
+        neighbourhood: this.$t('Neighbourhood'),
+        commercialRegister: this.$t('Commercial Register'),
+        taxCard: this.$t('Tax Card'),
+        buildingNumber: this.$t('Building Number'),
+        streetNumber: this.$t('Street Number'),
+        districtNumber: this.$t('District Number'),
+        unitNumber: this.$t('Unit Number'),
+        additionalNumber: this.$t('Additional Number'),
+        taxStatus: this.$t('Tax Status'),
+        taxRegistrationNumber: this.$t('Tax Registration Number'),
+        image: this.$t('Image'),
+        attachments: this.$t('Attachments'),
+        status: this.$t('Status'),
+        chartOfAccountId: this.$t('Chart of Account')
+      };
+      return fieldLabelMap[field] || field;
+    },
+    // translate validation messages from backend to localized messages
+    translateValidationMessage: function translateValidationMessage(message, field) {
+      // If there is a direct translation key, use it
+      var direct = this.$t(message);
+      if (direct && direct !== message) return direct;
+
+      // Get current locale
+      var currentLocale = this.$i18n.locale || 'en';
+      var isArabic = currentLocale === 'ar';
+
+      // Field label mapping for supplier form fields
+      var fieldLabelMap = {
+        codeNumber: this.$t('Code Number'),
+        notes: this.$t('Notes'),
+        displayLanguage: this.$t('Display Language'),
+        type: this.$t('Type'),
+        fullName: this.$t('Full Name'),
+        businessName: this.$t('Business Name'),
+        firstName: this.$t('First Name'),
+        lastName: this.$t('Last Name'),
+        phone: this.$t('Phone'),
+        phoneNumber: this.$t('Mobile Number'),
+        email: this.$t('Email'),
+        streetAddress1: this.$t('Street Address 1'),
+        streetAddress2: this.$t('Street Address 2'),
+        city: this.$t('City'),
+        state: this.$t('State'),
+        postalCode: this.$t('Postal Code'),
+        country: this.$t('Country'),
+        neighbourhood: this.$t('Neighbourhood'),
+        commercialRegister: this.$t('Commercial Register'),
+        taxCard: this.$t('Tax Card'),
+        buildingNumber: this.$t('Building Number'),
+        streetNumber: this.$t('Street Number'),
+        districtNumber: this.$t('District Number'),
+        unitNumber: this.$t('Unit Number'),
+        additionalNumber: this.$t('Additional Number'),
+        taxStatus: this.$t('Tax Status'),
+        taxRegistrationNumber: this.$t('Tax Registration Number'),
+        image: this.$t('Image'),
+        attachments: this.$t('Attachments'),
+        status: this.$t('Status'),
+        chartOfAccountId: this.$t('Chart of Account')
+      };
+
+      // Try to translate common validation messages
+      var commonMessages = {
+        'required': isArabic ? 'مطلوب' : 'required',
+        'must be exactly 15 digits': isArabic ? 'يجب أن يكون 15 رقم بالضبط' : 'must be exactly 15 digits',
+        'must contain only numbers and be 15 digits': isArabic ? 'يجب أن يحتوي على أرقام فقط ويكون 15 رقم' : 'must contain only numbers and be 15 digits'
+      };
+
+      // Check if message contains common patterns
+      for (var _i = 0, _Object$entries = Object.entries(commonMessages); _i < _Object$entries.length; _i++) {
+        var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+          pattern = _Object$entries$_i[0],
+          translation = _Object$entries$_i[1];
+        if (message.toLowerCase().includes(pattern.toLowerCase())) {
+          var fieldLabel = fieldLabelMap[field] || field;
+          return "".concat(fieldLabel, ": ").concat(translation);
+        }
+      }
+
+      // Return original message if no translation found
+      return message;
+    }
+  }
+});
+;// ./resources/js/components/SupplierCreateModal.vue?vue&type=script&lang=js
+ /* harmony default export */ const components_SupplierCreateModalvue_type_script_lang_js = (SupplierCreateModalvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__(85072);
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierCreateModal.vue?vue&type=style&index=0&id=3a12f826&prod&scoped=true&lang=css
+var SupplierCreateModalvue_type_style_index_0_id_3a12f826_prod_scoped_true_lang_css = __webpack_require__(90372);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierCreateModal.vue?vue&type=style&index=0&id=3a12f826&prod&scoped=true&lang=css
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = injectStylesIntoStyleTag_default()(SupplierCreateModalvue_type_style_index_0_id_3a12f826_prod_scoped_true_lang_css/* default */.A, options);
+
+
+
+/* harmony default export */ const components_SupplierCreateModalvue_type_style_index_0_id_3a12f826_prod_scoped_true_lang_css = (SupplierCreateModalvue_type_style_index_0_id_3a12f826_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/components/SupplierCreateModal.vue?vue&type=style&index=0&id=3a12f826&prod&scoped=true&lang=css
+
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(14486);
+;// ./resources/js/components/SupplierCreateModal.vue
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,componentNormalizer/* default */.A)(
+  components_SupplierCreateModalvue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  "3a12f826",
+  null
+  
+)
+
+/* harmony default export */ const SupplierCreateModal = (component.exports);
 
 /***/ }),
 
@@ -13044,7 +12295,7 @@ var vuex_esm = __webpack_require__(95353);
 // EXTERNAL MODULE: ./node_modules/vue-js-toggle-button/dist/index.js
 var dist = __webpack_require__(12616);
 // EXTERNAL MODULE: ./resources/js/components/ProductCreateModal.vue + 17 modules
-var ProductCreateModal = __webpack_require__(70269);
+var ProductCreateModal = __webpack_require__(25539);
 // EXTERNAL MODULE: ./resources/js/components/SupplierCreateModal.vue + 5 modules
 var SupplierCreateModal = __webpack_require__(78159);
 // EXTERNAL MODULE: ./resources/js/components/ItemsTable.vue + 5 modules
@@ -13057,13 +12308,12 @@ var RTLMixin = __webpack_require__(64744);
 var ToWords = __webpack_require__(54923);
 ;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/purchase-order/create.vue?vue&type=script&lang=js
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
-function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
-function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
-function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
@@ -13382,50 +12632,51 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     // Load communication configuration status
     loadCommunicationConfigStatus: function loadCommunicationConfigStatus() {
       var _this = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-        var response, _t;
-        return _regenerator().w(function (_context) {
-          while (1) switch (_context.p = _context.n) {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        var response;
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
             case 0:
-              _context.p = 0;
+              _context.prev = 0;
               _this.communicationConfig.loading = true;
-              _context.n = 1;
+              _context.next = 4;
               return axios_default().get('/api/communication-config-status');
-            case 1:
-              response = _context.v;
+            case 4:
+              response = _context.sent;
               _this.communicationConfig.email_configured = response.data.email_configured;
               _this.communicationConfig.sms_configured = response.data.sms_configured;
               _this.communicationConfig.loading = false;
-              _context.n = 3;
+              _context.next = 16;
               break;
-            case 2:
-              _context.p = 2;
-              _t = _context.v;
-              console.error('Error loading communication config status:', _t);
+            case 10:
+              _context.prev = 10;
+              _context.t0 = _context["catch"](0);
+              console.error('Error loading communication config status:', _context.t0);
               // Default to false if there's an error
               _this.communicationConfig.email_configured = false;
               _this.communicationConfig.sms_configured = false;
               _this.communicationConfig.loading = false;
-            case 3:
-              return _context.a(2);
+            case 16:
+            case "end":
+              return _context.stop();
           }
-        }, _callee, null, [[0, 2]]);
+        }, _callee, null, [[0, 10]]);
       }))();
     },
     // get all local suppliers
     getSuppliers: function getSuppliers() {
       var _this2 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
         var currentSupplierId, _yield$axios$get, data, currentSupplier;
-        return _regenerator().w(function (_context2) {
-          while (1) switch (_context2.n) {
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
             case 0:
               // Store the current supplier ID if one is selected
               currentSupplierId = _this2.form.supplier ? _this2.form.supplier.id : null;
-              _context2.n = 1;
+              _context2.next = 3;
               return axios_default().get(window.location.origin + "/api/all-suppliers");
-            case 1:
-              _yield$axios$get = _context2.v;
+            case 3:
+              _yield$axios$get = _context2.sent;
               data = _yield$axios$get.data;
               _this2.suppliers = data.data || [];
 
@@ -13446,8 +12697,9 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
                   _this2.form.supplier = _this2.suppliers[0];
                 }
               }
-            case 2:
-              return _context2.a(2);
+            case 7:
+            case "end":
+              return _context2.stop();
           }
         }, _callee2);
       }))();
@@ -13455,19 +12707,19 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     // get products
     getProducts: function getProducts() {
       var _this3 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
         var currentProductIds, _yield$axios$get2, data;
-        return _regenerator().w(function (_context3) {
-          while (1) switch (_context3.n) {
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
             case 0:
               // Store the current selected products IDs
               currentProductIds = _this3.form.selectedProducts ? _this3.form.selectedProducts.map(function (p) {
                 return p.id;
               }) : [];
-              _context3.n = 1;
+              _context3.next = 3;
               return axios_default().get(window.location.origin + "/api/all-products-not-service");
-            case 1:
-              _yield$axios$get2 = _context3.v;
+            case 3:
+              _yield$axios$get2 = _context3.sent;
               data = _yield$axios$get2.data;
               _this3.products = data.data;
               _this3.products.sort(_this3.sortProducts);
@@ -13484,8 +12736,9 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
                   }
                 });
               }
-            case 2:
-              return _context3.a(2);
+            case 8:
+            case "end":
+              return _context3.stop();
           }
         }, _callee3);
       }))();
@@ -13518,15 +12771,15 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     // get taxes
     getTaxes: function getTaxes() {
       var _this4 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
         var _yield$axios$get3, data, defaultVatRateSlug;
-        return _regenerator().w(function (_context4) {
-          while (1) switch (_context4.n) {
+        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+          while (1) switch (_context4.prev = _context4.next) {
             case 0:
-              _context4.n = 1;
+              _context4.next = 2;
               return axios_default().get(window.location.origin + "/api/all-vat-rates");
-            case 1:
-              _yield$axios$get3 = _context4.v;
+            case 2:
+              _yield$axios$get3 = _context4.sent;
               data = _yield$axios$get3.data;
               _this4.taxes = data.data;
               // assign default vat rate
@@ -13537,8 +12790,9 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
                 });
               }
               _this4.updateTax();
-            case 2:
-              return _context4.a(2);
+            case 7:
+            case "end":
+              return _context4.stop();
           }
         }, _callee4);
       }))();
@@ -14077,17 +13331,17 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     // save purchase order
     savePurchaseOrder: function savePurchaseOrder() {
       var _this5 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
-        var validationErrors, errorList, formData, response, _t2;
-        return _regenerator().w(function (_context5) {
-          while (1) switch (_context5.p = _context5.n) {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+        var validationErrors, errorList, formData, response;
+        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+          while (1) switch (_context5.prev = _context5.next) {
             case 0:
               if (!_this5.form.busy) {
-                _context5.n = 1;
+                _context5.next = 2;
                 break;
               }
-              return _context5.a(2);
-            case 1:
+              return _context5.abrupt("return");
+            case 2:
               // Validate required fields - collect all errors first
               validationErrors = []; // Check supplier
               if (!_this5.form.supplier) {
@@ -14113,7 +13367,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
 
               // Show all validation errors if any
               if (!(validationErrors.length > 0)) {
-                _context5.n = 2;
+                _context5.next = 10;
                 break;
               }
               errorList = validationErrors.map(function (error) {
@@ -14125,9 +13379,9 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
                 timer: 8000,
                 timerProgressBar: true
               });
-              return _context5.a(2);
-            case 2:
-              _context5.p = 2;
+              return _context5.abrupt("return");
+            case 10:
+              _context5.prev = 10;
               // Clear any existing form errors to prevent individual error display
               _this5.form.errors.clear();
 
@@ -14172,10 +13426,10 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
               }
 
               // Use direct axios call instead of form.post to have better control over error handling
-              _context5.n = 3;
+              _context5.next = 16;
               return _this5.$axios.post("/api/purchase-order", formData);
-            case 3:
-              response = _context5.v;
+            case 16:
+              response = _context5.sent;
               // Clear temporary data after successful save
               _this5.clearTemporaryData();
               toast.fire({
@@ -14188,21 +13442,22 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
                   slug: response.data.data.slug
                 }
               });
-              _context5.n = 5;
+              _context5.next = 26;
               break;
-            case 4:
-              _context5.p = 4;
-              _t2 = _context5.v;
+            case 22:
+              _context5.prev = 22;
+              _context5.t0 = _context5["catch"](10);
               _this5.loading = false;
 
               // Use centralized error handler
-              errorHandler["default"].handleApiError(_t2, {
+              errorHandler["default"].handleApiError(_context5.t0, {
                 showValidationErrors: true
               });
-            case 5:
-              return _context5.a(2);
+            case 26:
+            case "end":
+              return _context5.stop();
           }
-        }, _callee5, null, [[2, 4]]);
+        }, _callee5, null, [[10, 22]]);
       }))();
     },
     // save form data temporarily
@@ -14269,23 +13524,23 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     // Auto-assign Chart of Account for supplier
     autoAssignSupplierChartOfAccount: function autoAssignSupplierChartOfAccount() {
       var _this6 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
-        var response, _t3;
-        return _regenerator().w(function (_context6) {
-          while (1) switch (_context6.p = _context6.n) {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+        var response;
+        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+          while (1) switch (_context6.prev = _context6.next) {
             case 0:
               if (!(!_this6.form.supplier || _this6.isAutoAssigningSupplier)) {
-                _context6.n = 1;
+                _context6.next = 2;
                 break;
               }
-              return _context6.a(2);
-            case 1:
+              return _context6.abrupt("return");
+            case 2:
               _this6.isAutoAssigningSupplier = true;
-              _context6.p = 2;
-              _context6.n = 3;
+              _context6.prev = 3;
+              _context6.next = 6;
               return _this6.$http.post("/api/suppliers/".concat(_this6.form.supplier.slug, "/auto-assign-chart-of-account"));
-            case 3:
-              response = _context6.v;
+            case 6:
+              response = _context6.sent;
               if (response.data.success) {
                 console.log('Auto-assign response:', response.data);
                 console.log('Current supplier before update:', _this6.form.supplier);
@@ -14311,46 +13566,47 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
                   text: response.data.message || _this6.$t("Please try again or assign manually")
                 });
               }
-              _context6.n = 5;
+              _context6.next = 14;
               break;
-            case 4:
-              _context6.p = 4;
-              _t3 = _context6.v;
-              console.error('Error auto-assigning chart of account:', _t3);
+            case 10:
+              _context6.prev = 10;
+              _context6.t0 = _context6["catch"](3);
+              console.error('Error auto-assigning chart of account:', _context6.t0);
               toast.fire({
                 type: "error",
                 title: _this6.$t("An error occurred while assigning Chart of Account")
               });
-            case 5:
-              _context6.p = 5;
+            case 14:
+              _context6.prev = 14;
               _this6.isAutoAssigningSupplier = false;
-              return _context6.f(5);
-            case 6:
-              return _context6.a(2);
+              return _context6.finish(14);
+            case 17:
+            case "end":
+              return _context6.stop();
           }
-        }, _callee6, null, [[2, 4, 5, 6]]);
+        }, _callee6, null, [[3, 10, 14, 17]]);
       }))();
     },
     // Auto-assign Chart of Account for a specific product
     autoAssignProductChartOfAccount: function autoAssignProductChartOfAccount(product) {
       var _this7 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7() {
-        var response, _t4;
-        return _regenerator().w(function (_context7) {
-          while (1) switch (_context7.p = _context7.n) {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
+        var response;
+        return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+          while (1) switch (_context7.prev = _context7.next) {
             case 0:
               if (!(!product || _this7.isAutoAssigningProduct === product.id)) {
-                _context7.n = 1;
+                _context7.next = 2;
                 break;
               }
-              return _context7.a(2);
-            case 1:
+              return _context7.abrupt("return");
+            case 2:
               _this7.isAutoAssigningProduct = product.id;
-              _context7.p = 2;
-              _context7.n = 3;
+              _context7.prev = 3;
+              _context7.next = 6;
               return _this7.$http.post("/api/products/".concat(product.slug, "/auto-assign-chart-of-account"));
-            case 3:
-              response = _context7.v;
+            case 6:
+              response = _context7.sent;
               if (response.data.success) {
                 // Update the product data with new chart of account
                 product.purchase_account_id = response.data.purchase_account_id;
@@ -14372,24 +13628,25 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
                   text: response.data.message || _this7.$t("Please try again or assign manually")
                 });
               }
-              _context7.n = 5;
+              _context7.next = 14;
               break;
-            case 4:
-              _context7.p = 4;
-              _t4 = _context7.v;
-              console.error('Error auto-assigning chart of account:', _t4);
+            case 10:
+              _context7.prev = 10;
+              _context7.t0 = _context7["catch"](3);
+              console.error('Error auto-assigning chart of account:', _context7.t0);
               toast.fire({
                 type: "error",
                 title: _this7.$t("An error occurred while assigning Chart of Account")
               });
-            case 5:
-              _context7.p = 5;
+            case 14:
+              _context7.prev = 14;
               _this7.isAutoAssigningProduct = false;
-              return _context7.f(5);
-            case 6:
-              return _context7.a(2);
+              return _context7.finish(14);
+            case 17:
+            case "end":
+              return _context7.stop();
           }
-        }, _callee7, null, [[2, 4, 5, 6]]);
+        }, _callee7, null, [[3, 10, 14, 17]]);
       }))();
     },
     // Handle supplier change
