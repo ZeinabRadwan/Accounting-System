@@ -82,7 +82,18 @@
                 <label class="form-label">
                   {{ $t("Tax Status") }}
                 </label>
-                <div class="tax-status-options">
+                <div v-if="form.type === 'Individual'" class="tax-status-individual-locked">
+                  <div class="tax-status-card-compact border-success active locked">
+                    <div class="tax-status-header-compact">
+                      <i class="fas fa-lock mr-2 text-muted"></i>
+                      <span class="tax-status-title-compact">{{ $t("Non-Taxable") }}</span>
+                    </div>
+                  </div>
+                  <small class="form-text form-helper-text text-muted d-block mt-1">
+                    {{ $t("Individual suppliers are always Non-Taxable.") }}
+                  </small>
+                </div>
+                <div v-else class="tax-status-options">
                   <div class="tax-status-row">
                     <label class="tax-status-card-compact"
                       :class="{ 'active': form.taxStatus === 'taxable', 'border-primary': form.taxStatus === 'taxable' }"
@@ -887,6 +898,16 @@ export default {
       }
     },
 
+    // When supplier type is Individual, force tax status to Non-Taxable (no taxable individual suppliers)
+    'form.type': {
+      handler(newType) {
+        if (newType === 'Individual') {
+          this.form.taxStatus = 'non_taxable';
+        }
+      },
+      immediate: true
+    },
+
     // Watch for changes in phoneNumber field
     'form.phoneNumber': {
       handler(newValue, oldValue) {
@@ -999,6 +1020,11 @@ export default {
         // Spread initial data if available
         ...(this.initialData || {})
       });
+
+      // Individual suppliers are always Non-Taxable
+      if (this.form.type === 'Individual') {
+        this.form.taxStatus = 'non_taxable';
+      }
 
       console.log('Form initialized:', this.form);
       console.log('Form type:', typeof this.form);
@@ -1137,37 +1163,26 @@ export default {
       }
     },
 
-    // Set tax status explicitly to ensure it's reactive
+    // Set tax status explicitly to ensure it's reactive. Individual suppliers are always Non-Taxable.
     setTaxStatus(status) {
-      console.log('Setting taxStatus to:', status);
-      console.log('form.taxStatus before:', this.form.taxStatus);
+      if (this.form.type === 'Individual') {
+        this.form.taxStatus = 'non_taxable';
+        return;
+      }
 
-      // CRITICAL: Use form object's method to set the value if available
-      // Otherwise, use Vue.set or direct assignment
       if (this.form && typeof this.form.taxStatus !== 'undefined') {
-        // Direct assignment
         this.form.taxStatus = status;
-
-        // Also try to update via form's internal data if it exists
         if (this.form.$data && this.form.$data.taxStatus !== undefined) {
           this.form.$data.taxStatus = status;
         }
       } else {
-        // Fallback: use Vue.set
         if (this.$set) {
           this.$set(this.form, 'taxStatus', status);
         } else {
           this.form.taxStatus = status;
         }
       }
-
-      // Force update
       this.$forceUpdate();
-
-      // Verify the value was set
-      console.log('taxStatus after setting:', this.form.taxStatus);
-      console.log('form object keys:', Object.keys(this.form));
-      console.log('form.data() taxStatus:', this.form.data ? this.form.data().taxStatus : 'N/A');
     },
 
     // Switch between tabs
@@ -2621,5 +2636,16 @@ textarea.form-control:focus {
 .tax-status-card-compact.border-success.active .tax-status-title-compact {
   color: #10b981;
   font-weight: 600;
+}
+
+.tax-status-individual-locked .tax-status-card-compact.locked {
+  cursor: default;
+  background: #f0fdf4;
+  border-color: #10b981;
+}
+
+.tax-status-individual-locked .tax-status-card-compact.locked:hover {
+  border-color: #10b981;
+  box-shadow: none;
 }
 </style>
