@@ -514,23 +514,18 @@
             </button>
           </div>
           <template v-else>
-            <div class="col-12 col-lg-3 mb-2">
+            <div class="col-12 col-lg-4 mb-2">
               <button class="btn btn-primary btn-block pos-btn" @click="saveInvoice(true, false)" @keydown="form.onKeydown($event)">
-                <i class="fas fa-save" /> {{ $t("Save & Print") }}
+                <i class="fas fa-save" /> {{ $t("Save") }}
               </button>
             </div>
-            <div class="col-12 col-lg-3 mb-2">
-              <button class="btn btn-primary btn-block pos-btn" @click="saveInvoice(false, false)" @keydown="form.onKeydown($event)">
-                <i class="fas fa-file-alt" /> {{ $t("Save Only") }}
-              </button>
-            </div>
-            <div class="col-12 col-lg-3 mb-2">
+            <div class="col-12 col-lg-4 mb-2">
               <button class="btn btn-primary btn-block pos-btn" @click="saveInvoice(false, true)" @keydown="form.onKeydown($event)">
                 <i class="fas fa-credit-card" />
                 {{ $t("Save & Payment") }}
               </button>
             </div>
-            <div class="col-12 col-lg-3 mb-2">
+            <div class="col-12 col-lg-4 mb-2">
               <button type="reset" class="btn btn-info btn-block pos-btn" @click="form.reset()">
                 <i class="fas fa-power-off" /> {{ $t("Reset") }}
               </button>
