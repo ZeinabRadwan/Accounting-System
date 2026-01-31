@@ -14,6 +14,7 @@ use App\Models\GeneralSetting;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\ProductSubCategory;
+use App\Models\ProductUnitConversion;
 use App\Models\Unit;
 use App\Models\VatRate;
 use Exception;
@@ -100,7 +101,21 @@ class ProductController extends Controller
             'alertQuantity' => 'nullable|numeric|min:1',
             'overrideSalesAccount' => 'nullable|boolean',
             'overridePurchaseAccount' => 'nullable|boolean',
+            'unit_conversions' => 'required|array|min:1',
+            'unit_conversions.*.unit_id' => 'required',
+            'unit_conversions.*.conversion_factor' => 'required|numeric|min:0.0001',
         ]);
+
+        $baseUnitId = is_array($request->itemUnit) ? $request->itemUnit['id'] : $request->itemUnit;
+        $hasBaseUnit = collect($request->unit_conversions ?? [])->contains(function ($row) use ($baseUnitId) {
+            $uid = is_array($row['unit_id'] ?? null) ? ($row['unit_id']['id'] ?? $row['unit_id']) : ($row['unit_id'] ?? null);
+            $factor = (float) ($row['conversion_factor'] ?? 0);
+            return (int) $uid === (int) $baseUnitId && abs($factor - 1.0) < 0.0001;
+        });
+        if (! $hasBaseUnit) {
+            return $this->responseWithError(__('The base unit must have a conversion factor of 1.'));
+        }
+
         try {
             DB::beginTransaction();
 
@@ -143,9 +158,13 @@ class ProductController extends Controller
 
             $openingStockCount = null;
             $openingStockUnitPrice = null;
-            if ($request->isOpeningStock == true) {
-                $openingStockCount = $request->openingStockCount;
-                $openingStockUnitPrice = $request->openingStockUnitPrice;
+            if ($request->itemType == 'product') {
+                $requestCount = $request->openingStockCount;
+                $requestPrice = $request->openingStockUnitPrice;
+                if ($request->isOpeningStock == true || (is_numeric($requestCount) && (float) $requestCount > 0)) {
+                    $openingStockCount = is_numeric($requestCount) ? (float) $requestCount : null;
+                    $openingStockUnitPrice = is_numeric($requestPrice) ? (float) $requestPrice : null;
+                }
             }
 
             // Safely extract account IDs
@@ -224,6 +243,9 @@ class ProductController extends Controller
                 'branch_id' => $branchId,
             ]);
 
+            // Sync unit conversions (base unit + additional units with conversion factors)
+            $this->syncProductUnitConversions($product, $request->unit_conversions);
+
             // add activity log
             activity()
                 ->causedBy(Auth::user())
@@ -241,7 +263,7 @@ class ProductController extends Controller
             DB::commit();
 
             // Load the created product with relationships for the response
-            $product->load('proSubCategory.category', 'productUnit', 'productTax', 'productBrand', 'salesAccount', 'purchaseAccount');
+            $product->load('proSubCategory.category', 'productUnit', 'productTax', 'productBrand', 'salesAccount', 'purchaseAccount', 'unitConversions.unit');
 
             return $this->responseWithSuccess('Product added successfully', new ProductSelectResource($product));
         } catch (Exception $e) {
@@ -296,6 +318,8 @@ class ProductController extends Controller
             $product = Product::where('slug', $identifier)
                 ->with([
                     'proSubCategory.category',
+                    'productUnit',
+                    'unitConversions.unit',
                     'salesAccount.type',
                     'purchaseAccount.type',
                     'purchaseProducts' => function ($query) {
@@ -311,6 +335,8 @@ class ProductController extends Controller
                 $product = Product::where('id', $identifier)
                     ->with([
                         'proSubCategory.category',
+                        'productUnit',
+                        'unitConversions.unit',
                         'salesAccount.type',
                         'purchaseAccount.type',
                         'purchaseProducts' => function ($query) {
@@ -372,7 +398,21 @@ class ProductController extends Controller
             'discount' => 'nullable|numeric|min:0|max:100',
             'note' => 'nullable|string|max:255',
             'alertQuantity' => 'nullable|numeric|min:1|max:1000',
+            'unit_conversions' => 'required|array|min:1',
+            'unit_conversions.*.unit_id' => 'required',
+            'unit_conversions.*.conversion_factor' => 'required|numeric|min:0.0001',
         ]);
+
+        $baseUnitId = is_array($request->itemUnit) ? $request->itemUnit['id'] : $request->itemUnit;
+        $hasBaseUnit = collect($request->unit_conversions ?? [])->contains(function ($row) use ($baseUnitId) {
+            $uid = is_array($row['unit_id'] ?? null) ? ($row['unit_id']['id'] ?? $row['unit_id']) : ($row['unit_id'] ?? null);
+            $factor = (float) ($row['conversion_factor'] ?? 0);
+            return (int) $uid === (int) $baseUnitId && abs($factor - 1.0) < 0.0001;
+        });
+        if (! $hasBaseUnit) {
+            return $this->responseWithError(__('The base unit must have a conversion factor of 1.'));
+        }
+
         try {
             DB::beginTransaction();
 
@@ -497,6 +537,9 @@ class ProductController extends Controller
                 'image_path' => $imageName,
             ]);
 
+            // Sync unit conversions
+            $this->syncProductUnitConversions($product, $request->unit_conversions);
+
             // add activity log
             activity()
                 ->causedBy(Auth::user())
@@ -518,6 +561,29 @@ class ProductController extends Controller
             DB::rollback();
 
             return $this->responseWithError($e->getMessage());
+        }
+    }
+
+    /**
+     * Sync product unit conversions from request array.
+     *
+     * @param  array<int, array{unit_id: int|array, conversion_factor: float}>  $unitConversions
+     */
+    protected function syncProductUnitConversions(Product $product, array $unitConversions): void
+    {
+        $product->unitConversions()->delete();
+        foreach ($unitConversions as $row) {
+            $unitId = is_array($row['unit_id'] ?? null)
+                ? ($row['unit_id']['id'] ?? $row['unit_id'])
+                : ($row['unit_id'] ?? null);
+            $factor = (float) ($row['conversion_factor'] ?? 1);
+            if ($unitId && $factor > 0) {
+                ProductUnitConversion::create([
+                    'product_id' => $product->id,
+                    'unit_id' => (int) $unitId,
+                    'conversion_factor' => $factor,
+                ]);
+            }
         }
     }
 

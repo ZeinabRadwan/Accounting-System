@@ -21,6 +21,7 @@ class ProductSelectResource extends JsonResource
             'label' => $this->name.' ['.$this->code.']',
             'slug' => $this->slug,
             'code' => $this->code,
+            'symbology' => $this->barcode_symbology ?? 'CODE128',
             'itemModel' => $this->model,
             'avgPurchasePrice' => $this->purchase_price,
             // Include weighted average cost for inventory adjustments.

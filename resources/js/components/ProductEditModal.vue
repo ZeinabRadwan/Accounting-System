@@ -63,11 +63,20 @@
                     <label for="itemCode">{{ $t("Item Code") }} <span class="required">*</span></label>
                     <div class="input-group">
                       <span v-if="prefix" class="input-group-text">{{ prefix }}</span>
-                      <input v-model="form.itemCode" type="text" class="form-control" readonly
+                      <input v-model="form.itemCode" type="text" class="form-control"
                         :class="{ 'is-invalid': form.errors.has('itemCode') }" name="itemCode"
                         :placeholder="$t('Enter item code')" />
                     </div>
                     <has-error :form="form" field="itemCode" />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="barcodeSymbology">{{ $t("Barcode Symbology") }} <span class="required">*</span></label>
+                    <select id="barcodeSymbology" v-model="form.barcodeSymbology" class="form-control"
+                      :class="{ 'is-invalid': form.errors.has('barcodeSymbology') }" name="barcodeSymbology">
+                      <option v-for="opt in barcodeSymbologyOptions" :key="opt" :value="opt">{{ opt }}</option>
+                    </select>
+                    <has-error :form="form" field="barcodeSymbology" />
                   </div>
 
                   <div class="form-group">
@@ -83,7 +92,53 @@
                     <v-select v-model="form.itemUnit" :options="units" label="name"
                       :class="{ 'is-invalid': form.errors.has('itemUnit') }" name="itemUnit"
                       :placeholder="$t('Select a unit')" />
+                    <small class="form-text text-muted">{{ $t("Base unit (conversion factor = 1)") }}</small>
                     <has-error :form="form" field="itemUnit" />
+                  </div>
+
+                  <!-- Unit conversions -->
+                  <div class="form-group mt-3">
+                    <label class="d-block">{{ $t("Unit conversions") }}</label>
+                    <small class="form-text text-muted mb-2">{{ $t("Link additional units with conversion factor relative to base unit (e.g. 1 Carton = 12 Pieces)") }}</small>
+                    <div class="table-responsive">
+                      <table class="table table-sm table-bordered">
+                        <thead>
+                          <tr>
+                            <th>{{ $t("Unit") }}</th>
+                            <th style="width: 180px;">{{ $t("Conversion factor") }}</th>
+                            <th style="width: 80px;"></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td><span v-if="form.itemUnit">{{ form.itemUnit.name || form.itemUnit }}</span><span v-else class="text-muted">—</span></td>
+                            <td>1 <span class="text-muted">({{ $t("base") }})</span></td>
+                            <td></td>
+                          </tr>
+                          <tr v-for="(row, index) in form.unitConversions" :key="'uc-'+index">
+                            <td>
+                              <v-select v-model="row.unit" :options="additionalUnitOptions(index)" label="name"
+                                :class="{ 'is-invalid': row.unit && !isValidConversionFactor(row.conversion_factor) }"
+                                :placeholder="$t('Select a unit')" class="form-control form-control-sm" />
+                            </td>
+                            <td>
+                              <input v-model.number="row.conversion_factor" type="number" step="any" min="0.0001" class="form-control form-control-sm"
+                                :class="{ 'is-invalid': !isValidConversionFactor(row.conversion_factor) && row.conversion_factor !== '' }"
+                                :placeholder="$t('e.g. 12')" />
+                              <small v-if="row.unit" class="form-text text-muted">1 {{ row.unit.name }} = {{ row.conversion_factor || '?' }} {{ baseUnitName }}</small>
+                            </td>
+                            <td>
+                              <button type="button" class="btn btn-sm btn-outline-danger" @click="removeUnitConversion(index)" :title="$t('Remove')">
+                                <i class="fas fa-trash-alt"></i>
+                              </button>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <button type="button" class="btn btn-sm btn-outline-primary" @click="addUnitConversion">
+                      <i class="fas fa-plus mr-1"></i>{{ $t("Add unit") }}
+                    </button>
                   </div>
 
                   <div class="form-group">
@@ -143,7 +198,7 @@
           </div>
 
           <!-- Conditional Fields Section -->
-       <!--   <div class="form-card" v-if="form.itemType === 'product'">
+          <div class="form-card" v-if="form.itemType === 'product'">
             <div class="card-header">
               <h5 class="section-title">
                 <i class="fas fa-warehouse mr-2"></i>
@@ -151,14 +206,40 @@
               </h5>
             </div>
             <div class="card-body">
-               Current Stock Information (Read-only)  
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="openingStockCount">{{ $t("Current Opening Stock") }}</label>
-                    <input id="openingStockCount" v-model="form.openingStockCount" type="number" step="any" min="0" class="form-control"
-                      :class="{ 'is-invalid': form.errors.has('openingStockCount') }" name="openingStockCount" 
-                       readonly />
+                    <label for="openingStockEntryUnit">{{ $t("Opening Stock") }}</label>
+                    <div class="row no-gutters">
+                      <div class="col-5 pr-1">
+                        <v-select
+                          id="openingStockEntryUnit"
+                          v-model="form.openingStockEntryUnit"
+                          :options="openingStockUnitOptions"
+                          label="name"
+                          :class="{ 'is-invalid': form.errors.has('openingStockCount') || openingStockEntryUnitError }"
+                          :placeholder="$t('Select unit')"
+                          @input="updateOpeningStockFromEntry"
+                        />
+                      </div>
+                      <div class="col-7 pl-1">
+                        <input
+                          id="openingStockEntryQuantity"
+                          v-model="form.openingStockEntryQuantity"
+                          type="number"
+                          step="any"
+                          min="0"
+                          class="form-control"
+                          :class="{ 'is-invalid': form.errors.has('openingStockCount') || openingStockEntryUnitError }"
+                          :placeholder="$t('Quantity')"
+                          @input="updateOpeningStockFromEntry"
+                          @change="updateOpeningStockFromEntry"
+                        />
+                      </div>
+                    </div>
+                    <small v-if="form.openingStockCount !== '' && form.openingStockCount !== null && baseUnitName" class="form-text text-muted">
+                      {{ $t("Stored as") }} {{ form.openingStockCount }} {{ baseUnitName }}
+                    </small>
                     <has-error :form="form" field="openingStockCount" />
                   </div>
                 </div>
@@ -166,48 +247,11 @@
                   <div class="form-group">
                     <label for="openingStockUnitPrice">{{ $t("Current Stock Unit Price") }}</label>
                     <input id="openingStockUnitPrice" v-model="form.openingStockUnitPrice" type="number" step="any" min="0" class="form-control"
-                      :class="{ 'is-invalid': form.errors.has('openingStockUnitPrice') }" name="openingStockUnitPrice" 
-                      readonly />
+                      :class="{ 'is-invalid': form.errors.has('openingStockUnitPrice') }" name="openingStockUnitPrice" readonly />
                     <has-error :form="form" field="openingStockUnitPrice" />
                   </div>
                 </div>
               </div>
-              
-                Add New Opening Stock  
-                <div class="row">
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" v-model="form.isOpeningStock" id="isOpeningStock">
-                      <label class="form-check-label" for="isOpeningStock">
-                        {{ $t("Add New Opening Stock") }}
-                      </label>
-                    </div>
-                  </div>
-                </div>
-              </div> 
-               New Opening Stock Fields (only show when checkbox is checked)  
-              <div class="row" v-if="form.isOpeningStock">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="newOpeningStockCount">{{ $t("New Opening Stock Count") }} <span class="required">*</span></label>
-                    <input id="newOpeningStockCount" v-model="form.newOpeningStockCount" type="number" step="any" min="0" class="form-control"
-                      :class="{ 'is-invalid': form.errors.has('newOpeningStockCount') }" name="newOpeningStockCount" 
-                      :placeholder="$t('Enter new opening stock count')" />
-                    <has-error :form="form" field="newOpeningStockCount" />
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="newOpeningStockUnitPrice">{{ $t("New Stock Unit Price") }} <span class="required">*</span></label>
-                    <input id="newOpeningStockUnitPrice" v-model="form.newOpeningStockUnitPrice" type="number" step="any" min="0" class="form-control"
-                      :class="{ 'is-invalid': form.errors.has('newOpeningStockUnitPrice') }" name="newOpeningStockUnitPrice" 
-                      :placeholder="$t('Enter new unit price')" />
-                    <has-error :form="form" field="newOpeningStockUnitPrice" />
-                  </div>
-                </div>
-              </div>
-               Alert Quantity moved here to be in warehouse section  
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
@@ -220,7 +264,7 @@
                 </div>
               </div>
             </div>
-          </div> -->
+          </div>
 
 
           <!-- Chart of Accounts Section -->
@@ -404,6 +448,8 @@ export default {
         regularPrice: "",
         servicePurchasePrice: "",
         openingStockCount: "",
+        openingStockEntryUnit: null,
+        openingStockEntryQuantity: "",
         openingStockUnitPrice: "",
         newOpeningStockCount: "",
         newOpeningStockUnitPrice: "",
@@ -416,8 +462,10 @@ export default {
         image: "",
         salesAccountId: "",
         purchaseAccountId: "",
+        unitConversions: [],
       }),
       categories: [],
+      barcodeSymbologyOptions: ['CODE128', 'EAN13', 'EAN8', 'UPC', 'CODE39', 'ITF-14'],
       brands: [],
       units: [],
       taxes: [],
@@ -427,6 +475,34 @@ export default {
       isSalesAccountAutomatic: false,
       isPurchaseAccountAutomatic: false,
     };
+  },
+  computed: {
+    baseUnitName() {
+      const u = this.form.itemUnit;
+      return (u && u.name) ? u.name : (u ? String(u) : '');
+    },
+    openingStockUnitOptions() {
+      const base = this.form.itemUnit;
+      if (!base) return [];
+      return [base, ...(this.form.unitConversions || []).filter(r => r.unit).map(r => r.unit)];
+    },
+    openingStockEntryUnitError() {
+      if (this.form.itemType !== 'product') return false;
+      const q = parseFloat(this.form.openingStockEntryQuantity);
+      if (isNaN(q) || q <= 0) return false;
+      const factor = this.getConversionFactor(this.form.openingStockEntryUnit);
+      return factor <= 0;
+    }
+  },
+  watch: {
+    'form.itemUnit': {
+      handler(newUnit) {
+        if (newUnit && this.form.itemType === 'product') {
+          this.form.openingStockEntryUnit = newUnit;
+        }
+      },
+      immediate: false
+    }
   },
   created() {
     // Pre-load dropdown data so it's available immediately when modal opens
@@ -438,6 +514,94 @@ export default {
     this.loadAccountRoutingSettings();
   },
   methods: {
+    addUnitConversion() {
+      if (!Array.isArray(this.form.unitConversions)) {
+        this.$set(this.form, 'unitConversions', []);
+      }
+      this.form.unitConversions.push({ unit: null, conversion_factor: '' });
+    },
+    removeUnitConversion(index) {
+      this.form.unitConversions.splice(index, 1);
+    },
+    additionalUnitOptions(excludeIndex) {
+      const baseId = this.form.itemUnit && (this.form.itemUnit.id || this.form.itemUnit);
+      const selectedIds = (this.form.unitConversions || [])
+        .map((row, i) => i === excludeIndex ? null : (row.unit && (row.unit.id || row.unit)))
+        .filter(Boolean);
+      return (this.units || []).filter(u => {
+        const id = u.id || u;
+        return id != baseId && !selectedIds.includes(id);
+      });
+    },
+    isValidConversionFactor(value) {
+      const n = parseFloat(value);
+      return !isNaN(n) && n > 0;
+    },
+    getConversionFactor(unit) {
+      if (!unit) return 0;
+      const baseId = this.form.itemUnit && (this.form.itemUnit.id || this.form.itemUnit);
+      const id = unit.id || unit;
+      if (id == baseId) return 1;
+      const row = (this.form.unitConversions || []).find(r => (r.unit && (r.unit.id || r.unit)) == id);
+      return row ? (parseFloat(row.conversion_factor) || 0) : 0;
+    },
+    updateOpeningStockFromEntry() {
+      const q = parseFloat(this.form.openingStockEntryQuantity);
+      const factor = this.getConversionFactor(this.form.openingStockEntryUnit);
+      if (isNaN(q) || q < 0) {
+        this.form.openingStockCount = '';
+        return;
+      }
+      if (!this.form.openingStockEntryUnit || factor <= 0) {
+        this.form.openingStockCount = '';
+        return;
+      }
+      this.form.openingStockCount = q * factor;
+    },
+    validateUnitConversions() {
+      const baseUnitId = this.form.itemUnit && (this.form.itemUnit.id || this.form.itemUnit);
+      if (!baseUnitId) {
+        return { valid: false, message: this.$t("Unit is required (base unit).") };
+      }
+      const additional = (this.form.unitConversions || []).filter(r => r.unit || (r.conversion_factor !== '' && r.conversion_factor !== null));
+      for (let i = 0; i < additional.length; i++) {
+        const r = additional[i];
+        if (!r.unit) {
+          return { valid: false, message: this.$t("Please select a unit for all conversion rows or remove empty rows.") };
+        }
+        const factor = parseFloat(r.conversion_factor);
+        if (isNaN(factor) || factor <= 0) {
+          return { valid: false, message: this.$t("Conversion factor must be a number greater than 0.") };
+        }
+      }
+      if (this.form.itemType === 'product') {
+        const q = parseFloat(this.form.openingStockEntryQuantity);
+        if (!isNaN(q) && q > 0) {
+          if (!this.form.openingStockEntryUnit) {
+            return { valid: false, message: this.$t("Please select a unit for opening stock.") };
+          }
+          const factor = this.getConversionFactor(this.form.openingStockEntryUnit);
+          if (factor <= 0) {
+            return { valid: false, message: this.$t("Opening stock unit must have a valid conversion factor.") };
+          }
+          if (q < 0) {
+            return { valid: false, message: this.$t("Opening stock quantity must be zero or greater.") };
+          }
+        }
+      }
+      return { valid: true, message: '' };
+    },
+    buildUnitConversionsPayload() {
+      const baseUnitId = this.form.itemUnit && (this.form.itemUnit.id || this.form.itemUnit);
+      if (!baseUnitId) return [];
+      return [
+        { unit_id: baseUnitId, conversion_factor: 1 },
+        ...(this.form.unitConversions || []).filter(r => r.unit).map(r => ({
+          unit_id: r.unit && (r.unit.id || r.unit),
+          conversion_factor: parseFloat(r.conversion_factor) || 0
+        })).filter(r => r.unit_id && r.conversion_factor > 0)
+      ];
+    },
     async openModal(product = null) {
       // If product is passed as parameter, use it; otherwise use the prop
       const productToEdit = product || this.product;
@@ -561,6 +725,23 @@ export default {
         }
       }
 
+      // Load unit conversions (additional units only; base unit has factor 1)
+      const baseUnitId = this.form.itemUnit && (this.form.itemUnit.id || this.form.itemUnit);
+      const conversions = product.unitConversions || [];
+      this.form.unitConversions = conversions
+        .filter(c => {
+          const uid = c.unit_id || (c.unit && c.unit.id);
+          const factor = parseFloat(c.conversion_factor);
+          return uid != baseUnitId && !isNaN(factor) && factor > 0;
+        })
+        .map(c => {
+          const unitObj = this.units.find(u => u.id == (c.unit_id || (c.unit && c.unit.id)));
+          return { unit: unitObj || null, conversion_factor: c.conversion_factor };
+        });
+      if (!Array.isArray(this.form.unitConversions)) {
+        this.form.unitConversions = [];
+      }
+
       // Handle tax field - find the exact object from taxes array
       if (product.itemTax) {
         if (typeof product.itemTax === 'object' && product.itemTax.id) {
@@ -587,6 +768,8 @@ export default {
       this.form.discount = product.discount || 0;
       this.form.sellingPrice = product.selling_price || product.sellingPrice || "";
       this.form.openingStockCount = product.opening_stock_count || product.openingStockCount || "";
+      this.form.openingStockEntryUnit = this.form.itemUnit || null;
+      this.form.openingStockEntryQuantity = product.opening_stock_count != null && product.opening_stock_count !== '' ? (product.opening_stock_count || product.openingStockCount || "") : "";
       this.form.openingStockUnitPrice = product.opening_stock_unit_price || product.openingStockUnitPrice || "";
       this.form.note = product.note || product.description || "";
       this.form.status = product.status || "1";
@@ -688,10 +871,17 @@ export default {
           return;
         }
 
+        const unitConvValidation = this.validateUnitConversions();
+        if (!unitConvValidation.valid) {
+          toast.fire({ type: "error", title: unitConvValidation.message });
+          return;
+        }
+
         console.log('Using identifier for API call:', identifier);
         
         // Transform object fields to IDs before sending
         const formData = this.form.data();
+        formData.unit_conversions = this.buildUnitConversionsPayload();
         
         // Transform v-select objects to IDs
         if (formData.subCategory && typeof formData.subCategory === 'object') {

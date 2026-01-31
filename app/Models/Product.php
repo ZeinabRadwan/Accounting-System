@@ -182,6 +182,14 @@ class Product extends Model implements HasMedia
     }
 
     /**
+     * Get the product's unit conversions (unit + conversion factor relative to base unit).
+     */
+    public function unitConversions()
+    {
+        return $this->hasMany(ProductUnitConversion::class);
+    }
+
+    /**
      * Get the brand.
      */
     public function productBrand()

@@ -138,6 +138,8 @@ export default {
         regularPrice: "",
         servicePurchasePrice: "",
         openingStockCount: "",
+        openingStockEntryUnit: null,
+        openingStockEntryQuantity: "",
         openingStockUnitPrice: "",
         newOpeningStockCount: "",
         newOpeningStockUnitPrice: "",
@@ -152,6 +154,7 @@ export default {
         purchaseAccountId: "",
         overrideSalesAccount: false,
         overridePurchaseAccount: false,
+        unitConversions: [],
       }),
       categories: [],
       brands: [],
@@ -185,6 +188,16 @@ export default {
         return document.documentElement.getAttribute('dir') === 'rtl'
       }
       return false
+    }
+  },
+  watch: {
+    'form.itemUnit': {
+      handler(newUnit) {
+        if (newUnit && this.form.itemType === 'product') {
+          this.form.openingStockEntryUnit = newUnit
+        }
+      },
+      immediate: false
     }
   },
   created() {
@@ -519,11 +532,24 @@ export default {
         return
       }
 
+      const unitConvValidation = this.validateUnitConversions()
+      if (!unitConvValidation.valid) {
+        toast.fire({ type: "error", title: unitConvValidation.message })
+        return
+      }
+
       console.log('ProductForm: Form validation passed, proceeding with submission')
+
+      // Ensure backend saves opening_stock_count when user entered opening stock (unit × factor)
+      if (this.form.itemType === 'product') {
+        const openingStockCount = parseFloat(this.form.openingStockCount) || 0
+        this.form.isOpeningStock = openingStockCount > 0
+      }
 
       console.log('ProductForm: Making POST request to /api/products')
       const formDataToSend = this.form.data()
       console.log('ProductForm: Form data being sent:', formDataToSend)
+      formDataToSend.unit_conversions = this.buildUnitConversionsPayload()
 
       // Check for object values that should be IDs
       Object.keys(formDataToSend).forEach(key => {
@@ -715,8 +741,15 @@ export default {
           return
         }
 
+        const unitConvValidation = this.validateUnitConversions()
+        if (!unitConvValidation.valid) {
+          toast.fire({ type: "error", title: unitConvValidation.message })
+          return
+        }
+
         // Transform object fields to IDs before sending
         const formData = this.form.data()
+        formData.unit_conversions = this.buildUnitConversionsPayload()
 
         // Transform v-select objects to IDs
         if (formData.subCategory && typeof formData.subCategory === 'object') {
@@ -819,6 +852,23 @@ export default {
         }
       }
 
+      // Load unit conversions (additional units only; base unit has factor 1)
+      const baseUnitId = this.form.itemUnit && (this.form.itemUnit.id || this.form.itemUnit)
+      const conversions = product.unitConversions || []
+      this.form.unitConversions = conversions
+        .filter(c => {
+          const uid = c.unit_id || (c.unit && c.unit.id)
+          const factor = parseFloat(c.conversion_factor)
+          return uid != baseUnitId && !isNaN(factor) && factor > 0
+        })
+        .map(c => {
+          const unitObj = this.units.find(u => u.id == (c.unit_id || (c.unit && c.unit.id)))
+          return { unit: unitObj || null, conversion_factor: c.conversion_factor }
+        })
+      if (!Array.isArray(this.form.unitConversions)) {
+        this.form.unitConversions = []
+      }
+
       // Handle tax field - find the exact object from taxes array
       if (product.itemTax) {
         if (typeof product.itemTax === 'object' && product.itemTax.id) {
@@ -842,6 +892,8 @@ export default {
       this.form.discount = product.discount || 0
       this.form.sellingPrice = product.selling_price || product.sellingPrice || ""
       this.form.openingStockCount = product.opening_stock_count || product.openingStockCount || ""
+      this.form.openingStockEntryUnit = this.form.itemUnit || null
+      this.form.openingStockEntryQuantity = product.opening_stock_count != null && product.opening_stock_count !== '' ? (product.opening_stock_count || product.openingStockCount || "") : ""
       this.form.openingStockUnitPrice = product.opening_stock_unit_price || product.openingStockUnitPrice || ""
       this.form.note = product.note || product.description || ""
       this.form.status = product.status || "1"
@@ -891,8 +943,61 @@ export default {
           this.form.purchaseAccountId = this.accountRoutingSettings.purchase.main_account_id
         }
       }
-    }
+    },
 
+    getConversionFactor(unit) {
+      if (!unit) return 0
+      const baseId = this.form.itemUnit && (this.form.itemUnit.id || this.form.itemUnit)
+      const id = unit.id || unit
+      if (id == baseId) return 1
+      const row = (this.form.unitConversions || []).find(r => (r.unit && (r.unit.id || r.unit)) == id)
+      return row ? (parseFloat(row.conversion_factor) || 0) : 0
+    },
+    validateUnitConversions() {
+      const baseUnitId = this.form.itemUnit && (this.form.itemUnit.id || this.form.itemUnit)
+      if (!baseUnitId) {
+        return { valid: false, message: this.$t("Unit is required (base unit).") }
+      }
+      const additional = (this.form.unitConversions || []).filter(r => r.unit || (r.conversion_factor !== '' && r.conversion_factor !== null))
+      for (let i = 0; i < additional.length; i++) {
+        const r = additional[i]
+        if (!r.unit) {
+          return { valid: false, message: this.$t("Please select a unit for all conversion rows or remove empty rows.") }
+        }
+        const factor = parseFloat(r.conversion_factor)
+        if (isNaN(factor) || factor <= 0) {
+          return { valid: false, message: this.$t("Conversion factor must be a number greater than 0.") }
+        }
+      }
+      if (this.form.itemType === 'product') {
+        const q = parseFloat(this.form.openingStockEntryQuantity)
+        if (!isNaN(q) && q > 0) {
+          if (!this.form.openingStockEntryUnit) {
+            return { valid: false, message: this.$t("Please select a unit for opening stock.") }
+          }
+          const factor = this.getConversionFactor(this.form.openingStockEntryUnit)
+          if (factor <= 0) {
+            return { valid: false, message: this.$t("Opening stock unit must have a valid conversion factor.") }
+          }
+          if (q < 0) {
+            return { valid: false, message: this.$t("Opening stock quantity must be zero or greater.") }
+          }
+        }
+      }
+      return { valid: true, message: '' }
+    },
+
+    buildUnitConversionsPayload() {
+      const baseUnitId = this.form.itemUnit && (this.form.itemUnit.id || this.form.itemUnit)
+      if (!baseUnitId) return []
+      return [
+        { unit_id: baseUnitId, conversion_factor: 1 },
+        ...(this.form.unitConversions || []).filter(r => r.unit).map(r => ({
+          unit_id: r.unit && (r.unit.id || r.unit),
+          conversion_factor: parseFloat(r.conversion_factor) || 0
+        })).filter(r => r.unit_id && r.conversion_factor > 0)
+      ]
+    }
   }
 }
 </script>

@@ -30,6 +30,7 @@ class ProductListingResource extends JsonResource
             'itemBrand' => new BrandResource($this->whenLoaded('productBrand')),
             'itemTax' => new VatRateResource($this->whenLoaded('productTax')),
             'inventoryCount' => $this->inventory_count,
+            'openingStockCount' => $this->opening_stock_count,
             'alertQty' => $this->alert_qty,
             'regularPrice' => $this->regular_price,
             'sellingPrice' => $this->sellingPrice(),

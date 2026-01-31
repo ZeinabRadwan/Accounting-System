@@ -81,8 +81,20 @@
               <div class="form-group form-col-third">
                 <label class="form-label">
                   {{ $t("Tax Status") }}
+                  <span v-if="form.type === 'Company'" class="required">*</span>
                 </label>
-                <div class="tax-status-options">
+                <div v-if="form.type === 'Individual'" class="tax-status-individual-locked">
+                  <div class="tax-status-card-compact border-success active locked">
+                    <div class="tax-status-header-compact">
+                      <i class="fas fa-lock mr-2 text-muted"></i>
+                      <span class="tax-status-title-compact">{{ $t("Non-Taxable") }}</span>
+                    </div>
+                  </div>
+                  <small class="form-text form-helper-text text-muted d-block mt-1">
+                    {{ $t("Individual suppliers are always Non-Taxable.") }}
+                  </small>
+                </div>
+                <div v-else class="tax-status-options">
                   <div class="tax-status-row">
                     <label class="tax-status-card-compact"
                       :class="{ 'active': form.taxStatus === 'taxable', 'border-primary': form.taxStatus === 'taxable' }"
@@ -377,7 +389,8 @@
               </div>
               <div class="form-group col-md-4">
                 <label for="additionalNumber">
-                  {{ $t("Additional Number") }} <span class="text-muted">({{ $t("Optional") }})</span>
+                  {{ $t("Additional Number") }} <span v-if="form.taxStatus === 'taxable'" class="required">*</span><span
+                    v-else class="text-muted">({{ $t("Optional") }})</span>
                 </label>
                 <input id="additionalNumber" v-model="form.additionalNumber" type="text" class="form-control"
                   :class="{ 'is-invalid': form.errors.has('additionalNumber') }" name="additionalNumber"
@@ -887,6 +900,16 @@ export default {
       }
     },
 
+    // When supplier type is Individual, force tax status to Non-Taxable (no taxable individual suppliers)
+    'form.type': {
+      handler(newType) {
+        if (newType === 'Individual') {
+          this.form.taxStatus = 'non_taxable';
+        }
+      },
+      immediate: true
+    },
+
     // Watch for changes in phoneNumber field
     'form.phoneNumber': {
       handler(newValue, oldValue) {
@@ -999,6 +1022,11 @@ export default {
         // Spread initial data if available
         ...(this.initialData || {})
       });
+
+      // Individual suppliers are always Non-Taxable
+      if (this.form.type === 'Individual') {
+        this.form.taxStatus = 'non_taxable';
+      }
 
       console.log('Form initialized:', this.form);
       console.log('Form type:', typeof this.form);
@@ -1137,37 +1165,26 @@ export default {
       }
     },
 
-    // Set tax status explicitly to ensure it's reactive
+    // Set tax status explicitly to ensure it's reactive. Individual suppliers are always Non-Taxable.
     setTaxStatus(status) {
-      console.log('Setting taxStatus to:', status);
-      console.log('form.taxStatus before:', this.form.taxStatus);
+      if (this.form.type === 'Individual') {
+        this.form.taxStatus = 'non_taxable';
+        return;
+      }
 
-      // CRITICAL: Use form object's method to set the value if available
-      // Otherwise, use Vue.set or direct assignment
       if (this.form && typeof this.form.taxStatus !== 'undefined') {
-        // Direct assignment
         this.form.taxStatus = status;
-
-        // Also try to update via form's internal data if it exists
         if (this.form.$data && this.form.$data.taxStatus !== undefined) {
           this.form.$data.taxStatus = status;
         }
       } else {
-        // Fallback: use Vue.set
         if (this.$set) {
           this.$set(this.form, 'taxStatus', status);
         } else {
           this.form.taxStatus = status;
         }
       }
-
-      // Force update
       this.$forceUpdate();
-
-      // Verify the value was set
-      console.log('taxStatus after setting:', this.form.taxStatus);
-      console.log('form object keys:', Object.keys(this.form));
-      console.log('form.data() taxStatus:', this.form.data ? this.form.data().taxStatus : 'N/A');
     },
 
     // Switch between tabs
@@ -1235,6 +1252,33 @@ export default {
         console.log('Business name validation failed for company');
         this.form.errors.set('businessName', this.$t('Business name is required for company suppliers'));
         isValid = false;
+      }
+
+      if (this.form.type === 'Company') {
+        const taxStatus = this.form.taxStatus;
+        if (!taxStatus || (taxStatus !== 'taxable' && taxStatus !== 'non_taxable')) {
+          this.form.errors.set('taxStatus', this.$t('Please select Taxable or Non-Taxable for company suppliers'));
+          isValid = false;
+        }
+      }
+
+      if (this.form.type === 'Company' && this.form.taxStatus === 'taxable' && this.form.country === 'SA') {
+        if (!this.form.streetNumber || this.form.streetNumber.trim() === '') {
+          this.form.errors.set('streetNumber', this.$t('Street number is required (Saudi National Address)'));
+          isValid = false;
+        }
+        if (!this.form.buildingNumber || this.form.buildingNumber.trim() === '') {
+          this.form.errors.set('buildingNumber', this.$t('Building number is required (Saudi National Address)'));
+          isValid = false;
+        }
+        if (!this.form.districtNumber || this.form.districtNumber.trim() === '') {
+          this.form.errors.set('districtNumber', this.$t('District number is required (Saudi National Address)'));
+          isValid = false;
+        }
+        if (!this.form.additionalNumber || this.form.additionalNumber.trim() === '') {
+          this.form.errors.set('additionalNumber', this.$t('Additional number is required (Saudi National Address)'));
+          isValid = false;
+        }
       }
 
       // Chart of account validation removed to match ClientForm behavior
@@ -2621,5 +2665,16 @@ textarea.form-control:focus {
 .tax-status-card-compact.border-success.active .tax-status-title-compact {
   color: #10b981;
   font-weight: 600;
+}
+
+.tax-status-individual-locked .tax-status-card-compact.locked {
+  cursor: default;
+  background: #f0fdf4;
+  border-color: #10b981;
+}
+
+.tax-status-individual-locked .tax-status-card-compact.locked:hover {
+  border-color: #10b981;
+  box-shadow: none;
 }
 </style>
