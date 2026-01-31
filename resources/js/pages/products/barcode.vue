@@ -125,7 +125,13 @@
             <div class="print-page-layout display-grid" :class="perPage" v-for="(pageNumber, i) in pages" :key="i">
               <div class="barcode-item" v-for="j in parseInt(pageNumber)" :key="j">
                 <span class="barcode-name">{{ form.product.name }}</span>
-                <barcode width="1" height="25" fontSize="15" :value="form.product.code">
+                <barcode
+                  :format="form.product.symbology || form.product.barcode_symbology || 'CODE128'"
+                  width="1"
+                  height="25"
+                  fontSize="15"
+                  :value="form.product.code"
+                >
                   {{ $t('Rendering fails.') }}
                 </barcode>
                 <span v-if="generateWithPrice" class="barcode-name"> {{ $t("Price") }}: {{ appInfo.currency.symbol }}{{

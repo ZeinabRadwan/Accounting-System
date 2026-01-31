@@ -71,6 +71,15 @@
                   </div>
 
                   <div class="form-group">
+                    <label for="barcodeSymbology">{{ $t("Barcode Symbology") }} <span class="required">*</span></label>
+                    <select id="barcodeSymbology" v-model="form.barcodeSymbology" class="form-control"
+                      :class="{ 'is-invalid': form.errors.has('barcodeSymbology') }" name="barcodeSymbology">
+                      <option v-for="opt in barcodeSymbologyOptions" :key="opt" :value="opt">{{ opt }}</option>
+                    </select>
+                    <has-error :form="form" field="barcodeSymbology" />
+                  </div>
+
+                  <div class="form-group">
                     <label for="subCategory">{{ $t("Category") }} <span class="required">*</span></label>
                     <v-select v-model="form.subCategory" :options="categories" label="name"
                       :class="{ 'is-invalid': form.errors.has('subCategory') }" name="subCategory"
@@ -456,6 +465,7 @@ export default {
         unitConversions: [],
       }),
       categories: [],
+      barcodeSymbologyOptions: ['CODE128', 'EAN13', 'EAN8', 'UPC', 'CODE39', 'ITF-14'],
       brands: [],
       units: [],
       taxes: [],
