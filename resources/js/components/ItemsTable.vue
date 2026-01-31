@@ -125,7 +125,7 @@
                                 <select v-model="item.discountType" class="form-control form-control-sm"
                                     style="width: 85px;"
                                     :class="{ 'is-invalid': getFieldError(`selectedProducts.${i - 1}.discountType`) }"
-                                    :disabled="item.isFromQuotation" @change="handleDiscountChange(i - 1)">
+                                    :disabled="item.isFromQuotation || discountReadonly" @change="handleDiscountChange(i - 1)">
                                     <option value="fixed">{{ $t("Fixed") }}</option>
                                     <option value="percentage">{{ $t("%") }}</option>
                                 </select>
@@ -133,7 +133,7 @@
                                     style="width: 80px;" step="any" min="0"
                                     :max="item.discountType == 'percentage' ? 100 : (getItemField(item, unitPriceFieldName) * getItemField(item, qtyFieldName))"
                                     :class="{ 'is-invalid': getFieldError(`selectedProducts.${i - 1}.discount`) }"
-                                    :readonly="item.isFromQuotation" placeholder="0"
+                                    :readonly="item.isFromQuotation || discountReadonly" placeholder="0"
                                     @change="handleDiscountChange(i - 1)" @keyup="handleDiscountChange(i - 1)" />
                             </div>
                             <div v-if="getFieldError(`selectedProducts.${i - 1}.discount`) || getFieldError(`selectedProducts.${i - 1}.discountType`)"
@@ -152,7 +152,7 @@
                         <td v-if="!hideVatColumn" class="fixed-vat-column">
                             <select v-if="useVatRateId" v-model="item.vat_rate_id" class="form-control form-control-sm"
                                 :class="{ 'is-invalid': getFieldError(`selectedProducts.${i - 1}.vat_rate_id`) }"
-                                :disabled="item.isFromQuotation" @change="handleVatChange(i - 1)"
+                                :disabled="item.isFromQuotation || vatReadonly" @change="handleVatChange(i - 1)"
                                 style="min-width: 120px;">
                                 <option value="">{{ $t('Select VAT') }}</option>
                                 <option v-for="tax in taxes" :key="tax.id" :value="tax.id">
@@ -161,7 +161,7 @@
                             </select>
                             <select v-else v-model="item.selectedVatRate" class="form-control form-control-sm"
                                 :class="{ 'is-invalid': getFieldError(`selectedProducts.${i - 1}.selectedVatRate`) }"
-                                :disabled="item.isFromQuotation" @change="handleVatChange(i - 1)"
+                                :disabled="item.isFromQuotation || vatReadonly" @change="handleVatChange(i - 1)"
                                 style="min-width: 120px;">
                                 <option value="">{{ $t('Select VAT') }}</option>
                                 <option v-for="tax in taxes" :key="tax.id" :value="tax">
@@ -228,7 +228,7 @@
                                 class="saudi-riyal">ê</span>
                         </td>
                         <td v-if="!hideVatColumn" class="no-currency">
-                            <strong>{{ formatToTwoDecimals(calculatedSubTotal) }}*</strong> <span class="saudi-riyal">ê</span>
+                            <strong>{{ formatToTwoDecimals(calculatedSubTotal) }}</strong> <span class="saudi-riyal">ê</span>
                         </td>
                         <td v-if="showReturnPriceColumn && !hideDiscountColumn && !hideVatColumn" class="no-currency">
                             <strong>{{ formatToTwoDecimals(customTotalValue !== null ? customTotalValue : 0)
@@ -348,6 +348,14 @@ export default {
             default: false
         },
         disableInventoryMaxRestriction: {
+            type: Boolean,
+            default: false
+        },
+        discountReadonly: {
+            type: Boolean,
+            default: false
+        },
+        vatReadonly: {
             type: Boolean,
             default: false
         }

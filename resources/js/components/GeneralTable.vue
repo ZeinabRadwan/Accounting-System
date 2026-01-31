@@ -205,12 +205,12 @@ export default {
     border: none;
     background: #ffffff;
     border-radius: 12px;
-    overflow: hidden;
 }
 
 .table-responsive {
     width: 100%;
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .general-table {
@@ -232,6 +232,7 @@ export default {
     padding: 10px 12px;
     border: none;
     cursor: default;
+    white-space: nowrap;
 }
 
 .general-table thead th.sortable {

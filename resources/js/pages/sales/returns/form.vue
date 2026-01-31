@@ -99,6 +99,7 @@
                 :total-after-discount="totalAfterDiscount" :total-product-tax="totalProductTax" :subtotal="subtotal"
                 :amount-in-words="toWord()" table-class="quotations-create-table" qty-field-name="returnQty"
                 unit-price-field-name="unitCost" :price-readonly="true" :show-edit-button="false"
+                :discount-readonly="true" :vat-readonly="true"
                 :custom-total-value="totalTotal" :totals-colspan="4" @item-change="handleItemChange"
                 @discount-change="calculateProductDiscount" @vat-change="calculateProductVat"
                 @remove-item="removeItem" />
@@ -815,6 +816,11 @@ export default {
       this.form.transportCost = this.form.invoice.transport || 0
       for (var key in this.form.invoice.invoiceProducts) {
         let invoiceItem = this.form.invoice.invoiceProducts[key]
+        
+        // Skip products that have already been fully returned
+        const remainingQuantity = invoiceItem.quantity - invoiceItem.returnQty
+        if (remainingQuantity <= 0) continue
+        
         this.form.selectedProducts.unshift({
           id: invoiceItem.productID,
           slug: invoiceItem.productSlug,
@@ -831,77 +837,53 @@ export default {
           avgPurchasePrice: invoiceItem.purchasePrice,
           unitPrice: invoiceItem.salePrice,
           unitCost: invoiceItem.salePrice,
-          totalPrice: invoiceItem.total,
+          totalPrice: 0,
           returnTotal: 0,
-          productTax: invoiceItem.unitTax,
-          totalTax: invoiceItem.taxTotal,
+          totalBeforeDiscount: 0,
+          totalAfterDiscount: 0,
+          productTax: 0,
+          totalTax: 0,
+          discountAmount: 0,
           maxQty: invoiceItem.quantity - invoiceItem.returnQty, // Max is remaining quantity
           // Product-level discount information
           productDiscount: invoiceItem.productDiscount || 0,
           discountType: invoiceItem.discountType || 'fixed',
-          discountAmount: invoiceItem.productDiscount || 0,
           // Calculate discount value: if percentage type, use discountPercentage or calculate from discount_amount
           discount: (() => {
             if (invoiceItem.discountType === 'percentage') {
-              // If discountPercentage exists (including 0), use it
-              // Check for both null and undefined, and also check if it's a valid number
               if (invoiceItem.discountPercentage !== null && 
                   invoiceItem.discountPercentage !== undefined && 
                   !isNaN(invoiceItem.discountPercentage)) {
                 return Number(invoiceItem.discountPercentage)
               }
-              // Otherwise, calculate percentage from discount_amount and total_before_discount
               const totalBeforeDiscount = (invoiceItem.quantity || 0) * (invoiceItem.salePrice || 0)
               if (totalBeforeDiscount > 0 && invoiceItem.productDiscount > 0) {
                 return Number(((invoiceItem.productDiscount / totalBeforeDiscount) * 100).toFixed(2))
               }
               return 0
             } else {
-              // Fixed discount: use productDiscount (the amount)
               return invoiceItem.productDiscount || 0
             }
           })(),
           // Product-level VAT information
           vatRate: invoiceItem.vatRate,
           selectedVatRate: this.findMatchingVatRate(invoiceItem.productTax) || this.form.orderTax || this.taxes?.[0],
-          // Calculate totals for display based on return quantity
-          totalBeforeDiscount: Number(((invoiceItem.quantity - invoiceItem.returnQty) * invoiceItem.salePrice).toFixed(2)),
-          totalAfterDiscount: Number(((invoiceItem.quantity - invoiceItem.returnQty) * invoiceItem.salePrice).toFixed(2)),
           // Chart of account information
           sales_account_id: invoiceItem.sales_account_id,
           purchase_account_id: invoiceItem.purchase_account_id,
           itemType: invoiceItem.itemType || 'product',
+          // Store original invoice and product values for proportional calculations
+          originalLineTotal: invoiceItem.total,
+          originalTaxTotal: invoiceItem.taxTotal || 0,
+          originalDiscountAmount: invoiceItem.productDiscount || 0,
+          originalQty: invoiceItem.quantity,
         })
-
-        // Initialize discount and VAT calculations for the last added product
-        const lastIndex = 0 // Since we're adding to the beginning
-        const lastProduct = this.form.selectedProducts[lastIndex]
-
-        // Calculate discount amount
-        if (lastProduct.discount && lastProduct.discount > 0) {
-          if (lastProduct.discountType === 'percentage') {
-            lastProduct.discountAmount = Number(((lastProduct.returnQty * lastProduct.unitCost) * (lastProduct.discount / 100)).toFixed(2))
-          } else {
-            lastProduct.discountAmount = Number(lastProduct.discount.toFixed(2))
-          }
-          lastProduct.totalAfterDiscount = Number((lastProduct.totalBeforeDiscount - lastProduct.discountAmount).toFixed(2))
-        } else {
-          lastProduct.discountAmount = 0
-          lastProduct.totalAfterDiscount = lastProduct.totalBeforeDiscount
-        }
-
-        // Calculate VAT
-        if (lastProduct.selectedVatRate && lastProduct.selectedVatRate.rate) {
-          const vatAmount = Number((lastProduct.totalAfterDiscount * (lastProduct.selectedVatRate.rate / 100)).toFixed(2))
-          lastProduct.productTax = vatAmount
-          lastProduct.totalTax = vatAmount
-          lastProduct.totalPrice = Number((lastProduct.totalAfterDiscount + vatAmount).toFixed(2))
-        } else {
-          lastProduct.productTax = 0
-          lastProduct.totalTax = 0
-          lastProduct.totalPrice = lastProduct.totalAfterDiscount
-        }
       }
+
+      // Initialize calculations for all items
+      this.form.selectedProducts.forEach((_, index) => {
+        this.calculateItemAmounts(index)
+      })
 
       // Initialize calculations after loading products
       this.calculateSum()
@@ -947,6 +929,8 @@ export default {
       const returnTotal = Number((unitPrice * returnQty).toFixed(2))
 
       item.returnTotal = returnTotal
+      // calculateSum is already called inside calculateItemAmounts(index) which is called in updateItemReactively
+      // But we call it here again to be safe if index matching fails
       this.calculateSum()
     },
 
@@ -975,12 +959,13 @@ export default {
         // Calculate subtotal for remaining items (this will be the base for calculations)
         this.form.newSubTotal += Number(productTotal.toFixed(2))
 
-        // Calculate return total using proportional calculation from original invoice
         if (looProduct.returnQty > 0) {
           // Calculate return amount proportionally from the original invoice line total
-          const originalLineTotal = parseFloat(looProduct.totalPrice) || 0 // This is the total price from invoice_products
-          const totalQty = parseFloat(looProduct.qty) || 1
+          const originalLineTotal = parseFloat(looProduct.originalLineTotal) || 0
+          const totalQty = parseFloat(looProduct.originalQty) || 1
           const returnQty = parseFloat(looProduct.returnQty) || 0
+          const originalDiscount = parseFloat(looProduct.originalDiscountAmount) || 0
+          const originalTax = parseFloat(looProduct.originalTaxTotal) || 0
 
           // Calculate proportional return amount: (original_line_total / total_qty) * return_qty
           const unitPrice = originalLineTotal / totalQty
@@ -993,9 +978,6 @@ export default {
           this.form.totalReturn += returnTotal
 
           // For detailed breakdown, calculate proportional amounts
-          const originalDiscount = parseFloat(looProduct.discountAmount) || 0
-          const originalTax = parseFloat(looProduct.totalTax) || 0
-
           // Proportional discount and tax
           const proportionalDiscount = Number(((originalDiscount / totalQty) * returnQty).toFixed(2))
           const proportionalTax = Number(((originalTax / totalQty) * returnQty).toFixed(2))
@@ -1097,28 +1079,28 @@ export default {
         (this.originalInvoiceTotalTax - this.form.taxAmount).toFixed(2)
       )
 
-      // calculate new due or payable
-      if (this.form.invoiceDue >= 0) {
-        this.form.newDue = this.form.originalInvoiceTotal - this.form.invoice.totalPaid
-        this.form.newDueText =
-          this.form.originalInvoiceTotal +
-          ' - ' +
-          this.form.invoice.totalPaid +
-          ' = ' +
-          Number(this.form.newDue).toFixed(2)
+      // Calculate new due or payable
+      const totalToReturnValue = Number(this.form.totalReturn.toFixed(2))
+      const originalTotalValue = Number(this.form.originalInvoiceTotal.toFixed(2))
+      const totalPaidValue = Number(this.form.invoice.totalPaid.toFixed(2))
+
+      const remainingInvoiceTotal = Number((originalTotalValue - totalToReturnValue).toFixed(2))
+      const balanceValue = Number((remainingInvoiceTotal - totalPaidValue).toFixed(2))
+
+      if (balanceValue >= 0) {
+        // Still has due
+        this.form.newDue = balanceValue
+        this.form.invoiceDue = balanceValue
+        this.form.newDueText = `${remainingInvoiceTotal} - ${totalPaidValue} = ${balanceValue.toFixed(2)}`
         this.form.returnAmount = 0
+        this.form.returnAmountText = 0
       } else {
-        this.form.returnAmount = Number(
-          (this.form.invoice.totalPaid - this.form.originalInvoiceTotal).toFixed(2)
-        )
-        this.form.returnAmountText =
-          this.form.invoice.totalPaid +
-          ' - ' +
-          this.form.originalInvoiceTotal +
-          ' = ' +
-          this.form.returnAmount
-        this.form.invoiceDue = 0
+        // Refund is needed
         this.form.newDue = 0
+        this.form.invoiceDue = 0
+        this.form.newDueText = 0
+        this.form.returnAmount = Math.abs(balanceValue)
+        this.form.returnAmountText = `${totalPaidValue} - ${remainingInvoiceTotal} = ${this.form.returnAmount.toFixed(2)}`
       }
       return
     },
@@ -1248,7 +1230,6 @@ export default {
       // Sync form fields with Calculation Summary just before save
       this.form.totalPaid = this.form.invoice?.totalPaid || 0
       this.form.invoiceTax = this.form.newTax
-      this.form.newDue = this.form.invoiceDue
       // invoiceTotal, invoiceDiscount and invoiceTransport are already current
 
       await this.form
@@ -1352,10 +1333,11 @@ export default {
 
       // Calculate discount amount based on type
       let discountAmount = 0
+      const discountValue = Number(product.discount) || 0
       if (product.discountType === 'percentage') {
-        discountAmount = Number(((returnQtyNumber * unitCostNumber) * (product.discount || 0) / 100).toFixed(2))
+        discountAmount = Number(((returnQtyNumber * unitCostNumber) * discountValue / 100).toFixed(2))
       } else {
-        discountAmount = Number((product.discount || 0).toFixed(2))
+        discountAmount = Number(discountValue.toFixed(2))
       }
 
       // Ensure discount amount doesn't exceed the total before discount
@@ -1366,10 +1348,16 @@ export default {
       // Calculate price after discount
       const totalAfterDiscount = Number((totalBeforeDiscount - discountAmount).toFixed(2))
 
-      // Save original totalPrice from invoice before modifying it (needed for returnTotal calculation)
-      const originalLineTotal = parseFloat(product.totalPrice) || 0
+      // Calculate return total proportionally from original invoice line total
+      const totalQty = parseFloat(product.originalQty) || 1
+      const returnQty = parseFloat(product.returnQty) || 0
+      const originalLineTotal = parseFloat(product.originalLineTotal) || 0
 
-      // Calculate VAT and total price
+      // Calculate proportional return amount: (original_line_total / total_qty) * return_qty
+      const unitPrice = totalQty > 0 ? originalLineTotal / totalQty : 0
+      const returnTotal = Number((unitPrice * returnQty).toFixed(2))
+
+      // Calculate VAT and total price for current return selection
       let productTax = 0
       let totalTax = 0
       let totalPrice = totalAfterDiscount
@@ -1380,14 +1368,6 @@ export default {
         totalTax = vatAmount
         totalPrice = Number((totalAfterDiscount + vatAmount).toFixed(2))
       }
-
-      // Calculate return total proportionally from original invoice line total
-      const totalQty = parseFloat(product.qty) || 1
-      const returnQty = parseFloat(product.returnQty) || 0
-
-      // Calculate proportional return amount: (original_line_total / total_qty) * return_qty
-      const unitPrice = totalQty > 0 ? originalLineTotal / totalQty : 0
-      const returnTotal = Number((unitPrice * returnQty).toFixed(2))
 
       // Update product with all calculated values
       product.discountAmount = discountAmount

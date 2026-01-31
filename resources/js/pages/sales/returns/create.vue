@@ -99,8 +99,8 @@
                 :total-after-discount="totalAfterDiscount" :total-product-tax="totalProductTax" :subtotal="subtotal"
                 :amount-in-words="toWord()" table-class="quotations-create-table" qty-field-name="returnQty"
                 unit-price-field-name="unitCost" :price-readonly="true" :show-edit-button="false"
-                :custom-total-value="totalTotal" :totals-colspan="4" @item-change="handleItemChange"
-                @discount-change="calculateProductDiscount" @vat-change="calculateProductVat"
+                :custom-total-value="totalTotal" :totals-colspan="4" :hide-discount-column="true" :hide-vat-column="true"
+                @item-change="handleItemChange" @discount-change="calculateProductDiscount" @vat-change="calculateProductVat"
                 @remove-item="removeItem" />
               <div class="row" id="input-fields">
                 <!-- <div class="form-group col-md-3">
@@ -1096,6 +1096,15 @@ export default {
       this.syncDiscountFields()
       for (var key in this.form.invoice.invoiceProducts) {
         let invoiceItem = this.form.invoice.invoiceProducts[key]
+        
+        // Calculate remaining quantity that can be returned
+        const remainingQty = invoiceItem.quantity - invoiceItem.returnQty
+        
+        // Skip products with 0 remaining quantity (already fully returned)
+        if (remainingQty <= 0) {
+          continue
+        }
+        
         this.form.selectedProducts.unshift({
           id: invoiceItem.productID,
           slug: invoiceItem.productSlug,
@@ -1106,8 +1115,8 @@ export default {
           taxRate: invoiceItem.taxRate,
           oldQty: invoiceItem.quantity,
           qty: invoiceItem.quantity,
-          returnQty: invoiceItem.quantity - invoiceItem.returnQty, // Default to remaining quantity
-          totalReturnQty: invoiceItem.quantity - invoiceItem.returnQty,
+          returnQty: remainingQty, // Default to remaining quantity
+          totalReturnQty: remainingQty,
           inventoryCount: invoiceItem.inventoryCount,
           avgPurchasePrice: invoiceItem.purchasePrice,
           unitPrice: invoiceItem.salePrice,
@@ -1117,7 +1126,7 @@ export default {
           returnTotal: 0,
           productTax: invoiceItem.unitTax,
           totalTax: invoiceItem.taxTotal,
-          maxQty: invoiceItem.quantity - invoiceItem.returnQty, // Max is remaining quantity
+          maxQty: remainingQty, // Max is remaining quantity
           // Product-level discount information
           productDiscount: invoiceItem.productDiscount || 0,
           discountType: invoiceItem.discountType || 'fixed',
