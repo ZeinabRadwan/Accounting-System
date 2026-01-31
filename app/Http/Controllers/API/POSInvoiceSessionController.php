@@ -51,10 +51,10 @@ class POSInvoiceSessionController extends Controller
                 ->where('status', 'active')
                 ->update(['status' => 'suspended']);
 
-            // Create new session
+            // Create new session (default status: suspended, not active)
             $session = POSInvoiceSession::create([
                 'user_id' => Auth::id(),
-                'status' => $request->input('status', 'active'),
+                'status' => $request->input('status', 'suspended'),
                 'invoice_data' => $request->input('invoice_data'),
                 'opened_at' => now(),
             ]);
