@@ -2346,6 +2346,7 @@
 "Default currency for this supplier": "Default currency for this supplier",
 "Full name is required for individual suppliers": "Full name is required for individual suppliers",
 "Business name is required for company suppliers": "Business name is required for company suppliers",
+"Please select Taxable or Non-Taxable for company suppliers": "Please select Taxable or Non-Taxable for company suppliers",
 "Phone number is required": "Phone number is required",
 "Quick Edit": "Quick Edit",
 "Edit Supplier": "Edit Supplier",

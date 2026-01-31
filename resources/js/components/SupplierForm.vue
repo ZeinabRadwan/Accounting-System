@@ -81,6 +81,7 @@
               <div class="form-group form-col-third">
                 <label class="form-label">
                   {{ $t("Tax Status") }}
+                  <span v-if="form.type === 'Company'" class="required">*</span>
                 </label>
                 <div v-if="form.type === 'Individual'" class="tax-status-individual-locked">
                   <div class="tax-status-card-compact border-success active locked">
@@ -1250,6 +1251,14 @@ export default {
         console.log('Business name validation failed for company');
         this.form.errors.set('businessName', this.$t('Business name is required for company suppliers'));
         isValid = false;
+      }
+
+      if (this.form.type === 'Company') {
+        const taxStatus = this.form.taxStatus;
+        if (!taxStatus || (taxStatus !== 'taxable' && taxStatus !== 'non_taxable')) {
+          this.form.errors.set('taxStatus', this.$t('Please select Taxable or Non-Taxable for company suppliers'));
+          isValid = false;
+        }
       }
 
       // Chart of account validation removed to match ClientForm behavior

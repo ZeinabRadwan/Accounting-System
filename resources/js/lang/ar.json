@@ -2552,6 +2552,7 @@
     "Default currency for this supplier": "العملة الافتراضية لهذا المورد",
     "Full name is required for individual suppliers": "الاسم الكامل مطلوب للموردين الأفراد",
     "Business name is required for company suppliers": "اسم الشركة مطلوب لموردي الشركات",
+    "Please select Taxable or Non-Taxable for company suppliers": "يرجى اختيار خاضع للضريبة أو غير خاضع للضريبة لموردي الشركات",
     "Phone number is required": "رقم الهاتف مطلوب",
     "Quick Edit": "تعديل سريع",
     "Neighbourhood": "الحي",
