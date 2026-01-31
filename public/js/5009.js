@@ -471,7 +471,7 @@ var vuex_esm = __webpack_require__(95353);
 // EXTERNAL MODULE: ./node_modules/izitoast/dist/js/iziToast.js
 var iziToast = __webpack_require__(69568);
 // EXTERNAL MODULE: ./resources/js/components/GeneralTable.vue + 5 modules
-var GeneralTable = __webpack_require__(33107);
+var GeneralTable = __webpack_require__(39173);
 // EXTERNAL MODULE: ./resources/js/components/sales/InvoiceSummaryTable.vue + 5 modules
 var InvoiceSummaryTable = __webpack_require__(63617);
 // EXTERNAL MODULE: ./resources/js/components/DetailsActivityTabs.vue + 5 modules

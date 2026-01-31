@@ -81,6 +81,7 @@
                 @click="createNewInvoice"
                 :title="$t('Create New Invoice')">
                 <i class="fas fa-plus"></i>
+                <span class="invoice-create-btn-text">{{ $t('Create New Invoice') }}</span>
               </button>
 
               <!-- Invoice Return Button (Sales Return) -->

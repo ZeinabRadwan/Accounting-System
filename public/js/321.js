@@ -20910,7 +20910,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     ToggleButton: dist.ToggleButton,
     AccountCreateModal: AccountCreateModal/* default */.A,
     GeneralTable: function GeneralTable() {
-      return Promise.resolve(/* import() */).then(__webpack_require__.bind(__webpack_require__, 33107));
+      return Promise.resolve(/* import() */).then(__webpack_require__.bind(__webpack_require__, 39173));
     }
   },
   data: function data() {

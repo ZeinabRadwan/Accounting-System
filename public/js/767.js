@@ -605,7 +605,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       return Promise.resolve(/* import() */).then(__webpack_require__.bind(__webpack_require__, 12207));
     },
     GeneralTable: function GeneralTable() {
-      return Promise.resolve(/* import() */).then(__webpack_require__.bind(__webpack_require__, 33107));
+      return Promise.resolve(/* import() */).then(__webpack_require__.bind(__webpack_require__, 39173));
     }
   },
   data: function data() {

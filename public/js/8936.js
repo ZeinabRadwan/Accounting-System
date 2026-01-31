@@ -791,7 +791,7 @@ var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
 // EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
 var vuex_esm = __webpack_require__(95353);
 // EXTERNAL MODULE: ./resources/js/components/GeneralTable.vue + 5 modules
-var GeneralTable = __webpack_require__(33107);
+var GeneralTable = __webpack_require__(39173);
 // EXTERNAL MODULE: ./resources/js/components/sales/InvoiceSummaryTable.vue + 5 modules
 var InvoiceSummaryTable = __webpack_require__(63617);
 // EXTERNAL MODULE: ./resources/js/components/DetailsActivityTabs.vue + 5 modules

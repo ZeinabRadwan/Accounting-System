@@ -9272,7 +9272,7 @@ var html2pdf_default = /*#__PURE__*/__webpack_require__.n(html2pdf);
 // EXTERNAL MODULE: ./node_modules/izitoast/dist/js/iziToast.js
 var iziToast = __webpack_require__(69568);
 // EXTERNAL MODULE: ./resources/js/components/GeneralTable.vue + 5 modules
-var GeneralTable = __webpack_require__(33107);
+var GeneralTable = __webpack_require__(39173);
 // EXTERNAL MODULE: ./resources/js/components/DetailsActivityTabs.vue + 5 modules
 var DetailsActivityTabs = __webpack_require__(64866);
 ;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/payments/suppliers/purchase/show.vue?vue&type=script&lang=js

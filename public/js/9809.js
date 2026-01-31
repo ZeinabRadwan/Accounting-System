@@ -9073,7 +9073,7 @@ var component = (0,componentNormalizer/* default */.A)(
 
 /* harmony default export */ const SupplierEditModal = (component.exports);
 // EXTERNAL MODULE: ./resources/js/components/GeneralTable.vue + 5 modules
-var GeneralTable = __webpack_require__(33107);
+var GeneralTable = __webpack_require__(39173);
 // EXTERNAL MODULE: ./node_modules/html2pdf.js/dist/html2pdf.js
 var html2pdf = __webpack_require__(33833);
 var html2pdf_default = /*#__PURE__*/__webpack_require__.n(html2pdf);
