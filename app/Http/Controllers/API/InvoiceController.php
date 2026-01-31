@@ -73,7 +73,7 @@ class InvoiceController extends Controller
             ->where('setting_key', 'discount_allowed_account')
             ->first();
 
-        if (!$setting || !$setting->main_account_id) {
+        if (! $setting || ! $setting->main_account_id) {
             return null;
         }
 
@@ -98,7 +98,7 @@ class InvoiceController extends Controller
             $validationErrors = [];
 
             // Validate client has chart of account
-            if (!$client || !$chartOfAccount) {
+            if (! $client || ! $chartOfAccount) {
                 $validationErrors[] = 'Client must have a Chart of Account assigned for journal entries.';
             }
 
@@ -106,8 +106,8 @@ class InvoiceController extends Controller
 
             foreach ($request->selectedProducts as $key => $selectedProduct) {
                 $product = Product::where('slug', $selectedProduct['slug'])->first();
-                if (!$product || !$product->hasSalesAccount()) {
-                    $validationErrors[] = 'Product ' . ($product->name ?? 'Unknown') . ' must have a Sales Account assigned.';
+                if (! $product || ! $product->hasSalesAccount()) {
+                    $validationErrors[] = 'Product '.($product->name ?? 'Unknown').' must have a Sales Account assigned.';
                 }
 
                 // VAT rate validation removed per business request
@@ -119,27 +119,27 @@ class InvoiceController extends Controller
 
             if ($totalDiscountAmount > 0) {
                 $discountAccount = $this->getDiscountAllowedAccount();
-                if (!$discountAccount) {
+                if (! $discountAccount) {
                     $validationErrors[] = 'Discount Allowed account must be configured in account routing settings to process discounts.';
                 }
             }
 
             if ($request->addPayment == 1) {
                 $account = Account::findOrFail($request->account['id']);
-                if (!$account) {
+                if (! $account) {
                     $validationErrors[] = 'Bank Account not found.';
                 }
 
-                if (!$account->chartOfAccount) {
+                if (! $account->chartOfAccount) {
                     $validationErrors[] = 'Bank Account must have a Chart of Account assigned for journal entries.';
                 }
             }
 
             // If there are validation errors, return them all at once
-            if (!empty($validationErrors)) {
+            if (! empty($validationErrors)) {
                 $errorMessage = count($validationErrors) === 1
                     ? $validationErrors[0]
-                    : 'Multiple validation errors found: ' . implode('; ', $validationErrors);
+                    : 'Multiple validation errors found: '.implode('; ', $validationErrors);
 
                 return $this->responseWithError($errorMessage, [
                     'validation_errors' => $validationErrors,
@@ -163,21 +163,21 @@ class InvoiceController extends Controller
             $currentAccountingPeriodId = GeneralSetting::where('key', 'current_accounting_period_id')->first()?->value;
 
             // Validate that the settings exist
-            if (!$currentFiscalYearId) {
+            if (! $currentFiscalYearId) {
                 return $this->responseWithError('Current fiscal year is not configured in system settings.');
             }
-            if (!$currentAccountingPeriodId) {
+            if (! $currentAccountingPeriodId) {
                 return $this->responseWithError('Current accounting period is not configured in system settings.');
             }
 
             // Validate that the fiscal year and accounting period exist in their respective tables
             $fiscalYear = \App\Models\FiscalYear::find($currentFiscalYearId);
-            if (!$fiscalYear) {
+            if (! $fiscalYear) {
                 return $this->responseWithError('The configured fiscal year does not exist.');
             }
 
             $accountingPeriod = \App\Models\AccountingPeriod::find($currentAccountingPeriodId);
-            if (!$accountingPeriod) {
+            if (! $accountingPeriod) {
                 return $this->responseWithError('The configured accounting period does not exist.');
             }
 
@@ -190,13 +190,8 @@ class InvoiceController extends Controller
             $country = GeneralSetting::where('key', 'country')->first()?->value ?? 'SA';
             $isSaudiArabia = $country === 'SA';
 
-            // Set status based on country
-            // $invoiceStatus = $isSaudiArabia ? 0 : $request->status; // 0 = Inactive for KSA, use request value for others
-
-
-
-
-            $invoiceStatus = $isSaudiArabia ? 1 : $request->status; // 0 = Inactive for KSA, use request value for others
+            // Set status based on country: KSA invoices created inactive (0) so they can be sent to ZATCA
+            $invoiceStatus = $isSaudiArabia ? 0 : $request->status;
 
             // calculate is paid - use isPaid from request if provided, otherwise calculate from payment amount
             $isPaid = 0;
@@ -243,8 +238,8 @@ class InvoiceController extends Controller
                 $product = Product::where('slug', $selectedProduct['slug'])->first();
 
                 // Validate product has sales account
-                if (!$product->hasSalesAccount()) {
-                    throw new Exception('Product ' . $product->name . ' must have a Sales Account assigned.');
+                if (! $product->hasSalesAccount()) {
+                    throw new Exception('Product '.$product->name.' must have a Sales Account assigned.');
                 }
 
                 // update product stock
@@ -278,9 +273,9 @@ class InvoiceController extends Controller
                 if ($purchaseCost <= 0) {
                     $purchaseCost = (float) ($selectedProduct['unitPrice'] ?? 0);
                     Log::warning(
-                        "Product {$selectedProduct['name']} has no purchase history. " .
-                        "Using sale price ({$purchaseCost}) as COGS fallback. " .
-                        "Please add purchase records for accurate COGS."
+                        "Product {$selectedProduct['name']} has no purchase history. ".
+                        "Using sale price ({$purchaseCost}) as COGS fallback. ".
+                        'Please add purchase records for accurate COGS.'
                     );
                 }
 
@@ -312,7 +307,7 @@ class InvoiceController extends Controller
                 $journalEntriesCreated = true;
             } catch (\Exception $e) {
                 // Log the error but don't fail the invoice creation
-                Log::error('Failed to create journal entry for invoice: ' . $e->getMessage());
+                Log::error('Failed to create journal entry for invoice: '.$e->getMessage());
             }
             // }
 
@@ -334,7 +329,7 @@ class InvoiceController extends Controller
                     }
 
                     // Try to get a default account for the branch if no account selected
-                    if (!$account) {
+                    if (! $account) {
                         $account = Account::withoutGlobalScopes()
                             ->where('branch_id', $branchId)
                             ->where('status', 1)
@@ -345,7 +340,7 @@ class InvoiceController extends Controller
                 // Only create payment voucher if we have an account
                 if ($account) {
                     // Use netTotal as payment amount when isPaid is true, otherwise use paidAmount
-                    $paymentAmount = ($isPaid == 1 && !$request->addPayment) ? $request->netTotal : ($request->paidAmount ?? $request->netTotal);
+                    $paymentAmount = ($isPaid == 1 && ! $request->addPayment) ? $request->netTotal : ($request->paidAmount ?? $request->netTotal);
 
                     // Get payment method and analytical account
                     $paymentMethodId = $request->payment_method_id ?? null;
@@ -381,7 +376,7 @@ class InvoiceController extends Controller
                     ];
 
                     // Generate transaction reason
-                    $reason = '[' . config('config.invoicePrefix') . '-' . $invoice->invoice_no . '] Invoice Payment added to [' . $account->account_number . ']';
+                    $reason = '['.config('config.invoicePrefix').'-'.$invoice->invoice_no.'] Invoice Payment added to ['.$account->account_number.']';
 
                     // create transaction
                     $transaction = AccountTransaction::create([
@@ -411,12 +406,12 @@ class InvoiceController extends Controller
                             $paymentJournalEntry = $journalService->createPaymentVoucherJournal($voucher, $userId);
                         } catch (\Exception $e) {
                             // Log the error but don't fail the payment creation
-                            Log::error('Failed to create payment journal entry for voucher: ' . $e->getMessage());
+                            Log::error('Failed to create payment journal entry for voucher: '.$e->getMessage());
                         }
                     }
                 } elseif ($isPaid == 1 && $request->payment_method_id) {
                     // Log warning if payment method is set but no account found
-                    Log::warning('Invoice created as paid with payment method but no account found for payment voucher creation. Invoice ID: ' . $invoice->id);
+                    Log::warning('Invoice created as paid with payment method but no account found for payment voucher creation. Invoice ID: '.$invoice->id);
                 }
             }
 
@@ -431,7 +426,7 @@ class InvoiceController extends Controller
                 ->performedOn($invoice)
                 ->withProperties([
                     'name' => '',
-                    'code' => '[' . config('config.invoicePrefix') . '-' . $code . ']',
+                    'code' => '['.config('config.invoicePrefix').'-'.$code.']',
                     'event' => 'Create',
                     'slug' => $invoice->slug,
                     'routeName' => 'invoices.show',
@@ -463,7 +458,7 @@ class InvoiceController extends Controller
     {
         $this->validate($request, [
             'account' => 'required',
-            'paidAmount' => ['required', 'min:1', 'max:' . $request->netTotal],
+            'paidAmount' => ['required', 'min:1', 'max:'.$request->netTotal],
             'invoice_id' => ['required', 'integer'],
             'payment_method_id' => 'nullable|exists:payment_methods,id',
             'chequeNo' => 'nullable|string|max:255',
@@ -502,7 +497,7 @@ class InvoiceController extends Controller
         }
 
         // store transaction
-        $reason = '[' . config('config.invoicePrefix') . '-' . $invoice->invoice_no . '] Invoice Payment added to [' . $account->account_number . ']';
+        $reason = '['.config('config.invoicePrefix').'-'.$invoice->invoice_no.'] Invoice Payment added to ['.$account->account_number.']';
         try {
             DB::beginTransaction();
 
@@ -559,7 +554,7 @@ class InvoiceController extends Controller
                     $paymentJournalEntry = $journalService->createPaymentVoucherJournal($voucher, $userId);
                 } catch (\Exception $e) {
                     // Log the error but don't fail the payment creation
-                    Log::error('Failed to create payment journal entry for voucher: ' . $e->getMessage());
+                    Log::error('Failed to create payment journal entry for voucher: '.$e->getMessage());
                 }
             }
 
@@ -627,6 +622,10 @@ class InvoiceController extends Controller
                 'paymentMethod',
             ])->first();
 
+            if (! $invoice) {
+                return response()->json(['message' => __('Invoice not found.')], 404);
+            }
+
             return new InvoiceResource($invoice);
         } catch (Exception $e) {
             return $this->responseWithError($e->getMessage());
@@ -643,7 +642,7 @@ class InvoiceController extends Controller
     {
         $invoice = Invoice::where('slug', $slug)->with('invoiceProducts.product', 'invoiceReturn')->first();
         $totalPaid = $invoice->invoiceTotalPaid();
-        $minAmount = !isset($invoice->invoiceReturn) ? $totalPaid : $totalPaid - $invoice->invoiceReturn->returnTransaction->amount;
+        $minAmount = ! isset($invoice->invoiceReturn) ? $totalPaid : $totalPaid - $invoice->invoiceReturn->returnTransaction->amount;
 
         // validate request
         $this->validate($request, [
@@ -668,21 +667,21 @@ class InvoiceController extends Controller
             $currentAccountingPeriodId = GeneralSetting::where('key', 'current_accounting_period_id')->first()?->value;
 
             // Validate that the settings exist
-            if (!$currentFiscalYearId) {
+            if (! $currentFiscalYearId) {
                 return $this->responseWithError('Current fiscal year is not configured in system settings.');
             }
-            if (!$currentAccountingPeriodId) {
+            if (! $currentAccountingPeriodId) {
                 return $this->responseWithError('Current accounting period is not configured in system settings.');
             }
 
             // Validate that the fiscal year and accounting period exist in their respective tables
             $fiscalYear = \App\Models\FiscalYear::find($currentFiscalYearId);
-            if (!$fiscalYear) {
+            if (! $fiscalYear) {
                 return $this->responseWithError('The configured fiscal year does not exist.');
             }
 
             $accountingPeriod = \App\Models\AccountingPeriod::find($currentAccountingPeriodId);
-            if (!$accountingPeriod) {
+            if (! $accountingPeriod) {
                 return $this->responseWithError('The configured accounting period does not exist.');
             }
 
@@ -754,9 +753,9 @@ class InvoiceController extends Controller
                 if ($purchaseCost <= 0) {
                     $purchaseCost = (float) ($selectedProduct['unitPrice'] ?? 0);
                     Log::warning(
-                        "Product {$selectedProduct['name']} has no purchase history. " .
-                        "Using sale price ({$purchaseCost}) as COGS fallback. " .
-                        "Please add purchase records for accurate COGS."
+                        "Product {$selectedProduct['name']} has no purchase history. ".
+                        "Using sale price ({$purchaseCost}) as COGS fallback. ".
+                        'Please add purchase records for accurate COGS.'
                     );
                 }
 
@@ -784,7 +783,7 @@ class InvoiceController extends Controller
                 ->performedOn($invoice)
                 ->withProperties([
                     'name' => '',
-                    'code' => '[' . config('config.invoicePrefix') . '-' . $invoice->invoice_no . ']',
+                    'code' => '['.config('config.invoicePrefix').'-'.$invoice->invoice_no.']',
                     'event' => 'Update',
                     'slug' => $invoice->slug,
                     'routeName' => 'invoices.show',
@@ -818,7 +817,7 @@ class InvoiceController extends Controller
             $invoice = Invoice::where('slug', $slug)->with('invoicePayments.invoicePaymentTransaction', 'invoiceProducts.product', 'invoiceReturn')->first();
 
             // Check if invoice exists
-            if (!$invoice) {
+            if (! $invoice) {
                 return $this->responseWithError('Invoice not found');
             }
 
@@ -854,7 +853,7 @@ class InvoiceController extends Controller
                 ->performedOn($invoice)
                 ->withProperties([
                     'name' => '',
-                    'code' => '[' . config('config.invoicePrefix') . '-' . $invoice->invoice_no . ']',
+                    'code' => '['.config('config.invoicePrefix').'-'.$invoice->invoice_no.']',
                     'event' => 'Delete',
                 ])
                 ->useLog('Invoice Deleted')
@@ -897,7 +896,13 @@ class InvoiceController extends Controller
             return InvoiceListResource::collection($query->paginate($request->perPage));
         }
 
-        $term = $request->term;
+        $term = $request->term ?? '';
+        $term = is_string($term) ? trim($term) : '';
+
+        if ($term === '') {
+            return InvoiceListResource::collection(Invoice::whereRaw('1 = 0')->paginate($request->perPage ?? 15));
+        }
+
         $query = Invoice::with('client', 'invoicePayments', 'invoiceReturn', 'user');
 
         // Apply branch filter
@@ -910,21 +915,22 @@ class InvoiceController extends Controller
         }
 
         $query = $query->where(function ($query) use ($term) {
-            $query->where('invoice_no', 'LIKE', '%' . $term . '%')
-                ->where('reference', 'LIKE', '%' . $term . '%')
-                ->orWhere('sub_total', 'LIKE', '%' . $term . '%')
-                ->orWhere('po_reference', 'LIKE', '%' . $term . '%')
-                ->orWhere('payment_terms', 'LIKE', '%' . $term . '%')
-                ->orWhere('delivery_place', 'LIKE', '%' . $term . '%')
+            $query->where('invoice_no', 'LIKE', '%'.$term.'%')
+                ->orWhere('reference', 'LIKE', '%'.$term.'%')
+                ->orWhere('sub_total', 'LIKE', '%'.$term.'%')
+                ->orWhere('po_reference', 'LIKE', '%'.$term.'%')
+                ->orWhere('payment_terms', 'LIKE', '%'.$term.'%')
+                ->orWhere('delivery_place', 'LIKE', '%'.$term.'%')
                 ->orWhereHas('client', function ($newQuery) use ($term) {
-                    $newQuery->where('name', 'LIKE', '%' . $term . '%')
-                        ->orWhere('client_id', 'LIKE', '%' . $term . '%');
-                })->orWhereHas('user', function ($newQuery) use ($term) {
-                    $newQuery->where('name', 'LIKE', '%' . $term . '%');
+                    $newQuery->where('name', 'LIKE', '%'.$term.'%')
+                        ->orWhere('client_id', 'LIKE', '%'.$term.'%');
+                })
+                ->orWhereHas('user', function ($newQuery) use ($term) {
+                    $newQuery->where('name', 'LIKE', '%'.$term.'%');
                 });
         });
 
-        return InvoiceListResource::collection($query->paginate($request->perPage));
+        return InvoiceListResource::collection($query->paginate($request->perPage ?? 15));
     }
 
     // notify customer
@@ -970,12 +976,12 @@ class InvoiceController extends Controller
                 ])
                 ->first();
 
-            if (!$invoice) {
+            if (! $invoice) {
                 return $this->responseWithError('Invoice not found');
             }
 
             // Ensure client's chartOfAccount is loaded (double-check)
-            if ($invoice->client && !$invoice->client->relationLoaded('chartOfAccount')) {
+            if ($invoice->client && ! $invoice->client->relationLoaded('chartOfAccount')) {
                 $invoice->client->load('chartOfAccount');
             }
 
@@ -984,7 +990,7 @@ class InvoiceController extends Controller
             $isSaudiArabia = $country === 'SA';
 
             // Only allow for Saudi Arabia
-            if (!$isSaudiArabia) {
+            if (! $isSaudiArabia) {
                 return $this->responseWithError('This feature is only available for Saudi Arabia');
             }
 
@@ -1002,10 +1008,10 @@ class InvoiceController extends Controller
                 $journalService = new BusinessTransactionJournalService;
                 $journalEntry = $journalService->createInvoiceSaleJournal($invoice, $userId);
             } catch (\Exception $e) {
-                Log::error('Failed to create journal entry for ZATCA invoice: ' . $e->getMessage());
+                Log::error('Failed to create journal entry for ZATCA invoice: '.$e->getMessage());
                 DB::rollback();
 
-                return $this->responseWithError('Failed to create journal entries: ' . $e->getMessage());
+                return $this->responseWithError('Failed to create journal entries: '.$e->getMessage());
             }
 
             // Create journal entries for any existing payments
@@ -1023,7 +1029,7 @@ class InvoiceController extends Controller
                         ]);
                     }
                 } catch (\Exception $e) {
-                    Log::error('Failed to create payment journal entry for ZATCA invoice: ' . $e->getMessage());
+                    Log::error('Failed to create payment journal entry for ZATCA invoice: '.$e->getMessage());
                     // Continue with other payments even if one fails
                 }
             }
@@ -1059,9 +1065,9 @@ class InvoiceController extends Controller
 
         } catch (Exception $e) {
             DB::rollback();
-            Log::error('Error sending invoice to ZATCA: ' . $e->getMessage());
+            Log::error('Error sending invoice to ZATCA: '.$e->getMessage());
 
-            return $this->responseWithError('Failed to send invoice to ZATCA: ' . $e->getMessage());
+            return $this->responseWithError('Failed to send invoice to ZATCA: '.$e->getMessage());
         }
     }
 
@@ -1083,7 +1089,7 @@ class InvoiceController extends Controller
                 $journalService = new BusinessTransactionJournalService;
                 $journalEntry = $journalService->createInvoiceSaleJournal($invoice, $userId);
             } catch (\Exception $e) {
-                Log::error('Failed to create journal entry for ZATCA invoice: ' . $e->getMessage());
+                Log::error('Failed to create journal entry for ZATCA invoice: '.$e->getMessage());
                 throw $e;
             }
 
@@ -1102,7 +1108,7 @@ class InvoiceController extends Controller
                         ]);
                     }
                 } catch (\Exception $e) {
-                    Log::error('Failed to create payment journal entry for ZATCA invoice: ' . $e->getMessage());
+                    Log::error('Failed to create payment journal entry for ZATCA invoice: '.$e->getMessage());
                     // Continue with other payments even if one fails
                 }
             }
@@ -1124,7 +1130,7 @@ class InvoiceController extends Controller
             return true;
 
         } catch (Exception $e) {
-            Log::error('Error sending invoice to ZATCA internally: ' . $e->getMessage());
+            Log::error('Error sending invoice to ZATCA internally: '.$e->getMessage());
             throw $e;
         }
     }
@@ -1140,8 +1146,8 @@ class InvoiceController extends Controller
         $invoicePrefix = getGeneralSettingsInfo()['invoicePrefix'] ?? 'INV';
 
         // Get the last invoice to determine the next number
-        $lastInvoice = Invoice::where('invoice_no', 'like', $invoicePrefix . '%')
-            ->orderByRaw('CAST(SUBSTRING(invoice_no, ' . (strlen($invoicePrefix) + 1) . ') AS UNSIGNED) DESC')
+        $lastInvoice = Invoice::where('invoice_no', 'like', $invoicePrefix.'%')
+            ->orderByRaw('CAST(SUBSTRING(invoice_no, '.(strlen($invoicePrefix) + 1).') AS UNSIGNED) DESC')
             ->first();
 
         if ($lastInvoice) {
@@ -1154,6 +1160,6 @@ class InvoiceController extends Controller
         }
 
         // Format the number with leading zeros (e.g., 001, 002, etc.)
-        return $invoicePrefix . str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
+        return $invoicePrefix.str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
     }
 }

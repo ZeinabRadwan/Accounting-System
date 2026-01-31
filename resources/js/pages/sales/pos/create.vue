@@ -515,12 +515,17 @@
           </div>
           <template v-else>
             <div class="col-12 col-lg-3 mb-2">
-              <button class="btn btn-primary btn-block pos-btn" @click="saveInvoice" @keydown="form.onKeydown($event)">
-                <i class="fas fa-save" /> {{ $t("Save") }}
+              <button class="btn btn-primary btn-block pos-btn" @click="saveInvoice(true, false)" @keydown="form.onKeydown($event)">
+                <i class="fas fa-save" /> {{ $t("Save & Print") }}
               </button>
             </div>
             <div class="col-12 col-lg-3 mb-2">
-              <button class="btn btn-primary btn-block pos-btn" @click="completeOrderAndAddPayment">
+              <button class="btn btn-primary btn-block pos-btn" @click="saveInvoice(false, false)" @keydown="form.onKeydown($event)">
+                <i class="fas fa-file-alt" /> {{ $t("Save Only") }}
+              </button>
+            </div>
+            <div class="col-12 col-lg-3 mb-2">
+              <button class="btn btn-primary btn-block pos-btn" @click="saveInvoice(false, true)" @keydown="form.onKeydown($event)">
                 <i class="fas fa-credit-card" />
                 {{ $t("Save & Payment") }}
               </button>
@@ -800,10 +805,13 @@
       </div>
       <div class="payment-modal-footer" slot="modal-footer">
         <div class="pos-modal-footer no-print">
-          <button class="btn btn-primary" @click="addPayment" @keydown="form.onKeydown($event)">
-            <i class="fas fa-save" /> {{ $t("Save") }}
+          <button class="btn btn-primary" @click="addPayment" @keydown="form.onKeydown($event)"
+            :disabled="paymentSubmitting">
+            <i v-if="paymentSubmitting" class="fas fa-spinner fa-spin" /> <i v-else class="fas fa-save" />
+            {{ paymentSubmitting ? $t("Processing...") : $t("Save") }}
           </button>
-          <button class="modal-default-button btn btn-danger" @click="closeModalAndClearFormData">
+          <button class="modal-default-button btn btn-danger" @click="closeModalAndClearFormData"
+            :disabled="paymentSubmitting">
             {{ $t("Close") }}
           </button>
         </div>
@@ -1097,6 +1105,7 @@ export default {
     productPrefix: "",
     invoicePrefix: "",
     showModal: false,
+    paymentSubmitting: false,
     allData: {},
     showSmallInvoiceModal: false,
     showFilters: false,
@@ -1650,11 +1659,23 @@ export default {
       this.subCategories = data.data;
     },
 
+    // Return true only when slug is a non-empty string that is not "null" or "undefined"
+    isValidInvoiceSlug(slug) {
+      if (slug == null) return false;
+      const s = String(slug).trim();
+      return s.length > 0 && s !== 'null' && s !== 'undefined';
+    },
+
     // get the invoice info by invoice slug
     async getInvoice(invoice_slug) {
+      if (!this.isValidInvoiceSlug(invoice_slug)) {
+        this.loading = false;
+        return;
+      }
+      const slug = String(invoice_slug).trim();
       this.loading = true;
       const { data } = await axios.get(
-        window.location.origin + "/api/invoices/" + invoice_slug
+        window.location.origin + "/api/invoices/" + slug
       );
       this.allData = data.data;
       this.invoiceProducts = this.allData.invoiceProducts;
@@ -2426,7 +2447,9 @@ export default {
     },
 
     // save invoice
-    async saveInvoice(isDirect = true) {
+    // print: true = show receipt and print after save; false = don't show print
+    // openPayment: true = keep current tab and open Add Payment modal with pre-filled amount/account
+    async saveInvoice(print = true, openPayment = false) {
       // Save current invoice state before saving
       this.saveInvoiceState();
 
@@ -2483,6 +2506,12 @@ export default {
       // Ensure transportCost is set
       this.form.transportCost = this.form.transportCost || 0;
 
+      // Saudi Arabia: create invoice as inactive (0) so it can be sent to ZATCA (same as invoices create)
+      const previousStatus = this.form.status;
+      if (this.isSaudiArabia) {
+        this.form.status = 0;
+      }
+
       await this.form
         .post(window.location.origin + "/api/invoices")
         .then(async ({ data }) => {
@@ -2490,11 +2519,40 @@ export default {
           this.form.invoice_slug = data.data.invoice_slug;
           this.clearTemporaryData();
 
-          // Remove saved invoice from tabs
+          // Send to ZATCA if in Saudi Arabia (for all save flows)
+          if (this.isSaudiArabia) {
+            try {
+              await this.sendInvoiceToZatca(this.form.invoice_slug);
+            } catch (error) {
+              this.$toast.error(
+                this.$t("ZATCA Error"),
+                this.$t("Invoice created but failed to send to ZATCA. Please try sending manually.")
+              );
+            }
+          }
+
+          if (openPayment) {
+            // Save & Payment: keep current tab, pre-fill payment modal, open it (no tab switch yet)
+            const netTotal = data.data.netTotal != null ? data.data.netTotal : this.form.netTotal;
+            this.form.netTotal = this.roundToTwoDecimals(Number(netTotal));
+            this.form.paidAmount = this.form.netTotal.toFixed(2);
+            if (this.accounts && this.accounts.length > 0 && !this.form.account) {
+              this.form.account = this.accounts[0];
+            }
+            this.showModal = true;
+            this.$nextTick(() => {
+              if (this.$refs.paidAmountInput) {
+                this.$refs.paidAmountInput.focus();
+              }
+            });
+            return;
+          }
+
+          // Save & Print or Save Only: remove saved invoice from tabs and switch
           if (this.invoices.length > 0 && this.currentInvoiceIndex >= 0) {
             const savedIndex = this.currentInvoiceIndex;
             const invoiceToSave = this.invoices[savedIndex];
-            
+
             // Close session via API BEFORE removing from array
             if (invoiceToSave?.session_id) {
               try {
@@ -2503,60 +2561,44 @@ export default {
                 console.error('Error saving session:', error);
               }
             }
-            
+
             // Determine which invoice to switch to after removing
             let targetIndex = -1;
             if (this.invoices.length > 1) {
-              // If there are other invoices, switch to the next available one
               if (savedIndex > 0) {
-                // Switch to previous invoice
                 targetIndex = savedIndex - 1;
               } else {
-                // Switch to next invoice (index 1, since we're removing index 0)
-                targetIndex = 0; // Will become 0 after removal
+                targetIndex = 0;
               }
             }
 
-            // Remove the saved invoice from the array
             this.invoices.splice(savedIndex, 1);
 
-            // Switch to target invoice or create new one
             if (this.invoices.length > 0 && targetIndex >= 0) {
-              // Adjust index if needed
               if (targetIndex >= this.invoices.length) {
                 targetIndex = this.invoices.length - 1;
               }
               this.currentInvoiceIndex = targetIndex;
               this.restoreInvoiceState(this.invoices[targetIndex]);
             } else {
-              // No invoices remain, create a new empty invoice
               this.initializeFirstInvoice();
             }
           } else {
-            // If no invoices in session, ensure we have at least one
             if (this.invoices.length === 0) {
               this.initializeFirstInvoice();
             }
           }
 
-          if (isDirect) {
-            // Send to ZATCA if in Saudi Arabia and this is a direct save
-            if (this.isSaudiArabia) {
-              try {
-                await this.sendInvoiceToZatca(this.form.invoice_slug);
-              } catch (error) {
-                console.error('Failed to send invoice to ZATCA:', error);
-                // Show error but don't block the flow
-                this.$toast.error(
-                  this.$t("ZATCA Error"),
-                  this.$t("Invoice created but failed to send to ZATCA. Please try sending manually.")
-                );
-              }
-            }
+          if (print) {
             this.showInvoiceAndPrint();
+          } else {
+            this.$toast.success(this.$t("Invoice saved"), this.$t("Invoice saved successfully."));
           }
         })
         .catch((error) => {
+          if (this.isSaudiArabia && previousStatus !== undefined) {
+            this.form.status = previousStatus;
+          }
           const ErrorHandler = require("~/utils/errorHandler").default;
           ErrorHandler.handleApiError(error, {
             showValidationErrors: false,
@@ -2564,55 +2606,75 @@ export default {
         });
     },
 
-    // save payment
+    // save payment (apply payment to invoice; update inventory and balances via API)
     async addPayment() {
-      if (this.form.invoice_id != null) {
-        // Create FormData for file upload
-        const formData = new FormData();
-
-        // Add basic form fields manually to avoid nested object issues
-        formData.append('account', JSON.stringify(this.form.account));
-        formData.append('paidAmount', this.form.paidAmount);
-        formData.append('chequeNo', this.form.chequeNo || '');
-        formData.append('receiptNo', this.form.receiptNo || '');
-        formData.append('date', this.form.date);
-        formData.append('note', this.form.note || '');
-        formData.append('reference', this.form.reference || '');
-        formData.append('poReference', this.form.poReference || '');
-        formData.append('paymentTerms', this.form.paymentTerms || '');
-        formData.append('deliveryPlace', this.form.deliveryPlace || '');
-        formData.append('status', this.form.status);
-        formData.append('netTotal', this.form.netTotal);
-
-        // Add the invoice_id
-        formData.append('invoice_id', this.form.invoice_id);
-
-        // Handle file attachment
-        if (this.form.attachment) {
-          formData.append('attachment', this.form.attachment);
-        }
-
-        await axios
-          .post(window.location.origin + "/api/invoices-pay", formData, {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          })
-          .then(async () => {
-            this.showModal = false;
-            await this.showInvoiceAndPrint();
-            this.form.reset();
-            this.againDefaultSettings();
-          })
-          .catch((error) => {
-            const ErrorHandler = require("~/utils/errorHandler").default;
-            ErrorHandler.handleApiError(error, {
-              showValidationErrors: false,
-            });
-          });
-      } else {
+      if (this.form.invoice_id == null) {
         const ErrorHandler = require("~/utils/errorHandler").default;
         ErrorHandler.showError(this.$t("Error"), this.$t("Please try again"));
+        return;
+      }
+      if (this.paymentSubmitting) {
+        return;
+      }
+      this.paymentSubmitting = true;
+
+      const formData = new FormData();
+      formData.append('account', JSON.stringify(this.form.account));
+      formData.append('paidAmount', this.form.paidAmount);
+      formData.append('chequeNo', this.form.chequeNo || '');
+      formData.append('receiptNo', this.form.receiptNo || '');
+      formData.append('date', this.form.date);
+      formData.append('note', this.form.note || '');
+      formData.append('reference', this.form.reference || '');
+      formData.append('poReference', this.form.poReference || '');
+      formData.append('paymentTerms', this.form.paymentTerms || '');
+      formData.append('deliveryPlace', this.form.deliveryPlace || '');
+      formData.append('status', this.form.status);
+      formData.append('netTotal', this.form.netTotal);
+      formData.append('invoice_id', this.form.invoice_id);
+      if (this.form.attachment) {
+        formData.append('attachment', this.form.attachment);
+      }
+
+      try {
+        await axios.post(window.location.origin + "/api/invoices-pay", formData, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        });
+        const slug = this.form.invoice_slug;
+        this.showModal = false;
+
+        // Remove the paid invoice tab (Save & Payment flow keeps tab until payment is done)
+        if (this.invoices.length > 0 && this.currentInvoiceIndex >= 0) {
+          const savedIndex = this.currentInvoiceIndex;
+          if (this.invoices[savedIndex]?.session_id) {
+            try {
+              await axios.post(`/api/pos/sessions/${this.invoices[savedIndex].session_id}/save`);
+            } catch (e) {
+              // ignore
+            }
+          }
+          this.invoices.splice(savedIndex, 1);
+          if (this.invoices.length > 0) {
+            const targetIndex = savedIndex > 0 ? savedIndex - 1 : 0;
+            this.currentInvoiceIndex = Math.min(targetIndex, this.invoices.length - 1);
+            this.restoreInvoiceState(this.invoices[this.currentInvoiceIndex]);
+          } else {
+            this.initializeFirstInvoice();
+          }
+        }
+
+        if (this.isValidInvoiceSlug(slug)) {
+          await this.getInvoice(slug);
+          this.showSmallInvoiceModal = true;
+        }
+        this.form.reset();
+        this.againDefaultSettings();
+        this.getProducts();
+      } catch (error) {
+        const ErrorHandler = require("~/utils/errorHandler").default;
+        ErrorHandler.handleApiError(error, { showValidationErrors: false });
+      } finally {
+        this.paymentSubmitting = false;
       }
     },
 
@@ -2693,39 +2755,21 @@ export default {
       console.log("from close" + this.clickCount);
     },
 
-    // complete order and add payment
+    // Complete order and open Add Payment modal (save then open modal with pre-filled amount/account)
     async completeOrderAndAddPayment() {
-      await this.saveInvoice(false);
-      if (this.form.invoice_id != null) {
-        // Send to ZATCA before showing payment modal if in Saudi Arabia
-        if (this.isSaudiArabia) {
-          try {
-            await this.sendInvoiceToZatca(this.form.invoice_slug);
-          } catch (error) {
-            console.error('Failed to send invoice to ZATCA:', error);
-            // Show error but don't block the flow
-            this.$toast.error(
-              this.$t("ZATCA Error"),
-              this.$t("Invoice created but failed to send to ZATCA. Please try sending manually.")
-            );
-          }
-        }
-
-        this.showModal = true;
-        this.form.paidAmount = this.form.netTotal.toFixed(2);
-
-        this.$nextTick(() => this.$refs.paidAmountInput.focus());
-      }
+      await this.saveInvoice(false, true);
     },
 
     // show invoice and print
     async showInvoiceAndPrint() {
-      await this.getInvoice(this.form.invoice_slug);
+      const slug = this.form.invoice_slug;
+      if (this.isValidInvoiceSlug(slug)) {
+        await this.getInvoice(slug);
+        this.showSmallInvoiceModal = true;
+      }
       this.form.reset();
       this.againDefaultSettings();
       this.getProducts();
-
-      this.showSmallInvoiceModal = true;
     },
 
     // print invoice
@@ -3764,11 +3808,11 @@ export default {
     },
 
     async searchInvoiceInModal() {
-      // Trim and validate input
       const searchTerm = this.modalInvoiceSearchQuery ? this.modalInvoiceSearchQuery.trim() : '';
-      
-      if (!searchTerm || searchTerm === '') {
+
+      if (!searchTerm) {
         this.modalInvoiceSearchError = this.$t('Please enter an invoice number');
+        this.modalSearchedInvoice = null;
         return;
       }
 
@@ -3777,10 +3821,8 @@ export default {
       this.modalSearchedInvoice = null;
 
       try {
-        // Use a very high perPage value to effectively remove pagination
         let invoices = [];
-        
-        // First, try the search endpoint
+
         const searchResponse = await axios.get('/api/invoices/search', {
           params: {
             term: searchTerm,
@@ -3788,16 +3830,18 @@ export default {
           },
         });
 
-        // Handle paginated response structure
-        if (searchResponse.data) {
-          if (searchResponse.data.data && Array.isArray(searchResponse.data.data)) {
+        if (searchResponse && searchResponse.data) {
+          if (Array.isArray(searchResponse.data.data)) {
             invoices = searchResponse.data.data;
           } else if (Array.isArray(searchResponse.data)) {
             invoices = searchResponse.data;
           }
         }
 
-        // If search returns empty, try index endpoint with term filter
+        if (!Array.isArray(invoices)) {
+          invoices = [];
+        }
+
         if (invoices.length === 0) {
           try {
             const indexResponse = await axios.get('/api/invoices', {
@@ -3806,21 +3850,20 @@ export default {
                 perPage: 9999,
               },
             });
-            
-            if (indexResponse.data) {
-              if (indexResponse.data.data && Array.isArray(indexResponse.data.data)) {
+
+            if (indexResponse && indexResponse.data) {
+              if (Array.isArray(indexResponse.data.data)) {
                 invoices = indexResponse.data.data;
               } else if (Array.isArray(indexResponse.data)) {
                 invoices = indexResponse.data;
               }
             }
           } catch (indexError) {
-            // Ignore index endpoint errors
-            console.log('Index endpoint fallback failed:', indexError);
+            // Fallback failed; keep invoices empty and show not-found below
           }
         }
 
-        if (invoices && invoices.length > 0) {
+        if (invoices.length > 0) {
           // Normalize search term (case-insensitive, trim)
           const normalizedSearchTerm = searchTerm.toUpperCase().trim();
           
@@ -3877,17 +3920,19 @@ export default {
           }
 
           if (matchedInvoice) {
-            // Load full invoice details
-            try {
-              const detailResponse = await axios.get(`/api/invoices/${matchedInvoice.slug}`);
-              if (detailResponse.data && detailResponse.data.data) {
-                this.modalSearchedInvoice = detailResponse.data.data;
-                this.modalInvoiceSearchError = '';
-              } else {
+            if (matchedInvoice.slug) {
+              try {
+                const detailResponse = await axios.get(`/api/invoices/${matchedInvoice.slug}`);
+                if (detailResponse.data && detailResponse.data.data) {
+                  this.modalSearchedInvoice = detailResponse.data.data;
+                  this.modalInvoiceSearchError = '';
+                } else {
+                  this.modalSearchedInvoice = matchedInvoice;
+                }
+              } catch (detailError) {
                 this.modalSearchedInvoice = matchedInvoice;
               }
-            } catch (detailError) {
-              // If detail fetch fails, use the matched invoice from search
+            } else {
               this.modalSearchedInvoice = matchedInvoice;
             }
           } else {
@@ -3897,11 +3942,10 @@ export default {
           this.modalInvoiceSearchError = this.$t('Invoice not found. Please check the invoice number.');
         }
       } catch (error) {
-        console.error('Error searching invoice in modal:', error);
-        this.modalInvoiceSearchError = this.$t('Error searching invoice. Please try again.');
-        if (error.response && error.response.data && error.response.data.message) {
-          this.modalInvoiceSearchError = error.response.data.message;
-        }
+        this.modalInvoiceSearchError =
+          (error.response && error.response.data && error.response.data.message)
+            ? error.response.data.message
+            : this.$t('Error searching invoice. Please try again.');
       } finally {
         this.isSearchingInvoiceInModal = false;
       }
