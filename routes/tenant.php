@@ -592,6 +592,7 @@ Route::middleware([
         // Product routes
         Route::get('/products/search', [ProductController::class, 'search']);
         Route::get('/products/search-from-pos', [ProductController::class, 'searchFromPos']);
+        Route::get('/products/by-barcode/{barcode}', [ProductController::class, 'getByBarcode']);
         Route::get('/products/chart-of-accounts', [ProductController::class, 'getChartOfAccounts']);
         Route::post('/products/{slug}/auto-assign-chart-of-account', [ProductController::class, 'autoAssignChartOfAccount']);
         Route::post('/products/{slug}/{type}/auto-assign-chart-of-account', [ProductController::class, 'autoAssignChartOfAccount']);

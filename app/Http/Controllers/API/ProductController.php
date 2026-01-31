@@ -110,6 +110,7 @@ class ProductController extends Controller
         $hasBaseUnit = collect($request->unit_conversions ?? [])->contains(function ($row) use ($baseUnitId) {
             $uid = is_array($row['unit_id'] ?? null) ? ($row['unit_id']['id'] ?? $row['unit_id']) : ($row['unit_id'] ?? null);
             $factor = (float) ($row['conversion_factor'] ?? 0);
+
             return (int) $uid === (int) $baseUnitId && abs($factor - 1.0) < 0.0001;
         });
         if (! $hasBaseUnit) {
@@ -328,7 +329,7 @@ class ProductController extends Controller
                     },
                     'purchaseProducts.purchase' => function ($query) {
                         // Load purchase relationship without status filter
-                    }
+                    },
                 ])
                 ->first();
             if (! $product && is_numeric($identifier)) {
@@ -345,7 +346,7 @@ class ProductController extends Controller
                         },
                         'purchaseProducts.purchase' => function ($query) {
                             // Load purchase relationship without status filter
-                        }
+                        },
                     ])
                     ->first();
             }
@@ -407,6 +408,7 @@ class ProductController extends Controller
         $hasBaseUnit = collect($request->unit_conversions ?? [])->contains(function ($row) use ($baseUnitId) {
             $uid = is_array($row['unit_id'] ?? null) ? ($row['unit_id']['id'] ?? $row['unit_id']) : ($row['unit_id'] ?? null);
             $factor = (float) ($row['conversion_factor'] ?? 0);
+
             return (int) $uid === (int) $baseUnitId && abs($factor - 1.0) < 0.0001;
         });
         if (! $hasBaseUnit) {
@@ -703,29 +705,54 @@ class ProductController extends Controller
     }
 
     /**
+     * Find a product by barcode (exact match on code).
+     * Used by POS for barcode scanning and manual entry.
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Resources\Json\JsonResource
+     */
+    public function getByBarcode(string $barcode)
+    {
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
+
+        $product = Product::with('proSubCategory.category', 'productTax')
+            ->whereIn('branch_id', $branchIds)
+            ->where('code', $barcode)
+            ->first();
+
+        if (! $product) {
+            return response()->json([
+                'success' => false,
+                'message' => __('Product not found'),
+            ], 404);
+        }
+
+        return new ProductSelectResource($product);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     /**
      * Get weighted average cost for a product
-     * 
-     * @param int $id Product ID
-     * @param Request $request
+     *
+     * @param  int  $id  Product ID
      * @return \Illuminate\Http\JsonResponse
      */
     public function getWeightedAverageCost($id, Request $request)
     {
         try {
             $product = Product::find($id);
-            if (!$product) {
+            if (! $product) {
                 return $this->responseWithError('Product not found');
             }
 
             $branchId = $request->branch_id ?? (Auth::user()->default_branch_id ?? null);
             $asOfDate = $request->as_of_date ?? null;
 
-            $costService = new \App\Services\InventoryCostService();
+            $costService = new \App\Services\InventoryCostService;
             $weightedAvgCost = $costService->getWeightedAverageCost($product->id, $branchId, $asOfDate);
 
             return $this->responseWithSuccess('Weighted average cost calculated', [

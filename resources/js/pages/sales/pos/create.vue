@@ -271,6 +271,9 @@
                 <template #cell-name="{ row }">
                   <span class="table-product-title" v-tooltip="row.name">
                     {{ row.name }}
+                    <span v-if="row.id === lastScannedProductId" class="badge badge-success ml-1 pos-scanned-badge">
+                      {{ $t("New") }}
+                    </span>
                   </span>
                 </template>
 
@@ -580,6 +583,32 @@
                     </div>
                   </li>
                 </ul>
+              </div>
+            </div>
+          </div>
+
+          <div v-if="!isInvoiceReturnMode && products" class="pos-barcode-row px-3 pt-2 pb-0">
+            <label class="pos-section-label mb-1">{{ $t("Barcode") }}</label>
+            <div class="input-group">
+              <input
+                ref="barcodeInputRef"
+                v-model="barcodeInput"
+                type="text"
+                class="form-control"
+                :placeholder="$t('Scan or enter barcode')"
+                :disabled="barcodeLoading"
+                @keyup.enter="onBarcodeSubmit"
+              />
+              <div class="input-group-append">
+                <button
+                  type="button"
+                  class="btn btn-outline-primary"
+                  :disabled="barcodeLoading || !barcodeInputTrimmed"
+                  @click="onBarcodeSubmit"
+                >
+                  <i v-if="barcodeLoading" class="fas fa-spinner fa-spin"></i>
+                  <i v-else class="fas fa-barcode"></i>
+                </button>
               </div>
             </div>
           </div>
@@ -1117,6 +1146,10 @@ export default {
       availableBalance: 0,
       receiptNo: '',
     }),
+    // Barcode scan / manual entry
+    barcodeInput: '',
+    barcodeLoading: false,
+    lastScannedProductId: null,
   }),
   computed: {
     ...mapGetters("operations", ["items", "appInfo"]),
@@ -1124,6 +1157,10 @@ export default {
     // Check if country is Saudi Arabia or not selected (default to Saudi Arabia)
     isSaudiArabia() {
       return !this.appInfo?.country || this.appInfo.country === 'SA';
+    },
+
+    barcodeInputTrimmed() {
+      return (this.barcodeInput || '').trim();
     },
 
     // Calculate subtotal from products (sum of salePrice × quantity) - this is the base subtotal before any discounts or taxes
@@ -1802,6 +1839,61 @@ export default {
     async reload() {
       this.query = "";
       await this.searchProducts();
+    },
+
+    onBarcodeSubmit() {
+      const barcode = this.barcodeInputTrimmed;
+      if (!barcode) {
+        return;
+      }
+      this.findProductByBarcode(barcode);
+    },
+
+    async findProductByBarcode(barcode) {
+      const trimmed = (barcode || '').trim();
+      if (!trimmed) {
+        return;
+      }
+      this.barcodeLoading = true;
+      try {
+        const { data } = await axios.get(
+          window.location.origin + "/api/products/by-barcode/" + encodeURIComponent(trimmed)
+        );
+        const product = data.data || data;
+        if (product && product.id) {
+          await this.storeProduct(product);
+          this.lastScannedProductId = product.id;
+          this.barcodeInput = "";
+          this.$nextTick(() => {
+            if (this.$refs.barcodeInputRef) {
+              this.$refs.barcodeInputRef.focus();
+            }
+          });
+          const self = this;
+          setTimeout(() => {
+            self.lastScannedProductId = null;
+          }, 2500);
+        } else {
+          toast.fire({
+            type: "error",
+            title: this.$t("Product not found"),
+            text: this.$t("No product found for this barcode."),
+          });
+          this.barcodeInput = "";
+        }
+      } catch (err) {
+        const message = err.response && err.response.data && err.response.data.message
+          ? err.response.data.message
+          : this.$t("Product not found");
+        toast.fire({
+          type: "error",
+          title: this.$t("Product not found"),
+          text: message,
+        });
+        this.barcodeInput = "";
+      } finally {
+        this.barcodeLoading = false;
+      }
     },
 
     // store item in array
@@ -4937,6 +5029,27 @@ export default {
 
 .pos-item-grid-red {
   border-color: red !important;
+}
+
+.pos-barcode-row .input-group {
+  max-width: 100%;
+}
+
+.pos-scanned-badge {
+  font-size: 0.7rem;
+  animation: pos-scanned-fade 2.5s ease-out;
+}
+
+@keyframes pos-scanned-fade {
+  0% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.6;
+  }
 }
 
 .card-client-search {

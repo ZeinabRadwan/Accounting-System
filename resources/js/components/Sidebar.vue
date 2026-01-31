@@ -1318,6 +1318,7 @@
               $can('product-view') ||
               $can('product-edit') ||
               $can('product-delete') ||
+              $can('print-barcode') ||
               $can('inventory-view')
             "
             class="nav-item has-treeview"
@@ -1401,6 +1402,12 @@
                 <router-link :to="{ name: 'products.index' }" class="nav-link">
                   <i class="fas fa-list-ul nav-icon" />
                   <p>{{ $t("Items") }}</p>
+                </router-link>
+              </li>
+              <li v-if="$can('print-barcode')" class="nav-item">
+                <router-link :to="{ name: 'barcode.print' }" class="nav-link">
+                  <i class="fas fa-barcode nav-icon" />
+                  <p>{{ $t("Barcode") }}</p>
                 </router-link>
               </li>
               <li v-if="$can('inventory-view')" class="nav-item">

@@ -348,7 +348,7 @@ var aCallable = __webpack_require__(79306);
 var newPromiseCapabilityModule = __webpack_require__(36043);
 var perform = __webpack_require__(1103);
 var iterate = __webpack_require__(72652);
-var PROMISE_STATICS_INCORRECT_ITERATION = __webpack_require__(12918);
+var PROMISE_STATICS_INCORRECT_ITERATION = __webpack_require__(90537);
 
 // `Promise.race` method
 // https://tc39.es/ecma262/#sec-promise.race
@@ -881,22 +881,6 @@ module.exports = !fails(function () {
 
 /***/ }),
 
-/***/ 12918:
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-"use strict";
-
-var NativePromiseConstructor = __webpack_require__(80550);
-var checkCorrectnessOfIteration = __webpack_require__(84428);
-var FORCED_PROMISE_CONSTRUCTOR = (__webpack_require__(10916).CONSTRUCTOR);
-
-module.exports = FORCED_PROMISE_CONSTRUCTOR || !checkCorrectnessOfIteration(function (iterable) {
-  NativePromiseConstructor.all(iterable).then(undefined, function () { /* empty */ });
-});
-
-
-/***/ }),
-
 /***/ 13491:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
@@ -966,7 +950,7 @@ var aCallable = __webpack_require__(79306);
 var newPromiseCapabilityModule = __webpack_require__(36043);
 var perform = __webpack_require__(1103);
 var iterate = __webpack_require__(72652);
-var PROMISE_STATICS_INCORRECT_ITERATION = __webpack_require__(12918);
+var PROMISE_STATICS_INCORRECT_ITERATION = __webpack_require__(90537);
 
 // `Promise.all` method
 // https://tc39.es/ecma262/#sec-promise.all
@@ -12199,6 +12183,22 @@ module.exports = function (KEY, exec, FORCED, SHAM) {
 
   if (SHAM) createNonEnumerableProperty(RegExpPrototype[SYMBOL], 'sham', true);
 };
+
+
+/***/ }),
+
+/***/ 90537:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+var NativePromiseConstructor = __webpack_require__(80550);
+var checkCorrectnessOfIteration = __webpack_require__(84428);
+var FORCED_PROMISE_CONSTRUCTOR = (__webpack_require__(10916).CONSTRUCTOR);
+
+module.exports = FORCED_PROMISE_CONSTRUCTOR || !checkCorrectnessOfIteration(function (iterable) {
+  NativePromiseConstructor.all(iterable).then(undefined, function () { /* empty */ });
+});
 
 
 /***/ }),

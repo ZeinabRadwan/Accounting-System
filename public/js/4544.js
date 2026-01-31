@@ -1313,11 +1313,11 @@ var dist = __webpack_require__(12616);
 // EXTERNAL MODULE: ./resources/js/components/ClientCreateModal.vue + 5 modules
 var ClientCreateModal = __webpack_require__(4832);
 // EXTERNAL MODULE: ./resources/js/components/ProductCreateModal.vue + 17 modules
-var ProductCreateModal = __webpack_require__(25539);
+var ProductCreateModal = __webpack_require__(98187);
 // EXTERNAL MODULE: ./resources/js/components/StockAdjustmentModal.vue + 6 modules
 var StockAdjustmentModal = __webpack_require__(75528);
 // EXTERNAL MODULE: ./resources/js/components/ItemsTable.vue + 5 modules
-var ItemsTable = __webpack_require__(31961);
+var ItemsTable = __webpack_require__(95188);
 // EXTERNAL MODULE: ./resources/js/mixins/RTLMixin.js
 var RTLMixin = __webpack_require__(64744);
 // EXTERNAL MODULE: ./node_modules/to-words/dist/ToWords.js
@@ -3724,6 +3724,25 @@ var component = (0,componentNormalizer/* default */.A)(
 
 /***/ }),
 
+/***/ 7005:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".items-table-wrapper[data-v-135c5da7]{display:block;margin-left:0;margin-right:0;width:100%}.table-custom[data-v-135c5da7]{-webkit-overflow-scrolling:touch;border:none!important;overflow-x:auto;overflow-y:visible;width:100%}.table-custom table[data-v-135c5da7]{border-collapse:separate;border-spacing:0;height:100%;min-width:100%;table-layout:auto;width:100%}.table-custom table thead th[data-v-135c5da7]{background-color:#33a0d9;border:none!important;border-color:inherit!important;color:#fff;font-weight:400;padding:8px}.table-custom table thead tr[data-v-135c5da7]{border:none!important}.table-custom table thead th[data-v-135c5da7]:first-child{border-top-left-radius:10px}.table-custom table thead th[data-v-135c5da7]:last-child{border-top-right-radius:10px}[dir=rtl] .table-custom table thead th[data-v-135c5da7]:first-child{border-top-left-radius:0;border-top-right-radius:10px}[dir=rtl] .table-custom table thead th[data-v-135c5da7]:last-child{border-top-left-radius:10px;border-top-right-radius:0}.custom-qty-input[data-v-135c5da7]{align-items:center;display:flex;margin:0 auto;width:-moz-fit-content;width:fit-content}.button-minus[data-v-135c5da7],.button-plus[data-v-135c5da7]{align-items:center;border:none;border-radius:50%;cursor:pointer;display:flex;font-size:14px;font-weight:700;height:30px;justify-content:center;transition:all .2s ease;width:30px}.button-minus[data-v-135c5da7]{background-color:#dc3545;color:#fff}.button-plus[data-v-135c5da7]{background-color:#007bff;color:#fff}.button-minus[data-v-135c5da7]:hover{background-color:#c82333;transform:scale(1.05)}.button-plus[data-v-135c5da7]:hover{background-color:#0056b3;transform:scale(1.05)}.quantity-field[data-v-135c5da7]{border:1px solid #ced4da;border-radius:5px;margin:0 5px;padding:5px;text-align:center;width:60px}.quantity-field[data-v-135c5da7]:focus{border-color:#007bff;box-shadow:0 0 0 .2rem rgba(0,123,255,.25);outline:none}.clickable-badge[data-v-135c5da7]{cursor:pointer;transition:all .3s ease;-webkit-user-select:none;-moz-user-select:none;user-select:none}.clickable-badge[data-v-135c5da7]:hover{background-color:#c82333!important;box-shadow:0 2px 4px rgba(220,53,69,.3);transform:scale(1.05)}.clickable-badge[data-v-135c5da7]:active{transform:scale(.95)}.insufficient-stock-input[data-v-135c5da7]{background-color:#fff5f5!important;border:2px solid #dc3545!important;color:#dc3545!important}.insufficient-stock-input[data-v-135c5da7]:focus{border-color:#dc3545!important;box-shadow:0 0 0 .2rem rgba(220,53,69,.25)!important}.table-custom table .badge.badge-danger[data-v-135c5da7]{background:#fef4f4!important;color:#dc3545!important;font-size:12px!important;font-weight:500!important;padding:10px 16px}.table-custom table td.auto-width[data-v-135c5da7]{min-width:0;white-space:nowrap;width:auto}.table-custom table td.fixed-qty-column[data-v-135c5da7]{min-width:200px;width:auto}.table-custom table td.fixed-discount-column[data-v-135c5da7]{min-width:180px;width:auto}.table-custom table td.fixed-vat-column[data-v-135c5da7]{min-width:150px;width:auto}@media (max-width:768px){.table-custom[data-v-135c5da7]{-webkit-overflow-scrolling:touch;display:block;overflow-x:auto;width:100%}.table-custom table[data-v-135c5da7]{display:block;min-width:-moz-fit-content;min-width:fit-content;width:100%}.table-custom table thead[data-v-135c5da7]{display:table-header-group}.table-custom table tbody[data-v-135c5da7]{display:table-row-group}.table-custom table tr[data-v-135c5da7]{display:table-row}.table-custom table td[data-v-135c5da7],.table-custom table th[data-v-135c5da7]{display:table-cell;white-space:nowrap}.table-custom table td.fixed-qty-column[data-v-135c5da7]{min-width:200px}.table-custom table td.fixed-discount-column[data-v-135c5da7]{min-width:180px}.table-custom table td.fixed-vat-column[data-v-135c5da7]{min-width:150px}}@media (max-width:576px){.table-custom table[data-v-135c5da7]{min-width:-moz-fit-content;min-width:fit-content}.table-custom table tbody td[data-v-135c5da7],.table-custom table thead th[data-v-135c5da7]{font-size:12px;padding:6px 4px}}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ 8550:
 /***/ ((__unused_webpack_module, exports) => {
 
@@ -4076,7 +4095,7 @@ exports["default"] = Locale;
 
 /***/ }),
 
-/***/ 25183:
+/***/ 25331:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -4088,14 +4107,3561 @@ exports["default"] = Locale;
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".items-table-wrapper[data-v-7f512fbf]{display:block;margin-left:0;margin-right:0;width:100%}.table-custom[data-v-7f512fbf]{-webkit-overflow-scrolling:touch;border:none!important;overflow-x:auto;overflow-y:visible;width:100%}.table-custom table[data-v-7f512fbf]{border-collapse:separate;border-spacing:0;height:100%;min-width:100%;table-layout:auto;width:100%}.table-custom table thead th[data-v-7f512fbf]{background-color:#33a0d9;border:none!important;border-color:inherit!important;color:#fff;font-weight:400;padding:8px}.table-custom table thead tr[data-v-7f512fbf]{border:none!important}.table-custom table thead th[data-v-7f512fbf]:first-child{border-top-left-radius:10px}.table-custom table thead th[data-v-7f512fbf]:last-child{border-top-right-radius:10px}[dir=rtl] .table-custom table thead th[data-v-7f512fbf]:first-child{border-top-left-radius:0;border-top-right-radius:10px}[dir=rtl] .table-custom table thead th[data-v-7f512fbf]:last-child{border-top-left-radius:10px;border-top-right-radius:0}.custom-qty-input[data-v-7f512fbf]{align-items:center;display:flex;margin:0 auto;width:-moz-fit-content;width:fit-content}.button-minus[data-v-7f512fbf],.button-plus[data-v-7f512fbf]{align-items:center;border:none;border-radius:50%;cursor:pointer;display:flex;font-size:14px;font-weight:700;height:30px;justify-content:center;transition:all .2s ease;width:30px}.button-minus[data-v-7f512fbf]{background-color:#dc3545;color:#fff}.button-plus[data-v-7f512fbf]{background-color:#007bff;color:#fff}.button-minus[data-v-7f512fbf]:hover{background-color:#c82333;transform:scale(1.05)}.button-plus[data-v-7f512fbf]:hover{background-color:#0056b3;transform:scale(1.05)}.quantity-field[data-v-7f512fbf]{border:1px solid #ced4da;border-radius:5px;margin:0 5px;padding:5px;text-align:center;width:60px}.quantity-field[data-v-7f512fbf]:focus{border-color:#007bff;box-shadow:0 0 0 .2rem rgba(0,123,255,.25);outline:none}.clickable-badge[data-v-7f512fbf]{cursor:pointer;transition:all .3s ease;-webkit-user-select:none;-moz-user-select:none;user-select:none}.clickable-badge[data-v-7f512fbf]:hover{background-color:#c82333!important;box-shadow:0 2px 4px rgba(220,53,69,.3);transform:scale(1.05)}.clickable-badge[data-v-7f512fbf]:active{transform:scale(.95)}.insufficient-stock-input[data-v-7f512fbf]{background-color:#fff5f5!important;border:2px solid #dc3545!important;color:#dc3545!important}.insufficient-stock-input[data-v-7f512fbf]:focus{border-color:#dc3545!important;box-shadow:0 0 0 .2rem rgba(220,53,69,.25)!important}.table-custom table .badge.badge-danger[data-v-7f512fbf]{background:#fef4f4!important;color:#dc3545!important;font-size:12px!important;font-weight:500!important;padding:10px 16px}.table-custom table td.auto-width[data-v-7f512fbf]{min-width:0;white-space:nowrap;width:auto}.table-custom table td.fixed-qty-column[data-v-7f512fbf]{min-width:200px;width:auto}.table-custom table td.fixed-discount-column[data-v-7f512fbf]{min-width:180px;width:auto}.table-custom table td.fixed-vat-column[data-v-7f512fbf]{min-width:150px;width:auto}@media (max-width:768px){.table-custom[data-v-7f512fbf]{-webkit-overflow-scrolling:touch;display:block;overflow-x:auto;width:100%}.table-custom table[data-v-7f512fbf]{display:block;min-width:-moz-fit-content;min-width:fit-content;width:100%}.table-custom table thead[data-v-7f512fbf]{display:table-header-group}.table-custom table tbody[data-v-7f512fbf]{display:table-row-group}.table-custom table tr[data-v-7f512fbf]{display:table-row}.table-custom table td[data-v-7f512fbf],.table-custom table th[data-v-7f512fbf]{display:table-cell;white-space:nowrap}.table-custom table td.fixed-qty-column[data-v-7f512fbf]{min-width:200px}.table-custom table td.fixed-discount-column[data-v-7f512fbf]{min-width:180px}.table-custom table td.fixed-vat-column[data-v-7f512fbf]{min-width:150px}}@media (max-width:576px){.table-custom table[data-v-7f512fbf]{min-width:-moz-fit-content;min-width:fit-content}.table-custom table tbody td[data-v-7f512fbf],.table-custom table thead th[data-v-7f512fbf]{font-size:12px;padding:6px 4px}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".form-card[data-v-387d6191]{background:#fff;border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-bottom:1.25rem;margin-top:20px;transition:all .2s ease}.form-card[data-v-387d6191]:hover{box-shadow:0 .1rem .5rem 0 rgba(58,59,69,.15)}.form-card .card-header[data-v-387d6191]{background-color:#33a0d9;border-bottom:none;border-radius:20px 20px 0 0;color:#fff;padding:12px 16px}.form-card .card-header .section-title[data-v-387d6191]{border:none;color:#fff;font-size:14px;font-weight:600;margin:0;padding:0}.form-card .card-header .section-title[data-v-387d6191]:after{display:none}.form-card .card-header .section-title i[data-v-387d6191]{color:hsla(0,0%,100%,.8)}.form-card .card-body[data-v-387d6191]{padding:16px}.section-title[data-v-387d6191]{border-bottom:1px solid #e9ecef;color:#495057;font-weight:600;margin-bottom:15px;padding-bottom:8px}.form-group[data-v-387d6191]{margin-bottom:1rem}.form-group label[data-v-387d6191]{color:#495057;font-size:.95rem;font-weight:500;margin-bottom:.5rem}.required[data-v-387d6191]{color:#dc3545;font-weight:700}.row[data-v-387d6191]{margin-bottom:1rem}.row[data-v-387d6191]:last-child{margin-bottom:0}.auto-assign-btn[data-v-387d6191]{min-width:40px;padding:.375rem .5rem;white-space:nowrap}.auto-assign-btn[data-v-387d6191]:disabled{cursor:not-allowed;opacity:.6}.form-text[data-v-387d6191]{color:#6c757d;font-size:.8rem;margin-top:3px}.image-preview[data-v-387d6191]{text-align:center}.image-preview img[data-v-387d6191]{border:1px solid #dee2e6;border-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,.1)}.custom-file-label[data-v-387d6191]{background-color:#f8f9fa;border:1px dashed #dee2e6;cursor:pointer;font-size:.85rem;transition:all .2s ease}.custom-file-label[data-v-387d6191]:hover{background-color:#e3f2fd;border-color:#007bff}.custom-file-label i[data-v-387d6191]{color:#6c757d}.create-button[data-v-387d6191]{cursor:pointer;text-decoration:none}.create-btn[data-v-387d6191]{border-left:none;border-radius:0 .25rem .25rem 0;cursor:pointer;padding:11px;transition:background-color .2s ease}.create-btn[data-v-387d6191]:hover{background-color:#e9ecef}.category-select[data-v-387d6191]{margin-right:0!important}.category-select .vs__dropdown-toggle[data-v-387d6191]{border-radius:.25rem 0 0 .25rem!important;border-right:none!important}[dir=rtl] .category-select .vs__dropdown-toggle[data-v-387d6191]{border-left:none!important;border-radius:0 .25rem .25rem 0!important;border-right:1px solid #ced4da!important}[dir=rtl] .create-btn[data-v-387d6191]{border-left:none;border-radius:.25rem 0 0 .25rem;border-right:1px solid #ced4da}[dir=ltr] .create-btn[data-v-387d6191]{border-left:1px solid #ced4da;border-radius:0 .25rem .25rem 0;border-right:none}.unit-select[data-v-387d6191]{margin-right:0!important}.unit-select .vs__dropdown-toggle[data-v-387d6191]{border-radius:.25rem 0 0 .25rem!important;border-right:none!important}[dir=rtl] .unit-select .vs__dropdown-toggle[data-v-387d6191]{border-left:none!important;border-radius:0 .25rem .25rem 0!important;border-right:1px solid #ced4da!important}@media (max-width:768px){.section-title[data-v-387d6191]{font-size:.95rem;margin-bottom:12px}.form-card .card-body[data-v-387d6191]{padding:.75rem}.auto-assign-btn[data-v-387d6191]{font-size:.75rem;min-width:35px}}.input-group-prepend .input-group-text[data-v-387d6191]{background-color:#f8f9fa;border-color:#ced4da;color:#495057;font-size:.85rem}.v-select[data-v-387d6191]{margin-bottom:0}.is-invalid[data-v-387d6191]{border-color:#dc3545!important}.invalid-feedback[data-v-387d6191]{color:#dc3545;display:block;font-size:75%;margin-top:.2rem;width:100%}.item-type-selector[data-v-387d6191]{display:flex;gap:.5rem;margin-top:.5rem}.item-type-option[data-v-387d6191]{cursor:pointer;flex:1;position:relative;transition:all .2s ease}.item-type-option input[type=radio][data-v-387d6191]{opacity:0;pointer-events:none;position:absolute}.option-content[data-v-387d6191]{align-items:center;background:#fff;border:2px solid #e3e6f0;border-radius:6px;display:flex;flex-direction:column;justify-content:center;min-height:55px;padding:.6rem .5rem;text-align:center;transition:all .2s ease}.item-type-option:hover .option-content[data-v-387d6191]{border-color:#33a0d9;box-shadow:0 2px 6px rgba(51,160,217,.15);transform:translateY(-1px)}.item-type-option.active .option-content[data-v-387d6191]{background:#33a0d9;border-color:#33a0d9;box-shadow:0 3px 10px rgba(51,160,217,.25);color:#fff;transform:translateY(-1px)}.option-content i[data-v-387d6191]{color:#6c757d;font-size:1.1rem;margin-bottom:.3rem;transition:all .2s ease}.item-type-option.active .option-content i[data-v-387d6191]{color:hsla(0,0%,100%,.9)}.option-content span[data-v-387d6191]{color:#495057;font-size:.85rem;font-weight:600;transition:all .2s ease}.item-type-option.active .option-content span[data-v-387d6191]{color:#fff}@media (max-width:768px){.item-type-selector[data-v-387d6191]{flex-direction:column;gap:.4rem}.option-content[data-v-387d6191]{min-height:50px;padding:.5rem .4rem}.option-content i[data-v-387d6191]{font-size:1rem;margin-bottom:.25rem}.option-content span[data-v-387d6191]{font-size:.8rem}.override-checkbox-container .form-check-label[data-v-387d6191]{min-height:44px;padding:.6rem .8rem}.checkbox-text[data-v-387d6191]{font-size:.9rem}.form-check-input[data-v-387d6191]{height:16px;width:16px}}.account-label-row[data-v-387d6191]{align-items:flex-start;display:flex;flex-direction:column;gap:1rem;justify-content:space-between;margin-bottom:.5rem}.account-label[data-v-387d6191]{color:#495057;flex:1;font-size:.95rem;font-weight:500;margin-bottom:0}.toggle-switch-container[data-v-387d6191]{align-items:center;display:flex;flex-shrink:0}.toggle-switch-label[data-v-387d6191]{align-items:center;cursor:pointer;display:inline-flex;gap:.75rem;-webkit-user-select:none;-moz-user-select:none;user-select:none}.toggle-switch-wrapper[data-v-387d6191]{display:inline-block;flex-shrink:0;height:26px;position:relative;width:50px}.toggle-switch-input[data-v-387d6191]{appearance:none;-webkit-appearance:none;-moz-appearance:none;background-color:#ced4da;border-radius:26px;cursor:pointer;height:26px;left:0;margin:0;outline:none;padding:0;position:absolute;top:0;transition:background-color .3s ease;width:50px}.toggle-switch-input[data-v-387d6191]:checked{background-color:#33a0d9}.toggle-switch-input[data-v-387d6191]:focus{box-shadow:0 0 0 .2rem rgba(51,160,217,.25)}.toggle-switch-slider[data-v-387d6191]{background-color:#fff;border-radius:50%;box-shadow:0 2px 4px rgba(0,0,0,.2);height:20px;left:3px;pointer-events:none;position:absolute;top:50%;transform:translateY(-50%);transition:transform .3s ease;width:20px}.toggle-switch-input:checked+.toggle-switch-slider[data-v-387d6191]{transform:translate(24px,-50%)}.toggle-switch-text[data-v-387d6191]{color:#495057;font-size:.9rem;font-weight:500;transition:color .2s ease;white-space:nowrap}.toggle-switch-label:has(.toggle-switch-input:checked) .toggle-switch-text[data-v-387d6191]{color:#33a0d9;font-weight:600}.alert-info[data-v-387d6191]{background-color:#d1ecf1;border-color:#bee5eb;border-radius:.375rem;font-size:.9rem;padding:.75rem 1rem}.alert-info[data-v-387d6191],.alert-info i[data-v-387d6191]{color:#0c5460}.col-form-6[data-v-387d6191]{flex:0 0 50%;max-width:50%}.col-form-6 .form-card[data-v-387d6191],.col-form-6 .form-card .card-body[data-v-387d6191]{width:100%}@media (max-width:1300px){.col-form-6[data-v-387d6191]{flex:0 0 100%;max-width:100%}}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
 
 /***/ }),
 
-/***/ 25539:
+/***/ 26365:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+class Locale {
+    constructor() {
+        this.config = {
+            currency: {
+                name: 'Rupee',
+                plural: 'Rupees',
+                singular: 'Rupee',
+                symbol: '₹',
+                fractionalUnit: {
+                    name: 'Paisa',
+                    singular: 'Paisa',
+                    plural: 'Paisa',
+                    symbol: '',
+                },
+            },
+            texts: {
+                and: 'And',
+                minus: 'Minus',
+                only: 'Only',
+                point: 'Point',
+            },
+            numberWordsMapping: [
+                { number: 100000000000, value: 'Kharab' },
+                { number: 1000000000, value: 'Arab' },
+                { number: 10000000, value: 'Crore' },
+                { number: 100000, value: 'Lakh' },
+                { number: 1000, value: 'Thousand' },
+                { number: 100, value: 'Hundred' },
+                { number: 90, value: 'Ninety' },
+                { number: 80, value: 'Eighty' },
+                { number: 70, value: 'Seventy' },
+                { number: 60, value: 'Sixty' },
+                { number: 50, value: 'Fifty' },
+                { number: 40, value: 'Forty' },
+                { number: 30, value: 'Thirty' },
+                { number: 20, value: 'Twenty' },
+                { number: 19, value: 'Nineteen' },
+                { number: 18, value: 'Eighteen' },
+                { number: 17, value: 'Seventeen' },
+                { number: 16, value: 'Sixteen' },
+                { number: 15, value: 'Fifteen' },
+                { number: 14, value: 'Fourteen' },
+                { number: 13, value: 'Thirteen' },
+                { number: 12, value: 'Twelve' },
+                { number: 11, value: 'Eleven' },
+                { number: 10, value: 'Ten' },
+                { number: 9, value: 'Nine' },
+                { number: 8, value: 'Eight' },
+                { number: 7, value: 'Seven' },
+                { number: 6, value: 'Six' },
+                { number: 5, value: 'Five' },
+                { number: 4, value: 'Four' },
+                { number: 3, value: 'Three' },
+                { number: 2, value: 'Two' },
+                { number: 1, value: 'One' },
+                { number: 0, value: 'Zero' },
+            ],
+            exactWordsMapping: [{ number: 100, value: 'One Hundred' }],
+        };
+    }
+}
+exports["default"] = Locale;
+
+
+/***/ }),
+
+/***/ 26396:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".header-buttons[data-v-7ad22b6f]{margin-bottom:15px}.footer-buttons[data-v-7ad22b6f]{display:flex;gap:10px}.footer-buttons .btn[data-v-7ad22b6f]{margin-right:10px}.footer-buttons .btn[data-v-7ad22b6f]:last-child{margin-right:0}.create-btn[data-v-7ad22b6f]{padding:11px}.chart-account-success[data-v-7ad22b6f],.chart-account-warning[data-v-7ad22b6f]{border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);margin-bottom:20px;padding:16px}.chart-account-warning[data-v-7ad22b6f]{background:linear-gradient(135deg,#fff3cd,#ffeaa7);border:1px solid #ffc107}.chart-account-success[data-v-7ad22b6f]{background:linear-gradient(135deg,#d4edda,#c3e6cb);border:1px solid #28a745}.success-content[data-v-7ad22b6f],.warning-content[data-v-7ad22b6f]{align-items:center;display:flex;gap:16px}.success-icon[data-v-7ad22b6f],.warning-icon[data-v-7ad22b6f]{flex-shrink:0;font-size:24px}.warning-icon[data-v-7ad22b6f]{color:#856404}.success-icon[data-v-7ad22b6f]{color:#155724}.success-text[data-v-7ad22b6f],.warning-text[data-v-7ad22b6f]{flex-grow:1}.success-title[data-v-7ad22b6f],.warning-title[data-v-7ad22b6f]{font-size:14px;font-weight:600;margin:0 0 4px}.warning-title[data-v-7ad22b6f]{color:#856404}.success-title[data-v-7ad22b6f]{color:#155724}.success-description[data-v-7ad22b6f],.warning-description[data-v-7ad22b6f]{font-size:13px;margin:0;opacity:.8}.warning-description[data-v-7ad22b6f]{color:#856404}.success-description[data-v-7ad22b6f]{color:#155724}.warning-action[data-v-7ad22b6f]{flex-shrink:0}.button-plus.icon-shape.icon-sm.btn-primary[data-v-7ad22b6f]{padding:0}.btn-primary[data-v-7ad22b6f]:hover{background:#229a26!important;box-shadow:0 4px 8px rgba(42,185,48,.3);transform:translateY(-1px)}.btn-primary[data-v-7ad22b6f]:disabled{box-shadow:none;cursor:not-allowed;opacity:.6;transform:none}@media (max-width:768px){.success-content[data-v-7ad22b6f],.warning-content[data-v-7ad22b6f]{flex-direction:column;gap:12px;text-align:center}.btn-primary[data-v-7ad22b6f],.warning-action[data-v-7ad22b6f]{width:100%}}.client-status[data-v-7ad22b6f]{font-size:13px}.client-success[data-v-7ad22b6f],.client-warning[data-v-7ad22b6f]{align-items:center;border-radius:6px;display:flex;font-weight:500;padding:8px 12px}.client-warning[data-v-7ad22b6f]{background-color:#fff3cd;border:1px solid #ffeaa7;color:#856404}.client-success[data-v-7ad22b6f]{background-color:#d4edda;border:1px solid #c3e6cb;color:#155724}.btn-outline-warning[data-v-7ad22b6f]{border-color:#ffc107;color:#856404;font-size:12px;padding:4px 8px}.btn-outline-warning[data-v-7ad22b6f]:hover{background-color:#ffc107;border-color:#ffc107;color:#212529}.btn-outline-warning[data-v-7ad22b6f]:disabled{cursor:not-allowed;opacity:.6}.product-status[data-v-7ad22b6f]{font-size:13px}.product-success[data-v-7ad22b6f],.product-warning[data-v-7ad22b6f]{align-items:center;border-radius:6px;display:flex;font-weight:500;padding:8px 12px}.product-warning[data-v-7ad22b6f]{background-color:#fff3cd;border:1px solid #ffeaa7;color:#856404}.product-success[data-v-7ad22b6f]{background-color:#d4edda;border:1px solid #c3e6cb;color:#155724}.account-status[data-v-7ad22b6f]{font-size:13px}.account-success[data-v-7ad22b6f],.account-warning[data-v-7ad22b6f]{align-items:center;border-radius:6px;display:flex;font-weight:500;padding:8px 12px}.account-warning[data-v-7ad22b6f]{background-color:#fff3cd;border:1px solid #ffeaa7;color:#856404}.account-success[data-v-7ad22b6f]{background-color:#d4edda;border:1px solid #c3e6cb;color:#155724}.radio-group-horizontal[data-v-7ad22b6f]{align-items:center;display:flex;flex-direction:row;gap:20px}.radio-group-horizontal .form-check[data-v-7ad22b6f]{align-items:center;display:flex;margin-bottom:0}.radio-group-horizontal .form-check-input[data-v-7ad22b6f]{margin-right:8px}.radio-group-horizontal .form-check-label[data-v-7ad22b6f]{cursor:pointer;margin-bottom:0}.text-warning[data-v-7ad22b6f]{color:#856404!important}.text-warning small[data-v-7ad22b6f]{font-size:12px;font-weight:500}.text-warning i[data-v-7ad22b6f]{margin-right:4px}.table-custom[data-v-7ad22b6f]{border:none!important}.invoices-create-table[data-v-7ad22b6f]{border-collapse:separate;border-spacing:0}.invoices-create-table thead th[data-v-7ad22b6f]{background-color:#33a0d9;border:none!important;border-color:inherit!important;color:#fff;font-weight:400;padding:8px}.invoices-create-table thead tr[data-v-7ad22b6f]{border:none!important}.invoices-create-table thead th[data-v-7ad22b6f]:first-child{border-top-left-radius:10px}.invoices-create-table thead th[data-v-7ad22b6f]:last-child{border-top-right-radius:10px}[dir=rtl] .invoices-create-table thead th[data-v-7ad22b6f]:first-child{border-top-left-radius:0;border-top-right-radius:10px}[dir=rtl] .invoices-create-table thead th[data-v-7ad22b6f]:last-child{border-top-left-radius:10px;border-top-right-radius:0}.btn-group.c-w-100[data-v-7ad22b6f]{gap:10px}.card[data-v-7ad22b6f]{border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:30px}.card-footer[data-v-7ad22b6f]{background-color:#fff;border-radius:0 0 20px 20px;border-top:1px solid #ced4da;padding:0 1.25rem .625rem}.invoices-create-table .badge.badge-danger[data-v-7ad22b6f]{background:#fef4f4!important;color:#dc3545!important;font-size:12px!important;font-weight:500!important;padding:10px 16px}.form-control[data-v-7ad22b6f]{background:#fff!important}.quantity-field[data-v-7ad22b6f]{border-radius:0!important;margin:0!important;min-height:50px!important}.btn-primary[data-v-7ad22b6f]{background:#2ab930!important}.btn-secondary[data-v-7ad22b6f]{background:#33a0d9!important;border:none!important;color:#fff!important;padding:10px 20px!important}.stock-warning-alert[data-v-7ad22b6f]{background:linear-gradient(135deg,#fff3cd,#ffeaa7);border:1px solid #ffc107;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);margin-bottom:20px;padding:16px}.stock-warning-content[data-v-7ad22b6f]{align-items:flex-start;display:flex;gap:16px}.stock-warning-icon[data-v-7ad22b6f]{color:#856404;flex-shrink:0;font-size:24px;margin-top:2px}.stock-warning-text[data-v-7ad22b6f]{flex-grow:1}.stock-warning-title[data-v-7ad22b6f]{color:#856404;font-size:16px;font-weight:600;margin:0 0 8px}.stock-warning-description[data-v-7ad22b6f]{color:#856404;font-size:14px;margin:0 0 12px;opacity:.9}.stock-warning-list[data-v-7ad22b6f]{list-style:none;margin:0;padding-left:20px}.stock-warning-item[data-v-7ad22b6f]{background-color:hsla(0,0%,100%,.5);border-left:3px solid #ffc107;border-radius:6px;color:#856404;font-size:14px;margin-bottom:8px;padding:8px 12px}.stock-warning-item[data-v-7ad22b6f]:last-child{margin-bottom:0}.product-name[data-v-7ad22b6f]{color:#856404;font-weight:600;margin-right:8px}.stock-details[data-v-7ad22b6f]{color:#856404;opacity:.8}.stock-details strong[data-v-7ad22b6f]{color:#856404;font-weight:600}[dir=rtl] .stock-warning-list[data-v-7ad22b6f]{padding-left:0;padding-right:20px}[dir=rtl] .stock-warning-item[data-v-7ad22b6f]{border-left:none;border-right:3px solid #ffc107}[dir=rtl] .product-name[data-v-7ad22b6f]{margin-left:8px;margin-right:0}@media (max-width:768px){.stock-warning-content[data-v-7ad22b6f]{flex-direction:column;gap:12px;text-align:center}.stock-warning-icon[data-v-7ad22b6f]{align-self:center}.stock-warning-list[data-v-7ad22b6f]{padding-left:0;text-align:left}[dir=rtl] .stock-warning-list[data-v-7ad22b6f]{text-align:right}}.clickable-badge[data-v-7ad22b6f]{cursor:pointer;transition:all .3s ease;-webkit-user-select:none;-moz-user-select:none;user-select:none}.clickable-badge[data-v-7ad22b6f]:hover{background-color:#c82333!important;box-shadow:0 2px 4px rgba(220,53,69,.3);transform:scale(1.05)}.clickable-badge[data-v-7ad22b6f]:active{transform:scale(.95)}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 28834:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+class Locale {
+    constructor() {
+        this.config = {
+            currency: {
+                name: 'Euro',
+                plural: 'Euros',
+                singular: 'Euro',
+                symbol: '€',
+                fractionalUnit: {
+                    name: 'Centime',
+                    singular: 'Centime',
+                    plural: 'Centimes',
+                    symbol: 'Cts',
+                },
+            },
+            texts: {
+                and: 'Et',
+                minus: 'Moins',
+                only: '',
+                point: 'Virgule',
+            },
+            numberWordsMapping: [
+                { number: 1000000000000000, value: 'Billiard' },
+                { number: 1000000000000, value: 'Billion' },
+                { number: 1000000000, value: 'Milliard' },
+                { number: 1000000, value: 'Million' },
+                { number: 1000, value: 'Mille' },
+                { number: 100, value: 'Cent' },
+                { number: 99, value: 'Quatre-Vingt-Dix-Neuf' },
+                { number: 98, value: 'Quatre-Vingt-Dix-Huit' },
+                { number: 97, value: 'Quatre-Vingt-Dix-Sept' },
+                { number: 96, value: 'Quatre-Vingt-Seize' },
+                { number: 95, value: 'Quatre-Vingt-Quinze' },
+                { number: 94, value: 'Quatre-Vingt-Quatorze' },
+                { number: 93, value: 'Quatre-Vingt-Treize' },
+                { number: 92, value: 'Quatre-Vingt-Douze' },
+                { number: 91, value: 'Quatre-Vingt-Onze' },
+                { number: 90, value: 'Quatre-Vingt-Dix' },
+                { number: 89, value: 'Quatre-Vingt-Neuf' },
+                { number: 88, value: 'Quatre-Vingt-Huit' },
+                { number: 87, value: 'Quatre-Vingt-Sept' },
+                { number: 86, value: 'Quatre-Vingt-Six' },
+                { number: 85, value: 'Quatre-Vingt-Cinq' },
+                { number: 84, value: 'Quatre-Vingt-Quatre' },
+                { number: 83, value: 'Quatre-Vingt-Trois' },
+                { number: 82, value: 'Quatre-Vingt-Deux' },
+                { number: 81, value: 'Quatre-Vingt-Un' },
+                { number: 80, value: 'Quatre-Vingt' },
+                { number: 79, value: 'Soixante-Dix-Neuf' },
+                { number: 78, value: 'Soixante-Dix-Huit' },
+                { number: 77, value: 'Soixante-Dix-Sept' },
+                { number: 76, value: 'Soixante-Seize' },
+                { number: 75, value: 'Soixante-Quinze' },
+                { number: 74, value: 'Soixante-Quatorze' },
+                { number: 73, value: 'Soixante-Treize' },
+                { number: 72, value: 'Soixante-Douze' },
+                { number: 71, value: 'Soixante Et Onze' },
+                { number: 70, value: 'Soixante-dix' },
+                { number: 69, value: 'Soixante-Neuf' },
+                { number: 68, value: 'Soixante-Huit' },
+                { number: 67, value: 'Soixante-Sept' },
+                { number: 66, value: 'Soixante-Six' },
+                { number: 65, value: 'Soixante-Cinq' },
+                { number: 64, value: 'Soixante-Quatre' },
+                { number: 63, value: 'Soixante-Trois' },
+                { number: 62, value: 'Soixante-Deux' },
+                { number: 61, value: 'Soixante Et Un' },
+                { number: 60, value: 'Soixante' },
+                { number: 59, value: 'Cinquante-Neuf' },
+                { number: 58, value: 'Cinquante-Huit' },
+                { number: 57, value: 'Cinquante-Sept' },
+                { number: 56, value: 'Cinquante-Six' },
+                { number: 55, value: 'Cinquante-Cinq' },
+                { number: 54, value: 'Cinquante-Quatre' },
+                { number: 53, value: 'Cinquante-Trois' },
+                { number: 52, value: 'Cinquante-Deux' },
+                { number: 51, value: 'Cinquante Et Un' },
+                { number: 50, value: 'Cinquante' },
+                { number: 49, value: 'Quarante-Neuf' },
+                { number: 48, value: 'Quarante-Huit' },
+                { number: 47, value: 'Quarante-Sept' },
+                { number: 46, value: 'Quarante-Six' },
+                { number: 45, value: 'Quarante-Cinq' },
+                { number: 44, value: 'Quarante-Quatre' },
+                { number: 43, value: 'Quarante-Trois' },
+                { number: 42, value: 'Quarante-Deux' },
+                { number: 41, value: 'Quarante Et Un' },
+                { number: 40, value: 'Quarante' },
+                { number: 39, value: 'Trente-Neuf' },
+                { number: 38, value: 'Trente-Huit' },
+                { number: 37, value: 'Trente-Sept' },
+                { number: 36, value: 'Trente-Six' },
+                { number: 35, value: 'Trente-Cinq' },
+                { number: 34, value: 'Trente-Quatre' },
+                { number: 33, value: 'Trente-Trois' },
+                { number: 32, value: 'Trente-Deux' },
+                { number: 31, value: 'Trente Et Un' },
+                { number: 30, value: 'Trente' },
+                { number: 29, value: 'Vingt-Neuf' },
+                { number: 28, value: 'Vingt-Huit' },
+                { number: 27, value: 'Vingt-Sept' },
+                { number: 26, value: 'Vingt-Six' },
+                { number: 25, value: 'Vingt-Cinq' },
+                { number: 24, value: 'Vingt-Quatre' },
+                { number: 23, value: 'Vingt-Trois' },
+                { number: 22, value: 'Vingt-Deux' },
+                { number: 21, value: 'Vingt Et Un' },
+                { number: 20, value: 'Vingt' },
+                { number: 19, value: 'Dix-Neuf' },
+                { number: 18, value: 'Dix-Huit' },
+                { number: 17, value: 'Dix-Sept' },
+                { number: 16, value: 'Seize' },
+                { number: 15, value: 'Quinze' },
+                { number: 14, value: 'Quatorze' },
+                { number: 13, value: 'Treize' },
+                { number: 12, value: 'Douze' },
+                { number: 11, value: 'Onze' },
+                { number: 10, value: 'Dix' },
+                { number: 9, value: 'Neuf' },
+                { number: 8, value: 'Huit' },
+                { number: 7, value: 'Sept' },
+                { number: 6, value: 'Six' },
+                { number: 5, value: 'Cinq' },
+                { number: 4, value: 'Quatre' },
+                { number: 3, value: 'Trois' },
+                { number: 2, value: 'Deux' },
+                { number: 1, value: 'Un' },
+                { number: 0, value: 'Zéro' },
+            ],
+            ignoreOneForWords: ['Cent', 'Mille'],
+            pluralMark: 's',
+            pluralWords: ['Billiard', 'Billion', 'Milliard', 'Million'],
+        };
+    }
+}
+exports["default"] = Locale;
+
+
+/***/ }),
+
+/***/ 33972:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+class Locale {
+    constructor() {
+        this.config = {
+            currency: {
+                name: 'रुपया',
+                plural: 'रुपये',
+                singular: 'रुपया',
+                symbol: '₹',
+                fractionalUnit: {
+                    name: 'पैसा',
+                    singular: 'पैसा',
+                    plural: 'पैसे',
+                    symbol: '',
+                },
+            },
+            texts: {
+                and: 'आणि',
+                minus: 'वजा',
+                only: '',
+                point: 'पूर्णांक',
+            },
+            numberWordsMapping: [
+                { number: 10000000, value: 'कोटी' },
+                { number: 100000, value: 'लाख' },
+                { number: 1000, value: 'हजार' },
+                { number: 900, value: 'नऊशे' },
+                { number: 800, value: 'आठशे' },
+                { number: 700, value: 'सातशे' },
+                { number: 600, value: 'सहाशे' },
+                { number: 500, value: 'पाचशे' },
+                { number: 400, value: 'चारशे' },
+                { number: 300, value: 'तीनशे' },
+                { number: 200, value: 'दोनशे' },
+                { number: 100, value: 'एकशे' },
+                { number: 99, value: 'नव्व्याण्णव' },
+                { number: 98, value: 'अठ्ठ्याण्णव' },
+                { number: 97, value: 'सत्त्याण्णव' },
+                { number: 96, value: 'शहाण्णव' },
+                { number: 95, value: 'पंच्याण्णव' },
+                { number: 94, value: 'चौऱ्याण्णव' },
+                { number: 93, value: 'त्र्याण्णव' },
+                { number: 92, value: 'ब्याण्णव' },
+                { number: 91, value: 'एक्क्याण्णव' },
+                { number: 90, value: 'नव्वद' },
+                { number: 89, value: 'एकोणनव्वद' },
+                { number: 88, value: 'अठ्ठ्याऐंशी' },
+                { number: 87, value: 'सत्त्याऐंशी' },
+                { number: 86, value: 'शहाऐंशी' },
+                { number: 85, value: 'पंच्याऐंशी' },
+                { number: 84, value: 'चौऱ्याऐंशी' },
+                { number: 83, value: 'त्र्याऐंशी' },
+                { number: 82, value: 'ब्याऐंशी' },
+                { number: 81, value: 'एक्क्याऐंशी' },
+                { number: 80, value: 'ऐंशी' },
+                { number: 79, value: 'एकोणऐंशी' },
+                { number: 78, value: 'अठ्ठ्याहत्तर' },
+                { number: 77, value: 'सत्याहत्तर' },
+                { number: 76, value: 'शहात्तर' },
+                { number: 75, value: 'पंच्याहत्तर' },
+                { number: 74, value: 'चौर्‍याहत्तर' },
+                { number: 73, value: 'त्र्याहत्तर' },
+                { number: 72, value: 'बाहत्तर' },
+                { number: 71, value: 'एक्काहत्तर' },
+                { number: 70, value: 'सत्तर' },
+                { number: 69, value: 'एकोणसत्तर' },
+                { number: 68, value: 'अडुसष्ठ' },
+                { number: 67, value: 'सदुसष्ठ' },
+                { number: 66, value: 'सहासष्ठ' },
+                { number: 65, value: 'पासष्ठ' },
+                { number: 64, value: 'चौसष्ठ' },
+                { number: 63, value: 'त्रेसष्ठ' },
+                { number: 62, value: 'बासष्ठ' },
+                { number: 61, value: 'एकसष्ठ' },
+                { number: 60, value: 'साठ' },
+                { number: 59, value: 'एकोणसाठ' },
+                { number: 58, value: 'अठ्ठावन्न' },
+                { number: 57, value: 'सत्तावन्न' },
+                { number: 56, value: 'छप्पन्न' },
+                { number: 55, value: 'पंचावन्न' },
+                { number: 54, value: 'चोपन्न' },
+                { number: 53, value: 'त्रेपन्न' },
+                { number: 52, value: 'बावन्न' },
+                { number: 51, value: 'एक्कावन्न' },
+                { number: 50, value: 'पन्नास' },
+                { number: 49, value: 'एकोणपन्नास' },
+                { number: 48, value: 'अठ्ठेचाळीस' },
+                { number: 47, value: 'सत्तेचाळीस' },
+                { number: 46, value: 'सेहेचाळीस' },
+                { number: 45, value: 'पंचेचाळीस' },
+                { number: 44, value: 'चव्वेचाळीस' },
+                { number: 43, value: 'त्रेचाळीस' },
+                { number: 42, value: 'बेचाळीस' },
+                { number: 41, value: 'एक्केचाळीस' },
+                { number: 40, value: 'चाळीस' },
+                { number: 39, value: 'एकोणचाळीस' },
+                { number: 38, value: 'अडतीस' },
+                { number: 37, value: 'सदतीस' },
+                { number: 36, value: 'छत्तीस' },
+                { number: 35, value: 'पस्तीस' },
+                { number: 34, value: 'चौतीस' },
+                { number: 33, value: 'तेहेतीस' },
+                { number: 32, value: 'बत्तीस' },
+                { number: 31, value: 'एकतीस' },
+                { number: 30, value: 'तीस' },
+                { number: 29, value: 'एकोणतीस' },
+                { number: 28, value: 'अठ्ठावीस' },
+                { number: 27, value: 'सत्तावीस' },
+                { number: 26, value: 'सव्वीस' },
+                { number: 25, value: 'पंचवीस' },
+                { number: 24, value: 'चोवीस' },
+                { number: 23, value: 'तेवीस' },
+                { number: 22, value: 'बावीस' },
+                { number: 21, value: 'एकवीस' },
+                { number: 20, value: 'वीस' },
+                { number: 19, value: 'एकोणीस' },
+                { number: 18, value: 'अठरा' },
+                { number: 17, value: 'सतरा' },
+                { number: 16, value: 'सोळा' },
+                { number: 15, value: 'पंधरा' },
+                { number: 14, value: 'चौदा' },
+                { number: 13, value: 'तेरा' },
+                { number: 12, value: 'बारा' },
+                { number: 11, value: 'अकरा' },
+                { number: 10, value: 'दहा' },
+                { number: 9, value: 'नऊ' },
+                { number: 8, value: 'आठ' },
+                { number: 7, value: 'सात' },
+                { number: 6, value: 'सहा' },
+                { number: 5, value: 'पाच' },
+                { number: 4, value: 'चार' },
+                { number: 3, value: 'तीन' },
+                { number: 2, value: 'दोन' },
+                { number: 1, value: 'एक' },
+                { number: 0, value: 'शून्य' },
+            ],
+            namedLessThan1000: true,
+        };
+    }
+}
+exports["default"] = Locale;
+
+
+/***/ }),
+
+/***/ 37460:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+class Locale {
+    constructor() {
+        this.config = {
+            currency: {
+                name: 'रुपया',
+                plural: 'रुपये',
+                singular: 'रुपया',
+                symbol: '₹',
+                fractionalUnit: {
+                    name: 'पैसा',
+                    singular: 'पैसा',
+                    plural: 'पैसे',
+                    symbol: '',
+                },
+            },
+            texts: {
+                and: 'और',
+                minus: 'ऋण',
+                only: '',
+                point: 'दशांश',
+            },
+            numberWordsMapping: [
+                { number: 10000000, value: 'करोड़' },
+                { number: 100000, value: 'लाख' },
+                { number: 1000, value: 'हज़ार' },
+                { number: 100, value: 'सौ' },
+                { number: 99, value: 'निन्यानवे' },
+                { number: 98, value: 'अट्ठानवे' },
+                { number: 97, value: 'सत्तानवे' },
+                { number: 96, value: 'छियानवे' },
+                { number: 95, value: 'पचानवे' },
+                { number: 94, value: 'चौरानवे' },
+                { number: 93, value: 'तिरानवे' },
+                { number: 92, value: 'बानवे' },
+                { number: 91, value: 'इक्यानबे' },
+                { number: 90, value: 'नब्बे' },
+                { number: 89, value: 'नवासी' },
+                { number: 88, value: 'अठासी' },
+                { number: 87, value: 'सतासी' },
+                { number: 86, value: 'छियासी' },
+                { number: 85, value: 'पचासी' },
+                { number: 84, value: 'चौरासी' },
+                { number: 83, value: 'तिरासी' },
+                { number: 82, value: 'बयासी' },
+                { number: 81, value: 'इक्यासी' },
+                { number: 80, value: 'अस्सी' },
+                { number: 79, value: 'उनासी' },
+                { number: 78, value: 'अठहत्तर' },
+                { number: 77, value: 'सतहत्तर' },
+                { number: 76, value: 'छिहत्तर' },
+                { number: 75, value: 'पचहत्तर' },
+                { number: 74, value: 'चौहत्तर' },
+                { number: 73, value: 'तिहत्तर' },
+                { number: 72, value: 'बहत्तर' },
+                { number: 71, value: 'इकहत्तर' },
+                { number: 70, value: 'सत्तर' },
+                { number: 69, value: 'उनहत्तर' },
+                { number: 68, value: 'अड़सठ' },
+                { number: 67, value: 'सड़सठ' },
+                { number: 66, value: 'छियासठ' },
+                { number: 65, value: 'पैंसठ' },
+                { number: 64, value: 'चौंसठ' },
+                { number: 63, value: 'तिरसठ' },
+                { number: 62, value: 'बासठ' },
+                { number: 61, value: 'इकसठ' },
+                { number: 60, value: 'साठ' },
+                { number: 59, value: 'उनसठ' },
+                { number: 58, value: 'अट्ठावन' },
+                { number: 57, value: 'सत्तावन' },
+                { number: 56, value: 'छप्पन' },
+                { number: 55, value: 'पचपन' },
+                { number: 54, value: 'चौबन' },
+                { number: 53, value: 'तिरेपन' },
+                { number: 52, value: 'बावन' },
+                { number: 51, value: 'इक्याबन' },
+                { number: 50, value: 'पचास' },
+                { number: 49, value: 'उनचास' },
+                { number: 48, value: 'अड़तालीस' },
+                { number: 47, value: 'सैंतालीस' },
+                { number: 46, value: 'छियालीस' },
+                { number: 45, value: 'पैंतालीस' },
+                { number: 44, value: 'चौंतालीस' },
+                { number: 43, value: 'तैंतालीस' },
+                { number: 42, value: 'बयालीस' },
+                { number: 41, value: 'इकतालीस' },
+                { number: 40, value: 'चालीस' },
+                { number: 39, value: 'उनतालीस' },
+                { number: 38, value: 'अड़तीस' },
+                { number: 37, value: 'सैंतीस' },
+                { number: 36, value: 'छत्तीस' },
+                { number: 35, value: 'पैंतीस' },
+                { number: 34, value: 'चौंतीस' },
+                { number: 33, value: 'तैंतीस' },
+                { number: 32, value: 'बत्तीस' },
+                { number: 31, value: 'इकतीस' },
+                { number: 30, value: 'तीस' },
+                { number: 29, value: 'उनतीस' },
+                { number: 28, value: 'अट्ठाईस' },
+                { number: 27, value: 'सत्ताईस' },
+                { number: 26, value: 'छब्बीस' },
+                { number: 25, value: 'पच्चीस' },
+                { number: 24, value: 'चौबीस' },
+                { number: 23, value: 'तेईस' },
+                { number: 22, value: 'बाईस' },
+                { number: 21, value: 'इक्कीस' },
+                { number: 20, value: 'बीस' },
+                { number: 19, value: 'उन्नीस' },
+                { number: 18, value: 'अठारह' },
+                { number: 17, value: 'सत्रह' },
+                { number: 16, value: 'सोलह' },
+                { number: 15, value: 'पंद्रह' },
+                { number: 14, value: 'चौदह' },
+                { number: 13, value: 'तेरह' },
+                { number: 12, value: 'बारह' },
+                { number: 11, value: 'ग्यारह' },
+                { number: 10, value: 'दस' },
+                { number: 9, value: 'नौ' },
+                { number: 8, value: 'आठ' },
+                { number: 7, value: 'सात' },
+                { number: 6, value: 'छह' },
+                { number: 5, value: 'पांच' },
+                { number: 4, value: 'चार' },
+                { number: 3, value: 'तीन' },
+                { number: 2, value: 'दो' },
+                { number: 1, value: 'एक' },
+                { number: 0, value: 'शून्य' },
+            ],
+        };
+    }
+}
+exports["default"] = Locale;
+
+
+/***/ }),
+
+/***/ 38765:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+class Locale {
+    constructor() {
+        this.config = {
+            currency: {
+                name: 'Kyat',
+                plural: 'Kyats',
+                singular: 'Kyat',
+                symbol: 'K',
+                fractionalUnit: {
+                    name: 'Pya',
+                    singular: 'Pya',
+                    plural: 'Pyas',
+                    symbol: '',
+                },
+            },
+            texts: {
+                and: 'And',
+                minus: 'Minus',
+                only: 'Only',
+                point: 'Point',
+            },
+            numberWordsMapping: [
+                { number: 1000000000000000, value: 'Quadrillion' },
+                { number: 1000000000000, value: 'Trillion' },
+                { number: 1000000000, value: 'Billion' },
+                { number: 1000000, value: 'Million' },
+                { number: 1000, value: 'Thousand' },
+                { number: 100, value: 'Hundred' },
+                { number: 90, value: 'Ninety' },
+                { number: 80, value: 'Eighty' },
+                { number: 70, value: 'Seventy' },
+                { number: 60, value: 'Sixty' },
+                { number: 50, value: 'Fifty' },
+                { number: 40, value: 'Forty' },
+                { number: 30, value: 'Thirty' },
+                { number: 20, value: 'Twenty' },
+                { number: 19, value: 'Nineteen' },
+                { number: 18, value: 'Eighteen' },
+                { number: 17, value: 'Seventeen' },
+                { number: 16, value: 'Sixteen' },
+                { number: 15, value: 'Fifteen' },
+                { number: 14, value: 'Fourteen' },
+                { number: 13, value: 'Thirteen' },
+                { number: 12, value: 'Twelve' },
+                { number: 11, value: 'Eleven' },
+                { number: 10, value: 'Ten' },
+                { number: 9, value: 'Nine' },
+                { number: 8, value: 'Eight' },
+                { number: 7, value: 'Seven' },
+                { number: 6, value: 'Six' },
+                { number: 5, value: 'Five' },
+                { number: 4, value: 'Four' },
+                { number: 3, value: 'Three' },
+                { number: 2, value: 'Two' },
+                { number: 1, value: 'One' },
+                { number: 0, value: 'Zero' },
+            ],
+            exactWordsMapping: [{ number: 100, value: 'One Hundred' }],
+        };
+    }
+}
+exports["default"] = Locale;
+
+
+/***/ }),
+
+/***/ 41061:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+class Locale {
+    constructor() {
+        this.config = {
+            currency: {
+                name: 'Taka',
+                plural: 'Taka',
+                singular: 'Taka',
+                symbol: '৳',
+                fractionalUnit: {
+                    name: 'Poysha',
+                    singular: 'Poysha',
+                    plural: 'Poysha',
+                    symbol: '',
+                },
+            },
+            texts: {
+                and: 'And',
+                minus: 'Minus',
+                only: 'Only',
+                point: 'Point',
+            },
+            numberWordsMapping: [
+                { number: 10000000, value: 'Crore' },
+                { number: 100000, value: 'Lakh' },
+                { number: 1000, value: 'Thousand' },
+                { number: 100, value: 'Hundred' },
+                { number: 90, value: 'Ninety' },
+                { number: 80, value: 'Eighty' },
+                { number: 70, value: 'Seventy' },
+                { number: 60, value: 'Sixty' },
+                { number: 50, value: 'Fifty' },
+                { number: 40, value: 'Forty' },
+                { number: 30, value: 'Thirty' },
+                { number: 20, value: 'Twenty' },
+                { number: 19, value: 'Nineteen' },
+                { number: 18, value: 'Eighteen' },
+                { number: 17, value: 'Seventeen' },
+                { number: 16, value: 'Sixteen' },
+                { number: 15, value: 'Fifteen' },
+                { number: 14, value: 'Fourteen' },
+                { number: 13, value: 'Thirteen' },
+                { number: 12, value: 'Twelve' },
+                { number: 11, value: 'Eleven' },
+                { number: 10, value: 'Ten' },
+                { number: 9, value: 'Nine' },
+                { number: 8, value: 'Eight' },
+                { number: 7, value: 'Seven' },
+                { number: 6, value: 'Six' },
+                { number: 5, value: 'Five' },
+                { number: 4, value: 'Four' },
+                { number: 3, value: 'Three' },
+                { number: 2, value: 'Two' },
+                { number: 1, value: 'One' },
+                { number: 0, value: 'Zero' },
+            ],
+            exactWordsMapping: [{ number: 100, value: 'One Hundred' }],
+        };
+    }
+}
+exports["default"] = Locale;
+
+
+/***/ }),
+
+/***/ 44130:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+class Locale {
+    constructor() {
+        this.config = {
+            currency: {
+                name: 'lira',
+                plural: '',
+                singular: '',
+                symbol: '₺',
+                fractionalUnit: {
+                    name: '',
+                    singular: 'lira',
+                    plural: 'lira',
+                    symbol: '',
+                },
+            },
+            texts: {
+                and: 'virgül',
+                minus: 'eksi',
+                only: '',
+                point: 'virgül',
+            },
+            numberWordsMapping: [
+                { number: 1000000000000000, value: 'katrilyon' },
+                { number: 1000000000000, value: 'trilyon' },
+                { number: 1000000000, value: 'milyar' },
+                { number: 1000000, value: 'milyon' },
+                { number: 1000, value: 'bin' },
+                { number: 900, value: 'dokuz yüz' },
+                { number: 800, value: 'sekiz yüz' },
+                { number: 700, value: 'yedi yüz' },
+                { number: 600, value: 'altı yüz' },
+                { number: 500, value: 'beş yüz' },
+                { number: 400, value: 'dört yüz' },
+                { number: 300, value: 'üç yüz' },
+                { number: 200, value: 'iki yüz' },
+                { number: 100, value: 'yüz' },
+                { number: 90, value: 'doksan' },
+                { number: 80, value: 'seksen' },
+                { number: 70, value: 'yetmiş' },
+                { number: 60, value: 'altmış' },
+                { number: 50, value: 'elli' },
+                { number: 40, value: 'kırk' },
+                { number: 30, value: 'otuz' },
+                { number: 20, value: 'yirmi' },
+                { number: 19, value: 'on dokuz' },
+                { number: 18, value: 'on sekiz' },
+                { number: 17, value: 'on yedi' },
+                { number: 16, value: 'on altı' },
+                { number: 15, value: 'on beş' },
+                { number: 14, value: 'on dört' },
+                { number: 13, value: 'on üç' },
+                { number: 12, value: 'on iki' },
+                { number: 11, value: 'on bir' },
+                { number: 10, value: 'on' },
+                { number: 9, value: 'dokuz' },
+                { number: 8, value: 'sekiz' },
+                { number: 7, value: 'yedi' },
+                { number: 6, value: 'altı' },
+                { number: 5, value: 'beş' },
+                { number: 4, value: 'dört' },
+                { number: 3, value: 'üç' },
+                { number: 2, value: 'iki' },
+                { number: 1, value: 'bir' },
+                { number: 0, value: 'sıfır' },
+            ],
+            namedLessThan1000: true,
+            ignoreZeroInDecimals: true,
+            decimalLengthWordMapping: {
+                1: 'onuncu',
+                2: 'yüzüncü',
+                3: 'bininci',
+                4: 'on bininci',
+                5: 'yüz bininci',
+                6: 'on milyonuncu',
+                7: 'milyonuncu',
+                8: 'yüz milyonuncu',
+            },
+        };
+    }
+}
+exports["default"] = Locale;
+
+
+/***/ }),
+
+/***/ 44659:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".form-group[data-v-3d82b5ae]{margin-bottom:1rem}.form-group label[data-v-3d82b5ae]{color:#495057;font-size:.95rem;font-weight:500;margin-bottom:.5rem}.required[data-v-3d82b5ae]{color:#dc3545;font-weight:700}.form-control[data-v-3d82b5ae]{background:#fff!important;border:1px solid #e5e7eb;font-size:14px;padding:10px 16px}.form-control[data-v-3d82b5ae]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(51,160,217,.25)}.is-invalid[data-v-3d82b5ae]{border-color:#dc3545!important}textarea.form-control[data-v-3d82b5ae]{min-height:100px;resize:vertical}.btn-success[data-v-3d82b5ae]{background:#2ab930!important;border:none!important;color:#fff!important;font-weight:500;padding:10px 20px!important}.btn-success[data-v-3d82b5ae]:hover{background:#229a26!important;box-shadow:0 4px 8px rgba(42,185,48,.3);transform:translateY(-1px)}.btn-secondary[data-v-3d82b5ae]{background:#6c757d!important;border:none!important;color:#fff!important;font-weight:500;padding:10px 20px!important}.btn-secondary[data-v-3d82b5ae]:hover{background:#5a6268!important;box-shadow:0 4px 8px hsla(208,7%,46%,.3);transform:translateY(-1px)}.create-button[data-v-3d82b5ae]{cursor:pointer;text-decoration:none}.unit-code-tooltip[data-v-3d82b5ae]{transition:all .2s ease}.unit-code-tooltip[data-v-3d82b5ae]:hover{color:#33a0d9!important;transform:scale(1.1)}.form-text[data-v-3d82b5ae]{color:#6c757d;font-size:.85rem;margin-top:.25rem}@media (max-width:768px){.form-group[data-v-3d82b5ae]{margin-bottom:.75rem}.form-text[data-v-3d82b5ae]{font-size:.8rem}}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 47229:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+class Locale {
+    constructor() {
+        this.config = {
+            currency: {
+                name: 'રૂપિયો',
+                plural: 'રૂપિયા',
+                singular: 'રૂપિયો',
+                symbol: '₹',
+                fractionalUnit: {
+                    name: 'પૈસા',
+                    singular: 'પૈસા',
+                    plural: 'પૈસા',
+                    symbol: '',
+                },
+            },
+            texts: {
+                and: 'અને',
+                minus: 'ઋણ',
+                // only: 'માત્ર',
+                only: '',
+                point: 'દશાંશ',
+            },
+            numberWordsMapping: [
+                { number: 10000000, value: 'કરોડ' },
+                { number: 100000, value: 'લાખ' },
+                { number: 1000, value: 'હજાર' },
+                { number: 100, value: 'સો' },
+                { number: 99, value: 'નવ્વાણું' },
+                { number: 98, value: 'અઠ્ઠાણું' },
+                { number: 97, value: 'સત્તાણું' },
+                { number: 96, value: 'છન્નું' },
+                { number: 95, value: 'પંચાણું' },
+                { number: 94, value: 'ચોરાણું' },
+                { number: 93, value: 'ત્રાણું' },
+                { number: 92, value: 'બાણું' },
+                { number: 91, value: 'એકાણું' },
+                { number: 90, value: 'નેવું' },
+                { number: 89, value: 'નેવ્યાસી' },
+                { number: 88, value: 'ઈઠ્યાસી' },
+                { number: 87, value: 'સિત્યાસી' },
+                { number: 86, value: 'છ્યાસી' },
+                { number: 85, value: 'પંચ્યાસી' },
+                { number: 84, value: 'ચોર્યાસી' },
+                { number: 83, value: 'ત્યાસી' },
+                { number: 82, value: 'બ્યાસી' },
+                { number: 81, value: 'એક્યાસી' },
+                { number: 80, value: 'એંસી' },
+                { number: 79, value: 'ઓગણાએંસી' },
+                { number: 78, value: 'ઇઠ્યોતેર' },
+                { number: 77, value: 'સિત્યોતેર' },
+                { number: 76, value: 'છોતેર' },
+                { number: 75, value: 'પંચોતેર' },
+                { number: 74, value: 'ચુમોતેર' },
+                { number: 73, value: 'તોતેર' },
+                { number: 72, value: 'બોતેર' },
+                { number: 71, value: 'એકોતેર' },
+                { number: 70, value: 'સિત્તેર' },
+                { number: 69, value: 'ઓગણોસિત્તેર' },
+                { number: 68, value: 'અડસઠ' },
+                { number: 67, value: 'સડસઠ' },
+                { number: 66, value: 'છાસઠ' },
+                { number: 65, value: 'પાંસઠ' },
+                { number: 64, value: 'ચોસઠ' },
+                { number: 63, value: 'ત્રેસઠ' },
+                { number: 62, value: 'બાસઠ' },
+                { number: 61, value: 'એકસઠ' },
+                { number: 60, value: 'સાઈઠ' },
+                { number: 59, value: 'ઓગણસાઠ' },
+                { number: 58, value: 'અઠ્ઠાવન' },
+                { number: 57, value: 'સત્તાવન' },
+                { number: 56, value: 'છપ્પન' },
+                { number: 55, value: 'પંચાવન' },
+                { number: 54, value: 'ચોપન' },
+                { number: 53, value: 'ત્રેપન' },
+                { number: 52, value: 'બાવન' },
+                { number: 51, value: 'એકાવન' },
+                { number: 50, value: 'પચાસ' },
+                { number: 49, value: 'ઓગણપચાસ' },
+                { number: 48, value: 'સુડતાલીસ' },
+                { number: 47, value: 'સુડતાલીસ' },
+                { number: 46, value: 'છેતાલીસ' },
+                { number: 45, value: 'પિસ્તાલીસ' },
+                { number: 44, value: 'ચુંમાલીસ' },
+                { number: 43, value: 'ત્રેતાલીસ' },
+                { number: 42, value: 'એકતાલીસ' },
+                { number: 41, value: 'એકતાલીસ' },
+                { number: 40, value: 'ચાલીસ' },
+                { number: 39, value: 'ઓગણચાલીસ' },
+                { number: 38, value: 'આડત્રીસ' },
+                { number: 37, value: 'સાડત્રીસ' },
+                { number: 36, value: 'છત્રીસ' },
+                { number: 35, value: 'પાંત્રીસ' },
+                { number: 34, value: 'ચોત્રીસ' },
+                { number: 33, value: 'તેત્રીસ' },
+                { number: 32, value: 'બત્રીસ' },
+                { number: 31, value: 'એકત્રીસ' },
+                { number: 30, value: 'ત્રીસ' },
+                { number: 29, value: 'ઓગણત્રીસ' },
+                { number: 28, value: 'અઠ્ઠાવીસ' },
+                { number: 27, value: 'સત્તાવીસ' },
+                { number: 26, value: 'છવીસ' },
+                { number: 25, value: 'પચ્ચીસ' },
+                { number: 24, value: 'ચોવીસ' },
+                { number: 23, value: 'તેવીસ' },
+                { number: 22, value: 'બાવીસ' },
+                { number: 21, value: 'એકવીસ' },
+                { number: 20, value: 'વીસ' },
+                { number: 19, value: 'ઓગણિસ' },
+                { number: 18, value: 'અઢાર' },
+                { number: 17, value: 'સત્તર' },
+                { number: 16, value: 'સોળ' },
+                { number: 15, value: 'પંદર' },
+                { number: 14, value: 'ચૌદ' },
+                { number: 13, value: 'તેર' },
+                { number: 12, value: 'બાર' },
+                { number: 11, value: 'અગિયાર' },
+                { number: 10, value: 'દસ' },
+                { number: 9, value: 'નવ' },
+                { number: 8, value: 'આઠ' },
+                { number: 7, value: 'સાત' },
+                { number: 6, value: 'છ' },
+                { number: 5, value: 'પાંચ' },
+                { number: 4, value: 'ચાર' },
+                { number: 3, value: 'ત્રણ' },
+                { number: 2, value: 'બે' },
+                { number: 1, value: 'એક' },
+                { number: 0, value: 'શૂન્ય' },
+            ],
+        };
+    }
+}
+exports["default"] = Locale;
+
+
+/***/ }),
+
+/***/ 52730:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".create-button[data-v-56f6a1e0]{cursor:pointer;text-decoration:none}.modal-content[data-v-56f6a1e0]{margin:1.75rem auto;max-width:1000px}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 54330:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+class Locale {
+    constructor() {
+        this.config = {
+            currency: {
+                name: 'Pound',
+                plural: 'Pounds',
+                singular: 'Pound',
+                symbol: '£',
+                fractionalUnit: {
+                    name: 'Pence',
+                    plural: 'Pence',
+                    singular: 'Penny',
+                    symbol: '',
+                },
+            },
+            texts: {
+                and: 'And',
+                minus: 'Minus',
+                only: 'Only',
+                point: 'Point',
+            },
+            numberWordsMapping: [
+                { number: 1000000000000000, value: 'Quadrillion' },
+                { number: 1000000000000, value: 'Trillion' },
+                { number: 1000000000, value: 'Billion' },
+                { number: 1000000, value: 'Million' },
+                { number: 1000, value: 'Thousand' },
+                { number: 100, value: 'Hundred' },
+                { number: 90, value: 'Ninety' },
+                { number: 80, value: 'Eighty' },
+                { number: 70, value: 'Seventy' },
+                { number: 60, value: 'Sixty' },
+                { number: 50, value: 'Fifty' },
+                { number: 40, value: 'Forty' },
+                { number: 30, value: 'Thirty' },
+                { number: 20, value: 'Twenty' },
+                { number: 19, value: 'Nineteen' },
+                { number: 18, value: 'Eighteen' },
+                { number: 17, value: 'Seventeen' },
+                { number: 16, value: 'Sixteen' },
+                { number: 15, value: 'Fifteen' },
+                { number: 14, value: 'Fourteen' },
+                { number: 13, value: 'Thirteen' },
+                { number: 12, value: 'Twelve' },
+                { number: 11, value: 'Eleven' },
+                { number: 10, value: 'Ten' },
+                { number: 9, value: 'Nine' },
+                { number: 8, value: 'Eight' },
+                { number: 7, value: 'Seven' },
+                { number: 6, value: 'Six' },
+                { number: 5, value: 'Five' },
+                { number: 4, value: 'Four' },
+                { number: 3, value: 'Three' },
+                { number: 2, value: 'Two' },
+                { number: 1, value: 'One' },
+                { number: 0, value: 'Zero' },
+            ],
+            exactWordsMapping: [{ number: 100, value: 'One Hundred' }],
+        };
+    }
+}
+exports["default"] = Locale;
+
+
+/***/ }),
+
+/***/ 54923:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ToWords = exports.DefaultToWordsOptions = exports.DefaultConverterOptions = void 0;
+const en_AE_1 = __importDefault(__webpack_require__(8550));
+const en_BD_1 = __importDefault(__webpack_require__(41061));
+const en_GH_1 = __importDefault(__webpack_require__(59096));
+const en_IE_1 = __importDefault(__webpack_require__(21470));
+const en_IN_1 = __importDefault(__webpack_require__(144));
+const en_MM_1 = __importDefault(__webpack_require__(38765));
+const en_MU_1 = __importDefault(__webpack_require__(74261));
+const en_NG_1 = __importDefault(__webpack_require__(92952));
+const en_NP_1 = __importDefault(__webpack_require__(26365));
+const en_US_1 = __importDefault(__webpack_require__(84463));
+const en_GB_1 = __importDefault(__webpack_require__(54330));
+const en_PH_1 = __importDefault(__webpack_require__(82779));
+const fa_IR_1 = __importDefault(__webpack_require__(10982));
+const fr_BE_1 = __importDefault(__webpack_require__(69543));
+const fr_FR_1 = __importDefault(__webpack_require__(28834));
+const gu_IN_1 = __importDefault(__webpack_require__(47229));
+const hi_IN_1 = __importDefault(__webpack_require__(37460));
+const mr_IN_1 = __importDefault(__webpack_require__(33972));
+const pt_BR_1 = __importDefault(__webpack_require__(21722));
+const tr_TR_1 = __importDefault(__webpack_require__(44130));
+const nl_SR_1 = __importDefault(__webpack_require__(55101));
+const ee_EE_1 = __importDefault(__webpack_require__(74938));
+const ko_KR_1 = __importDefault(__webpack_require__(58041));
+exports.DefaultConverterOptions = {
+    currency: false,
+    ignoreDecimal: false,
+    ignoreZeroCurrency: false,
+    doNotAddOnly: false,
+};
+exports.DefaultToWordsOptions = {
+    localeCode: 'en-IN',
+    converterOptions: exports.DefaultConverterOptions,
+};
+class ToWords {
+    constructor(options = {}) {
+        this.options = {};
+        this.locale = undefined;
+        this.options = Object.assign({}, exports.DefaultToWordsOptions, options);
+    }
+    getLocaleClass() {
+        /* eslint-disable @typescript-eslint/no-var-requires */
+        switch (this.options.localeCode) {
+            case 'ee-EE':
+                return ee_EE_1.default;
+            case 'en-AE':
+                return en_AE_1.default;
+            case 'en-BD':
+                return en_BD_1.default;
+            case 'en-GH':
+                return en_GH_1.default;
+            case 'en-IE':
+                return en_IE_1.default;
+            case 'en-IN':
+                return en_IN_1.default;
+            case 'en-MM':
+                return en_MM_1.default;
+            case 'en-MU':
+                return en_MU_1.default;
+            case 'en-NG':
+                return en_NG_1.default;
+            case 'en-NP':
+                return en_NP_1.default;
+            case 'en-US':
+                return en_US_1.default;
+            case 'en-GB':
+                return en_GB_1.default;
+            case 'en-PH':
+                return en_PH_1.default;
+            case 'fa-IR':
+                return fa_IR_1.default;
+            case 'fr-BE':
+                return fr_BE_1.default;
+            case 'fr-FR':
+                return fr_FR_1.default;
+            case 'gu-IN':
+                return gu_IN_1.default;
+            case 'hi-IN':
+                return hi_IN_1.default;
+            case 'mr-IN':
+                return mr_IN_1.default;
+            case 'pt-BR':
+                return pt_BR_1.default;
+            case 'tr-TR':
+                return tr_TR_1.default;
+            case 'nl-SR':
+                return nl_SR_1.default;
+            case 'ko-KR':
+                return ko_KR_1.default;
+        }
+        /* eslint-enable @typescript-eslint/no-var-requires */
+        throw new Error(`Unknown Locale "${this.options.localeCode}"`);
+    }
+    getLocale() {
+        if (this.locale === undefined) {
+            const LocaleClass = this.getLocaleClass();
+            this.locale = new LocaleClass();
+        }
+        return this.locale;
+    }
+    convert(number, options = {}) {
+        var _a;
+        options = Object.assign({}, this.options.converterOptions, options);
+        if (!this.isValidNumber(number)) {
+            throw new Error(`Invalid Number "${number}"`);
+        }
+        if (options.ignoreDecimal) {
+            number = Number.parseInt(number.toString());
+        }
+        let words = [];
+        if (options.currency) {
+            words = this.convertCurrency(number, options);
+        }
+        else {
+            words = this.convertNumber(number);
+        }
+        if ((_a = this.locale) === null || _a === void 0 ? void 0 : _a.config.trim) {
+            return words.join('');
+        }
+        return words.join(' ');
+    }
+    convertNumber(number) {
+        var _a, _b, _c;
+        const locale = this.getLocale();
+        const isNegativeNumber = number < 0;
+        if (isNegativeNumber) {
+            number = Math.abs(number);
+        }
+        const split = number.toString().split('.');
+        const ignoreZero = this.isNumberZero(number) && locale.config.ignoreZeroInDecimals;
+        let words = this.convertInternal(Number(split[0]));
+        const isFloat = this.isFloat(number);
+        if (isFloat && ignoreZero) {
+            words = [];
+        }
+        const wordsWithDecimal = [];
+        if (isFloat) {
+            if (!ignoreZero) {
+                wordsWithDecimal.push(locale.config.texts.point);
+            }
+            if (split[1].startsWith('0') && !((_a = locale.config) === null || _a === void 0 ? void 0 : _a.decimalLengthWordMapping)) {
+                const zeroWords = [];
+                for (const num of split[1]) {
+                    zeroWords.push(...this.convertInternal(Number(num)));
+                }
+                wordsWithDecimal.push(...zeroWords);
+            }
+            else {
+                wordsWithDecimal.push(...this.convertInternal(Number(split[1])));
+                const decimalLengthWord = (_c = (_b = locale.config) === null || _b === void 0 ? void 0 : _b.decimalLengthWordMapping) === null || _c === void 0 ? void 0 : _c[split[1].length];
+                if (decimalLengthWord) {
+                    wordsWithDecimal.push(decimalLengthWord);
+                }
+            }
+        }
+        const isEmpty = words.length <= 0;
+        if (!isEmpty && isNegativeNumber) {
+            words.unshift(locale.config.texts.minus);
+        }
+        words.push(...wordsWithDecimal);
+        return words;
+    }
+    convertCurrency(number, options = {}) {
+        var _a, _b, _c, _d;
+        const locale = this.getLocale();
+        const currencyOptions = (_a = options.currencyOptions) !== null && _a !== void 0 ? _a : locale.config.currency;
+        const isNegativeNumber = number < 0;
+        if (isNegativeNumber) {
+            number = Math.abs(number);
+        }
+        number = this.toFixed(number);
+        // Extra check for isFloat to overcome 1.999 rounding off to 2
+        const split = number.toString().split('.');
+        let words = [...this.convertInternal(Number(split[0]))];
+        // Determine if the main currency should be in singular form
+        // e.g. 1 Dollar Only instead of 1 Dollars Only
+        if (Number(split[0]) === 1 && currencyOptions.singular) {
+            words.push(currencyOptions.name);
+        }
+        else if (currencyOptions.plural) {
+            words.push(currencyOptions.plural);
+        }
+        const ignoreZero = this.isNumberZero(number) &&
+            (options.ignoreZeroCurrency || (((_b = locale.config) === null || _b === void 0 ? void 0 : _b.ignoreZeroInDecimals) && number !== 0));
+        if (ignoreZero) {
+            words = [];
+        }
+        const wordsWithDecimal = [];
+        const isFloat = this.isFloat(number);
+        if (isFloat) {
+            if (!ignoreZero) {
+                wordsWithDecimal.push(locale.config.texts.and);
+            }
+            const decimalPart = Number(split[1]) * (!locale.config.decimalLengthWordMapping ? Math.pow(10, 2 - split[1].length) : 1);
+            wordsWithDecimal.push(...this.convertInternal(decimalPart));
+            const decimalLengthWord = (_d = (_c = locale.config) === null || _c === void 0 ? void 0 : _c.decimalLengthWordMapping) === null || _d === void 0 ? void 0 : _d[split[1].length];
+            if (decimalLengthWord === null || decimalLengthWord === void 0 ? void 0 : decimalLengthWord.length) {
+                wordsWithDecimal.push(decimalLengthWord);
+            }
+            // Determine if the fractional unit should be in singular form
+            // e.g. 1 Dollar and 1 Cent Only instead of 1 Dollar and 1 Cents Only
+            if (decimalPart === 1 && currencyOptions.fractionalUnit.singular) {
+                wordsWithDecimal.push(currencyOptions.fractionalUnit.singular);
+            }
+            else {
+                wordsWithDecimal.push(currencyOptions.fractionalUnit.plural);
+            }
+        }
+        else if (locale.config.decimalLengthWordMapping && words.length) {
+            wordsWithDecimal.push(currencyOptions.fractionalUnit.plural);
+        }
+        const isEmpty = words.length <= 0 && wordsWithDecimal.length <= 0;
+        if (!isEmpty && isNegativeNumber) {
+            words.unshift(locale.config.texts.minus);
+        }
+        if (!isEmpty && locale.config.texts.only && !options.doNotAddOnly && !locale.config.onlyInFront) {
+            wordsWithDecimal.push(locale.config.texts.only);
+        }
+        if (wordsWithDecimal.length) {
+            words.push(...wordsWithDecimal);
+        }
+        if (!isEmpty && !options.doNotAddOnly && locale.config.onlyInFront) {
+            words.splice(0, 0, locale.config.texts.only);
+        }
+        return words;
+    }
+    convertInternal(number) {
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o;
+        const locale = this.getLocale();
+        if (locale.config.exactWordsMapping) {
+            const exactMatch = (_b = (_a = locale.config) === null || _a === void 0 ? void 0 : _a.exactWordsMapping) === null || _b === void 0 ? void 0 : _b.find((elem) => {
+                return number === elem.number;
+            });
+            if (exactMatch) {
+                return [exactMatch.value];
+            }
+        }
+        const match = locale.config.numberWordsMapping.find((elem) => {
+            return number >= elem.number;
+        });
+        const words = [];
+        if (number <= 100 || (number < 1000 && locale.config.namedLessThan1000)) {
+            words.push(match.value);
+            number -= match.number;
+            if (number > 0) {
+                if ((_d = (_c = locale.config) === null || _c === void 0 ? void 0 : _c.splitWord) === null || _d === void 0 ? void 0 : _d.length) {
+                    words.push(locale.config.splitWord);
+                }
+                words.push(...this.convertInternal(number));
+            }
+            return words;
+        }
+        const quotient = Math.floor(number / match.number);
+        const remainder = number % match.number;
+        let matchValue = match.value;
+        if (quotient > 1 && ((_f = (_e = locale.config) === null || _e === void 0 ? void 0 : _e.pluralWords) === null || _f === void 0 ? void 0 : _f.find((word) => word === match.value)) && ((_g = locale.config) === null || _g === void 0 ? void 0 : _g.pluralMark)) {
+            matchValue += locale.config.pluralMark;
+        }
+        if (quotient === 1 && ((_j = (_h = locale.config) === null || _h === void 0 ? void 0 : _h.ignoreOneForWords) === null || _j === void 0 ? void 0 : _j.includes(matchValue))) {
+            words.push(matchValue);
+        }
+        else {
+            words.push(...this.convertInternal(quotient), matchValue);
+        }
+        if (remainder > 0) {
+            if ((_l = (_k = locale.config) === null || _k === void 0 ? void 0 : _k.splitWord) === null || _l === void 0 ? void 0 : _l.length) {
+                if (!((_o = (_m = locale.config) === null || _m === void 0 ? void 0 : _m.noSplitWordAfter) === null || _o === void 0 ? void 0 : _o.find((word) => word === match.value))) {
+                    words.push(locale.config.splitWord);
+                }
+            }
+            words.push(...this.convertInternal(remainder));
+        }
+        return words;
+    }
+    toFixed(number, precision = 2) {
+        return Number(Number(number).toFixed(precision));
+    }
+    isFloat(number) {
+        return Number(number) === number && number % 1 !== 0;
+    }
+    isValidNumber(number) {
+        return !isNaN(parseFloat(number)) && isFinite(number);
+    }
+    isNumberZero(number) {
+        return number >= 0 && number < 1;
+    }
+}
+exports.ToWords = ToWords;
+
+
+/***/ }),
+
+/***/ 55101:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+class Locale {
+    constructor() {
+        this.config = {
+            currency: {
+                name: 'Surinaamse dollar',
+                plural: 'Surinaamse dollars',
+                singular: 'Surinaamse dollar',
+                symbol: 'SRD',
+                fractionalUnit: {
+                    name: 'Cent',
+                    singular: 'Cent',
+                    plural: 'Centen',
+                    symbol: 'SRD',
+                },
+            },
+            texts: {
+                and: 'En',
+                minus: 'Negatief',
+                only: '',
+                point: 'Punt',
+            },
+            numberWordsMapping: [
+                { number: 1000000000000000, value: 'Biljard' },
+                { number: 1000000000000, value: 'Biljoen' },
+                { number: 1000000000, value: 'Miljard' },
+                { number: 1000000, value: 'Miljoen' },
+                { number: 1000, value: 'Duizend' },
+                { number: 100, value: 'Honderd' },
+                { number: 99, value: 'Negenennegentig' },
+                { number: 98, value: 'Achtennegentig' },
+                { number: 97, value: 'Zevenennegentig' },
+                { number: 96, value: 'Zesennegentig' },
+                { number: 95, value: 'Vijfennegentig' },
+                { number: 94, value: 'Vierennegentig' },
+                { number: 93, value: 'Drieënnegentig' },
+                { number: 92, value: 'Tweeënnegentig' },
+                { number: 91, value: 'Eenennegentig' },
+                { number: 90, value: 'Negentig' },
+                { number: 89, value: 'Negenentachtig' },
+                { number: 88, value: 'Achtentachtig' },
+                { number: 87, value: 'Zevenentachtig' },
+                { number: 86, value: 'Zesentachtig' },
+                { number: 85, value: 'Vijfentachtig' },
+                { number: 84, value: 'Vierentachtig' },
+                { number: 83, value: 'Drieëntachtig' },
+                { number: 82, value: 'Tweeëntachtig' },
+                { number: 81, value: 'Eenentachtig' },
+                { number: 80, value: 'Tachtig' },
+                { number: 79, value: 'Negenenzeventig' },
+                { number: 78, value: 'Achtenzeventig' },
+                { number: 77, value: 'Zevenenzeventig' },
+                { number: 76, value: 'Zesenzeventig' },
+                { number: 75, value: 'Vijfenzeventig' },
+                { number: 74, value: 'Vierenzeventig' },
+                { number: 73, value: 'Drieënzeventig' },
+                { number: 72, value: 'Tweeënzeventig' },
+                { number: 71, value: 'Eenenzeventig' },
+                { number: 70, value: 'Zeventig' },
+                { number: 69, value: 'Negenenzestig' },
+                { number: 68, value: 'Achtenzestig' },
+                { number: 67, value: 'Zevenenzestig' },
+                { number: 66, value: 'Zesenzestig' },
+                { number: 65, value: 'Vijfenzestig' },
+                { number: 64, value: 'Vierenzestig' },
+                { number: 63, value: 'Drieënzestig' },
+                { number: 62, value: 'Tweeënzestig' },
+                { number: 61, value: 'Eenenzestig' },
+                { number: 60, value: 'Zestig' },
+                { number: 59, value: 'Negenenvijftig' },
+                { number: 58, value: 'Achtenvijftig' },
+                { number: 57, value: 'Zevenenvijftig' },
+                { number: 56, value: 'Zesenvijftig' },
+                { number: 55, value: 'Vijfenvijftig' },
+                { number: 54, value: 'Vierenvijftig' },
+                { number: 53, value: 'Drieënvijftig' },
+                { number: 52, value: 'Tweeënvijftig' },
+                { number: 51, value: 'Eenenvijftig' },
+                { number: 50, value: 'Vijftig' },
+                { number: 49, value: 'Negenenveertig' },
+                { number: 48, value: 'Achtenveertig' },
+                { number: 47, value: 'Zevenenveertig' },
+                { number: 46, value: 'Zesenveertig' },
+                { number: 45, value: 'Vijfenveertig' },
+                { number: 44, value: 'Vierenveertig' },
+                { number: 43, value: 'Drieënveertig' },
+                { number: 42, value: 'Tweeënveertig' },
+                { number: 41, value: 'Eenenveertig' },
+                { number: 40, value: 'Veertig' },
+                { number: 39, value: 'Negenendertig' },
+                { number: 38, value: 'Achtendertig' },
+                { number: 37, value: 'Zevenendertig' },
+                { number: 36, value: 'Zesendertig' },
+                { number: 35, value: 'Vijfendertig' },
+                { number: 34, value: 'Vierendertig' },
+                { number: 33, value: 'Drieëndertig' },
+                { number: 32, value: 'Tweeëndertig' },
+                { number: 31, value: 'Eenendertig' },
+                { number: 30, value: 'Dertig' },
+                { number: 29, value: 'Negenentwintig' },
+                { number: 28, value: 'Achtentwintig' },
+                { number: 27, value: 'Zevenentwintig' },
+                { number: 26, value: 'Zesentwintig' },
+                { number: 25, value: 'Vijfentwintig' },
+                { number: 24, value: 'Vierentwintig' },
+                { number: 23, value: 'Drieëntwintig' },
+                { number: 22, value: 'Tweeëntwintig' },
+                { number: 21, value: 'Eenentwintig' },
+                { number: 20, value: 'Twintig' },
+                { number: 19, value: 'Negentien' },
+                { number: 18, value: 'Achttien' },
+                { number: 17, value: 'Zeventien' },
+                { number: 16, value: 'Zestien' },
+                { number: 15, value: 'Vijftien' },
+                { number: 14, value: 'Veertien' },
+                { number: 13, value: 'Dertien' },
+                { number: 12, value: 'Twaalf' },
+                { number: 11, value: 'Elf' },
+                { number: 10, value: 'Tien' },
+                { number: 9, value: 'Negen' },
+                { number: 8, value: 'Acht' },
+                { number: 7, value: 'Zeven' },
+                { number: 6, value: 'Zes' },
+                { number: 5, value: 'Vijf' },
+                { number: 4, value: 'Vier' },
+                { number: 3, value: 'Drie' },
+                { number: 2, value: 'Twee' },
+                { number: 1, value: 'Een' },
+                { number: 0, value: 'Nul' },
+            ],
+            exactWordsMapping: [{ number: 100, value: 'Honderd' }],
+        };
+    }
+}
+exports["default"] = Locale;
+
+
+/***/ }),
+
+/***/ 58041:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+class Locale {
+    constructor() {
+        this.config = {
+            currency: {
+                name: '원',
+                plural: '원',
+                symbol: '',
+                fractionalUnit: {
+                    name: '',
+                    plural: '',
+                    symbol: '',
+                },
+            },
+            texts: {
+                and: '하고 ',
+                minus: '마이너스',
+                only: '',
+                point: '점',
+            },
+            trim: true,
+            numberWordsMapping: [
+                { number: 1000000000000, value: '조' },
+                { number: 100000000, value: '억' },
+                { number: 10000, value: '만' },
+                { number: 1000, value: '천' },
+                { number: 100, value: '백' },
+                { number: 90, value: '구십' },
+                { number: 80, value: '팔십' },
+                { number: 70, value: '칠십' },
+                { number: 60, value: '육십' },
+                { number: 50, value: '오십' },
+                { number: 40, value: '사십' },
+                { number: 30, value: '삼십' },
+                { number: 20, value: '이십' },
+                { number: 19, value: '십구' },
+                { number: 18, value: '십팔' },
+                { number: 17, value: '십칠' },
+                { number: 16, value: '십육' },
+                { number: 15, value: '십오' },
+                { number: 14, value: '십사' },
+                { number: 13, value: '십삼' },
+                { number: 12, value: '십이' },
+                { number: 11, value: '십일' },
+                { number: 10, value: '십' },
+                { number: 9, value: '구' },
+                { number: 8, value: '팔' },
+                { number: 7, value: '칠' },
+                { number: 6, value: '육' },
+                { number: 5, value: '오' },
+                { number: 4, value: '사' },
+                { number: 3, value: '삼' },
+                { number: 2, value: '이' },
+                { number: 1, value: '일' },
+                { number: 0, value: '영' },
+            ],
+        };
+    }
+}
+exports["default"] = Locale;
+
+
+/***/ }),
+
+/***/ 59096:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+class Locale {
+    constructor() {
+        this.config = {
+            currency: {
+                name: 'Cedi',
+                plural: 'Cedis',
+                singular: 'Cedi',
+                symbol: 'GH¢',
+                fractionalUnit: {
+                    name: 'Pesewa',
+                    singular: 'Pesewa',
+                    plural: 'Pesewas',
+                    symbol: 'Gp',
+                },
+            },
+            texts: {
+                and: 'And',
+                minus: 'Minus',
+                only: 'Only',
+                point: 'Point',
+            },
+            numberWordsMapping: [
+                { number: 1000000000000000, value: 'Quadrillion' },
+                { number: 1000000000000, value: 'Trillion' },
+                { number: 1000000000, value: 'Billion' },
+                { number: 1000000, value: 'Million' },
+                { number: 1000, value: 'Thousand' },
+                { number: 100, value: 'Hundred' },
+                { number: 90, value: 'Ninety' },
+                { number: 80, value: 'Eighty' },
+                { number: 70, value: 'Seventy' },
+                { number: 60, value: 'Sixty' },
+                { number: 50, value: 'Fifty' },
+                { number: 40, value: 'Forty' },
+                { number: 30, value: 'Thirty' },
+                { number: 20, value: 'Twenty' },
+                { number: 19, value: 'Nineteen' },
+                { number: 18, value: 'Eighteen' },
+                { number: 17, value: 'Seventeen' },
+                { number: 16, value: 'Sixteen' },
+                { number: 15, value: 'Fifteen' },
+                { number: 14, value: 'Fourteen' },
+                { number: 13, value: 'Thirteen' },
+                { number: 12, value: 'Twelve' },
+                { number: 11, value: 'Eleven' },
+                { number: 10, value: 'Ten' },
+                { number: 9, value: 'Nine' },
+                { number: 8, value: 'Eight' },
+                { number: 7, value: 'Seven' },
+                { number: 6, value: 'Six' },
+                { number: 5, value: 'Five' },
+                { number: 4, value: 'Four' },
+                { number: 3, value: 'Three' },
+                { number: 2, value: 'Two' },
+                { number: 1, value: 'One' },
+                { number: 0, value: 'Zero' },
+            ],
+            exactWordsMapping: [{ number: 100, value: 'One Hundred' }],
+        };
+    }
+}
+exports["default"] = Locale;
+
+
+/***/ }),
+
+/***/ 64744:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _services_RTLService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(73948);
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      isRTL: false,
+      currentLocale: 'en'
+    };
+  },
+  computed: {
+    /**
+     * Get RTL-aware CSS classes
+     */
+    rtlClasses: function rtlClasses() {
+      return {
+        'rtl': this.isRTL,
+        'ltr': !this.isRTL,
+        'text-right': this.isRTL,
+        'text-left': !this.isRTL,
+        'float-right': this.isRTL,
+        'float-left': !this.isRTL
+      };
+    },
+    /**
+     * Get RTL-aware text alignment
+     */
+    textAlign: function textAlign() {
+      return this.isRTL ? 'right' : 'left';
+    },
+    /**
+     * Get RTL-aware float direction
+     */
+    floatDirection: function floatDirection() {
+      return this.isRTL ? 'right' : 'left';
+    }
+  },
+  mounted: function mounted() {
+    // Initialize RTL status
+    this.updateRTLStatus();
+
+    // Listen for RTL changes
+    window.addEventListener('rtl-changed', this.handleRTLChange);
+  },
+  beforeDestroy: function beforeDestroy() {
+    // Clean up event listener
+    window.removeEventListener('rtl-changed', this.handleRTLChange);
+  },
+  methods: {
+    /**
+     * Update RTL status from service
+     */
+    updateRTLStatus: function updateRTLStatus() {
+      this.isRTL = _services_RTLService__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A.getRTLStatus();
+      this.currentLocale = _services_RTLService__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A.getCurrentLocale();
+    },
+    /**
+     * Handle RTL change events
+     */
+    handleRTLChange: function handleRTLChange(event) {
+      this.isRTL = event.detail.isRTL;
+      this.currentLocale = event.detail.locale || _services_RTLService__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A.getCurrentLocale();
+      this.$forceUpdate(); // Force component re-render
+    },
+    /**
+     * Set RTL mode for a specific locale
+     */
+    setRTLMode: function setRTLMode(locale) {
+      _services_RTLService__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A.setRTLModeByLocale(locale);
+    },
+    /**
+     * Check if current locale is RTL
+     */
+    isCurrentLocaleRTL: function isCurrentLocaleRTL() {
+      return _services_RTLService__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A.getLanguageRTLStatus(this.currentLocale);
+    },
+    /**
+     * Get RTL-aware margin/padding classes
+     */
+    getRTLSpacingClasses: function getRTLSpacingClasses(baseClass, size) {
+      if (this.isRTL) {
+        return _defineProperty(_defineProperty({}, "".concat(baseClass, "-right-").concat(size), true), "".concat(baseClass, "-left-").concat(size), false);
+      } else {
+        return _defineProperty(_defineProperty({}, "".concat(baseClass, "-left-").concat(size), true), "".concat(baseClass, "-right-").concat(size), false);
+      }
+    },
+    /**
+     * Get RTL-aware border classes
+     */
+    getRTLBorderClasses: function getRTLBorderClasses(baseClass, side) {
+      if (this.isRTL) {
+        var rtlSideMap = {
+          'left': 'right',
+          'right': 'left',
+          'start': 'end',
+          'end': 'start'
+        };
+        return _defineProperty({}, "".concat(baseClass, "-").concat(rtlSideMap[side] || side), true);
+      } else {
+        return _defineProperty({}, "".concat(baseClass, "-").concat(side), true);
+      }
+    }
+  }
+});
+
+/***/ }),
+
+/***/ 69543:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+class Locale {
+    constructor() {
+        this.config = {
+            currency: {
+                name: 'Euro',
+                plural: 'Euros',
+                singular: 'Euro',
+                symbol: '€',
+                fractionalUnit: {
+                    name: 'Centime',
+                    singular: 'Centime',
+                    plural: 'Centimes',
+                    symbol: 'Cts',
+                },
+            },
+            texts: {
+                and: 'Et',
+                minus: 'Moins',
+                only: '',
+                point: 'Virgule',
+            },
+            numberWordsMapping: [
+                { number: 1000000000000000, value: 'Billiard' },
+                { number: 1000000000000, value: 'Billion' },
+                { number: 1000000000, value: 'Milliard' },
+                { number: 1000000, value: 'Million' },
+                { number: 1000, value: 'Mille' },
+                { number: 100, value: 'Cent' },
+                { number: 99, value: 'Nonante-Neuf' },
+                { number: 98, value: 'Nonante-Huit' },
+                { number: 97, value: 'Nonante-Sept' },
+                { number: 96, value: 'Nonante-Six' },
+                { number: 95, value: 'Nonante-Cinq' },
+                { number: 94, value: 'Nonante-Quatre' },
+                { number: 93, value: 'Nonante-Trois' },
+                { number: 92, value: 'Nonante-Deux' },
+                { number: 91, value: 'Nonante-Et-Un' },
+                { number: 90, value: 'Nonante' },
+                { number: 89, value: 'Quatre-Vingt-Neuf' },
+                { number: 88, value: 'Quatre-Vingt-Huit' },
+                { number: 87, value: 'Quatre-Vingt-Sept' },
+                { number: 86, value: 'Quatre-Vingt-Six' },
+                { number: 85, value: 'Quatre-Vingt-Cinq' },
+                { number: 84, value: 'Quatre-Vingt-Quatre' },
+                { number: 83, value: 'Quatre-Vingt-Trois' },
+                { number: 82, value: 'Quatre-Vingt-Deux' },
+                { number: 81, value: 'Quatre-Vingt-Un' },
+                { number: 80, value: 'Quatre-Vingt' },
+                { number: 79, value: 'Septante-Neuf' },
+                { number: 78, value: 'Septante-Huit' },
+                { number: 77, value: 'Septante-Sept' },
+                { number: 76, value: 'Septante-Six' },
+                { number: 75, value: 'Septante-Cinq' },
+                { number: 74, value: 'Septante-Quatre' },
+                { number: 73, value: 'Septante-Trois' },
+                { number: 72, value: 'Septante-Deux' },
+                { number: 71, value: 'Septante-Et-Un' },
+                { number: 70, value: 'Septante' },
+                { number: 69, value: 'Soixante-Neuf' },
+                { number: 68, value: 'Soixante-Huit' },
+                { number: 67, value: 'Soixante-Sept' },
+                { number: 66, value: 'Soixante-Six' },
+                { number: 65, value: 'Soixante-Cinq' },
+                { number: 64, value: 'Soixante-Quatre' },
+                { number: 63, value: 'Soixante-Trois' },
+                { number: 62, value: 'Soixante-Deux' },
+                { number: 61, value: 'Soixante-Et-Un' },
+                { number: 60, value: 'Soixante' },
+                { number: 59, value: 'Cinquante-Neuf' },
+                { number: 58, value: 'Cinquante-Huit' },
+                { number: 57, value: 'Cinquante-Sept' },
+                { number: 56, value: 'Cinquante-Six' },
+                { number: 55, value: 'Cinquante-Cinq' },
+                { number: 54, value: 'Cinquante-Quatre' },
+                { number: 53, value: 'Cinquante-Trois' },
+                { number: 52, value: 'Cinquante-Deux' },
+                { number: 51, value: 'Cinquante-Et-Un' },
+                { number: 50, value: 'Cinquante' },
+                { number: 49, value: 'Quarante-Neuf' },
+                { number: 48, value: 'Quarante-Huit' },
+                { number: 47, value: 'Quarante-Sept' },
+                { number: 46, value: 'Quarante-Six' },
+                { number: 45, value: 'Quarante-Cinq' },
+                { number: 44, value: 'Quarante-Quatre' },
+                { number: 43, value: 'Quarante-Trois' },
+                { number: 42, value: 'Quarante-Deux' },
+                { number: 41, value: 'Quarante-Et-Un' },
+                { number: 40, value: 'Quarante' },
+                { number: 39, value: 'Trente-Neuf' },
+                { number: 38, value: 'Trente-Huit' },
+                { number: 37, value: 'Trente-Sept' },
+                { number: 36, value: 'Trente-Six' },
+                { number: 35, value: 'Trente-Cinq' },
+                { number: 34, value: 'Trente-Quatre' },
+                { number: 33, value: 'Trente-Trois' },
+                { number: 32, value: 'Trente-Deux' },
+                { number: 31, value: 'Trente-Et-Un' },
+                { number: 30, value: 'Trente' },
+                { number: 29, value: 'Vingt-Neuf' },
+                { number: 28, value: 'Vingt-Huit' },
+                { number: 27, value: 'Vingt-Sept' },
+                { number: 26, value: 'Vingt-Six' },
+                { number: 25, value: 'Vingt-Cinq' },
+                { number: 24, value: 'Vingt-Quatre' },
+                { number: 23, value: 'Vingt-Trois' },
+                { number: 22, value: 'Vingt-Deux' },
+                { number: 21, value: 'Vingt-Et-Un' },
+                { number: 20, value: 'Vingt' },
+                { number: 19, value: 'Dix-Neuf' },
+                { number: 18, value: 'Dix-Huit' },
+                { number: 17, value: 'Dix-Sept' },
+                { number: 16, value: 'Seize' },
+                { number: 15, value: 'Quinze' },
+                { number: 14, value: 'Quatorze' },
+                { number: 13, value: 'Treize' },
+                { number: 12, value: 'Douze' },
+                { number: 11, value: 'Onze' },
+                { number: 10, value: 'Dix' },
+                { number: 9, value: 'Neuf' },
+                { number: 8, value: 'Huit' },
+                { number: 7, value: 'Sept' },
+                { number: 6, value: 'Six' },
+                { number: 5, value: 'Cinq' },
+                { number: 4, value: 'Quatre' },
+                { number: 3, value: 'Trois' },
+                { number: 2, value: 'Deux' },
+                { number: 1, value: 'Un' },
+                { number: 0, value: 'Zéro' },
+            ],
+            ignoreOneForWords: ['Cent', 'Mille'],
+            pluralMark: 's',
+            pluralWords: ['Billiard', 'Billion', 'Milliard', 'Million'],
+        };
+    }
+}
+exports["default"] = Locale;
+
+
+/***/ }),
+
+/***/ 74261:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+class Locale {
+    constructor() {
+        this.config = {
+            currency: {
+                name: 'Rupee',
+                plural: 'Rupees',
+                singular: 'Rupee',
+                symbol: 'Rs',
+                fractionalUnit: {
+                    name: 'Cent',
+                    singular: 'Cent',
+                    plural: 'Cents',
+                    symbol: '',
+                },
+            },
+            texts: {
+                and: 'And',
+                minus: 'Minus',
+                only: 'Only',
+                point: 'Point',
+            },
+            numberWordsMapping: [
+                { number: 10000000, value: 'Crore' },
+                { number: 100000, value: 'Lakh' },
+                { number: 1000, value: 'Thousand' },
+                { number: 100, value: 'Hundred' },
+                { number: 90, value: 'Ninety' },
+                { number: 80, value: 'Eighty' },
+                { number: 70, value: 'Seventy' },
+                { number: 60, value: 'Sixty' },
+                { number: 50, value: 'Fifty' },
+                { number: 40, value: 'Forty' },
+                { number: 30, value: 'Thirty' },
+                { number: 20, value: 'Twenty' },
+                { number: 19, value: 'Nineteen' },
+                { number: 18, value: 'Eighteen' },
+                { number: 17, value: 'Seventeen' },
+                { number: 16, value: 'Sixteen' },
+                { number: 15, value: 'Fifteen' },
+                { number: 14, value: 'Fourteen' },
+                { number: 13, value: 'Thirteen' },
+                { number: 12, value: 'Twelve' },
+                { number: 11, value: 'Eleven' },
+                { number: 10, value: 'Ten' },
+                { number: 9, value: 'Nine' },
+                { number: 8, value: 'Eight' },
+                { number: 7, value: 'Seven' },
+                { number: 6, value: 'Six' },
+                { number: 5, value: 'Five' },
+                { number: 4, value: 'Four' },
+                { number: 3, value: 'Three' },
+                { number: 2, value: 'Two' },
+                { number: 1, value: 'One' },
+                { number: 0, value: 'Zero' },
+            ],
+            exactWordsMapping: [{ number: 100, value: 'One Hundred' }],
+        };
+    }
+}
+exports["default"] = Locale;
+
+
+/***/ }),
+
+/***/ 74938:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+class Locale {
+    constructor() {
+        this.config = {
+            currency: {
+                name: 'Euro',
+                plural: 'Eurot',
+                singular: 'Euro',
+                symbol: '€',
+                fractionalUnit: {
+                    name: 'Sent',
+                    singular: 'Sent',
+                    plural: 'Senti',
+                    symbol: '¢',
+                },
+            },
+            texts: {
+                and: 'Ja',
+                minus: 'Miinus',
+                only: 'Ainult',
+                point: 'Koma',
+            },
+            numberWordsMapping: [
+                { number: 1000000000000000, value: 'Kvadriljon' },
+                { number: 1000000000000, value: 'Triljon' },
+                { number: 1000000000, value: 'Miljard' },
+                { number: 1000000, value: 'Miljon' },
+                { number: 1000, value: 'Tuhat' },
+                { number: 900, value: 'Üheksasada' },
+                { number: 800, value: 'Kaheksasada' },
+                { number: 700, value: 'Seitsesada' },
+                { number: 600, value: 'Kuussada' },
+                { number: 500, value: 'Viissada' },
+                { number: 400, value: 'Nelisada' },
+                { number: 300, value: 'Kolmsada' },
+                { number: 200, value: 'Kakssada' },
+                { number: 100, value: 'Sada' },
+                { number: 90, value: 'Üheksakümmend' },
+                { number: 80, value: 'Kaheksakümmend' },
+                { number: 70, value: 'Seitsekümmend' },
+                { number: 60, value: 'Kuuskümmend' },
+                { number: 50, value: 'Viiskümmend' },
+                { number: 40, value: 'Nelikümmend' },
+                { number: 30, value: 'Kolmkümmend' },
+                { number: 20, value: 'Kakskümmend' },
+                { number: 19, value: 'Üheksateist' },
+                { number: 18, value: 'Kaheksateist' },
+                { number: 17, value: 'Seitseteist' },
+                { number: 16, value: 'Kuusteist' },
+                { number: 15, value: 'Viisteist' },
+                { number: 14, value: 'Neliteist' },
+                { number: 13, value: 'Kolmteist' },
+                { number: 12, value: 'Kaksteist' },
+                { number: 11, value: 'Üksteist' },
+                { number: 10, value: 'Kümme' },
+                { number: 9, value: 'Üheksa' },
+                { number: 8, value: 'Kaheksa' },
+                { number: 7, value: 'Seitse' },
+                { number: 6, value: 'Kuus' },
+                { number: 5, value: 'Viis' },
+                { number: 4, value: 'Neli' },
+                { number: 3, value: 'Kolm' },
+                { number: 2, value: 'Kaks' },
+                { number: 1, value: 'Üks' },
+                { number: 0, value: 'Null' },
+            ],
+            ignoreOneForWords: [
+                'Sada',
+                'Kakssada',
+                'Kolmsada',
+                'Nelisada',
+                'Viissada',
+                'Kuussada',
+                'Seitsesada',
+                'Kaheksasada',
+                'Üheksasada',
+            ],
+            exactWordsMapping: [
+                {
+                    number: 100,
+                    value: 'Ükssada',
+                },
+            ],
+            pluralWords: ['Miljon', 'Miljard', 'Trillion', 'Kvadriljon'],
+            pluralMark: 'it',
+            onlyInFront: true,
+        };
+    }
+}
+exports["default"] = Locale;
+
+
+/***/ }),
+
+/***/ 75528:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  A: () => (/* binding */ StockAdjustmentModal)
+});
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/StockAdjustmentModal.vue?vue&type=template&id=651d741c&scoped=true
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _vm.isOpen ? _c('div', {
+    staticClass: "modal-overlay",
+    on: {
+      "click": function click($event) {
+        if ($event.target !== $event.currentTarget) return null;
+        return _vm.closeModal.apply(null, arguments);
+      }
+    }
+  }, [_c('div', {
+    staticClass: "modal-content",
+    on: {
+      "click": function click($event) {
+        $event.stopPropagation();
+      }
+    }
+  }, [_c('div', {
+    staticClass: "modal-header"
+  }, [_c('h5', {
+    staticClass: "modal-title"
+  }, [_c('i', {
+    staticClass: "fas fa-exclamation-triangle text-warning mr-2"
+  }), _vm._v("\n        " + _vm._s(_vm.$t("Insufficient Stock")) + "\n      ")]), _vm._v(" "), _c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": _vm.closeModal
+    }
+  }, [_c('span', [_vm._v("×")])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-body"
+  }, [_c('div', {
+    staticClass: "alert alert-warning",
+    attrs: {
+      "role": "alert"
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-info-circle mr-2"
+  }), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.$t("Stock Alert")) + ":")]), _vm._v("\n        " + _vm._s(_vm.$t("The selected quantity exceeds available stock for this product.")) + "\n      ")]), _vm._v(" "), _c('div', {
+    staticClass: "product-info mb-4"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-6"
+  }, [_c('h6', [_vm._v(_vm._s(_vm.$t("Product Details")))]), _vm._v(" "), _c('p', {
+    staticClass: "mb-1"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Name")) + ":")]), _vm._v(" " + _vm._s(_vm.product.name || 'N/A'))]), _vm._v(" "), _c('p', {
+    staticClass: "mb-1"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Code")) + ":")]), _vm._v(" " + _vm._s(_vm.productCodeWithPrefix))]), _vm._v(" "), _c('p', {
+    staticClass: "mb-1"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Current Stock")) + ":")]), _vm._v(" "), _c('span', {
+    staticClass: "badge badge-info"
+  }, [_vm._v(_vm._s(_vm.product.inventoryCount || 0))])]), _vm._v(" "), _c('p', {
+    staticClass: "mb-1"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Required Quantity")) + ":")]), _vm._v(" "), _c('span', {
+    staticClass: "badge badge-danger"
+  }, [_vm._v(_vm._s(_vm.product.qty || 0))])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-6"
+  }, [_c('h6', [_vm._v(_vm._s(_vm.$t("Stock Shortage")))]), _vm._v(" "), _c('p', {
+    staticClass: "text-danger"
+  }, [_c('i', {
+    staticClass: "fas fa-exclamation-circle mr-1"
+  }), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.shortageQuantity))]), _vm._v(" " + _vm._s(_vm.$t("units short")) + "\n            ")])])])]), _vm._v(" "), _c('div', {
+    staticClass: "stock-options"
+  }, [_c('h6', [_vm._v(_vm._s(_vm.$t("How to increase stock?")))]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-6"
+  }, [_c('div', {
+    staticClass: "option-card",
+    on: {
+      "click": function click($event) {
+        $event.stopPropagation();
+        return _vm.openInventoryAdjustment.apply(null, arguments);
+      }
+    }
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
+    staticClass: "option-content"
+  }, [_c('h6', [_vm._v(_vm._s(_vm.$t("Quick Stock Adjustment")))]), _vm._v(" "), _c('p', {
+    staticClass: "text-muted"
+  }, [_vm._v(_vm._s(_vm.$t("Add stock directly to inventory")))])])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-6"
+  }, [_c('div', {
+    staticClass: "option-card",
+    on: {
+      "click": function click($event) {
+        $event.stopPropagation();
+        return _vm.openPurchaseOrder.apply(null, arguments);
+      }
+    }
+  }, [_vm._m(1), _vm._v(" "), _c('div', {
+    staticClass: "option-content"
+  }, [_c('h6', [_vm._v(_vm._s(_vm.$t("Create Purchase Order")))]), _vm._v(" "), _c('p', {
+    staticClass: "text-muted"
+  }, [_vm._v(_vm._s(_vm.$t("Order more stock from supplier")))])])])])])]), _vm._v(" "), _vm.showQuickAdjustment ? _c('div', {
+    staticClass: "quick-adjustment mt-4"
+  }, [_c('div', {
+    staticClass: "card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('h6', {
+    staticClass: "mb-0"
+  }, [_c('i', {
+    staticClass: "fas fa-plus-circle text-success mr-2"
+  }), _vm._v("\n              " + _vm._s(_vm.$t("Quick Stock Adjustment")) + "\n            ")])]), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_c('form', {
+    on: {
+      "submit": function submit($event) {
+        $event.preventDefault();
+        return _vm.submitQuickAdjustment.apply(null, arguments);
+      }
+    }
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-6"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "adjustmentReason"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Reason")) + " "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.adjustmentForm.reason,
+      expression: "adjustmentForm.reason"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.adjustmentForm.errors.has('reason')
+    },
+    attrs: {
+      "id": "adjustmentReason",
+      "type": "text",
+      "placeholder": _vm.$t('Enter reason for stock adjustment'),
+      "required": ""
+    },
+    domProps: {
+      "value": _vm.adjustmentForm.reason
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.adjustmentForm, "reason", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.adjustmentForm,
+      "field": "reason"
+    }
+  })], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-6"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "adjustmentQuantity"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Quantity to Add")) + " "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.adjustmentForm.quantity,
+      expression: "adjustmentForm.quantity"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.adjustmentForm.errors.has('quantity')
+    },
+    attrs: {
+      "id": "adjustmentQuantity",
+      "type": "number",
+      "min": "1",
+      "placeholder": _vm.$t('Enter quantity to add'),
+      "required": ""
+    },
+    domProps: {
+      "value": _vm.adjustmentForm.quantity
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.adjustmentForm, "quantity", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.adjustmentForm,
+      "field": "quantity"
+    }
+  })], 1)])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "adjustmentNote"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Note")))]), _vm._v(" "), _c('textarea', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.adjustmentForm.note,
+      expression: "adjustmentForm.note"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "id": "adjustmentNote",
+      "rows": "3",
+      "placeholder": _vm.$t('Enter additional notes (optional)')
+    },
+    domProps: {
+      "value": _vm.adjustmentForm.note
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.adjustmentForm, "note", $event.target.value);
+      }
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "form-actions"
+  }, [_c('button', {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": function click($event) {
+        _vm.showQuickAdjustment = false;
+      }
+    }
+  }, [_vm._v("\n                  " + _vm._s(_vm.$t("Cancel")) + "\n                ")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-success",
+    attrs: {
+      "type": "submit",
+      "disabled": _vm.adjustmentForm.busy
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-save mr-1"
+  }), _vm._v("\n                  " + _vm._s(_vm.$t("Add Stock")) + "\n                ")])])])])])]) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": _vm.closeModal
+    }
+  }, [_vm._v("\n        " + _vm._s(_vm.$t("Close")) + "\n      ")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-primary",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": _vm.adjustQuantity
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-edit mr-1"
+  }), _vm._v("\n        " + _vm._s(_vm.$t("Adjust Quantity")) + "\n      ")])])])]) : _vm._e();
+};
+var staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "option-icon"
+  }, [_c('i', {
+    staticClass: "fas fa-plus-circle text-success"
+  })]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "option-icon"
+  }, [_c('i', {
+    staticClass: "fas fa-shopping-cart text-primary"
+  })]);
+}];
+
+;// ./resources/js/components/StockAdjustmentModal.vue?vue&type=template&id=651d741c&scoped=true
+
+// EXTERNAL MODULE: ./node_modules/vform/dist/vform.es.js
+var vform_es = __webpack_require__(63216);
+// EXTERNAL MODULE: ./node_modules/axios/index.js
+var axios = __webpack_require__(72505);
+var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
+// EXTERNAL MODULE: ./node_modules/sweetalert2/dist/sweetalert2.all.js
+var sweetalert2_all = __webpack_require__(78465);
+var sweetalert2_all_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_all);
+// EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
+var vuex_esm = __webpack_require__(95353);
+// EXTERNAL MODULE: ./resources/js/plugins/filter.js
+var filter = __webpack_require__(44121);
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/StockAdjustmentModal.vue?vue&type=script&lang=js
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+
+
+
+
+
+var toast = sweetalert2_all_default().mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true
+});
+/* harmony default export */ const StockAdjustmentModalvue_type_script_lang_js = ({
+  name: "StockAdjustmentModal",
+  props: {
+    isOpen: {
+      type: Boolean,
+      "default": false
+    },
+    product: {
+      type: Object,
+      "default": function _default() {
+        return {};
+      }
+    }
+  },
+  data: function data() {
+    return {
+      showQuickAdjustment: false,
+      adjustmentForm: new vform_es/* default */.Ay({
+        reason: "",
+        quantity: 1,
+        note: ""
+      })
+    };
+  },
+  computed: _objectSpread(_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["appInfo"])), {}, {
+    prefix: function prefix() {
+      var _this$appInfo;
+      return ((_this$appInfo = this.appInfo) === null || _this$appInfo === void 0 ? void 0 : _this$appInfo.productPrefix) || "";
+    },
+    shortageQuantity: function shortageQuantity() {
+      if (!this.product || !this.product.inventoryCount || !this.product.qty) {
+        return 0;
+      }
+      return Math.max(0, this.product.qty - this.product.inventoryCount);
+    },
+    productCodeWithPrefix: function productCodeWithPrefix() {
+      if (!this.product || !this.product.code) {
+        return 'N/A';
+      }
+      return this.prefix + this.product.code;
+    }
+  }),
+  watch: {
+    isOpen: function isOpen(newVal) {
+      console.log("Modal isOpen changed to:", newVal);
+      console.log("Product object:", this.product);
+      if (newVal && this.product) {
+        // Set default quantity to shortage amount
+        this.adjustmentForm.quantity = this.shortageQuantity || 1;
+        this.adjustmentForm.reason = "Stock shortage adjustment";
+        console.log("Modal opened with product:", this.product.name);
+      }
+    }
+  },
+  mounted: function mounted() {
+    console.log("StockAdjustmentModal mounted");
+    console.log("Initial isOpen:", this.isOpen);
+    console.log("Initial product:", this.product);
+  },
+  beforeDestroy: function beforeDestroy() {
+    console.log("StockAdjustmentModal beforeDestroy");
+    console.log("Product at destroy:", this.product);
+  },
+  methods: {
+    closeModal: function closeModal() {
+      this.$emit("close");
+      this.showQuickAdjustment = false;
+      this.adjustmentForm.reset();
+    },
+    adjustQuantity: function adjustQuantity() {
+      this.$emit("adjust-quantity", this.product);
+      this.closeModal();
+    },
+    openInventoryAdjustment: function openInventoryAdjustment() {
+      var _this = this;
+      try {
+        console.log("Opening inventory adjustment...");
+        console.log("Product object:", this.product);
+
+        // Validate product object
+        if (!this.product || !this.product.id) {
+          console.error("Invalid product object:", this.product);
+          toast.fire({
+            type: "error",
+            title: this.$t("Error"),
+            text: this.$t("Product information is missing. Please try again.")
+          });
+          return;
+        }
+
+        // Capture product data before closing modal to avoid null reference
+        var productData = {
+          id: this.product.id,
+          name: this.product.name,
+          code: this.product.code,
+          slug: this.product.slug
+        };
+        console.log("Captured product data:", productData);
+
+        // Ask parent to persist current form state before leaving
+        this.$emit('persist');
+        // Close modal first
+        this.closeModal();
+
+        // Then navigate with a small delay
+        setTimeout(function () {
+          try {
+            console.log("Navigating to adjustments.create");
+            console.log("Product ID:", productData.id);
+
+            // Get current route safely
+            var returnUrl = _this.$route ? _this.$route.fullPath : window.location.pathname;
+            console.log("Return URL:", returnUrl);
+
+            // Check if user has permission to create adjustments
+            if (!_this.$can('adjustment-create')) {
+              toast.fire({
+                type: "error",
+                title: _this.$t("Permission Denied"),
+                text: _this.$t("You don't have permission to create adjustments.")
+              });
+              return;
+            }
+
+            // Try navigation with fallback
+            _this.$router.push({
+              name: "adjustments.create",
+              query: {
+                productId: productData.id,
+                returnUrl: returnUrl
+              }
+            }).then(function () {
+              console.log("Navigation successful");
+            })["catch"](function (err) {
+              console.error("Navigation error:", err);
+
+              // Fallback: show alert with manual navigation option
+              sweetalert2_all_default().fire({
+                title: _this.$t("Navigate to Adjustments"),
+                text: _this.$t("Click OK to go to the adjustments page manually."),
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonText: _this.$t("Go to Adjustments"),
+                cancelButtonText: _this.$t("Cancel")
+              }).then(function (result) {
+                if (result.isConfirmed) {
+                  window.location.href = '/inventory-adjustments/create?productId=' + productData.id + '&returnUrl=' + encodeURIComponent(returnUrl);
+                }
+              });
+            });
+          } catch (error) {
+            console.error("Error in navigation timeout:", error);
+            toast.fire({
+              type: "error",
+              title: _this.$t("Error"),
+              text: _this.$t("An error occurred while navigating. Please try again.")
+            });
+          }
+        }, 300);
+      } catch (error) {
+        console.error("Error in openInventoryAdjustment:", error);
+        toast.fire({
+          type: "error",
+          title: this.$t("Error"),
+          text: this.$t("An unexpected error occurred. Please try again.")
+        });
+      }
+    },
+    openPurchaseOrder: function openPurchaseOrder() {
+      var _this2 = this;
+      console.log("Opening purchase order...");
+      // Close modal first
+      this.closeModal();
+      // Then navigate with a small delay
+      setTimeout(function () {
+        console.log("Navigating to purchases.create");
+        _this2.$router.push({
+          name: "purchases.create"
+        })["catch"](function (err) {
+          console.error("Navigation error:", err);
+        });
+      }, 300);
+    },
+    submitQuickAdjustment: function submitQuickAdjustment() {
+      var _this3 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        var adjustmentData;
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              _context.prev = 0;
+              // Create a quick inventory adjustment
+              adjustmentData = {
+                adjustmentReason: _this3.adjustmentForm.reason,
+                adjustmentDate: new Date().toISOString().slice(0, 10),
+                note: _this3.adjustmentForm.note,
+                status: 1,
+                selectedProducts: [{
+                  slug: _this3.product.slug,
+                  adjustType: "Increment",
+                  adjustQty: parseInt(_this3.adjustmentForm.quantity),
+                  purchasePrice: _this3.product.avgPurchasePrice || 0
+                }]
+              };
+              _context.next = 4;
+              return axios_default().post("/api/inventory-adjustments", adjustmentData);
+            case 4:
+              toast.fire({
+                type: "success",
+                title: _this3.$t("Stock added successfully"),
+                text: _this3.$t("The product stock has been increased.")
+              });
+
+              // Emit event to refresh product data
+              _this3.$emit("stock-updated", {
+                product: _this3.product,
+                newQuantity: parseInt(_this3.adjustmentForm.quantity)
+              });
+              _this3.closeModal();
+              _context.next = 13;
+              break;
+            case 9:
+              _context.prev = 9;
+              _context.t0 = _context["catch"](0);
+              console.error("Error adding stock:", _context.t0);
+              toast.fire({
+                type: "error",
+                title: _this3.$t("Error"),
+                text: _this3.$t("Failed to add stock. Please try again.")
+              });
+            case 13:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee, null, [[0, 9]]);
+      }))();
+    }
+  }
+});
+;// ./resources/js/components/StockAdjustmentModal.vue?vue&type=script&lang=js
+ /* harmony default export */ const components_StockAdjustmentModalvue_type_script_lang_js = (StockAdjustmentModalvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__(85072);
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/StockAdjustmentModal.vue?vue&type=style&index=0&id=651d741c&prod&scoped=true&lang=css
+var StockAdjustmentModalvue_type_style_index_0_id_651d741c_prod_scoped_true_lang_css = __webpack_require__(85989);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/StockAdjustmentModal.vue?vue&type=style&index=0&id=651d741c&prod&scoped=true&lang=css
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = injectStylesIntoStyleTag_default()(StockAdjustmentModalvue_type_style_index_0_id_651d741c_prod_scoped_true_lang_css/* default */.A, options);
+
+
+
+/* harmony default export */ const components_StockAdjustmentModalvue_type_style_index_0_id_651d741c_prod_scoped_true_lang_css = (StockAdjustmentModalvue_type_style_index_0_id_651d741c_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/components/StockAdjustmentModal.vue?vue&type=style&index=0&id=651d741c&prod&scoped=true&lang=css
+
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(14486);
+;// ./resources/js/components/StockAdjustmentModal.vue
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,componentNormalizer/* default */.A)(
+  components_StockAdjustmentModalvue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  "651d741c",
+  null
+  
+)
+
+/* harmony default export */ const StockAdjustmentModal = (component.exports);
+
+/***/ }),
+
+/***/ 82779:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+class Locale {
+    constructor() {
+        this.config = {
+            currency: {
+                name: 'Peso',
+                plural: 'Pesos',
+                singular: 'Peso',
+                symbol: '₱',
+                fractionalUnit: {
+                    name: 'Cent',
+                    singular: 'Cent',
+                    plural: 'Cents',
+                    symbol: '¢',
+                },
+            },
+            texts: {
+                and: 'And',
+                minus: 'Minus',
+                only: 'Only',
+                point: 'Point',
+            },
+            numberWordsMapping: [
+                { number: 1000000000000000, value: 'Quadrillion' },
+                { number: 1000000000000, value: 'Trillion' },
+                { number: 1000000000, value: 'Billion' },
+                { number: 1000000, value: 'Million' },
+                { number: 1000, value: 'Thousand' },
+                { number: 100, value: 'Hundred' },
+                { number: 90, value: 'Ninety' },
+                { number: 80, value: 'Eighty' },
+                { number: 70, value: 'Seventy' },
+                { number: 60, value: 'Sixty' },
+                { number: 50, value: 'Fifty' },
+                { number: 40, value: 'Forty' },
+                { number: 30, value: 'Thirty' },
+                { number: 20, value: 'Twenty' },
+                { number: 19, value: 'Nineteen' },
+                { number: 18, value: 'Eighteen' },
+                { number: 17, value: 'Seventeen' },
+                { number: 16, value: 'Sixteen' },
+                { number: 15, value: 'Fifteen' },
+                { number: 14, value: 'Fourteen' },
+                { number: 13, value: 'Thirteen' },
+                { number: 12, value: 'Twelve' },
+                { number: 11, value: 'Eleven' },
+                { number: 10, value: 'Ten' },
+                { number: 9, value: 'Nine' },
+                { number: 8, value: 'Eight' },
+                { number: 7, value: 'Seven' },
+                { number: 6, value: 'Six' },
+                { number: 5, value: 'Five' },
+                { number: 4, value: 'Four' },
+                { number: 3, value: 'Three' },
+                { number: 2, value: 'Two' },
+                { number: 1, value: 'One' },
+                { number: 0, value: 'Zero' },
+            ],
+            exactWordsMapping: [{ number: 100, value: 'One Hundred' }],
+        };
+    }
+}
+exports["default"] = Locale;
+
+
+/***/ }),
+
+/***/ 84463:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+class Locale {
+    constructor() {
+        this.config = {
+            currency: {
+                name: 'Dollar',
+                plural: 'Dollars',
+                singular: 'Dollar',
+                symbol: '$',
+                fractionalUnit: {
+                    name: 'Cent',
+                    plural: 'Cents',
+                    singular: 'Cent',
+                    symbol: '¢',
+                },
+            },
+            texts: {
+                and: 'And',
+                minus: 'Minus',
+                only: 'Only',
+                point: 'Point',
+            },
+            numberWordsMapping: [
+                { number: 1000000000000000, value: 'Quadrillion' },
+                { number: 1000000000000, value: 'Trillion' },
+                { number: 1000000000, value: 'Billion' },
+                { number: 1000000, value: 'Million' },
+                { number: 1000, value: 'Thousand' },
+                { number: 100, value: 'Hundred' },
+                { number: 90, value: 'Ninety' },
+                { number: 80, value: 'Eighty' },
+                { number: 70, value: 'Seventy' },
+                { number: 60, value: 'Sixty' },
+                { number: 50, value: 'Fifty' },
+                { number: 40, value: 'Forty' },
+                { number: 30, value: 'Thirty' },
+                { number: 20, value: 'Twenty' },
+                { number: 19, value: 'Nineteen' },
+                { number: 18, value: 'Eighteen' },
+                { number: 17, value: 'Seventeen' },
+                { number: 16, value: 'Sixteen' },
+                { number: 15, value: 'Fifteen' },
+                { number: 14, value: 'Fourteen' },
+                { number: 13, value: 'Thirteen' },
+                { number: 12, value: 'Twelve' },
+                { number: 11, value: 'Eleven' },
+                { number: 10, value: 'Ten' },
+                { number: 9, value: 'Nine' },
+                { number: 8, value: 'Eight' },
+                { number: 7, value: 'Seven' },
+                { number: 6, value: 'Six' },
+                { number: 5, value: 'Five' },
+                { number: 4, value: 'Four' },
+                { number: 3, value: 'Three' },
+                { number: 2, value: 'Two' },
+                { number: 1, value: 'One' },
+                { number: 0, value: 'Zero' },
+            ],
+            exactWordsMapping: [{ number: 100, value: 'One Hundred' }],
+        };
+    }
+}
+exports["default"] = Locale;
+
+
+/***/ }),
+
+/***/ 85989:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".modal-overlay[data-v-651d741c]{align-items:center;background-color:rgba(0,0,0,.5);display:flex;height:100%;justify-content:center;left:0;position:fixed;top:0;width:100%;z-index:1050}.modal-content[data-v-651d741c]{background:#fff;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.3);max-height:90vh;max-width:800px;overflow-y:auto;width:90%}.modal-header[data-v-651d741c]{align-items:center;background-color:#f8f9fa;border-bottom:1px solid #dee2e6;border-radius:10px 10px 0 0;display:flex;justify-content:space-between;padding:20px}.modal-title[data-v-651d741c]{font-size:1.25rem;font-weight:600;margin:0}.close[data-v-651d741c]{background:none;border:none;color:#6c757d;cursor:pointer;font-size:1.5rem}.close[data-v-651d741c]:hover{color:#000}.modal-body[data-v-651d741c]{padding:20px}.modal-footer[data-v-651d741c]{background-color:#f8f9fa;border-radius:0 0 10px 10px;border-top:1px solid #dee2e6;display:flex;gap:10px;justify-content:flex-end;padding:20px}.option-card[data-v-651d741c]{align-items:center;border:2px solid #e9ecef;border-radius:8px;cursor:pointer;display:flex;margin-bottom:15px;padding:15px;transition:all .3s ease}.option-card[data-v-651d741c]:hover{background-color:#f8f9fa;border-color:#007bff;box-shadow:0 4px 8px rgba(0,0,0,.1);transform:translateY(-2px)}.option-icon[data-v-651d741c]{font-size:2rem;margin-right:15px;min-width:50px;text-align:center}.option-content h6[data-v-651d741c]{font-weight:600;margin:0 0 5px}.option-content p[data-v-651d741c]{font-size:.9rem;margin:0}.product-info[data-v-651d741c]{background-color:#f8f9fa;border-left:4px solid #007bff;border-radius:8px;padding:15px}.quick-adjustment .card[data-v-651d741c]{border:1px solid #dee2e6;border-radius:8px}.quick-adjustment .card-header[data-v-651d741c]{background-color:#e9ecef;border-bottom:1px solid #dee2e6;padding:15px}.form-actions[data-v-651d741c]{display:flex;gap:10px;justify-content:flex-end;margin-top:20px}.required[data-v-651d741c]{color:#dc3545}.badge[data-v-651d741c]{font-size:.875em;padding:.375rem .75rem}.alert[data-v-651d741c]{border:none;border-radius:8px}.alert-warning[data-v-651d741c]{background-color:#fff3cd;border-left:4px solid #ffc107;color:#856404}[dir=rtl] .option-card[data-v-651d741c]{flex-direction:row-reverse}[dir=rtl] .option-icon[data-v-651d741c]{margin-left:15px;margin-right:0}[dir=rtl] .product-info[data-v-651d741c]{border-left:none;border-right:4px solid #007bff}[dir=rtl] .alert-warning[data-v-651d741c]{border-left:none;border-right:4px solid #ffc107}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 92952:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+class Locale {
+    constructor() {
+        this.config = {
+            currency: {
+                name: 'Naira',
+                plural: 'Naira',
+                singular: 'Naira',
+                symbol: '₦',
+                fractionalUnit: {
+                    name: 'Kobo',
+                    singular: 'Kobo',
+                    plural: 'Kobo',
+                    symbol: '',
+                },
+            },
+            texts: {
+                and: 'And',
+                minus: 'Minus',
+                only: 'Only',
+                point: 'Point',
+            },
+            numberWordsMapping: [
+                { number: 1000000000000000, value: 'Quadrillion' },
+                { number: 1000000000000, value: 'Trillion' },
+                { number: 1000000000, value: 'Billion' },
+                { number: 1000000, value: 'Million' },
+                { number: 1000, value: 'Thousand' },
+                { number: 100, value: 'Hundred' },
+                { number: 90, value: 'Ninety' },
+                { number: 80, value: 'Eighty' },
+                { number: 70, value: 'Seventy' },
+                { number: 60, value: 'Sixty' },
+                { number: 50, value: 'Fifty' },
+                { number: 40, value: 'Forty' },
+                { number: 30, value: 'Thirty' },
+                { number: 20, value: 'Twenty' },
+                { number: 19, value: 'Nineteen' },
+                { number: 18, value: 'Eighteen' },
+                { number: 17, value: 'Seventeen' },
+                { number: 16, value: 'Sixteen' },
+                { number: 15, value: 'Fifteen' },
+                { number: 14, value: 'Fourteen' },
+                { number: 13, value: 'Thirteen' },
+                { number: 12, value: 'Twelve' },
+                { number: 11, value: 'Eleven' },
+                { number: 10, value: 'Ten' },
+                { number: 9, value: 'Nine' },
+                { number: 8, value: 'Eight' },
+                { number: 7, value: 'Seven' },
+                { number: 6, value: 'Six' },
+                { number: 5, value: 'Five' },
+                { number: 4, value: 'Four' },
+                { number: 3, value: 'Three' },
+                { number: 2, value: 'Two' },
+                { number: 1, value: 'One' },
+                { number: 0, value: 'Zero' },
+            ],
+            exactWordsMapping: [{ number: 100, value: 'One Hundred' }],
+        };
+    }
+}
+exports["default"] = Locale;
+
+
+/***/ }),
+
+/***/ 95188:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  A: () => (/* binding */ ItemsTable)
+});
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemsTable.vue?vue&type=template&id=135c5da7&scoped=true
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _vm.items && _vm.items.length > 0 ? _c('div', {
+    staticClass: "items-table-wrapper mt-3 mb-4"
+  }, [_c('div', {
+    staticClass: "table-responsive table-custom w-100 m-auto",
+    staticStyle: {
+      "max-width": "100%"
+    }
+  }, [_c('table', {
+    "class": ['table', 'table-hover', 'table-sm', 'text-center', _vm.tableClass]
+  }, [_c('thead', [_c('th', [_vm._v(_vm._s(_vm.$t("#")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Code")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Item Name")))]), _vm._v(" "), _vm.showInvoiceQtyColumn ? _c('th', [_vm._v(_vm._s(_vm.$t("Invoice Qty")))]) : _vm._e(), _vm._v(" "), _vm.showCurrentQtyColumn ? _c('th', [_vm._v(_vm._s(_vm.$t("Current Qty")))]) : _vm._e(), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Qty")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Price")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Total")))]), _vm._v(" "), !_vm.hideDiscountColumn ? _c('th', [_vm._v(_vm._s(_vm.$t("Discount")))]) : _vm._e(), _vm._v(" "), !_vm.hideDiscountColumn ? _c('th', [_vm._v(_vm._s(_vm.$t("Total After Discount")))]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('th', [_vm._v(_vm._s(_vm.$t("VAT Type")))]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('th', [_vm._v(_vm._s(_vm.$t("VAT")))]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('th', [_vm._v(_vm._s(_vm.$t("Total with VAT")))]) : _vm._e(), _vm._v(" "), _vm.showReturnPriceColumn ? _c('th', {
+    staticClass: "text-right"
+  }, [_vm._v(_vm._s(_vm.$t("Return Price")))]) : _vm._e(), _vm._v(" "), !_vm.showReturnPriceColumn ? _c('th', {
+    staticClass: "text-right"
+  }, [_vm._v(_vm._s(_vm.$t("Action")))]) : _vm._e()]), _vm._v(" "), _c('tbody', [_vm._l(_vm.items, function (item, i) {
+    return _c('tr', {
+      key: i
+    }, [_c('td', {
+      staticClass: "auto-width"
+    }, [_vm._v(_vm._s(++i))]), _vm._v(" "), _c('td', {
+      staticClass: "auto-width"
+    }, [_vm._v(_vm._s(_vm._f("withPrefix")(item.code, _vm.prefix)))]), _vm._v(" "), _c('td', {
+      staticClass: "auto-width"
+    }, [_c('div', {
+      staticClass: "d-flex align-items-center"
+    }, [Number(item.inventoryCount) < Number(_vm.getItemField(item, _vm.qtyFieldName)) && item.itemType == 'product' ? _c('span', {
+      directives: [{
+        name: "tooltip",
+        rawName: "v-tooltip",
+        value: _vm.$t('Click to manage stock'),
+        expression: "$t('Click to manage stock')"
+      }],
+      staticClass: "badge badge-danger p-2 mr-2 clickable-badge",
+      on: {
+        "click": function click($event) {
+          return _vm.$emit('open-stock-modal', item);
+        }
+      }
+    }, [_c('i', {
+      staticClass: "fas fa-exclamation"
+    })]) : _vm._e(), _vm._v(" "), _c('div', {
+      staticClass: "flex-grow-1"
+    }, [_vm.$can('product-view') ? _c('router-link', {
+      attrs: {
+        "to": {
+          name: 'products.show',
+          params: {
+            slug: item.slug
+          }
+        }
+      }
+    }, [_vm._v("\n                                    " + _vm._s(item.name) + "\n                                ")]) : _c('span', [_vm._v(_vm._s(item.name))])], 1), _vm._v(" "), _vm.showEditButton ? _c('button', {
+      directives: [{
+        name: "tooltip",
+        rawName: "v-tooltip",
+        value: _vm.$t('Edit Product'),
+        expression: "$t('Edit Product')"
+      }],
+      staticClass: "btn btn-sm btn-outline-primary ml-2",
+      attrs: {
+        "type": "button"
+      },
+      on: {
+        "click": function click($event) {
+          return _vm.$emit('edit-product', item);
+        }
+      }
+    }, [_c('i', {
+      staticClass: "fas fa-edit"
+    })]) : _vm._e()])]), _vm._v(" "), _vm.showInvoiceQtyColumn ? _c('td', {
+      staticClass: "auto-width"
+    }, [_vm._v("\n                        " + _vm._s(item.invoiceQty || item.qty) + " " + _vm._s(item.unit || '') + "\n                    ")]) : _vm._e(), _vm._v(" "), _vm.showCurrentQtyColumn ? _c('td', {
+      staticClass: "auto-width"
+    }, [_vm._v("\n                        " + _vm._s(item.returnQty !== undefined ? item.returnQty : (item.invoiceQty || item.qty) - (item.oldQty || 0)) + " " + _vm._s(item.unit || '') + "\n                    ")]) : _vm._e(), _vm._v(" "), _c('td', {
+      staticClass: "fixed-qty-column"
+    }, [_c('div', {
+      staticClass: "input-group custom-qty-input"
+    }, [_c('input', {
+      staticClass: "button-minus icon-shape icon-sm btn-danger",
+      attrs: {
+        "type": "button",
+        "value": "-",
+        "data-field": "quantity",
+        "disabled": item.isFromQuotation
+      },
+      on: {
+        "click": function click($event) {
+          _vm.handleItemChange(_vm.getItemField(item, _vm.qtyFieldName), 'qty', i - 1, 'decrement');
+        }
+      }
+    }), _vm._v(" "), _c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model.number",
+        value: item[_vm.qtyFieldName],
+        expression: "item[qtyFieldName]",
+        modifiers: {
+          "number": true
+        }
+      }],
+      staticClass: "quantity-field border-0 incrementor",
+      "class": {
+        'is-invalid': _vm.getFieldError("selectedProducts.".concat(i - 1, ".").concat(_vm.qtyFieldName)),
+        'insufficient-stock-input': Number(item.inventoryCount) < Number(_vm.getItemField(item, _vm.qtyFieldName)) && item.itemType == 'product'
+      },
+      attrs: {
+        "type": "number",
+        "step": "any",
+        "id": "Qty-".concat(i),
+        "name": "quantity",
+        "required": "",
+        "min": "1",
+        "max": _vm.disableInventoryMaxRestriction ? null : item.itemType == 'product' ? item.inventoryCount : item.maxQty || null,
+        "readonly": item.isFromQuotation,
+        "placeholder": _vm.$t('Quantity')
+      },
+      domProps: {
+        "value": item[_vm.qtyFieldName]
+      },
+      on: {
+        "change": function change($event) {
+          return _vm.handleItemChange($event.target.value, 'qty', i - 1, '');
+        },
+        "keyup": function keyup($event) {
+          return _vm.handleItemChange($event.target.value, 'qty', i - 1, '');
+        },
+        "input": [function ($event) {
+          if ($event.target.composing) return;
+          _vm.$set(item, _vm.qtyFieldName, _vm._n($event.target.value));
+        }, function ($event) {
+          return _vm.handleItemChange($event.target.value, 'qty', i - 1, '');
+        }],
+        "blur": function blur($event) {
+          return _vm.$forceUpdate();
+        }
+      }
+    }), _vm._v(" "), _c('input', {
+      staticClass: "button-plus icon-shape icon-sm btn-primary",
+      attrs: {
+        "type": "button",
+        "value": "+",
+        "data-field": "quantity",
+        "disabled": item.isFromQuotation
+      },
+      on: {
+        "click": function click($event) {
+          _vm.handleItemChange(_vm.getItemField(item, _vm.qtyFieldName), 'qty', i - 1, 'increment');
+        }
+      }
+    })])]), _vm._v(" "), _c('td', {
+      staticClass: "auto-width"
+    }, [!_vm.priceReadonly ? _c('div', {
+      staticClass: "input-group custom-qty-input"
+    }, [_c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model.number",
+        value: item[_vm.unitPriceFieldName],
+        expression: "item[unitPriceFieldName]",
+        modifiers: {
+          "number": true
+        }
+      }],
+      staticClass: "quantity-field border-0",
+      attrs: {
+        "type": "number",
+        "step": "any",
+        "min": "0",
+        "id": "unitPrice-".concat(i),
+        "name": "unitPrice",
+        "required": "",
+        "readonly": item.isFromQuotation
+      },
+      domProps: {
+        "value": item[_vm.unitPriceFieldName]
+      },
+      on: {
+        "input": [function ($event) {
+          if ($event.target.composing) return;
+          _vm.$set(item, _vm.unitPriceFieldName, _vm._n($event.target.value));
+        }, function ($event) {
+          return _vm.handleItemChange(item[_vm.unitPriceFieldName], 'price', i - 1, '');
+        }],
+        "blur": function blur($event) {
+          return _vm.$forceUpdate();
+        }
+      }
+    })]) : _c('div', [_vm._v("\n                            " + _vm._s(_vm.formatToTwoDecimals(_vm.getItemField(item, _vm.unitPriceFieldName))) + "\n                        ")])]), _vm._v(" "), _c('td', {
+      staticClass: "no-currency auto-width"
+    }, [_vm._v(_vm._s(_vm.formatToTwoDecimals((item.originalPrice || _vm.getItemField(item, _vm.unitPriceFieldName)) * (item.invoiceQty || _vm.getItemField(item, _vm.qtyFieldName) || 1))) + " "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])]), _vm._v(" "), !_vm.hideDiscountColumn ? _c('td', {
+      staticStyle: {
+        "min-width": "180px"
+      }
+    }, [_c('div', {
+      staticClass: "input-group"
+    }, [_c('select', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: item.discountType,
+        expression: "item.discountType"
+      }],
+      staticClass: "form-control form-control-sm",
+      "class": {
+        'is-invalid': _vm.getFieldError("selectedProducts.".concat(i - 1, ".discountType"))
+      },
+      staticStyle: {
+        "width": "85px"
+      },
+      attrs: {
+        "disabled": item.isFromQuotation
+      },
+      on: {
+        "change": [function ($event) {
+          var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+            return o.selected;
+          }).map(function (o) {
+            var val = "_value" in o ? o._value : o.value;
+            return val;
+          });
+          _vm.$set(item, "discountType", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+        }, function ($event) {
+          return _vm.handleDiscountChange(i - 1);
+        }]
+      }
+    }, [_c('option', {
+      attrs: {
+        "value": "fixed"
+      }
+    }, [_vm._v(_vm._s(_vm.$t("Fixed")))]), _vm._v(" "), _c('option', {
+      attrs: {
+        "value": "percentage"
+      }
+    }, [_vm._v(_vm._s(_vm.$t("%")))])]), _vm._v(" "), _c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: item.discount,
+        expression: "item.discount"
+      }],
+      staticClass: "form-control form-control-sm",
+      "class": {
+        'is-invalid': _vm.getFieldError("selectedProducts.".concat(i - 1, ".discount"))
+      },
+      staticStyle: {
+        "width": "80px"
+      },
+      attrs: {
+        "type": "number",
+        "step": "any",
+        "min": "0",
+        "max": item.discountType == 'percentage' ? 100 : _vm.getItemField(item, _vm.unitPriceFieldName) * _vm.getItemField(item, _vm.qtyFieldName),
+        "readonly": item.isFromQuotation,
+        "placeholder": "0"
+      },
+      domProps: {
+        "value": item.discount
+      },
+      on: {
+        "change": function change($event) {
+          return _vm.handleDiscountChange(i - 1);
+        },
+        "keyup": function keyup($event) {
+          return _vm.handleDiscountChange(i - 1);
+        },
+        "input": function input($event) {
+          if ($event.target.composing) return;
+          _vm.$set(item, "discount", $event.target.value);
+        }
+      }
+    })]), _vm._v(" "), _vm.getFieldError("selectedProducts.".concat(i - 1, ".discount")) || _vm.getFieldError("selectedProducts.".concat(i - 1, ".discountType")) ? _c('div', {
+      staticClass: "invalid-feedback d-block"
+    }, [_vm.getFieldError("selectedProducts.".concat(i - 1, ".discount")) ? _c('span', {
+      staticClass: "d-block"
+    }, [_vm._v(_vm._s(_vm.getFieldErrorMessage("selectedProducts.".concat(i - 1, ".discount"))))]) : _vm._e(), _vm._v(" "), _vm.getFieldError("selectedProducts.".concat(i - 1, ".discountType")) ? _c('span', {
+      staticClass: "d-block"
+    }, [_vm._v(_vm._s(_vm.getFieldErrorMessage("selectedProducts.".concat(i - 1, ".discountType"))))]) : _vm._e()]) : _vm._e()]) : _vm._e(), _vm._v(" "), !_vm.hideDiscountColumn ? _c('td', {
+      staticClass: "no-currency auto-width"
+    }, [_vm._v(_vm._s(_vm.formatToTwoDecimals(item.totalAfterDiscount !== undefined ? item.totalAfterDiscount : _vm.getItemField(item, _vm.unitPriceFieldName) * _vm.getItemField(item, _vm.qtyFieldName) - (item.discountAmount || 0))) + " "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('td', {
+      staticClass: "fixed-vat-column"
+    }, [_vm.useVatRateId ? _c('select', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: item.vat_rate_id,
+        expression: "item.vat_rate_id"
+      }],
+      staticClass: "form-control form-control-sm",
+      "class": {
+        'is-invalid': _vm.getFieldError("selectedProducts.".concat(i - 1, ".vat_rate_id"))
+      },
+      staticStyle: {
+        "min-width": "120px"
+      },
+      attrs: {
+        "disabled": item.isFromQuotation
+      },
+      on: {
+        "change": [function ($event) {
+          var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+            return o.selected;
+          }).map(function (o) {
+            var val = "_value" in o ? o._value : o.value;
+            return val;
+          });
+          _vm.$set(item, "vat_rate_id", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+        }, function ($event) {
+          return _vm.handleVatChange(i - 1);
+        }]
+      }
+    }, [_c('option', {
+      attrs: {
+        "value": ""
+      }
+    }, [_vm._v(_vm._s(_vm.$t('Select VAT')))]), _vm._v(" "), _vm._l(_vm.taxes, function (tax) {
+      return _c('option', {
+        key: tax.id,
+        domProps: {
+          "value": tax.id
+        }
+      }, [_vm._v("\n                                " + _vm._s(tax.code) + " (" + _vm._s(tax.rate) + "%)\n                            ")]);
+    })], 2) : _c('select', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: item.selectedVatRate,
+        expression: "item.selectedVatRate"
+      }],
+      staticClass: "form-control form-control-sm",
+      "class": {
+        'is-invalid': _vm.getFieldError("selectedProducts.".concat(i - 1, ".selectedVatRate"))
+      },
+      staticStyle: {
+        "min-width": "120px"
+      },
+      attrs: {
+        "disabled": item.isFromQuotation
+      },
+      on: {
+        "change": [function ($event) {
+          var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+            return o.selected;
+          }).map(function (o) {
+            var val = "_value" in o ? o._value : o.value;
+            return val;
+          });
+          _vm.$set(item, "selectedVatRate", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+        }, function ($event) {
+          return _vm.handleVatChange(i - 1);
+        }]
+      }
+    }, [_c('option', {
+      attrs: {
+        "value": ""
+      }
+    }, [_vm._v(_vm._s(_vm.$t('Select VAT')))]), _vm._v(" "), _vm._l(_vm.taxes, function (tax) {
+      return _c('option', {
+        key: tax.id,
+        domProps: {
+          "value": tax
+        }
+      }, [_vm._v("\n                                " + _vm._s(tax.code) + " (" + _vm._s(tax.rate) + "%)\n                            ")]);
+    })], 2), _vm._v(" "), _vm.useVatRateId && _vm.getFieldError("selectedProducts.".concat(i - 1, ".vat_rate_id")) ? _c('div', {
+      staticClass: "invalid-feedback d-block"
+    }, [_vm._v("\n                            " + _vm._s(_vm.getFieldErrorMessage("selectedProducts.".concat(i - 1, ".vat_rate_id"))) + "\n                        ")]) : _vm._e(), _vm._v(" "), !_vm.useVatRateId && _vm.getFieldError("selectedProducts.".concat(i - 1, ".selectedVatRate")) ? _c('div', {
+      staticClass: "invalid-feedback d-block"
+    }, [_vm._v("\n                            " + _vm._s(_vm.getFieldErrorMessage("selectedProducts.".concat(i - 1, ".selectedVatRate"))) + "\n                        ")]) : _vm._e()]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('td', {
+      staticClass: "no-currency fixed-vat-column"
+    }, [_c('div', [_vm._v("\n                            " + _vm._s(_vm.formatToTwoDecimals(item.totalTax || 0)) + "\n                            "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])])]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('td', {
+      staticClass: "no-currency auto-width"
+    }, [_vm._v(_vm._s(_vm.formatToTwoDecimals(item.totalPrice)) + "\n                        "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), _vm.showReturnPriceColumn ? _c('td', {
+      staticClass: "text-right auto-width"
+    }, [_vm._v("\n                        " + _vm._s(_vm.formatToTwoDecimals(item.returnTotal !== undefined ? item.returnTotal : item.totalReturn || 0)) + " "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), !_vm.showReturnPriceColumn ? _c('td', {
+      staticClass: "text-right auto-width"
+    }, [_c('button', {
+      staticClass: "btn btn-danger",
+      attrs: {
+        "type": "button"
+      },
+      on: {
+        "click": function click($event) {
+          return _vm.$emit('remove-item', item);
+        }
+      }
+    }, [_c('i', {
+      staticClass: "fas fa-times"
+    })])]) : _vm._e()]);
+  }), _vm._v(" "), _c('tr', [_c('td', {
+    staticClass: "text-right",
+    attrs: {
+      "colspan": _vm.totalsColspan + (_vm.showInvoiceQtyColumn ? 1 : 0) + (_vm.showCurrentQtyColumn ? 1 : 0)
+    }
+  }, [!_vm.hideDiscountColumn && !_vm.hideVatColumn ? _c('strong', [_vm._v(" " + _vm._s(_vm.$t("Total")) + " : " + _vm._s(_vm.amountInWords) + " ")]) : _c('strong', [_vm._v(_vm._s(_vm.$t("Subtotal")))])]), _vm._v(" "), _vm.totalsColspan === 4 && !_vm.hideDiscountColumn && !_vm.hideVatColumn ? _c('td', {
+    staticClass: "no-currency"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.totalUnitPrice)))]), _vm._v(" "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), !_vm.hideDiscountColumn && !_vm.hideVatColumn ? _c('td', {
+    staticClass: "no-currency"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.customTotalValue !== null ? _vm.customTotalValue : _vm.totalUnitPrice)))]), _vm._v(" "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), !_vm.hideDiscountColumn && !_vm.hideVatColumn ? _c('td', {
+    staticClass: "no-currency"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.totalProductDiscount)))]), _vm._v(" "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), !_vm.hideDiscountColumn && !_vm.hideVatColumn ? _c('td', {
+    staticClass: "no-currency"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.totalAfterDiscount)))]), _vm._v(" "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('td', [_c('strong')]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('td', {
+    staticClass: "no-currency"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.totalProductTax)))]), _vm._v(" "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('td', {
+    staticClass: "no-currency"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.calculatedSubTotal)) + "*")]), _vm._v(" "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), _vm.showReturnPriceColumn && !_vm.hideDiscountColumn && !_vm.hideVatColumn ? _c('td', {
+    staticClass: "no-currency"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.customTotalValue !== null ? _vm.customTotalValue : 0)))]), _vm._v(" "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), _vm.hideDiscountColumn && _vm.hideVatColumn ? _c('td', {
+    staticClass: "no-currency"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.totalUnitPrice)))]), _vm._v(" "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), _vm.showReturnPriceColumn && _vm.hideDiscountColumn && _vm.hideVatColumn ? _c('td', {
+    staticClass: "text-right"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.customTotalValue !== null ? _vm.customTotalValue : _vm.calculatedSubTotal)))]), _vm._v(" "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), !_vm.showReturnPriceColumn && !_vm.hideDiscountColumn && !_vm.hideVatColumn ? _c('td') : _vm._e()])], 2)])])]) : _vm._e();
+};
+var staticRenderFns = [];
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemsTable.vue?vue&type=script&lang=js
+/* harmony default export */ const ItemsTablevue_type_script_lang_js = ({
+  name: 'ItemsTable',
+  props: {
+    items: {
+      type: Array,
+      required: true,
+      "default": function _default() {
+        return [];
+      }
+    },
+    prefix: {
+      type: String,
+      "default": ''
+    },
+    taxes: {
+      type: Array,
+      "default": function _default() {
+        return [];
+      }
+    },
+    formErrors: {
+      type: Object,
+      "default": function _default() {
+        return {};
+      }
+    },
+    totalUnitPrice: {
+      type: Number,
+      "default": 0
+    },
+    totalProductDiscount: {
+      type: Number,
+      "default": 0
+    },
+    totalAfterDiscount: {
+      type: Number,
+      "default": 0
+    },
+    totalProductTax: {
+      type: Number,
+      "default": 0
+    },
+    subtotal: {
+      type: Number,
+      "default": 0
+    },
+    amountInWords: {
+      type: String,
+      "default": ''
+    },
+    showEditButton: {
+      type: Boolean,
+      "default": true
+    },
+    useVatRateId: {
+      type: Boolean,
+      "default": false
+    },
+    tableClass: {
+      type: String,
+      "default": 'quotations-create-table'
+    },
+    qtyFieldName: {
+      type: String,
+      "default": 'qty'
+    },
+    unitPriceFieldName: {
+      type: String,
+      "default": 'unitPrice'
+    },
+    priceReadonly: {
+      type: Boolean,
+      "default": false
+    },
+    customTotalValue: {
+      type: Number,
+      "default": null
+    },
+    totalsColspan: {
+      type: Number,
+      "default": 5
+    },
+    hideDiscountColumn: {
+      type: Boolean,
+      "default": false
+    },
+    hideVatColumn: {
+      type: Boolean,
+      "default": false
+    },
+    showInvoiceQtyColumn: {
+      type: Boolean,
+      "default": false
+    },
+    showCurrentQtyColumn: {
+      type: Boolean,
+      "default": false
+    },
+    showReturnPriceColumn: {
+      type: Boolean,
+      "default": false
+    },
+    disableInventoryMaxRestriction: {
+      type: Boolean,
+      "default": false
+    }
+  },
+  computed: {
+    calculatedSubTotal: function calculatedSubTotal() {
+      var _this = this;
+      if (!this.items || this.items.length === 0) return 0;
+      return this.items.reduce(function (sum, item) {
+        // Use totalPrice directly if available to ensure it matches the row display
+        var itemTotal = item.totalPrice;
+        if (itemTotal !== undefined && itemTotal !== null) {
+          return sum + Number(itemTotal);
+        }
+
+        // Fallback logic
+        var unitPrice = item[_this.unitPriceFieldName] || 0;
+        var qty = item[_this.qtyFieldName] || 0;
+        var net = item.totalAfterDiscount;
+        if (net === undefined || net === null) {
+          net = unitPrice * qty - (item.discountAmount || 0);
+        }
+        net = Number(net);
+        var tax = Number(item.totalTax) || 0;
+        return sum + net + tax;
+      }, 0);
+    }
+  },
+  methods: {
+    getItemField: function getItemField(item, fieldName) {
+      // Helper to handle dynamic field names safely
+      return item[fieldName] !== undefined ? item[fieldName] : 0;
+    },
+    formatToTwoDecimals: function formatToTwoDecimals(value) {
+      if (value === null || value === undefined || value === '') {
+        return '0.00';
+      }
+      var numValue = Number(value);
+      if (isNaN(numValue)) {
+        return '0.00';
+      }
+      return numValue.toFixed(2);
+    },
+    getFieldError: function getFieldError(field) {
+      if (!this.formErrors || typeof this.formErrors.has !== 'function') {
+        return false;
+      }
+      return this.formErrors.has(field);
+    },
+    getFieldErrorMessage: function getFieldErrorMessage(field) {
+      if (!this.formErrors || typeof this.formErrors.get !== 'function') {
+        return '';
+      }
+      return this.formErrors.get(field);
+    },
+    handleItemChange: function handleItemChange(value, type, index, action) {
+      this.$emit('item-change', {
+        value: value,
+        type: type,
+        index: index,
+        action: action
+      });
+    },
+    handleDiscountChange: function handleDiscountChange(index) {
+      this.$emit('discount-change', index);
+    },
+    handleVatChange: function handleVatChange(index) {
+      this.$emit('vat-change', index);
+    }
+  }
+});
+;// ./resources/js/components/ItemsTable.vue?vue&type=script&lang=js
+ /* harmony default export */ const components_ItemsTablevue_type_script_lang_js = (ItemsTablevue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__(85072);
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemsTable.vue?vue&type=style&index=0&id=135c5da7&prod&scoped=true&lang=css
+var ItemsTablevue_type_style_index_0_id_135c5da7_prod_scoped_true_lang_css = __webpack_require__(7005);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemsTable.vue?vue&type=style&index=0&id=135c5da7&prod&scoped=true&lang=css
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = injectStylesIntoStyleTag_default()(ItemsTablevue_type_style_index_0_id_135c5da7_prod_scoped_true_lang_css/* default */.A, options);
+
+
+
+/* harmony default export */ const components_ItemsTablevue_type_style_index_0_id_135c5da7_prod_scoped_true_lang_css = (ItemsTablevue_type_style_index_0_id_135c5da7_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/components/ItemsTable.vue?vue&type=style&index=0&id=135c5da7&prod&scoped=true&lang=css
+
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(14486);
+;// ./resources/js/components/ItemsTable.vue
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,componentNormalizer/* default */.A)(
+  components_ItemsTablevue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  "135c5da7",
+  null
+  
+)
+
+/* harmony default export */ const ItemsTable = (component.exports);
+
+/***/ }),
+
+/***/ 98187:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 
@@ -4104,7 +7670,7 @@ __webpack_require__.d(__webpack_exports__, {
   A: () => (/* binding */ ProductCreateModal)
 });
 
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=template&id=2ee3bdce&scoped=true
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=template&id=387d6191&scoped=true
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -6930,7 +10496,7 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
             case 2:
               _yield$_this6$form$ge = _context3.sent;
               data = _yield$_this6$form$ge.data;
-              _this6.categories = data.data;
+              _this6.categories = data.data || [];
             case 5:
             case "end":
               return _context3.stop();
@@ -7031,7 +10597,7 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
             case 2:
               _yield$axios$get2 = _context7.sent;
               data = _yield$axios$get2.data;
-              _this0.brands = data.data;
+              _this0.brands = data.data || [];
             case 5:
             case "end":
               return _context7.stop();
@@ -7052,7 +10618,7 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
             case 2:
               _yield$axios$get3 = _context8.sent;
               data = _yield$axios$get3.data;
-              _this1.units = data.data;
+              _this1.units = data.data || [];
             case 5:
             case "end":
               return _context8.stop();
@@ -7073,7 +10639,7 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
             case 2:
               _yield$axios$get4 = _context9.sent;
               data = _yield$axios$get4.data;
-              _this10.taxes = data.data;
+              _this10.taxes = data.data || [];
               // assign default vat rate
               if (_this10.taxes && _this10.taxes.length > 0) {
                 defaultVatRateSlug = _this10.appInfo.defaultVatRateSlug;
@@ -7676,23 +11242,23 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
 });
 ;// ./resources/js/components/ProductCreateModal.vue?vue&type=script&lang=js
  /* harmony default export */ const components_ProductCreateModalvue_type_script_lang_js = (ProductCreateModalvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=style&index=0&id=2ee3bdce&prod&scoped=true&lang=css
-var ProductCreateModalvue_type_style_index_0_id_2ee3bdce_prod_scoped_true_lang_css = __webpack_require__(34103);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=style&index=0&id=2ee3bdce&prod&scoped=true&lang=css
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=style&index=0&id=387d6191&prod&scoped=true&lang=css
+var ProductCreateModalvue_type_style_index_0_id_387d6191_prod_scoped_true_lang_css = __webpack_require__(25331);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=style&index=0&id=387d6191&prod&scoped=true&lang=css
 
             
 
-var ProductCreateModalvue_type_style_index_0_id_2ee3bdce_prod_scoped_true_lang_css_options = {};
+var ProductCreateModalvue_type_style_index_0_id_387d6191_prod_scoped_true_lang_css_options = {};
 
-ProductCreateModalvue_type_style_index_0_id_2ee3bdce_prod_scoped_true_lang_css_options.insert = "head";
-ProductCreateModalvue_type_style_index_0_id_2ee3bdce_prod_scoped_true_lang_css_options.singleton = false;
+ProductCreateModalvue_type_style_index_0_id_387d6191_prod_scoped_true_lang_css_options.insert = "head";
+ProductCreateModalvue_type_style_index_0_id_387d6191_prod_scoped_true_lang_css_options.singleton = false;
 
-var ProductCreateModalvue_type_style_index_0_id_2ee3bdce_prod_scoped_true_lang_css_update = injectStylesIntoStyleTag_default()(ProductCreateModalvue_type_style_index_0_id_2ee3bdce_prod_scoped_true_lang_css/* default */.A, ProductCreateModalvue_type_style_index_0_id_2ee3bdce_prod_scoped_true_lang_css_options);
+var ProductCreateModalvue_type_style_index_0_id_387d6191_prod_scoped_true_lang_css_update = injectStylesIntoStyleTag_default()(ProductCreateModalvue_type_style_index_0_id_387d6191_prod_scoped_true_lang_css/* default */.A, ProductCreateModalvue_type_style_index_0_id_387d6191_prod_scoped_true_lang_css_options);
 
 
 
-/* harmony default export */ const components_ProductCreateModalvue_type_style_index_0_id_2ee3bdce_prod_scoped_true_lang_css = (ProductCreateModalvue_type_style_index_0_id_2ee3bdce_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/components/ProductCreateModal.vue?vue&type=style&index=0&id=2ee3bdce&prod&scoped=true&lang=css
+/* harmony default export */ const components_ProductCreateModalvue_type_style_index_0_id_387d6191_prod_scoped_true_lang_css = (ProductCreateModalvue_type_style_index_0_id_387d6191_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/components/ProductCreateModal.vue?vue&type=style&index=0&id=387d6191&prod&scoped=true&lang=css
 
 ;// ./resources/js/components/ProductCreateModal.vue
 
@@ -7709,3553 +11275,12 @@ var ProductCreateModal_component = (0,componentNormalizer/* default */.A)(
   staticRenderFns,
   false,
   null,
-  "2ee3bdce",
+  "387d6191",
   null
   
 )
 
 /* harmony default export */ const ProductCreateModal = (ProductCreateModal_component.exports);
-
-/***/ }),
-
-/***/ 26365:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'Rupee',
-                plural: 'Rupees',
-                singular: 'Rupee',
-                symbol: '₹',
-                fractionalUnit: {
-                    name: 'Paisa',
-                    singular: 'Paisa',
-                    plural: 'Paisa',
-                    symbol: '',
-                },
-            },
-            texts: {
-                and: 'And',
-                minus: 'Minus',
-                only: 'Only',
-                point: 'Point',
-            },
-            numberWordsMapping: [
-                { number: 100000000000, value: 'Kharab' },
-                { number: 1000000000, value: 'Arab' },
-                { number: 10000000, value: 'Crore' },
-                { number: 100000, value: 'Lakh' },
-                { number: 1000, value: 'Thousand' },
-                { number: 100, value: 'Hundred' },
-                { number: 90, value: 'Ninety' },
-                { number: 80, value: 'Eighty' },
-                { number: 70, value: 'Seventy' },
-                { number: 60, value: 'Sixty' },
-                { number: 50, value: 'Fifty' },
-                { number: 40, value: 'Forty' },
-                { number: 30, value: 'Thirty' },
-                { number: 20, value: 'Twenty' },
-                { number: 19, value: 'Nineteen' },
-                { number: 18, value: 'Eighteen' },
-                { number: 17, value: 'Seventeen' },
-                { number: 16, value: 'Sixteen' },
-                { number: 15, value: 'Fifteen' },
-                { number: 14, value: 'Fourteen' },
-                { number: 13, value: 'Thirteen' },
-                { number: 12, value: 'Twelve' },
-                { number: 11, value: 'Eleven' },
-                { number: 10, value: 'Ten' },
-                { number: 9, value: 'Nine' },
-                { number: 8, value: 'Eight' },
-                { number: 7, value: 'Seven' },
-                { number: 6, value: 'Six' },
-                { number: 5, value: 'Five' },
-                { number: 4, value: 'Four' },
-                { number: 3, value: 'Three' },
-                { number: 2, value: 'Two' },
-                { number: 1, value: 'One' },
-                { number: 0, value: 'Zero' },
-            ],
-            exactWordsMapping: [{ number: 100, value: 'One Hundred' }],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 26396:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".header-buttons[data-v-7ad22b6f]{margin-bottom:15px}.footer-buttons[data-v-7ad22b6f]{display:flex;gap:10px}.footer-buttons .btn[data-v-7ad22b6f]{margin-right:10px}.footer-buttons .btn[data-v-7ad22b6f]:last-child{margin-right:0}.create-btn[data-v-7ad22b6f]{padding:11px}.chart-account-success[data-v-7ad22b6f],.chart-account-warning[data-v-7ad22b6f]{border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);margin-bottom:20px;padding:16px}.chart-account-warning[data-v-7ad22b6f]{background:linear-gradient(135deg,#fff3cd,#ffeaa7);border:1px solid #ffc107}.chart-account-success[data-v-7ad22b6f]{background:linear-gradient(135deg,#d4edda,#c3e6cb);border:1px solid #28a745}.success-content[data-v-7ad22b6f],.warning-content[data-v-7ad22b6f]{align-items:center;display:flex;gap:16px}.success-icon[data-v-7ad22b6f],.warning-icon[data-v-7ad22b6f]{flex-shrink:0;font-size:24px}.warning-icon[data-v-7ad22b6f]{color:#856404}.success-icon[data-v-7ad22b6f]{color:#155724}.success-text[data-v-7ad22b6f],.warning-text[data-v-7ad22b6f]{flex-grow:1}.success-title[data-v-7ad22b6f],.warning-title[data-v-7ad22b6f]{font-size:14px;font-weight:600;margin:0 0 4px}.warning-title[data-v-7ad22b6f]{color:#856404}.success-title[data-v-7ad22b6f]{color:#155724}.success-description[data-v-7ad22b6f],.warning-description[data-v-7ad22b6f]{font-size:13px;margin:0;opacity:.8}.warning-description[data-v-7ad22b6f]{color:#856404}.success-description[data-v-7ad22b6f]{color:#155724}.warning-action[data-v-7ad22b6f]{flex-shrink:0}.button-plus.icon-shape.icon-sm.btn-primary[data-v-7ad22b6f]{padding:0}.btn-primary[data-v-7ad22b6f]:hover{background:#229a26!important;box-shadow:0 4px 8px rgba(42,185,48,.3);transform:translateY(-1px)}.btn-primary[data-v-7ad22b6f]:disabled{box-shadow:none;cursor:not-allowed;opacity:.6;transform:none}@media (max-width:768px){.success-content[data-v-7ad22b6f],.warning-content[data-v-7ad22b6f]{flex-direction:column;gap:12px;text-align:center}.btn-primary[data-v-7ad22b6f],.warning-action[data-v-7ad22b6f]{width:100%}}.client-status[data-v-7ad22b6f]{font-size:13px}.client-success[data-v-7ad22b6f],.client-warning[data-v-7ad22b6f]{align-items:center;border-radius:6px;display:flex;font-weight:500;padding:8px 12px}.client-warning[data-v-7ad22b6f]{background-color:#fff3cd;border:1px solid #ffeaa7;color:#856404}.client-success[data-v-7ad22b6f]{background-color:#d4edda;border:1px solid #c3e6cb;color:#155724}.btn-outline-warning[data-v-7ad22b6f]{border-color:#ffc107;color:#856404;font-size:12px;padding:4px 8px}.btn-outline-warning[data-v-7ad22b6f]:hover{background-color:#ffc107;border-color:#ffc107;color:#212529}.btn-outline-warning[data-v-7ad22b6f]:disabled{cursor:not-allowed;opacity:.6}.product-status[data-v-7ad22b6f]{font-size:13px}.product-success[data-v-7ad22b6f],.product-warning[data-v-7ad22b6f]{align-items:center;border-radius:6px;display:flex;font-weight:500;padding:8px 12px}.product-warning[data-v-7ad22b6f]{background-color:#fff3cd;border:1px solid #ffeaa7;color:#856404}.product-success[data-v-7ad22b6f]{background-color:#d4edda;border:1px solid #c3e6cb;color:#155724}.account-status[data-v-7ad22b6f]{font-size:13px}.account-success[data-v-7ad22b6f],.account-warning[data-v-7ad22b6f]{align-items:center;border-radius:6px;display:flex;font-weight:500;padding:8px 12px}.account-warning[data-v-7ad22b6f]{background-color:#fff3cd;border:1px solid #ffeaa7;color:#856404}.account-success[data-v-7ad22b6f]{background-color:#d4edda;border:1px solid #c3e6cb;color:#155724}.radio-group-horizontal[data-v-7ad22b6f]{align-items:center;display:flex;flex-direction:row;gap:20px}.radio-group-horizontal .form-check[data-v-7ad22b6f]{align-items:center;display:flex;margin-bottom:0}.radio-group-horizontal .form-check-input[data-v-7ad22b6f]{margin-right:8px}.radio-group-horizontal .form-check-label[data-v-7ad22b6f]{cursor:pointer;margin-bottom:0}.text-warning[data-v-7ad22b6f]{color:#856404!important}.text-warning small[data-v-7ad22b6f]{font-size:12px;font-weight:500}.text-warning i[data-v-7ad22b6f]{margin-right:4px}.table-custom[data-v-7ad22b6f]{border:none!important}.invoices-create-table[data-v-7ad22b6f]{border-collapse:separate;border-spacing:0}.invoices-create-table thead th[data-v-7ad22b6f]{background-color:#33a0d9;border:none!important;border-color:inherit!important;color:#fff;font-weight:400;padding:8px}.invoices-create-table thead tr[data-v-7ad22b6f]{border:none!important}.invoices-create-table thead th[data-v-7ad22b6f]:first-child{border-top-left-radius:10px}.invoices-create-table thead th[data-v-7ad22b6f]:last-child{border-top-right-radius:10px}[dir=rtl] .invoices-create-table thead th[data-v-7ad22b6f]:first-child{border-top-left-radius:0;border-top-right-radius:10px}[dir=rtl] .invoices-create-table thead th[data-v-7ad22b6f]:last-child{border-top-left-radius:10px;border-top-right-radius:0}.btn-group.c-w-100[data-v-7ad22b6f]{gap:10px}.card[data-v-7ad22b6f]{border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:30px}.card-footer[data-v-7ad22b6f]{background-color:#fff;border-radius:0 0 20px 20px;border-top:1px solid #ced4da;padding:0 1.25rem .625rem}.invoices-create-table .badge.badge-danger[data-v-7ad22b6f]{background:#fef4f4!important;color:#dc3545!important;font-size:12px!important;font-weight:500!important;padding:10px 16px}.form-control[data-v-7ad22b6f]{background:#fff!important}.quantity-field[data-v-7ad22b6f]{border-radius:0!important;margin:0!important;min-height:50px!important}.btn-primary[data-v-7ad22b6f]{background:#2ab930!important}.btn-secondary[data-v-7ad22b6f]{background:#33a0d9!important;border:none!important;color:#fff!important;padding:10px 20px!important}.stock-warning-alert[data-v-7ad22b6f]{background:linear-gradient(135deg,#fff3cd,#ffeaa7);border:1px solid #ffc107;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);margin-bottom:20px;padding:16px}.stock-warning-content[data-v-7ad22b6f]{align-items:flex-start;display:flex;gap:16px}.stock-warning-icon[data-v-7ad22b6f]{color:#856404;flex-shrink:0;font-size:24px;margin-top:2px}.stock-warning-text[data-v-7ad22b6f]{flex-grow:1}.stock-warning-title[data-v-7ad22b6f]{color:#856404;font-size:16px;font-weight:600;margin:0 0 8px}.stock-warning-description[data-v-7ad22b6f]{color:#856404;font-size:14px;margin:0 0 12px;opacity:.9}.stock-warning-list[data-v-7ad22b6f]{list-style:none;margin:0;padding-left:20px}.stock-warning-item[data-v-7ad22b6f]{background-color:hsla(0,0%,100%,.5);border-left:3px solid #ffc107;border-radius:6px;color:#856404;font-size:14px;margin-bottom:8px;padding:8px 12px}.stock-warning-item[data-v-7ad22b6f]:last-child{margin-bottom:0}.product-name[data-v-7ad22b6f]{color:#856404;font-weight:600;margin-right:8px}.stock-details[data-v-7ad22b6f]{color:#856404;opacity:.8}.stock-details strong[data-v-7ad22b6f]{color:#856404;font-weight:600}[dir=rtl] .stock-warning-list[data-v-7ad22b6f]{padding-left:0;padding-right:20px}[dir=rtl] .stock-warning-item[data-v-7ad22b6f]{border-left:none;border-right:3px solid #ffc107}[dir=rtl] .product-name[data-v-7ad22b6f]{margin-left:8px;margin-right:0}@media (max-width:768px){.stock-warning-content[data-v-7ad22b6f]{flex-direction:column;gap:12px;text-align:center}.stock-warning-icon[data-v-7ad22b6f]{align-self:center}.stock-warning-list[data-v-7ad22b6f]{padding-left:0;text-align:left}[dir=rtl] .stock-warning-list[data-v-7ad22b6f]{text-align:right}}.clickable-badge[data-v-7ad22b6f]{cursor:pointer;transition:all .3s ease;-webkit-user-select:none;-moz-user-select:none;user-select:none}.clickable-badge[data-v-7ad22b6f]:hover{background-color:#c82333!important;box-shadow:0 2px 4px rgba(220,53,69,.3);transform:scale(1.05)}.clickable-badge[data-v-7ad22b6f]:active{transform:scale(.95)}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
-/***/ 28834:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'Euro',
-                plural: 'Euros',
-                singular: 'Euro',
-                symbol: '€',
-                fractionalUnit: {
-                    name: 'Centime',
-                    singular: 'Centime',
-                    plural: 'Centimes',
-                    symbol: 'Cts',
-                },
-            },
-            texts: {
-                and: 'Et',
-                minus: 'Moins',
-                only: '',
-                point: 'Virgule',
-            },
-            numberWordsMapping: [
-                { number: 1000000000000000, value: 'Billiard' },
-                { number: 1000000000000, value: 'Billion' },
-                { number: 1000000000, value: 'Milliard' },
-                { number: 1000000, value: 'Million' },
-                { number: 1000, value: 'Mille' },
-                { number: 100, value: 'Cent' },
-                { number: 99, value: 'Quatre-Vingt-Dix-Neuf' },
-                { number: 98, value: 'Quatre-Vingt-Dix-Huit' },
-                { number: 97, value: 'Quatre-Vingt-Dix-Sept' },
-                { number: 96, value: 'Quatre-Vingt-Seize' },
-                { number: 95, value: 'Quatre-Vingt-Quinze' },
-                { number: 94, value: 'Quatre-Vingt-Quatorze' },
-                { number: 93, value: 'Quatre-Vingt-Treize' },
-                { number: 92, value: 'Quatre-Vingt-Douze' },
-                { number: 91, value: 'Quatre-Vingt-Onze' },
-                { number: 90, value: 'Quatre-Vingt-Dix' },
-                { number: 89, value: 'Quatre-Vingt-Neuf' },
-                { number: 88, value: 'Quatre-Vingt-Huit' },
-                { number: 87, value: 'Quatre-Vingt-Sept' },
-                { number: 86, value: 'Quatre-Vingt-Six' },
-                { number: 85, value: 'Quatre-Vingt-Cinq' },
-                { number: 84, value: 'Quatre-Vingt-Quatre' },
-                { number: 83, value: 'Quatre-Vingt-Trois' },
-                { number: 82, value: 'Quatre-Vingt-Deux' },
-                { number: 81, value: 'Quatre-Vingt-Un' },
-                { number: 80, value: 'Quatre-Vingt' },
-                { number: 79, value: 'Soixante-Dix-Neuf' },
-                { number: 78, value: 'Soixante-Dix-Huit' },
-                { number: 77, value: 'Soixante-Dix-Sept' },
-                { number: 76, value: 'Soixante-Seize' },
-                { number: 75, value: 'Soixante-Quinze' },
-                { number: 74, value: 'Soixante-Quatorze' },
-                { number: 73, value: 'Soixante-Treize' },
-                { number: 72, value: 'Soixante-Douze' },
-                { number: 71, value: 'Soixante Et Onze' },
-                { number: 70, value: 'Soixante-dix' },
-                { number: 69, value: 'Soixante-Neuf' },
-                { number: 68, value: 'Soixante-Huit' },
-                { number: 67, value: 'Soixante-Sept' },
-                { number: 66, value: 'Soixante-Six' },
-                { number: 65, value: 'Soixante-Cinq' },
-                { number: 64, value: 'Soixante-Quatre' },
-                { number: 63, value: 'Soixante-Trois' },
-                { number: 62, value: 'Soixante-Deux' },
-                { number: 61, value: 'Soixante Et Un' },
-                { number: 60, value: 'Soixante' },
-                { number: 59, value: 'Cinquante-Neuf' },
-                { number: 58, value: 'Cinquante-Huit' },
-                { number: 57, value: 'Cinquante-Sept' },
-                { number: 56, value: 'Cinquante-Six' },
-                { number: 55, value: 'Cinquante-Cinq' },
-                { number: 54, value: 'Cinquante-Quatre' },
-                { number: 53, value: 'Cinquante-Trois' },
-                { number: 52, value: 'Cinquante-Deux' },
-                { number: 51, value: 'Cinquante Et Un' },
-                { number: 50, value: 'Cinquante' },
-                { number: 49, value: 'Quarante-Neuf' },
-                { number: 48, value: 'Quarante-Huit' },
-                { number: 47, value: 'Quarante-Sept' },
-                { number: 46, value: 'Quarante-Six' },
-                { number: 45, value: 'Quarante-Cinq' },
-                { number: 44, value: 'Quarante-Quatre' },
-                { number: 43, value: 'Quarante-Trois' },
-                { number: 42, value: 'Quarante-Deux' },
-                { number: 41, value: 'Quarante Et Un' },
-                { number: 40, value: 'Quarante' },
-                { number: 39, value: 'Trente-Neuf' },
-                { number: 38, value: 'Trente-Huit' },
-                { number: 37, value: 'Trente-Sept' },
-                { number: 36, value: 'Trente-Six' },
-                { number: 35, value: 'Trente-Cinq' },
-                { number: 34, value: 'Trente-Quatre' },
-                { number: 33, value: 'Trente-Trois' },
-                { number: 32, value: 'Trente-Deux' },
-                { number: 31, value: 'Trente Et Un' },
-                { number: 30, value: 'Trente' },
-                { number: 29, value: 'Vingt-Neuf' },
-                { number: 28, value: 'Vingt-Huit' },
-                { number: 27, value: 'Vingt-Sept' },
-                { number: 26, value: 'Vingt-Six' },
-                { number: 25, value: 'Vingt-Cinq' },
-                { number: 24, value: 'Vingt-Quatre' },
-                { number: 23, value: 'Vingt-Trois' },
-                { number: 22, value: 'Vingt-Deux' },
-                { number: 21, value: 'Vingt Et Un' },
-                { number: 20, value: 'Vingt' },
-                { number: 19, value: 'Dix-Neuf' },
-                { number: 18, value: 'Dix-Huit' },
-                { number: 17, value: 'Dix-Sept' },
-                { number: 16, value: 'Seize' },
-                { number: 15, value: 'Quinze' },
-                { number: 14, value: 'Quatorze' },
-                { number: 13, value: 'Treize' },
-                { number: 12, value: 'Douze' },
-                { number: 11, value: 'Onze' },
-                { number: 10, value: 'Dix' },
-                { number: 9, value: 'Neuf' },
-                { number: 8, value: 'Huit' },
-                { number: 7, value: 'Sept' },
-                { number: 6, value: 'Six' },
-                { number: 5, value: 'Cinq' },
-                { number: 4, value: 'Quatre' },
-                { number: 3, value: 'Trois' },
-                { number: 2, value: 'Deux' },
-                { number: 1, value: 'Un' },
-                { number: 0, value: 'Zéro' },
-            ],
-            ignoreOneForWords: ['Cent', 'Mille'],
-            pluralMark: 's',
-            pluralWords: ['Billiard', 'Billion', 'Milliard', 'Million'],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 31961:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  A: () => (/* binding */ ItemsTable)
-});
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemsTable.vue?vue&type=template&id=7f512fbf&scoped=true
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _vm.items && _vm.items.length > 0 ? _c('div', {
-    staticClass: "items-table-wrapper mt-3 mb-4"
-  }, [_c('div', {
-    staticClass: "table-responsive table-custom w-100 m-auto",
-    staticStyle: {
-      "max-width": "100%"
-    }
-  }, [_c('table', {
-    "class": ['table', 'table-hover', 'table-sm', 'text-center', _vm.tableClass]
-  }, [_c('thead', [_c('th', [_vm._v(_vm._s(_vm.$t("#")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Code")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Item Name")))]), _vm._v(" "), _vm.showInvoiceQtyColumn ? _c('th', [_vm._v(_vm._s(_vm.$t("Invoice Qty")))]) : _vm._e(), _vm._v(" "), _vm.showCurrentQtyColumn ? _c('th', [_vm._v(_vm._s(_vm.$t("Current Qty")))]) : _vm._e(), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Qty")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Price")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Total")))]), _vm._v(" "), !_vm.hideDiscountColumn ? _c('th', [_vm._v(_vm._s(_vm.$t("Discount")))]) : _vm._e(), _vm._v(" "), !_vm.hideDiscountColumn ? _c('th', [_vm._v(_vm._s(_vm.$t("Total After Discount")))]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('th', [_vm._v(_vm._s(_vm.$t("VAT Type")))]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('th', [_vm._v(_vm._s(_vm.$t("VAT")))]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('th', [_vm._v(_vm._s(_vm.$t("Total with VAT")))]) : _vm._e(), _vm._v(" "), _vm.showReturnPriceColumn ? _c('th', {
-    staticClass: "text-right"
-  }, [_vm._v(_vm._s(_vm.$t("Return Price")))]) : _vm._e(), _vm._v(" "), !_vm.showReturnPriceColumn ? _c('th', {
-    staticClass: "text-right"
-  }, [_vm._v(_vm._s(_vm.$t("Action")))]) : _vm._e()]), _vm._v(" "), _c('tbody', [_vm._l(_vm.items, function (item, i) {
-    return _c('tr', {
-      key: i
-    }, [_c('td', {
-      staticClass: "auto-width"
-    }, [_vm._v(_vm._s(++i))]), _vm._v(" "), _c('td', {
-      staticClass: "auto-width"
-    }, [_vm._v(_vm._s(_vm._f("withPrefix")(item.code, _vm.prefix)))]), _vm._v(" "), _c('td', {
-      staticClass: "auto-width"
-    }, [_c('div', {
-      staticClass: "d-flex align-items-center"
-    }, [Number(item.inventoryCount) < Number(_vm.getItemField(item, _vm.qtyFieldName)) && item.itemType == 'product' ? _c('span', {
-      directives: [{
-        name: "tooltip",
-        rawName: "v-tooltip",
-        value: _vm.$t('Click to manage stock'),
-        expression: "$t('Click to manage stock')"
-      }],
-      staticClass: "badge badge-danger p-2 mr-2 clickable-badge",
-      on: {
-        "click": function click($event) {
-          return _vm.$emit('open-stock-modal', item);
-        }
-      }
-    }, [_c('i', {
-      staticClass: "fas fa-exclamation"
-    })]) : _vm._e(), _vm._v(" "), _c('div', {
-      staticClass: "flex-grow-1"
-    }, [_vm.$can('product-view') ? _c('router-link', {
-      attrs: {
-        "to": {
-          name: 'products.show',
-          params: {
-            slug: item.slug
-          }
-        }
-      }
-    }, [_vm._v("\n                                    " + _vm._s(item.name) + "\n                                ")]) : _c('span', [_vm._v(_vm._s(item.name))])], 1), _vm._v(" "), _vm.showEditButton ? _c('button', {
-      directives: [{
-        name: "tooltip",
-        rawName: "v-tooltip",
-        value: _vm.$t('Edit Product'),
-        expression: "$t('Edit Product')"
-      }],
-      staticClass: "btn btn-sm btn-outline-primary ml-2",
-      attrs: {
-        "type": "button"
-      },
-      on: {
-        "click": function click($event) {
-          return _vm.$emit('edit-product', item);
-        }
-      }
-    }, [_c('i', {
-      staticClass: "fas fa-edit"
-    })]) : _vm._e()])]), _vm._v(" "), _vm.showInvoiceQtyColumn ? _c('td', {
-      staticClass: "auto-width"
-    }, [_vm._v("\n                        " + _vm._s(item.invoiceQty || item.qty) + " " + _vm._s(item.unit || '') + "\n                    ")]) : _vm._e(), _vm._v(" "), _vm.showCurrentQtyColumn ? _c('td', {
-      staticClass: "auto-width"
-    }, [_vm._v("\n                        " + _vm._s(item.returnQty !== undefined ? item.returnQty : (item.invoiceQty || item.qty) - (item.oldQty || 0)) + " " + _vm._s(item.unit || '') + "\n                    ")]) : _vm._e(), _vm._v(" "), _c('td', {
-      staticClass: "fixed-qty-column"
-    }, [_c('div', {
-      staticClass: "input-group custom-qty-input"
-    }, [_c('input', {
-      staticClass: "button-minus icon-shape icon-sm btn-danger",
-      attrs: {
-        "type": "button",
-        "value": "-",
-        "data-field": "quantity",
-        "disabled": item.isFromQuotation
-      },
-      on: {
-        "click": function click($event) {
-          _vm.handleItemChange(_vm.getItemField(item, _vm.qtyFieldName), 'qty', i - 1, 'decrement');
-        }
-      }
-    }), _vm._v(" "), _c('input', {
-      directives: [{
-        name: "model",
-        rawName: "v-model.number",
-        value: item[_vm.qtyFieldName],
-        expression: "item[qtyFieldName]",
-        modifiers: {
-          "number": true
-        }
-      }],
-      staticClass: "quantity-field border-0 incrementor",
-      "class": {
-        'is-invalid': _vm.getFieldError("selectedProducts.".concat(i - 1, ".").concat(_vm.qtyFieldName)),
-        'insufficient-stock-input': Number(item.inventoryCount) < Number(_vm.getItemField(item, _vm.qtyFieldName)) && item.itemType == 'product'
-      },
-      attrs: {
-        "type": "number",
-        "step": "any",
-        "id": "Qty-".concat(i),
-        "name": "quantity",
-        "required": "",
-        "min": "1",
-        "max": _vm.disableInventoryMaxRestriction ? null : item.itemType == 'product' ? item.inventoryCount : item.maxQty || null,
-        "readonly": item.isFromQuotation,
-        "placeholder": _vm.$t('Quantity')
-      },
-      domProps: {
-        "value": item[_vm.qtyFieldName]
-      },
-      on: {
-        "change": function change($event) {
-          return _vm.handleItemChange($event.target.value, 'qty', i - 1, '');
-        },
-        "keyup": function keyup($event) {
-          return _vm.handleItemChange($event.target.value, 'qty', i - 1, '');
-        },
-        "input": [function ($event) {
-          if ($event.target.composing) return;
-          _vm.$set(item, _vm.qtyFieldName, _vm._n($event.target.value));
-        }, function ($event) {
-          return _vm.handleItemChange($event.target.value, 'qty', i - 1, '');
-        }],
-        "blur": function blur($event) {
-          return _vm.$forceUpdate();
-        }
-      }
-    }), _vm._v(" "), _c('input', {
-      staticClass: "button-plus icon-shape icon-sm btn-primary",
-      attrs: {
-        "type": "button",
-        "value": "+",
-        "data-field": "quantity",
-        "disabled": item.isFromQuotation
-      },
-      on: {
-        "click": function click($event) {
-          _vm.handleItemChange(_vm.getItemField(item, _vm.qtyFieldName), 'qty', i - 1, 'increment');
-        }
-      }
-    })])]), _vm._v(" "), _c('td', {
-      staticClass: "auto-width"
-    }, [!_vm.priceReadonly ? _c('div', {
-      staticClass: "input-group custom-qty-input"
-    }, [_c('input', {
-      directives: [{
-        name: "model",
-        rawName: "v-model.number",
-        value: item[_vm.unitPriceFieldName],
-        expression: "item[unitPriceFieldName]",
-        modifiers: {
-          "number": true
-        }
-      }],
-      staticClass: "quantity-field border-0",
-      attrs: {
-        "type": "number",
-        "step": "any",
-        "min": "0",
-        "id": "unitPrice-".concat(i),
-        "name": "unitPrice",
-        "required": "",
-        "readonly": item.isFromQuotation
-      },
-      domProps: {
-        "value": item[_vm.unitPriceFieldName]
-      },
-      on: {
-        "input": [function ($event) {
-          if ($event.target.composing) return;
-          _vm.$set(item, _vm.unitPriceFieldName, _vm._n($event.target.value));
-        }, function ($event) {
-          return _vm.handleItemChange(item[_vm.unitPriceFieldName], 'price', i - 1, '');
-        }],
-        "blur": function blur($event) {
-          return _vm.$forceUpdate();
-        }
-      }
-    })]) : _c('div', [_vm._v("\n                            " + _vm._s(_vm.formatToTwoDecimals(_vm.getItemField(item, _vm.unitPriceFieldName))) + "\n                        ")])]), _vm._v(" "), _c('td', {
-      staticClass: "no-currency auto-width"
-    }, [_vm._v(_vm._s(_vm.formatToTwoDecimals((item.originalPrice || _vm.getItemField(item, _vm.unitPriceFieldName)) * (item.invoiceQty || _vm.getItemField(item, _vm.qtyFieldName) || 1))) + " "), _c('span', {
-      staticClass: "saudi-riyal"
-    }, [_vm._v("ê")])]), _vm._v(" "), !_vm.hideDiscountColumn ? _c('td', {
-      staticStyle: {
-        "min-width": "180px"
-      }
-    }, [_c('div', {
-      staticClass: "input-group"
-    }, [_c('select', {
-      directives: [{
-        name: "model",
-        rawName: "v-model",
-        value: item.discountType,
-        expression: "item.discountType"
-      }],
-      staticClass: "form-control form-control-sm",
-      "class": {
-        'is-invalid': _vm.getFieldError("selectedProducts.".concat(i - 1, ".discountType"))
-      },
-      staticStyle: {
-        "width": "85px"
-      },
-      attrs: {
-        "disabled": item.isFromQuotation
-      },
-      on: {
-        "change": [function ($event) {
-          var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-            return o.selected;
-          }).map(function (o) {
-            var val = "_value" in o ? o._value : o.value;
-            return val;
-          });
-          _vm.$set(item, "discountType", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-        }, function ($event) {
-          return _vm.handleDiscountChange(i - 1);
-        }]
-      }
-    }, [_c('option', {
-      attrs: {
-        "value": "fixed"
-      }
-    }, [_vm._v(_vm._s(_vm.$t("Fixed")))]), _vm._v(" "), _c('option', {
-      attrs: {
-        "value": "percentage"
-      }
-    }, [_vm._v(_vm._s(_vm.$t("%")))])]), _vm._v(" "), _c('input', {
-      directives: [{
-        name: "model",
-        rawName: "v-model",
-        value: item.discount,
-        expression: "item.discount"
-      }],
-      staticClass: "form-control form-control-sm",
-      "class": {
-        'is-invalid': _vm.getFieldError("selectedProducts.".concat(i - 1, ".discount"))
-      },
-      staticStyle: {
-        "width": "80px"
-      },
-      attrs: {
-        "type": "number",
-        "step": "any",
-        "min": "0",
-        "max": item.discountType == 'percentage' ? 100 : _vm.getItemField(item, _vm.unitPriceFieldName) * _vm.getItemField(item, _vm.qtyFieldName),
-        "readonly": item.isFromQuotation,
-        "placeholder": "0"
-      },
-      domProps: {
-        "value": item.discount
-      },
-      on: {
-        "change": function change($event) {
-          return _vm.handleDiscountChange(i - 1);
-        },
-        "keyup": function keyup($event) {
-          return _vm.handleDiscountChange(i - 1);
-        },
-        "input": function input($event) {
-          if ($event.target.composing) return;
-          _vm.$set(item, "discount", $event.target.value);
-        }
-      }
-    })]), _vm._v(" "), _vm.getFieldError("selectedProducts.".concat(i - 1, ".discount")) || _vm.getFieldError("selectedProducts.".concat(i - 1, ".discountType")) ? _c('div', {
-      staticClass: "invalid-feedback d-block"
-    }, [_vm.getFieldError("selectedProducts.".concat(i - 1, ".discount")) ? _c('span', {
-      staticClass: "d-block"
-    }, [_vm._v(_vm._s(_vm.getFieldErrorMessage("selectedProducts.".concat(i - 1, ".discount"))))]) : _vm._e(), _vm._v(" "), _vm.getFieldError("selectedProducts.".concat(i - 1, ".discountType")) ? _c('span', {
-      staticClass: "d-block"
-    }, [_vm._v(_vm._s(_vm.getFieldErrorMessage("selectedProducts.".concat(i - 1, ".discountType"))))]) : _vm._e()]) : _vm._e()]) : _vm._e(), _vm._v(" "), !_vm.hideDiscountColumn ? _c('td', {
-      staticClass: "no-currency auto-width"
-    }, [_vm._v(_vm._s(_vm.formatToTwoDecimals(item.totalAfterDiscount !== undefined ? item.totalAfterDiscount : _vm.getItemField(item, _vm.unitPriceFieldName) * _vm.getItemField(item, _vm.qtyFieldName) - (item.discountAmount || 0))) + " "), _c('span', {
-      staticClass: "saudi-riyal"
-    }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('td', {
-      staticClass: "fixed-vat-column"
-    }, [_vm.useVatRateId ? _c('select', {
-      directives: [{
-        name: "model",
-        rawName: "v-model",
-        value: item.vat_rate_id,
-        expression: "item.vat_rate_id"
-      }],
-      staticClass: "form-control form-control-sm",
-      "class": {
-        'is-invalid': _vm.getFieldError("selectedProducts.".concat(i - 1, ".vat_rate_id"))
-      },
-      staticStyle: {
-        "min-width": "120px"
-      },
-      attrs: {
-        "disabled": item.isFromQuotation
-      },
-      on: {
-        "change": [function ($event) {
-          var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-            return o.selected;
-          }).map(function (o) {
-            var val = "_value" in o ? o._value : o.value;
-            return val;
-          });
-          _vm.$set(item, "vat_rate_id", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-        }, function ($event) {
-          return _vm.handleVatChange(i - 1);
-        }]
-      }
-    }, [_c('option', {
-      attrs: {
-        "value": ""
-      }
-    }, [_vm._v(_vm._s(_vm.$t('Select VAT')))]), _vm._v(" "), _vm._l(_vm.taxes, function (tax) {
-      return _c('option', {
-        key: tax.id,
-        domProps: {
-          "value": tax.id
-        }
-      }, [_vm._v("\n                                " + _vm._s(tax.code) + " (" + _vm._s(tax.rate) + "%)\n                            ")]);
-    })], 2) : _c('select', {
-      directives: [{
-        name: "model",
-        rawName: "v-model",
-        value: item.selectedVatRate,
-        expression: "item.selectedVatRate"
-      }],
-      staticClass: "form-control form-control-sm",
-      "class": {
-        'is-invalid': _vm.getFieldError("selectedProducts.".concat(i - 1, ".selectedVatRate"))
-      },
-      staticStyle: {
-        "min-width": "120px"
-      },
-      attrs: {
-        "disabled": item.isFromQuotation
-      },
-      on: {
-        "change": [function ($event) {
-          var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-            return o.selected;
-          }).map(function (o) {
-            var val = "_value" in o ? o._value : o.value;
-            return val;
-          });
-          _vm.$set(item, "selectedVatRate", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-        }, function ($event) {
-          return _vm.handleVatChange(i - 1);
-        }]
-      }
-    }, [_c('option', {
-      attrs: {
-        "value": ""
-      }
-    }, [_vm._v(_vm._s(_vm.$t('Select VAT')))]), _vm._v(" "), _vm._l(_vm.taxes, function (tax) {
-      return _c('option', {
-        key: tax.id,
-        domProps: {
-          "value": tax
-        }
-      }, [_vm._v("\n                                " + _vm._s(tax.code) + " (" + _vm._s(tax.rate) + "%)\n                            ")]);
-    })], 2), _vm._v(" "), _vm.useVatRateId && _vm.getFieldError("selectedProducts.".concat(i - 1, ".vat_rate_id")) ? _c('div', {
-      staticClass: "invalid-feedback d-block"
-    }, [_vm._v("\n                            " + _vm._s(_vm.getFieldErrorMessage("selectedProducts.".concat(i - 1, ".vat_rate_id"))) + "\n                        ")]) : _vm._e(), _vm._v(" "), !_vm.useVatRateId && _vm.getFieldError("selectedProducts.".concat(i - 1, ".selectedVatRate")) ? _c('div', {
-      staticClass: "invalid-feedback d-block"
-    }, [_vm._v("\n                            " + _vm._s(_vm.getFieldErrorMessage("selectedProducts.".concat(i - 1, ".selectedVatRate"))) + "\n                        ")]) : _vm._e()]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('td', {
-      staticClass: "no-currency fixed-vat-column"
-    }, [_c('div', [_vm._v("\n                            " + _vm._s(_vm.formatToTwoDecimals(item.totalTax || 0)) + "\n                            "), _c('span', {
-      staticClass: "saudi-riyal"
-    }, [_vm._v("ê")])])]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('td', {
-      staticClass: "no-currency auto-width"
-    }, [_vm._v(_vm._s(_vm.formatToTwoDecimals(item.totalPrice)) + "\n                        "), _c('span', {
-      staticClass: "saudi-riyal"
-    }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), _vm.showReturnPriceColumn ? _c('td', {
-      staticClass: "text-right auto-width"
-    }, [_vm._v("\n                        " + _vm._s(_vm.formatToTwoDecimals(item.returnTotal !== undefined ? item.returnTotal : item.totalReturn || 0)) + " "), _c('span', {
-      staticClass: "saudi-riyal"
-    }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), !_vm.showReturnPriceColumn ? _c('td', {
-      staticClass: "text-right auto-width"
-    }, [_c('button', {
-      staticClass: "btn btn-danger",
-      attrs: {
-        "type": "button"
-      },
-      on: {
-        "click": function click($event) {
-          return _vm.$emit('remove-item', item);
-        }
-      }
-    }, [_c('i', {
-      staticClass: "fas fa-times"
-    })])]) : _vm._e()]);
-  }), _vm._v(" "), _c('tr', [_c('td', {
-    staticClass: "text-right",
-    attrs: {
-      "colspan": _vm.totalsColspan + (_vm.showInvoiceQtyColumn ? 1 : 0) + (_vm.showCurrentQtyColumn ? 1 : 0)
-    }
-  }, [!_vm.hideDiscountColumn && !_vm.hideVatColumn ? _c('strong', [_vm._v(" " + _vm._s(_vm.$t("Total")) + " : " + _vm._s(_vm.amountInWords) + " ")]) : _c('strong', [_vm._v(_vm._s(_vm.$t("Subtotal")))])]), _vm._v(" "), _vm.totalsColspan === 4 && !_vm.hideDiscountColumn && !_vm.hideVatColumn ? _c('td', {
-    staticClass: "no-currency"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.totalUnitPrice)))]), _vm._v(" "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), !_vm.hideDiscountColumn && !_vm.hideVatColumn ? _c('td', {
-    staticClass: "no-currency"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.customTotalValue !== null ? _vm.customTotalValue : _vm.totalUnitPrice)))]), _vm._v(" "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), !_vm.hideDiscountColumn && !_vm.hideVatColumn ? _c('td', {
-    staticClass: "no-currency"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.totalProductDiscount)))]), _vm._v(" "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), !_vm.hideDiscountColumn && !_vm.hideVatColumn ? _c('td', {
-    staticClass: "no-currency"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.totalAfterDiscount)))]), _vm._v(" "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('td', [_c('strong')]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('td', {
-    staticClass: "no-currency"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.totalProductTax)))]), _vm._v(" "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('td', {
-    staticClass: "no-currency"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.subtotal)))]), _vm._v(" "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), _vm.showReturnPriceColumn && !_vm.hideDiscountColumn && !_vm.hideVatColumn ? _c('td', {
-    staticClass: "no-currency"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.customTotalValue !== null ? _vm.customTotalValue : 0)))]), _vm._v(" "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), _vm.hideDiscountColumn && _vm.hideVatColumn ? _c('td', {
-    staticClass: "no-currency"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.totalUnitPrice)))]), _vm._v(" "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), _vm.showReturnPriceColumn && _vm.hideDiscountColumn && _vm.hideVatColumn ? _c('td', {
-    staticClass: "text-right"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.customTotalValue !== null ? _vm.customTotalValue : _vm.subtotal)))]), _vm._v(" "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), !_vm.showReturnPriceColumn && !_vm.hideDiscountColumn && !_vm.hideVatColumn ? _c('td') : _vm._e()])], 2)])])]) : _vm._e();
-};
-var staticRenderFns = [];
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemsTable.vue?vue&type=script&lang=js
-/* harmony default export */ const ItemsTablevue_type_script_lang_js = ({
-  name: 'ItemsTable',
-  props: {
-    items: {
-      type: Array,
-      required: true,
-      "default": function _default() {
-        return [];
-      }
-    },
-    prefix: {
-      type: String,
-      "default": ''
-    },
-    taxes: {
-      type: Array,
-      "default": function _default() {
-        return [];
-      }
-    },
-    formErrors: {
-      type: Object,
-      "default": function _default() {
-        return {};
-      }
-    },
-    totalUnitPrice: {
-      type: Number,
-      "default": 0
-    },
-    totalProductDiscount: {
-      type: Number,
-      "default": 0
-    },
-    totalAfterDiscount: {
-      type: Number,
-      "default": 0
-    },
-    totalProductTax: {
-      type: Number,
-      "default": 0
-    },
-    subtotal: {
-      type: Number,
-      "default": 0
-    },
-    amountInWords: {
-      type: String,
-      "default": ''
-    },
-    showEditButton: {
-      type: Boolean,
-      "default": true
-    },
-    useVatRateId: {
-      type: Boolean,
-      "default": false
-    },
-    tableClass: {
-      type: String,
-      "default": 'quotations-create-table'
-    },
-    qtyFieldName: {
-      type: String,
-      "default": 'qty'
-    },
-    unitPriceFieldName: {
-      type: String,
-      "default": 'unitPrice'
-    },
-    priceReadonly: {
-      type: Boolean,
-      "default": false
-    },
-    customTotalValue: {
-      type: Number,
-      "default": null
-    },
-    totalsColspan: {
-      type: Number,
-      "default": 5
-    },
-    hideDiscountColumn: {
-      type: Boolean,
-      "default": false
-    },
-    hideVatColumn: {
-      type: Boolean,
-      "default": false
-    },
-    showInvoiceQtyColumn: {
-      type: Boolean,
-      "default": false
-    },
-    showCurrentQtyColumn: {
-      type: Boolean,
-      "default": false
-    },
-    showReturnPriceColumn: {
-      type: Boolean,
-      "default": false
-    },
-    disableInventoryMaxRestriction: {
-      type: Boolean,
-      "default": false
-    }
-  },
-  methods: {
-    getItemField: function getItemField(item, fieldName) {
-      return item[fieldName] || 0;
-    },
-    formatToTwoDecimals: function formatToTwoDecimals(value) {
-      if (value === null || value === undefined || value === '') {
-        return '0.00';
-      }
-      var numValue = Number(value);
-      if (isNaN(numValue)) {
-        return '0.00';
-      }
-      return numValue.toFixed(2);
-    },
-    getFieldError: function getFieldError(field) {
-      if (!this.formErrors || typeof this.formErrors.has !== 'function') {
-        return false;
-      }
-      return this.formErrors.has(field);
-    },
-    getFieldErrorMessage: function getFieldErrorMessage(field) {
-      if (!this.formErrors || typeof this.formErrors.get !== 'function') {
-        return '';
-      }
-      return this.formErrors.get(field);
-    },
-    handleItemChange: function handleItemChange(value, type, index, action) {
-      this.$emit('item-change', {
-        value: value,
-        type: type,
-        index: index,
-        action: action
-      });
-    },
-    handleDiscountChange: function handleDiscountChange(index) {
-      this.$emit('discount-change', index);
-    },
-    handleVatChange: function handleVatChange(index) {
-      this.$emit('vat-change', index);
-    }
-  }
-});
-;// ./resources/js/components/ItemsTable.vue?vue&type=script&lang=js
- /* harmony default export */ const components_ItemsTablevue_type_script_lang_js = (ItemsTablevue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-var injectStylesIntoStyleTag = __webpack_require__(85072);
-var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemsTable.vue?vue&type=style&index=0&id=7f512fbf&prod&scoped=true&lang=css
-var ItemsTablevue_type_style_index_0_id_7f512fbf_prod_scoped_true_lang_css = __webpack_require__(25183);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemsTable.vue?vue&type=style&index=0&id=7f512fbf&prod&scoped=true&lang=css
-
-            
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = injectStylesIntoStyleTag_default()(ItemsTablevue_type_style_index_0_id_7f512fbf_prod_scoped_true_lang_css/* default */.A, options);
-
-
-
-/* harmony default export */ const components_ItemsTablevue_type_style_index_0_id_7f512fbf_prod_scoped_true_lang_css = (ItemsTablevue_type_style_index_0_id_7f512fbf_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/components/ItemsTable.vue?vue&type=style&index=0&id=7f512fbf&prod&scoped=true&lang=css
-
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/components/ItemsTable.vue
-
-
-
-;
-
-
-/* normalize component */
-
-var component = (0,componentNormalizer/* default */.A)(
-  components_ItemsTablevue_type_script_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  "7f512fbf",
-  null
-  
-)
-
-/* harmony default export */ const ItemsTable = (component.exports);
-
-/***/ }),
-
-/***/ 33972:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'रुपया',
-                plural: 'रुपये',
-                singular: 'रुपया',
-                symbol: '₹',
-                fractionalUnit: {
-                    name: 'पैसा',
-                    singular: 'पैसा',
-                    plural: 'पैसे',
-                    symbol: '',
-                },
-            },
-            texts: {
-                and: 'आणि',
-                minus: 'वजा',
-                only: '',
-                point: 'पूर्णांक',
-            },
-            numberWordsMapping: [
-                { number: 10000000, value: 'कोटी' },
-                { number: 100000, value: 'लाख' },
-                { number: 1000, value: 'हजार' },
-                { number: 900, value: 'नऊशे' },
-                { number: 800, value: 'आठशे' },
-                { number: 700, value: 'सातशे' },
-                { number: 600, value: 'सहाशे' },
-                { number: 500, value: 'पाचशे' },
-                { number: 400, value: 'चारशे' },
-                { number: 300, value: 'तीनशे' },
-                { number: 200, value: 'दोनशे' },
-                { number: 100, value: 'एकशे' },
-                { number: 99, value: 'नव्व्याण्णव' },
-                { number: 98, value: 'अठ्ठ्याण्णव' },
-                { number: 97, value: 'सत्त्याण्णव' },
-                { number: 96, value: 'शहाण्णव' },
-                { number: 95, value: 'पंच्याण्णव' },
-                { number: 94, value: 'चौऱ्याण्णव' },
-                { number: 93, value: 'त्र्याण्णव' },
-                { number: 92, value: 'ब्याण्णव' },
-                { number: 91, value: 'एक्क्याण्णव' },
-                { number: 90, value: 'नव्वद' },
-                { number: 89, value: 'एकोणनव्वद' },
-                { number: 88, value: 'अठ्ठ्याऐंशी' },
-                { number: 87, value: 'सत्त्याऐंशी' },
-                { number: 86, value: 'शहाऐंशी' },
-                { number: 85, value: 'पंच्याऐंशी' },
-                { number: 84, value: 'चौऱ्याऐंशी' },
-                { number: 83, value: 'त्र्याऐंशी' },
-                { number: 82, value: 'ब्याऐंशी' },
-                { number: 81, value: 'एक्क्याऐंशी' },
-                { number: 80, value: 'ऐंशी' },
-                { number: 79, value: 'एकोणऐंशी' },
-                { number: 78, value: 'अठ्ठ्याहत्तर' },
-                { number: 77, value: 'सत्याहत्तर' },
-                { number: 76, value: 'शहात्तर' },
-                { number: 75, value: 'पंच्याहत्तर' },
-                { number: 74, value: 'चौर्‍याहत्तर' },
-                { number: 73, value: 'त्र्याहत्तर' },
-                { number: 72, value: 'बाहत्तर' },
-                { number: 71, value: 'एक्काहत्तर' },
-                { number: 70, value: 'सत्तर' },
-                { number: 69, value: 'एकोणसत्तर' },
-                { number: 68, value: 'अडुसष्ठ' },
-                { number: 67, value: 'सदुसष्ठ' },
-                { number: 66, value: 'सहासष्ठ' },
-                { number: 65, value: 'पासष्ठ' },
-                { number: 64, value: 'चौसष्ठ' },
-                { number: 63, value: 'त्रेसष्ठ' },
-                { number: 62, value: 'बासष्ठ' },
-                { number: 61, value: 'एकसष्ठ' },
-                { number: 60, value: 'साठ' },
-                { number: 59, value: 'एकोणसाठ' },
-                { number: 58, value: 'अठ्ठावन्न' },
-                { number: 57, value: 'सत्तावन्न' },
-                { number: 56, value: 'छप्पन्न' },
-                { number: 55, value: 'पंचावन्न' },
-                { number: 54, value: 'चोपन्न' },
-                { number: 53, value: 'त्रेपन्न' },
-                { number: 52, value: 'बावन्न' },
-                { number: 51, value: 'एक्कावन्न' },
-                { number: 50, value: 'पन्नास' },
-                { number: 49, value: 'एकोणपन्नास' },
-                { number: 48, value: 'अठ्ठेचाळीस' },
-                { number: 47, value: 'सत्तेचाळीस' },
-                { number: 46, value: 'सेहेचाळीस' },
-                { number: 45, value: 'पंचेचाळीस' },
-                { number: 44, value: 'चव्वेचाळीस' },
-                { number: 43, value: 'त्रेचाळीस' },
-                { number: 42, value: 'बेचाळीस' },
-                { number: 41, value: 'एक्केचाळीस' },
-                { number: 40, value: 'चाळीस' },
-                { number: 39, value: 'एकोणचाळीस' },
-                { number: 38, value: 'अडतीस' },
-                { number: 37, value: 'सदतीस' },
-                { number: 36, value: 'छत्तीस' },
-                { number: 35, value: 'पस्तीस' },
-                { number: 34, value: 'चौतीस' },
-                { number: 33, value: 'तेहेतीस' },
-                { number: 32, value: 'बत्तीस' },
-                { number: 31, value: 'एकतीस' },
-                { number: 30, value: 'तीस' },
-                { number: 29, value: 'एकोणतीस' },
-                { number: 28, value: 'अठ्ठावीस' },
-                { number: 27, value: 'सत्तावीस' },
-                { number: 26, value: 'सव्वीस' },
-                { number: 25, value: 'पंचवीस' },
-                { number: 24, value: 'चोवीस' },
-                { number: 23, value: 'तेवीस' },
-                { number: 22, value: 'बावीस' },
-                { number: 21, value: 'एकवीस' },
-                { number: 20, value: 'वीस' },
-                { number: 19, value: 'एकोणीस' },
-                { number: 18, value: 'अठरा' },
-                { number: 17, value: 'सतरा' },
-                { number: 16, value: 'सोळा' },
-                { number: 15, value: 'पंधरा' },
-                { number: 14, value: 'चौदा' },
-                { number: 13, value: 'तेरा' },
-                { number: 12, value: 'बारा' },
-                { number: 11, value: 'अकरा' },
-                { number: 10, value: 'दहा' },
-                { number: 9, value: 'नऊ' },
-                { number: 8, value: 'आठ' },
-                { number: 7, value: 'सात' },
-                { number: 6, value: 'सहा' },
-                { number: 5, value: 'पाच' },
-                { number: 4, value: 'चार' },
-                { number: 3, value: 'तीन' },
-                { number: 2, value: 'दोन' },
-                { number: 1, value: 'एक' },
-                { number: 0, value: 'शून्य' },
-            ],
-            namedLessThan1000: true,
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 34103:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".form-card[data-v-2ee3bdce]{background:#fff;border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-bottom:1.25rem;margin-top:20px;transition:all .2s ease}.form-card[data-v-2ee3bdce]:hover{box-shadow:0 .1rem .5rem 0 rgba(58,59,69,.15)}.form-card .card-header[data-v-2ee3bdce]{background-color:#33a0d9;border-bottom:none;border-radius:20px 20px 0 0;color:#fff;padding:12px 16px}.form-card .card-header .section-title[data-v-2ee3bdce]{border:none;color:#fff;font-size:14px;font-weight:600;margin:0;padding:0}.form-card .card-header .section-title[data-v-2ee3bdce]:after{display:none}.form-card .card-header .section-title i[data-v-2ee3bdce]{color:hsla(0,0%,100%,.8)}.form-card .card-body[data-v-2ee3bdce]{padding:16px}.section-title[data-v-2ee3bdce]{border-bottom:1px solid #e9ecef;color:#495057;font-weight:600;margin-bottom:15px;padding-bottom:8px}.form-group[data-v-2ee3bdce]{margin-bottom:1rem}.form-group label[data-v-2ee3bdce]{color:#495057;font-size:.95rem;font-weight:500;margin-bottom:.5rem}.required[data-v-2ee3bdce]{color:#dc3545;font-weight:700}.row[data-v-2ee3bdce]{margin-bottom:1rem}.row[data-v-2ee3bdce]:last-child{margin-bottom:0}.auto-assign-btn[data-v-2ee3bdce]{min-width:40px;padding:.375rem .5rem;white-space:nowrap}.auto-assign-btn[data-v-2ee3bdce]:disabled{cursor:not-allowed;opacity:.6}.form-text[data-v-2ee3bdce]{color:#6c757d;font-size:.8rem;margin-top:3px}.image-preview[data-v-2ee3bdce]{text-align:center}.image-preview img[data-v-2ee3bdce]{border:1px solid #dee2e6;border-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,.1)}.custom-file-label[data-v-2ee3bdce]{background-color:#f8f9fa;border:1px dashed #dee2e6;cursor:pointer;font-size:.85rem;transition:all .2s ease}.custom-file-label[data-v-2ee3bdce]:hover{background-color:#e3f2fd;border-color:#007bff}.custom-file-label i[data-v-2ee3bdce]{color:#6c757d}.create-button[data-v-2ee3bdce]{cursor:pointer;text-decoration:none}.create-btn[data-v-2ee3bdce]{border-left:none;border-radius:0 .25rem .25rem 0;cursor:pointer;padding:11px;transition:background-color .2s ease}.create-btn[data-v-2ee3bdce]:hover{background-color:#e9ecef}.category-select[data-v-2ee3bdce]{margin-right:0!important}.category-select .vs__dropdown-toggle[data-v-2ee3bdce]{border-radius:.25rem 0 0 .25rem!important;border-right:none!important}[dir=rtl] .category-select .vs__dropdown-toggle[data-v-2ee3bdce]{border-left:none!important;border-radius:0 .25rem .25rem 0!important;border-right:1px solid #ced4da!important}[dir=rtl] .create-btn[data-v-2ee3bdce]{border-left:none;border-radius:.25rem 0 0 .25rem;border-right:1px solid #ced4da}[dir=ltr] .create-btn[data-v-2ee3bdce]{border-left:1px solid #ced4da;border-radius:0 .25rem .25rem 0;border-right:none}.unit-select[data-v-2ee3bdce]{margin-right:0!important}.unit-select .vs__dropdown-toggle[data-v-2ee3bdce]{border-radius:.25rem 0 0 .25rem!important;border-right:none!important}[dir=rtl] .unit-select .vs__dropdown-toggle[data-v-2ee3bdce]{border-left:none!important;border-radius:0 .25rem .25rem 0!important;border-right:1px solid #ced4da!important}@media (max-width:768px){.section-title[data-v-2ee3bdce]{font-size:.95rem;margin-bottom:12px}.form-card .card-body[data-v-2ee3bdce]{padding:.75rem}.auto-assign-btn[data-v-2ee3bdce]{font-size:.75rem;min-width:35px}}.input-group-prepend .input-group-text[data-v-2ee3bdce]{background-color:#f8f9fa;border-color:#ced4da;color:#495057;font-size:.85rem}.v-select[data-v-2ee3bdce]{margin-bottom:0}.is-invalid[data-v-2ee3bdce]{border-color:#dc3545!important}.invalid-feedback[data-v-2ee3bdce]{color:#dc3545;display:block;font-size:75%;margin-top:.2rem;width:100%}.item-type-selector[data-v-2ee3bdce]{display:flex;gap:.5rem;margin-top:.5rem}.item-type-option[data-v-2ee3bdce]{cursor:pointer;flex:1;position:relative;transition:all .2s ease}.item-type-option input[type=radio][data-v-2ee3bdce]{opacity:0;pointer-events:none;position:absolute}.option-content[data-v-2ee3bdce]{align-items:center;background:#fff;border:2px solid #e3e6f0;border-radius:6px;display:flex;flex-direction:column;justify-content:center;min-height:55px;padding:.6rem .5rem;text-align:center;transition:all .2s ease}.item-type-option:hover .option-content[data-v-2ee3bdce]{border-color:#33a0d9;box-shadow:0 2px 6px rgba(51,160,217,.15);transform:translateY(-1px)}.item-type-option.active .option-content[data-v-2ee3bdce]{background:#33a0d9;border-color:#33a0d9;box-shadow:0 3px 10px rgba(51,160,217,.25);color:#fff;transform:translateY(-1px)}.option-content i[data-v-2ee3bdce]{color:#6c757d;font-size:1.1rem;margin-bottom:.3rem;transition:all .2s ease}.item-type-option.active .option-content i[data-v-2ee3bdce]{color:hsla(0,0%,100%,.9)}.option-content span[data-v-2ee3bdce]{color:#495057;font-size:.85rem;font-weight:600;transition:all .2s ease}.item-type-option.active .option-content span[data-v-2ee3bdce]{color:#fff}@media (max-width:768px){.item-type-selector[data-v-2ee3bdce]{flex-direction:column;gap:.4rem}.option-content[data-v-2ee3bdce]{min-height:50px;padding:.5rem .4rem}.option-content i[data-v-2ee3bdce]{font-size:1rem;margin-bottom:.25rem}.option-content span[data-v-2ee3bdce]{font-size:.8rem}.override-checkbox-container .form-check-label[data-v-2ee3bdce]{min-height:44px;padding:.6rem .8rem}.checkbox-text[data-v-2ee3bdce]{font-size:.9rem}.form-check-input[data-v-2ee3bdce]{height:16px;width:16px}}.account-label-row[data-v-2ee3bdce]{align-items:flex-start;display:flex;flex-direction:column;gap:1rem;justify-content:space-between;margin-bottom:.5rem}.account-label[data-v-2ee3bdce]{color:#495057;flex:1;font-size:.95rem;font-weight:500;margin-bottom:0}.toggle-switch-container[data-v-2ee3bdce]{align-items:center;display:flex;flex-shrink:0}.toggle-switch-label[data-v-2ee3bdce]{align-items:center;cursor:pointer;display:inline-flex;gap:.75rem;-webkit-user-select:none;-moz-user-select:none;user-select:none}.toggle-switch-wrapper[data-v-2ee3bdce]{display:inline-block;flex-shrink:0;height:26px;position:relative;width:50px}.toggle-switch-input[data-v-2ee3bdce]{appearance:none;-webkit-appearance:none;-moz-appearance:none;background-color:#ced4da;border-radius:26px;cursor:pointer;height:26px;left:0;margin:0;outline:none;padding:0;position:absolute;top:0;transition:background-color .3s ease;width:50px}.toggle-switch-input[data-v-2ee3bdce]:checked{background-color:#33a0d9}.toggle-switch-input[data-v-2ee3bdce]:focus{box-shadow:0 0 0 .2rem rgba(51,160,217,.25)}.toggle-switch-slider[data-v-2ee3bdce]{background-color:#fff;border-radius:50%;box-shadow:0 2px 4px rgba(0,0,0,.2);height:20px;left:3px;pointer-events:none;position:absolute;top:50%;transform:translateY(-50%);transition:transform .3s ease;width:20px}.toggle-switch-input:checked+.toggle-switch-slider[data-v-2ee3bdce]{transform:translate(24px,-50%)}.toggle-switch-text[data-v-2ee3bdce]{color:#495057;font-size:.9rem;font-weight:500;transition:color .2s ease;white-space:nowrap}.toggle-switch-label:has(.toggle-switch-input:checked) .toggle-switch-text[data-v-2ee3bdce]{color:#33a0d9;font-weight:600}.alert-info[data-v-2ee3bdce]{background-color:#d1ecf1;border-color:#bee5eb;border-radius:.375rem;font-size:.9rem;padding:.75rem 1rem}.alert-info[data-v-2ee3bdce],.alert-info i[data-v-2ee3bdce]{color:#0c5460}.col-form-6[data-v-2ee3bdce]{flex:0 0 50%;max-width:50%}.col-form-6 .form-card[data-v-2ee3bdce],.col-form-6 .form-card .card-body[data-v-2ee3bdce]{width:100%}@media (max-width:1300px){.col-form-6[data-v-2ee3bdce]{flex:0 0 100%;max-width:100%}}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
-/***/ 37460:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'रुपया',
-                plural: 'रुपये',
-                singular: 'रुपया',
-                symbol: '₹',
-                fractionalUnit: {
-                    name: 'पैसा',
-                    singular: 'पैसा',
-                    plural: 'पैसे',
-                    symbol: '',
-                },
-            },
-            texts: {
-                and: 'और',
-                minus: 'ऋण',
-                only: '',
-                point: 'दशांश',
-            },
-            numberWordsMapping: [
-                { number: 10000000, value: 'करोड़' },
-                { number: 100000, value: 'लाख' },
-                { number: 1000, value: 'हज़ार' },
-                { number: 100, value: 'सौ' },
-                { number: 99, value: 'निन्यानवे' },
-                { number: 98, value: 'अट्ठानवे' },
-                { number: 97, value: 'सत्तानवे' },
-                { number: 96, value: 'छियानवे' },
-                { number: 95, value: 'पचानवे' },
-                { number: 94, value: 'चौरानवे' },
-                { number: 93, value: 'तिरानवे' },
-                { number: 92, value: 'बानवे' },
-                { number: 91, value: 'इक्यानबे' },
-                { number: 90, value: 'नब्बे' },
-                { number: 89, value: 'नवासी' },
-                { number: 88, value: 'अठासी' },
-                { number: 87, value: 'सतासी' },
-                { number: 86, value: 'छियासी' },
-                { number: 85, value: 'पचासी' },
-                { number: 84, value: 'चौरासी' },
-                { number: 83, value: 'तिरासी' },
-                { number: 82, value: 'बयासी' },
-                { number: 81, value: 'इक्यासी' },
-                { number: 80, value: 'अस्सी' },
-                { number: 79, value: 'उनासी' },
-                { number: 78, value: 'अठहत्तर' },
-                { number: 77, value: 'सतहत्तर' },
-                { number: 76, value: 'छिहत्तर' },
-                { number: 75, value: 'पचहत्तर' },
-                { number: 74, value: 'चौहत्तर' },
-                { number: 73, value: 'तिहत्तर' },
-                { number: 72, value: 'बहत्तर' },
-                { number: 71, value: 'इकहत्तर' },
-                { number: 70, value: 'सत्तर' },
-                { number: 69, value: 'उनहत्तर' },
-                { number: 68, value: 'अड़सठ' },
-                { number: 67, value: 'सड़सठ' },
-                { number: 66, value: 'छियासठ' },
-                { number: 65, value: 'पैंसठ' },
-                { number: 64, value: 'चौंसठ' },
-                { number: 63, value: 'तिरसठ' },
-                { number: 62, value: 'बासठ' },
-                { number: 61, value: 'इकसठ' },
-                { number: 60, value: 'साठ' },
-                { number: 59, value: 'उनसठ' },
-                { number: 58, value: 'अट्ठावन' },
-                { number: 57, value: 'सत्तावन' },
-                { number: 56, value: 'छप्पन' },
-                { number: 55, value: 'पचपन' },
-                { number: 54, value: 'चौबन' },
-                { number: 53, value: 'तिरेपन' },
-                { number: 52, value: 'बावन' },
-                { number: 51, value: 'इक्याबन' },
-                { number: 50, value: 'पचास' },
-                { number: 49, value: 'उनचास' },
-                { number: 48, value: 'अड़तालीस' },
-                { number: 47, value: 'सैंतालीस' },
-                { number: 46, value: 'छियालीस' },
-                { number: 45, value: 'पैंतालीस' },
-                { number: 44, value: 'चौंतालीस' },
-                { number: 43, value: 'तैंतालीस' },
-                { number: 42, value: 'बयालीस' },
-                { number: 41, value: 'इकतालीस' },
-                { number: 40, value: 'चालीस' },
-                { number: 39, value: 'उनतालीस' },
-                { number: 38, value: 'अड़तीस' },
-                { number: 37, value: 'सैंतीस' },
-                { number: 36, value: 'छत्तीस' },
-                { number: 35, value: 'पैंतीस' },
-                { number: 34, value: 'चौंतीस' },
-                { number: 33, value: 'तैंतीस' },
-                { number: 32, value: 'बत्तीस' },
-                { number: 31, value: 'इकतीस' },
-                { number: 30, value: 'तीस' },
-                { number: 29, value: 'उनतीस' },
-                { number: 28, value: 'अट्ठाईस' },
-                { number: 27, value: 'सत्ताईस' },
-                { number: 26, value: 'छब्बीस' },
-                { number: 25, value: 'पच्चीस' },
-                { number: 24, value: 'चौबीस' },
-                { number: 23, value: 'तेईस' },
-                { number: 22, value: 'बाईस' },
-                { number: 21, value: 'इक्कीस' },
-                { number: 20, value: 'बीस' },
-                { number: 19, value: 'उन्नीस' },
-                { number: 18, value: 'अठारह' },
-                { number: 17, value: 'सत्रह' },
-                { number: 16, value: 'सोलह' },
-                { number: 15, value: 'पंद्रह' },
-                { number: 14, value: 'चौदह' },
-                { number: 13, value: 'तेरह' },
-                { number: 12, value: 'बारह' },
-                { number: 11, value: 'ग्यारह' },
-                { number: 10, value: 'दस' },
-                { number: 9, value: 'नौ' },
-                { number: 8, value: 'आठ' },
-                { number: 7, value: 'सात' },
-                { number: 6, value: 'छह' },
-                { number: 5, value: 'पांच' },
-                { number: 4, value: 'चार' },
-                { number: 3, value: 'तीन' },
-                { number: 2, value: 'दो' },
-                { number: 1, value: 'एक' },
-                { number: 0, value: 'शून्य' },
-            ],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 38765:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'Kyat',
-                plural: 'Kyats',
-                singular: 'Kyat',
-                symbol: 'K',
-                fractionalUnit: {
-                    name: 'Pya',
-                    singular: 'Pya',
-                    plural: 'Pyas',
-                    symbol: '',
-                },
-            },
-            texts: {
-                and: 'And',
-                minus: 'Minus',
-                only: 'Only',
-                point: 'Point',
-            },
-            numberWordsMapping: [
-                { number: 1000000000000000, value: 'Quadrillion' },
-                { number: 1000000000000, value: 'Trillion' },
-                { number: 1000000000, value: 'Billion' },
-                { number: 1000000, value: 'Million' },
-                { number: 1000, value: 'Thousand' },
-                { number: 100, value: 'Hundred' },
-                { number: 90, value: 'Ninety' },
-                { number: 80, value: 'Eighty' },
-                { number: 70, value: 'Seventy' },
-                { number: 60, value: 'Sixty' },
-                { number: 50, value: 'Fifty' },
-                { number: 40, value: 'Forty' },
-                { number: 30, value: 'Thirty' },
-                { number: 20, value: 'Twenty' },
-                { number: 19, value: 'Nineteen' },
-                { number: 18, value: 'Eighteen' },
-                { number: 17, value: 'Seventeen' },
-                { number: 16, value: 'Sixteen' },
-                { number: 15, value: 'Fifteen' },
-                { number: 14, value: 'Fourteen' },
-                { number: 13, value: 'Thirteen' },
-                { number: 12, value: 'Twelve' },
-                { number: 11, value: 'Eleven' },
-                { number: 10, value: 'Ten' },
-                { number: 9, value: 'Nine' },
-                { number: 8, value: 'Eight' },
-                { number: 7, value: 'Seven' },
-                { number: 6, value: 'Six' },
-                { number: 5, value: 'Five' },
-                { number: 4, value: 'Four' },
-                { number: 3, value: 'Three' },
-                { number: 2, value: 'Two' },
-                { number: 1, value: 'One' },
-                { number: 0, value: 'Zero' },
-            ],
-            exactWordsMapping: [{ number: 100, value: 'One Hundred' }],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 41061:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'Taka',
-                plural: 'Taka',
-                singular: 'Taka',
-                symbol: '৳',
-                fractionalUnit: {
-                    name: 'Poysha',
-                    singular: 'Poysha',
-                    plural: 'Poysha',
-                    symbol: '',
-                },
-            },
-            texts: {
-                and: 'And',
-                minus: 'Minus',
-                only: 'Only',
-                point: 'Point',
-            },
-            numberWordsMapping: [
-                { number: 10000000, value: 'Crore' },
-                { number: 100000, value: 'Lakh' },
-                { number: 1000, value: 'Thousand' },
-                { number: 100, value: 'Hundred' },
-                { number: 90, value: 'Ninety' },
-                { number: 80, value: 'Eighty' },
-                { number: 70, value: 'Seventy' },
-                { number: 60, value: 'Sixty' },
-                { number: 50, value: 'Fifty' },
-                { number: 40, value: 'Forty' },
-                { number: 30, value: 'Thirty' },
-                { number: 20, value: 'Twenty' },
-                { number: 19, value: 'Nineteen' },
-                { number: 18, value: 'Eighteen' },
-                { number: 17, value: 'Seventeen' },
-                { number: 16, value: 'Sixteen' },
-                { number: 15, value: 'Fifteen' },
-                { number: 14, value: 'Fourteen' },
-                { number: 13, value: 'Thirteen' },
-                { number: 12, value: 'Twelve' },
-                { number: 11, value: 'Eleven' },
-                { number: 10, value: 'Ten' },
-                { number: 9, value: 'Nine' },
-                { number: 8, value: 'Eight' },
-                { number: 7, value: 'Seven' },
-                { number: 6, value: 'Six' },
-                { number: 5, value: 'Five' },
-                { number: 4, value: 'Four' },
-                { number: 3, value: 'Three' },
-                { number: 2, value: 'Two' },
-                { number: 1, value: 'One' },
-                { number: 0, value: 'Zero' },
-            ],
-            exactWordsMapping: [{ number: 100, value: 'One Hundred' }],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 44130:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'lira',
-                plural: '',
-                singular: '',
-                symbol: '₺',
-                fractionalUnit: {
-                    name: '',
-                    singular: 'lira',
-                    plural: 'lira',
-                    symbol: '',
-                },
-            },
-            texts: {
-                and: 'virgül',
-                minus: 'eksi',
-                only: '',
-                point: 'virgül',
-            },
-            numberWordsMapping: [
-                { number: 1000000000000000, value: 'katrilyon' },
-                { number: 1000000000000, value: 'trilyon' },
-                { number: 1000000000, value: 'milyar' },
-                { number: 1000000, value: 'milyon' },
-                { number: 1000, value: 'bin' },
-                { number: 900, value: 'dokuz yüz' },
-                { number: 800, value: 'sekiz yüz' },
-                { number: 700, value: 'yedi yüz' },
-                { number: 600, value: 'altı yüz' },
-                { number: 500, value: 'beş yüz' },
-                { number: 400, value: 'dört yüz' },
-                { number: 300, value: 'üç yüz' },
-                { number: 200, value: 'iki yüz' },
-                { number: 100, value: 'yüz' },
-                { number: 90, value: 'doksan' },
-                { number: 80, value: 'seksen' },
-                { number: 70, value: 'yetmiş' },
-                { number: 60, value: 'altmış' },
-                { number: 50, value: 'elli' },
-                { number: 40, value: 'kırk' },
-                { number: 30, value: 'otuz' },
-                { number: 20, value: 'yirmi' },
-                { number: 19, value: 'on dokuz' },
-                { number: 18, value: 'on sekiz' },
-                { number: 17, value: 'on yedi' },
-                { number: 16, value: 'on altı' },
-                { number: 15, value: 'on beş' },
-                { number: 14, value: 'on dört' },
-                { number: 13, value: 'on üç' },
-                { number: 12, value: 'on iki' },
-                { number: 11, value: 'on bir' },
-                { number: 10, value: 'on' },
-                { number: 9, value: 'dokuz' },
-                { number: 8, value: 'sekiz' },
-                { number: 7, value: 'yedi' },
-                { number: 6, value: 'altı' },
-                { number: 5, value: 'beş' },
-                { number: 4, value: 'dört' },
-                { number: 3, value: 'üç' },
-                { number: 2, value: 'iki' },
-                { number: 1, value: 'bir' },
-                { number: 0, value: 'sıfır' },
-            ],
-            namedLessThan1000: true,
-            ignoreZeroInDecimals: true,
-            decimalLengthWordMapping: {
-                1: 'onuncu',
-                2: 'yüzüncü',
-                3: 'bininci',
-                4: 'on bininci',
-                5: 'yüz bininci',
-                6: 'on milyonuncu',
-                7: 'milyonuncu',
-                8: 'yüz milyonuncu',
-            },
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 44659:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".form-group[data-v-3d82b5ae]{margin-bottom:1rem}.form-group label[data-v-3d82b5ae]{color:#495057;font-size:.95rem;font-weight:500;margin-bottom:.5rem}.required[data-v-3d82b5ae]{color:#dc3545;font-weight:700}.form-control[data-v-3d82b5ae]{background:#fff!important;border:1px solid #e5e7eb;font-size:14px;padding:10px 16px}.form-control[data-v-3d82b5ae]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(51,160,217,.25)}.is-invalid[data-v-3d82b5ae]{border-color:#dc3545!important}textarea.form-control[data-v-3d82b5ae]{min-height:100px;resize:vertical}.btn-success[data-v-3d82b5ae]{background:#2ab930!important;border:none!important;color:#fff!important;font-weight:500;padding:10px 20px!important}.btn-success[data-v-3d82b5ae]:hover{background:#229a26!important;box-shadow:0 4px 8px rgba(42,185,48,.3);transform:translateY(-1px)}.btn-secondary[data-v-3d82b5ae]{background:#6c757d!important;border:none!important;color:#fff!important;font-weight:500;padding:10px 20px!important}.btn-secondary[data-v-3d82b5ae]:hover{background:#5a6268!important;box-shadow:0 4px 8px hsla(208,7%,46%,.3);transform:translateY(-1px)}.create-button[data-v-3d82b5ae]{cursor:pointer;text-decoration:none}.unit-code-tooltip[data-v-3d82b5ae]{transition:all .2s ease}.unit-code-tooltip[data-v-3d82b5ae]:hover{color:#33a0d9!important;transform:scale(1.1)}.form-text[data-v-3d82b5ae]{color:#6c757d;font-size:.85rem;margin-top:.25rem}@media (max-width:768px){.form-group[data-v-3d82b5ae]{margin-bottom:.75rem}.form-text[data-v-3d82b5ae]{font-size:.8rem}}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
-/***/ 47229:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'રૂપિયો',
-                plural: 'રૂપિયા',
-                singular: 'રૂપિયો',
-                symbol: '₹',
-                fractionalUnit: {
-                    name: 'પૈસા',
-                    singular: 'પૈસા',
-                    plural: 'પૈસા',
-                    symbol: '',
-                },
-            },
-            texts: {
-                and: 'અને',
-                minus: 'ઋણ',
-                // only: 'માત્ર',
-                only: '',
-                point: 'દશાંશ',
-            },
-            numberWordsMapping: [
-                { number: 10000000, value: 'કરોડ' },
-                { number: 100000, value: 'લાખ' },
-                { number: 1000, value: 'હજાર' },
-                { number: 100, value: 'સો' },
-                { number: 99, value: 'નવ્વાણું' },
-                { number: 98, value: 'અઠ્ઠાણું' },
-                { number: 97, value: 'સત્તાણું' },
-                { number: 96, value: 'છન્નું' },
-                { number: 95, value: 'પંચાણું' },
-                { number: 94, value: 'ચોરાણું' },
-                { number: 93, value: 'ત્રાણું' },
-                { number: 92, value: 'બાણું' },
-                { number: 91, value: 'એકાણું' },
-                { number: 90, value: 'નેવું' },
-                { number: 89, value: 'નેવ્યાસી' },
-                { number: 88, value: 'ઈઠ્યાસી' },
-                { number: 87, value: 'સિત્યાસી' },
-                { number: 86, value: 'છ્યાસી' },
-                { number: 85, value: 'પંચ્યાસી' },
-                { number: 84, value: 'ચોર્યાસી' },
-                { number: 83, value: 'ત્યાસી' },
-                { number: 82, value: 'બ્યાસી' },
-                { number: 81, value: 'એક્યાસી' },
-                { number: 80, value: 'એંસી' },
-                { number: 79, value: 'ઓગણાએંસી' },
-                { number: 78, value: 'ઇઠ્યોતેર' },
-                { number: 77, value: 'સિત્યોતેર' },
-                { number: 76, value: 'છોતેર' },
-                { number: 75, value: 'પંચોતેર' },
-                { number: 74, value: 'ચુમોતેર' },
-                { number: 73, value: 'તોતેર' },
-                { number: 72, value: 'બોતેર' },
-                { number: 71, value: 'એકોતેર' },
-                { number: 70, value: 'સિત્તેર' },
-                { number: 69, value: 'ઓગણોસિત્તેર' },
-                { number: 68, value: 'અડસઠ' },
-                { number: 67, value: 'સડસઠ' },
-                { number: 66, value: 'છાસઠ' },
-                { number: 65, value: 'પાંસઠ' },
-                { number: 64, value: 'ચોસઠ' },
-                { number: 63, value: 'ત્રેસઠ' },
-                { number: 62, value: 'બાસઠ' },
-                { number: 61, value: 'એકસઠ' },
-                { number: 60, value: 'સાઈઠ' },
-                { number: 59, value: 'ઓગણસાઠ' },
-                { number: 58, value: 'અઠ્ઠાવન' },
-                { number: 57, value: 'સત્તાવન' },
-                { number: 56, value: 'છપ્પન' },
-                { number: 55, value: 'પંચાવન' },
-                { number: 54, value: 'ચોપન' },
-                { number: 53, value: 'ત્રેપન' },
-                { number: 52, value: 'બાવન' },
-                { number: 51, value: 'એકાવન' },
-                { number: 50, value: 'પચાસ' },
-                { number: 49, value: 'ઓગણપચાસ' },
-                { number: 48, value: 'સુડતાલીસ' },
-                { number: 47, value: 'સુડતાલીસ' },
-                { number: 46, value: 'છેતાલીસ' },
-                { number: 45, value: 'પિસ્તાલીસ' },
-                { number: 44, value: 'ચુંમાલીસ' },
-                { number: 43, value: 'ત્રેતાલીસ' },
-                { number: 42, value: 'એકતાલીસ' },
-                { number: 41, value: 'એકતાલીસ' },
-                { number: 40, value: 'ચાલીસ' },
-                { number: 39, value: 'ઓગણચાલીસ' },
-                { number: 38, value: 'આડત્રીસ' },
-                { number: 37, value: 'સાડત્રીસ' },
-                { number: 36, value: 'છત્રીસ' },
-                { number: 35, value: 'પાંત્રીસ' },
-                { number: 34, value: 'ચોત્રીસ' },
-                { number: 33, value: 'તેત્રીસ' },
-                { number: 32, value: 'બત્રીસ' },
-                { number: 31, value: 'એકત્રીસ' },
-                { number: 30, value: 'ત્રીસ' },
-                { number: 29, value: 'ઓગણત્રીસ' },
-                { number: 28, value: 'અઠ્ઠાવીસ' },
-                { number: 27, value: 'સત્તાવીસ' },
-                { number: 26, value: 'છવીસ' },
-                { number: 25, value: 'પચ્ચીસ' },
-                { number: 24, value: 'ચોવીસ' },
-                { number: 23, value: 'તેવીસ' },
-                { number: 22, value: 'બાવીસ' },
-                { number: 21, value: 'એકવીસ' },
-                { number: 20, value: 'વીસ' },
-                { number: 19, value: 'ઓગણિસ' },
-                { number: 18, value: 'અઢાર' },
-                { number: 17, value: 'સત્તર' },
-                { number: 16, value: 'સોળ' },
-                { number: 15, value: 'પંદર' },
-                { number: 14, value: 'ચૌદ' },
-                { number: 13, value: 'તેર' },
-                { number: 12, value: 'બાર' },
-                { number: 11, value: 'અગિયાર' },
-                { number: 10, value: 'દસ' },
-                { number: 9, value: 'નવ' },
-                { number: 8, value: 'આઠ' },
-                { number: 7, value: 'સાત' },
-                { number: 6, value: 'છ' },
-                { number: 5, value: 'પાંચ' },
-                { number: 4, value: 'ચાર' },
-                { number: 3, value: 'ત્રણ' },
-                { number: 2, value: 'બે' },
-                { number: 1, value: 'એક' },
-                { number: 0, value: 'શૂન્ય' },
-            ],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 52730:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".create-button[data-v-56f6a1e0]{cursor:pointer;text-decoration:none}.modal-content[data-v-56f6a1e0]{margin:1.75rem auto;max-width:1000px}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
-/***/ 54330:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'Pound',
-                plural: 'Pounds',
-                singular: 'Pound',
-                symbol: '£',
-                fractionalUnit: {
-                    name: 'Pence',
-                    plural: 'Pence',
-                    singular: 'Penny',
-                    symbol: '',
-                },
-            },
-            texts: {
-                and: 'And',
-                minus: 'Minus',
-                only: 'Only',
-                point: 'Point',
-            },
-            numberWordsMapping: [
-                { number: 1000000000000000, value: 'Quadrillion' },
-                { number: 1000000000000, value: 'Trillion' },
-                { number: 1000000000, value: 'Billion' },
-                { number: 1000000, value: 'Million' },
-                { number: 1000, value: 'Thousand' },
-                { number: 100, value: 'Hundred' },
-                { number: 90, value: 'Ninety' },
-                { number: 80, value: 'Eighty' },
-                { number: 70, value: 'Seventy' },
-                { number: 60, value: 'Sixty' },
-                { number: 50, value: 'Fifty' },
-                { number: 40, value: 'Forty' },
-                { number: 30, value: 'Thirty' },
-                { number: 20, value: 'Twenty' },
-                { number: 19, value: 'Nineteen' },
-                { number: 18, value: 'Eighteen' },
-                { number: 17, value: 'Seventeen' },
-                { number: 16, value: 'Sixteen' },
-                { number: 15, value: 'Fifteen' },
-                { number: 14, value: 'Fourteen' },
-                { number: 13, value: 'Thirteen' },
-                { number: 12, value: 'Twelve' },
-                { number: 11, value: 'Eleven' },
-                { number: 10, value: 'Ten' },
-                { number: 9, value: 'Nine' },
-                { number: 8, value: 'Eight' },
-                { number: 7, value: 'Seven' },
-                { number: 6, value: 'Six' },
-                { number: 5, value: 'Five' },
-                { number: 4, value: 'Four' },
-                { number: 3, value: 'Three' },
-                { number: 2, value: 'Two' },
-                { number: 1, value: 'One' },
-                { number: 0, value: 'Zero' },
-            ],
-            exactWordsMapping: [{ number: 100, value: 'One Hundred' }],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 54923:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.ToWords = exports.DefaultToWordsOptions = exports.DefaultConverterOptions = void 0;
-const en_AE_1 = __importDefault(__webpack_require__(8550));
-const en_BD_1 = __importDefault(__webpack_require__(41061));
-const en_GH_1 = __importDefault(__webpack_require__(59096));
-const en_IE_1 = __importDefault(__webpack_require__(21470));
-const en_IN_1 = __importDefault(__webpack_require__(144));
-const en_MM_1 = __importDefault(__webpack_require__(38765));
-const en_MU_1 = __importDefault(__webpack_require__(74261));
-const en_NG_1 = __importDefault(__webpack_require__(92952));
-const en_NP_1 = __importDefault(__webpack_require__(26365));
-const en_US_1 = __importDefault(__webpack_require__(84463));
-const en_GB_1 = __importDefault(__webpack_require__(54330));
-const en_PH_1 = __importDefault(__webpack_require__(82779));
-const fa_IR_1 = __importDefault(__webpack_require__(10982));
-const fr_BE_1 = __importDefault(__webpack_require__(69543));
-const fr_FR_1 = __importDefault(__webpack_require__(28834));
-const gu_IN_1 = __importDefault(__webpack_require__(47229));
-const hi_IN_1 = __importDefault(__webpack_require__(37460));
-const mr_IN_1 = __importDefault(__webpack_require__(33972));
-const pt_BR_1 = __importDefault(__webpack_require__(21722));
-const tr_TR_1 = __importDefault(__webpack_require__(44130));
-const nl_SR_1 = __importDefault(__webpack_require__(55101));
-const ee_EE_1 = __importDefault(__webpack_require__(74938));
-const ko_KR_1 = __importDefault(__webpack_require__(58041));
-exports.DefaultConverterOptions = {
-    currency: false,
-    ignoreDecimal: false,
-    ignoreZeroCurrency: false,
-    doNotAddOnly: false,
-};
-exports.DefaultToWordsOptions = {
-    localeCode: 'en-IN',
-    converterOptions: exports.DefaultConverterOptions,
-};
-class ToWords {
-    constructor(options = {}) {
-        this.options = {};
-        this.locale = undefined;
-        this.options = Object.assign({}, exports.DefaultToWordsOptions, options);
-    }
-    getLocaleClass() {
-        /* eslint-disable @typescript-eslint/no-var-requires */
-        switch (this.options.localeCode) {
-            case 'ee-EE':
-                return ee_EE_1.default;
-            case 'en-AE':
-                return en_AE_1.default;
-            case 'en-BD':
-                return en_BD_1.default;
-            case 'en-GH':
-                return en_GH_1.default;
-            case 'en-IE':
-                return en_IE_1.default;
-            case 'en-IN':
-                return en_IN_1.default;
-            case 'en-MM':
-                return en_MM_1.default;
-            case 'en-MU':
-                return en_MU_1.default;
-            case 'en-NG':
-                return en_NG_1.default;
-            case 'en-NP':
-                return en_NP_1.default;
-            case 'en-US':
-                return en_US_1.default;
-            case 'en-GB':
-                return en_GB_1.default;
-            case 'en-PH':
-                return en_PH_1.default;
-            case 'fa-IR':
-                return fa_IR_1.default;
-            case 'fr-BE':
-                return fr_BE_1.default;
-            case 'fr-FR':
-                return fr_FR_1.default;
-            case 'gu-IN':
-                return gu_IN_1.default;
-            case 'hi-IN':
-                return hi_IN_1.default;
-            case 'mr-IN':
-                return mr_IN_1.default;
-            case 'pt-BR':
-                return pt_BR_1.default;
-            case 'tr-TR':
-                return tr_TR_1.default;
-            case 'nl-SR':
-                return nl_SR_1.default;
-            case 'ko-KR':
-                return ko_KR_1.default;
-        }
-        /* eslint-enable @typescript-eslint/no-var-requires */
-        throw new Error(`Unknown Locale "${this.options.localeCode}"`);
-    }
-    getLocale() {
-        if (this.locale === undefined) {
-            const LocaleClass = this.getLocaleClass();
-            this.locale = new LocaleClass();
-        }
-        return this.locale;
-    }
-    convert(number, options = {}) {
-        var _a;
-        options = Object.assign({}, this.options.converterOptions, options);
-        if (!this.isValidNumber(number)) {
-            throw new Error(`Invalid Number "${number}"`);
-        }
-        if (options.ignoreDecimal) {
-            number = Number.parseInt(number.toString());
-        }
-        let words = [];
-        if (options.currency) {
-            words = this.convertCurrency(number, options);
-        }
-        else {
-            words = this.convertNumber(number);
-        }
-        if ((_a = this.locale) === null || _a === void 0 ? void 0 : _a.config.trim) {
-            return words.join('');
-        }
-        return words.join(' ');
-    }
-    convertNumber(number) {
-        var _a, _b, _c;
-        const locale = this.getLocale();
-        const isNegativeNumber = number < 0;
-        if (isNegativeNumber) {
-            number = Math.abs(number);
-        }
-        const split = number.toString().split('.');
-        const ignoreZero = this.isNumberZero(number) && locale.config.ignoreZeroInDecimals;
-        let words = this.convertInternal(Number(split[0]));
-        const isFloat = this.isFloat(number);
-        if (isFloat && ignoreZero) {
-            words = [];
-        }
-        const wordsWithDecimal = [];
-        if (isFloat) {
-            if (!ignoreZero) {
-                wordsWithDecimal.push(locale.config.texts.point);
-            }
-            if (split[1].startsWith('0') && !((_a = locale.config) === null || _a === void 0 ? void 0 : _a.decimalLengthWordMapping)) {
-                const zeroWords = [];
-                for (const num of split[1]) {
-                    zeroWords.push(...this.convertInternal(Number(num)));
-                }
-                wordsWithDecimal.push(...zeroWords);
-            }
-            else {
-                wordsWithDecimal.push(...this.convertInternal(Number(split[1])));
-                const decimalLengthWord = (_c = (_b = locale.config) === null || _b === void 0 ? void 0 : _b.decimalLengthWordMapping) === null || _c === void 0 ? void 0 : _c[split[1].length];
-                if (decimalLengthWord) {
-                    wordsWithDecimal.push(decimalLengthWord);
-                }
-            }
-        }
-        const isEmpty = words.length <= 0;
-        if (!isEmpty && isNegativeNumber) {
-            words.unshift(locale.config.texts.minus);
-        }
-        words.push(...wordsWithDecimal);
-        return words;
-    }
-    convertCurrency(number, options = {}) {
-        var _a, _b, _c, _d;
-        const locale = this.getLocale();
-        const currencyOptions = (_a = options.currencyOptions) !== null && _a !== void 0 ? _a : locale.config.currency;
-        const isNegativeNumber = number < 0;
-        if (isNegativeNumber) {
-            number = Math.abs(number);
-        }
-        number = this.toFixed(number);
-        // Extra check for isFloat to overcome 1.999 rounding off to 2
-        const split = number.toString().split('.');
-        let words = [...this.convertInternal(Number(split[0]))];
-        // Determine if the main currency should be in singular form
-        // e.g. 1 Dollar Only instead of 1 Dollars Only
-        if (Number(split[0]) === 1 && currencyOptions.singular) {
-            words.push(currencyOptions.name);
-        }
-        else if (currencyOptions.plural) {
-            words.push(currencyOptions.plural);
-        }
-        const ignoreZero = this.isNumberZero(number) &&
-            (options.ignoreZeroCurrency || (((_b = locale.config) === null || _b === void 0 ? void 0 : _b.ignoreZeroInDecimals) && number !== 0));
-        if (ignoreZero) {
-            words = [];
-        }
-        const wordsWithDecimal = [];
-        const isFloat = this.isFloat(number);
-        if (isFloat) {
-            if (!ignoreZero) {
-                wordsWithDecimal.push(locale.config.texts.and);
-            }
-            const decimalPart = Number(split[1]) * (!locale.config.decimalLengthWordMapping ? Math.pow(10, 2 - split[1].length) : 1);
-            wordsWithDecimal.push(...this.convertInternal(decimalPart));
-            const decimalLengthWord = (_d = (_c = locale.config) === null || _c === void 0 ? void 0 : _c.decimalLengthWordMapping) === null || _d === void 0 ? void 0 : _d[split[1].length];
-            if (decimalLengthWord === null || decimalLengthWord === void 0 ? void 0 : decimalLengthWord.length) {
-                wordsWithDecimal.push(decimalLengthWord);
-            }
-            // Determine if the fractional unit should be in singular form
-            // e.g. 1 Dollar and 1 Cent Only instead of 1 Dollar and 1 Cents Only
-            if (decimalPart === 1 && currencyOptions.fractionalUnit.singular) {
-                wordsWithDecimal.push(currencyOptions.fractionalUnit.singular);
-            }
-            else {
-                wordsWithDecimal.push(currencyOptions.fractionalUnit.plural);
-            }
-        }
-        else if (locale.config.decimalLengthWordMapping && words.length) {
-            wordsWithDecimal.push(currencyOptions.fractionalUnit.plural);
-        }
-        const isEmpty = words.length <= 0 && wordsWithDecimal.length <= 0;
-        if (!isEmpty && isNegativeNumber) {
-            words.unshift(locale.config.texts.minus);
-        }
-        if (!isEmpty && locale.config.texts.only && !options.doNotAddOnly && !locale.config.onlyInFront) {
-            wordsWithDecimal.push(locale.config.texts.only);
-        }
-        if (wordsWithDecimal.length) {
-            words.push(...wordsWithDecimal);
-        }
-        if (!isEmpty && !options.doNotAddOnly && locale.config.onlyInFront) {
-            words.splice(0, 0, locale.config.texts.only);
-        }
-        return words;
-    }
-    convertInternal(number) {
-        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o;
-        const locale = this.getLocale();
-        if (locale.config.exactWordsMapping) {
-            const exactMatch = (_b = (_a = locale.config) === null || _a === void 0 ? void 0 : _a.exactWordsMapping) === null || _b === void 0 ? void 0 : _b.find((elem) => {
-                return number === elem.number;
-            });
-            if (exactMatch) {
-                return [exactMatch.value];
-            }
-        }
-        const match = locale.config.numberWordsMapping.find((elem) => {
-            return number >= elem.number;
-        });
-        const words = [];
-        if (number <= 100 || (number < 1000 && locale.config.namedLessThan1000)) {
-            words.push(match.value);
-            number -= match.number;
-            if (number > 0) {
-                if ((_d = (_c = locale.config) === null || _c === void 0 ? void 0 : _c.splitWord) === null || _d === void 0 ? void 0 : _d.length) {
-                    words.push(locale.config.splitWord);
-                }
-                words.push(...this.convertInternal(number));
-            }
-            return words;
-        }
-        const quotient = Math.floor(number / match.number);
-        const remainder = number % match.number;
-        let matchValue = match.value;
-        if (quotient > 1 && ((_f = (_e = locale.config) === null || _e === void 0 ? void 0 : _e.pluralWords) === null || _f === void 0 ? void 0 : _f.find((word) => word === match.value)) && ((_g = locale.config) === null || _g === void 0 ? void 0 : _g.pluralMark)) {
-            matchValue += locale.config.pluralMark;
-        }
-        if (quotient === 1 && ((_j = (_h = locale.config) === null || _h === void 0 ? void 0 : _h.ignoreOneForWords) === null || _j === void 0 ? void 0 : _j.includes(matchValue))) {
-            words.push(matchValue);
-        }
-        else {
-            words.push(...this.convertInternal(quotient), matchValue);
-        }
-        if (remainder > 0) {
-            if ((_l = (_k = locale.config) === null || _k === void 0 ? void 0 : _k.splitWord) === null || _l === void 0 ? void 0 : _l.length) {
-                if (!((_o = (_m = locale.config) === null || _m === void 0 ? void 0 : _m.noSplitWordAfter) === null || _o === void 0 ? void 0 : _o.find((word) => word === match.value))) {
-                    words.push(locale.config.splitWord);
-                }
-            }
-            words.push(...this.convertInternal(remainder));
-        }
-        return words;
-    }
-    toFixed(number, precision = 2) {
-        return Number(Number(number).toFixed(precision));
-    }
-    isFloat(number) {
-        return Number(number) === number && number % 1 !== 0;
-    }
-    isValidNumber(number) {
-        return !isNaN(parseFloat(number)) && isFinite(number);
-    }
-    isNumberZero(number) {
-        return number >= 0 && number < 1;
-    }
-}
-exports.ToWords = ToWords;
-
-
-/***/ }),
-
-/***/ 55101:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'Surinaamse dollar',
-                plural: 'Surinaamse dollars',
-                singular: 'Surinaamse dollar',
-                symbol: 'SRD',
-                fractionalUnit: {
-                    name: 'Cent',
-                    singular: 'Cent',
-                    plural: 'Centen',
-                    symbol: 'SRD',
-                },
-            },
-            texts: {
-                and: 'En',
-                minus: 'Negatief',
-                only: '',
-                point: 'Punt',
-            },
-            numberWordsMapping: [
-                { number: 1000000000000000, value: 'Biljard' },
-                { number: 1000000000000, value: 'Biljoen' },
-                { number: 1000000000, value: 'Miljard' },
-                { number: 1000000, value: 'Miljoen' },
-                { number: 1000, value: 'Duizend' },
-                { number: 100, value: 'Honderd' },
-                { number: 99, value: 'Negenennegentig' },
-                { number: 98, value: 'Achtennegentig' },
-                { number: 97, value: 'Zevenennegentig' },
-                { number: 96, value: 'Zesennegentig' },
-                { number: 95, value: 'Vijfennegentig' },
-                { number: 94, value: 'Vierennegentig' },
-                { number: 93, value: 'Drieënnegentig' },
-                { number: 92, value: 'Tweeënnegentig' },
-                { number: 91, value: 'Eenennegentig' },
-                { number: 90, value: 'Negentig' },
-                { number: 89, value: 'Negenentachtig' },
-                { number: 88, value: 'Achtentachtig' },
-                { number: 87, value: 'Zevenentachtig' },
-                { number: 86, value: 'Zesentachtig' },
-                { number: 85, value: 'Vijfentachtig' },
-                { number: 84, value: 'Vierentachtig' },
-                { number: 83, value: 'Drieëntachtig' },
-                { number: 82, value: 'Tweeëntachtig' },
-                { number: 81, value: 'Eenentachtig' },
-                { number: 80, value: 'Tachtig' },
-                { number: 79, value: 'Negenenzeventig' },
-                { number: 78, value: 'Achtenzeventig' },
-                { number: 77, value: 'Zevenenzeventig' },
-                { number: 76, value: 'Zesenzeventig' },
-                { number: 75, value: 'Vijfenzeventig' },
-                { number: 74, value: 'Vierenzeventig' },
-                { number: 73, value: 'Drieënzeventig' },
-                { number: 72, value: 'Tweeënzeventig' },
-                { number: 71, value: 'Eenenzeventig' },
-                { number: 70, value: 'Zeventig' },
-                { number: 69, value: 'Negenenzestig' },
-                { number: 68, value: 'Achtenzestig' },
-                { number: 67, value: 'Zevenenzestig' },
-                { number: 66, value: 'Zesenzestig' },
-                { number: 65, value: 'Vijfenzestig' },
-                { number: 64, value: 'Vierenzestig' },
-                { number: 63, value: 'Drieënzestig' },
-                { number: 62, value: 'Tweeënzestig' },
-                { number: 61, value: 'Eenenzestig' },
-                { number: 60, value: 'Zestig' },
-                { number: 59, value: 'Negenenvijftig' },
-                { number: 58, value: 'Achtenvijftig' },
-                { number: 57, value: 'Zevenenvijftig' },
-                { number: 56, value: 'Zesenvijftig' },
-                { number: 55, value: 'Vijfenvijftig' },
-                { number: 54, value: 'Vierenvijftig' },
-                { number: 53, value: 'Drieënvijftig' },
-                { number: 52, value: 'Tweeënvijftig' },
-                { number: 51, value: 'Eenenvijftig' },
-                { number: 50, value: 'Vijftig' },
-                { number: 49, value: 'Negenenveertig' },
-                { number: 48, value: 'Achtenveertig' },
-                { number: 47, value: 'Zevenenveertig' },
-                { number: 46, value: 'Zesenveertig' },
-                { number: 45, value: 'Vijfenveertig' },
-                { number: 44, value: 'Vierenveertig' },
-                { number: 43, value: 'Drieënveertig' },
-                { number: 42, value: 'Tweeënveertig' },
-                { number: 41, value: 'Eenenveertig' },
-                { number: 40, value: 'Veertig' },
-                { number: 39, value: 'Negenendertig' },
-                { number: 38, value: 'Achtendertig' },
-                { number: 37, value: 'Zevenendertig' },
-                { number: 36, value: 'Zesendertig' },
-                { number: 35, value: 'Vijfendertig' },
-                { number: 34, value: 'Vierendertig' },
-                { number: 33, value: 'Drieëndertig' },
-                { number: 32, value: 'Tweeëndertig' },
-                { number: 31, value: 'Eenendertig' },
-                { number: 30, value: 'Dertig' },
-                { number: 29, value: 'Negenentwintig' },
-                { number: 28, value: 'Achtentwintig' },
-                { number: 27, value: 'Zevenentwintig' },
-                { number: 26, value: 'Zesentwintig' },
-                { number: 25, value: 'Vijfentwintig' },
-                { number: 24, value: 'Vierentwintig' },
-                { number: 23, value: 'Drieëntwintig' },
-                { number: 22, value: 'Tweeëntwintig' },
-                { number: 21, value: 'Eenentwintig' },
-                { number: 20, value: 'Twintig' },
-                { number: 19, value: 'Negentien' },
-                { number: 18, value: 'Achttien' },
-                { number: 17, value: 'Zeventien' },
-                { number: 16, value: 'Zestien' },
-                { number: 15, value: 'Vijftien' },
-                { number: 14, value: 'Veertien' },
-                { number: 13, value: 'Dertien' },
-                { number: 12, value: 'Twaalf' },
-                { number: 11, value: 'Elf' },
-                { number: 10, value: 'Tien' },
-                { number: 9, value: 'Negen' },
-                { number: 8, value: 'Acht' },
-                { number: 7, value: 'Zeven' },
-                { number: 6, value: 'Zes' },
-                { number: 5, value: 'Vijf' },
-                { number: 4, value: 'Vier' },
-                { number: 3, value: 'Drie' },
-                { number: 2, value: 'Twee' },
-                { number: 1, value: 'Een' },
-                { number: 0, value: 'Nul' },
-            ],
-            exactWordsMapping: [{ number: 100, value: 'Honderd' }],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 58041:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: '원',
-                plural: '원',
-                symbol: '',
-                fractionalUnit: {
-                    name: '',
-                    plural: '',
-                    symbol: '',
-                },
-            },
-            texts: {
-                and: '하고 ',
-                minus: '마이너스',
-                only: '',
-                point: '점',
-            },
-            trim: true,
-            numberWordsMapping: [
-                { number: 1000000000000, value: '조' },
-                { number: 100000000, value: '억' },
-                { number: 10000, value: '만' },
-                { number: 1000, value: '천' },
-                { number: 100, value: '백' },
-                { number: 90, value: '구십' },
-                { number: 80, value: '팔십' },
-                { number: 70, value: '칠십' },
-                { number: 60, value: '육십' },
-                { number: 50, value: '오십' },
-                { number: 40, value: '사십' },
-                { number: 30, value: '삼십' },
-                { number: 20, value: '이십' },
-                { number: 19, value: '십구' },
-                { number: 18, value: '십팔' },
-                { number: 17, value: '십칠' },
-                { number: 16, value: '십육' },
-                { number: 15, value: '십오' },
-                { number: 14, value: '십사' },
-                { number: 13, value: '십삼' },
-                { number: 12, value: '십이' },
-                { number: 11, value: '십일' },
-                { number: 10, value: '십' },
-                { number: 9, value: '구' },
-                { number: 8, value: '팔' },
-                { number: 7, value: '칠' },
-                { number: 6, value: '육' },
-                { number: 5, value: '오' },
-                { number: 4, value: '사' },
-                { number: 3, value: '삼' },
-                { number: 2, value: '이' },
-                { number: 1, value: '일' },
-                { number: 0, value: '영' },
-            ],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 59096:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'Cedi',
-                plural: 'Cedis',
-                singular: 'Cedi',
-                symbol: 'GH¢',
-                fractionalUnit: {
-                    name: 'Pesewa',
-                    singular: 'Pesewa',
-                    plural: 'Pesewas',
-                    symbol: 'Gp',
-                },
-            },
-            texts: {
-                and: 'And',
-                minus: 'Minus',
-                only: 'Only',
-                point: 'Point',
-            },
-            numberWordsMapping: [
-                { number: 1000000000000000, value: 'Quadrillion' },
-                { number: 1000000000000, value: 'Trillion' },
-                { number: 1000000000, value: 'Billion' },
-                { number: 1000000, value: 'Million' },
-                { number: 1000, value: 'Thousand' },
-                { number: 100, value: 'Hundred' },
-                { number: 90, value: 'Ninety' },
-                { number: 80, value: 'Eighty' },
-                { number: 70, value: 'Seventy' },
-                { number: 60, value: 'Sixty' },
-                { number: 50, value: 'Fifty' },
-                { number: 40, value: 'Forty' },
-                { number: 30, value: 'Thirty' },
-                { number: 20, value: 'Twenty' },
-                { number: 19, value: 'Nineteen' },
-                { number: 18, value: 'Eighteen' },
-                { number: 17, value: 'Seventeen' },
-                { number: 16, value: 'Sixteen' },
-                { number: 15, value: 'Fifteen' },
-                { number: 14, value: 'Fourteen' },
-                { number: 13, value: 'Thirteen' },
-                { number: 12, value: 'Twelve' },
-                { number: 11, value: 'Eleven' },
-                { number: 10, value: 'Ten' },
-                { number: 9, value: 'Nine' },
-                { number: 8, value: 'Eight' },
-                { number: 7, value: 'Seven' },
-                { number: 6, value: 'Six' },
-                { number: 5, value: 'Five' },
-                { number: 4, value: 'Four' },
-                { number: 3, value: 'Three' },
-                { number: 2, value: 'Two' },
-                { number: 1, value: 'One' },
-                { number: 0, value: 'Zero' },
-            ],
-            exactWordsMapping: [{ number: 100, value: 'One Hundred' }],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 64744:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _services_RTLService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(73948);
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  data: function data() {
-    return {
-      isRTL: false,
-      currentLocale: 'en'
-    };
-  },
-  computed: {
-    /**
-     * Get RTL-aware CSS classes
-     */
-    rtlClasses: function rtlClasses() {
-      return {
-        'rtl': this.isRTL,
-        'ltr': !this.isRTL,
-        'text-right': this.isRTL,
-        'text-left': !this.isRTL,
-        'float-right': this.isRTL,
-        'float-left': !this.isRTL
-      };
-    },
-    /**
-     * Get RTL-aware text alignment
-     */
-    textAlign: function textAlign() {
-      return this.isRTL ? 'right' : 'left';
-    },
-    /**
-     * Get RTL-aware float direction
-     */
-    floatDirection: function floatDirection() {
-      return this.isRTL ? 'right' : 'left';
-    }
-  },
-  mounted: function mounted() {
-    // Initialize RTL status
-    this.updateRTLStatus();
-
-    // Listen for RTL changes
-    window.addEventListener('rtl-changed', this.handleRTLChange);
-  },
-  beforeDestroy: function beforeDestroy() {
-    // Clean up event listener
-    window.removeEventListener('rtl-changed', this.handleRTLChange);
-  },
-  methods: {
-    /**
-     * Update RTL status from service
-     */
-    updateRTLStatus: function updateRTLStatus() {
-      this.isRTL = _services_RTLService__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A.getRTLStatus();
-      this.currentLocale = _services_RTLService__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A.getCurrentLocale();
-    },
-    /**
-     * Handle RTL change events
-     */
-    handleRTLChange: function handleRTLChange(event) {
-      this.isRTL = event.detail.isRTL;
-      this.currentLocale = event.detail.locale || _services_RTLService__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A.getCurrentLocale();
-      this.$forceUpdate(); // Force component re-render
-    },
-    /**
-     * Set RTL mode for a specific locale
-     */
-    setRTLMode: function setRTLMode(locale) {
-      _services_RTLService__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A.setRTLModeByLocale(locale);
-    },
-    /**
-     * Check if current locale is RTL
-     */
-    isCurrentLocaleRTL: function isCurrentLocaleRTL() {
-      return _services_RTLService__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A.getLanguageRTLStatus(this.currentLocale);
-    },
-    /**
-     * Get RTL-aware margin/padding classes
-     */
-    getRTLSpacingClasses: function getRTLSpacingClasses(baseClass, size) {
-      if (this.isRTL) {
-        return _defineProperty(_defineProperty({}, "".concat(baseClass, "-right-").concat(size), true), "".concat(baseClass, "-left-").concat(size), false);
-      } else {
-        return _defineProperty(_defineProperty({}, "".concat(baseClass, "-left-").concat(size), true), "".concat(baseClass, "-right-").concat(size), false);
-      }
-    },
-    /**
-     * Get RTL-aware border classes
-     */
-    getRTLBorderClasses: function getRTLBorderClasses(baseClass, side) {
-      if (this.isRTL) {
-        var rtlSideMap = {
-          'left': 'right',
-          'right': 'left',
-          'start': 'end',
-          'end': 'start'
-        };
-        return _defineProperty({}, "".concat(baseClass, "-").concat(rtlSideMap[side] || side), true);
-      } else {
-        return _defineProperty({}, "".concat(baseClass, "-").concat(side), true);
-      }
-    }
-  }
-});
-
-/***/ }),
-
-/***/ 69543:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'Euro',
-                plural: 'Euros',
-                singular: 'Euro',
-                symbol: '€',
-                fractionalUnit: {
-                    name: 'Centime',
-                    singular: 'Centime',
-                    plural: 'Centimes',
-                    symbol: 'Cts',
-                },
-            },
-            texts: {
-                and: 'Et',
-                minus: 'Moins',
-                only: '',
-                point: 'Virgule',
-            },
-            numberWordsMapping: [
-                { number: 1000000000000000, value: 'Billiard' },
-                { number: 1000000000000, value: 'Billion' },
-                { number: 1000000000, value: 'Milliard' },
-                { number: 1000000, value: 'Million' },
-                { number: 1000, value: 'Mille' },
-                { number: 100, value: 'Cent' },
-                { number: 99, value: 'Nonante-Neuf' },
-                { number: 98, value: 'Nonante-Huit' },
-                { number: 97, value: 'Nonante-Sept' },
-                { number: 96, value: 'Nonante-Six' },
-                { number: 95, value: 'Nonante-Cinq' },
-                { number: 94, value: 'Nonante-Quatre' },
-                { number: 93, value: 'Nonante-Trois' },
-                { number: 92, value: 'Nonante-Deux' },
-                { number: 91, value: 'Nonante-Et-Un' },
-                { number: 90, value: 'Nonante' },
-                { number: 89, value: 'Quatre-Vingt-Neuf' },
-                { number: 88, value: 'Quatre-Vingt-Huit' },
-                { number: 87, value: 'Quatre-Vingt-Sept' },
-                { number: 86, value: 'Quatre-Vingt-Six' },
-                { number: 85, value: 'Quatre-Vingt-Cinq' },
-                { number: 84, value: 'Quatre-Vingt-Quatre' },
-                { number: 83, value: 'Quatre-Vingt-Trois' },
-                { number: 82, value: 'Quatre-Vingt-Deux' },
-                { number: 81, value: 'Quatre-Vingt-Un' },
-                { number: 80, value: 'Quatre-Vingt' },
-                { number: 79, value: 'Septante-Neuf' },
-                { number: 78, value: 'Septante-Huit' },
-                { number: 77, value: 'Septante-Sept' },
-                { number: 76, value: 'Septante-Six' },
-                { number: 75, value: 'Septante-Cinq' },
-                { number: 74, value: 'Septante-Quatre' },
-                { number: 73, value: 'Septante-Trois' },
-                { number: 72, value: 'Septante-Deux' },
-                { number: 71, value: 'Septante-Et-Un' },
-                { number: 70, value: 'Septante' },
-                { number: 69, value: 'Soixante-Neuf' },
-                { number: 68, value: 'Soixante-Huit' },
-                { number: 67, value: 'Soixante-Sept' },
-                { number: 66, value: 'Soixante-Six' },
-                { number: 65, value: 'Soixante-Cinq' },
-                { number: 64, value: 'Soixante-Quatre' },
-                { number: 63, value: 'Soixante-Trois' },
-                { number: 62, value: 'Soixante-Deux' },
-                { number: 61, value: 'Soixante-Et-Un' },
-                { number: 60, value: 'Soixante' },
-                { number: 59, value: 'Cinquante-Neuf' },
-                { number: 58, value: 'Cinquante-Huit' },
-                { number: 57, value: 'Cinquante-Sept' },
-                { number: 56, value: 'Cinquante-Six' },
-                { number: 55, value: 'Cinquante-Cinq' },
-                { number: 54, value: 'Cinquante-Quatre' },
-                { number: 53, value: 'Cinquante-Trois' },
-                { number: 52, value: 'Cinquante-Deux' },
-                { number: 51, value: 'Cinquante-Et-Un' },
-                { number: 50, value: 'Cinquante' },
-                { number: 49, value: 'Quarante-Neuf' },
-                { number: 48, value: 'Quarante-Huit' },
-                { number: 47, value: 'Quarante-Sept' },
-                { number: 46, value: 'Quarante-Six' },
-                { number: 45, value: 'Quarante-Cinq' },
-                { number: 44, value: 'Quarante-Quatre' },
-                { number: 43, value: 'Quarante-Trois' },
-                { number: 42, value: 'Quarante-Deux' },
-                { number: 41, value: 'Quarante-Et-Un' },
-                { number: 40, value: 'Quarante' },
-                { number: 39, value: 'Trente-Neuf' },
-                { number: 38, value: 'Trente-Huit' },
-                { number: 37, value: 'Trente-Sept' },
-                { number: 36, value: 'Trente-Six' },
-                { number: 35, value: 'Trente-Cinq' },
-                { number: 34, value: 'Trente-Quatre' },
-                { number: 33, value: 'Trente-Trois' },
-                { number: 32, value: 'Trente-Deux' },
-                { number: 31, value: 'Trente-Et-Un' },
-                { number: 30, value: 'Trente' },
-                { number: 29, value: 'Vingt-Neuf' },
-                { number: 28, value: 'Vingt-Huit' },
-                { number: 27, value: 'Vingt-Sept' },
-                { number: 26, value: 'Vingt-Six' },
-                { number: 25, value: 'Vingt-Cinq' },
-                { number: 24, value: 'Vingt-Quatre' },
-                { number: 23, value: 'Vingt-Trois' },
-                { number: 22, value: 'Vingt-Deux' },
-                { number: 21, value: 'Vingt-Et-Un' },
-                { number: 20, value: 'Vingt' },
-                { number: 19, value: 'Dix-Neuf' },
-                { number: 18, value: 'Dix-Huit' },
-                { number: 17, value: 'Dix-Sept' },
-                { number: 16, value: 'Seize' },
-                { number: 15, value: 'Quinze' },
-                { number: 14, value: 'Quatorze' },
-                { number: 13, value: 'Treize' },
-                { number: 12, value: 'Douze' },
-                { number: 11, value: 'Onze' },
-                { number: 10, value: 'Dix' },
-                { number: 9, value: 'Neuf' },
-                { number: 8, value: 'Huit' },
-                { number: 7, value: 'Sept' },
-                { number: 6, value: 'Six' },
-                { number: 5, value: 'Cinq' },
-                { number: 4, value: 'Quatre' },
-                { number: 3, value: 'Trois' },
-                { number: 2, value: 'Deux' },
-                { number: 1, value: 'Un' },
-                { number: 0, value: 'Zéro' },
-            ],
-            ignoreOneForWords: ['Cent', 'Mille'],
-            pluralMark: 's',
-            pluralWords: ['Billiard', 'Billion', 'Milliard', 'Million'],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 74261:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'Rupee',
-                plural: 'Rupees',
-                singular: 'Rupee',
-                symbol: 'Rs',
-                fractionalUnit: {
-                    name: 'Cent',
-                    singular: 'Cent',
-                    plural: 'Cents',
-                    symbol: '',
-                },
-            },
-            texts: {
-                and: 'And',
-                minus: 'Minus',
-                only: 'Only',
-                point: 'Point',
-            },
-            numberWordsMapping: [
-                { number: 10000000, value: 'Crore' },
-                { number: 100000, value: 'Lakh' },
-                { number: 1000, value: 'Thousand' },
-                { number: 100, value: 'Hundred' },
-                { number: 90, value: 'Ninety' },
-                { number: 80, value: 'Eighty' },
-                { number: 70, value: 'Seventy' },
-                { number: 60, value: 'Sixty' },
-                { number: 50, value: 'Fifty' },
-                { number: 40, value: 'Forty' },
-                { number: 30, value: 'Thirty' },
-                { number: 20, value: 'Twenty' },
-                { number: 19, value: 'Nineteen' },
-                { number: 18, value: 'Eighteen' },
-                { number: 17, value: 'Seventeen' },
-                { number: 16, value: 'Sixteen' },
-                { number: 15, value: 'Fifteen' },
-                { number: 14, value: 'Fourteen' },
-                { number: 13, value: 'Thirteen' },
-                { number: 12, value: 'Twelve' },
-                { number: 11, value: 'Eleven' },
-                { number: 10, value: 'Ten' },
-                { number: 9, value: 'Nine' },
-                { number: 8, value: 'Eight' },
-                { number: 7, value: 'Seven' },
-                { number: 6, value: 'Six' },
-                { number: 5, value: 'Five' },
-                { number: 4, value: 'Four' },
-                { number: 3, value: 'Three' },
-                { number: 2, value: 'Two' },
-                { number: 1, value: 'One' },
-                { number: 0, value: 'Zero' },
-            ],
-            exactWordsMapping: [{ number: 100, value: 'One Hundred' }],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 74938:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'Euro',
-                plural: 'Eurot',
-                singular: 'Euro',
-                symbol: '€',
-                fractionalUnit: {
-                    name: 'Sent',
-                    singular: 'Sent',
-                    plural: 'Senti',
-                    symbol: '¢',
-                },
-            },
-            texts: {
-                and: 'Ja',
-                minus: 'Miinus',
-                only: 'Ainult',
-                point: 'Koma',
-            },
-            numberWordsMapping: [
-                { number: 1000000000000000, value: 'Kvadriljon' },
-                { number: 1000000000000, value: 'Triljon' },
-                { number: 1000000000, value: 'Miljard' },
-                { number: 1000000, value: 'Miljon' },
-                { number: 1000, value: 'Tuhat' },
-                { number: 900, value: 'Üheksasada' },
-                { number: 800, value: 'Kaheksasada' },
-                { number: 700, value: 'Seitsesada' },
-                { number: 600, value: 'Kuussada' },
-                { number: 500, value: 'Viissada' },
-                { number: 400, value: 'Nelisada' },
-                { number: 300, value: 'Kolmsada' },
-                { number: 200, value: 'Kakssada' },
-                { number: 100, value: 'Sada' },
-                { number: 90, value: 'Üheksakümmend' },
-                { number: 80, value: 'Kaheksakümmend' },
-                { number: 70, value: 'Seitsekümmend' },
-                { number: 60, value: 'Kuuskümmend' },
-                { number: 50, value: 'Viiskümmend' },
-                { number: 40, value: 'Nelikümmend' },
-                { number: 30, value: 'Kolmkümmend' },
-                { number: 20, value: 'Kakskümmend' },
-                { number: 19, value: 'Üheksateist' },
-                { number: 18, value: 'Kaheksateist' },
-                { number: 17, value: 'Seitseteist' },
-                { number: 16, value: 'Kuusteist' },
-                { number: 15, value: 'Viisteist' },
-                { number: 14, value: 'Neliteist' },
-                { number: 13, value: 'Kolmteist' },
-                { number: 12, value: 'Kaksteist' },
-                { number: 11, value: 'Üksteist' },
-                { number: 10, value: 'Kümme' },
-                { number: 9, value: 'Üheksa' },
-                { number: 8, value: 'Kaheksa' },
-                { number: 7, value: 'Seitse' },
-                { number: 6, value: 'Kuus' },
-                { number: 5, value: 'Viis' },
-                { number: 4, value: 'Neli' },
-                { number: 3, value: 'Kolm' },
-                { number: 2, value: 'Kaks' },
-                { number: 1, value: 'Üks' },
-                { number: 0, value: 'Null' },
-            ],
-            ignoreOneForWords: [
-                'Sada',
-                'Kakssada',
-                'Kolmsada',
-                'Nelisada',
-                'Viissada',
-                'Kuussada',
-                'Seitsesada',
-                'Kaheksasada',
-                'Üheksasada',
-            ],
-            exactWordsMapping: [
-                {
-                    number: 100,
-                    value: 'Ükssada',
-                },
-            ],
-            pluralWords: ['Miljon', 'Miljard', 'Trillion', 'Kvadriljon'],
-            pluralMark: 'it',
-            onlyInFront: true,
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 75528:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  A: () => (/* binding */ StockAdjustmentModal)
-});
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/StockAdjustmentModal.vue?vue&type=template&id=651d741c&scoped=true
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _vm.isOpen ? _c('div', {
-    staticClass: "modal-overlay",
-    on: {
-      "click": function click($event) {
-        if ($event.target !== $event.currentTarget) return null;
-        return _vm.closeModal.apply(null, arguments);
-      }
-    }
-  }, [_c('div', {
-    staticClass: "modal-content",
-    on: {
-      "click": function click($event) {
-        $event.stopPropagation();
-      }
-    }
-  }, [_c('div', {
-    staticClass: "modal-header"
-  }, [_c('h5', {
-    staticClass: "modal-title"
-  }, [_c('i', {
-    staticClass: "fas fa-exclamation-triangle text-warning mr-2"
-  }), _vm._v("\n        " + _vm._s(_vm.$t("Insufficient Stock")) + "\n      ")]), _vm._v(" "), _c('button', {
-    staticClass: "close",
-    attrs: {
-      "type": "button"
-    },
-    on: {
-      "click": _vm.closeModal
-    }
-  }, [_c('span', [_vm._v("×")])])]), _vm._v(" "), _c('div', {
-    staticClass: "modal-body"
-  }, [_c('div', {
-    staticClass: "alert alert-warning",
-    attrs: {
-      "role": "alert"
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-info-circle mr-2"
-  }), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.$t("Stock Alert")) + ":")]), _vm._v("\n        " + _vm._s(_vm.$t("The selected quantity exceeds available stock for this product.")) + "\n      ")]), _vm._v(" "), _c('div', {
-    staticClass: "product-info mb-4"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-6"
-  }, [_c('h6', [_vm._v(_vm._s(_vm.$t("Product Details")))]), _vm._v(" "), _c('p', {
-    staticClass: "mb-1"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Name")) + ":")]), _vm._v(" " + _vm._s(_vm.product.name || 'N/A'))]), _vm._v(" "), _c('p', {
-    staticClass: "mb-1"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Code")) + ":")]), _vm._v(" " + _vm._s(_vm.productCodeWithPrefix))]), _vm._v(" "), _c('p', {
-    staticClass: "mb-1"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Current Stock")) + ":")]), _vm._v(" "), _c('span', {
-    staticClass: "badge badge-info"
-  }, [_vm._v(_vm._s(_vm.product.inventoryCount || 0))])]), _vm._v(" "), _c('p', {
-    staticClass: "mb-1"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Required Quantity")) + ":")]), _vm._v(" "), _c('span', {
-    staticClass: "badge badge-danger"
-  }, [_vm._v(_vm._s(_vm.product.qty || 0))])])]), _vm._v(" "), _c('div', {
-    staticClass: "col-md-6"
-  }, [_c('h6', [_vm._v(_vm._s(_vm.$t("Stock Shortage")))]), _vm._v(" "), _c('p', {
-    staticClass: "text-danger"
-  }, [_c('i', {
-    staticClass: "fas fa-exclamation-circle mr-1"
-  }), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.shortageQuantity))]), _vm._v(" " + _vm._s(_vm.$t("units short")) + "\n            ")])])])]), _vm._v(" "), _c('div', {
-    staticClass: "stock-options"
-  }, [_c('h6', [_vm._v(_vm._s(_vm.$t("How to increase stock?")))]), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-6"
-  }, [_c('div', {
-    staticClass: "option-card",
-    on: {
-      "click": function click($event) {
-        $event.stopPropagation();
-        return _vm.openInventoryAdjustment.apply(null, arguments);
-      }
-    }
-  }, [_vm._m(0), _vm._v(" "), _c('div', {
-    staticClass: "option-content"
-  }, [_c('h6', [_vm._v(_vm._s(_vm.$t("Quick Stock Adjustment")))]), _vm._v(" "), _c('p', {
-    staticClass: "text-muted"
-  }, [_vm._v(_vm._s(_vm.$t("Add stock directly to inventory")))])])])]), _vm._v(" "), _c('div', {
-    staticClass: "col-md-6"
-  }, [_c('div', {
-    staticClass: "option-card",
-    on: {
-      "click": function click($event) {
-        $event.stopPropagation();
-        return _vm.openPurchaseOrder.apply(null, arguments);
-      }
-    }
-  }, [_vm._m(1), _vm._v(" "), _c('div', {
-    staticClass: "option-content"
-  }, [_c('h6', [_vm._v(_vm._s(_vm.$t("Create Purchase Order")))]), _vm._v(" "), _c('p', {
-    staticClass: "text-muted"
-  }, [_vm._v(_vm._s(_vm.$t("Order more stock from supplier")))])])])])])]), _vm._v(" "), _vm.showQuickAdjustment ? _c('div', {
-    staticClass: "quick-adjustment mt-4"
-  }, [_c('div', {
-    staticClass: "card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('h6', {
-    staticClass: "mb-0"
-  }, [_c('i', {
-    staticClass: "fas fa-plus-circle text-success mr-2"
-  }), _vm._v("\n              " + _vm._s(_vm.$t("Quick Stock Adjustment")) + "\n            ")])]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('form', {
-    on: {
-      "submit": function submit($event) {
-        $event.preventDefault();
-        return _vm.submitQuickAdjustment.apply(null, arguments);
-      }
-    }
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-6"
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "adjustmentReason"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Reason")) + " "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.adjustmentForm.reason,
-      expression: "adjustmentForm.reason"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.adjustmentForm.errors.has('reason')
-    },
-    attrs: {
-      "id": "adjustmentReason",
-      "type": "text",
-      "placeholder": _vm.$t('Enter reason for stock adjustment'),
-      "required": ""
-    },
-    domProps: {
-      "value": _vm.adjustmentForm.reason
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.adjustmentForm, "reason", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.adjustmentForm,
-      "field": "reason"
-    }
-  })], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "col-md-6"
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "adjustmentQuantity"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Quantity to Add")) + " "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.adjustmentForm.quantity,
-      expression: "adjustmentForm.quantity"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.adjustmentForm.errors.has('quantity')
-    },
-    attrs: {
-      "id": "adjustmentQuantity",
-      "type": "number",
-      "min": "1",
-      "placeholder": _vm.$t('Enter quantity to add'),
-      "required": ""
-    },
-    domProps: {
-      "value": _vm.adjustmentForm.quantity
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.adjustmentForm, "quantity", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.adjustmentForm,
-      "field": "quantity"
-    }
-  })], 1)])]), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "adjustmentNote"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Note")))]), _vm._v(" "), _c('textarea', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.adjustmentForm.note,
-      expression: "adjustmentForm.note"
-    }],
-    staticClass: "form-control",
-    attrs: {
-      "id": "adjustmentNote",
-      "rows": "3",
-      "placeholder": _vm.$t('Enter additional notes (optional)')
-    },
-    domProps: {
-      "value": _vm.adjustmentForm.note
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.adjustmentForm, "note", $event.target.value);
-      }
-    }
-  })]), _vm._v(" "), _c('div', {
-    staticClass: "form-actions"
-  }, [_c('button', {
-    staticClass: "btn btn-secondary",
-    attrs: {
-      "type": "button"
-    },
-    on: {
-      "click": function click($event) {
-        _vm.showQuickAdjustment = false;
-      }
-    }
-  }, [_vm._v("\n                  " + _vm._s(_vm.$t("Cancel")) + "\n                ")]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-success",
-    attrs: {
-      "type": "submit",
-      "disabled": _vm.adjustmentForm.busy
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-save mr-1"
-  }), _vm._v("\n                  " + _vm._s(_vm.$t("Add Stock")) + "\n                ")])])])])])]) : _vm._e()]), _vm._v(" "), _c('div', {
-    staticClass: "modal-footer"
-  }, [_c('button', {
-    staticClass: "btn btn-secondary",
-    attrs: {
-      "type": "button"
-    },
-    on: {
-      "click": _vm.closeModal
-    }
-  }, [_vm._v("\n        " + _vm._s(_vm.$t("Close")) + "\n      ")]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-primary",
-    attrs: {
-      "type": "button"
-    },
-    on: {
-      "click": _vm.adjustQuantity
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-edit mr-1"
-  }), _vm._v("\n        " + _vm._s(_vm.$t("Adjust Quantity")) + "\n      ")])])])]) : _vm._e();
-};
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', {
-    staticClass: "option-icon"
-  }, [_c('i', {
-    staticClass: "fas fa-plus-circle text-success"
-  })]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', {
-    staticClass: "option-icon"
-  }, [_c('i', {
-    staticClass: "fas fa-shopping-cart text-primary"
-  })]);
-}];
-
-;// ./resources/js/components/StockAdjustmentModal.vue?vue&type=template&id=651d741c&scoped=true
-
-// EXTERNAL MODULE: ./node_modules/vform/dist/vform.es.js
-var vform_es = __webpack_require__(63216);
-// EXTERNAL MODULE: ./node_modules/axios/index.js
-var axios = __webpack_require__(72505);
-var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
-// EXTERNAL MODULE: ./node_modules/sweetalert2/dist/sweetalert2.all.js
-var sweetalert2_all = __webpack_require__(78465);
-var sweetalert2_all_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_all);
-// EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
-var vuex_esm = __webpack_require__(95353);
-// EXTERNAL MODULE: ./resources/js/plugins/filter.js
-var filter = __webpack_require__(44121);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/StockAdjustmentModal.vue?vue&type=script&lang=js
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-
-
-
-
-
-var toast = sweetalert2_all_default().mixin({
-  toast: true,
-  position: 'top-end',
-  showConfirmButton: false,
-  timer: 3000,
-  timerProgressBar: true
-});
-/* harmony default export */ const StockAdjustmentModalvue_type_script_lang_js = ({
-  name: "StockAdjustmentModal",
-  props: {
-    isOpen: {
-      type: Boolean,
-      "default": false
-    },
-    product: {
-      type: Object,
-      "default": function _default() {
-        return {};
-      }
-    }
-  },
-  data: function data() {
-    return {
-      showQuickAdjustment: false,
-      adjustmentForm: new vform_es/* default */.Ay({
-        reason: "",
-        quantity: 1,
-        note: ""
-      })
-    };
-  },
-  computed: _objectSpread(_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["appInfo"])), {}, {
-    prefix: function prefix() {
-      var _this$appInfo;
-      return ((_this$appInfo = this.appInfo) === null || _this$appInfo === void 0 ? void 0 : _this$appInfo.productPrefix) || "";
-    },
-    shortageQuantity: function shortageQuantity() {
-      if (!this.product || !this.product.inventoryCount || !this.product.qty) {
-        return 0;
-      }
-      return Math.max(0, this.product.qty - this.product.inventoryCount);
-    },
-    productCodeWithPrefix: function productCodeWithPrefix() {
-      if (!this.product || !this.product.code) {
-        return 'N/A';
-      }
-      return this.prefix + this.product.code;
-    }
-  }),
-  watch: {
-    isOpen: function isOpen(newVal) {
-      console.log("Modal isOpen changed to:", newVal);
-      console.log("Product object:", this.product);
-      if (newVal && this.product) {
-        // Set default quantity to shortage amount
-        this.adjustmentForm.quantity = this.shortageQuantity || 1;
-        this.adjustmentForm.reason = "Stock shortage adjustment";
-        console.log("Modal opened with product:", this.product.name);
-      }
-    }
-  },
-  mounted: function mounted() {
-    console.log("StockAdjustmentModal mounted");
-    console.log("Initial isOpen:", this.isOpen);
-    console.log("Initial product:", this.product);
-  },
-  beforeDestroy: function beforeDestroy() {
-    console.log("StockAdjustmentModal beforeDestroy");
-    console.log("Product at destroy:", this.product);
-  },
-  methods: {
-    closeModal: function closeModal() {
-      this.$emit("close");
-      this.showQuickAdjustment = false;
-      this.adjustmentForm.reset();
-    },
-    adjustQuantity: function adjustQuantity() {
-      this.$emit("adjust-quantity", this.product);
-      this.closeModal();
-    },
-    openInventoryAdjustment: function openInventoryAdjustment() {
-      var _this = this;
-      try {
-        console.log("Opening inventory adjustment...");
-        console.log("Product object:", this.product);
-
-        // Validate product object
-        if (!this.product || !this.product.id) {
-          console.error("Invalid product object:", this.product);
-          toast.fire({
-            type: "error",
-            title: this.$t("Error"),
-            text: this.$t("Product information is missing. Please try again.")
-          });
-          return;
-        }
-
-        // Capture product data before closing modal to avoid null reference
-        var productData = {
-          id: this.product.id,
-          name: this.product.name,
-          code: this.product.code,
-          slug: this.product.slug
-        };
-        console.log("Captured product data:", productData);
-
-        // Ask parent to persist current form state before leaving
-        this.$emit('persist');
-        // Close modal first
-        this.closeModal();
-
-        // Then navigate with a small delay
-        setTimeout(function () {
-          try {
-            console.log("Navigating to adjustments.create");
-            console.log("Product ID:", productData.id);
-
-            // Get current route safely
-            var returnUrl = _this.$route ? _this.$route.fullPath : window.location.pathname;
-            console.log("Return URL:", returnUrl);
-
-            // Check if user has permission to create adjustments
-            if (!_this.$can('adjustment-create')) {
-              toast.fire({
-                type: "error",
-                title: _this.$t("Permission Denied"),
-                text: _this.$t("You don't have permission to create adjustments.")
-              });
-              return;
-            }
-
-            // Try navigation with fallback
-            _this.$router.push({
-              name: "adjustments.create",
-              query: {
-                productId: productData.id,
-                returnUrl: returnUrl
-              }
-            }).then(function () {
-              console.log("Navigation successful");
-            })["catch"](function (err) {
-              console.error("Navigation error:", err);
-
-              // Fallback: show alert with manual navigation option
-              sweetalert2_all_default().fire({
-                title: _this.$t("Navigate to Adjustments"),
-                text: _this.$t("Click OK to go to the adjustments page manually."),
-                icon: 'info',
-                showCancelButton: true,
-                confirmButtonText: _this.$t("Go to Adjustments"),
-                cancelButtonText: _this.$t("Cancel")
-              }).then(function (result) {
-                if (result.isConfirmed) {
-                  window.location.href = '/inventory-adjustments/create?productId=' + productData.id + '&returnUrl=' + encodeURIComponent(returnUrl);
-                }
-              });
-            });
-          } catch (error) {
-            console.error("Error in navigation timeout:", error);
-            toast.fire({
-              type: "error",
-              title: _this.$t("Error"),
-              text: _this.$t("An error occurred while navigating. Please try again.")
-            });
-          }
-        }, 300);
-      } catch (error) {
-        console.error("Error in openInventoryAdjustment:", error);
-        toast.fire({
-          type: "error",
-          title: this.$t("Error"),
-          text: this.$t("An unexpected error occurred. Please try again.")
-        });
-      }
-    },
-    openPurchaseOrder: function openPurchaseOrder() {
-      var _this2 = this;
-      console.log("Opening purchase order...");
-      // Close modal first
-      this.closeModal();
-      // Then navigate with a small delay
-      setTimeout(function () {
-        console.log("Navigating to purchases.create");
-        _this2.$router.push({
-          name: "purchases.create"
-        })["catch"](function (err) {
-          console.error("Navigation error:", err);
-        });
-      }, 300);
-    },
-    submitQuickAdjustment: function submitQuickAdjustment() {
-      var _this3 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var adjustmentData;
-        return _regeneratorRuntime().wrap(function _callee$(_context) {
-          while (1) switch (_context.prev = _context.next) {
-            case 0:
-              _context.prev = 0;
-              // Create a quick inventory adjustment
-              adjustmentData = {
-                adjustmentReason: _this3.adjustmentForm.reason,
-                adjustmentDate: new Date().toISOString().slice(0, 10),
-                note: _this3.adjustmentForm.note,
-                status: 1,
-                selectedProducts: [{
-                  slug: _this3.product.slug,
-                  adjustType: "Increment",
-                  adjustQty: parseInt(_this3.adjustmentForm.quantity),
-                  purchasePrice: _this3.product.avgPurchasePrice || 0
-                }]
-              };
-              _context.next = 4;
-              return axios_default().post("/api/inventory-adjustments", adjustmentData);
-            case 4:
-              toast.fire({
-                type: "success",
-                title: _this3.$t("Stock added successfully"),
-                text: _this3.$t("The product stock has been increased.")
-              });
-
-              // Emit event to refresh product data
-              _this3.$emit("stock-updated", {
-                product: _this3.product,
-                newQuantity: parseInt(_this3.adjustmentForm.quantity)
-              });
-              _this3.closeModal();
-              _context.next = 13;
-              break;
-            case 9:
-              _context.prev = 9;
-              _context.t0 = _context["catch"](0);
-              console.error("Error adding stock:", _context.t0);
-              toast.fire({
-                type: "error",
-                title: _this3.$t("Error"),
-                text: _this3.$t("Failed to add stock. Please try again.")
-              });
-            case 13:
-            case "end":
-              return _context.stop();
-          }
-        }, _callee, null, [[0, 9]]);
-      }))();
-    }
-  }
-});
-;// ./resources/js/components/StockAdjustmentModal.vue?vue&type=script&lang=js
- /* harmony default export */ const components_StockAdjustmentModalvue_type_script_lang_js = (StockAdjustmentModalvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-var injectStylesIntoStyleTag = __webpack_require__(85072);
-var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/StockAdjustmentModal.vue?vue&type=style&index=0&id=651d741c&prod&scoped=true&lang=css
-var StockAdjustmentModalvue_type_style_index_0_id_651d741c_prod_scoped_true_lang_css = __webpack_require__(85989);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/StockAdjustmentModal.vue?vue&type=style&index=0&id=651d741c&prod&scoped=true&lang=css
-
-            
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = injectStylesIntoStyleTag_default()(StockAdjustmentModalvue_type_style_index_0_id_651d741c_prod_scoped_true_lang_css/* default */.A, options);
-
-
-
-/* harmony default export */ const components_StockAdjustmentModalvue_type_style_index_0_id_651d741c_prod_scoped_true_lang_css = (StockAdjustmentModalvue_type_style_index_0_id_651d741c_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/components/StockAdjustmentModal.vue?vue&type=style&index=0&id=651d741c&prod&scoped=true&lang=css
-
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/components/StockAdjustmentModal.vue
-
-
-
-;
-
-
-/* normalize component */
-
-var component = (0,componentNormalizer/* default */.A)(
-  components_StockAdjustmentModalvue_type_script_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  "651d741c",
-  null
-  
-)
-
-/* harmony default export */ const StockAdjustmentModal = (component.exports);
-
-/***/ }),
-
-/***/ 82779:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'Peso',
-                plural: 'Pesos',
-                singular: 'Peso',
-                symbol: '₱',
-                fractionalUnit: {
-                    name: 'Cent',
-                    singular: 'Cent',
-                    plural: 'Cents',
-                    symbol: '¢',
-                },
-            },
-            texts: {
-                and: 'And',
-                minus: 'Minus',
-                only: 'Only',
-                point: 'Point',
-            },
-            numberWordsMapping: [
-                { number: 1000000000000000, value: 'Quadrillion' },
-                { number: 1000000000000, value: 'Trillion' },
-                { number: 1000000000, value: 'Billion' },
-                { number: 1000000, value: 'Million' },
-                { number: 1000, value: 'Thousand' },
-                { number: 100, value: 'Hundred' },
-                { number: 90, value: 'Ninety' },
-                { number: 80, value: 'Eighty' },
-                { number: 70, value: 'Seventy' },
-                { number: 60, value: 'Sixty' },
-                { number: 50, value: 'Fifty' },
-                { number: 40, value: 'Forty' },
-                { number: 30, value: 'Thirty' },
-                { number: 20, value: 'Twenty' },
-                { number: 19, value: 'Nineteen' },
-                { number: 18, value: 'Eighteen' },
-                { number: 17, value: 'Seventeen' },
-                { number: 16, value: 'Sixteen' },
-                { number: 15, value: 'Fifteen' },
-                { number: 14, value: 'Fourteen' },
-                { number: 13, value: 'Thirteen' },
-                { number: 12, value: 'Twelve' },
-                { number: 11, value: 'Eleven' },
-                { number: 10, value: 'Ten' },
-                { number: 9, value: 'Nine' },
-                { number: 8, value: 'Eight' },
-                { number: 7, value: 'Seven' },
-                { number: 6, value: 'Six' },
-                { number: 5, value: 'Five' },
-                { number: 4, value: 'Four' },
-                { number: 3, value: 'Three' },
-                { number: 2, value: 'Two' },
-                { number: 1, value: 'One' },
-                { number: 0, value: 'Zero' },
-            ],
-            exactWordsMapping: [{ number: 100, value: 'One Hundred' }],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 84463:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'Dollar',
-                plural: 'Dollars',
-                singular: 'Dollar',
-                symbol: '$',
-                fractionalUnit: {
-                    name: 'Cent',
-                    plural: 'Cents',
-                    singular: 'Cent',
-                    symbol: '¢',
-                },
-            },
-            texts: {
-                and: 'And',
-                minus: 'Minus',
-                only: 'Only',
-                point: 'Point',
-            },
-            numberWordsMapping: [
-                { number: 1000000000000000, value: 'Quadrillion' },
-                { number: 1000000000000, value: 'Trillion' },
-                { number: 1000000000, value: 'Billion' },
-                { number: 1000000, value: 'Million' },
-                { number: 1000, value: 'Thousand' },
-                { number: 100, value: 'Hundred' },
-                { number: 90, value: 'Ninety' },
-                { number: 80, value: 'Eighty' },
-                { number: 70, value: 'Seventy' },
-                { number: 60, value: 'Sixty' },
-                { number: 50, value: 'Fifty' },
-                { number: 40, value: 'Forty' },
-                { number: 30, value: 'Thirty' },
-                { number: 20, value: 'Twenty' },
-                { number: 19, value: 'Nineteen' },
-                { number: 18, value: 'Eighteen' },
-                { number: 17, value: 'Seventeen' },
-                { number: 16, value: 'Sixteen' },
-                { number: 15, value: 'Fifteen' },
-                { number: 14, value: 'Fourteen' },
-                { number: 13, value: 'Thirteen' },
-                { number: 12, value: 'Twelve' },
-                { number: 11, value: 'Eleven' },
-                { number: 10, value: 'Ten' },
-                { number: 9, value: 'Nine' },
-                { number: 8, value: 'Eight' },
-                { number: 7, value: 'Seven' },
-                { number: 6, value: 'Six' },
-                { number: 5, value: 'Five' },
-                { number: 4, value: 'Four' },
-                { number: 3, value: 'Three' },
-                { number: 2, value: 'Two' },
-                { number: 1, value: 'One' },
-                { number: 0, value: 'Zero' },
-            ],
-            exactWordsMapping: [{ number: 100, value: 'One Hundred' }],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 85989:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".modal-overlay[data-v-651d741c]{align-items:center;background-color:rgba(0,0,0,.5);display:flex;height:100%;justify-content:center;left:0;position:fixed;top:0;width:100%;z-index:1050}.modal-content[data-v-651d741c]{background:#fff;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.3);max-height:90vh;max-width:800px;overflow-y:auto;width:90%}.modal-header[data-v-651d741c]{align-items:center;background-color:#f8f9fa;border-bottom:1px solid #dee2e6;border-radius:10px 10px 0 0;display:flex;justify-content:space-between;padding:20px}.modal-title[data-v-651d741c]{font-size:1.25rem;font-weight:600;margin:0}.close[data-v-651d741c]{background:none;border:none;color:#6c757d;cursor:pointer;font-size:1.5rem}.close[data-v-651d741c]:hover{color:#000}.modal-body[data-v-651d741c]{padding:20px}.modal-footer[data-v-651d741c]{background-color:#f8f9fa;border-radius:0 0 10px 10px;border-top:1px solid #dee2e6;display:flex;gap:10px;justify-content:flex-end;padding:20px}.option-card[data-v-651d741c]{align-items:center;border:2px solid #e9ecef;border-radius:8px;cursor:pointer;display:flex;margin-bottom:15px;padding:15px;transition:all .3s ease}.option-card[data-v-651d741c]:hover{background-color:#f8f9fa;border-color:#007bff;box-shadow:0 4px 8px rgba(0,0,0,.1);transform:translateY(-2px)}.option-icon[data-v-651d741c]{font-size:2rem;margin-right:15px;min-width:50px;text-align:center}.option-content h6[data-v-651d741c]{font-weight:600;margin:0 0 5px}.option-content p[data-v-651d741c]{font-size:.9rem;margin:0}.product-info[data-v-651d741c]{background-color:#f8f9fa;border-left:4px solid #007bff;border-radius:8px;padding:15px}.quick-adjustment .card[data-v-651d741c]{border:1px solid #dee2e6;border-radius:8px}.quick-adjustment .card-header[data-v-651d741c]{background-color:#e9ecef;border-bottom:1px solid #dee2e6;padding:15px}.form-actions[data-v-651d741c]{display:flex;gap:10px;justify-content:flex-end;margin-top:20px}.required[data-v-651d741c]{color:#dc3545}.badge[data-v-651d741c]{font-size:.875em;padding:.375rem .75rem}.alert[data-v-651d741c]{border:none;border-radius:8px}.alert-warning[data-v-651d741c]{background-color:#fff3cd;border-left:4px solid #ffc107;color:#856404}[dir=rtl] .option-card[data-v-651d741c]{flex-direction:row-reverse}[dir=rtl] .option-icon[data-v-651d741c]{margin-left:15px;margin-right:0}[dir=rtl] .product-info[data-v-651d741c]{border-left:none;border-right:4px solid #007bff}[dir=rtl] .alert-warning[data-v-651d741c]{border-left:none;border-right:4px solid #ffc107}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
-/***/ 92952:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'Naira',
-                plural: 'Naira',
-                singular: 'Naira',
-                symbol: '₦',
-                fractionalUnit: {
-                    name: 'Kobo',
-                    singular: 'Kobo',
-                    plural: 'Kobo',
-                    symbol: '',
-                },
-            },
-            texts: {
-                and: 'And',
-                minus: 'Minus',
-                only: 'Only',
-                point: 'Point',
-            },
-            numberWordsMapping: [
-                { number: 1000000000000000, value: 'Quadrillion' },
-                { number: 1000000000000, value: 'Trillion' },
-                { number: 1000000000, value: 'Billion' },
-                { number: 1000000, value: 'Million' },
-                { number: 1000, value: 'Thousand' },
-                { number: 100, value: 'Hundred' },
-                { number: 90, value: 'Ninety' },
-                { number: 80, value: 'Eighty' },
-                { number: 70, value: 'Seventy' },
-                { number: 60, value: 'Sixty' },
-                { number: 50, value: 'Fifty' },
-                { number: 40, value: 'Forty' },
-                { number: 30, value: 'Thirty' },
-                { number: 20, value: 'Twenty' },
-                { number: 19, value: 'Nineteen' },
-                { number: 18, value: 'Eighteen' },
-                { number: 17, value: 'Seventeen' },
-                { number: 16, value: 'Sixteen' },
-                { number: 15, value: 'Fifteen' },
-                { number: 14, value: 'Fourteen' },
-                { number: 13, value: 'Thirteen' },
-                { number: 12, value: 'Twelve' },
-                { number: 11, value: 'Eleven' },
-                { number: 10, value: 'Ten' },
-                { number: 9, value: 'Nine' },
-                { number: 8, value: 'Eight' },
-                { number: 7, value: 'Seven' },
-                { number: 6, value: 'Six' },
-                { number: 5, value: 'Five' },
-                { number: 4, value: 'Four' },
-                { number: 3, value: 'Three' },
-                { number: 2, value: 'Two' },
-                { number: 1, value: 'One' },
-                { number: 0, value: 'Zero' },
-            ],
-            exactWordsMapping: [{ number: 100, value: 'One Hundred' }],
-        };
-    }
-}
-exports["default"] = Locale;
-
 
 /***/ })
 
