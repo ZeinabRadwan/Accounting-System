@@ -111,46 +111,44 @@
             <h4 class="card-title">{{ $t('Journal Entry Lines') }}</h4>
           </div>
           <div class="card-body">
-            <div class="table-responsive">
-              <GeneralTable
-                :columns="journalEntryLinesColumns"
-                :rows="journalEntryLinesRows"
-                :loading="loading"
-                wrapper-class=""
-              >
-                <template #cell-chartOfAccount="{ row }">
-                  <strong>{{ row._raw.chart_of_account.code }}</strong><br>
-                  <small>{{ row._raw.chart_of_account.name }}</small>
-                </template>
-                <template #cell-analyticalAccount="{ row }">
-                  <span v-if="row && row._raw && row._raw.analytical_account" class="text-muted">
-                    <small>
-                      <span v-if="row._raw.analytical_account.code">{{ row._raw.analytical_account.code }} - </span>
-                      {{ row._raw.analytical_account.name }}
-                    </small>
-                  </span>
-                  <span v-else-if="row && row.analytical_account" class="text-muted">
-                    <small>
-                      <span v-if="row.analytical_account.code">{{ row.analytical_account.code }} - </span>
-                      {{ row.analytical_account.name }}
-                    </small>
-                  </span>
-                  <span v-else class="text-muted">-</span>
-                </template>
-                <template #cell-debitAmount="{ row }">
-                  <span v-if="row._raw.debit_amount > 0" class="text-success">
-                    <CurrencyDisplay :amount="row._raw.debit_amount" :disable-rtl="true"/>
-                  </span>
-                  <span v-else>-</span>
-                </template>
-                <template #cell-creditAmount="{ row }">
-                  <span v-if="row._raw.credit_amount > 0" class="text-danger">
-                    <CurrencyDisplay :amount="row._raw.credit_amount" :disable-rtl="true" />
-                  </span>
-                  <span v-else>-</span>
-                </template>
-              </GeneralTable>
-            </div>
+            <GeneralTable
+              :columns="journalEntryLinesColumns"
+              :rows="journalEntryLinesRows"
+              :loading="loading"
+              wrapper-class="journal-entry-table"
+            >
+              <template #cell-chartOfAccount="{ row }">
+                <strong>{{ row._raw.chart_of_account.code }}</strong><br>
+                <small>{{ row._raw.chart_of_account.name }}</small>
+              </template>
+              <template #cell-analyticalAccount="{ row }">
+                <span v-if="row && row._raw && row._raw.analytical_account" class="text-muted">
+                  <small>
+                    <span v-if="row._raw.analytical_account.code">{{ row._raw.analytical_account.code }} - </span>
+                    {{ row._raw.analytical_account.name }}
+                  </small>
+                </span>
+                <span v-else-if="row && row.analytical_account" class="text-muted">
+                  <small>
+                    <span v-if="row.analytical_account.code">{{ row.analytical_account.code }} - </span>
+                    {{ row.analytical_account.name }}
+                  </small>
+                </span>
+                <span v-else class="text-muted">-</span>
+              </template>
+              <template #cell-debitAmount="{ row }">
+                <span v-if="row._raw.debit_amount > 0" class="text-success">
+                  <CurrencyDisplay :amount="row._raw.debit_amount" :disable-rtl="true"/>
+                </span>
+                <span v-else>-</span>
+              </template>
+              <template #cell-creditAmount="{ row }">
+                <span v-if="row._raw.credit_amount > 0" class="text-danger">
+                  <CurrencyDisplay :amount="row._raw.credit_amount" :disable-rtl="true" />
+                </span>
+                <span v-else>-</span>
+              </template>
+            </GeneralTable>
           </div>
         </div>
       </div>
@@ -479,6 +477,10 @@ export default {
 <style scoped>
 .page-header {
   margin-bottom: 20px;
+}
+
+.journal-entry-table ::v-deep table {
+  min-width: 900px;
 }
 
 .form-control-plaintext {
