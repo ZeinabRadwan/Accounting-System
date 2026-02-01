@@ -46,12 +46,95 @@
                   <has-error :form="form" field="discount_amount" />
                 </div>
               </div>
-              <div class="row" v-if="selectedInvoice">
+              <div class="row" v-if="selectedInvoice || fullInvoice">
                 <div class="form-group col-md-12">
                   <label>{{ $t('Customer details') }}</label>
-                  <div class="form-control-plaintext border rounded p-2 bg-light">
-                    <strong>{{ selectedInvoice.clientName || (typeof selectedInvoice.client === 'string' ? selectedInvoice.client : selectedInvoice.client?.name) }}</strong>
-                    <span v-if="selectedInvoice.client && typeof selectedInvoice.client === 'object' && selectedInvoice.client.email"> &ndash; {{ selectedInvoice.client.email }}</span>
+                  <div v-if="loadingInvoice" class="form-control-plaintext border rounded p-2 bg-light">
+                    <i class="fas fa-spinner fa-spin"></i> {{ $t('Loading...') }}
+                  </div>
+                  <div v-else class="form-control-plaintext border rounded p-2 bg-light">
+                    <template v-if="fullInvoice && fullInvoice.client">
+                      <strong>{{ fullInvoice.client.name }}</strong>
+                      <span v-if="fullInvoice.client.companyName"> ({{ fullInvoice.client.companyName }})</span>
+                      <br v-if="fullInvoice.client.email || fullInvoice.client.phoneNumber || fullInvoice.client.address" />
+                      <span v-if="fullInvoice.client.email">{{ $t('Email') }}: {{ fullInvoice.client.email }}</span>
+                      <template v-if="fullInvoice.client.email && fullInvoice.client.phoneNumber"> &ndash; </template>
+                      <span v-if="fullInvoice.client.phoneNumber">{{ $t('Phone') }}: {{ fullInvoice.client.phoneNumber || fullInvoice.client.phone }}</span>
+                      <br v-if="fullInvoice.client.address" />
+                      <span v-if="fullInvoice.client.address">{{ $t('Address') }}: {{ fullInvoice.client.address }}</span>
+                    </template>
+                    <template v-else-if="selectedInvoice">
+                      <strong>{{ selectedInvoice.clientName || (typeof selectedInvoice.client === 'string' ? selectedInvoice.client : selectedInvoice.client?.name) }}</strong>
+                      <span v-if="selectedInvoice.client && typeof selectedInvoice.client === 'object' && selectedInvoice.client.email"> &ndash; {{ selectedInvoice.client.email }}</span>
+                    </template>
+                  </div>
+                </div>
+              </div>
+              <div class="row" v-if="fullInvoice && !loadingInvoice">
+                <div class="form-group col-md-12">
+                  <label>{{ $t('Invoice totals') }}</label>
+                  <div class="table-responsive">
+                    <table class="table table-sm table-bordered mb-0">
+                      <tbody>
+                        <tr>
+                          <td><strong>{{ $t('Subtotal') }}</strong></td>
+                          <td class="text-right" v-html="formatCurrency(fullInvoice.subTotal ?? fullInvoice.sub_total)"></td>
+                        </tr>
+                        <tr v-if="(fullInvoice.discountAmount ?? fullInvoice.discount_amount) > 0">
+                          <td><strong>{{ $t('Discount') }}</strong></td>
+                          <td class="text-right" v-html="formatCurrency(fullInvoice.discountAmount ?? fullInvoice.discount_amount)"></td>
+                        </tr>
+                        <tr v-if="(fullInvoice.tax ?? 0) > 0">
+                          <td><strong>{{ $t('Tax') }}</strong></td>
+                          <td class="text-right" v-html="formatCurrency(fullInvoice.tax)"></td>
+                        </tr>
+                        <tr v-if="(fullInvoice.transport ?? 0) > 0">
+                          <td><strong>{{ $t('Transport') }}</strong></td>
+                          <td class="text-right" v-html="formatCurrency(fullInvoice.transport)"></td>
+                        </tr>
+                        <tr class="table-active">
+                          <td><strong>{{ $t('Invoice Total') }}</strong></td>
+                          <td class="text-right" v-html="formatCurrency(fullInvoice.invoiceTotal ?? fullInvoice.invoice_total)"></td>
+                        </tr>
+                        <tr v-if="(fullInvoice.totalPaid ?? fullInvoice.total_paid ?? 0) > 0">
+                          <td><strong>{{ $t('Total Paid') }}</strong></td>
+                          <td class="text-right" v-html="formatCurrency(fullInvoice.totalPaid ?? fullInvoice.total_paid)"></td>
+                        </tr>
+                        <tr v-if="(fullInvoice.due ?? 0) !== undefined && (fullInvoice.due ?? 0) >= 0">
+                          <td><strong>{{ $t('Due') }}</strong></td>
+                          <td class="text-right" v-html="formatCurrency(fullInvoice.due)"></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div class="row" v-if="fullInvoice && fullInvoice.invoiceProducts && fullInvoice.invoiceProducts.length && !loadingInvoice">
+                <div class="form-group col-md-12">
+                  <label>{{ $t('Invoice items') }}</label>
+                  <div class="table-responsive">
+                    <table class="table table-sm table-bordered mb-0">
+                      <thead>
+                        <tr>
+                          <th>{{ $t('Product') }}</th>
+                          <th class="text-center">{{ $t('Qty') }}</th>
+                          <th class="text-right">{{ $t('Unit Price') }}</th>
+                          <th class="text-right">{{ $t('Discount') }}</th>
+                          <th class="text-right">{{ $t('Tax') }}</th>
+                          <th class="text-right">{{ $t('Total') }}</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-for="(item, idx) in fullInvoice.invoiceProducts" :key="idx">
+                          <td>{{ item.productName || item.product?.name }}</td>
+                          <td class="text-center">{{ item.quantity }}</td>
+                          <td class="text-right" v-html="formatCurrency(item.salePrice ?? item.sale_price)"></td>
+                          <td class="text-right" v-html="formatCurrency(item.productDiscount ?? item.product_discount ?? 0)"></td>
+                          <td class="text-right" v-html="formatCurrency(lineTax(item))"></td>
+                          <td class="text-right" v-html="formatCurrency(lineTotal(item))"></td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </div>
@@ -117,6 +200,8 @@ export default {
     }),
     invoiceOptions: [],
     selectedInvoice: null,
+    fullInvoice: null,
+    loadingInvoice: false,
   }),
   computed: {
     ...mapGetters({ appInfo: 'operations/appInfo' }),
@@ -154,6 +239,7 @@ export default {
           const invoiceNo = inv.invoiceNo || inv.invoice_no || '';
           return {
             id: inv.id,
+            slug: inv.slug,
             invoice_no: inv.invoice_no || inv.invoiceNo,
             label: invoiceNo + (clientName ? ' - ' + clientName : ''),
             client: inv.client,
@@ -164,15 +250,41 @@ export default {
         this.$toast.error(this.$t('Error'), this.$t('Failed to load invoices'));
       }
     },
-    onInvoiceSelect(inv) {
+    async onInvoiceSelect(inv) {
       this.selectedInvoice = inv || null;
       this.form.invoice_id = inv ? inv.id : null;
+      this.fullInvoice = null;
+      if (!inv || !inv.slug) return;
+      this.loadingInvoice = true;
+      try {
+        const { data } = await axios.get(window.location.origin + '/api/invoices/' + encodeURIComponent(inv.slug));
+        this.fullInvoice = data.data || data;
+      } catch (e) {
+        this.$toast.error(this.$t('Error'), this.$t('Failed to load invoice details'));
+        this.fullInvoice = null;
+      } finally {
+        this.loadingInvoice = false;
+      }
     },
     formatCurrency(amount) {
       const n = Number(amount);
       if (isNaN(n)) return '0.00';
       const sym = this.appInfo && this.appInfo.currencySymbol ? this.appInfo.currencySymbol + ' ' : '';
       return sym + n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    },
+    lineTax(item) {
+      const taxTotal = item.taxTotal;
+      if (taxTotal != null && !isNaN(Number(taxTotal))) return Number(taxTotal);
+      const qty = Number(item.quantity) || 0;
+      const unitTax = Number(item.unitTax ?? item.tax_amount ?? item.productTax) || 0;
+      return qty * unitTax;
+    },
+    lineTotal(item) {
+      const qty = Number(item.quantity) || 0;
+      const unitPrice = Number(item.salePrice ?? item.sale_price) || 0;
+      const discount = Number(item.productDiscount ?? item.product_discount) || 0;
+      const tax = this.lineTax(item);
+      return qty * unitPrice - discount + tax;
     },
     async saveCreditNote() {
       if (this.form.invoice && this.form.invoice.id) {

@@ -1155,6 +1155,8 @@
     "Return Date": "تاريخ الإرجاع",
     "New Due": "المستحق الجديد",
     "Invoice Total": "إجمالي الفاتورة",
+"Invoice totals": "إجماليات الفاتورة",
+"Invoice items": "بنود الفاتورة",
     "Invoice Tax": "ضريبة الفاتورة",
     "Accounts": "الحسابات",
     "Cashbook": "دفتر النقدية",
