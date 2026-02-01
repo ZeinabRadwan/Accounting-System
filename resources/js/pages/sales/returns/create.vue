@@ -1226,6 +1226,14 @@ export default {
 
     // calculate sum - matching sales invoice create logic
     calculateSum() {
+      // Early exit when no products: reset return totals so payment section hides (mirror purchase returns)
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        this.$set(this.form, 'totalReturn', 0);
+        this.$set(this.form, 'returnAmount', 0);
+        this.$set(this.form, 'returnAmountText', '0.00');
+        return;
+      }
+
       // Update products with default VAT rate if needed
       this.updateProductsWithDefaultVatRate();
 
@@ -1273,6 +1281,15 @@ export default {
 
       // Recalculate all items with proportional discount and transport allocation
       this.recalculateAllItemsWithProportionalDiscount();
+
+      // Set total return amount so payment section shows and is saved with the return (mirror purchase returns)
+      const totalReturn = this.form.selectedProducts.reduce(
+        (sum, item) => sum + (Number(item.totalPrice) || 0),
+        0
+      );
+      this.$set(this.form, 'totalReturn', this.roundToTwoDecimals(totalReturn));
+      this.$set(this.form, 'returnAmount', this.form.totalReturn);
+      this.$set(this.form, 'returnAmountText', this.formatToTwoDecimals(this.form.totalReturn));
 
       return;
     },
