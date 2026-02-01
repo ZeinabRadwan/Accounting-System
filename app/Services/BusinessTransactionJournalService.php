@@ -9,6 +9,7 @@ use App\Models\AccountTransaction;
 use App\Models\BalanceTansfer;
 use App\Models\ChartOfAccount;
 use App\Models\CreditNote;
+use App\Models\DebitNote;
 use App\Models\Expense;
 use App\Models\FiscalYear;
 use App\Models\GeneralSetting;
@@ -2483,6 +2484,112 @@ class BusinessTransactionJournalService
     }
 
     /**
+     * Create journal entry for debit note (earned discount + 15% tax).
+     * Dr Accounts Payable, Cr Discount Received, Cr VAT Input.
+     */
+    public function createDebitNoteJournal(DebitNote $debitNote, int $userId): JournalEntry
+    {
+        DB::beginTransaction();
+
+        try {
+            $debitNote->load(['purchase.supplier.chartOfAccount']);
+
+            if (! $debitNote->purchase || ! $debitNote->purchase->supplier || ! $debitNote->purchase->supplier->isChartOfAccountConnected()) {
+                throw new Exception('Supplier must have a Chart of Account assigned for journal entries.');
+            }
+
+            $supplier = $debitNote->purchase->supplier;
+            $supplierAccountsPayableAccount = $supplier->chartOfAccount;
+            if (! $supplierAccountsPayableAccount) {
+                throw new Exception('Supplier Chart of Account not found.');
+            }
+
+            $branchId = $debitNote->branch_id ?? (int) (Auth::user()->default_branch_id ?? 0);
+            $discountReceivedAccount = $this->getDiscountReceivedAccount($branchId);
+            if (! $discountReceivedAccount) {
+                throw new Exception('Discount Received account must be configured in account routing settings.');
+            }
+
+            $purchaseVatAccount = $this->getPurchaseVatAccountForBranch($branchId);
+            if (! $purchaseVatAccount) {
+                throw new Exception('Purchase VAT account must be configured in account routing settings.');
+            }
+
+            $totalAmount = (float) $debitNote->total_amount;
+            $discountAmount = (float) $debitNote->discount_amount;
+            $taxAmount = (float) $debitNote->tax_amount;
+
+            if ($totalAmount <= 0) {
+                DB::rollBack();
+                throw new Exception('Debit note total amount must be greater than zero.');
+            }
+
+            $defaults = $this->getDefaultFiscalYearAndPeriod();
+
+            $journalEntry = JournalEntry::create([
+                'entry_number' => JournalEntry::generateEntryNumber(),
+                'entry_date' => $debitNote->date,
+                'reference' => $debitNote->debit_note_no,
+                'description' => __('journal.debit_note', ['number' => $debitNote->debit_note_no]),
+                'total_debit' => $totalAmount,
+                'total_credit' => $totalAmount,
+                'status' => 'posted',
+                'created_by' => $userId,
+                'posted_by' => $userId,
+                'posted_at' => now(),
+                'source_type' => DebitNote::class,
+                'source_id' => $debitNote->id,
+                'fiscal_year_id' => $defaults['fiscal_year_id'],
+                'accounting_period_id' => $defaults['accounting_period_id'],
+                'branch_id' => $branchId,
+            ]);
+
+            $lineNumber = 1;
+
+            // Dr Accounts Payable (reduce liability)
+            $this->createJournalEntryLine(
+                $journalEntry,
+                $supplierAccountsPayableAccount->id,
+                $totalAmount,
+                0,
+                $lineNumber,
+                __('journal.accounts_payable_reduction_for_debit_note', ['number' => $debitNote->debit_note_no])
+            );
+            $lineNumber++;
+
+            if ($discountAmount > 0) {
+                $this->createJournalEntryLine(
+                    $journalEntry,
+                    $discountReceivedAccount->id,
+                    0,
+                    $discountAmount,
+                    $lineNumber,
+                    __('journal.discount_received_for_debit_note', ['number' => $debitNote->debit_note_no])
+                );
+                $lineNumber++;
+            }
+
+            if ($taxAmount > 0) {
+                $this->createJournalEntryLine(
+                    $journalEntry,
+                    $purchaseVatAccount->id,
+                    0,
+                    $taxAmount,
+                    $lineNumber,
+                    __('journal.vat_input_reduction_for_debit_note', ['number' => $debitNote->debit_note_no])
+                );
+            }
+
+            DB::commit();
+
+            return $journalEntry;
+        } catch (Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+    }
+
+    /**
      * Get sales VAT account for branch from routing settings (for credit note 15% tax).
      */
     private function getSalesVatAccountForBranch($branchId = null): ?ChartOfAccount
@@ -2494,6 +2601,28 @@ class BusinessTransactionJournalService
         $setting = AccountRoutingSetting::where('branch_id', $branchId)
             ->where('module', 'vat')
             ->where('setting_key', 'sales_vat_account')
+            ->where('is_active', true)
+            ->first();
+
+        if (! $setting || ! $setting->main_account_id) {
+            return null;
+        }
+
+        return ChartOfAccount::forBranch($branchId)->find($setting->main_account_id);
+    }
+
+    /**
+     * Get purchase VAT account for branch from routing settings (for debit note 15% tax).
+     */
+    private function getPurchaseVatAccountForBranch($branchId = null): ?ChartOfAccount
+    {
+        if (! $branchId) {
+            $branchId = Auth::user()->default_branch_id ?? null;
+        }
+
+        $setting = AccountRoutingSetting::where('branch_id', $branchId)
+            ->where('module', 'vat')
+            ->where('setting_key', 'purchase_vat_account')
             ->where('is_active', true)
             ->first();
 

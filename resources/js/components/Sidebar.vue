@@ -246,6 +246,7 @@
             :class="
               menuOpen('purchases') ||
               menuOpen('purchaseReturns') ||
+              menuOpen('debitNotes') ||
               menuOpen('purchase-order') ||
               menuOpen('suppliers')
                 ? 'menu-is-opening menu-open'
@@ -264,6 +265,7 @@
               :style="
                 menuOpen('purchases') ||
                 menuOpen('purchaseReturns') ||
+                menuOpen('debitNotes') ||
                 menuOpen('purchase-order') ||
                 menuOpen('suppliers')
                   ? 'display: block'
@@ -331,6 +333,22 @@
                   <p>
                     {{ isSaudiArabia ? $t("Debit notes") : $t("Returns List") }}
                   </p>
+                </router-link>
+              </li>
+              <li
+                v-if="
+                  $can('purchase-return-list') ||
+                  $can('purchase-return-create') ||
+                  $can('purchase-return-view')
+                "
+                class="nav-item"
+              >
+                <router-link
+                  :to="{ name: 'debitNotes.index' }"
+                  class="nav-link"
+                >
+                  <i class="fas fa-file-invoice-dollar nav-icon" />
+                  <p>{{ $t("Debit Note") }}</p>
                 </router-link>
               </li>
               <li

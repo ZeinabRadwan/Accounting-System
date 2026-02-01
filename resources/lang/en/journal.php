@@ -55,6 +55,12 @@ return [
     'vat_reduction_for_credit_note' => 'VAT Reduction for Credit Note :number',
     'accounts_receivable_reduction_for_credit_note' => 'Accounts Receivable Reduction for Credit Note :number',
 
+    // Debit Note (earned discount + 15% tax)
+    'debit_note' => 'Debit Note :number',
+    'discount_received_for_debit_note' => 'Discount Received for Debit Note :number',
+    'vat_input_reduction_for_debit_note' => 'VAT Input Reduction for Debit Note :number',
+    'accounts_payable_reduction_for_debit_note' => 'Accounts Payable Reduction for Debit Note :number',
+
     // Balance Transfer
     'balance_transfer_to' => 'Balance Transfer to :account [:number]',
     'balance_transfer_from' => 'Balance Transfer from :account [:number]',

@@ -55,6 +55,12 @@ return [
     'vat_reduction_for_credit_note' => 'تخفيض ض.ق.م لاشعار الدائن :number',
     'accounts_receivable_reduction_for_credit_note' => 'تخفيض الحسابات المدينة لاشعار الدائن :number',
 
+    // Debit Note (earned discount + 15% tax)
+    'debit_note' => 'اشعار المدين :number',
+    'discount_received_for_debit_note' => 'الخصم المكتسب لاشعار المدين :number',
+    'vat_input_reduction_for_debit_note' => 'تخفيض ض.ق.م المدخلات لاشعار المدين :number',
+    'accounts_payable_reduction_for_debit_note' => 'تخفيض الحسابات الدائنة لاشعار المدين :number',
+
     // Balance Transfer
     'balance_transfer_to' => 'تحويل رصيد إلى :account [:number]',
     'balance_transfer_from' => 'تحويل رصيد من :account [:number]',

@@ -17,6 +17,7 @@ use App\Http\Controllers\API\CostAllocationController;
 use App\Http\Controllers\API\CostAllocationRuleController;
 use App\Http\Controllers\API\CostCenterController;
 use App\Http\Controllers\API\CreditNoteController;
+use App\Http\Controllers\API\DebitNoteController;
 use App\Http\Controllers\API\CurrencyController;
 use App\Http\Controllers\API\DashboardController;
 use App\Http\Controllers\API\DepartmentController;
@@ -328,6 +329,11 @@ Route::middleware([
         Route::post('/supplier/filter-purchases', [SupplierController::class, 'filterSupplierPurchases']);
         Route::get('/purchase-returns/search', [PurchaseReturnController::class, 'search']);
         Route::apiResource('purchase-returns', PurchaseReturnController::class);
+
+        // Debit note routes (earned discount + 15% tax)
+        Route::get('/debit-notes', [DebitNoteController::class, 'index']);
+        Route::post('/debit-notes', [DebitNoteController::class, 'store']);
+        Route::get('/debit-notes/{debit_note}', [DebitNoteController::class, 'show']);
 
         // Quotations routes
         Route::get('/quotations/search', [QuotationController::class, 'search']);
