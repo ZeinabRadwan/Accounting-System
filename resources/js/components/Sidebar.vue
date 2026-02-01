@@ -191,7 +191,7 @@
                   </p>
                 </router-link>
               </li>
-              <!-- <li
+              <li
                 v-if="
                   $can('invoice-return-list') ||
                   $can('invoice-return-create') ||
@@ -206,7 +206,7 @@
                   <i class="fas fa-file-invoice-dollar nav-icon" />
                   <p>{{ $t("Credit Note") }}</p>
                 </router-link>
-              </li> -->
+              </li>
               <li
                 v-if="
                   $can('client-list') ||
