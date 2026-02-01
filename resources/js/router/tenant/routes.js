@@ -616,6 +616,34 @@ export default [
     },
   },
 
+  // Credit Note routes (allowed discount + 15% tax)
+  {
+    path: '/credit-notes',
+    name: 'creditNotes.index',
+    component: page('sales/credit-notes/index.vue'),
+    meta: {
+      permissions: ['invoice-return-list'],
+      systemType: ['accounting', 'both']
+    },
+  },
+  {
+    path: '/credit-notes/create',
+    name: 'creditNotes.create',
+    component: page('sales/credit-notes/create.vue'),
+    meta: {
+      permissions: ['invoice-return-create'],
+      systemType: ['accounting', 'both']
+    },
+  },
+  {
+    path: '/credit-notes/:slug',
+    name: 'creditNotes.show',
+    component: page('sales/credit-notes/show.vue'),
+    meta: {
+      permissions: ['invoice-return-view'],
+      systemType: ['accounting', 'both']
+    },
+  },
 
    // chart of accounts routes
    {

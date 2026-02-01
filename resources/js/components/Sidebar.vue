@@ -79,6 +79,7 @@
               menuOpen('quotations') ||
               menuOpen('invoices') ||
               menuOpen('invoiceReturns') ||
+              menuOpen('creditNotes') ||
               menuOpen('pos') ||
               menuOpen('clients')
                 ? 'menu-is-opening menu-open'
@@ -98,6 +99,7 @@
                 menuOpen('quotations') ||
                 menuOpen('invoices') ||
                 menuOpen('invoiceReturns') ||
+                menuOpen('creditNotes') ||
                 menuOpen('pos') ||
                 menuOpen('clients')
                   ? 'display: block'
@@ -189,6 +191,22 @@
                   </p>
                 </router-link>
               </li>
+              <!-- <li
+                v-if="
+                  $can('invoice-return-list') ||
+                  $can('invoice-return-create') ||
+                  $can('invoice-return-view')
+                "
+                class="nav-item"
+              >
+                <router-link
+                  :to="{ name: 'creditNotes.index' }"
+                  class="nav-link"
+                >
+                  <i class="fas fa-file-invoice-dollar nav-icon" />
+                  <p>{{ $t("Credit Note") }}</p>
+                </router-link>
+              </li> -->
               <li
                 v-if="
                   $can('client-list') ||
