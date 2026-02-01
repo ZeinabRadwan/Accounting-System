@@ -50,8 +50,8 @@
                 <div class="form-group col-md-12">
                   <label>{{ $t('Customer details') }}</label>
                   <div class="form-control-plaintext border rounded p-2 bg-light">
-                    <strong>{{ selectedInvoice.clientName || selectedInvoice.client?.name }}</strong>
-                    <span v-if="selectedInvoice.client?.email"> &ndash; {{ selectedInvoice.client.email }}</span>
+                    <strong>{{ selectedInvoice.clientName || (typeof selectedInvoice.client === 'string' ? selectedInvoice.client : selectedInvoice.client?.name) }}</strong>
+                    <span v-if="selectedInvoice.client && typeof selectedInvoice.client === 'object' && selectedInvoice.client.email"> &ndash; {{ selectedInvoice.client.email }}</span>
                   </div>
                 </div>
               </div>
@@ -149,13 +149,17 @@ export default {
       try {
         const { data } = await axios.get(window.location.origin + '/api/invoices?perPage=9999');
         const list = (data.data || data) || [];
-        this.invoiceOptions = list.map((inv) => ({
-          id: inv.id,
-          invoice_no: inv.invoiceNo || inv.invoice_no,
-          label: (inv.invoice_no || inv.invoiceNo || '') + (inv.client && inv.client.name ? ' - ' + inv.client.name : ''),
-          client: inv.client,
-          clientName: inv.client && inv.client.name ? inv.client.name : null,
-        }));
+        this.invoiceOptions = list.map((inv) => {
+          const clientName = typeof inv.client === 'string' ? inv.client : (inv.client && inv.client.name ? inv.client.name : null);
+          const invoiceNo = inv.invoiceNo || inv.invoice_no || '';
+          return {
+            id: inv.id,
+            invoice_no: inv.invoice_no || inv.invoiceNo,
+            label: invoiceNo + (clientName ? ' - ' + clientName : ''),
+            client: inv.client,
+            clientName: clientName,
+          };
+        });
       } catch (e) {
         this.$toast.error(this.$t('Error'), this.$t('Failed to load invoices'));
       }
