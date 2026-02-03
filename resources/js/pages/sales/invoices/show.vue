@@ -167,7 +167,7 @@
             </div>
 
             <!-- Invoice-Level Discount Section -->
-            <div class="row mt-3" v-if="hasInvoiceDiscount">
+            <!-- <div class="row mt-3" v-if="hasInvoiceDiscount">
               <div class="col-12">
                 <div class="table-responsive table-custom">
                   <table class="table invoices-table">
@@ -200,7 +200,7 @@
                   </table>
                 </div>
               </div>
-            </div>
+            </div> -->
 
             <!-- Attachments Section -->
             <div class="row mt-3" v-if="allData.attachments && allData.attachments.length > 0">
