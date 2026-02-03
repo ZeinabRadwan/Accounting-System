@@ -98,18 +98,17 @@
         </div>
         <div class="card pos-main-card">
           <div class="card-body-l p-0">
-            <!-- Client Selection - Hidden in Invoice Return Mode -->
+            <!-- Client Selection - POS always uses cash customer "عميل نقدي" -->
             <div v-if="!isInvoiceReturnMode" class="form-group pl-3 pt-3 pr-3 pos-client-section">
               <label class="pos-section-label">{{ $t("Client") }}</label>
               <div class="d-flex w-100">
-                <v-select class="flex-grow-1" v-model="form.client" :options="Array.isArray(clients) ? clients : []" label="name"
-                  :class="{ 'is-invalid': form.errors.has('client') }" name="client"
-                  :placeholder="$t('Select a client')" />
-                <ClientCreateModal @reloadClients="getClients('latest')">
-                  <div class="input-group-text create-btn">
-                    <i class="fas fa-solid fa-plus-circle"></i>
-                  </div>
-                </ClientCreateModal>
+                <input 
+                  type="text" 
+                  class="form-control" 
+                  :value="form.client ? form.client.name : 'عميل نقدي'" 
+                  readonly 
+                  :class="{ 'is-invalid': form.errors.has('client') }"
+                />
               </div>
               <!-- Client Chart of Account Status -->
               <div class="client-status mt-2" v-if="form.client">
@@ -124,6 +123,21 @@
                 </div>
               </div>
               <has-error :form="form" field="client" />
+            </div>
+
+            <!-- Notes Field - For cashier to enter customer name or notes -->
+            <div v-if="!isInvoiceReturnMode" class="form-group pl-3 pr-3 pos-client-section">
+              <label class="pos-section-label">{{ $t("Notes") }}</label>
+              <textarea 
+                id="posNotes" 
+                v-model="form.note" 
+                class="form-control pos-input-enhanced pos-notes-input"
+                :class="{ 'is-invalid': form.errors.has('note') }" 
+                :placeholder="$t('Enter customer name or any notes here...')" 
+                rows="2"
+              />
+              <small class="form-text text-muted">{{ $t('Optional: Enter customer name or any notes provided by the buyer') }}</small>
+              <has-error :form="form" field="note" />
             </div>
 
             <!-- Invoice Return Products Display -->
@@ -293,7 +307,7 @@
                     <input type="button" value="-" class="pos-qty-btn-minus" data-field="quantity"
                       @click="generateItemTotal(row.qty, 'qty', getProductIndex(row), 'decrement')" />
                     <input type="number" step="any" :id="`Qty-${getProductIndex(row)}`" :value="row.qty" name="quantity"
-                      class="quantity-field border-0 incrementor" required min="1" :max="row.inventoryCount"
+                      class="quantity-field border-0 incrementor pos-input-enhanced pos-qty-input" required min="1" :max="row.inventoryCount"
                       @change="generateItemTotal($event.target.value, 'qty', getProductIndex(row), '')"
                       @keyup="generateItemTotal($event.target.value, 'qty', getProductIndex(row), '')"
                       :placeholder="$t('Quantity')" />
@@ -311,14 +325,14 @@
                 <!-- Discount -->
                 <template #cell-discount="{ row }">
                   <div class="d-flex align-items-center gap-1">
-                    <select v-model="row.discountType" class="form-control form-control-sm"
+                    <select v-model="row.discountType" class="form-control form-control-sm pos-input-enhanced pos-select-enhanced"
                       style="width: 85px; flex-shrink: 0" :class="{
                         'is-invalid': form.errors.has(`selectedProducts.${getProductIndex(row)}.discountType`),
                       }" @change="calculateProductDiscount(getProductIndex(row))">
                       <option value="fixed">{{ $t("Fixed") }}</option>
                       <option value="percentage">{{ $t("%") }}</option>
                     </select>
-                    <input type="number" v-model="row.discount" class="form-control form-control-sm"
+                    <input type="number" v-model="row.discount" class="form-control form-control-sm pos-input-enhanced pos-discount-input"
                       style="width: 90px; flex-shrink: 0" step="any" min="0"
                       :max="row.discountType == 'percentage' ? 100 : row.unitPrice * row.qty" :class="{
                         'is-invalid': form.errors.has(`selectedProducts.${getProductIndex(row)}.discount`),
@@ -347,7 +361,7 @@
 
                 <!-- VAT Type -->
                 <template #cell-vatType="{ row }">
-                  <select v-model="row.selectedVatRate" class="form-control form-control-sm" :class="{
+                  <select v-model="row.selectedVatRate" class="form-control form-control-sm pos-input-enhanced pos-select-enhanced" :class="{
                     'is-invalid': form.errors.has(`selectedProducts.${getProductIndex(row)}.selectedVatRate`),
                   }" @change="calculateProductVat(getProductIndex(row))" style="min-width: 120px">
                     <option value="">{{ $t("Select VAT") }}</option>
@@ -691,7 +705,7 @@
             <div class="form-group col-md-4">
               <label for="paidAmount">{{ $t("Amount") }}<span class="required">*</span></label>
               <input ref="paidAmountInput" id="paidAmount" v-model="form.paidAmount" type="number" step="any"
-                class="form-control" :class="{ 'is-invalid': form.errors.has('paidAmount') }" name="paidAmount" min="1"
+                class="form-control pos-input-enhanced" :class="{ 'is-invalid': form.errors.has('paidAmount') }" name="paidAmount" min="1"
                 :max="form.netTotal" :placeholder="$t('Enter an amount')" />
               <has-error :form="form" field="paidAmount" />
             </div>
@@ -713,7 +727,7 @@
             </div> -->
             <div class="form-group col-md-6">
               <label for="receiptNo">{{ $t("Receipt No") }}</label>
-              <input id="receiptNo" v-model="form.receiptNo" type="text" class="form-control"
+              <input id="receiptNo" v-model="form.receiptNo" type="text" class="form-control pos-input-enhanced"
                 :class="{ 'is-invalid': form.errors.has('receiptNo') }" name="receiptNo"
                 :placeholder="$t('Enter a receipt no')" />
               <has-error :form="form" field="receiptNo" />
@@ -722,14 +736,14 @@
           <div class="row">
             <div class="form-group col-md-6">
               <label for="poReference">{{ $t("PO Reference") }}</label>
-              <input id="poReference" v-model="form.poReference" type="text" step="any" class="form-control"
+              <input id="poReference" v-model="form.poReference" type="text" step="any" class="form-control pos-input-enhanced"
                 :class="{ 'is-invalid': form.errors.has('poReference') }" name="poReference"
                 :placeholder="$t('Enter PO reference')" />
               <has-error :form="form" field="poReference" />
             </div>
             <div class="form-group col-md-6">
               <label for="paymentTerms">{{ $t("Payment Terms") }}</label>
-              <input id="paymentTerms" v-model="form.paymentTerms" type="text" class="form-control"
+              <input id="paymentTerms" v-model="form.paymentTerms" type="text" class="form-control pos-input-enhanced"
                 :class="{ 'is-invalid': form.errors.has('paymentTerms') }" name="paymentTerms"
                 :placeholder="$t('Enter payment terms')" />
               <has-error :form="form" field="paymentTerms" />
@@ -738,7 +752,7 @@
           <div class="row">
             <div class="form-group col-md-6">
               <label for="reference">{{ $t("Reference") }}</label>
-              <input id="reference" v-model="form.reference" type="text" class="form-control"
+              <input id="reference" v-model="form.reference" type="text" class="form-control pos-input-enhanced"
                 :class="{ 'is-invalid': form.errors.has('reference') }" name="reference"
                 :placeholder="$t('Enter reference')" />
               <has-error :form="form" field="reference" />
@@ -754,13 +768,13 @@
           <div class="row">
             <div class="form-group col-md-6">
               <label for="date">{{ $t("Date") }}</label>
-              <input id="date" v-model="form.date" type="date" class="form-control"
+              <input id="date" v-model="form.date" type="date" class="form-control pos-input-enhanced"
                 :class="{ 'is-invalid': form.errors.has('date') }" name="date" />
               <has-error :form="form" field="date" />
             </div>
             <div class="form-group col-md-6">
               <label for="status">{{ $t("Status") }}</label>
-              <select id="status" v-model="form.status" class="form-control"
+              <select id="status" v-model="form.status" class="form-control pos-input-enhanced"
                 :class="{ 'is-invalid': form.errors.has('status') }">
                 <option value="1">{{ $t("Active") }}</option>
                 <option value="0">{{ $t("Inactive") }}</option>
@@ -826,6 +840,7 @@
                 <span v-show="appInfo.phone">{{ $t("Phone") }} : {{ appInfo.phone }} <br /></span>
                 <span v-show="allData.client.name">{{ $t("Client") }} : {{ allData.client.name }} <br /></span>
                 <span v-show="allData.createdBy">{{ $t("Sold By") }} : {{ allData.createdBy }} <br /></span>
+                <span v-show="allData.note && allData.note.trim()">{{ $t("Notes") }} : {{ allData.note }} <br /></span>
               </p>
             </div>
 
@@ -1022,7 +1037,6 @@ import axios from "axios";
 import { mapGetters } from "vuex";
 import VueBarcode from "vue-barcode";
 import sound from "../../../audio/beep.wav";
-import ClientCreateModal from "~/components/ClientCreateModal";
 import ProductCreateModal from "~/components/ProductCreateModal";
 import StockAdjustmentModal from "~/components/StockAdjustmentModal";
 import GeneralTable from "~/components/GeneralTable";
@@ -1035,7 +1049,6 @@ export default {
   },
   components: {
     barcode: VueBarcode,
-    ClientCreateModal,
     ProductCreateModal,
     StockAdjustmentModal,
     GeneralTable,
@@ -1488,7 +1501,22 @@ export default {
 
     // Watch other form fields for auto-save
     'form.client': {
-      handler() {
+      handler(newVal) {
+        // POS ONLY uses "عميل نقدي" - no walking/default customer logic (unless in return mode)
+        if (!this.isInvoiceReturnMode && !newVal && this.clients && this.clients.length > 0) {
+          // Find cash customer "عميل نقدي" - this is the ONLY customer POS uses
+          const cashCustomer = this.clients.find(
+            (item) => item.name === "عميل نقدي" || item.name === "Cash Customer"
+          );
+          // No fallback to defaultClientSlug or first client - POS requires "عميل نقدي"
+          if (cashCustomer) {
+            this.$nextTick(() => {
+              this.form.client = cashCustomer;
+            });
+          } else {
+            console.warn('POS: Cash customer "عميل نقدي" not found when client became null.');
+          }
+        }
         if (this.invoices.length > 0 && this.currentInvoiceIndex >= 0) {
           this.saveInvoiceState();
         }
@@ -1579,24 +1607,85 @@ export default {
       }
     },
 
-    // get all clients
-    async getClients(selectedClient = "default") {
+    // get all clients - POS always uses cash customer "عميل نقدي" (no default/walking customer logic)
+    async getClients() {
       await axios
         .get("/api/all-clients")
         .then(({ data }) => {
           // Ensure clients is always an array
           this.clients = Array.isArray(data.data) ? data.data : (data.data ? Object.values(data.data) : []);
-          // assign default client
+          // POS ONLY uses "عميل نقدي" - no walking/default customer logic
           if (this.clients && this.clients.length > 0) {
-            let defaultClientSlug = this.appInfo.defaultClientSlug;
-            this.form.client = this.clients.find(
-              (item) => item.slug === defaultClientSlug
+            // Find cash customer "عميل نقدي" - this is the ONLY customer POS uses
+            const cashCustomer = this.clients.find(
+              (item) => item.name === "عميل نقدي" || item.name === "Cash Customer"
             );
+            if (cashCustomer) {
+              this.form.client = cashCustomer;
+            } else {
+              // If cash customer doesn't exist, try to create it automatically
+              this.ensureCashCustomerExists();
+            }
+          } else {
+            // No clients exist, try to create cash customer
+            this.ensureCashCustomerExists();
           }
         })
-        .catch((error) => console.log(error));
-      if (selectedClient == "latest") {
-        this.form.client = this.clients[0];
+        .catch((error) => {
+          console.log(error);
+          // On error, try to ensure cash customer exists
+          this.ensureCashCustomerExists();
+        });
+      // POS always uses cash customer only
+    },
+
+    // Auto-create cash customer "عميل نقدي" if it doesn't exist (POS only)
+    async ensureCashCustomerExists() {
+      try {
+        // First, refresh clients list to check if it was created
+        const { data } = await axios.get("/api/all-clients");
+        this.clients = Array.isArray(data.data) ? data.data : (data.data ? Object.values(data.data) : []);
+        
+        let cashCustomer = this.clients.find(
+          (item) => item.name === "عميل نقدي" || item.name === "Cash Customer"
+        );
+
+        // If still not found, create it
+        if (!cashCustomer) {
+          // Create cash customer with minimal required fields for simplified tax invoice
+          const clientData = {
+            name: "عميل نقدي",
+            phoneNumber: "0000000000", // Dummy phone number
+            type: "Individual",
+            taxStatus: "non_taxable", // Simplified tax invoice - non-taxable customer
+            status: true,
+            isSendEmail: false,
+            isSendSMS: false,
+          };
+
+          const response = await axios.post("/api/clients", clientData);
+          
+          if (response.data && response.data.data) {
+            cashCustomer = response.data.data;
+            // Refresh clients list
+            const refreshResponse = await axios.get("/api/all-clients");
+            this.clients = Array.isArray(refreshResponse.data.data) 
+              ? refreshResponse.data.data 
+              : (refreshResponse.data.data ? Object.values(refreshResponse.data.data) : []);
+            cashCustomer = this.clients.find(
+              (item) => item.id === cashCustomer.id || item.name === "عميل نقدي" || item.name === "Cash Customer"
+            );
+          }
+        }
+
+        if (cashCustomer) {
+          this.form.client = cashCustomer;
+        } else {
+          console.error('POS: Failed to create cash customer "عميل نقدي"');
+        }
+      } catch (error) {
+        console.error('POS: Error ensuring cash customer exists:', error);
+        // Don't show error to user - POS should work seamlessly
       }
     },
 
@@ -2441,6 +2530,48 @@ export default {
     // print: true = show receipt and print after save; false = don't show print
     // openPayment: true = keep current tab and open Add Payment modal with pre-filled amount/account
     async saveInvoice(print = true, openPayment = false) {
+      // POS validation: Ensure cash customer "عميل نقدي" is set (auto-create if needed)
+      if (!this.isInvoiceReturnMode) {
+        if (!this.form.client) {
+          // Try to find cash customer
+          if (this.clients && this.clients.length > 0) {
+            const cashCustomer = this.clients.find(
+              (item) => item.name === "عميل نقدي" || item.name === "Cash Customer"
+            );
+            if (cashCustomer) {
+              this.form.client = cashCustomer;
+            } else {
+              // Auto-create cash customer if not found
+              await this.ensureCashCustomerExists();
+              if (!this.form.client) {
+                // If still not set after auto-create attempt, wait a bit and retry
+                await new Promise(resolve => setTimeout(resolve, 500));
+                await this.ensureCashCustomerExists();
+              }
+            }
+          } else {
+            // No clients exist, create cash customer
+            await this.ensureCashCustomerExists();
+          }
+        } else if (this.form.client.name !== "عميل نقدي" && this.form.client.name !== "Cash Customer") {
+          // If client is set but not the cash customer, find and set it
+          if (this.clients && this.clients.length > 0) {
+            const cashCustomer = this.clients.find(
+              (item) => item.name === "عميل نقدي" || item.name === "Cash Customer"
+            );
+            if (cashCustomer) {
+              this.form.client = cashCustomer;
+            } else {
+              // Auto-create cash customer if not found
+              await this.ensureCashCustomerExists();
+            }
+          } else {
+            // No clients exist, create cash customer
+            await this.ensureCashCustomerExists();
+          }
+        }
+      }
+
       // Save current invoice state before saving
       this.saveInvoiceState();
 
@@ -3142,15 +3273,28 @@ export default {
       }
     },
 
-    // Create empty invoice object
+    // Create empty invoice object - POS always uses cash customer "عميل نقدي" only
     createEmptyInvoice() {
+      // POS ONLY uses "عميل نقدي" - no walking/default customer logic
+      let cashCustomer = this.form.client;
+      if (!cashCustomer && this.clients && this.clients.length > 0) {
+        // Find cash customer "عميل نقدي" - this is the ONLY customer POS uses
+        cashCustomer = this.clients.find(
+          (item) => item.name === "عميل نقدي" || item.name === "Cash Customer"
+        );
+        // No fallback to defaultClientSlug or first client - POS requires "عميل نقدي"
+        if (!cashCustomer) {
+          console.warn('POS: Cash customer "عميل نقدي" not found when creating invoice.');
+        }
+      }
+      
       return {
         id: `inv_${Date.now()}_${++this.invoiceCounter}`,
         createdAt: new Date().toISOString(),
         openedTime: new Date().toISOString(), // Track when invoice was opened
         invoiceStatus: 'active',
         reference: `INV-${this.invoiceCounter}`,
-        client: null,
+        client: cashCustomer || null, // Always set cash customer "عميل نقدي" for POS
         selectedProducts: [],
         subTotal: 0,
         netTotal: 0,
@@ -3325,7 +3469,7 @@ export default {
       }
     },
 
-    // Restore invoice state to form
+    // Restore invoice state to form - POS always uses cash customer
     restoreInvoiceState(invoice) {
       if (!invoice) {
         return;
@@ -3334,7 +3478,29 @@ export default {
       // Deep clone to avoid reference issues
       const clonedProducts = JSON.parse(JSON.stringify(invoice.selectedProducts || []));
 
-      this.form.client = invoice.client || null;
+      // POS ONLY uses "عميل نقدي" - no walking/default customer logic (unless it's a return invoice)
+      if (!this.isInvoiceReturnMode) {
+        let cashCustomer = invoice.client;
+        // If invoice has a client, verify it's the cash customer, otherwise find it
+        if (cashCustomer && cashCustomer.name !== "عميل نقدي" && cashCustomer.name !== "Cash Customer") {
+          // Invoice has wrong client, find cash customer instead
+          cashCustomer = null;
+        }
+        if (!cashCustomer && this.clients && this.clients.length > 0) {
+          // Find cash customer "عميل نقدي" - this is the ONLY customer POS uses
+          cashCustomer = this.clients.find(
+            (item) => item.name === "عميل نقدي" || item.name === "Cash Customer"
+          );
+          // No fallback to defaultClientSlug or first client - POS requires "عميل نقدي"
+          if (!cashCustomer) {
+            console.warn('POS: Cash customer "عميل نقدي" not found when restoring invoice state.');
+          }
+        }
+        this.form.client = cashCustomer || this.form.client || null;
+      } else {
+        // For return invoices, use the invoice's client
+        this.form.client = invoice.client || null;
+      }
       this.form.selectedProducts = clonedProducts;
       this.form.subTotal = invoice.subTotal || 0;
       this.form.netTotal = invoice.netTotal || 0;
@@ -5457,6 +5623,131 @@ span.pqty {
 .create-btn:hover {
   background: #2a8bc7;
   transform: scale(1.05);
+}
+
+/* Enhanced POS Input Styling */
+.pos-input-enhanced {
+  border: 1.5px solid #d1d5db !important;
+  border-radius: 6px !important;
+  padding: 10px 12px !important;
+  font-size: 14px !important;
+  transition: all 0.2s ease !important;
+  background-color: #ffffff !important;
+  height: auto !important;
+  min-height: 38px !important;
+}
+
+.pos-input-enhanced:focus {
+  border-color: #33a0d9 !important;
+  box-shadow: 0 0 0 3px rgba(51, 160, 217, 0.1) !important;
+  outline: none !important;
+}
+
+.pos-input-enhanced:hover:not(:disabled) {
+  border-color: #9ca3af !important;
+}
+
+.pos-input-enhanced::placeholder {
+  color: #9ca3af !important;
+  opacity: 0.7 !important;
+}
+
+/* Notes Input Specific Styling */
+.pos-notes-input {
+  min-height: 60px !important;
+  resize: vertical !important;
+  line-height: 1.5 !important;
+}
+
+/* Quantity Input Specific Styling */
+.pos-qty-input {
+  border: 1.5px solid #d1d5db !important;
+  border-radius: 6px !important;
+  padding: 0 !important;
+  background-color: #ffffff !important;
+}
+
+.pos-qty-input:focus-within {
+  border-color: #33a0d9 !important;
+  box-shadow: 0 0 0 3px rgba(51, 160, 217, 0.1) !important;
+}
+
+.quantity-field.pos-input-enhanced {
+  border: none !important;
+  border-left: 1px solid #e5e7eb !important;
+  border-right: 1px solid #e5e7eb !important;
+  padding: 8px 10px !important;
+  text-align: center !important;
+  font-weight: 500 !important;
+  min-height: 38px !important;
+}
+
+.quantity-field.pos-input-enhanced:focus {
+  box-shadow: none !important;
+  border-left-color: #33a0d9 !important;
+  border-right-color: #33a0d9 !important;
+}
+
+/* Discount Input Styling */
+.pos-discount-input {
+  border: 1.5px solid #d1d5db !important;
+  border-radius: 6px !important;
+  padding: 6px 10px !important;
+  font-size: 13px !important;
+  text-align: center !important;
+}
+
+.pos-discount-input:focus {
+  border-color: #33a0d9 !important;
+  box-shadow: 0 0 0 2px rgba(51, 160, 217, 0.1) !important;
+}
+
+/* Select Input Styling */
+.pos-select-enhanced {
+  border: 1.5px solid #d1d5db !important;
+  border-radius: 6px !important;
+  padding: 6px 10px !important;
+  font-size: 13px !important;
+  background-color: #ffffff !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+
+.pos-select-enhanced:focus {
+  border-color: #33a0d9 !important;
+  box-shadow: 0 0 0 2px rgba(51, 160, 217, 0.1) !important;
+  outline: none !important;
+}
+
+.pos-select-enhanced:hover:not(:disabled) {
+  border-color: #9ca3af !important;
+}
+
+.dark-mode .pos-select-enhanced {
+  background-color: #1f2937 !important;
+  border-color: #4b5563 !important;
+  color: #f9fafb !important;
+}
+
+.dark-mode .pos-select-enhanced:focus {
+  border-color: #33a0d9 !important;
+  box-shadow: 0 0 0 2px rgba(51, 160, 217, 0.2) !important;
+}
+
+/* Dark mode support for enhanced inputs */
+.dark-mode .pos-input-enhanced {
+  background-color: #1f2937 !important;
+  border-color: #4b5563 !important;
+  color: #f9fafb !important;
+}
+
+.dark-mode .pos-input-enhanced:focus {
+  border-color: #33a0d9 !important;
+  box-shadow: 0 0 0 3px rgba(51, 160, 217, 0.2) !important;
+}
+
+.dark-mode .pos-input-enhanced::placeholder {
+  color: #6b7280 !important;
 }
 
 .pos-section-label {
