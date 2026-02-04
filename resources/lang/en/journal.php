@@ -13,7 +13,7 @@ return [
     'balance_adjustment' => 'Balance Adjustment: :reason',
     'purchase_return' => 'Purchase Return PR-:code',
     'supplier_non_purchase_payment' => 'Supplier Non-Purchase Payment',
-    
+
     // Journal Entry Line Descriptions
     'accounts_receivable' => 'Accounts Receivable',
     'sales_revenue_for_invoice' => 'Sales Revenue for Invoice :number',
@@ -36,32 +36,44 @@ return [
     'cash_bank_payment_for_loan' => 'Cash/Bank payment for loan',
     'reduction_in_accounts_payable' => 'Reduction in Accounts Payable',
     'cash_bank_payment_for_non_purchase' => 'Cash/Bank payment for non-purchase',
-    
+
     // VAT
     'vat_receivable' => 'VAT Receivable - :description',
     'vat_payable' => 'VAT Payable - :description',
     'vat_receivable_for' => 'VAT Receivable for :reference',
     'vat_payable_for' => 'VAT Payable for :reference',
-    
+
     // Invoice Return
     'sales_revenue_reversal_for_return' => 'Sales Revenue Reversal for Return :number',
     'vat_payable_reversal_for_return' => 'VAT Payable Reversal for Return :number',
     'discount_allowed_reversal_for_return' => 'Discount Allowed Reversal for Return :number',
     'accounts_receivable_reduction_for_return' => 'Accounts Receivable Reduction for Return :number',
-    
+
+    // Credit Note (allowed discount + 15% tax)
+    'credit_note' => 'Credit Note :number',
+    'discount_allowed_for_credit_note' => 'Discount Allowed for Credit Note :number',
+    'vat_reduction_for_credit_note' => 'VAT Reduction for Credit Note :number',
+    'accounts_receivable_reduction_for_credit_note' => 'Accounts Receivable Reduction for Credit Note :number',
+
+    // Debit Note (earned discount + 15% tax)
+    'debit_note' => 'Debit Note :number',
+    'discount_received_for_debit_note' => 'Discount Received for Debit Note :number',
+    'vat_input_reduction_for_debit_note' => 'VAT Input Reduction for Debit Note :number',
+    'accounts_payable_reduction_for_debit_note' => 'Accounts Payable Reduction for Debit Note :number',
+
     // Balance Transfer
     'balance_transfer_to' => 'Balance Transfer to :account [:number]',
     'balance_transfer_from' => 'Balance Transfer from :account [:number]',
-    
+
     // Balance Adjustment
     'balance_added_to' => 'Balance Added to :account [:number]',
     'balance_removed_from' => 'Balance Removed from :account [:number]',
     'balance_adjustment_account' => 'Balance Adjustment - :name',
-    
+
     // Purchase Return
     'purchase_return_reverse_expense' => 'Purchase Return - Reverse expense for PR-:code',
     'purchase_return_reduce_payable' => 'Purchase Return - Reduce payable for PR-:code',
-    
+
     // Payment Voucher
     'payment_voucher' => 'Payment Voucher (:type): :note',
     'receive' => 'Receive',
@@ -69,10 +81,9 @@ return [
     'payment_received' => 'Payment Received',
     'payment_sent' => 'Payment Sent',
     'cash_bank_payment' => 'Cash/Bank Payment',
-    
+
     // Validation Messages
     'must_be_balanced' => 'Journal entry must be balanced. Total debits must equal total credits.',
     'line_cannot_have_both' => 'A journal entry line cannot have both debit and credit amounts.',
     'line_must_have_one' => 'A journal entry line must have either a debit or credit amount.',
 ];
-

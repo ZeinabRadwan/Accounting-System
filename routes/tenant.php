@@ -16,6 +16,8 @@ use App\Http\Controllers\API\ClientRepresentativeController;
 use App\Http\Controllers\API\CostAllocationController;
 use App\Http\Controllers\API\CostAllocationRuleController;
 use App\Http\Controllers\API\CostCenterController;
+use App\Http\Controllers\API\CreditNoteController;
+use App\Http\Controllers\API\DebitNoteController;
 use App\Http\Controllers\API\CurrencyController;
 use App\Http\Controllers\API\DashboardController;
 use App\Http\Controllers\API\DepartmentController;
@@ -328,6 +330,11 @@ Route::middleware([
         Route::get('/purchase-returns/search', [PurchaseReturnController::class, 'search']);
         Route::apiResource('purchase-returns', PurchaseReturnController::class);
 
+        // Debit note routes (earned discount + 15% tax)
+        Route::get('/debit-notes', [DebitNoteController::class, 'index']);
+        Route::post('/debit-notes', [DebitNoteController::class, 'store']);
+        Route::get('/debit-notes/{debit_note}', [DebitNoteController::class, 'show']);
+
         // Quotations routes
         Route::get('/quotations/search', [QuotationController::class, 'search']);
         Route::post('/quotation/notify/{slug}', [QuotationController::class, 'notifyCustomer']);
@@ -346,6 +353,11 @@ Route::middleware([
         Route::get('/invoice-returns/search', [InvoiceReturnController::class, 'search']);
         Route::post('/invoice-returns/{slug}/send-to-zatca', [InvoiceReturnController::class, 'sendToZatca']);
         Route::apiResource('invoice-returns', InvoiceReturnController::class);
+
+        // Credit note routes (allowed discount + 15% tax)
+        Route::get('/credit-notes', [CreditNoteController::class, 'index']);
+        Route::post('/credit-notes', [CreditNoteController::class, 'store']);
+        Route::get('/credit-notes/{credit_note}', [CreditNoteController::class, 'show']);
 
         // Chart of Accounts routes
         Route::get('/chart-of-accounts/search', [ChartOfAccountController::class, 'search']);

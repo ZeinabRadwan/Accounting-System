@@ -1494,6 +1494,10 @@ export default {
       this.form.taxAmount = this.form.totalProductTax;
       this.form.discountTotal = this.form.totalDiscount;
       this.form.newTax = this.form.totalProductTax;
+
+      // Set returnAmount so payment section is visible when return total > 0 (mirror sales returns)
+      this.form.returnAmount = this.form.totalReturn;
+      this.form.returnAmountText = this.formatAmount(this.form.totalReturn);
     },
 
     // save return

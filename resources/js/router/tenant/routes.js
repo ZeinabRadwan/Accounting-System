@@ -494,6 +494,35 @@ export default [
     },
   },
 
+  // Debit Note routes (earned discount + 15% tax)
+  {
+    path: '/debit-notes',
+    name: 'debitNotes.index',
+    component: page('purchases/debit-notes/index.vue'),
+    meta: {
+      permissions: ['purchase-return-list'],
+      systemType: ['accounting', 'both']
+    },
+  },
+  {
+    path: '/debit-notes/create',
+    name: 'debitNotes.create',
+    component: page('purchases/debit-notes/create.vue'),
+    meta: {
+      permissions: ['purchase-return-create'],
+      systemType: ['accounting', 'both']
+    },
+  },
+  {
+    path: '/debit-notes/:slug',
+    name: 'debitNotes.show',
+    component: page('purchases/debit-notes/show.vue'),
+    meta: {
+      permissions: ['purchase-return-view'],
+      systemType: ['accounting', 'both']
+    },
+  },
+
   // Quotation routes
   {
     path: '/quotations',
@@ -616,6 +645,34 @@ export default [
     },
   },
 
+  // Credit Note routes (allowed discount + 15% tax)
+  {
+    path: '/credit-notes',
+    name: 'creditNotes.index',
+    component: page('sales/credit-notes/index.vue'),
+    meta: {
+      permissions: ['invoice-return-list'],
+      systemType: ['accounting', 'both']
+    },
+  },
+  {
+    path: '/credit-notes/create',
+    name: 'creditNotes.create',
+    component: page('sales/credit-notes/create.vue'),
+    meta: {
+      permissions: ['invoice-return-create'],
+      systemType: ['accounting', 'both']
+    },
+  },
+  {
+    path: '/credit-notes/:slug',
+    name: 'creditNotes.show',
+    component: page('sales/credit-notes/show.vue'),
+    meta: {
+      permissions: ['invoice-return-view'],
+      systemType: ['accounting', 'both']
+    },
+  },
 
    // chart of accounts routes
    {

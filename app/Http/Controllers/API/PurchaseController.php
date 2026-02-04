@@ -1239,7 +1239,9 @@ class PurchaseController extends Controller
             $country = GeneralSetting::where('key', 'country')->first()?->value ?? 'SA';
             $isSaudiArabia = $country === 'SA';
 
-            $maxAmount = $request->selectedPurchase['due'] <= $request->account['availableBalance'] ? $request->selectedPurchase['due'] : $request->account['availableBalance'];
+            // Allow payments without balance validation - accounts can go negative
+            // Only validate that paid amount doesn't exceed the due amount
+            $maxAmount = $request->selectedPurchase['due'];
             // validate request
             $this->validate($request, [
                 'selectedPurchase' => 'required|array|min:1',
@@ -1262,7 +1264,7 @@ class PurchaseController extends Controller
 
             // Check if purchase has a journal entry (indicates it's been processed)
             $hasJournalEntry = $purchase->journalEntry || PurchaseJournal::where('purchase_id', $purchase->id)->exists();
-            
+
             if (! $hasJournalEntry) {
                 return $this->responseWithError('Cannot add payment. Purchase must have a journal entry. Please ensure the purchase was created successfully.');
             }

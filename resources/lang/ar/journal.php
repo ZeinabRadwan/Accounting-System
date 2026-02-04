@@ -13,7 +13,7 @@ return [
     'balance_adjustment' => 'تعديل رصيد: :reason',
     'purchase_return' => 'إرجاع مشتريات PR-:code',
     'supplier_non_purchase_payment' => 'دفعة للمورد بدون مشتريات',
-    
+
     // Journal Entry Line Descriptions
     'accounts_receivable' => 'حسابات مدينة',
     'sales_revenue_for_invoice' => 'إيرادات مبيعات للفاتورة :number',
@@ -36,32 +36,44 @@ return [
     'cash_bank_payment_for_loan' => 'دفع نقدي/بنكي للقرض',
     'reduction_in_accounts_payable' => 'تخفيض في الحسابات الدائنة',
     'cash_bank_payment_for_non_purchase' => 'دفع نقدي/بنكي لدفعة بدون مشتريات',
-    
+
     // VAT
     'vat_receivable' => 'ضريبة القيمة المضافة مستحقة القبض - :description',
     'vat_payable' => 'ضريبة القيمة المضافة مستحقة الدفع - :description',
     'vat_receivable_for' => 'ضريبة القيمة المضافة مستحقة القبض لـ :reference',
     'vat_payable_for' => 'ضريبة القيمة المضافة مستحقة الدفع لـ :reference',
-    
+
     // Invoice Return
     'sales_revenue_reversal_for_return' => 'عكس إيرادات المبيعات للإرجاع :number',
     'vat_payable_reversal_for_return' => 'عكس ضريبة القيمة المضافة المستحقة للإرجاع :number',
     'discount_allowed_reversal_for_return' => 'عكس الخصم المسموح للإرجاع :number',
     'accounts_receivable_reduction_for_return' => 'تخفيض الحسابات المدينة للإرجاع :number',
-    
+
+    // Credit Note (allowed discount + 15% tax)
+    'credit_note' => 'اشعار الدائن :number',
+    'discount_allowed_for_credit_note' => 'الخصم المسموح لاشعار الدائن :number',
+    'vat_reduction_for_credit_note' => 'تخفيض ض.ق.م لاشعار الدائن :number',
+    'accounts_receivable_reduction_for_credit_note' => 'تخفيض الحسابات المدينة لاشعار الدائن :number',
+
+    // Debit Note (earned discount + 15% tax)
+    'debit_note' => 'اشعار المدين :number',
+    'discount_received_for_debit_note' => 'الخصم المكتسب لاشعار المدين :number',
+    'vat_input_reduction_for_debit_note' => 'تخفيض ض.ق.م المدخلات لاشعار المدين :number',
+    'accounts_payable_reduction_for_debit_note' => 'تخفيض الحسابات الدائنة لاشعار المدين :number',
+
     // Balance Transfer
     'balance_transfer_to' => 'تحويل رصيد إلى :account [:number]',
     'balance_transfer_from' => 'تحويل رصيد من :account [:number]',
-    
+
     // Balance Adjustment
     'balance_added_to' => 'رصيد مضاف إلى :account [:number]',
     'balance_removed_from' => 'رصيد مخصوم من :account [:number]',
     'balance_adjustment_account' => 'تعديل رصيد - :name',
-    
+
     // Purchase Return
     'purchase_return_reverse_expense' => 'إرجاع مشتريات - عكس المصروف لـ PR-:code',
     'purchase_return_reduce_payable' => 'إرجاع مشتريات - تخفيض الحسابات الدائنة لـ PR-:code',
-    
+
     // Payment Voucher
     'payment_voucher' => 'سند دفع (:type): :note',
     'receive' => 'قبض',
@@ -69,10 +81,9 @@ return [
     'payment_received' => 'دفعة مستلمة',
     'payment_sent' => 'دفعة مدفوعة',
     'cash_bank_payment' => 'دفع نقدي/بنكي',
-    
+
     // Validation Messages
     'must_be_balanced' => 'يجب أن تكون قيود اليومية متوازنة. يجب أن تساوي إجمالي المدين إجمالي الدائن.',
     'line_cannot_have_both' => 'لا يمكن أن يحتوي سطر قيد اليومية على مبالغ مدين ودائن معاً.',
     'line_must_have_one' => 'يجب أن يحتوي سطر قيد اليومية على مبلغ مدين أو دائن.',
 ];
-
