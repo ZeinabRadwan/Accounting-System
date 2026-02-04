@@ -42,6 +42,19 @@
             </div>
           </div>
 
+          <!-- Analytical Account -->
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>{{ $t('Analytical Account') }}</label>
+              <v-select v-model="filters.analyticalAccount" :options="analyticalAccounts"
+                :reduce="account => account.id" label="display_name" :placeholder="$t('Select Analytical Account')"
+                :searchable="true" :clearable="true" :loading="loadingAnalyticalAccounts" @search="searchAnalyticalAccounts" />
+              <div v-if="errors.analytical_account_id" class="text-danger">
+                {{ errors.analytical_account_id[0] }}
+              </div>
+            </div>
+          </div>
+
           <!-- Date Range -->
           <div class="col-md-3">
             <div class="form-group">
@@ -188,6 +201,7 @@
               <th>{{ $t('Entry #') }}</th>
               <th>{{ $t('Reference') }}</th>
               <th>{{ $t('Description') }}</th>
+              <th>{{ $t('Analytical Account') }}</th>
               <th class="text-right">{{ $t('Debit') }}</th>
               <th class="text-right">{{ $t('Credit') }}</th>
               <th class="text-right">{{ $t('Net Amount') }}</th>
@@ -196,12 +210,12 @@
             </thead>
             <tbody>
               <tr v-if="loadingEntries">
-                <td :colspan="reportData && reportData.chart_of_account ? 9 : 10" class="text-center">
+                <td :colspan="reportData && reportData.chart_of_account ? 10 : 11" class="text-center">
                   <i class="fas fa-spinner fa-spin"></i> {{ $t('Loading entries...') }}
                 </td>
               </tr>
               <tr v-else-if="!loadingEntries && entriesCount === 0">
-                <td :colspan="reportData && reportData.chart_of_account ? 9 : 10" class="text-center text-muted">
+                <td :colspan="reportData && reportData.chart_of_account ? 10 : 11" class="text-center text-muted">
                   {{ $t('No entries found for the selected criteria') }}
                 </td>
               </tr>
@@ -211,6 +225,7 @@
                   <td>{{ entry.entry_number }}</td>
                   <td>{{ entry.reference || '-' }}</td>
                   <td>{{ entry.description || '-' }}</td>
+                  <td>{{ entry.analytical_account_name || '-' }}</td>
                   <td v-if="!reportData || !reportData.chart_of_account">
                     <span v-if="entry.account_code">{{ entry.account_code }} - {{ entry.account_name }}</span>
                     <span v-else class="text-muted">-</span>
@@ -282,6 +297,7 @@ export default {
       loading: false,
       loadingAccounts: false,
       loadingSubAccounts: false,
+      loadingAnalyticalAccounts: false,
       loadingCostCenters: false,
       loadingEntries: false,
       reportData: null,
@@ -306,6 +322,7 @@ export default {
       filters: {
         chartOfAccount: null,
         subChartOfAccount: null,
+        analyticalAccount: null,
         costCenter: null,
         fromDate: null,
         toDate: null,
@@ -314,6 +331,7 @@ export default {
       // Options
       chartOfAccounts: [],
       subChartOfAccounts: [],
+      analyticalAccounts: [],
       costCenters: [],
       loadingCostCenters: false,
 
@@ -347,6 +365,9 @@ export default {
       if (this.filters.subChartOfAccount) {
         params.append('sub_chart_of_account_id', this.filters.subChartOfAccount);
       }
+      if (this.filters.analyticalAccount) {
+        params.append('analytical_account_id', this.filters.analyticalAccount);
+      }
       if (this.filters.costCenter) {
         params.append('cost_center_id', this.filters.costCenter);
       }
@@ -362,6 +383,9 @@ export default {
       }
       if (this.filters.subChartOfAccount) {
         params.append('sub_chart_of_account_id', this.filters.subChartOfAccount);
+      }
+      if (this.filters.analyticalAccount) {
+        params.append('analytical_account_id', this.filters.analyticalAccount);
       }
       if (this.filters.costCenter) {
         params.append('cost_center_id', this.filters.costCenter);
@@ -384,6 +408,9 @@ export default {
       }
       if (this.filters.subChartOfAccount) {
         params.append('sub_chart_of_account_id', this.filters.subChartOfAccount);
+      }
+      if (this.filters.analyticalAccount) {
+        params.append('analytical_account_id', this.filters.analyticalAccount);
       }
       if (this.filters.costCenter) {
         params.append('cost_center_id', this.filters.costCenter);
@@ -408,10 +435,16 @@ export default {
     this.loadInitialData();
   },
 
-    watch: {
+  watch: {
     'filters.subChartOfAccount'(newValue, oldValue) {
       // If sub account changes and we have a parent account selected, regenerate the report
       if (this.filters.chartOfAccount && newValue !== oldValue && !this.loading) {
+        this.generateReport();
+      }
+    },
+    'filters.analyticalAccount'(newValue, oldValue) {
+      // If analytical account changes and we have essential filters, regenerate the report
+      if ((this.filters.chartOfAccount || this.filters.costCenter) && newValue !== oldValue && !this.loading) {
         this.generateReport();
       }
     },
@@ -421,6 +454,7 @@ export default {
     async loadInitialData() {
       await Promise.all([
         this.loadChartOfAccounts(),
+        this.loadAnalyticalAccounts(),
         this.loadCostCenters(),
       ]);
     },
@@ -468,12 +502,42 @@ export default {
       }
     },
 
+    async loadAnalyticalAccounts(search = '') {
+      this.loadingAnalyticalAccounts = true;
+      try {
+        const response = await axios.get('/api/analytical-accounts/all', {
+          params: { search, limit: 100 }
+        });
+        
+        let accounts = [];
+        if (response.data && Array.isArray(response.data)) {
+          accounts = response.data;
+        } else if (response.data && response.data.data && Array.isArray(response.data.data)) {
+          accounts = response.data.data;
+        }
+        
+        this.analyticalAccounts = accounts.map(account => ({
+          ...account,
+          display_name: account.display_name || `${account.code || ''} - ${account.name || ''}`
+        }));
+      } catch (error) {
+        console.error('Error loading analytical accounts:', error);
+        this.$toast.error('', this.$t('Failed to load analytical accounts'));
+      } finally {
+        this.loadingAnalyticalAccounts = false;
+      }
+    },
+
     async searchAccounts(search) {
       await this.loadChartOfAccounts(search);
     },
 
     async searchCostCenters(search) {
       await this.loadCostCenters(search);
+    },
+
+    async searchAnalyticalAccounts(search) {
+      await this.loadAnalyticalAccounts(search);
     },
 
     async onChartOfAccountChange(accountId) {
@@ -584,6 +648,10 @@ export default {
             params.sub_chart_of_account_id = this.filters.subChartOfAccount;
           }
 
+          if (this.filters.analyticalAccount) {
+            params.analytical_account_id = this.filters.analyticalAccount;
+          }
+
           if (this.filters.costCenter) {
             params.cost_center_id = this.filters.costCenter;
           }
@@ -659,6 +727,7 @@ export default {
       this.filters = {
         chartOfAccount: null,
         subChartOfAccount: null,
+        analyticalAccount: null,
         costCenter: null,
         fromDate: null,
         toDate: null,
@@ -681,6 +750,9 @@ export default {
       }
       if (this.filters.subChartOfAccount) {
         params.append('sub_chart_of_account_id', this.filters.subChartOfAccount);
+      }
+      if (this.filters.analyticalAccount) {
+        params.append('analytical_account_id', this.filters.analyticalAccount);
       }
       if (this.filters.costCenter) {
         params.append('cost_center_id', this.filters.costCenter);
@@ -707,6 +779,9 @@ export default {
       }
       if (this.filters.subChartOfAccount) {
         params.append('sub_chart_of_account_id', this.filters.subChartOfAccount);
+      }
+      if (this.filters.analyticalAccount) {
+        params.append('analytical_account_id', this.filters.analyticalAccount);
       }
       if (this.filters.costCenter) {
         params.append('cost_center_id', this.filters.costCenter);
