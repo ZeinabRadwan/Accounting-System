@@ -69,12 +69,16 @@ class ReportController extends Controller
                 'accounting_period_id' => 'nullable|exists:accounting_periods,id',
                 'from_date' => 'nullable|date',
                 'to_date' => 'nullable|date|after_or_equal:from_date',
+                'analytical_account_id' => 'nullable|exists:analytical_accounts,id',
+                'cost_center_id' => 'nullable|exists:cost_centers,id',
             ]);
 
             $fiscalYearId = $request->fiscal_year_id;
             $accountingPeriodId = $request->accounting_period_id;
             $fromDate = $request->from_date;
             $toDate = $request->to_date;
+            $analyticalAccountId = $request->analytical_account_id;
+            $costCenterId = $request->cost_center_id;
 
             // Create filter object for consistency
             $filters = [
@@ -82,6 +86,8 @@ class ReportController extends Controller
                 'accounting_period_id' => $accountingPeriodId,
                 'from_date' => $fromDate,
                 'to_date' => $toDate,
+                'analytical_account_id' => $analyticalAccountId,
+                'cost_center_id' => $costCenterId,
             ];
 
             // OPTIMIZED: Get all account balances in a single query using database aggregation
@@ -172,12 +178,22 @@ class ReportController extends Controller
             ->where('chart_of_accounts.is_active', true);
 
         // Apply filters
-        if ($filters['fiscal_year_id']) {
+        if (isset($filters['fiscal_year_id']) && $filters['fiscal_year_id']) {
             $baseQuery->where('journal_entries.fiscal_year_id', $filters['fiscal_year_id']);
-        } elseif ($filters['accounting_period_id']) {
+        }
+        if (isset($filters['accounting_period_id']) && $filters['accounting_period_id']) {
             $baseQuery->where('journal_entries.accounting_period_id', $filters['accounting_period_id']);
-        } elseif ($filters['from_date'] && $filters['to_date']) {
+        }
+        if (isset($filters['from_date']) && $filters['from_date'] && isset($filters['to_date']) && $filters['to_date']) {
             $baseQuery->whereBetween('journal_entries.entry_date', [$filters['from_date'], $filters['to_date']]);
+        }
+
+        if (isset($filters['analytical_account_id']) && $filters['analytical_account_id']) {
+            $baseQuery->where('journal_entry_lines.analytical_account_id', $filters['analytical_account_id']);
+        }
+
+        if (isset($filters['cost_center_id']) && $filters['cost_center_id']) {
+            $baseQuery->where('journal_entry_lines.cost_center_id', $filters['cost_center_id']);
         }
 
         // Get all account balances in one query
@@ -3209,6 +3225,10 @@ class ReportController extends Controller
                 'accounting_period_id' => 'nullable|exists:accounting_periods,id',
                 'from_date' => 'nullable|date',
                 'to_date' => 'nullable|date|after_or_equal:from_date',
+                'analytical_account_ids' => 'nullable|array',
+                'analytical_account_ids.*' => 'exists:analytical_accounts,id',
+                'cost_center_ids' => 'nullable|array',
+                'cost_center_ids.*' => 'exists:cost_centers,id',
                 'page' => 'nullable|integer|min:1',
                 'per_page' => 'nullable|integer|min:1|max:100',
             ]);
@@ -3218,6 +3238,8 @@ class ReportController extends Controller
             $accountingPeriodId = $request->accounting_period_id;
             $fromDate = $request->from_date;
             $toDate = $request->to_date;
+            $analyticalAccountIds = $request->analytical_account_ids;
+            $costCenterIds = $request->cost_center_ids;
             $page = $request->page ?? 1;
             $perPage = $request->per_page ?? 10; // Default to 10 rows per page
 
@@ -3238,8 +3260,14 @@ class ReportController extends Controller
             // Apply date filters
             $dateQuery = \App\Models\JournalEntry::query()
                 ->where('status', 'posted')
-                ->whereHas('lines', function ($query) use ($chartOfAccountIds) {
+                ->whereHas('lines', function ($query) use ($chartOfAccountIds, $analyticalAccountIds, $costCenterIds) {
                     $query->whereIn('chart_of_account_id', $chartOfAccountIds);
+                    if ($analyticalAccountIds && count($analyticalAccountIds) > 0) {
+                        $query->whereIn('analytical_account_id', $analyticalAccountIds);
+                    }
+                    if ($costCenterIds && count($costCenterIds) > 0) {
+                        $query->whereIn('cost_center_id', $costCenterIds);
+                    }
                 });
 
             if ($fiscalYearId) {
@@ -3256,8 +3284,16 @@ class ReportController extends Controller
             // Get journal entries with pagination
             $journalEntries = $dateQuery
                 ->with([
-                    'lines' => function ($query) use ($chartOfAccountIds) {
-                        $query->whereIn('chart_of_account_id', $chartOfAccountIds);
+                    'lines' => function ($query) use ($chartOfAccountIds, $analyticalAccountIds, $costCenterIds) {
+                        $query->whereIn('chart_of_account_id', $chartOfAccountIds)
+                            ->with(['analyticalAccount']);
+
+                        if ($analyticalAccountIds && count($analyticalAccountIds) > 0) {
+                            $query->whereIn('analytical_account_id', $analyticalAccountIds);
+                        }
+                        if ($costCenterIds && count($costCenterIds) > 0) {
+                            $query->whereIn('cost_center_id', $costCenterIds);
+                        }
                     }
                 ])
                 ->orderBy('entry_date', 'desc')
@@ -3271,6 +3307,13 @@ class ReportController extends Controller
                 ->where('status', 'posted')
                 ->join('journal_entry_lines', 'journal_entries.id', '=', 'journal_entry_lines.journal_entry_id')
                 ->whereIn('journal_entry_lines.chart_of_account_id', $chartOfAccountIds);
+
+            if ($analyticalAccountIds && count($analyticalAccountIds) > 0) {
+                $openingBalanceQuery->whereIn('journal_entry_lines.analytical_account_id', $analyticalAccountIds);
+            }
+            if ($costCenterIds && count($costCenterIds) > 0) {
+                $openingBalanceQuery->whereIn('journal_entry_lines.cost_center_id', $costCenterIds);
+            }
 
             if ($fiscalYearId) {
                 $fiscalYear = \App\Models\FiscalYear::findOrFail($fiscalYearId);
@@ -3300,6 +3343,13 @@ class ReportController extends Controller
 
             foreach ($journalEntries as $entry) {
                 $entryLines = $entry->lines->whereIn('chart_of_account_id', $chartOfAccountIds);
+
+                if ($analyticalAccountIds && count($analyticalAccountIds) > 0) {
+                    $entryLines = $entryLines->whereIn('analytical_account_id', $analyticalAccountIds);
+                }
+                if ($costCenterIds && count($costCenterIds) > 0) {
+                    $entryLines = $entryLines->whereIn('cost_center_id', $costCenterIds);
+                }
 
                 $totalDebit = $entryLines->sum('debit_amount');
                 $totalCredit = $entryLines->sum('credit_amount');
@@ -3331,11 +3381,15 @@ class ReportController extends Controller
                     'net_amount' => round($netAmount, 2),
                     'running_balance' => round($runningBalance, 2),
                     'balance_type' => $runningBalanceType,
+                    'analytical_account_name' => $entryLines->map(function ($line) {
+                        return $line->analyticalAccount ? $line->analyticalAccount->name : null;
+                    })->filter()->unique()->implode(', ') ?: '-',
                     'accounts' => $entryLines->map(function ($line) {
                         return [
                             'id' => $line->chart_of_account_id,
                             'code' => $line->chartOfAccount->code,
                             'name' => $line->chartOfAccount->name,
+                            'analytical_account_name' => $line->analyticalAccount ? $line->analyticalAccount->name : null,
                             'debit' => $line->debit_amount,
                             'credit' => $line->credit_amount,
                         ];
@@ -3348,6 +3402,13 @@ class ReportController extends Controller
                 ->where('status', 'posted')
                 ->join('journal_entry_lines', 'journal_entries.id', '=', 'journal_entry_lines.journal_entry_id')
                 ->whereIn('journal_entry_lines.chart_of_account_id', $chartOfAccountIds);
+
+            if ($analyticalAccountIds && count($analyticalAccountIds) > 0) {
+                $periodTotalsQuery->whereIn('journal_entry_lines.analytical_account_id', $analyticalAccountIds);
+            }
+            if ($costCenterIds && count($costCenterIds) > 0) {
+                $periodTotalsQuery->whereIn('journal_entry_lines.cost_center_id', $costCenterIds);
+            }
 
             // Apply same filters as main query
             if ($fiscalYearId) {
@@ -3399,6 +3460,8 @@ class ReportController extends Controller
                         'accounting_period_id' => $accountingPeriodId,
                         'from_date' => $fromDate,
                         'to_date' => $toDate,
+                        'analytical_account_ids' => $analyticalAccountIds,
+                        'cost_center_ids' => $costCenterIds,
                     ],
                     'entries' => $processedEntries,
                     'summary' => $summary,
@@ -3434,6 +3497,10 @@ class ReportController extends Controller
                 'accounting_period_id' => 'nullable|exists:accounting_periods,id',
                 'from_date' => 'nullable|date',
                 'to_date' => 'nullable|date|after_or_equal:from_date',
+                'analytical_account_ids' => 'nullable|array',
+                'analytical_account_ids.*' => 'exists:analytical_accounts,id',
+                'cost_center_ids' => 'nullable|array',
+                'cost_center_ids.*' => 'exists:cost_centers,id',
             ]);
 
             $chartOfAccountIds = $request->chart_of_account_ids;
@@ -3441,6 +3508,8 @@ class ReportController extends Controller
             $accountingPeriodId = $request->accounting_period_id;
             $fromDate = $request->from_date;
             $toDate = $request->to_date;
+            $analyticalAccountIds = $request->analytical_account_ids;
+            $costCenterIds = $request->cost_center_ids;
 
             // Get chart of accounts details
             $branchId = Auth::user()->default_branch_id ?? null;
@@ -3459,8 +3528,14 @@ class ReportController extends Controller
             // Apply date filters - NO PAGINATION
             $dateQuery = \App\Models\JournalEntry::query()
                 ->where('status', 'posted')
-                ->whereHas('lines', function ($query) use ($chartOfAccountIds) {
+                ->whereHas('lines', function ($query) use ($chartOfAccountIds, $analyticalAccountIds, $costCenterIds) {
                     $query->whereIn('chart_of_account_id', $chartOfAccountIds);
+                    if ($analyticalAccountIds && count($analyticalAccountIds) > 0) {
+                        $query->whereIn('analytical_account_id', $analyticalAccountIds);
+                    }
+                    if ($costCenterIds && count($costCenterIds) > 0) {
+                        $query->whereIn('cost_center_id', $costCenterIds);
+                    }
                 });
 
             if ($fiscalYearId) {
@@ -3474,9 +3549,16 @@ class ReportController extends Controller
             // Get ALL journal entries - NO PAGINATION
             $journalEntries = $dateQuery
                 ->with([
-                    'lines' => function ($query) use ($chartOfAccountIds) {
+                    'lines' => function ($query) use ($chartOfAccountIds, $analyticalAccountIds, $costCenterIds) {
                         $query->whereIn('chart_of_account_id', $chartOfAccountIds)
-                            ->with('chartOfAccount');
+                            ->with(['chartOfAccount', 'analyticalAccount']);
+
+                        if ($analyticalAccountIds && count($analyticalAccountIds) > 0) {
+                            $query->whereIn('analytical_account_id', $analyticalAccountIds);
+                        }
+                        if ($costCenterIds && count($costCenterIds) > 0) {
+                            $query->whereIn('cost_center_id', $costCenterIds);
+                        }
                     }
                 ])
                 ->orderBy('entry_date', 'desc')
@@ -3488,6 +3570,13 @@ class ReportController extends Controller
                 ->where('status', 'posted')
                 ->join('journal_entry_lines', 'journal_entries.id', '=', 'journal_entry_lines.journal_entry_id')
                 ->whereIn('journal_entry_lines.chart_of_account_id', $chartOfAccountIds);
+
+            if ($analyticalAccountIds && count($analyticalAccountIds) > 0) {
+                $openingBalanceQuery->whereIn('journal_entry_lines.analytical_account_id', $analyticalAccountIds);
+            }
+            if ($costCenterIds && count($costCenterIds) > 0) {
+                $openingBalanceQuery->whereIn('journal_entry_lines.cost_center_id', $costCenterIds);
+            }
 
             if ($fiscalYearId) {
                 $fiscalYear = \App\Models\FiscalYear::findOrFail($fiscalYearId);
@@ -3516,6 +3605,13 @@ class ReportController extends Controller
 
             foreach ($journalEntries as $entry) {
                 $entryLines = $entry->lines->whereIn('chart_of_account_id', $chartOfAccountIds);
+
+                if ($analyticalAccountIds && count($analyticalAccountIds) > 0) {
+                    $entryLines = $entryLines->whereIn('analytical_account_id', $analyticalAccountIds);
+                }
+                if ($costCenterIds && count($costCenterIds) > 0) {
+                    $entryLines = $entryLines->whereIn('cost_center_id', $costCenterIds);
+                }
 
                 $totalDebit = $entryLines->sum('debit_amount');
                 $totalCredit = $entryLines->sum('credit_amount');
@@ -3547,11 +3643,15 @@ class ReportController extends Controller
                     'net_amount' => round($netAmount, 2),
                     'running_balance' => round($runningBalance, 2),
                     'balance_type' => $runningBalanceType,
+                    'analytical_account_name' => $entryLines->map(function ($line) {
+                        return $line->analyticalAccount ? $line->analyticalAccount->name : null;
+                    })->filter()->unique()->implode(', ') ?: '-',
                     'accounts' => $entryLines->map(function ($line) {
                         return [
                             'id' => $line->chart_of_account_id,
                             'code' => $line->chartOfAccount->code,
                             'name' => $line->chartOfAccount->name,
+                            'analytical_account_name' => $line->analyticalAccount ? $line->analyticalAccount->name : null,
                             'debit' => $line->debit_amount,
                             'credit' => $line->credit_amount,
                         ];
@@ -3564,6 +3664,13 @@ class ReportController extends Controller
                 ->where('status', 'posted')
                 ->join('journal_entry_lines', 'journal_entries.id', '=', 'journal_entry_lines.journal_entry_id')
                 ->whereIn('journal_entry_lines.chart_of_account_id', $chartOfAccountIds);
+
+            if ($analyticalAccountIds && count($analyticalAccountIds) > 0) {
+                $periodTotalsQuery->whereIn('journal_entry_lines.analytical_account_id', $analyticalAccountIds);
+            }
+            if ($costCenterIds && count($costCenterIds) > 0) {
+                $periodTotalsQuery->whereIn('journal_entry_lines.cost_center_id', $costCenterIds);
+            }
 
             // Apply same filters as main query
             if ($fiscalYearId) {
@@ -3615,6 +3722,8 @@ class ReportController extends Controller
                         'accounting_period_id' => $accountingPeriodId,
                         'from_date' => $fromDate,
                         'to_date' => $toDate,
+                        'analytical_account_ids' => $analyticalAccountIds,
+                        'cost_center_ids' => $costCenterIds,
                     ],
                     'entries' => $processedEntries,
                     'summary' => $summary,
@@ -4513,6 +4622,7 @@ class ReportController extends Controller
                 'chart_of_account_id' => 'nullable|exists:chart_of_accounts,id',
                 'sub_chart_of_account_id' => 'nullable|exists:chart_of_accounts,id',
                 'cost_center_id' => 'nullable|exists:cost_centers,id',
+                'analytical_account_id' => 'nullable|exists:analytical_accounts,id',
                 'account_level' => 'nullable|integer|min:1|max:10',
                 'from_date' => 'required|date',
                 'to_date' => 'required|date|after_or_equal:from_date',
@@ -4523,6 +4633,7 @@ class ReportController extends Controller
             $chartOfAccountId = $request->chart_of_account_id;
             $subChartOfAccountId = $request->sub_chart_of_account_id;
             $costCenterId = $request->cost_center_id;
+            $analyticalAccountId = $request->analytical_account_id;
             $accountLevel = $request->account_level;
             $fromDate = $request->from_date;
             $toDate = $request->to_date;
@@ -4535,6 +4646,7 @@ class ReportController extends Controller
             // Create filter object for consistency
             $filters = [
                 'cost_center_id' => $costCenterId,
+                'analytical_account_id' => $analyticalAccountId,
                 'account_level' => $accountLevel,
                 'from_date' => $fromDate,
                 'to_date' => $toDate,
@@ -4746,12 +4858,14 @@ class ReportController extends Controller
             $this->validate($request, [
                 'account_id' => 'required|exists:chart_of_accounts,id',
                 'cost_center_id' => 'nullable|exists:cost_centers,id',
+                'analytical_account_id' => 'nullable|exists:analytical_accounts,id',
                 'from_date' => 'required|date',
                 'to_date' => 'required|date|after_or_equal:from_date',
             ]);
 
             $accountId = $request->account_id;
             $costCenterId = $request->cost_center_id;
+            $analyticalAccountId = $request->analytical_account_id;
             $fromDate = $request->from_date;
             $toDate = $request->to_date;
 
@@ -4761,6 +4875,7 @@ class ReportController extends Controller
             // Create filter object for consistency
             $filters = [
                 'cost_center_id' => $costCenterId,
+                'analytical_account_id' => $analyticalAccountId,
                 'from_date' => $fromDate,
                 'to_date' => $toDate,
                 'branch_id' => $branchId,
@@ -4825,9 +4940,12 @@ class ReportController extends Controller
             ->where('status', 'posted')
             ->with([
                 'lines' => function ($query) use ($filters) {
-                    $query->select('id', 'journal_entry_id', 'chart_of_account_id', 'cost_center_id', 'debit_amount', 'credit_amount');
+                    $query->select('id', 'journal_entry_id', 'chart_of_account_id', 'cost_center_id', 'analytical_account_id', 'debit_amount', 'credit_amount');
                     if (isset($filters['cost_center_id']) && $filters['cost_center_id']) {
                         $query->where('cost_center_id', $filters['cost_center_id']);
+                    }
+                    if (isset($filters['analytical_account_id']) && $filters['analytical_account_id']) {
+                        $query->where('analytical_account_id', $filters['analytical_account_id']);
                     }
                 }
             ])
@@ -5188,6 +5306,9 @@ class ReportController extends Controller
                 if (isset($filters['cost_center_id']) && $filters['cost_center_id']) {
                     $query->where('cost_center_id', $filters['cost_center_id']);
                 }
+                if (isset($filters['analytical_account_id']) && $filters['analytical_account_id']) {
+                    $query->where('analytical_account_id', $filters['analytical_account_id']);
+                }
             });
 
         // Apply date filter (required)
@@ -5202,6 +5323,9 @@ class ReportController extends Controller
                 $query->where('chart_of_account_id', $account->id);
                 if (isset($filters['cost_center_id']) && $filters['cost_center_id']) {
                     $query->where('cost_center_id', $filters['cost_center_id']);
+                }
+                if (isset($filters['analytical_account_id']) && $filters['analytical_account_id']) {
+                    $query->where('analytical_account_id', $filters['analytical_account_id']);
                 }
             });
 
@@ -5229,6 +5353,11 @@ class ReportController extends Controller
         // Apply cost center filter
         if (isset($filters['cost_center_id']) && $filters['cost_center_id']) {
             $openingTotalsQuery->where('journal_entry_lines.cost_center_id', $filters['cost_center_id']);
+        }
+
+        // Apply analytical account filter
+        if (isset($filters['analytical_account_id']) && $filters['analytical_account_id']) {
+            $openingTotalsQuery->where('journal_entry_lines.analytical_account_id', $filters['analytical_account_id']);
         }
 
         $openingTotals = $openingTotalsQuery
@@ -5259,6 +5388,11 @@ class ReportController extends Controller
         // Apply cost center filter
         if (isset($filters['cost_center_id']) && $filters['cost_center_id']) {
             $movementTotalsQuery->where('journal_entry_lines.cost_center_id', $filters['cost_center_id']);
+        }
+
+        // Apply analytical account filter
+        if (isset($filters['analytical_account_id']) && $filters['analytical_account_id']) {
+            $movementTotalsQuery->where('journal_entry_lines.analytical_account_id', $filters['analytical_account_id']);
         }
 
         $movementTotals = $movementTotalsQuery
