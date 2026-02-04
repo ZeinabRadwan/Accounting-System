@@ -1,256 +1,7 @@
 "use strict";
 (self["webpackChunk"] = self["webpackChunk"] || []).push([[6425],{
 
-/***/ 10716:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".tree-split-layout[data-v-64271d69]{background:#fff;border:1px solid #e9ecef;border-radius:8px;display:grid;gap:0;grid-template-columns:3fr 2fr;height:calc(100vh - 200px);max-height:calc(100vh - 200px);min-height:600px;overflow:hidden}[dir=rtl] .tree-split-layout[data-v-64271d69]{grid-template-columns:2fr 3fr}.tree-panel[data-v-64271d69]{background:#fff;border-right:1px solid #e9ecef;display:flex;flex-direction:column;height:100%;min-height:0;overflow:hidden}[dir=rtl] .tree-panel[data-v-64271d69]{border-left:1px solid #e9ecef;border-right:none}.details-panel[data-v-64271d69]{background:#f8f9fa;overflow-x:hidden;overflow-y:auto;transition:all .3s ease}.tree-search-wrapper[data-v-64271d69]{background:#fff;border-bottom:1px solid #f0f0f0;flex-shrink:0;padding:16px 20px}.tree-search-wrapper[data-v-64271d69] .search-area{position:relative}.tree-search-wrapper[data-v-64271d69] .search-input{background:#f8f9fa;border:1px solid #e9ecef;border-radius:8px;color:#1a1a1a;font-size:14px;padding:10px 40px;transition:all .2s ease;width:100%}.tree-search-wrapper[data-v-64271d69] .search-input:focus{background:#fff;border-color:#2ab930;box-shadow:0 0 0 3px rgba(42,185,48,.1);outline:none}.tree-search-wrapper[data-v-64271d69] .search-input::-moz-placeholder{color:#adb5bd}.tree-search-wrapper[data-v-64271d69] .search-input::placeholder{color:#adb5bd}.tree-search-wrapper[data-v-64271d69] .search-icon{color:#6c757d}.tree-body-container[data-v-64271d69]{background:#fff;flex:1;height:0;max-height:100%;min-height:0;overflow-x:visible;overflow-y:auto;padding:8px 0;position:relative}.tree-view-list[data-v-64271d69]{list-style:none;margin:0;padding:0}.tree-item[data-v-64271d69],.tree-view-list[data-v-64271d69]{overflow:visible;position:relative}.tree-item[data-v-64271d69]{transition:all .2s ease}.tree-item-dragging[data-v-64271d69]{opacity:.5}.tree-item-drag-over .tree-item-content[data-v-64271d69]{background-color:#e3f2fd!important;border:1px dashed #2ab930;box-shadow:0 2px 8px rgba(42,185,48,.15)}.tree-item-selected .tree-item-content[data-v-64271d69]{background-color:#e8f5e9!important;border-left:3px solid #2ab930}[dir=rtl] .tree-item-selected .tree-item-content[data-v-64271d69]{border-left:none;border-right:3px solid #2ab930}.tree-vertical-line[data-v-64271d69]{bottom:0;top:0;width:1px}.tree-horizontal-line[data-v-64271d69],.tree-vertical-line[data-v-64271d69]{background:#d0d0d0;pointer-events:none;position:absolute;z-index:1}.tree-horizontal-line[data-v-64271d69]{height:1px;top:50%}.tree-item-content[data-v-64271d69]{align-items:flex-start;background:#fff;border:none;border-radius:6px;cursor:pointer;display:flex;gap:6px;margin:2px 8px;min-height:52px;padding:12px 16px;position:relative;transition:all .15s cubic-bezier(.4,0,.2,1);z-index:2}.tree-item-content[data-v-64271d69]:hover{background-color:#f8f9fa;transform:translateX(2px)}[dir=rtl] .tree-item-content[data-v-64271d69]:hover{transform:translateX(-2px)}.tree-item-expand-icon[data-v-64271d69]{align-items:center;border-radius:4px;color:#6c757d;cursor:pointer;display:flex;flex-shrink:0;height:18px;justify-content:center;margin-top:2px;transition:all .15s ease;width:18px}.tree-item-expand-icon[data-v-64271d69]:hover{background-color:#e9ecef;color:#2ab930}.tree-item-expand-icon i[data-v-64271d69]{font-size:11px}.tree-item-expand-placeholder[data-v-64271d69]{cursor:default}.tree-item-expand-placeholder[data-v-64271d69]:hover{background-color:transparent}.tree-item-icon-container[data-v-64271d69]{align-items:center;border-radius:4px;display:flex;flex-shrink:0;height:20px;justify-content:center;margin-top:2px;transition:all .15s ease;width:20px}.tree-item-icon-container .fa-folder[data-v-64271d69]{color:#ffb300;font-size:16px}.tree-item-icon-container .fa-folder-open[data-v-64271d69]{color:#ff8f00;font-size:16px}.tree-item-icon-container .fa-file-invoice[data-v-64271d69]{color:#2ab930;font-size:14px}.tree-item-info[data-v-64271d69]{align-items:flex-start;display:flex;flex:1 1 auto;flex-direction:column;gap:4px;margin-right:8px;max-width:100%;min-width:0}[dir=rtl] .tree-item-info[data-v-64271d69]{margin-left:8px;margin-right:0}.tree-item-name[data-v-64271d69]{color:#1a1a1a;font-size:14px;font-weight:500;letter-spacing:-.01em;line-height:1.5;min-width:150px;overflow-wrap:break-word;white-space:normal;width:100%}.tree-item-code[data-v-64271d69]{background:#f3f4f6;border-radius:4px;color:#6b7280;flex-shrink:0;font-family:Courier New,monospace;font-size:12px;font-weight:400;padding:2px 8px;white-space:nowrap}.tree-item-actions[data-v-64271d69]{align-items:center;background:#fff;border-radius:6px;box-shadow:0 1px 3px rgba(0,0,0,.1);display:flex;flex-shrink:0;gap:2px;margin-left:auto;opacity:0;overflow:hidden;padding:2px;transition:opacity .2s ease}[dir=rtl] .tree-item-actions[data-v-64271d69]{margin-left:0;margin-right:auto}.tree-item:hover .tree-item-actions[data-v-64271d69]{opacity:1}.tree-item-actions[data-v-64271d69] .tree-action-btn{align-items:center;background:transparent;border:none;border-radius:4px;color:#666;cursor:pointer;display:flex;font-size:13px;height:28px;justify-content:center;position:relative;text-decoration:none;transition:all .15s ease;width:28px}.tree-item-actions[data-v-64271d69] .tree-action-btn:hover{background:#f5f5f5;color:#1a1a1a}.tree-item-actions[data-v-64271d69] .tree-action-btn:active{transform:scale(.95)}.tree-item-actions[data-v-64271d69] .tree-action-btn.disabled{cursor:not-allowed;opacity:.4;pointer-events:none}.tree-item-actions[data-v-64271d69] .tree-action-view{color:#2196f3}.tree-item-actions[data-v-64271d69] .tree-action-view:hover{background:#e3f2fd;color:#1976d2}.tree-item-actions[data-v-64271d69] .tree-action-edit{color:#ff9800}.tree-item-actions[data-v-64271d69] .tree-action-edit:hover{background:#fff3e0;color:#f57c00}.tree-item-actions[data-v-64271d69] .tree-action-add{color:#2ab930}.tree-item-actions[data-v-64271d69] .tree-action-add:hover{background:#e8f5e9;color:#1b5e20}.tree-item-actions[data-v-64271d69] .tree-action-add-main{color:#2ab930}.tree-item-actions[data-v-64271d69] .tree-action-add-main:hover{background:#e8f5e9;color:#1b5e20}.tree-item-actions[data-v-64271d69] .tree-action-delete{color:#f44336}.tree-item-actions[data-v-64271d69] .tree-action-delete:hover{background:#ffebee;color:#c62828}.details-panel[data-v-64271d69]{padding:20px}.details-empty[data-v-64271d69]{align-items:center;color:#9ca3af;display:flex;flex-direction:column;height:100%;justify-content:center;padding:40px 20px}.details-empty-icon[data-v-64271d69]{font-size:48px;margin-bottom:16px;opacity:.5}.details-empty-text[data-v-64271d69]{font-size:14px;margin:0;text-align:center}.account-details-card[data-v-64271d69]{animation:slideIn-64271d69 .3s ease-out;background:#fff;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.08);overflow:hidden}@keyframes slideIn-64271d69{0%{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}.details-header[data-v-64271d69]{align-items:center;background:#f8f9fa;border-bottom:1px solid #e9ecef;display:flex;justify-content:space-between;padding:16px 20px}.details-title[data-v-64271d69]{color:#1a1a1a;font-size:16px;font-weight:600;margin:0}.details-close-btn[data-v-64271d69]{align-items:center;background:transparent;border:none;border-radius:4px;color:#6c757d;cursor:pointer;display:flex;height:32px;justify-content:center;transition:all .15s ease;width:32px}.details-close-btn[data-v-64271d69]:hover{background:#e9ecef;color:#1a1a1a}.details-body[data-v-64271d69]{padding:20px}.detail-item[data-v-64271d69]{margin-bottom:16px}.detail-item[data-v-64271d69]:last-child{margin-bottom:0}.detail-label[data-v-64271d69]{color:#6c757d;display:block;font-size:12px;font-weight:600;letter-spacing:.5px;margin-bottom:6px;text-transform:uppercase}.detail-value[data-v-64271d69]{word-wrap:break-word;color:#1a1a1a;font-size:14px;font-weight:500}.detail-code[data-v-64271d69]{background:#f3f4f6;border-radius:4px;color:#2ab930;font-family:Courier New,monospace;padding:6px 10px}.detail-code[data-v-64271d69],.status-badge[data-v-64271d69]{display:inline-block;font-weight:600}.status-badge[data-v-64271d69]{border-radius:12px;font-size:12px;letter-spacing:.5px;padding:4px 12px;text-transform:uppercase}.status-active[data-v-64271d69]{background:#e8f5e9;border:1px solid #c8e6c9;color:#2ab930}.status-inactive[data-v-64271d69]{background:#ffebee;border:1px solid #ffcdd2;color:#f44336}.balance-section[data-v-64271d69]{border-top:2px solid #e9ecef;margin-top:24px;padding-top:20px}.balance-section-header[data-v-64271d69]{margin-bottom:16px}.balance-section-title[data-v-64271d69]{align-items:center;color:#495057;display:flex;font-size:14px;font-weight:600;gap:8px;margin:0}.balance-section-title i[data-v-64271d69]{color:#2ab930;font-size:16px}.balance-details[data-v-64271d69]{display:flex;flex-direction:column;gap:12px}.balance-detail-row[data-v-64271d69]{align-items:center;display:flex;justify-content:space-between;padding:8px 0}.balance-detail-label[data-v-64271d69]{color:#6c757d;font-size:12px;font-weight:500}.balance-detail-value[data-v-64271d69]{font-family:Monaco,Menlo,Ubuntu Mono,monospace;font-size:13px;font-weight:600}.balance-debit-value[data-v-64271d69]{color:#28a745}.balance-credit-value[data-v-64271d69]{color:#dc3545}.balance-divider[data-v-64271d69]{background:#e9ecef;height:1px;margin:4px 0}.balance-total-row[data-v-64271d69]{background:#f8f9fa;border-top:2px solid #e9ecef;font-weight:600;margin:0 -20px;padding:12px 20px}.balance-total-value[data-v-64271d69]{font-size:14px}.balance-debit-total[data-v-64271d69]{color:#28a745}.balance-credit-total[data-v-64271d69]{color:#dc3545}.balance-loading[data-v-64271d69]{align-items:center;color:#6c757d;display:flex;font-size:14px;gap:8px;justify-content:center;padding:20px}.balance-loading i[data-v-64271d69]{font-size:16px}@media (max-width:1024px){.tree-split-layout[data-v-64271d69]{grid-template-columns:3fr 2fr}[dir=rtl] .tree-split-layout[data-v-64271d69]{grid-template-columns:2fr 3fr}}@media (max-width:768px){.tree-split-layout[data-v-64271d69]{grid-template-rows:1fr auto}.tree-split-layout[data-v-64271d69],[dir=rtl] .tree-split-layout[data-v-64271d69]{grid-template-columns:1fr}.tree-panel[data-v-64271d69]{border-bottom:1px solid #e9ecef;border-right:none}[dir=rtl] .tree-panel[data-v-64271d69]{border-bottom:1px solid #e9ecef;border-left:none}.details-panel[data-v-64271d69]{max-height:300px}.tree-item-actions[data-v-64271d69]{opacity:1}.tree-body-container[data-v-64271d69]{max-height:calc(100vh - 400px)}}.details-panel[data-v-64271d69]::-webkit-scrollbar,.tree-body-container[data-v-64271d69]::-webkit-scrollbar{width:6px}.details-panel[data-v-64271d69]::-webkit-scrollbar-track,.tree-body-container[data-v-64271d69]::-webkit-scrollbar-track{background:#fafafa;border-radius:3px}.details-panel[data-v-64271d69]::-webkit-scrollbar-thumb,.tree-body-container[data-v-64271d69]::-webkit-scrollbar-thumb{background:#d0d0d0;border-radius:3px;-webkit-transition:background .2s ease;transition:background .2s ease}.details-panel[data-v-64271d69]::-webkit-scrollbar-thumb:hover,.tree-body-container[data-v-64271d69]::-webkit-scrollbar-thumb:hover{background:#b0b0b0}.tree-item[draggable=true] .tree-item-content[data-v-64271d69]{cursor:grab}.tree-item[draggable=true] .tree-item-content[data-v-64271d69]:active{cursor:grabbing}@keyframes fadeIn-64271d69{0%{opacity:0}to{opacity:1}}.tree-item[data-v-64271d69]{animation:fadeIn-64271d69 .2s ease-out}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
-/***/ 57315:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".refresh-btn[data-v-2e77ddb2]{background:#33a0d91a!important;color:#33a0d9!important}.refresh-btn[data-v-2e77ddb2],.tree-btn[data-v-2e77ddb2]{border:none;border-radius:10px;height:44px;padding:10px 16px;width:56px}.tree-btn[data-v-2e77ddb2]{background:#f6fef4!important;color:#2ab930!important}.btn-primary[data-v-2e77ddb2]{background:#2ab930!important;border:none!important;color:#fff!important;padding:10px 20px!important}.btn-group.c-w-100[data-v-2e77ddb2]{gap:10px}.tree-page-container[data-v-2e77ddb2]{background:#fff;border:1px solid #e9ecef;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.08);overflow:hidden}.tree-badge[data-v-2e77ddb2]{border-radius:12px;font-size:11px;font-weight:500;line-height:1.2;padding:4px 10px;white-space:nowrap}.tree-badge-active[data-v-2e77ddb2]{background:#f6fef4;border:1px solid #e8f5e9;color:#2ab930}.tree-badge-inactive[data-v-2e77ddb2]{background:#fef4f4;border:1px solid #ffebee;color:#dc3545}.tree-action-add-main[data-v-2e77ddb2]{color:#2ab930}.tree-action-add-main[data-v-2e77ddb2]:hover{background:#e8f5e9;color:#1b5e20}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
-/***/ 76425:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  "default": () => (/* binding */ items_directory)
-});
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/inventory/items-directory/index.vue?vue&type=template&id=7e10fba6
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('entity-tree-page', {
-    attrs: {
-      "config": _vm.treeConfig
-    }
-  });
-};
-var staticRenderFns = [];
-
-// EXTERNAL MODULE: ./resources/js/components/EntityTreePage.vue + 11 modules
-var EntityTreePage = __webpack_require__(82898);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/inventory/items-directory/index.vue?vue&type=script&lang=js
-
-/* harmony default export */ const items_directoryvue_type_script_lang_js = ({
-  components: {
-    EntityTreePage: EntityTreePage/* default */.A
-  },
-  middleware: ["auth", "check-permissions"],
-  metaInfo: function metaInfo() {
-    return {
-      title: this.$t("Items Directory")
-    };
-  },
-  computed: {
-    treeConfig: function treeConfig() {
-      return {
-        title: this.$t("Items Directory"),
-        breadcrumbs: [{
-          name: "Dashboard",
-          url: "home"
-        }, {
-          name: "Inventory Management",
-          url: ""
-        }, {
-          name: "Items Directory",
-          url: ""
-        }],
-        permissions: {
-          list: "product-list",
-          create: "product-create",
-          view: "product-view",
-          edit: "product-edit",
-          "delete": "product-delete"
-        },
-        routes: {
-          list: function list() {
-            return {
-              name: "products.index"
-            };
-          },
-          create: function create() {
-            return {
-              name: "products.create"
-            };
-          },
-          view: function view(item) {
-            if (item.type === 'product') {
-              return {
-                name: "products.show",
-                params: {
-                  slug: item.slug
-                }
-              };
-            } else if (item.type === 'subcategory') {
-              return {
-                name: "productSubCats.index"
-              };
-            } else if (item.type === 'category') {
-              return {
-                name: "productCats.index"
-              };
-            }
-            return null;
-          },
-          edit: function edit(item) {
-            if (item.type === 'product') {
-              return {
-                name: "products.edit",
-                params: {
-                  slug: item.slug
-                }
-              };
-            } else if (item.type === 'subcategory') {
-              return {
-                name: "productSubCats.edit",
-                params: {
-                  slug: item.slug
-                }
-              };
-            } else if (item.type === 'category') {
-              return {
-                name: "productCats.edit",
-                params: {
-                  slug: item.slug
-                }
-              };
-            }
-            return null;
-          },
-          createChild: function createChild(item) {
-            if (item.type === 'category') {
-              return {
-                name: "productSubCats.create",
-                query: {
-                  category_id: item.original_id
-                }
-              };
-            } else if (item.type === 'subcategory') {
-              return {
-                name: "products.create",
-                query: {
-                  sub_category_id: item.original_id
-                }
-              };
-            }
-            return null;
-          }
-        },
-        api: {
-          list: "/api/products/tree",
-          search: "/api/products/tree",
-          searchParam: "search",
-          defaultParams: function defaultParams() {
-            return {};
-          },
-          "delete": function _delete(item) {
-            if (item.type === 'product') {
-              return "/api/products/".concat(item.slug);
-            } else if (item.type === 'subcategory') {
-              return "/api/product-sub-categories/".concat(item.slug);
-            } else if (item.type === 'category') {
-              return "/api/product-categories/".concat(item.slug);
-            }
-            return null;
-          }
-        },
-        fields: {
-          id: "id",
-          parentId: "parent_id",
-          childrenCount: "children_count"
-        },
-        displayNameResolver: function displayNameResolver(item, _ref) {
-          var locale = _ref.locale;
-          if (!item) {
-            return "";
-          }
-          return item.name || "";
-        },
-        canDelete: function canDelete(item) {
-          // Can delete products, subcategories, and categories
-          return true;
-        },
-        canAddChild: function canAddChild(item) {
-          // Can add subcategory to category, and product to subcategory
-          return item.type === 'category' || item.type === 'subcategory';
-        },
-        features: {
-          dragAndDrop: false,
-          showStatusBadge: true
-        },
-        messages: {
-          entityLabel: this.$t("Item"),
-          loadError: this.$t("Failed to load items"),
-          searchError: this.$t("Failed to search items"),
-          deleteError: this.$t("Sorry you can't remove this item!")
-        }
-      };
-    }
-  }
-});
-;// ./resources/js/pages/inventory/items-directory/index.vue?vue&type=script&lang=js
- /* harmony default export */ const inventory_items_directoryvue_type_script_lang_js = (items_directoryvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/pages/inventory/items-directory/index.vue
-
-
-
-
-
-/* normalize component */
-;
-var component = (0,componentNormalizer/* default */.A)(
-  inventory_items_directoryvue_type_script_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* harmony default export */ const items_directory = (component.exports);
-
-/***/ }),
-
-/***/ 82898:
+/***/ 1606:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 
@@ -259,7 +10,7 @@ __webpack_require__.d(__webpack_exports__, {
   A: () => (/* binding */ EntityTreePage)
 });
 
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/EntityTreePage.vue?vue&type=template&id=2e77ddb2&scoped=true
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/EntityTreePage.vue?vue&type=template&id=03da30a2&scoped=true
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -311,13 +62,19 @@ var render = function render() {
   }, [_c('i', {
     staticClass: "fas fa-list"
   })]) : _vm._e(), _vm._v(" "), _vm.hasPermission('create') && _vm.resolveRoute('create') ? _c('router-link', {
+    directives: [{
+      name: "tooltip",
+      rawName: "v-tooltip",
+      value: _vm.selectedItem ? _vm.$t('Add Sub Account to') + ' ' + _vm.resolveDisplayName(_vm.selectedItem) : _vm.$t('Create New Account'),
+      expression: "selectedItem ? $t('Add Sub Account to') + ' ' + resolveDisplayName(selectedItem) : $t('Create New Account')"
+    }],
     staticClass: "btn btn-primary",
     attrs: {
-      "to": _vm.resolveRoute('create')
+      "to": _vm.createRoute
     }
   }, [_c('i', {
-    staticClass: "fas fa-plus-circle"
-  }), _vm._v(" " + _vm._s(_vm.$t('Create')) + "\n            ")]) : _vm._e()], 1)])])])]), _vm._v(" "), _c('div', {
+    "class": _vm.selectedItem ? 'fas fa-plus' : 'fas fa-plus-circle'
+  }), _vm._v(" " + _vm._s(_vm.createButtonLabel) + "\n            ")]) : _vm._e()], 1)])])])]), _vm._v(" "), _c('div', {
     staticClass: "tree-page-container position-relative"
   }, [_c('table-loading', {
     directives: [{
@@ -348,7 +105,10 @@ var render = function render() {
       "drag-over": _vm.handleDragOver,
       "drag-leave": _vm.handleDragLeave,
       "drop": _vm.handleDrop,
-      "drag-end": _vm.handleDragEnd
+      "drag-end": _vm.handleDragEnd,
+      "select-account": function selectAccount(item) {
+        return _vm.selectedItem = item;
+      }
     },
     scopedSlots: _vm._u([_vm.$scopedSlots.badges ? {
       key: "badges",
@@ -1022,7 +782,8 @@ function EntityTreePagevue_type_script_lang_js_toPrimitive(t, r) { if ("object" 
       currentLocale: null,
       draggedItemId: null,
       draggedItem: null,
-      dragOverItemId: null
+      dragOverItemId: null,
+      selectedItem: null
     };
   },
   computed: _objectSpread(_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["loading", "appInfo"])), {}, {
@@ -1057,6 +818,15 @@ function EntityTreePagevue_type_script_lang_js_toPrimitive(t, r) { if ("object" 
     storeLocale: function storeLocale() {
       var _this$$store;
       return (_this$$store = this.$store) === null || _this$$store === void 0 || (_this$$store = _this$$store.getters) === null || _this$$store === void 0 ? void 0 : _this$$store["lang/locale"];
+    },
+    createRoute: function createRoute() {
+      if (this.selectedItem) {
+        return this.resolveRoute('createChild', this.selectedItem) || this.resolveRoute('create');
+      }
+      return this.resolveRoute('create');
+    },
+    createButtonLabel: function createButtonLabel() {
+      return this.selectedItem ? this.$t('Add Sub Account') : this.$t('Create');
     }
   }),
   watch: {
@@ -1415,6 +1185,7 @@ function EntityTreePagevue_type_script_lang_js_toPrimitive(t, r) { if ("object" 
     refreshTree: function refreshTree() {
       this.query = "";
       this.expandedNodes.clear();
+      this.selectedItem = null;
       this.getData();
     },
     resetPagination: function resetPagination() {
@@ -1702,23 +1473,23 @@ function EntityTreePagevue_type_script_lang_js_toPrimitive(t, r) { if ("object" 
 });
 ;// ./resources/js/components/EntityTreePage.vue?vue&type=script&lang=js
  /* harmony default export */ const components_EntityTreePagevue_type_script_lang_js = (EntityTreePagevue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/EntityTreePage.vue?vue&type=style&index=0&id=2e77ddb2&prod&scoped=true&lang=css
-var EntityTreePagevue_type_style_index_0_id_2e77ddb2_prod_scoped_true_lang_css = __webpack_require__(57315);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/EntityTreePage.vue?vue&type=style&index=0&id=2e77ddb2&prod&scoped=true&lang=css
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/EntityTreePage.vue?vue&type=style&index=0&id=03da30a2&prod&scoped=true&lang=css
+var EntityTreePagevue_type_style_index_0_id_03da30a2_prod_scoped_true_lang_css = __webpack_require__(42136);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/EntityTreePage.vue?vue&type=style&index=0&id=03da30a2&prod&scoped=true&lang=css
 
             
 
-var EntityTreePagevue_type_style_index_0_id_2e77ddb2_prod_scoped_true_lang_css_options = {};
+var EntityTreePagevue_type_style_index_0_id_03da30a2_prod_scoped_true_lang_css_options = {};
 
-EntityTreePagevue_type_style_index_0_id_2e77ddb2_prod_scoped_true_lang_css_options.insert = "head";
-EntityTreePagevue_type_style_index_0_id_2e77ddb2_prod_scoped_true_lang_css_options.singleton = false;
+EntityTreePagevue_type_style_index_0_id_03da30a2_prod_scoped_true_lang_css_options.insert = "head";
+EntityTreePagevue_type_style_index_0_id_03da30a2_prod_scoped_true_lang_css_options.singleton = false;
 
-var EntityTreePagevue_type_style_index_0_id_2e77ddb2_prod_scoped_true_lang_css_update = injectStylesIntoStyleTag_default()(EntityTreePagevue_type_style_index_0_id_2e77ddb2_prod_scoped_true_lang_css/* default */.A, EntityTreePagevue_type_style_index_0_id_2e77ddb2_prod_scoped_true_lang_css_options);
+var EntityTreePagevue_type_style_index_0_id_03da30a2_prod_scoped_true_lang_css_update = injectStylesIntoStyleTag_default()(EntityTreePagevue_type_style_index_0_id_03da30a2_prod_scoped_true_lang_css/* default */.A, EntityTreePagevue_type_style_index_0_id_03da30a2_prod_scoped_true_lang_css_options);
 
 
 
-/* harmony default export */ const components_EntityTreePagevue_type_style_index_0_id_2e77ddb2_prod_scoped_true_lang_css = (EntityTreePagevue_type_style_index_0_id_2e77ddb2_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/components/EntityTreePage.vue?vue&type=style&index=0&id=2e77ddb2&prod&scoped=true&lang=css
+/* harmony default export */ const components_EntityTreePagevue_type_style_index_0_id_03da30a2_prod_scoped_true_lang_css = (EntityTreePagevue_type_style_index_0_id_03da30a2_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/components/EntityTreePage.vue?vue&type=style&index=0&id=03da30a2&prod&scoped=true&lang=css
 
 ;// ./resources/js/components/EntityTreePage.vue
 
@@ -1735,12 +1506,261 @@ var EntityTreePage_component = (0,componentNormalizer/* default */.A)(
   staticRenderFns,
   false,
   null,
-  "2e77ddb2",
+  "03da30a2",
   null
   
 )
 
 /* harmony default export */ const EntityTreePage = (EntityTreePage_component.exports);
+
+/***/ }),
+
+/***/ 10716:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".tree-split-layout[data-v-64271d69]{background:#fff;border:1px solid #e9ecef;border-radius:8px;display:grid;gap:0;grid-template-columns:3fr 2fr;height:calc(100vh - 200px);max-height:calc(100vh - 200px);min-height:600px;overflow:hidden}[dir=rtl] .tree-split-layout[data-v-64271d69]{grid-template-columns:2fr 3fr}.tree-panel[data-v-64271d69]{background:#fff;border-right:1px solid #e9ecef;display:flex;flex-direction:column;height:100%;min-height:0;overflow:hidden}[dir=rtl] .tree-panel[data-v-64271d69]{border-left:1px solid #e9ecef;border-right:none}.details-panel[data-v-64271d69]{background:#f8f9fa;overflow-x:hidden;overflow-y:auto;transition:all .3s ease}.tree-search-wrapper[data-v-64271d69]{background:#fff;border-bottom:1px solid #f0f0f0;flex-shrink:0;padding:16px 20px}.tree-search-wrapper[data-v-64271d69] .search-area{position:relative}.tree-search-wrapper[data-v-64271d69] .search-input{background:#f8f9fa;border:1px solid #e9ecef;border-radius:8px;color:#1a1a1a;font-size:14px;padding:10px 40px;transition:all .2s ease;width:100%}.tree-search-wrapper[data-v-64271d69] .search-input:focus{background:#fff;border-color:#2ab930;box-shadow:0 0 0 3px rgba(42,185,48,.1);outline:none}.tree-search-wrapper[data-v-64271d69] .search-input::-moz-placeholder{color:#adb5bd}.tree-search-wrapper[data-v-64271d69] .search-input::placeholder{color:#adb5bd}.tree-search-wrapper[data-v-64271d69] .search-icon{color:#6c757d}.tree-body-container[data-v-64271d69]{background:#fff;flex:1;height:0;max-height:100%;min-height:0;overflow-x:visible;overflow-y:auto;padding:8px 0;position:relative}.tree-view-list[data-v-64271d69]{list-style:none;margin:0;padding:0}.tree-item[data-v-64271d69],.tree-view-list[data-v-64271d69]{overflow:visible;position:relative}.tree-item[data-v-64271d69]{transition:all .2s ease}.tree-item-dragging[data-v-64271d69]{opacity:.5}.tree-item-drag-over .tree-item-content[data-v-64271d69]{background-color:#e3f2fd!important;border:1px dashed #2ab930;box-shadow:0 2px 8px rgba(42,185,48,.15)}.tree-item-selected .tree-item-content[data-v-64271d69]{background-color:#e8f5e9!important;border-left:3px solid #2ab930}[dir=rtl] .tree-item-selected .tree-item-content[data-v-64271d69]{border-left:none;border-right:3px solid #2ab930}.tree-vertical-line[data-v-64271d69]{bottom:0;top:0;width:1px}.tree-horizontal-line[data-v-64271d69],.tree-vertical-line[data-v-64271d69]{background:#d0d0d0;pointer-events:none;position:absolute;z-index:1}.tree-horizontal-line[data-v-64271d69]{height:1px;top:50%}.tree-item-content[data-v-64271d69]{align-items:flex-start;background:#fff;border:none;border-radius:6px;cursor:pointer;display:flex;gap:6px;margin:2px 8px;min-height:52px;padding:12px 16px;position:relative;transition:all .15s cubic-bezier(.4,0,.2,1);z-index:2}.tree-item-content[data-v-64271d69]:hover{background-color:#f8f9fa;transform:translateX(2px)}[dir=rtl] .tree-item-content[data-v-64271d69]:hover{transform:translateX(-2px)}.tree-item-expand-icon[data-v-64271d69]{align-items:center;border-radius:4px;color:#6c757d;cursor:pointer;display:flex;flex-shrink:0;height:18px;justify-content:center;margin-top:2px;transition:all .15s ease;width:18px}.tree-item-expand-icon[data-v-64271d69]:hover{background-color:#e9ecef;color:#2ab930}.tree-item-expand-icon i[data-v-64271d69]{font-size:11px}.tree-item-expand-placeholder[data-v-64271d69]{cursor:default}.tree-item-expand-placeholder[data-v-64271d69]:hover{background-color:transparent}.tree-item-icon-container[data-v-64271d69]{align-items:center;border-radius:4px;display:flex;flex-shrink:0;height:20px;justify-content:center;margin-top:2px;transition:all .15s ease;width:20px}.tree-item-icon-container .fa-folder[data-v-64271d69]{color:#ffb300;font-size:16px}.tree-item-icon-container .fa-folder-open[data-v-64271d69]{color:#ff8f00;font-size:16px}.tree-item-icon-container .fa-file-invoice[data-v-64271d69]{color:#2ab930;font-size:14px}.tree-item-info[data-v-64271d69]{align-items:flex-start;display:flex;flex:1 1 auto;flex-direction:column;gap:4px;margin-right:8px;max-width:100%;min-width:0}[dir=rtl] .tree-item-info[data-v-64271d69]{margin-left:8px;margin-right:0}.tree-item-name[data-v-64271d69]{color:#1a1a1a;font-size:14px;font-weight:500;letter-spacing:-.01em;line-height:1.5;min-width:150px;overflow-wrap:break-word;white-space:normal;width:100%}.tree-item-code[data-v-64271d69]{background:#f3f4f6;border-radius:4px;color:#6b7280;flex-shrink:0;font-family:Courier New,monospace;font-size:12px;font-weight:400;padding:2px 8px;white-space:nowrap}.tree-item-actions[data-v-64271d69]{align-items:center;background:#fff;border-radius:6px;box-shadow:0 1px 3px rgba(0,0,0,.1);display:flex;flex-shrink:0;gap:2px;margin-left:auto;opacity:0;overflow:hidden;padding:2px;transition:opacity .2s ease}[dir=rtl] .tree-item-actions[data-v-64271d69]{margin-left:0;margin-right:auto}.tree-item:hover .tree-item-actions[data-v-64271d69]{opacity:1}.tree-item-actions[data-v-64271d69] .tree-action-btn{align-items:center;background:transparent;border:none;border-radius:4px;color:#666;cursor:pointer;display:flex;font-size:13px;height:28px;justify-content:center;position:relative;text-decoration:none;transition:all .15s ease;width:28px}.tree-item-actions[data-v-64271d69] .tree-action-btn:hover{background:#f5f5f5;color:#1a1a1a}.tree-item-actions[data-v-64271d69] .tree-action-btn:active{transform:scale(.95)}.tree-item-actions[data-v-64271d69] .tree-action-btn.disabled{cursor:not-allowed;opacity:.4;pointer-events:none}.tree-item-actions[data-v-64271d69] .tree-action-view{color:#2196f3}.tree-item-actions[data-v-64271d69] .tree-action-view:hover{background:#e3f2fd;color:#1976d2}.tree-item-actions[data-v-64271d69] .tree-action-edit{color:#ff9800}.tree-item-actions[data-v-64271d69] .tree-action-edit:hover{background:#fff3e0;color:#f57c00}.tree-item-actions[data-v-64271d69] .tree-action-add{color:#2ab930}.tree-item-actions[data-v-64271d69] .tree-action-add:hover{background:#e8f5e9;color:#1b5e20}.tree-item-actions[data-v-64271d69] .tree-action-add-main{color:#2ab930}.tree-item-actions[data-v-64271d69] .tree-action-add-main:hover{background:#e8f5e9;color:#1b5e20}.tree-item-actions[data-v-64271d69] .tree-action-delete{color:#f44336}.tree-item-actions[data-v-64271d69] .tree-action-delete:hover{background:#ffebee;color:#c62828}.details-panel[data-v-64271d69]{padding:20px}.details-empty[data-v-64271d69]{align-items:center;color:#9ca3af;display:flex;flex-direction:column;height:100%;justify-content:center;padding:40px 20px}.details-empty-icon[data-v-64271d69]{font-size:48px;margin-bottom:16px;opacity:.5}.details-empty-text[data-v-64271d69]{font-size:14px;margin:0;text-align:center}.account-details-card[data-v-64271d69]{animation:slideIn-64271d69 .3s ease-out;background:#fff;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.08);overflow:hidden}@keyframes slideIn-64271d69{0%{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}.details-header[data-v-64271d69]{align-items:center;background:#f8f9fa;border-bottom:1px solid #e9ecef;display:flex;justify-content:space-between;padding:16px 20px}.details-title[data-v-64271d69]{color:#1a1a1a;font-size:16px;font-weight:600;margin:0}.details-close-btn[data-v-64271d69]{align-items:center;background:transparent;border:none;border-radius:4px;color:#6c757d;cursor:pointer;display:flex;height:32px;justify-content:center;transition:all .15s ease;width:32px}.details-close-btn[data-v-64271d69]:hover{background:#e9ecef;color:#1a1a1a}.details-body[data-v-64271d69]{padding:20px}.detail-item[data-v-64271d69]{margin-bottom:16px}.detail-item[data-v-64271d69]:last-child{margin-bottom:0}.detail-label[data-v-64271d69]{color:#6c757d;display:block;font-size:12px;font-weight:600;letter-spacing:.5px;margin-bottom:6px;text-transform:uppercase}.detail-value[data-v-64271d69]{word-wrap:break-word;color:#1a1a1a;font-size:14px;font-weight:500}.detail-code[data-v-64271d69]{background:#f3f4f6;border-radius:4px;color:#2ab930;font-family:Courier New,monospace;padding:6px 10px}.detail-code[data-v-64271d69],.status-badge[data-v-64271d69]{display:inline-block;font-weight:600}.status-badge[data-v-64271d69]{border-radius:12px;font-size:12px;letter-spacing:.5px;padding:4px 12px;text-transform:uppercase}.status-active[data-v-64271d69]{background:#e8f5e9;border:1px solid #c8e6c9;color:#2ab930}.status-inactive[data-v-64271d69]{background:#ffebee;border:1px solid #ffcdd2;color:#f44336}.balance-section[data-v-64271d69]{border-top:2px solid #e9ecef;margin-top:24px;padding-top:20px}.balance-section-header[data-v-64271d69]{margin-bottom:16px}.balance-section-title[data-v-64271d69]{align-items:center;color:#495057;display:flex;font-size:14px;font-weight:600;gap:8px;margin:0}.balance-section-title i[data-v-64271d69]{color:#2ab930;font-size:16px}.balance-details[data-v-64271d69]{display:flex;flex-direction:column;gap:12px}.balance-detail-row[data-v-64271d69]{align-items:center;display:flex;justify-content:space-between;padding:8px 0}.balance-detail-label[data-v-64271d69]{color:#6c757d;font-size:12px;font-weight:500}.balance-detail-value[data-v-64271d69]{font-family:Monaco,Menlo,Ubuntu Mono,monospace;font-size:13px;font-weight:600}.balance-debit-value[data-v-64271d69]{color:#28a745}.balance-credit-value[data-v-64271d69]{color:#dc3545}.balance-divider[data-v-64271d69]{background:#e9ecef;height:1px;margin:4px 0}.balance-total-row[data-v-64271d69]{background:#f8f9fa;border-top:2px solid #e9ecef;font-weight:600;margin:0 -20px;padding:12px 20px}.balance-total-value[data-v-64271d69]{font-size:14px}.balance-debit-total[data-v-64271d69]{color:#28a745}.balance-credit-total[data-v-64271d69]{color:#dc3545}.balance-loading[data-v-64271d69]{align-items:center;color:#6c757d;display:flex;font-size:14px;gap:8px;justify-content:center;padding:20px}.balance-loading i[data-v-64271d69]{font-size:16px}@media (max-width:1024px){.tree-split-layout[data-v-64271d69]{grid-template-columns:3fr 2fr}[dir=rtl] .tree-split-layout[data-v-64271d69]{grid-template-columns:2fr 3fr}}@media (max-width:768px){.tree-split-layout[data-v-64271d69]{grid-template-rows:1fr auto}.tree-split-layout[data-v-64271d69],[dir=rtl] .tree-split-layout[data-v-64271d69]{grid-template-columns:1fr}.tree-panel[data-v-64271d69]{border-bottom:1px solid #e9ecef;border-right:none}[dir=rtl] .tree-panel[data-v-64271d69]{border-bottom:1px solid #e9ecef;border-left:none}.details-panel[data-v-64271d69]{max-height:300px}.tree-item-actions[data-v-64271d69]{opacity:1}.tree-body-container[data-v-64271d69]{max-height:calc(100vh - 400px)}}.details-panel[data-v-64271d69]::-webkit-scrollbar,.tree-body-container[data-v-64271d69]::-webkit-scrollbar{width:6px}.details-panel[data-v-64271d69]::-webkit-scrollbar-track,.tree-body-container[data-v-64271d69]::-webkit-scrollbar-track{background:#fafafa;border-radius:3px}.details-panel[data-v-64271d69]::-webkit-scrollbar-thumb,.tree-body-container[data-v-64271d69]::-webkit-scrollbar-thumb{background:#d0d0d0;border-radius:3px;-webkit-transition:background .2s ease;transition:background .2s ease}.details-panel[data-v-64271d69]::-webkit-scrollbar-thumb:hover,.tree-body-container[data-v-64271d69]::-webkit-scrollbar-thumb:hover{background:#b0b0b0}.tree-item[draggable=true] .tree-item-content[data-v-64271d69]{cursor:grab}.tree-item[draggable=true] .tree-item-content[data-v-64271d69]:active{cursor:grabbing}@keyframes fadeIn-64271d69{0%{opacity:0}to{opacity:1}}.tree-item[data-v-64271d69]{animation:fadeIn-64271d69 .2s ease-out}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 42136:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".refresh-btn[data-v-03da30a2]{background:#33a0d91a!important;color:#33a0d9!important}.refresh-btn[data-v-03da30a2],.tree-btn[data-v-03da30a2]{border:none;border-radius:10px;height:44px;padding:10px 16px;width:56px}.tree-btn[data-v-03da30a2]{background:#f6fef4!important;color:#2ab930!important}.btn-primary[data-v-03da30a2]{background:#2ab930!important;border:none!important;color:#fff!important;padding:10px 20px!important}.btn-group.c-w-100[data-v-03da30a2]{gap:10px}.tree-page-container[data-v-03da30a2]{background:#fff;border:1px solid #e9ecef;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.08);overflow:hidden}.tree-badge[data-v-03da30a2]{border-radius:12px;font-size:11px;font-weight:500;line-height:1.2;padding:4px 10px;white-space:nowrap}.tree-badge-active[data-v-03da30a2]{background:#f6fef4;border:1px solid #e8f5e9;color:#2ab930}.tree-badge-inactive[data-v-03da30a2]{background:#fef4f4;border:1px solid #ffebee;color:#dc3545}.tree-action-add-main[data-v-03da30a2]{color:#2ab930}.tree-action-add-main[data-v-03da30a2]:hover{background:#e8f5e9;color:#1b5e20}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 76425:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "default": () => (/* binding */ items_directory)
+});
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/inventory/items-directory/index.vue?vue&type=template&id=7e10fba6
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('entity-tree-page', {
+    attrs: {
+      "config": _vm.treeConfig
+    }
+  });
+};
+var staticRenderFns = [];
+
+// EXTERNAL MODULE: ./resources/js/components/EntityTreePage.vue + 11 modules
+var EntityTreePage = __webpack_require__(1606);
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/inventory/items-directory/index.vue?vue&type=script&lang=js
+
+/* harmony default export */ const items_directoryvue_type_script_lang_js = ({
+  components: {
+    EntityTreePage: EntityTreePage/* default */.A
+  },
+  middleware: ["auth", "check-permissions"],
+  metaInfo: function metaInfo() {
+    return {
+      title: this.$t("Items Directory")
+    };
+  },
+  computed: {
+    treeConfig: function treeConfig() {
+      return {
+        title: this.$t("Items Directory"),
+        breadcrumbs: [{
+          name: "Dashboard",
+          url: "home"
+        }, {
+          name: "Inventory Management",
+          url: ""
+        }, {
+          name: "Items Directory",
+          url: ""
+        }],
+        permissions: {
+          list: "product-list",
+          create: "product-create",
+          view: "product-view",
+          edit: "product-edit",
+          "delete": "product-delete"
+        },
+        routes: {
+          list: function list() {
+            return {
+              name: "products.index"
+            };
+          },
+          create: function create() {
+            return {
+              name: "products.create"
+            };
+          },
+          view: function view(item) {
+            if (item.type === 'product') {
+              return {
+                name: "products.show",
+                params: {
+                  slug: item.slug
+                }
+              };
+            } else if (item.type === 'subcategory') {
+              return {
+                name: "productSubCats.index"
+              };
+            } else if (item.type === 'category') {
+              return {
+                name: "productCats.index"
+              };
+            }
+            return null;
+          },
+          edit: function edit(item) {
+            if (item.type === 'product') {
+              return {
+                name: "products.edit",
+                params: {
+                  slug: item.slug
+                }
+              };
+            } else if (item.type === 'subcategory') {
+              return {
+                name: "productSubCats.edit",
+                params: {
+                  slug: item.slug
+                }
+              };
+            } else if (item.type === 'category') {
+              return {
+                name: "productCats.edit",
+                params: {
+                  slug: item.slug
+                }
+              };
+            }
+            return null;
+          },
+          createChild: function createChild(item) {
+            if (item.type === 'category') {
+              return {
+                name: "productSubCats.create",
+                query: {
+                  category_id: item.original_id
+                }
+              };
+            } else if (item.type === 'subcategory') {
+              return {
+                name: "products.create",
+                query: {
+                  sub_category_id: item.original_id
+                }
+              };
+            }
+            return null;
+          }
+        },
+        api: {
+          list: "/api/products/tree",
+          search: "/api/products/tree",
+          searchParam: "search",
+          defaultParams: function defaultParams() {
+            return {};
+          },
+          "delete": function _delete(item) {
+            if (item.type === 'product') {
+              return "/api/products/".concat(item.slug);
+            } else if (item.type === 'subcategory') {
+              return "/api/product-sub-categories/".concat(item.slug);
+            } else if (item.type === 'category') {
+              return "/api/product-categories/".concat(item.slug);
+            }
+            return null;
+          }
+        },
+        fields: {
+          id: "id",
+          parentId: "parent_id",
+          childrenCount: "children_count"
+        },
+        displayNameResolver: function displayNameResolver(item, _ref) {
+          var locale = _ref.locale;
+          if (!item) {
+            return "";
+          }
+          return item.name || "";
+        },
+        canDelete: function canDelete(item) {
+          // Can delete products, subcategories, and categories
+          return true;
+        },
+        canAddChild: function canAddChild(item) {
+          // Can add subcategory to category, and product to subcategory
+          return item.type === 'category' || item.type === 'subcategory';
+        },
+        features: {
+          dragAndDrop: false,
+          showStatusBadge: true
+        },
+        messages: {
+          entityLabel: this.$t("Item"),
+          loadError: this.$t("Failed to load items"),
+          searchError: this.$t("Failed to search items"),
+          deleteError: this.$t("Sorry you can't remove this item!")
+        }
+      };
+    }
+  }
+});
+;// ./resources/js/pages/inventory/items-directory/index.vue?vue&type=script&lang=js
+ /* harmony default export */ const inventory_items_directoryvue_type_script_lang_js = (items_directoryvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(14486);
+;// ./resources/js/pages/inventory/items-directory/index.vue
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,componentNormalizer/* default */.A)(
+  inventory_items_directoryvue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* harmony default export */ const items_directory = (component.exports);
 
 /***/ })
 

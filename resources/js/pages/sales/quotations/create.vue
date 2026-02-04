@@ -1551,15 +1551,18 @@ export default {
       this.calculateItemAmounts(index);
     },
 
-    // Sync discount_type and discount_value to discountType and discount for backend compatibility
+    // Sync discountType and discount to discount_type and discount_value for backend compatibility
+    // Only sync FROM UI (discountType) TO backend format (discount_type), not reverse
+    // This ensures user's discount type selection remains stable
     syncDiscountFields() {
-      // Map discount_type ("fixed"/"percentage") to discountType (0/1)
-      if (this.form.discount_type) {
-        this.form.discountType = this.form.discount_type === 'percentage' ? 1 : 0;
+      // Map discountType (0/1) to discount_type ("fixed"/"percentage") for backend
+      // 0 = Fixed, 1 = Percentage
+      if (this.form.discountType !== null && this.form.discountType !== undefined) {
+        this.form.discount_type = this.form.discountType == 1 ? 'percentage' : 'fixed';
       }
-      // Map discount_value to discount
-      if (this.form.discount_value !== null && this.form.discount_value !== undefined) {
-        this.form.discount = parseFloat(this.form.discount_value) || 0;
+      // Map discount to discount_value for backend
+      if (this.form.discount !== null && this.form.discount !== undefined) {
+        this.form.discount_value = parseFloat(this.form.discount) || 0;
       }
     },
 

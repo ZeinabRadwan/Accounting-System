@@ -282,20 +282,14 @@
                             <span>{{ name }} [{{ code }}]</span>
                           </template>
                         </v-select>
-                        <ProductCreateModal @reloadProducts="getProducts" @productCreated="handleProductCreated">
+                        <ProductCreateModal
+                          @reloadProducts="getProducts"
+                          @productCreated="handleProductCreated"
+                        >
                           <div class="input-group-text create-btn">
                             <i class="fas fa-solid fa-plus-circle"></i>
                           </div>
                         </ProductCreateModal>
-                      </v-select>
-                      <ProductCreateModal
-                        @reloadProducts="getProducts"
-                        @productCreated="handleProductCreated"
-                      >
-                        <div class="input-group-text create-btn">
-                          <i class="fas fa-solid fa-plus-circle"></i>
-                        </div>
-                      </ProductCreateModal>
                     </div>
 
                     <!-- Product Chart of Account Status -->
