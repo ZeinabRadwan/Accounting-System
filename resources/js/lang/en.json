@@ -825,6 +825,7 @@
 "Non Invoice Due": "Non Invoice Due",
 "Invoice Date": "Invoice Date",
 "Invoice No": "Invoice No",
+"Invoice not found. Please check the invoice number.": "Invoice not found. Please check the invoice number.",
 "Invoice Return No": "Invoice Return No",
 "Insufficient Stock": "Insufficient Stock",
 "Invoice Products": "Invoice Products",
