@@ -91967,15 +91967,15 @@ var map = {
 		]
 	],
 	"./cashbook/chart-of-accounts/create": [
-		19033,
+		62616,
 		[
-			9033
+			2616
 		]
 	],
 	"./cashbook/chart-of-accounts/create.vue": [
-		19033,
+		62616,
 		[
-			9033
+			2616
 		]
 	],
 	"./cashbook/chart-of-accounts/edit": [
@@ -94847,15 +94847,15 @@ var map = {
 		]
 	],
 	"./reports/account-statement": [
-		44079,
+		34239,
 		[
-			4079
+			4239
 		]
 	],
 	"./reports/account-statement.vue": [
-		44079,
+		34239,
 		[
-			4079
+			4239
 		]
 	],
 	"./reports/analytical-account-dashboard": [
@@ -94883,15 +94883,15 @@ var map = {
 		]
 	],
 	"./reports/balance-sheet": [
-		82315,
+		94886,
 		[
-			2315
+			4886
 		]
 	],
 	"./reports/balance-sheet.vue": [
-		82315,
+		94886,
 		[
-			2315
+			4886
 		]
 	],
 	"./reports/cash-flow-analysis": [
@@ -94943,15 +94943,15 @@ var map = {
 		]
 	],
 	"./reports/group-account-statement": [
-		23050,
+		75782,
 		[
-			3050
+			5782
 		]
 	],
 	"./reports/group-account-statement.vue": [
-		23050,
+		75782,
 		[
-			3050
+			5782
 		]
 	],
 	"./reports/inventory": [
@@ -95075,15 +95075,15 @@ var map = {
 		]
 	],
 	"./reports/trial-balance": [
-		75217,
+		12697,
 		[
-			5217
+			2697
 		]
 	],
 	"./reports/trial-balance.vue": [
-		75217,
+		12697,
 		[
-			5217
+			2697
 		]
 	],
 	"./reports/vat-report": [
@@ -95159,15 +95159,15 @@ var map = {
 		]
 	],
 	"./sales/invoices/create": [
-		10285,
+		50552,
 		[
-			285
+			552
 		]
 	],
 	"./sales/invoices/create.vue": [
-		10285,
+		50552,
 		[
-			285
+			552
 		]
 	],
 	"./sales/invoices/edit": [
@@ -95231,15 +95231,15 @@ var map = {
 		]
 	],
 	"./sales/quotations/create": [
-		43866,
+		21119,
 		[
-			3866
+			1119
 		]
 	],
 	"./sales/quotations/create.vue": [
-		43866,
+		21119,
 		[
-			3866
+			1119
 		]
 	],
 	"./sales/quotations/edit": [

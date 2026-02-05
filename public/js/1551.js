@@ -1,7 +1,7 @@
 "use strict";
 (self["webpackChunk"] = self["webpackChunk"] || []).push([[1551],{
 
-/***/ 58735
+/***/ 48004
 (module, __webpack_exports__, __webpack_require__) {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -13,7 +13,7 @@
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".refresh-btn[data-v-2e77ddb2]{background:#33a0d91a!important;color:#33a0d9!important}.refresh-btn[data-v-2e77ddb2],.tree-btn[data-v-2e77ddb2]{border:none;border-radius:10px;height:44px;padding:10px 16px;width:56px}.tree-btn[data-v-2e77ddb2]{background:#f6fef4!important;color:#2ab930!important}.btn-primary[data-v-2e77ddb2]{background:#2ab930!important;border:none!important;color:#fff!important;padding:10px 20px!important}.btn-group.c-w-100[data-v-2e77ddb2]{gap:10px}.tree-page-container[data-v-2e77ddb2]{background:#fff;border:1px solid #e9ecef;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.08);overflow:hidden}.tree-badge[data-v-2e77ddb2]{border-radius:12px;font-size:11px;font-weight:500;line-height:1.2;padding:4px 10px;white-space:nowrap}.tree-badge-active[data-v-2e77ddb2]{background:#f6fef4;border:1px solid #e8f5e9;color:#2ab930}.tree-badge-inactive[data-v-2e77ddb2]{background:#fef4f4;border:1px solid #ffebee;color:#dc3545}.tree-action-add-main[data-v-2e77ddb2]{color:#2ab930}.tree-action-add-main[data-v-2e77ddb2]:hover{background:#e8f5e9;color:#1b5e20}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".refresh-btn[data-v-03da30a2]{background:#33a0d91a!important;color:#33a0d9!important}.refresh-btn[data-v-03da30a2],.tree-btn[data-v-03da30a2]{border:none;border-radius:10px;height:44px;padding:10px 16px;width:56px}.tree-btn[data-v-03da30a2]{background:#f6fef4!important;color:#2ab930!important}.btn-primary[data-v-03da30a2]{background:#2ab930!important;border:none!important;color:#fff!important;padding:10px 20px!important}.btn-group.c-w-100[data-v-03da30a2]{gap:10px}.tree-page-container[data-v-03da30a2]{background:#fff;border:1px solid #e9ecef;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.08);overflow:hidden}.tree-badge[data-v-03da30a2]{border-radius:12px;font-size:11px;font-weight:500;line-height:1.2;padding:4px 10px;white-space:nowrap}.tree-badge-active[data-v-03da30a2]{background:#f6fef4;border:1px solid #e8f5e9;color:#2ab930}.tree-badge-inactive[data-v-03da30a2]{background:#fef4f4;border:1px solid #ffebee;color:#dc3545}.tree-action-add-main[data-v-03da30a2]{color:#2ab930}.tree-action-add-main[data-v-03da30a2]:hover{background:#e8f5e9;color:#1b5e20}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -39,7 +39,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, ".tree-split-layout[data-v-64271d69]{ba
 
 /***/ },
 
-/***/ 55851
+/***/ 25730
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 
@@ -48,7 +48,7 @@ __webpack_require__.d(__webpack_exports__, {
   A: () => (/* binding */ EntityTreePage)
 });
 
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/EntityTreePage.vue?vue&type=template&id=2e77ddb2&scoped=true
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/EntityTreePage.vue?vue&type=template&id=03da30a2&scoped=true
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -100,13 +100,19 @@ var render = function render() {
   }, [_c('i', {
     staticClass: "fas fa-list"
   })]) : _vm._e(), _vm._v(" "), _vm.hasPermission('create') && _vm.resolveRoute('create') ? _c('router-link', {
+    directives: [{
+      name: "tooltip",
+      rawName: "v-tooltip",
+      value: _vm.selectedItem ? _vm.$t('Add Sub Account to') + ' ' + _vm.resolveDisplayName(_vm.selectedItem) : _vm.$t('Create New Account'),
+      expression: "selectedItem ? $t('Add Sub Account to') + ' ' + resolveDisplayName(selectedItem) : $t('Create New Account')"
+    }],
     staticClass: "btn btn-primary",
     attrs: {
-      "to": _vm.resolveRoute('create')
+      "to": _vm.createRoute
     }
   }, [_c('i', {
-    staticClass: "fas fa-plus-circle"
-  }), _vm._v(" " + _vm._s(_vm.$t('Create')) + "\n            ")]) : _vm._e()], 1)])])])]), _vm._v(" "), _c('div', {
+    "class": _vm.selectedItem ? 'fas fa-plus' : 'fas fa-plus-circle'
+  }), _vm._v(" " + _vm._s(_vm.createButtonLabel) + "\n            ")]) : _vm._e()], 1)])])])]), _vm._v(" "), _c('div', {
     staticClass: "tree-page-container position-relative"
   }, [_c('table-loading', {
     directives: [{
@@ -137,7 +143,10 @@ var render = function render() {
       "drag-over": _vm.handleDragOver,
       "drag-leave": _vm.handleDragLeave,
       "drop": _vm.handleDrop,
-      "drag-end": _vm.handleDragEnd
+      "drag-end": _vm.handleDragEnd,
+      "select-account": function selectAccount(item) {
+        return _vm.selectedItem = item;
+      }
     },
     scopedSlots: _vm._u([_vm.$scopedSlots.badges ? {
       key: "badges",
@@ -811,7 +820,8 @@ function EntityTreePagevue_type_script_lang_js_toPrimitive(t, r) { if ("object" 
       currentLocale: null,
       draggedItemId: null,
       draggedItem: null,
-      dragOverItemId: null
+      dragOverItemId: null,
+      selectedItem: null
     };
   },
   computed: _objectSpread(_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["loading", "appInfo"])), {}, {
@@ -846,6 +856,15 @@ function EntityTreePagevue_type_script_lang_js_toPrimitive(t, r) { if ("object" 
     storeLocale: function storeLocale() {
       var _this$$store;
       return (_this$$store = this.$store) === null || _this$$store === void 0 || (_this$$store = _this$$store.getters) === null || _this$$store === void 0 ? void 0 : _this$$store["lang/locale"];
+    },
+    createRoute: function createRoute() {
+      if (this.selectedItem) {
+        return this.resolveRoute('createChild', this.selectedItem) || this.resolveRoute('create');
+      }
+      return this.resolveRoute('create');
+    },
+    createButtonLabel: function createButtonLabel() {
+      return this.selectedItem ? this.$t('Add Sub Account') : this.$t('Create');
     }
   }),
   watch: {
@@ -1200,6 +1219,7 @@ function EntityTreePagevue_type_script_lang_js_toPrimitive(t, r) { if ("object" 
     refreshTree: function refreshTree() {
       this.query = "";
       this.expandedNodes.clear();
+      this.selectedItem = null;
       this.getData();
     },
     resetPagination: function resetPagination() {
@@ -1479,23 +1499,23 @@ function EntityTreePagevue_type_script_lang_js_toPrimitive(t, r) { if ("object" 
 });
 ;// ./resources/js/components/EntityTreePage.vue?vue&type=script&lang=js
  /* harmony default export */ const components_EntityTreePagevue_type_script_lang_js = (EntityTreePagevue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/EntityTreePage.vue?vue&type=style&index=0&id=2e77ddb2&prod&scoped=true&lang=css
-var EntityTreePagevue_type_style_index_0_id_2e77ddb2_prod_scoped_true_lang_css = __webpack_require__(58735);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/EntityTreePage.vue?vue&type=style&index=0&id=2e77ddb2&prod&scoped=true&lang=css
+// EXTERNAL MODULE: ./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/EntityTreePage.vue?vue&type=style&index=0&id=03da30a2&prod&scoped=true&lang=css
+var EntityTreePagevue_type_style_index_0_id_03da30a2_prod_scoped_true_lang_css = __webpack_require__(48004);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/EntityTreePage.vue?vue&type=style&index=0&id=03da30a2&prod&scoped=true&lang=css
 
             
 
-var EntityTreePagevue_type_style_index_0_id_2e77ddb2_prod_scoped_true_lang_css_options = {};
+var EntityTreePagevue_type_style_index_0_id_03da30a2_prod_scoped_true_lang_css_options = {};
 
-EntityTreePagevue_type_style_index_0_id_2e77ddb2_prod_scoped_true_lang_css_options.insert = "head";
-EntityTreePagevue_type_style_index_0_id_2e77ddb2_prod_scoped_true_lang_css_options.singleton = false;
+EntityTreePagevue_type_style_index_0_id_03da30a2_prod_scoped_true_lang_css_options.insert = "head";
+EntityTreePagevue_type_style_index_0_id_03da30a2_prod_scoped_true_lang_css_options.singleton = false;
 
-var EntityTreePagevue_type_style_index_0_id_2e77ddb2_prod_scoped_true_lang_css_update = injectStylesIntoStyleTag_default()(EntityTreePagevue_type_style_index_0_id_2e77ddb2_prod_scoped_true_lang_css/* default */.A, EntityTreePagevue_type_style_index_0_id_2e77ddb2_prod_scoped_true_lang_css_options);
+var EntityTreePagevue_type_style_index_0_id_03da30a2_prod_scoped_true_lang_css_update = injectStylesIntoStyleTag_default()(EntityTreePagevue_type_style_index_0_id_03da30a2_prod_scoped_true_lang_css/* default */.A, EntityTreePagevue_type_style_index_0_id_03da30a2_prod_scoped_true_lang_css_options);
 
 
 
-/* harmony default export */ const components_EntityTreePagevue_type_style_index_0_id_2e77ddb2_prod_scoped_true_lang_css = (EntityTreePagevue_type_style_index_0_id_2e77ddb2_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/components/EntityTreePage.vue?vue&type=style&index=0&id=2e77ddb2&prod&scoped=true&lang=css
+/* harmony default export */ const components_EntityTreePagevue_type_style_index_0_id_03da30a2_prod_scoped_true_lang_css = (EntityTreePagevue_type_style_index_0_id_03da30a2_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/components/EntityTreePage.vue?vue&type=style&index=0&id=03da30a2&prod&scoped=true&lang=css
 
 ;// ./resources/js/components/EntityTreePage.vue
 
@@ -1512,7 +1532,7 @@ var EntityTreePage_component = (0,componentNormalizer/* default */.A)(
   staticRenderFns,
   false,
   null,
-  "2e77ddb2",
+  "03da30a2",
   null
   
 )
@@ -1545,7 +1565,7 @@ var render = function render() {
 var staticRenderFns = [];
 
 // EXTERNAL MODULE: ./resources/js/components/EntityTreePage.vue + 11 modules
-var EntityTreePage = __webpack_require__(55851);
+var EntityTreePage = __webpack_require__(25730);
 ;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/cost-centers/tree.vue?vue&type=script&lang=js
 
 /* harmony default export */ const treevue_type_script_lang_js = ({
