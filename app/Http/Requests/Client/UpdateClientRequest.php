@@ -93,20 +93,20 @@ class UpdateClientRequest extends BaseRequest
             $rules['city'] = 'required|string|max:100';
             $rules['country'] = 'required|string|size:2';
             $rules['buildingNumber'] = 'required|string|max:5';
-            $rules['streetNumber'] = 'required|string|max:5';
+            // Street name can be longer text, keep required for taxable but with higher max length
+            $rules['streetNumber'] = 'required|string|max:255';
             $rules['districtNumber'] = 'required|string|max:5';
-            $rules['unitNumber'] = 'required|string|max:5';
             $rules['taxRegistrationNumber'] = 'required|string|size:15|regex:/^[0-9]{15}$/';
         } else {
             $rules['commercialRegister'] = 'nullable|string|max:100';
             $rules['buildingNumber'] = 'nullable|string|max:5';
-            $rules['streetNumber'] = 'nullable|string|max:5';
+            $rules['streetNumber'] = 'nullable|string|max:255';
             $rules['districtNumber'] = 'nullable|string|max:5';
-            $rules['unitNumber'] = 'nullable|string|max:5';
             $rules['taxRegistrationNumber'] = 'nullable|string|max:100';
         }
 
-        // Always allow additionalNumber
+        // Always allow unitNumber & additionalNumber (optional even for taxable clients)
+        $rules['unitNumber'] = 'nullable|string|max:5';
         $rules['additionalNumber'] = 'nullable|string|max:5';
 
         return $rules;
@@ -134,7 +134,6 @@ class UpdateClientRequest extends BaseRequest
             'buildingNumber.required' => 'Building Number is required for taxable clients.',
             'streetNumber.required' => 'Street Number is required for taxable clients.',
             'districtNumber.required' => 'District Number is required for taxable clients.',
-            'unitNumber.required' => 'Unit Number is required for taxable clients.',
             'taxRegistrationNumber.required' => 'Tax Registration Number is required for taxable clients.',
             'taxRegistrationNumber.size' => 'Tax Registration Number must be exactly 15 digits.',
             'taxRegistrationNumber.regex' => 'Tax Registration Number must contain only numbers and be 15 digits.',

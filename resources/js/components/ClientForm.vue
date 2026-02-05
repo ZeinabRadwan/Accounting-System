@@ -266,38 +266,26 @@
               <has-error :form="form" field="state" />
             </div>
 
-            <!-- Region and Neighbourhood in Single Row (for Saudi Arabia) -->
+            <!-- Region (for Saudi Arabia) -->
             <template v-if="form.country === 'SA'">
-              <div class="form-row-modern">
-                <div class="form-group form-col-half">
-                  <label for="saudi_region" class="form-label">
-                    {{ $t("Region") }}
-                    <span v-if="form.taxStatus === 'taxable'" class="required-indicator">*</span>
-                  </label>
-                  <v-select v-model="form.saudi_region" :options="saudiRegions" label="name"
-                    :reduce="option => option.id" :placeholder="$t('Select Region')" :searchable="true"
-                    :clearable="false" class="saudi-location-select saudi-location-select-modern"
-                    :class="{ 'is-invalid': form.errors.has('saudi_region'), 'is-valid': form.saudi_region && !form.errors.has('saudi_region') }" 
-                    @input="onSaudiRegionChange">
-                      <template #option="{ name_ar, name_en }">
-                        <div>{{ $i18n.locale === 'ar' ? name_ar : name_en }}</div>
-                      </template>
-                      <template #selected-option="{ name_ar, name_en }">
-                        <div>{{ $i18n.locale === 'ar' ? name_ar : name_en }}</div>
-                      </template>
-                    </v-select>
-                    <has-error :form="form" field="saudi_region" />
-                </div>
-                <div class="form-group form-col-half">
-                  <label for="neighbourhood" class="form-label">
-                    {{ $t("Neighbourhood") }}
-                    <span v-if="form.taxStatus === 'taxable'" class="required-indicator">*</span>
-                  </label>
-                  <input id="neighbourhood" v-model="form.neighbourhood" type="text" class="form-control form-control-modern"
-                    :class="{ 'is-invalid': form.errors.has('neighbourhood'), 'is-valid': form.neighbourhood && !form.errors.has('neighbourhood') }" 
-                    name="neighbourhood" :placeholder="$t('Enter neighbourhood')" />
-                  <has-error :form="form" field="neighbourhood" />
-                </div>
+              <div class="form-group">
+                <label for="saudi_region" class="form-label">
+                  {{ $t("Region") }}
+                  <span v-if="form.taxStatus === 'taxable'" class="required-indicator">*</span>
+                </label>
+                <v-select v-model="form.saudi_region" :options="saudiRegions" label="name"
+                  :reduce="option => option.id" :placeholder="$t('Select Region')" :searchable="true"
+                  :clearable="false" class="saudi-location-select saudi-location-select-modern"
+                  :class="{ 'is-invalid': form.errors.has('saudi_region'), 'is-valid': form.saudi_region && !form.errors.has('saudi_region') }" 
+                  @input="onSaudiRegionChange">
+                    <template #option="{ name_ar, name_en }">
+                      <div>{{ $i18n.locale === 'ar' ? name_ar : name_en }}</div>
+                    </template>
+                    <template #selected-option="{ name_ar, name_en }">
+                      <div>{{ $i18n.locale === 'ar' ? name_ar : name_en }}</div>
+                    </template>
+                  </v-select>
+                  <has-error :form="form" field="saudi_region" />
               </div>
             </template>
 
@@ -334,8 +322,8 @@
               </div>
             </transition>
 
-            <!-- Neighbourhood for non-Saudi countries -->
-            <div v-if="form.country !== 'SA'" class="form-group">
+            <!-- Neighbourhood -->
+            <div class="form-group">
               <label for="neighbourhood" class="form-label">
                 {{ $t("Neighbourhood") }}
                 <span v-if="form.taxStatus === 'taxable'" class="required-indicator">*</span>
@@ -398,13 +386,13 @@
                 </div>
                 <div class="form-group form-col-half">
                   <label for="streetNumber" class="form-label">
-                    {{ $t("Street Number") }}
+                    {{ $t("Street Name") }}
                     <span v-if="form.taxStatus === 'taxable'" class="required-indicator">*</span>
                     <span v-else class="text-muted" style="font-weight: normal; font-size: 12px;">({{ $t("Optional") }})</span>
                   </label>
                   <input id="streetNumber" v-model="form.streetNumber" type="text" class="form-control form-control-modern"
                     :class="{ 'is-invalid': form.errors.has('streetNumber'), 'is-valid': form.streetNumber && !form.errors.has('streetNumber') }" 
-                    name="streetNumber" :placeholder="$t('Enter street number')" maxlength="5" />
+                    name="streetNumber" :placeholder="$t('Enter street name')" />
                   <has-error :form="form" field="streetNumber" />
                 </div>
               </div>
@@ -425,8 +413,7 @@
                 <div class="form-group form-col-half">
                   <label for="unitNumber" class="form-label">
                     {{ $t("Unit Number") }}
-                    <span v-if="form.taxStatus === 'taxable'" class="required-indicator">*</span>
-                    <span v-else class="text-muted" style="font-weight: normal; font-size: 12px;">({{ $t("Optional") }})</span>
+                    <span class="text-muted" style="font-weight: normal; font-size: 12px;">({{ $t("Optional") }})</span>
                   </label>
                   <input id="unitNumber" v-model="form.unitNumber" type="text" class="form-control form-control-modern"
                     :class="{ 'is-invalid': form.errors.has('unitNumber'), 'is-valid': form.unitNumber && !form.errors.has('unitNumber') }" 
@@ -438,8 +425,7 @@
               <div class="form-group">
                 <label for="additionalNumber" class="form-label">
                   {{ $t("Additional Number") }}
-                  <span v-if="form.taxStatus === 'taxable'" class="required-indicator">*</span>
-                  <span v-else class="text-muted" style="font-weight: normal; font-size: 12px;">({{ $t("Optional") }})</span>
+                  <span class="text-muted" style="font-weight: normal; font-size: 12px;">({{ $t("Optional") }})</span>
                 </label>
                 <input id="additionalNumber" v-model="form.additionalNumber" type="text" class="form-control form-control-modern"
                   :class="{ 
@@ -806,6 +792,33 @@ export default {
     ToggleButton,
     RepresentativesList,
     PhoneNumberInput,
+  },
+  watch: {
+    initialData: {
+      handler(newValue) {
+        // Edit modal loads `initialData` asynchronously after mount.
+        // Ensure the form reflects the real stored values (especially `codeNumber`)
+        // instead of keeping the "next code" preview loaded on mount.
+        if (!this.form || !newValue || Object.keys(newValue).length === 0) {
+          return;
+        }
+
+        Object.keys(newValue).forEach((key) => {
+          if (this.$set) {
+            this.$set(this.form, key, newValue[key]);
+          } else {
+            this.form[key] = newValue[key];
+          }
+        });
+
+        // Individual clients are always Non-Taxable
+        if (this.form.type === 'Individual') {
+          this.form.taxStatus = 'non_taxable';
+        }
+      },
+      immediate: false,
+      deep: true,
+    },
   },
   props: {
     // Whether to show the card-body wrapper (for create page) or not (for modal)
@@ -1253,12 +1266,19 @@ export default {
         console.log('Skipping next code number load - editing existing client');
         return;
       }
+      
+      // If codeNumber was already provided (e.g. edit modal data arrived early), don't overwrite it
+      if (this.initialData && this.initialData.codeNumber) {
+        console.log('Skipping next code number load - codeNumber already set');
+        return;
+      }
 
       try {
         console.log('=== LOADING NEXT CODE NUMBER ===');
         console.log('Current form codeNumber before API call:', this.form.codeNumber);
 
-        const response = await axios.get('/clients/next-code');
+        // Use the authenticated tenant API endpoint
+        const response = await axios.get('/api/clients/next-code');
         console.log('Next code API response:', response.data);
 
         // Check if we have formatted_code in the response (successful response)
@@ -1608,7 +1628,7 @@ export default {
       if (this.form.type === 'Company' && this.form.taxStatus === 'taxable' && this.form.country === 'SA') {
         let addressValid = true;
         if (!this.form.streetNumber || this.form.streetNumber.trim() === '') {
-          this.form.errors.set('streetNumber', this.$t('Street number is required (Saudi National Address)'));
+          this.form.errors.set('streetNumber', this.$t('Street name is required (Saudi National Address)'));
           addressValid = false;
         }
         if (!this.form.buildingNumber || this.form.buildingNumber.trim() === '') {

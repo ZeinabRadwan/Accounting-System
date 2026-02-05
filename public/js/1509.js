@@ -1,18 +1,78 @@
 "use strict";
 (self["webpackChunk"] = self["webpackChunk"] || []).push([[1509],{
 
-/***/ 1509:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ 95971
+(module, __webpack_exports__, __webpack_require__) {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76798);
+/* harmony import */ var _laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".mj-daterange-picker{border:1px solid var(--border-color);border-radius:4px;min-width:400px;text-align:left;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;width:var(--default-width)}.mj-daterange-picker *{-webkit-box-sizing:border-box;box-sizing:border-box}.mj-daterange-picker .panels-choices{grid-gap:10px 10px;border-bottom:1px solid var(--border-color);display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;padding:20px}.mj-daterange-picker .panels-choices .panel-button{-webkit-box-align:center;-ms-flex-align:center;-webkit-box-pack:center;-ms-flex-pack:center;align-items:center;background-color:#f2f4f5;border-radius:4px;cursor:pointer;display:-webkit-inline-box;display:-ms-inline-flexbox;display:inline-flex;font-size:12px;font-weight:700;height:32px;justify-content:center;padding:5px 15px}.mj-daterange-picker .panels-choices .panel-button.is-current,.mj-daterange-picker .panels-choices .panel-button:hover{background-color:var(--primary-color);color:#fff}.mj-daterange-picker .preset-ranges{border-bottom:1px solid var(--border-color);display:-webkit-box;display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;padding:20px}.mj-daterange-picker .preset-ranges .preset{cursor:pointer;font-size:13px;height:20px;margin:5px 0;position:relative;width:50%}.mj-daterange-picker .preset-ranges .preset input{height:0;opacity:0;position:absolute;width:0}.mj-daterange-picker .preset-ranges .preset input:checked~label .check{background-color:var(--primary-color)}.mj-daterange-picker .preset-ranges .preset input:checked~label .check:after{background-color:transparent}.mj-daterange-picker .preset-ranges .preset label{-webkit-box-align:center;-ms-flex-align:center;align-items:center;display:-webkit-inline-box;display:-ms-inline-flexbox;display:inline-flex}.mj-daterange-picker .preset-ranges .preset label span+span{margin-left:10px}.mj-daterange-picker .preset-ranges .preset label .check{background-color:var(--secondary-color);border-radius:10px;display:block;height:20px;position:relative;width:20px}.mj-daterange-picker .preset-ranges .preset label .check:after{background-color:#fff;border:3px solid #fff;border-radius:100%;content:\"\";height:10px;left:50%;position:absolute;top:50%;-webkit-transform:translateX(-50%) translateY(-50%);transform:translateX(-50%) translateY(-50%);width:10px}.mj-daterange-picker .preset-ranges .preset *{cursor:pointer}.mj-calendar{background-color:var(--normal-color);color:var(--contrast-color);padding:20px}.mj-calendar .calendar-header{-webkit-box-pack:justify;-ms-flex-pack:justify;-webkit-box-align:center;-ms-flex-align:center;align-items:center;display:-webkit-box;display:-ms-flexbox;display:flex;justify-content:space-between}.mj-calendar .calendar-header .calendar-month-name{-webkit-box-flex:1;color:var(--secondary-color);-ms-flex:1;flex:1;font-size:14px;font-weight:700;text-align:center}.mj-calendar .calendar-header .calendar-arrow{fill:var(--secondary-color);cursor:pointer}.mj-calendar .calendar-months{grid-gap:10px 10px;display:grid;grid-template-columns:1fr 1fr 1fr;margin-top:20px}.mj-calendar .calendar-months .month{-webkit-box-align:center;-ms-flex-align:center;-webkit-box-pack:center;-ms-flex-pack:center;align-items:center;border:1px solid var(--border-color);border-radius:4px;display:-webkit-inline-box;display:-ms-inline-flexbox;display:inline-flex;font-size:13px;height:50px;justify-content:center;padding:10px}.mj-calendar .calendar-months .month:hover{background-color:var(--hover-range-color)}.mj-calendar .calendar-months .month.is-disabled{cursor:not-allowed;opacity:.5;pointer-events:none}.mj-calendar .calendar-months .month.is-selected{background-color:var(--primary-color);color:#fff}.mj-calendar .calendar-months .month:not(.is-disabled){cursor:pointer}.mj-calendar .calendar-quarters{margin-top:20px}.mj-calendar .calendar-quarters .quarter{grid-gap:10px 10px;-webkit-box-align:center;-ms-flex-align:center;align-items:center;display:grid;font-size:13px;grid-template-columns:1fr 3fr;margin:10px 0}.mj-calendar .calendar-quarters .quarter .months{grid-gap:10px 10px;-webkit-box-align:center;-ms-flex-align:center;align-items:center;border:1px solid var(--border-color);border-radius:4px;display:grid;grid-template-columns:1fr 1fr 1fr;height:50px;padding:10px 30px}.mj-calendar .calendar-quarters .quarter .months:hover{background-color:var(--hover-range-color)}.mj-calendar .calendar-quarters .quarter .months .month{text-align:center}.mj-calendar .calendar-quarters .quarter.is-selected .months{background-color:var(--primary-color);color:#fff}.mj-calendar .calendar-quarters .quarter.is-disabled .months{opacity:.5}.mj-calendar .calendar-quarters .quarter.is-disabled{cursor:not-allowed;pointer-events:none}.mj-calendar .calendar-quarters .quarter:not(.is-disabled) .months{cursor:pointer}.mj-calendar .calendar-years .year{-webkit-box-align:center;-ms-flex-align:center;-webkit-box-pack:center;-ms-flex-pack:center;align-items:center;border:1px solid var(--border-color);border-radius:4px;display:-webkit-box;display:-ms-flexbox;display:flex;font-size:13px;height:50px;justify-content:center;margin:10px 0;padding:10px}.mj-calendar .calendar-years .year:hover{background-color:var(--hover-range-color)}.mj-calendar .calendar-years .year.is-selected{background-color:var(--primary-color);color:#fff}.mj-calendar .calendar-years .year.is-disabled{cursor:not-allowed;opacity:.5;pointer-events:none}.mj-calendar .calendar-years .year:not(.is-disabled){cursor:pointer}.mj-calendar .calendar-days,.mj-calendar .calendar-days-name{display:-webkit-box;display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap}.mj-calendar .calendar-days .day,.mj-calendar .calendar-days-name .day{-webkit-box-align:center;-ms-flex-align:center;-webkit-box-pack:center;-ms-flex-pack:center;align-items:center;display:-webkit-inline-box;display:-ms-inline-flexbox;display:inline-flex;justify-content:center;width:14.28571%}.mj-calendar .calendar-days-name .day{color:var(--ternary-color);font-size:11px;height:30px}.mj-calendar .calendar-days .day{border-bottom:2px solid #fff;border-top:2px solid #fff;font-size:13px;height:40px}.mj-calendar .calendar-days .day:not(.is-current-month){color:var(--ternary-color)}.mj-calendar .calendar-days .day.is-disabled{cursor:not-allowed;opacity:.5;pointer-events:none}.mj-calendar .calendar-days .day.is-today span{color:var(--secondary-color);font-weight:700}.mj-calendar .calendar-days .day.is-in-range{background-color:var(--hover-range-color)}.mj-calendar .calendar-days .day.is-first-range{border-bottom-left-radius:4px;border-top-left-radius:4px}.mj-calendar .calendar-days .day.is-last-range{border-bottom-right-radius:4px;border-top-right-radius:4px}.mj-calendar .calendar-days .day.is-edge-range,.mj-calendar .calendar-days .day.is-selected{background-color:var(--primary-color);color:#fff}.mj-calendar .calendar-days .day:not(.is-disabled){cursor:pointer}.mj-calendar.mj-calendar-days .calendar-days .day:not(.is-edge-range):hover{background-color:var(--hover-day-color)}.mj-daterange-picker-controls{-webkit-box-align:center;-ms-flex-align:center;-webkit-box-pack:justify;-ms-flex-pack:justify;align-items:center;border-top:1px solid var(--border-color);display:-webkit-box;display:-ms-flexbox;display:flex;justify-content:space-between;margin-top:10px;padding:20px}.mj-daterange-picker-controls .mj-daterange-picker-button{-webkit-box-align:center;-ms-flex-align:center;-webkit-box-pack:center;-ms-flex-pack:center;align-items:center;border-radius:4px;display:-webkit-inline-box;display:-ms-inline-flexbox;display:inline-flex;font-size:12px;height:36px;justify-content:center;min-width:150px;padding:5px}.mj-daterange-picker-controls .mj-daterange-picker-button:not(.is-disabled){cursor:pointer}.mj-daterange-picker-reset{border:1px solid #e6eaed}.mj-daterange-picker-submit{background-color:var(--primary-color);color:#fff}.mj-daterange-picker-submit.is-disabled{cursor:not-allowed;opacity:.5;pointer-events:none}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ },
+
+/***/ 74586
+(module, __webpack_exports__, __webpack_require__) {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76798);
+/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".refresh-btn[data-v-f0a14bd4]{background:#33a0d91a!important;border:none;border-radius:10px;color:#33a0d9!important;height:44px;padding:10px 16px;width:56px}.export-excel-btn[data-v-f0a14bd4],.export-pdf-btn[data-v-f0a14bd4],.preview-btn[data-v-f0a14bd4]{background:#f6fef4!important;color:#2ab930!important}.export-excel-btn[data-v-f0a14bd4],.export-pdf-btn[data-v-f0a14bd4],.preview-btn[data-v-f0a14bd4],.print-btn[data-v-f0a14bd4]{border:none;border-radius:10px;height:44px;padding:10px 16px;width:56px}.print-btn[data-v-f0a14bd4]{background:#33a0d91a!important;color:#33a0d9!important}.btn-group.c-w-100[data-v-f0a14bd4]{gap:10px}.card[data-v-f0a14bd4]{border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:30px}.card-header[data-v-f0a14bd4]{background-color:#fff;border-bottom:1px solid #ced4da;border-radius:20px 20px 0 0;padding:1.25rem 1.25rem 0}.card-body[data-v-f0a14bd4]{padding:1.25rem}.form-control[data-v-f0a14bd4]{background:#fff!important}@media (max-width:1300px){.info-box[data-v-f0a14bd4]{padding:0}}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ },
+
+/***/ 20466
+(__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) {
+
+/* harmony import */ var _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(85072);
+/* harmony import */ var _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_11_use_1_postcss_loader_dist_cjs_js_clonedRuleSet_11_use_2_vue_mj_daterangepicker_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(95971);
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_11_use_1_postcss_loader_dist_cjs_js_clonedRuleSet_11_use_2_vue_mj_daterangepicker_css__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .A, options);
+
+
+
+/* unused harmony default export */ var __WEBPACK_DEFAULT_EXPORT__ = (_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_11_use_1_postcss_loader_dist_cjs_js_clonedRuleSet_11_use_2_vue_mj_daterangepicker_css__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .A.locals || {});
+
+/***/ },
+
+/***/ 51509
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  "default": () => (/* binding */ create)
+  "default": () => (/* binding */ items)
 });
 
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/cashbook/accounts/create.vue?vue&type=template&id=0f53761f&scoped=true
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/reports/items.vue?vue&type=template&id=f0a14bd4&scoped=true
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -31,1106 +91,680 @@ var render = function render() {
       "items": _vm.breadcrumbs,
       "current": _vm.breadcrumbsCurrent
     }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "col-xl-8 col-8 float-right text-right"
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "card-body position-relative"
   }, [_c('div', {
-    staticClass: "btn-group c-w-100 header-buttons"
-  }, [_c('router-link', {
-    staticClass: "btn btn-info",
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-xl-8 col-8 float-right text-right ml-auto"
+  }, [_c('div', {
+    staticClass: "btn-group c-w-100"
+  }, [_c('a', {
+    directives: [{
+      name: "tooltip",
+      rawName: "v-tooltip",
+      value: _vm.$t('Refresh'),
+      expression: "$t('Refresh')"
+    }],
+    staticClass: "btn btn-success refresh-btn",
     attrs: {
-      "to": {
-        name: 'accounts.index'
-      }
-    }
-  }, [_vm.$i18n.locale === 'ar' || typeof _vm.document !== 'undefined' && _vm.document.documentElement.getAttribute('dir') === 'rtl' ? [_vm._v("\n\n                  " + _vm._s(_vm.$t('Back')) + " "), _c('i', {
-    staticClass: "fas fa-long-arrow-alt-left"
-  })] : [_vm.$i18n.locale === 'ar' || typeof _vm.document !== 'undefined' && _vm.document.documentElement.getAttribute('dir') === 'rtl' ? [_vm._v("\n\n\n                    " + _vm._s(_vm.$t('Back')) + " "), _c('i', {
-    staticClass: "fas fa-long-arrow-alt-left"
-  })] : [_c('i', {
-    staticClass: "fas fa-long-arrow-alt-left"
-  }), _vm._v(" " + _vm._s(_vm.$t('Back')) + "\n\n\n                  ")]]], 2), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-success",
-    attrs: {
-      "type": "submit",
-      "title": _vm.$t('Save Temporarily'),
-      "form": "accountCreateForm"
+      "href": "#"
+    },
+    on: {
+      "click": _vm.refreshTable
     }
   }, [_c('i', {
-    staticClass: "fas fa-save"
-  })])], 1)])], 1), _vm._v(" "), _c('form', {
+    staticClass: "fas fa-sync"
+  })]), _vm._v(" "), _vm.reportGenerated ? _c('a', {
+    directives: [{
+      name: "tooltip",
+      rawName: "v-tooltip",
+      value: _vm.$t('Export to Excel'),
+      expression: "$t('Export to Excel')"
+    }],
+    staticClass: "btn export-excel-btn",
     attrs: {
-      "id": "accountCreateForm",
+      "href": _vm.exportUrl,
+      "title": "Export to Excel"
+    }
+  }, [_c('svg', {
+    attrs: {
+      "width": "18",
+      "height": "19",
+      "viewBox": "0 0 18 19",
+      "fill": "none",
+      "xmlns": "http://www.w3.org/2000/svg"
+    }
+  }, [_c('path', {
+    attrs: {
+      "d": "M11.625 17.5001C11.625 17.699 11.546 17.8898 11.4053 18.0305C11.2647 18.1711 11.0739 18.2501 10.875 18.2501H8.24998C8.05107 18.2501 7.86031 18.1711 7.71966 18.0305C7.579 17.8898 7.49998 17.699 7.49998 17.5001V12.2501C7.49998 12.0512 7.579 11.8604 7.71966 11.7198C7.86031 11.5791 8.05107 11.5001 8.24998 11.5001C8.4489 11.5001 8.63966 11.5791 8.78031 11.7198C8.92097 11.8604 8.99998 12.0512 8.99998 12.2501V16.7501H10.875C11.0739 16.7501 11.2647 16.8291 11.4053 16.9698C11.546 17.1104 11.625 17.3012 11.625 17.5001ZM5.68592 11.6398C5.60578 11.5826 5.51514 11.5417 5.41918 11.5194C5.32323 11.4972 5.22384 11.4941 5.12668 11.5103C5.02953 11.5265 4.93651 11.5617 4.85295 11.6138C4.76939 11.6659 4.69692 11.734 4.63967 11.8142L3.37498 13.5851L2.1103 11.8142C2.05509 11.7292 1.98324 11.6564 1.89909 11.5999C1.81495 11.5435 1.72024 11.5047 1.62069 11.4859C1.52114 11.4671 1.41882 11.4687 1.31988 11.4905C1.22095 11.5123 1.12747 11.554 1.04507 11.6129C0.962677 11.6719 0.893077 11.7469 0.840473 11.8335C0.787869 11.9201 0.753352 12.0164 0.739005 12.1167C0.724657 12.217 0.730776 12.3191 0.756994 12.417C0.783211 12.5148 0.828983 12.6064 0.891547 12.6861L2.45342 14.8751L0.889672 17.0642C0.784434 17.2261 0.74571 17.4224 0.781564 17.6121C0.817419 17.8019 0.925088 17.9705 1.08215 18.0829C1.23922 18.1952 1.43357 18.2427 1.62474 18.2153C1.81591 18.188 1.98916 18.088 2.10842 17.9361L3.37498 16.1651L4.63967 17.9361C4.75893 18.088 4.93219 18.188 5.12336 18.2153C5.31453 18.188 5.50888 18.1952 5.66594 18.0829C5.82301 17.9705 5.93068 17.8019 5.96653 17.6121C6.00239 17.4224 5.96366 17.2261 5.85842 17.0642L4.29655 14.8751L5.8603 12.6861C5.91755 12.6059 5.95845 12.5153 5.98067 12.4193C6.00289 12.3234 6.00599 12.224 5.9898 12.1268C5.97361 12.0297 5.93844 11.9367 5.8863 11.8531C5.83416 11.7695 5.76607 11.6971 5.68592 11.6398ZM14.9615 14.0604C14.5865 13.9517 14.1984 13.8401 13.9819 13.7004C13.8647 13.6236 13.8665 13.6067 13.8769 13.5223C13.8783 13.4541 13.896 13.3873 13.9287 13.3274C13.9613 13.2675 14.0078 13.2164 14.0644 13.1782C14.4956 12.8857 15.5025 13.017 15.9225 13.1257C16.1149 13.1763 16.3196 13.1484 16.4915 13.0481C16.6633 12.9478 16.7883 12.7834 16.8389 12.5909C16.8895 12.3985 16.8616 12.1938 16.7613 12.0219C16.661 11.8501 16.4965 11.7251 16.304 11.6745C16.1062 11.6229 14.3353 11.1851 13.2262 11.9332C12.9924 12.0913 12.796 12.2987 12.6511 12.5408C12.5061 12.783 12.416 13.054 12.3872 13.3348C12.1997 14.8236 13.6669 15.2482 14.5434 15.5014C15.674 15.8286 15.7734 15.9626 15.7415 16.2129C15.7125 16.4389 15.6234 16.5251 15.54 16.5814C15.1087 16.8682 14.1187 16.7267 13.7081 16.6142C13.516 16.5609 13.3106 16.586 13.1371 16.6841C13.0512 16.7327 12.9757 16.7977 12.9149 16.8755C12.8541 16.9532 12.8092 17.0422 12.7828 17.1373C12.7564 17.2324 12.749 17.3318 12.761 17.4298C12.773 17.5277 12.8041 17.6224 12.8527 17.7083C12.9508 17.8818 13.1138 18.0093 13.3059 18.0626C13.7708 18.1851 14.2493 18.2481 14.73 18.2501C15.2756 18.2501 15.8831 18.1564 16.3697 17.832C16.6097 17.6724 16.8114 17.4615 16.9602 17.2146C17.109 16.9678 17.2012 16.691 17.2303 16.4042C17.4375 14.7814 15.8887 14.3286 14.9615 14.0604ZM0.749985 8.50012V1.75012C0.749985 1.3523 0.90802 0.970767 1.18932 0.689462C1.47063 0.408157 1.85216 0.250122 2.24998 0.250122H11.25C11.3485 0.250045 11.4461 0.269379 11.5371 0.30702C11.6282 0.344661 11.7109 0.399872 11.7806 0.469497L17.0306 5.7195C17.1002 5.7892 17.1554 5.87194 17.1931 5.96299C17.2307 6.05403 17.2501 6.1516 17.25 6.25012V8.50012C17.25 8.69903 17.171 8.8898 17.0303 9.03045C16.8897 9.1711 16.6989 9.25012 16.5 9.25012C16.3011 9.25012 16.1103 9.1711 15.9697 9.03045C15.829 8.8898 15.75 8.69903 15.75 8.50012V7.00012H11.25C11.0511 7.00012 10.8603 6.9211 10.7197 6.78045C10.579 6.6398 10.5 6.44903 10.5 6.25012V1.75012H2.24998V8.50012C2.24998 8.69903 2.17097 8.8898 2.03031 9.03045C1.88966 9.1711 1.6989 9.25012 1.49998 9.25012C1.30107 9.25012 1.11031 9.1711 0.969655 9.03045C0.829003 8.8898 0.749985 8.69903 0.749985 8.50012ZM12 5.50012H14.6887L12 2.81043V5.50012Z",
+      "fill": "#2AB930"
+    }
+  })])]) : _vm._e(), _vm._v(" "), _vm.reportGenerated ? _c('button', {
+    directives: [{
+      name: "tooltip",
+      rawName: "v-tooltip",
+      value: _vm.$t('Export to PDF'),
+      expression: "$t('Export to PDF')"
+    }],
+    staticClass: "btn export-pdf-btn",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": _vm.downloadPDF
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-file-export"
+  })]) : _vm._e(), _vm._v(" "), _vm.reportGenerated ? _c('button', {
+    directives: [{
+      name: "tooltip",
+      rawName: "v-tooltip",
+      value: _vm.$t('Preview'),
+      expression: "$t('Preview')"
+    }],
+    staticClass: "btn preview-btn",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": _vm.previewPDF
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-eye"
+  })]) : _vm._e()])])]), _vm._v(" "), _c('form', {
+    attrs: {
       "role": "form"
     },
     on: {
       "submit": function submit($event) {
         $event.preventDefault();
-        return _vm.saveAccount.apply(null, arguments);
+        return _vm.saveType.apply(null, arguments);
       },
       "keydown": function keydown($event) {
         return _vm.form.onKeydown($event);
       }
     }
   }, [_c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: "row no-print tabs-header-row"
-  }, [_c('div', {
-    staticClass: "w-100"
-  }, [_c('ul', {
-    staticClass: "nav nav-tabs"
-  }, [_c('li', {
-    staticClass: "nav-item"
-  }, [_c('a', {
-    staticClass: "nav-link",
-    "class": {
-      active: _vm.activeAccountType === 'bank'
-    },
-    attrs: {
-      "href": "#bank-account",
-      "data-toggle": "tab"
-    },
-    on: {
-      "click": function click($event) {
-        $event.preventDefault();
-        return _vm.switchAccountType('bank');
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fa fa-university"
-  }), _vm._v("\n                      " + _vm._s(_vm.$t('Bank Account')) + "\n                    ")])]), _vm._v(" "), _c('li', {
-    staticClass: "nav-item"
-  }, [_c('a', {
-    staticClass: "nav-link",
-    "class": {
-      active: _vm.activeAccountType === 'cash'
-    },
-    attrs: {
-      "href": "#cash-account",
-      "data-toggle": "tab"
-    },
-    on: {
-      "click": function click($event) {
-        $event.preventDefault();
-        return _vm.switchAccountType('cash');
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fa fa-money-bill"
-  }), _vm._v("\n                      " + _vm._s(_vm.$t('Cash Account')) + "\n                    ")])])])])]), _vm._v(" "), _c('div', {
-    staticClass: "tab-content"
-  }, [_c('div', {
-    staticClass: "tab-pane",
-    "class": {
-      active: _vm.activeAccountType === 'bank'
-    },
-    attrs: {
-      "id": "bank-account"
-    }
-  }, [_c('div', {
     staticClass: "row"
-  }, [_c('div', {
+  }, [_vm.items ? _c('div', {
     staticClass: "form-group col-md-12"
   }, [_c('label', {
     attrs: {
-      "for": "bankName"
+      "for": "productName"
     }
-  }, [_vm._v(_vm._s(_vm.$t('Bank Name')) + "\n                      "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.bankName,
-      expression: "form.bankName"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('bankName')
-    },
-    attrs: {
-      "id": "bankName",
-      "type": "text",
-      "name": "bankName",
-      "placeholder": _vm.$t('Enter a bank name')
-    },
-    domProps: {
-      "value": _vm.form.bankName
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "bankName", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "bankName"
-    }
-  })], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "branchName"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Branch Name')) + "\n                    ")]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.branchName,
-      expression: "form.branchName"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('branchName')
-    },
-    attrs: {
-      "id": "branchName",
-      "type": "text",
-      "name": "branchName",
-      "placeholder": _vm.$t('Enter a branch name')
-    },
-    domProps: {
-      "value": _vm.form.branchName
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "branchName", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "branchName"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "accountNumber"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Account Number')) + "\n                      "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.accountNumber,
-      expression: "form.accountNumber"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('accountNumber')
-    },
-    attrs: {
-      "id": "accountNumber",
-      "type": "text",
-      "name": "accountNumber",
-      "placeholder": _vm.$t('Enter an account number')
-    },
-    domProps: {
-      "value": _vm.form.accountNumber
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "accountNumber", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "accountNumber"
-    }
-  })], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "chartOfAccountId"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Chart of Account')) + "\n                      "), _c('span', {
+  }, [_vm._v(_vm._s(_vm.$t("Product Name")) + "\n                  "), _c('span', {
     staticClass: "required"
   }, [_vm._v("*")])]), _vm._v(" "), _c('v-select', {
     "class": {
-      'is-invalid': _vm.form.errors.has('chartOfAccountId')
+      'is-invalid': _vm.form.errors.has('productName')
     },
     attrs: {
-      "options": _vm.filteredChartOfAccounts,
-      "label": "name",
-      "reduce": function reduce(option) {
-        return option.id;
-      },
-      "name": "chartOfAccountId",
-      "placeholder": _vm.$t('Select a Chart of Account'),
-      "disabled": _vm.loadingChartOfAccounts
+      "options": _vm.items,
+      "label": "label",
+      "name": "productName",
+      "placeholder": _vm.$t('Select a product')
     },
-    scopedSlots: _vm._u([{
-      key: "option",
-      fn: function fn(_ref) {
-        var name = _ref.name,
-          code = _ref.code,
-          type = _ref.type;
-        return [_c('div', [_c('strong', [_vm._v(_vm._s(name))]), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
-          staticClass: "text-muted"
-        }, [_vm._v("\n                            " + _vm._s(code) + " - " + _vm._s(type) + "\n                          ")])])];
-      }
-    }]),
     model: {
-      value: _vm.form.chartOfAccountId,
+      value: _vm.form.productName,
       callback: function callback($$v) {
-        _vm.$set(_vm.form, "chartOfAccountId", $$v);
+        _vm.$set(_vm.form, "productName", $$v);
       },
-      expression: "form.chartOfAccountId"
+      expression: "form.productName"
     }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "mt-2"
-  }, [_vm.$can('chart-of-account-create') ? _c('button', {
-    staticClass: "btn btn-sm btn-outline-primary",
-    attrs: {
-      "type": "button",
-      "disabled": !_vm.form.bankName || _vm.form.bankName.trim() === '' || _vm.creatingChartOfAccount
-    },
-    on: {
-      "click": _vm.createNewChartOfAccount
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-plus"
-  }), _vm._v(" "), _vm.creatingChartOfAccount ? _c('span', [_vm._v(_vm._s(_vm.$t('Creating...')))]) : _c('span', [_vm._v(_vm._s(_vm.$t('Create New Chart of Account')))])]) : _vm._e(), _vm._v(" "), !_vm.form.bankName || _vm.form.bankName.trim() === '' ? _c('small', {
-    staticClass: "text-muted d-block mt-1"
-  }, [_c('i', {
-    staticClass: "fas fa-info-circle"
-  }), _vm._v("\n                        " + _vm._s(_vm.$t('Enter bank name to create a new chart of account')) + "\n                      ")]) : _vm._e()]), _vm._v(" "), _c('has-error', {
+  }), _vm._v(" "), _c('has-error', {
     attrs: {
       "form": _vm.form,
-      "field": "chartOfAccountId"
+      "field": "productName"
     }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
+  })], 1) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "col-12"
+  }, [[_c('date-range-picker', {
     attrs: {
-      "for": "image"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Image")))]), _vm._v(" "), _c('div', {
-    staticClass: "custom-file"
-  }, [_c('input', {
-    staticClass: "custom-file-input",
-    "class": {
-      'is-invalid': _vm.form.errors.has('image')
-    },
-    attrs: {
-      "id": "image",
-      "type": "file",
-      "name": "image"
+      "from": _vm.form.fromDate,
+      "to": _vm.form.toDate,
+      "panel": _vm.$route.query.panel
     },
     on: {
-      "change": _vm.onFileChange
+      "update": _vm.update
     }
-  }), _vm._v(" "), _c('label', {
-    staticClass: "custom-file-label",
-    attrs: {
-      "for": "image"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Choose file")))])]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "image"
-    }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "bg-light mt-4 w-25"
-  }, [_vm.url ? _c('img', {
-    staticClass: "img-fluid",
-    attrs: {
-      "src": _vm.url,
-      "alt": _vm.$t('Attached Image')
-    }
-  }) : _vm._e()])], 1)]), _vm._v(" "), _c('div', {
+  })]], 2)])])])])]), _vm._v(" "), _vm.allData && _vm.allData.stockIns && _vm.allData.stockOuts && (_vm.allData.stockIns.length > 0 || _vm.allData.stockIns.stockOuts > 0) ? _c('div', {
     staticClass: "row"
   }, [_c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
+    staticClass: "col-lg-12"
+  }, [_c('div', {
+    staticClass: "card custom-card w-100"
+  }, [_c('div', {
+    staticClass: "card-body position-relative"
+  }, [_c('div', {
+    staticClass: "invoice p-3 mb-3",
     attrs: {
-      "for": "date"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Date')))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.date,
-      expression: "form.date"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('date')
-    },
-    attrs: {
-      "id": "date",
-      "type": "date",
-      "name": "date"
-    },
-    domProps: {
-      "value": _vm.form.date
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "date", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "date"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "status"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Status')))]), _vm._v(" "), _c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.status,
-      expression: "form.status"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('status')
-    },
-    attrs: {
-      "id": "status"
-    },
-    on: {
-      "change": function change($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.$set(_vm.form, "status", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-      }
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": "1"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Active')))]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "0"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Inactive')))])]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "status"
-    }
-  })], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "note"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Note')))]), _vm._v(" "), _c('textarea', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.note,
-      expression: "form.note"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('note')
-    },
-    attrs: {
-      "id": "note",
-      "placeholder": _vm.$t('Write your note here!')
-    },
-    domProps: {
-      "value": _vm.form.note
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "note", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "note"
-    }
-  })], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "tab-pane",
-    "class": {
-      active: _vm.activeAccountType === 'cash'
-    },
-    attrs: {
-      "id": "cash-account"
+      "id": "printMe"
     }
   }, [_c('div', {
+    staticClass: "row invoice-info"
+  }, [_c('div', {
+    staticClass: "col-sm-4 invoice-col"
+  }, [_c('CompanyInfo')], 1), _vm._v(" "), _vm.allData.product && _vm.allData.product.category && _vm.allData.product.subCategory && _vm.allData.product.itemUnit ? _c('div', {
+    staticClass: "col-sm-6 offset-sm-2 invoice-col float-right text-md-right"
+  }, [_c('h5', [_vm._v("\n                  " + _vm._s(_vm.$t("Date")) + ": " + _vm._s(_vm._f("moment")(_vm.date, "Do MMM, YYYY")) + "\n                ")]), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.$t("Code")) + ":")]), _vm._v("\n                " + _vm._s(_vm._f("withPrefix")(_vm.allData.product.code, _vm.prfix))), _c('br'), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.$t("Category")) + ":")]), _vm._v("\n                " + _vm._s(_vm.allData.product.category.name)), _c('br'), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.$t("Sub Category")) + ":")]), _vm._v("\n                " + _vm._s(_vm.allData.product.subCategory.name)), _c('br'), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.$t("Stock")) + ":")]), _vm._v("\n                " + _vm._s(_vm.allData.product.availableQty) + "\n                " + _vm._s(_vm.allData.product.itemUnit ? _vm.allData.product.itemUnit.code : '-') + " "), _c('br')]) : _vm._e()]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('div', {
+    staticClass: "row mt-5 position-relative"
+  }, [_c('table-loading', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.loading,
+      expression: "loading"
+    }]
+  }), _vm._v(" "), _vm.loading == false ? _c('div', {
+    staticClass: "col-lg-6 table-responsive mb-5"
+  }, [_c('h4', [_c('i', [_vm._v(_vm._s(_vm.$t("Stock In")))])]), _vm._v(" "), _c('table', {
+    staticClass: "table table-bordered table-sm"
+  }, [_c('thead', [_c('th', [_vm._v(_vm._s(_vm.$t("#")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Date")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Stock In")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Price")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Type")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Code")))]), _vm._v(" "), _c('th', {
+    staticClass: "text-right"
+  }, [_vm._v("\n                        " + _vm._s(_vm.$t("Supplier")) + "/" + _vm._s(_vm.$t("Client")) + "\n                      ")])]), _vm._v(" "), _c('tbody', [_vm._l(_vm.allData.stockIns, function (data, i) {
+    return _c('tr', {
+      key: i
+    }, [_c('td', [_vm._v(_vm._s(i + 1))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm._f("moment")(data.date, "Do MMM, YYYY")))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.quantity))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.price) + " "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', [_c('span', {
+      staticClass: "badge bg-success"
+    }, [_vm._v(_vm._s(data.type))])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.code))]), _vm._v(" "), _c('td', {
+      staticClass: "text-right"
+    }, [data.type === 'Purchase' ? _c('span', [_vm._v(_vm._s(data.supplier))]) : data.type === 'Invoice Return' ? _c('span', [_vm._v(_vm._s(data.client))]) : _vm._e()])]);
+  }), _vm._v(" "), _c('tr', [_c('td', {
+    attrs: {
+      "colspan": "2",
+      "align": "right"
+    }
+  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Total Quantity")))])]), _vm._v(" "), _vm.allData.stockIns ? _c('td', [_c('strong', [_vm._v(_vm._s(_vm.stockInQty(_vm.allData.stockIns)))])]) : _vm._e()])], 2)])]) : _vm._e(), _vm._v(" "), _vm.loading == false ? _c('div', {
+    staticClass: "col-lg-6 table-responsive"
+  }, [_c('h4', [_c('i', [_vm._v(_vm._s(_vm.$t("Stock Out")))])]), _vm._v(" "), _c('table', {
+    staticClass: "table table-bordered table-sm"
+  }, [_c('thead', [_c('th', [_vm._v(_vm._s(_vm.$t("#")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Date")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Stock Out")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Price")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Type")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Code")))]), _vm._v(" "), _c('th', {
+    staticClass: "text-right"
+  }, [_vm._v(_vm._s(_vm.$t("Client")))])]), _vm._v(" "), _c('tbody', [_vm._l(_vm.allData.stockOuts, function (data, i) {
+    return _c('tr', {
+      key: i
+    }, [_c('td', [_vm._v(_vm._s(i + 1))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm._f("moment")(data.date, "Do MMM, YYYY")))]), _vm._v(" "), _c('td', [_vm._v("-" + _vm._s(data.quantity))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.price) + " "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', [_c('span', {
+      staticClass: "badge bg-success"
+    }, [_vm._v(_vm._s(data.type))])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.code))]), _vm._v(" "), _c('td', {
+      staticClass: "text-right"
+    }, [data.type === 'Invoice' ? _c('span', [_vm._v(_vm._s(data.client))]) : data.type === 'Purchase Return' ? _c('span', [_vm._v(_vm._s(data.supplier))]) : _vm._e()])]);
+  }), _vm._v(" "), _c('tr', [_c('td', {
+    attrs: {
+      "colspan": "2",
+      "align": "right"
+    }
+  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Total Quantity")))])]), _vm._v(" "), _vm.allData.stockOuts ? _c('td', [_c('strong', [_vm._v(_vm._s(_vm.stockOutQty(_vm.allData.stockOuts)))])]) : _vm._e()])], 2)])]) : _vm._e()], 1)])])])])]) : _vm.allData.stockIns && _vm.allData.stockOuts && (_vm.allData.stockIns.length <= 0 || _vm.allData.stockIns.stockOuts <= 0) ? _c('div', {
     staticClass: "row"
   }, [_c('div', {
-    staticClass: "form-group col-md-12"
-  }, [_c('label', {
-    attrs: {
-      "for": "bankNameCash"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Bank Name')) + "\n                      "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.bankName,
-      expression: "form.bankName"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('bankName')
-    },
-    attrs: {
-      "id": "bankNameCash",
-      "type": "text",
-      "name": "bankName",
-      "placeholder": _vm.$t('Enter a bank name')
-    },
-    domProps: {
-      "value": _vm.form.bankName
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "bankName", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "bankName"
-    }
-  })], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "branchNameCash"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Branch Name')) + "\n                    ")]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.branchName,
-      expression: "form.branchName"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('branchName')
-    },
-    attrs: {
-      "id": "branchNameCash",
-      "type": "text",
-      "name": "branchName",
-      "placeholder": _vm.$t('Enter a branch name')
-    },
-    domProps: {
-      "value": _vm.form.branchName
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "branchName", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "branchName"
-    }
-  })], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "chartOfAccountIdCash"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Chart of Account')) + "\n                      "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('v-select', {
-    "class": {
-      'is-invalid': _vm.form.errors.has('chartOfAccountId')
-    },
-    attrs: {
-      "options": _vm.filteredChartOfAccounts,
-      "label": "name",
-      "reduce": function reduce(option) {
-        return option.id;
-      },
-      "name": "chartOfAccountId",
-      "placeholder": _vm.$t('Select a Chart of Account'),
-      "disabled": _vm.loadingChartOfAccounts
-    },
-    scopedSlots: _vm._u([{
-      key: "option",
-      fn: function fn(_ref2) {
-        var name = _ref2.name,
-          code = _ref2.code,
-          type = _ref2.type;
-        return [_c('div', [_c('strong', [_vm._v(_vm._s(name))]), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
-          staticClass: "text-muted"
-        }, [_vm._v("\n                            " + _vm._s(code) + " - " + _vm._s(type) + "\n                          ")])])];
-      }
-    }]),
-    model: {
-      value: _vm.form.chartOfAccountId,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "chartOfAccountId", $$v);
-      },
-      expression: "form.chartOfAccountId"
-    }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "mt-2"
-  }, [_vm.$can('chart-of-account-create') ? _c('button', {
-    staticClass: "btn btn-sm btn-outline-primary",
-    attrs: {
-      "type": "button",
-      "disabled": !_vm.form.bankName || _vm.form.bankName.trim() === '' || _vm.creatingChartOfAccount
-    },
-    on: {
-      "click": _vm.createNewChartOfAccount
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-plus"
-  }), _vm._v(" "), _vm.creatingChartOfAccount ? _c('span', [_vm._v(_vm._s(_vm.$t('Creating...')))]) : _c('span', [_vm._v(_vm._s(_vm.$t('Create New Chart of Account')))])]) : _vm._e(), _vm._v(" "), !_vm.form.bankName || _vm.form.bankName.trim() === '' ? _c('small', {
-    staticClass: "text-muted d-block mt-1"
-  }, [_c('i', {
-    staticClass: "fas fa-info-circle"
-  }), _vm._v("\n                        " + _vm._s(_vm.$t('Enter bank name to create a new chart of account')) + "\n                      ")]) : _vm._e()]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "chartOfAccountId"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "imageCash"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Image")))]), _vm._v(" "), _c('div', {
-    staticClass: "custom-file"
-  }, [_c('input', {
-    staticClass: "custom-file-input",
-    "class": {
-      'is-invalid': _vm.form.errors.has('image')
-    },
-    attrs: {
-      "id": "imageCash",
-      "type": "file",
-      "name": "image"
-    },
-    on: {
-      "change": _vm.onFileChange
-    }
-  }), _vm._v(" "), _c('label', {
-    staticClass: "custom-file-label",
-    attrs: {
-      "for": "imageCash"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Choose file")))])]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "image"
-    }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "bg-light mt-4 w-25"
-  }, [_vm.url ? _c('img', {
-    staticClass: "img-fluid",
-    attrs: {
-      "src": _vm.url,
-      "alt": _vm.$t('Attached Image')
-    }
-  }) : _vm._e()])], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "dateCash"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Date')))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.date,
-      expression: "form.date"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('date')
-    },
-    attrs: {
-      "id": "dateCash",
-      "type": "date",
-      "name": "date"
-    },
-    domProps: {
-      "value": _vm.form.date
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "date", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "date"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "statusCash"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Status')))]), _vm._v(" "), _c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.status,
-      expression: "form.status"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('status')
-    },
-    attrs: {
-      "id": "statusCash"
-    },
-    on: {
-      "change": function change($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.$set(_vm.form, "status", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-      }
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": "1"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Active')))]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "0"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Inactive')))])]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "status"
-    }
-  })], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "noteCash"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Note')))]), _vm._v(" "), _c('textarea', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.note,
-      expression: "form.note"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('note')
-    },
-    attrs: {
-      "id": "noteCash",
-      "placeholder": _vm.$t('Write your note here!')
-    },
-    domProps: {
-      "value": _vm.form.note
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "note", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "note"
-    }
-  })], 1)])])]), _vm._v(" "), _c('div', {
-    staticClass: "card-footer"
-  }, [_c('div', {
-    staticClass: "dtable-footer"
-  }, [_c('div', {
-    staticClass: "form-group row display-per-page footer-buttons d-flex justify-content-between w-100"
-  }, [_c('v-button', {
-    attrs: {
-      "loading": _vm.form.busy,
-      "type": "success"
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-save"
-  }), _vm._v(" " + _vm._s(_vm.$t('Save')) + "\n                ")]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-info",
-    attrs: {
-      "type": "reset"
-    },
-    on: {
-      "click": function click($event) {
-        return _vm.form.reset();
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-power-off"
-  }), _vm._v(" " + _vm._s(_vm.$t('Reset')) + "\n                ")])], 1)])])])])])])]);
+    staticClass: "col-lg-12"
+  }, [_c('EmptyTable')], 1)]) : _vm._e()]);
 };
 var staticRenderFns = [];
 
 // EXTERNAL MODULE: ./node_modules/vform/dist/vform.es.js
 var vform_es = __webpack_require__(63216);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/cashbook/accounts/create.vue?vue&type=script&lang=js
+// EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
+var vuex_esm = __webpack_require__(95353);
+// EXTERNAL MODULE: ./node_modules/sweetalert2/dist/sweetalert2.all.js
+var sweetalert2_all = __webpack_require__(78465);
+var sweetalert2_all_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_all);
+// EXTERNAL MODULE: ./node_modules/vue-mj-daterangepicker/dist/vue-mj-daterangepicker.css
+var vue_mj_daterangepicker = __webpack_require__(20466);
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/reports/items.vue?vue&type=script&lang=js
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
+function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
-/* harmony default export */ const createvue_type_script_lang_js = ({
-  middleware: ['auth', 'check-permissions'],
+
+
+
+/* harmony default export */ const itemsvue_type_script_lang_js = ({
+  middleware: ["auth", "check-permissions"],
   metaInfo: function metaInfo() {
     return {
-      title: this.$t('Create Account')
+      title: this.$t("Item Report")
     };
   },
   data: function data() {
     return {
-      breadcrumbsCurrent: 'Create Account',
-      breadcrumbs: [{
-        name: 'Dashboard',
-        url: 'home'
-      }, {
-        name: 'Cashbook',
-        url: ''
-      }, {
-        name: 'Accounts',
-        url: 'accounts.index'
-      }, {
-        name: 'Create',
-        url: ''
-      }],
-      activeAccountType: 'bank',
-      form: new vform_es/* default */.Ay({
-        bankName: '',
-        branchName: '',
-        accountNumber: '',
-        date: new Date().toISOString().slice(0, 10),
-        image: '',
-        note: '',
-        status: 1,
-        chartOfAccountId: null
+      toast: sweetalert2_all_default().mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true
       }),
-      url: null,
-      loading: true,
-      chartOfAccounts: [],
-      loadingChartOfAccounts: false,
-      creatingChartOfAccount: false
+      form: new vform_es/* default */.Ay({
+        fromDate: String(new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)),
+        toDate: String(new Date()),
+        productName: ""
+      }),
+      loading: false,
+      allData: "",
+      date: new Date(),
+      prefix: "",
+      reportGenerated: false
     };
   },
-  computed: {
-    filteredChartOfAccounts: function filteredChartOfAccounts() {
-      return this.chartOfAccounts || [];
-    }
-  },
-  watch: {
-    activeAccountType: function activeAccountType(newType) {
-      this.loadChartOfAccounts();
-    }
-  },
-  mounted: function mounted() {
-    var _this = this;
-    this.loadChartOfAccounts();
-    this.loadTemporaryData();
+  computed: _objectSpread(_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["items", "appInfo"])), {}, {
+    breadcrumbs: function breadcrumbs() {
+      return [{
+        name: this.$t("Dashboard"),
+        url: "home"
+      }, {
+        name: this.$t("Reports"),
+        url: ""
+      }, {
+        name: this.$t("Item Report"),
+        url: ""
+      }];
+    },
+    breadcrumbsCurrent: function breadcrumbsCurrent() {
+      return this.$t("Item Report");
+    },
+    exportUrl: function exportUrl() {
+      // Create a dynamic export URL for items report with current filters
+      var params = new URLSearchParams();
+      if (this.form.productName && this.form.productName.slug) {
+        params.append('productName[slug]', this.form.productName.slug);
+      }
+      if (this.form.fromDate) {
+        params.append('fromDate', this.form.fromDate);
+      }
+      if (this.form.toDate) {
+        params.append('toDate', this.form.toDate);
+      }
+      return "/items-report/export?".concat(params.toString());
+    },
+    printTemplateUrl: function printTemplateUrl() {
+      // Create a dynamic print template URL for items report with current filters
+      var params = new URLSearchParams();
 
-    // Listen for Bootstrap tab events to keep state in sync
-    if (typeof $ !== 'undefined') {
-      $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-        var target = $(e.target).attr('href');
-        if (target === '#bank-account') {
-          _this.activeAccountType = 'bank';
-        } else if (target === '#cash-account') {
-          _this.activeAccountType = 'cash';
-        }
-      });
+      // Always pass product information (required by API)
+      if (this.form.productName && this.form.productName.slug) {
+        params.append('productName[slug]', this.form.productName.slug);
+      }
+      if (this.form.fromDate) {
+        params.append('fromDate', this.form.fromDate);
+      }
+      if (this.form.toDate) {
+        params.append('toDate', this.form.toDate);
+      }
+
+      // Add token to URL
+      var token = this.$store.getters['auth/token'];
+      if (token) {
+        params.append('token', token);
+      }
+      return "/print/reports/items?".concat(params.toString());
     }
+  }),
+  created: function created() {
+    this.getItems();
+    this.prfix = this.appInfo.productPrefix;
   },
   methods: {
-    // switch account type
-    switchAccountType: function switchAccountType(type) {
-      if (this.activeAccountType === type) {
-        return;
-      }
-      this.activeAccountType = type;
-      // Clear account number when switching to cash account
-      if (type === 'cash') {
-        this.form.accountNumber = '';
-        // Clear any validation errors for accountNumber
-        if (this.form.errors.has('accountNumber')) {
-          this.form.errors.clear('accountNumber');
+    // get all categories
+    getItems: function getItems() {
+      var _this = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+        return _regenerator().w(function (_context) {
+          while (1) switch (_context.n) {
+            case 0:
+              _context.n = 1;
+              return _this.$store.dispatch("operations/allData", {
+                path: "/api/all-products"
+              });
+            case 1:
+              return _context.a(2);
+          }
+        }, _callee);
+      }))();
+    },
+    // translate validation messages from backend to localized messages
+    translateValidationMessage: function translateValidationMessage(message, field) {
+      // If there is a direct translation key, use it
+      var direct = this.$t(message);
+      if (direct && direct !== message) return direct;
+
+      // Get current locale
+      var currentLocale = this.$i18n.locale || 'en';
+      var isArabic = currentLocale === 'ar';
+
+      // Field label mapping for items report form fields
+      var fieldLabelMap = {
+        'productName': this.$t('Product Name'),
+        'product name': this.$t('Product Name'),
+        'product_name': this.$t('Product Name'),
+        'fromDate': this.$t('From Date'),
+        'from date': this.$t('From Date'),
+        'from_date': this.$t('From Date'),
+        'toDate': this.$t('To Date'),
+        'to date': this.$t('To Date'),
+        'to_date': this.$t('To Date')
+      };
+      var fieldLabel = fieldLabelMap[field] || fieldLabelMap[field === null || field === void 0 ? void 0 : field.toLowerCase()] || field;
+
+      // Handle mixed language messages from backend (Arabic + English)
+      // Pattern: "حقل [field] مطلوب" -> "Field is required"
+      var mixedLanguagePatterns = [
+      // Arabic "حقل" + English field + Arabic "مطلوب"
+      {
+        re: /حقل\s+([^م]+?)\s+مطلوب/i,
+        en: function en(_, fieldName) {
+          var cleanFieldName = fieldName.trim();
+          var fieldTranslation = fieldLabelMap[cleanFieldName] || fieldLabelMap[cleanFieldName.toLowerCase()] || fieldLabelMap[cleanFieldName.replace(/\s+/g, '')] || fieldLabelMap[cleanFieldName.replace(/\s+/g, '_')] || cleanFieldName;
+          return "".concat(fieldTranslation, " is required");
+        },
+        ar: function ar(_, fieldName) {
+          var cleanFieldName = fieldName.trim();
+          var fieldTranslation = fieldLabelMap[cleanFieldName] || fieldLabelMap[cleanFieldName.toLowerCase()] || fieldLabelMap[cleanFieldName.replace(/\s+/g, '')] || fieldLabelMap[cleanFieldName.replace(/\s+/g, '_')] || cleanFieldName;
+          return "".concat(fieldTranslation, " \u0645\u0637\u0644\u0648\u0628");
+        }
+      },
+      // Arabic "يرجى اختيار" + English field
+      {
+        re: /يرجى\s+اختيار\s+([^.]+)/i,
+        en: function en(_, fieldName) {
+          var cleanFieldName = fieldName.trim();
+          var fieldTranslation = fieldLabelMap[cleanFieldName] || fieldLabelMap[cleanFieldName.toLowerCase()] || fieldLabelMap[cleanFieldName.replace(/\s+/g, '')] || fieldLabelMap[cleanFieldName.replace(/\s+/g, '_')] || cleanFieldName;
+          return "Please select ".concat(fieldTranslation);
+        },
+        ar: function ar(_, fieldName) {
+          var cleanFieldName = fieldName.trim();
+          var fieldTranslation = fieldLabelMap[cleanFieldName] || fieldLabelMap[cleanFieldName.toLowerCase()] || fieldLabelMap[cleanFieldName.replace(/\s+/g, '')] || fieldLabelMap[cleanFieldName.replace(/\s+/g, '_')] || cleanFieldName;
+          return "\u064A\u0631\u062C\u0649 \u0627\u062E\u062A\u064A\u0627\u0631 ".concat(fieldTranslation);
+        }
+      },
+      // Arabic "يرجى إدخال" + English field
+      {
+        re: /يرجى\s+إدخال\s+([^.]+)/i,
+        en: function en(_, fieldName) {
+          var cleanFieldName = fieldName.trim();
+          var fieldTranslation = fieldLabelMap[cleanFieldName] || fieldLabelMap[cleanFieldName.toLowerCase()] || fieldLabelMap[cleanFieldName.replace(/\s+/g, '')] || fieldLabelMap[cleanFieldName.replace(/\s+/g, '_')] || cleanFieldName;
+          return "Please enter ".concat(fieldTranslation);
+        },
+        ar: function ar(_, fieldName) {
+          var cleanFieldName = fieldName.trim();
+          var fieldTranslation = fieldLabelMap[cleanFieldName] || fieldLabelMap[cleanFieldName.toLowerCase()] || fieldLabelMap[cleanFieldName.replace(/\s+/g, '')] || fieldLabelMap[cleanFieldName.replace(/\s+/g, '_')] || cleanFieldName;
+          return "\u064A\u0631\u062C\u0649 \u0625\u062F\u062E\u0627\u0644 ".concat(fieldTranslation);
+        }
+      }];
+
+      // Check mixed language patterns first
+      for (var _i = 0, _mixedLanguagePattern = mixedLanguagePatterns; _i < _mixedLanguagePattern.length; _i++) {
+        var _mixedLanguagePattern2 = _mixedLanguagePattern[_i],
+          re = _mixedLanguagePattern2.re,
+          en = _mixedLanguagePattern2.en,
+          ar = _mixedLanguagePattern2.ar;
+        var match = message.match(re);
+        if (match) {
+          var text = typeof (isArabic ? ar : en) === 'function' ? (isArabic ? ar : en).apply(void 0, _toConsumableArray(match)) : isArabic ? ar : en;
+          return text;
         }
       }
-      // Clear selected chart of account when switching types
-      this.form.chartOfAccountId = null;
-      // Reload chart of accounts for the new type
-      this.loadChartOfAccounts();
+
+      // Additional pattern for "حقل [field] مطلوب" format
+      if (message.includes('حقل') && message.includes('مطلوب')) {
+        var fieldMatch = message.match(/حقل\s+([^م]+?)\s+مطلوب/i);
+        if (fieldMatch) {
+          var fieldName = fieldMatch[1].trim();
+          var fieldTranslation = fieldLabelMap[fieldName] || fieldLabelMap[fieldName.toLowerCase()] || fieldLabelMap[fieldName.replace(/\s+/g, '')] || fieldLabelMap[fieldName.replace(/\s+/g, '_')] || fieldName;
+          return isArabic ? "".concat(fieldTranslation, " \u0645\u0637\u0644\u0648\u0628") : "".concat(fieldTranslation, " is required");
+        }
+      }
+
+      // Handle "يرجى اختيار" patterns
+      if (message.includes('يرجى اختيار')) {
+        var _fieldMatch = message.match(/يرجى\s+اختيار\s+([^.]+)/i);
+        if (_fieldMatch) {
+          var _fieldName = _fieldMatch[1].trim();
+          var _fieldTranslation = fieldLabelMap[_fieldName] || fieldLabelMap[_fieldName.toLowerCase()] || fieldLabelMap[_fieldName.replace(/\s+/g, '')] || fieldLabelMap[_fieldName.replace(/\s+/g, '_')] || _fieldName;
+          return isArabic ? "\u064A\u0631\u062C\u0649 \u0627\u062E\u062A\u064A\u0627\u0631 ".concat(_fieldTranslation) : "Please select ".concat(_fieldTranslation);
+        }
+      }
+
+      // Common Laravel validation patterns with localized messages
+      var patterns = [
+      // Required field patterns
+      {
+        re: /The\s+.+?\s+field\s+is\s+required\.?/i,
+        en: "".concat(fieldLabel, " is required"),
+        ar: "".concat(fieldLabel, " \u0645\u0637\u0644\u0648\u0628")
+      }, {
+        re: /Please\s+select\s+an?\s+.+?\.?/i,
+        en: "Please select ".concat(fieldLabel),
+        ar: "\u064A\u0631\u062C\u0649 \u0627\u062E\u062A\u064A\u0627\u0631 ".concat(fieldLabel)
+      }, {
+        re: /Please\s+enter\s+a\s+.+?\.?/i,
+        en: "Please enter ".concat(fieldLabel),
+        ar: "\u064A\u0631\u062C\u0649 \u0625\u062F\u062E\u0627\u0644 ".concat(fieldLabel)
+      }, {
+        re: /Please\s+provide\s+a\s+.+?\.?/i,
+        en: "Please provide ".concat(fieldLabel),
+        ar: "\u064A\u0631\u062C\u0649 \u062A\u0642\u062F\u064A\u0645 ".concat(fieldLabel)
+      }];
+
+      // Check standard Laravel patterns
+      for (var _i2 = 0, _patterns = patterns; _i2 < _patterns.length; _i2++) {
+        var _patterns$_i = _patterns[_i2],
+          _re = _patterns$_i.re,
+          _en = _patterns$_i.en,
+          _ar = _patterns$_i.ar;
+        if (_re.test(message)) {
+          return isArabic ? _ar : _en;
+        }
+      }
+
+      // Fallback: return the message with translation attempt
+      return this.$t(message) !== message ? this.$t(message) : message;
     },
-    // load chart of accounts
-    loadChartOfAccounts: function loadChartOfAccounts() {
+    // get filtered data
+    update: function update(values) {
       var _this2 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var response;
-        return _regeneratorRuntime().wrap(function _callee$(_context) {
-          while (1) switch (_context.prev = _context.next) {
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+        return _regenerator().w(function (_context2) {
+          while (1) switch (_context2.n) {
             case 0:
-              _this2.loadingChartOfAccounts = true;
-              _context.prev = 1;
-              _context.next = 4;
-              return _this2.$axios.get('/api/accounts/child-chart-of-accounts', {
-                params: {
-                  account_type: _this2.activeAccountType
-                }
-              });
-            case 4:
-              response = _context.sent;
-              if (response.data && response.data.success) {
-                _this2.chartOfAccounts = response.data.data || [];
-              } else {
-                _this2.chartOfAccounts = [];
-              }
-              _context.next = 13;
-              break;
-            case 8:
-              _context.prev = 8;
-              _context.t0 = _context["catch"](1);
-              console.error('Error loading chart of accounts:', _context.t0);
-              toast.fire({
-                type: 'error',
-                title: _this2.$t('Failed to load chart of accounts')
-              });
-              _this2.chartOfAccounts = [];
-            case 13:
-              _context.prev = 13;
-              _this2.loadingChartOfAccounts = false;
-              return _context.finish(13);
-            case 16:
-            case "end":
-              return _context.stop();
-          }
-        }, _callee, null, [[1, 8, 13, 16]]);
-      }))();
-    },
-    // create new chart of account
-    createNewChartOfAccount: function createNewChartOfAccount() {
-      var _this3 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-        var response, newAccount, _response$data, _error$response, errorMessage;
-        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-          while (1) switch (_context2.prev = _context2.next) {
-            case 0:
-              if (!(!_this3.form.bankName || _this3.form.bankName.trim() === '')) {
-                _context2.next = 3;
-                break;
-              }
-              toast.fire({
-                type: 'error',
-                title: _this3.$t('Bank name is required to create a chart of account')
-              });
-              return _context2.abrupt("return");
-            case 3:
-              _this3.creatingChartOfAccount = true;
-              _context2.prev = 4;
-              _context2.next = 7;
-              return _this3.$axios.post('/api/accounts/create-child-chart-of-account', {
-                account_type: _this3.activeAccountType,
-                bank_name: _this3.form.bankName.trim()
-              });
-            case 7:
-              response = _context2.sent;
-              if (response.data && response.data.success) {
-                newAccount = response.data.data; // Add the new account to the list
-                _this3.chartOfAccounts.push(newAccount);
-                // Select the newly created account
-                _this3.form.chartOfAccountId = newAccount.id;
-                toast.fire({
-                  type: 'success',
-                  title: _this3.$t('Chart of account created successfully')
-                });
-              } else {
-                toast.fire({
-                  type: 'error',
-                  title: ((_response$data = response.data) === null || _response$data === void 0 ? void 0 : _response$data.message) || _this3.$t('Failed to create chart of account')
-                });
-              }
-              _context2.next = 16;
-              break;
-            case 11:
-              _context2.prev = 11;
-              _context2.t0 = _context2["catch"](4);
-              console.error('Error creating chart of account:', _context2.t0);
-              errorMessage = ((_error$response = _context2.t0.response) === null || _error$response === void 0 || (_error$response = _error$response.data) === null || _error$response === void 0 ? void 0 : _error$response.message) || _this3.$t('Failed to create chart of account');
-              toast.fire({
-                type: 'error',
-                title: errorMessage
-              });
-            case 16:
-              _context2.prev = 16;
-              _this3.creatingChartOfAccount = false;
-              return _context2.finish(16);
-            case 19:
-            case "end":
-              return _context2.stop();
-          }
-        }, _callee2, null, [[4, 11, 16, 19]]);
-      }))();
-    },
-    // save account
-    saveAccount: function saveAccount() {
-      var _this4 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
-        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-          while (1) switch (_context3.prev = _context3.next) {
-            case 0:
-              _context3.next = 2;
-              return _this4.form.post(window.location.origin + '/api/accounts').then(function () {
-                // Clear temporary data after successful save
-                _this4.clearTemporaryData();
-                toast.fire({
-                  type: 'success',
-                  title: _this4.$t('Account added successfully')
-                });
-                _this4.$router.push({
-                  name: 'accounts.index'
-                });
+              _this2.loading = true;
+              _this2.form.fromDate = values.from;
+              _this2.form.toDate = values.to;
+              _context2.n = 1;
+              return _this2.form.post(window.location.origin + "/api/reports/items").then(function (response) {
+                _this2.allData = response.data;
+                _this2.loading = false;
+                _this2.reportGenerated = true;
               })["catch"](function (error) {
-                var _error$response$data, _error$response$data2;
-                if (error.response && error.response.status === 422 && error.response.data && error.response.data.errors) {
-                  var errors = error.response.data.errors;
-                  if (_this4.form && _this4.form.errors && typeof _this4.form.errors.set === 'function') {
-                    _this4.form.errors.set(errors);
-                  }
-                  var messages = Object.values(errors).flat();
-                  var firstMessage = messages && messages.length ? messages[0] : _this4.$t('Validation Error');
-                  var backendMessage = error.response.data.message && error.response.data.message !== 'Validation Error' ? error.response.data.message : firstMessage;
-                  toast.fire({
-                    type: 'error',
-                    title: backendMessage
+                var _error$response, _error$response2;
+                _this2.loading = false;
+                _this2.reportGenerated = false;
+
+                // Handle validation errors
+                if (((_error$response = error.response) === null || _error$response === void 0 ? void 0 : _error$response.status) === 422 && (_error$response2 = error.response) !== null && _error$response2 !== void 0 && (_error$response2 = _error$response2.data) !== null && _error$response2 !== void 0 && _error$response2.errors) {
+                  // Translate validation errors
+                  var translatedErrors = {};
+                  Object.keys(error.response.data.errors).forEach(function (field) {
+                    translatedErrors[field] = error.response.data.errors[field].map(function (message) {
+                      // Use translateValidationMessage to handle mixed language messages
+                      return _this2.translateValidationMessage(message, field);
+                    });
                   });
-                } else if (error.response && ((_error$response$data = error.response.data) !== null && _error$response$data !== void 0 && _error$response$data.message || (_error$response$data2 = error.response.data) !== null && _error$response$data2 !== void 0 && _error$response$data2.error)) {
-                  var msg = error.response.data.message || error.response.data.error;
-                  toast.fire({
-                    type: 'error',
-                    title: msg
+
+                  // Set the translated errors back to the form
+                  _this2.form.errors.set(translatedErrors);
+
+                  // Show a general validation error message
+                  _this2.toast.fire({
+                    type: "error",
+                    title: _this2.$t("Please check your input and try again.")
                   });
                 } else {
-                  toast.fire({
-                    type: 'error',
-                    title: _this4.$t('Please check your input and try again.')
+                  // Handle other errors
+                  _this2.toast.fire({
+                    type: "error",
+                    title: _this2.$t("There was something wrong.")
                   });
                 }
               });
+            case 1:
+              return _context2.a(2);
+          }
+        }, _callee2);
+      }))();
+    },
+    // count stock in qty
+    stockInQty: function stockInQty(stockIns) {
+      var total = stockIns.reduce(function (accumulator, current) {
+        return Number(accumulator) + Number(current.quantity);
+      }, 0);
+      return total;
+    },
+    // count stock out qty
+    stockOutQty: function stockOutQty(stockOuts) {
+      var total = stockOuts.reduce(function (accumulator, current) {
+        return Number(accumulator) + Number(current.quantity);
+      }, 0);
+      return total;
+    },
+    // refresh top buttons
+    refreshTable: function refreshTable() {
+      this.update({
+        from: this.form.fromDate,
+        to: this.form.toDate
+      });
+    },
+    // print table area
+    print: function print() {
+      var _this3 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+        return _regenerator().w(function (_context3) {
+          while (1) switch (_context3.n) {
+            case 0:
+              if (!_this3.$htmlToPaper) {
+                _context3.n = 2;
+                break;
+              }
+              _context3.n = 1;
+              return _this3.$htmlToPaper("printMe");
+            case 1:
+              _context3.n = 3;
+              break;
             case 2:
-            case "end":
-              return _context3.stop();
+              _this3.printWindow();
+            case 3:
+              return _context3.a(2);
           }
         }, _callee3);
       }))();
     },
-    // save form data temporarily
-    saveTemporary: function saveTemporary() {
-      var tempData = {
-        bankName: this.form.bankName,
-        branchName: this.form.branchName,
-        accountNumber: this.form.accountNumber,
-        accountName: this.form.accountName,
-        openingBalance: this.form.openingBalance,
-        bankPhone: this.form.bankPhone,
-        bankAddress: this.form.bankAddress,
-        enabled: this.form.enabled,
-        note: this.form.note,
-        chartOfAccountId: this.form.chartOfAccountId,
-        activeAccountType: this.activeAccountType,
-        timestamp: new Date().toISOString()
-      };
-      localStorage.setItem('accountTempData', JSON.stringify(tempData));
+    // print
+    printWindow: function printWindow() {
+      window.print();
     },
-    // load temporary data
-    loadTemporaryData: function loadTemporaryData() {
-      var tempData = localStorage.getItem('accountTempData');
-      if (tempData) {
-        try {
-          var data = JSON.parse(tempData);
-          this.form.bankName = data.bankName || '';
-          this.form.branchName = data.branchName || '';
-          this.form.accountNumber = data.accountNumber || '';
-          this.form.accountName = data.accountName || '';
-          this.form.openingBalance = data.openingBalance || '';
-          this.form.bankPhone = data.bankPhone || '';
-          this.form.bankAddress = data.bankAddress || '';
-          this.form.enabled = data.enabled !== undefined ? data.enabled : 1;
-          this.form.note = data.note || '';
-          this.form.chartOfAccountId = data.chartOfAccountId || null;
-          if (data.activeAccountType) {
-            this.activeAccountType = data.activeAccountType;
-          }
-        } catch (error) {
-          console.error('Error loading temporary data:', error);
+    downloadPDF: function downloadPDF() {
+      // Validate product name is required
+      if (!this.form.productName || !this.form.productName.slug) {
+        this.toast.fire({
+          type: "error",
+          title: this.$t("The product name field is required.")
+        });
+        return;
+      }
+
+      // Build query parameters from filters
+      var params = new URLSearchParams();
+      if (this.form.productName && this.form.productName.slug) {
+        params.append('productName[slug]', this.form.productName.slug);
+        if (this.form.productName.label) {
+          params.append('productName[label]', this.form.productName.label);
+        }
+        if (this.form.productName.name) {
+          params.append('productName[name]', this.form.productName.name);
         }
       }
-    },
-    // clear temporary data
-    clearTemporaryData: function clearTemporaryData() {
-      localStorage.removeItem('accountTempData');
-    },
-    // vue file upload
-    onFileChange: function onFileChange(e) {
-      var _this5 = this;
-      var file = e.target.files[0];
-      var reader = new FileReader();
-      if (file.size < 2111775 && (file.type === "image/jpeg" || file.type === "image/png" || file.type === "image/gif")) {
-        reader.onloadend = function (file) {
-          _this5.form.image = reader.result;
-        };
-        reader.readAsDataURL(file);
-        this.url = URL.createObjectURL(file);
-      } else {
-        this.$toast.error(this.$t("Error!"), this.$t("Please select a valid thumbnail with size less than 2 MB"));
+      if (this.form.fromDate) {
+        params.append('fromDate', this.form.fromDate);
       }
+      if (this.form.toDate) {
+        params.append('toDate', this.form.toDate);
+      }
+
+      // Add token to URL
+      var token = this.$store.getters['auth/token'];
+      if (token) {
+        params.append('token', token);
+      }
+
+      // Redirect to backend PDF route with query parameters
+      var pdfUrl = "/print/reports/items/pdf?".concat(params.toString());
+      window.location.href = pdfUrl;
+    },
+    previewPDF: function previewPDF() {
+      // Validate product name is required
+      if (!this.form.productName || !this.form.productName.slug) {
+        this.toast.fire({
+          type: "error",
+          title: this.$t("The product name field is required.")
+        });
+        return;
+      }
+
+      // Build query parameters from filters
+      var params = new URLSearchParams();
+      if (this.form.productName && this.form.productName.slug) {
+        params.append('productName[slug]', this.form.productName.slug);
+        if (this.form.productName.label) {
+          params.append('productName[label]', this.form.productName.label);
+        }
+        if (this.form.productName.name) {
+          params.append('productName[name]', this.form.productName.name);
+        }
+      }
+      if (this.form.fromDate) {
+        params.append('fromDate', this.form.fromDate);
+      }
+      if (this.form.toDate) {
+        params.append('toDate', this.form.toDate);
+      }
+
+      // Add token to URL
+      var token = this.$store.getters['auth/token'];
+      if (token) {
+        params.append('token', token);
+      }
+
+      // Redirect to backend PDF route with query parameters
+      var pdfUrl = "/print/reports/items/preview?".concat(params.toString());
+      window.location.href = pdfUrl;
     }
   }
 });
-;// ./resources/js/pages/cashbook/accounts/create.vue?vue&type=script&lang=js
- /* harmony default export */ const accounts_createvue_type_script_lang_js = (createvue_type_script_lang_js); 
+;// ./resources/js/pages/reports/items.vue?vue&type=script&lang=js
+ /* harmony default export */ const reports_itemsvue_type_script_lang_js = (itemsvue_type_script_lang_js); 
 // EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(85072);
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/cashbook/accounts/create.vue?vue&type=style&index=0&id=0f53761f&prod&scoped=true&lang=css
-var createvue_type_style_index_0_id_0f53761f_prod_scoped_true_lang_css = __webpack_require__(33028);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/cashbook/accounts/create.vue?vue&type=style&index=0&id=0f53761f&prod&scoped=true&lang=css
+// EXTERNAL MODULE: ./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/reports/items.vue?vue&type=style&index=0&id=f0a14bd4&prod&scoped=true&lang=css
+var itemsvue_type_style_index_0_id_f0a14bd4_prod_scoped_true_lang_css = __webpack_require__(74586);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/reports/items.vue?vue&type=style&index=0&id=f0a14bd4&prod&scoped=true&lang=css
 
             
 
@@ -1139,16 +773,16 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = injectStylesIntoStyleTag_default()(createvue_type_style_index_0_id_0f53761f_prod_scoped_true_lang_css/* default */.A, options);
+var update = injectStylesIntoStyleTag_default()(itemsvue_type_style_index_0_id_f0a14bd4_prod_scoped_true_lang_css/* default */.A, options);
 
 
 
-/* harmony default export */ const accounts_createvue_type_style_index_0_id_0f53761f_prod_scoped_true_lang_css = (createvue_type_style_index_0_id_0f53761f_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/pages/cashbook/accounts/create.vue?vue&type=style&index=0&id=0f53761f&prod&scoped=true&lang=css
+/* harmony default export */ const reports_itemsvue_type_style_index_0_id_f0a14bd4_prod_scoped_true_lang_css = (itemsvue_type_style_index_0_id_f0a14bd4_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/pages/reports/items.vue?vue&type=style&index=0&id=f0a14bd4&prod&scoped=true&lang=css
 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/pages/cashbook/accounts/create.vue
+;// ./resources/js/pages/reports/items.vue
 
 
 
@@ -1158,37 +792,18 @@ var componentNormalizer = __webpack_require__(14486);
 /* normalize component */
 
 var component = (0,componentNormalizer/* default */.A)(
-  accounts_createvue_type_script_lang_js,
+  reports_itemsvue_type_script_lang_js,
   render,
   staticRenderFns,
   false,
   null,
-  "0f53761f",
+  "f0a14bd4",
   null
   
 )
 
-/* harmony default export */ const create = (component.exports);
+/* harmony default export */ const items = (component.exports);
 
-/***/ }),
-
-/***/ 33028:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".btn-group.c-w-100[data-v-0f53761f]{gap:10px}.header-buttons[data-v-0f53761f]{margin-bottom:15px}.footer-buttons[data-v-0f53761f]{display:flex;gap:10px}.footer-buttons .btn[data-v-0f53761f]{margin-right:10px}.footer-buttons .btn[data-v-0f53761f]:last-child{margin-right:0}.card[data-v-0f53761f]{border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:30px}.card-header[data-v-0f53761f]{background-color:#fff;border-bottom:1px solid #ced4da;border-radius:20px 20px 0 0;padding:1.25rem 1.25rem 0}.card-body[data-v-0f53761f]{padding:1.25rem}.card-footer[data-v-0f53761f]{background-color:#fff;border-radius:0 0 20px 20px;border-top:1px solid #ced4da;padding:0 1.25rem .625rem}.form-control[data-v-0f53761f]{background:#fff!important;border:1px solid #e5e7eb;font-size:14px;padding:10px 16px}.form-control[data-v-0f53761f]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(51,160,217,.25)}.form-group label[data-v-0f53761f]{color:#374151;display:block;font-weight:500;margin-bottom:8px}.required[data-v-0f53761f]{color:#dc3545;font-weight:700}.btn-primary[data-v-0f53761f]{background:#2ab930!important;border:none!important;color:#fff!important;font-weight:500;padding:10px 20px!important}.btn-primary[data-v-0f53761f]:hover{background:#229a26!important;box-shadow:0 4px 8px rgba(42,185,48,.3);transform:translateY(-1px)}.btn-secondary[data-v-0f53761f]{background:#33a0d9!important;border:none!important;color:#fff!important;font-weight:500;margin-right:10px;padding:10px 20px!important}.btn-secondary[data-v-0f53761f]:hover{background:#2a8bc4!important;box-shadow:0 4px 8px rgba(51,160,217,.3);transform:translateY(-1px)}.is-invalid[data-v-0f53761f]{border-color:#dc3545!important}textarea.form-control[data-v-0f53761f]{min-height:100px;resize:vertical}.custom-file-input[data-v-0f53761f],.custom-file-label[data-v-0f53761f]{background:#fff!important;border:1px solid #e5e7eb;border-radius:10px;padding:10px 16px}.custom-file-label[data-v-0f53761f]{color:#374151;font-weight:500}.custom-file-label[data-v-0f53761f]:after{background:#33a0d9;border-radius:0 10px 10px 0;color:#fff;font-weight:500}.bg-light[data-v-0f53761f]{background-color:#f8f9fa!important;border:1px solid #e5e7eb;border-radius:10px;padding:10px}.v-select[data-v-0f53761f]{background:#fff!important}.v-select .vs__dropdown-toggle[data-v-0f53761f]{background:#fff!important;border:1px solid #e5e7eb!important;padding:10px 16px!important}.v-select .vs__dropdown-toggle[data-v-0f53761f]:focus{border-color:#33a0d9!important;box-shadow:0 0 0 .2rem rgba(51,160,217,.25)!important}.v-select.is-invalid .vs__dropdown-toggle[data-v-0f53761f]{border-color:#dc3545!important}.text-muted[data-v-0f53761f]{color:#6c757d!important}.small[data-v-0f53761f],.text-muted[data-v-0f53761f]{font-size:12px}.row[data-v-0f53761f]{margin-bottom:1rem}@media (max-width:768px){.card-footer[data-v-0f53761f]{flex-direction:column;gap:10px}.card-footer .btn[data-v-0f53761f]{margin-right:0!important;width:100%}.card-footer div[data-v-0f53761f]{display:flex;flex-direction:column;gap:10px;width:100%}}.tabs-header-row[data-v-0f53761f]{margin-bottom:1.5rem}.nav-tabs[data-v-0f53761f]{background:#0775af1a;border:none;border-radius:10px;display:flex;gap:10px;justify-content:flex-start;margin-bottom:0;padding:10px;width:17%}.nav-item[data-v-0f53761f]{flex:0 1 auto}.nav-link[data-v-0f53761f]{align-items:center;border:none;border-radius:10px;color:#000;cursor:pointer;display:inline-flex;font-family:DINNextLTArabic;font-size:.95rem;font-weight:400;justify-content:center;padding:10px 12px;text-align:center;text-decoration:none;transition:all .2s ease;white-space:nowrap}.nav-link.active[data-v-0f53761f]{background:#0775af;color:#fff!important}.nav-link[data-v-0f53761f]:hover{filter:brightness(.96)}.tab-content[data-v-0f53761f]{margin-top:1rem}.tab-pane[data-v-0f53761f]{display:none}.tab-pane.active[data-v-0f53761f]{display:block}@media (max-width:576px){.nav-tabs[data-v-0f53761f]{gap:6px;padding:8px}.nav-link[data-v-0f53761f]{font-size:.85rem;padding:8px 10px}}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ })
+/***/ }
 
 }]);
