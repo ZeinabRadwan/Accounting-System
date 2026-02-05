@@ -3069,6 +3069,26 @@
 
 /***/ }),
 
+/***/ 22592:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".edit-button[data-v-2eaec3d9]{cursor:pointer;text-decoration:none}.modal-content[data-v-2eaec3d9]{margin:1.75rem auto;max-width:1000px}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ 23827:
 /***/ (function(__unused_webpack_module, __unused_webpack_exports, __webpack_require__) {
 
@@ -3890,7 +3910,7 @@ var Button = __webpack_require__(63377);
 var vue2_daterange_picker_umd_min = __webpack_require__(32464);
 var vue2_daterange_picker_umd_min_default = /*#__PURE__*/__webpack_require__.n(vue2_daterange_picker_umd_min);
 // EXTERNAL MODULE: ./resources/js/components/ClientEditModal.vue + 5 modules
-var ClientEditModal = __webpack_require__(51674);
+var ClientEditModal = __webpack_require__(88874);
 // EXTERNAL MODULE: ./resources/js/components/GeneralTable.vue + 5 modules
 var GeneralTable = __webpack_require__(39173);
 // EXTERNAL MODULE: ./node_modules/sweetalert2/dist/sweetalert2.all.js
@@ -15229,587 +15249,6 @@ ___CSS_LOADER_EXPORT___.push([module.id, ".table-custom[data-v-0b3d51f8]{border:
 
 /***/ }),
 
-/***/ 51674:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  A: () => (/* binding */ ClientEditModal)
-});
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ClientEditModal.vue?vue&type=template&id=19537cc9&scoped=true
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', [_c('VModal', {
-    on: {
-      "close": _vm.closeModal
-    },
-    scopedSlots: _vm._u([{
-      key: "title",
-      fn: function fn() {
-        return [_vm._v(_vm._s(_vm.$t("Edit Client")))];
-      },
-      proxy: true
-    }]),
-    model: {
-      value: _vm.showClientEditModal,
-      callback: function callback($$v) {
-        _vm.showClientEditModal = $$v;
-      },
-      expression: "showClientEditModal"
-    }
-  }, [_vm._v(" "), [_c('ClientForm', {
-    ref: "clientForm",
-    attrs: {
-      "showCardBody": false,
-      "initialData": _vm.clientData
-    }
-  }), _vm._v(" "), _c('div', {
-    attrs: {
-      "slot": "modal-footer"
-    },
-    slot: "modal-footer"
-  }, [_c('button', {
-    staticClass: "btn btn-success",
-    attrs: {
-      "disabled": _vm.isSubmitting
-    },
-    on: {
-      "click": function click($event) {
-        return _vm.submitItem($event);
-      }
-    }
-  }, [_vm.isSubmitting ? _c('i', {
-    staticClass: "fas fa-spinner fa-spin"
-  }) : _c('i', {
-    staticClass: "fas fa-save"
-  }), _vm._v(" \n          " + _vm._s(_vm.isSubmitting ? _vm.$t("Saving...") : _vm.$t("Save")) + "\n        ")]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-secondary ml-2",
-    on: {
-      "click": _vm.closeModal
-    }
-  }, [_vm._v("\n          " + _vm._s(_vm.$t("Cancel")) + "\n        ")])])]], 2), _vm._v(" "), _c('a', {
-    staticClass: "edit-button",
-    on: {
-      "click": _vm.toggleModal
-    }
-  }, [_vm._t("default")], 2)], 1);
-};
-var staticRenderFns = [];
-
-// EXTERNAL MODULE: ./resources/js/components/ClientForm.vue + 5 modules
-var ClientForm = __webpack_require__(87480);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ClientEditModal.vue?vue&type=script&lang=js
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-/* harmony default export */ const ClientEditModalvue_type_script_lang_js = ({
-  name: "ClientEditModal",
-  middleware: ["auth", "check-permissions"],
-  components: {
-    ClientForm: ClientForm/* default */.A
-  },
-  props: {
-    // Client data to edit
-    client: {
-      type: Object,
-      required: false,
-      "default": function _default() {
-        return {};
-      }
-    }
-  },
-  data: function data() {
-    return {
-      showClientEditModal: false,
-      form: null,
-      isSubmitting: false,
-      clientData: {}
-    };
-  },
-  watch: {
-    // Watch for changes in client prop
-    client: {
-      handler: function handler(newClient) {
-        if (newClient && Object.keys(newClient).length > 0) {
-          this.mapClientData(newClient);
-        }
-      },
-      immediate: true,
-      deep: true
-    }
-  },
-  methods: {
-    // Map client data to form structure
-    mapClientData: function mapClientData(clientData) {
-      console.log('=== MAPPING CLIENT DATA IN EDIT MODAL ===');
-      console.log('Original client data:', clientData);
-      console.log('Phone fields in client data:');
-      console.log('- clientData.phone:', clientData.phone);
-      console.log('- clientData.phoneNumber:', clientData.phoneNumber);
-      console.log('- clientData.phone_number:', clientData.phone_number);
-      console.log('- clientData.mobile:', clientData.mobile);
-      this.clientData = {
-        // Preserve ID and slug for API calls
-        id: clientData.id,
-        slug: clientData.slug,
-        // Account Details
-        codeNumber: clientData.codeNumber || clientData.clientID || clientData.code_number || '000001',
-        billingMethod: clientData.billingMethod || 'print',
-        currency: clientData.currency || 'EGP',
-        classification: clientData.classification || '',
-        notes: clientData.notes || '',
-        displayLanguage: clientData.displayLanguage || clientData.display_language || '',
-        // Client Details
-        type: clientData.type || 'Company',
-        fullName: clientData.fullName || (clientData.type === 'Individual' ? clientData.name : ''),
-        businessName: clientData.businessName || clientData.companyName || clientData.company_name || (clientData.type === 'Company' ? clientData.name : ''),
-        firstName: clientData.firstName || clientData.first_name || '',
-        lastName: clientData.lastName || clientData.last_name || '',
-        phone: clientData.phone || '',
-        phoneNumber: clientData.phoneNumber || clientData.phone_number || clientData.phone || clientData.mobile || '',
-        email: clientData.email || '',
-        // Address Information (make sure all fields are mapped)
-        streetAddress1: clientData.streetAddress1 || clientData.street_address_1 || clientData.address || '',
-        streetAddress2: clientData.streetAddress2 || clientData.street_address_2 || '',
-        city: clientData.city || '',
-        state: clientData.state || '',
-        postalCode: clientData.postalCode || clientData.postal_code || '',
-        country: clientData.country || 'SA',
-        neighbourhood: clientData.neighbourhood || '',
-        // Saudi National Address fields
-        buildingNumber: clientData.buildingNumber || clientData.building_number || '',
-        streetNumber: clientData.streetNumber || clientData.street_number || '',
-        districtNumber: clientData.districtNumber || clientData.district_number || '',
-        unitNumber: clientData.unitNumber || clientData.unit_number || '',
-        additionalNumber: clientData.additionalNumber || clientData.additional_number || '',
-        // Business Information
-        commercialRegister: clientData.commercialRegister || clientData.commercial_register || clientData.taxRegistrationNumber || clientData.tax_registration_number || '',
-        taxCard: clientData.taxCard || clientData.tax_card || '',
-        addSecondaryAddress: clientData.addSecondaryAddress || false,
-        // Additional Fields
-        image: clientData.image || '',
-        image_path: clientData.image_path || '',
-        attachments: Array.isArray(clientData.attachments) ? clientData.attachments : [],
-        status: clientData.status !== undefined ? clientData.status : 1,
-        isSendEmail: Boolean(clientData.isSendEmail || clientData.is_send_email),
-        isSendSMS: Boolean(clientData.isSendSMS || clientData.is_send_sms),
-        // Representatives (ensure this is included)
-        representatives: Array.isArray(clientData.representatives) ? clientData.representatives : [],
-        // Chart of Account
-        chartOfAccountId: clientData.chartOfAccountId || clientData.chart_of_account_id || null,
-        // Legacy fields for backward compatibility
-        name: clientData.name || '',
-        companyName: clientData.companyName || clientData.company_name || '',
-        taxRegistrationNumber: clientData.taxRegistrationNumber || clientData.tax_registration_number || '',
-        address: clientData.address || ''
-      };
-      console.log('Mapped client data for form:', this.clientData);
-      console.log('=== END MAPPING CLIENT DATA ===');
-    },
-    // Edit client
-    submitItem: function submitItem(evt) {
-      var _this = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        return _regeneratorRuntime().wrap(function _callee$(_context) {
-          while (1) switch (_context.prev = _context.next) {
-            case 0:
-              evt.preventDefault();
-              _context.next = 3;
-              return _this.editClient();
-            case 3:
-            case "end":
-              return _context.stop();
-          }
-        }, _callee);
-      }))();
-    },
-    editClient: function editClient() {
-      var _this2 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-        var formData, submitData, hasFiles, clientSlug, response, fd, appendIfDefined, phoneNumberValue, phoneNumberToSend, _iterator, _step, pair, _error$response, errorMessage;
-        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-          while (1) switch (_context2.prev = _context2.next) {
-            case 0:
-              if (!_this2.isSubmitting) {
-                _context2.next = 2;
-                break;
-              }
-              return _context2.abrupt("return");
-            case 2:
-              _this2.isSubmitting = true;
-              _context2.prev = 3;
-              // Get the form from the ClientForm component
-              _this2.form = _this2.$refs.clientForm.getFormData();
-
-              // Validate the form
-              _context2.next = 7;
-              return _this2.$refs.clientForm.validateForm();
-            case 7:
-              if (_context2.sent) {
-                _context2.next = 10;
-                break;
-              }
-              _this2.isSubmitting = false;
-              return _context2.abrupt("return");
-            case 10:
-              // Get form data directly from ClientForm component
-              formData = _this2.$refs.clientForm.getFormData(); // Build the submit data manually (same as ClientForm.submitForm does)
-              submitData = {
-                codeNumber: formData.codeNumber,
-                notes: formData.notes,
-                displayLanguage: formData.displayLanguage,
-                status: formData.status,
-                type: formData.type,
-                fullName: formData.fullName,
-                businessName: formData.businessName,
-                firstName: formData.firstName,
-                lastName: formData.lastName,
-                phone: formData.phone,
-                phoneNumber: formData.phoneNumber || '',
-                // Explicitly include phone number
-                email: formData.email,
-                streetAddress1: formData.streetAddress1,
-                city: formData.city,
-                state: formData.state,
-                postalCode: formData.postalCode,
-                country: formData.country,
-                neighbourhood: formData.neighbourhood,
-                commercialRegister: formData.commercialRegister,
-                taxCard: formData.taxCard,
-                buildingNumber: formData.buildingNumber,
-                unitNumber: formData.unitNumber,
-                additionalNumber: formData.additionalNumber,
-                image: formData.image,
-                attachments: formData.attachments,
-                isSendEmail: formData.isSendEmail,
-                isSendSMS: formData.isSendSMS,
-                name: formData.type === 'Individual' ? formData.fullName : formData.businessName,
-                companyName: formData.businessName,
-                taxRegistrationNumber: formData.taxCard,
-                address: formData.streetAddress1,
-                representatives: formData.representatives || [],
-                chartOfAccountId: formData.chartOfAccountId
-              }; // Check if we have files (image or attachments) - if so, use FormData
-              hasFiles = submitData.image && submitData.image instanceof File || Array.isArray(submitData.attachments) && submitData.attachments.some(function (f) {
-                return f instanceof File;
-              });
-              clientSlug = _this2.clientData.slug || _this2.client.slug;
-              if (!hasFiles) {
-                _context2.next = 62;
-                break;
-              }
-              // Build multipart/form-data to properly send files (image, attachments)
-              fd = new FormData();
-              appendIfDefined = function appendIfDefined(key, value) {
-                if (value !== undefined && value !== null && value !== '') {
-                  fd.append(key, value);
-                }
-              }; // Simple scalar fields
-              appendIfDefined('codeNumber', submitData.codeNumber);
-              appendIfDefined('notes', submitData.notes);
-              appendIfDefined('displayLanguage', submitData.displayLanguage);
-              appendIfDefined('type', submitData.type);
-              appendIfDefined('fullName', submitData.fullName);
-              appendIfDefined('businessName', submitData.businessName);
-              appendIfDefined('firstName', submitData.firstName);
-              appendIfDefined('lastName', submitData.lastName);
-              appendIfDefined('phone', submitData.phone);
-
-              // Phone number is required - always include it
-              phoneNumberValue = submitData.phoneNumber;
-              if (phoneNumberValue === undefined || phoneNumberValue === null) {
-                if (_this2.$refs.clientForm && _this2.$refs.clientForm.form) {
-                  phoneNumberValue = _this2.$refs.clientForm.form.phoneNumber;
-                }
-              }
-              phoneNumberValue = phoneNumberValue || '';
-              console.log('ClientEditModal - Adding phoneNumber to FormData:', phoneNumberValue);
-              console.log('ClientEditModal - phoneNumber type:', _typeof(phoneNumberValue));
-              console.log('ClientEditModal - phoneNumber length:', phoneNumberValue ? phoneNumberValue.length : 0);
-              // Use explicit string conversion and ensure it's not null/undefined
-              phoneNumberToSend = phoneNumberValue ? String(phoneNumberValue).trim() : '';
-              console.log('ClientEditModal - phoneNumberToSend:', phoneNumberToSend);
-              fd.append('phoneNumber', phoneNumberToSend);
-
-              // Debug: Log all FormData entries
-              console.log('ClientEditModal - FormData entries:');
-              _iterator = _createForOfIteratorHelper(fd.entries());
-              try {
-                for (_iterator.s(); !(_step = _iterator.n()).done;) {
-                  pair = _step.value;
-                  console.log(pair[0] + ': ' + pair[1]);
-                }
-              } catch (err) {
-                _iterator.e(err);
-              } finally {
-                _iterator.f();
-              }
-              appendIfDefined('email', submitData.email);
-              appendIfDefined('streetAddress1', submitData.streetAddress1);
-              appendIfDefined('city', submitData.city);
-              appendIfDefined('state', submitData.state);
-              appendIfDefined('postalCode', submitData.postalCode);
-              appendIfDefined('country', submitData.country);
-              appendIfDefined('neighbourhood', submitData.neighbourhood);
-              appendIfDefined('commercialRegister', submitData.commercialRegister);
-              appendIfDefined('taxCard', submitData.taxCard);
-              appendIfDefined('status', submitData.status);
-              appendIfDefined('isSendEmail', submitData.isSendEmail ? 1 : 0);
-              appendIfDefined('isSendSMS', submitData.isSendSMS ? 1 : 0);
-
-              // Saudi National Address Fields
-              appendIfDefined('buildingNumber', submitData.buildingNumber);
-              appendIfDefined('unitNumber', submitData.unitNumber);
-              appendIfDefined('additionalNumber', submitData.additionalNumber);
-
-              // Chart of Account
-              if (submitData.chartOfAccountId) {
-                fd.append('chartOfAccountId', submitData.chartOfAccountId);
-              }
-
-              // Image file
-              if (submitData.image instanceof File) {
-                fd.append('image', submitData.image);
-              }
-
-              // Attachments array
-              if (Array.isArray(submitData.attachments)) {
-                submitData.attachments.forEach(function (file, idx) {
-                  if (file instanceof File) {
-                    fd.append("attachments[".concat(idx, "]"), file);
-                  }
-                });
-              }
-
-              // Representatives array (as nested fields)
-              if (Array.isArray(submitData.representatives)) {
-                submitData.representatives.forEach(function (rep, i) {
-                  if (!rep) return;
-                  if (rep.name !== undefined && rep.name !== null) fd.append("representatives[".concat(i, "][name]"), rep.name);
-                  if (rep.email) fd.append("representatives[".concat(i, "][email]"), rep.email);
-                  if (rep.phone) fd.append("representatives[".concat(i, "][phone]"), rep.phone);
-                  if (rep.position) fd.append("representatives[".concat(i, "][position]"), rep.position);
-                });
-              }
-              _context2.next = 59;
-              return _this2.$http.put("/api/clients/".concat(clientSlug), fd, {
-                headers: {
-                  'Content-Type': 'multipart/form-data'
-                }
-              });
-            case 59:
-              response = _context2.sent;
-              _context2.next = 65;
-              break;
-            case 62:
-              _context2.next = 64;
-              return _this2.$http.put("/api/clients/".concat(clientSlug), submitData);
-            case 64:
-              response = _context2.sent;
-            case 65:
-              if (!response.data.success) {
-                _context2.next = 72;
-                break;
-              }
-              toast.fire({
-                type: "success",
-                title: _this2.$t("Client updated successfully")
-              });
-              _this2.$emit("reloadClients");
-              _this2.closeModal();
-              _this2.form = null; // Reset form reference
-              _context2.next = 73;
-              break;
-            case 72:
-              throw new Error(response.data.message || 'Update failed');
-            case 73:
-              _context2.next = 81;
-              break;
-            case 75:
-              _context2.prev = 75;
-              _context2.t0 = _context2["catch"](3);
-              console.error("Error in editClient:", _context2.t0);
-              errorMessage = ((_error$response = _context2.t0.response) === null || _error$response === void 0 || (_error$response = _error$response.data) === null || _error$response === void 0 ? void 0 : _error$response.message) || _this2.$t("Please check your input and try again.");
-              toast.fire({
-                type: "error",
-                title: errorMessage
-              });
-              _this2.isSubmitting = false;
-            case 81:
-            case "end":
-              return _context2.stop();
-          }
-        }, _callee2, null, [[3, 75]]);
-      }))();
-    },
-    toggleModal: function toggleModal() {
-      var _this3 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
-        var response, fullClientData;
-        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-          while (1) switch (_context3.prev = _context3.next) {
-            case 0:
-              _this3.showClientEditModal = !_this3.showClientEditModal;
-              // Reset form when opening modal
-              if (!_this3.showClientEditModal) {
-                _context3.next = 19;
-                break;
-              }
-              _this3.form = null;
-              _this3.isSubmitting = false;
-
-              // If we have a client prop and it has a slug, fetch full data
-              if (!(_this3.client && _this3.client.slug)) {
-                _context3.next = 19;
-                break;
-              }
-              _context3.prev = 5;
-              console.log('Fetching full client data for toggle modal...');
-              _context3.next = 9;
-              return _this3.$http.get("/api/clients/".concat(_this3.client.slug));
-            case 9:
-              response = _context3.sent;
-              fullClientData = response.data.data || response.data;
-              console.log('Full client data received via toggle:', fullClientData);
-              _this3.mapClientData(fullClientData);
-              _context3.next = 19;
-              break;
-            case 15:
-              _context3.prev = 15;
-              _context3.t0 = _context3["catch"](5);
-              console.error('Error fetching full client data via toggle:', _context3.t0);
-              // Fallback to existing data
-              if (_this3.client && Object.keys(_this3.client).length > 0) {
-                _this3.mapClientData(_this3.client);
-              }
-            case 19:
-            case "end":
-              return _context3.stop();
-          }
-        }, _callee3, null, [[5, 15]]);
-      }))();
-    },
-    closeModal: function closeModal() {
-      this.showClientEditModal = false;
-      this.$emit('close');
-    },
-    // Open modal with client data (fetch full data from API)
-    openModal: function openModal() {
-      var _arguments = arguments,
-        _this4 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
-        var client, clientToEdit, response, fullClientData;
-        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
-          while (1) switch (_context4.prev = _context4.next) {
-            case 0:
-              client = _arguments.length > 0 && _arguments[0] !== undefined ? _arguments[0] : null;
-              clientToEdit = client || _this4.client;
-              if (clientToEdit) {
-                _context4.next = 5;
-                break;
-              }
-              console.error('No client data provided for editing');
-              return _context4.abrupt("return");
-            case 5:
-              if (!clientToEdit.slug) {
-                _context4.next = 22;
-                break;
-              }
-              _context4.prev = 6;
-              console.log('Fetching full client data for edit modal...');
-              // Fetch complete client data from API
-              _context4.next = 10;
-              return _this4.$http.get("/api/clients/".concat(clientToEdit.slug));
-            case 10:
-              response = _context4.sent;
-              fullClientData = response.data.data || response.data;
-              console.log('Full client data received:', fullClientData);
-              _this4.mapClientData(fullClientData);
-              _context4.next = 20;
-              break;
-            case 16:
-              _context4.prev = 16;
-              _context4.t0 = _context4["catch"](6);
-              console.error('Error fetching full client data:', _context4.t0);
-              // Fallback to partial data if API call fails
-              _this4.mapClientData(clientToEdit);
-            case 20:
-              _context4.next = 23;
-              break;
-            case 22:
-              // Fallback to partial data if no slug
-              _this4.mapClientData(clientToEdit);
-            case 23:
-              _this4.showClientEditModal = true;
-              _this4.form = null;
-              _this4.isSubmitting = false;
-            case 26:
-            case "end":
-              return _context4.stop();
-          }
-        }, _callee4, null, [[6, 16]]);
-      }))();
-    }
-  }
-});
-;// ./resources/js/components/ClientEditModal.vue?vue&type=script&lang=js
- /* harmony default export */ const components_ClientEditModalvue_type_script_lang_js = (ClientEditModalvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-var injectStylesIntoStyleTag = __webpack_require__(85072);
-var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ClientEditModal.vue?vue&type=style&index=0&id=19537cc9&prod&scoped=true&lang=css
-var ClientEditModalvue_type_style_index_0_id_19537cc9_prod_scoped_true_lang_css = __webpack_require__(56654);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ClientEditModal.vue?vue&type=style&index=0&id=19537cc9&prod&scoped=true&lang=css
-
-            
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = injectStylesIntoStyleTag_default()(ClientEditModalvue_type_style_index_0_id_19537cc9_prod_scoped_true_lang_css/* default */.A, options);
-
-
-
-/* harmony default export */ const components_ClientEditModalvue_type_style_index_0_id_19537cc9_prod_scoped_true_lang_css = (ClientEditModalvue_type_style_index_0_id_19537cc9_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/components/ClientEditModal.vue?vue&type=style&index=0&id=19537cc9&prod&scoped=true&lang=css
-
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/components/ClientEditModal.vue
-
-
-
-;
-
-
-/* normalize component */
-
-var component = (0,componentNormalizer/* default */.A)(
-  components_ClientEditModalvue_type_script_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  "19537cc9",
-  null
-  
-)
-
-/* harmony default export */ const ClientEditModal = (component.exports);
-
-/***/ }),
-
 /***/ 51761:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -20078,26 +19517,6 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
     return esUs;
 
 })));
-
-
-/***/ }),
-
-/***/ 56654:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".edit-button[data-v-19537cc9]{cursor:pointer;text-decoration:none}.modal-content[data-v-19537cc9]{margin:1.75rem auto;max-width:1000px}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
 
 /***/ }),
@@ -24686,6 +24105,588 @@ ___CSS_LOADER_EXPORT___.push([module.id, ".dtable-footer{align-items:center;disp
 
 })));
 
+
+/***/ }),
+
+/***/ 88874:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  A: () => (/* binding */ ClientEditModal)
+});
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ClientEditModal.vue?vue&type=template&id=2eaec3d9&scoped=true
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', [_c('VModal', {
+    on: {
+      "close": _vm.closeModal
+    },
+    scopedSlots: _vm._u([{
+      key: "title",
+      fn: function fn() {
+        return [_vm._v(_vm._s(_vm.$t("Edit Client")))];
+      },
+      proxy: true
+    }]),
+    model: {
+      value: _vm.showClientEditModal,
+      callback: function callback($$v) {
+        _vm.showClientEditModal = $$v;
+      },
+      expression: "showClientEditModal"
+    }
+  }, [_vm._v(" "), [_c('ClientForm', {
+    ref: "clientForm",
+    attrs: {
+      "showCardBody": false,
+      "initialData": _vm.clientData
+    }
+  }), _vm._v(" "), _c('div', {
+    attrs: {
+      "slot": "modal-footer"
+    },
+    slot: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-success",
+    attrs: {
+      "disabled": _vm.isSubmitting
+    },
+    on: {
+      "click": function click($event) {
+        return _vm.submitItem($event);
+      }
+    }
+  }, [_vm.isSubmitting ? _c('i', {
+    staticClass: "fas fa-spinner fa-spin"
+  }) : _c('i', {
+    staticClass: "fas fa-save"
+  }), _vm._v(" \n          " + _vm._s(_vm.isSubmitting ? _vm.$t("Saving...") : _vm.$t("Save")) + "\n        ")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-secondary ml-2",
+    on: {
+      "click": _vm.closeModal
+    }
+  }, [_vm._v("\n          " + _vm._s(_vm.$t("Cancel")) + "\n        ")])])]], 2), _vm._v(" "), _c('a', {
+    staticClass: "edit-button",
+    on: {
+      "click": _vm.toggleModal
+    }
+  }, [_vm._t("default")], 2)], 1);
+};
+var staticRenderFns = [];
+
+// EXTERNAL MODULE: ./resources/js/components/ClientForm.vue + 5 modules
+var ClientForm = __webpack_require__(80496);
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ClientEditModal.vue?vue&type=script&lang=js
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+/* harmony default export */ const ClientEditModalvue_type_script_lang_js = ({
+  name: "ClientEditModal",
+  middleware: ["auth", "check-permissions"],
+  components: {
+    ClientForm: ClientForm/* default */.A
+  },
+  props: {
+    // Client data to edit
+    client: {
+      type: Object,
+      required: false,
+      "default": function _default() {
+        return {};
+      }
+    }
+  },
+  data: function data() {
+    return {
+      showClientEditModal: false,
+      form: null,
+      isSubmitting: false,
+      clientData: {}
+    };
+  },
+  watch: {
+    // Watch for changes in client prop
+    client: {
+      handler: function handler(newClient) {
+        if (newClient && Object.keys(newClient).length > 0) {
+          this.mapClientData(newClient);
+        }
+      },
+      immediate: true,
+      deep: true
+    }
+  },
+  methods: {
+    // Map client data to form structure
+    mapClientData: function mapClientData(clientData) {
+      console.log('=== MAPPING CLIENT DATA IN EDIT MODAL ===');
+      console.log('Original client data:', clientData);
+      console.log('Phone fields in client data:');
+      console.log('- clientData.phone:', clientData.phone);
+      console.log('- clientData.phoneNumber:', clientData.phoneNumber);
+      console.log('- clientData.phone_number:', clientData.phone_number);
+      console.log('- clientData.mobile:', clientData.mobile);
+      this.clientData = {
+        // Preserve ID and slug for API calls
+        id: clientData.id,
+        slug: clientData.slug,
+        // Account Details
+        // Always show the stored code number when editing
+        codeNumber: clientData.codeNumber || clientData.code_number || '',
+        billingMethod: clientData.billingMethod || 'print',
+        currency: clientData.currency || 'EGP',
+        classification: clientData.classification || '',
+        notes: clientData.notes || '',
+        displayLanguage: clientData.displayLanguage || clientData.display_language || '',
+        // Client Details
+        type: clientData.type || 'Company',
+        fullName: clientData.fullName || (clientData.type === 'Individual' ? clientData.name : ''),
+        businessName: clientData.businessName || clientData.companyName || clientData.company_name || (clientData.type === 'Company' ? clientData.name : ''),
+        firstName: clientData.firstName || clientData.first_name || '',
+        lastName: clientData.lastName || clientData.last_name || '',
+        phone: clientData.phone || '',
+        phoneNumber: clientData.phoneNumber || clientData.phone_number || clientData.phone || clientData.mobile || '',
+        email: clientData.email || '',
+        // Address Information (make sure all fields are mapped)
+        streetAddress1: clientData.streetAddress1 || clientData.street_address_1 || clientData.address || '',
+        streetAddress2: clientData.streetAddress2 || clientData.street_address_2 || '',
+        city: clientData.city || '',
+        state: clientData.state || '',
+        postalCode: clientData.postalCode || clientData.postal_code || '',
+        country: clientData.country || 'SA',
+        neighbourhood: clientData.neighbourhood || '',
+        // Saudi National Address fields
+        buildingNumber: clientData.buildingNumber || clientData.building_number || '',
+        streetNumber: clientData.streetNumber || clientData.street_number || '',
+        districtNumber: clientData.districtNumber || clientData.district_number || '',
+        unitNumber: clientData.unitNumber || clientData.unit_number || '',
+        additionalNumber: clientData.additionalNumber || clientData.additional_number || '',
+        // Business Information
+        commercialRegister: clientData.commercialRegister || clientData.commercial_register || clientData.taxRegistrationNumber || clientData.tax_registration_number || '',
+        taxCard: clientData.taxCard || clientData.tax_card || '',
+        addSecondaryAddress: clientData.addSecondaryAddress || false,
+        // Additional Fields
+        image: clientData.image || '',
+        image_path: clientData.image_path || '',
+        attachments: Array.isArray(clientData.attachments) ? clientData.attachments : [],
+        status: clientData.status !== undefined ? clientData.status : 1,
+        isSendEmail: Boolean(clientData.isSendEmail || clientData.is_send_email),
+        isSendSMS: Boolean(clientData.isSendSMS || clientData.is_send_sms),
+        // Representatives (ensure this is included)
+        representatives: Array.isArray(clientData.representatives) ? clientData.representatives : [],
+        // Chart of Account
+        chartOfAccountId: clientData.chartOfAccountId || clientData.chart_of_account_id || null,
+        // Legacy fields for backward compatibility
+        name: clientData.name || '',
+        companyName: clientData.companyName || clientData.company_name || '',
+        taxRegistrationNumber: clientData.taxRegistrationNumber || clientData.tax_registration_number || '',
+        address: clientData.address || ''
+      };
+      console.log('Mapped client data for form:', this.clientData);
+      console.log('=== END MAPPING CLIENT DATA ===');
+    },
+    // Edit client
+    submitItem: function submitItem(evt) {
+      var _this = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              evt.preventDefault();
+              _context.next = 3;
+              return _this.editClient();
+            case 3:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee);
+      }))();
+    },
+    editClient: function editClient() {
+      var _this2 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        var formData, submitData, hasFiles, clientSlug, response, fd, appendIfDefined, phoneNumberValue, phoneNumberToSend, _iterator, _step, pair, _error$response, errorMessage;
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              if (!_this2.isSubmitting) {
+                _context2.next = 2;
+                break;
+              }
+              return _context2.abrupt("return");
+            case 2:
+              _this2.isSubmitting = true;
+              _context2.prev = 3;
+              // Get the form from the ClientForm component
+              _this2.form = _this2.$refs.clientForm.getFormData();
+
+              // Validate the form
+              _context2.next = 7;
+              return _this2.$refs.clientForm.validateForm();
+            case 7:
+              if (_context2.sent) {
+                _context2.next = 10;
+                break;
+              }
+              _this2.isSubmitting = false;
+              return _context2.abrupt("return");
+            case 10:
+              // Get form data directly from ClientForm component
+              formData = _this2.$refs.clientForm.getFormData(); // Build the submit data manually (same as ClientForm.submitForm does)
+              submitData = {
+                codeNumber: formData.codeNumber,
+                notes: formData.notes,
+                displayLanguage: formData.displayLanguage,
+                status: formData.status,
+                type: formData.type,
+                fullName: formData.fullName,
+                businessName: formData.businessName,
+                firstName: formData.firstName,
+                lastName: formData.lastName,
+                phone: formData.phone,
+                phoneNumber: formData.phoneNumber || '',
+                // Explicitly include phone number
+                email: formData.email,
+                streetAddress1: formData.streetAddress1,
+                city: formData.city,
+                state: formData.state,
+                postalCode: formData.postalCode,
+                country: formData.country,
+                neighbourhood: formData.neighbourhood,
+                commercialRegister: formData.commercialRegister,
+                taxCard: formData.taxCard,
+                buildingNumber: formData.buildingNumber,
+                unitNumber: formData.unitNumber,
+                additionalNumber: formData.additionalNumber,
+                image: formData.image,
+                attachments: formData.attachments,
+                isSendEmail: formData.isSendEmail,
+                isSendSMS: formData.isSendSMS,
+                name: formData.type === 'Individual' ? formData.fullName : formData.businessName,
+                companyName: formData.businessName,
+                taxRegistrationNumber: formData.taxCard,
+                address: formData.streetAddress1,
+                representatives: formData.representatives || [],
+                chartOfAccountId: formData.chartOfAccountId
+              }; // Check if we have files (image or attachments) - if so, use FormData
+              hasFiles = submitData.image && submitData.image instanceof File || Array.isArray(submitData.attachments) && submitData.attachments.some(function (f) {
+                return f instanceof File;
+              });
+              clientSlug = _this2.clientData.slug || _this2.client.slug;
+              if (!hasFiles) {
+                _context2.next = 62;
+                break;
+              }
+              // Build multipart/form-data to properly send files (image, attachments)
+              fd = new FormData();
+              appendIfDefined = function appendIfDefined(key, value) {
+                if (value !== undefined && value !== null && value !== '') {
+                  fd.append(key, value);
+                }
+              }; // Simple scalar fields
+              appendIfDefined('codeNumber', submitData.codeNumber);
+              appendIfDefined('notes', submitData.notes);
+              appendIfDefined('displayLanguage', submitData.displayLanguage);
+              appendIfDefined('type', submitData.type);
+              appendIfDefined('fullName', submitData.fullName);
+              appendIfDefined('businessName', submitData.businessName);
+              appendIfDefined('firstName', submitData.firstName);
+              appendIfDefined('lastName', submitData.lastName);
+              appendIfDefined('phone', submitData.phone);
+
+              // Phone number is required - always include it
+              phoneNumberValue = submitData.phoneNumber;
+              if (phoneNumberValue === undefined || phoneNumberValue === null) {
+                if (_this2.$refs.clientForm && _this2.$refs.clientForm.form) {
+                  phoneNumberValue = _this2.$refs.clientForm.form.phoneNumber;
+                }
+              }
+              phoneNumberValue = phoneNumberValue || '';
+              console.log('ClientEditModal - Adding phoneNumber to FormData:', phoneNumberValue);
+              console.log('ClientEditModal - phoneNumber type:', _typeof(phoneNumberValue));
+              console.log('ClientEditModal - phoneNumber length:', phoneNumberValue ? phoneNumberValue.length : 0);
+              // Use explicit string conversion and ensure it's not null/undefined
+              phoneNumberToSend = phoneNumberValue ? String(phoneNumberValue).trim() : '';
+              console.log('ClientEditModal - phoneNumberToSend:', phoneNumberToSend);
+              fd.append('phoneNumber', phoneNumberToSend);
+
+              // Debug: Log all FormData entries
+              console.log('ClientEditModal - FormData entries:');
+              _iterator = _createForOfIteratorHelper(fd.entries());
+              try {
+                for (_iterator.s(); !(_step = _iterator.n()).done;) {
+                  pair = _step.value;
+                  console.log(pair[0] + ': ' + pair[1]);
+                }
+              } catch (err) {
+                _iterator.e(err);
+              } finally {
+                _iterator.f();
+              }
+              appendIfDefined('email', submitData.email);
+              appendIfDefined('streetAddress1', submitData.streetAddress1);
+              appendIfDefined('city', submitData.city);
+              appendIfDefined('state', submitData.state);
+              appendIfDefined('postalCode', submitData.postalCode);
+              appendIfDefined('country', submitData.country);
+              appendIfDefined('neighbourhood', submitData.neighbourhood);
+              appendIfDefined('commercialRegister', submitData.commercialRegister);
+              appendIfDefined('taxCard', submitData.taxCard);
+              appendIfDefined('status', submitData.status);
+              appendIfDefined('isSendEmail', submitData.isSendEmail ? 1 : 0);
+              appendIfDefined('isSendSMS', submitData.isSendSMS ? 1 : 0);
+
+              // Saudi National Address Fields
+              appendIfDefined('buildingNumber', submitData.buildingNumber);
+              appendIfDefined('unitNumber', submitData.unitNumber);
+              appendIfDefined('additionalNumber', submitData.additionalNumber);
+
+              // Chart of Account
+              if (submitData.chartOfAccountId) {
+                fd.append('chartOfAccountId', submitData.chartOfAccountId);
+              }
+
+              // Image file
+              if (submitData.image instanceof File) {
+                fd.append('image', submitData.image);
+              }
+
+              // Attachments array
+              if (Array.isArray(submitData.attachments)) {
+                submitData.attachments.forEach(function (file, idx) {
+                  if (file instanceof File) {
+                    fd.append("attachments[".concat(idx, "]"), file);
+                  }
+                });
+              }
+
+              // Representatives array (as nested fields)
+              if (Array.isArray(submitData.representatives)) {
+                submitData.representatives.forEach(function (rep, i) {
+                  if (!rep) return;
+                  if (rep.name !== undefined && rep.name !== null) fd.append("representatives[".concat(i, "][name]"), rep.name);
+                  if (rep.email) fd.append("representatives[".concat(i, "][email]"), rep.email);
+                  if (rep.phone) fd.append("representatives[".concat(i, "][phone]"), rep.phone);
+                  if (rep.position) fd.append("representatives[".concat(i, "][position]"), rep.position);
+                });
+              }
+              _context2.next = 59;
+              return _this2.$http.put("/api/clients/".concat(clientSlug), fd, {
+                headers: {
+                  'Content-Type': 'multipart/form-data'
+                }
+              });
+            case 59:
+              response = _context2.sent;
+              _context2.next = 65;
+              break;
+            case 62:
+              _context2.next = 64;
+              return _this2.$http.put("/api/clients/".concat(clientSlug), submitData);
+            case 64:
+              response = _context2.sent;
+            case 65:
+              if (!response.data.success) {
+                _context2.next = 72;
+                break;
+              }
+              toast.fire({
+                type: "success",
+                title: _this2.$t("Client updated successfully")
+              });
+              _this2.$emit("reloadClients");
+              _this2.closeModal();
+              _this2.form = null; // Reset form reference
+              _context2.next = 73;
+              break;
+            case 72:
+              throw new Error(response.data.message || 'Update failed');
+            case 73:
+              _context2.next = 81;
+              break;
+            case 75:
+              _context2.prev = 75;
+              _context2.t0 = _context2["catch"](3);
+              console.error("Error in editClient:", _context2.t0);
+              errorMessage = ((_error$response = _context2.t0.response) === null || _error$response === void 0 || (_error$response = _error$response.data) === null || _error$response === void 0 ? void 0 : _error$response.message) || _this2.$t("Please check your input and try again.");
+              toast.fire({
+                type: "error",
+                title: errorMessage
+              });
+              _this2.isSubmitting = false;
+            case 81:
+            case "end":
+              return _context2.stop();
+          }
+        }, _callee2, null, [[3, 75]]);
+      }))();
+    },
+    toggleModal: function toggleModal() {
+      var _this3 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        var response, fullClientData;
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
+            case 0:
+              _this3.showClientEditModal = !_this3.showClientEditModal;
+              // Reset form when opening modal
+              if (!_this3.showClientEditModal) {
+                _context3.next = 19;
+                break;
+              }
+              _this3.form = null;
+              _this3.isSubmitting = false;
+
+              // If we have a client prop and it has a slug, fetch full data
+              if (!(_this3.client && _this3.client.slug)) {
+                _context3.next = 19;
+                break;
+              }
+              _context3.prev = 5;
+              console.log('Fetching full client data for toggle modal...');
+              _context3.next = 9;
+              return _this3.$http.get("/api/clients/".concat(_this3.client.slug));
+            case 9:
+              response = _context3.sent;
+              fullClientData = response.data.data || response.data;
+              console.log('Full client data received via toggle:', fullClientData);
+              _this3.mapClientData(fullClientData);
+              _context3.next = 19;
+              break;
+            case 15:
+              _context3.prev = 15;
+              _context3.t0 = _context3["catch"](5);
+              console.error('Error fetching full client data via toggle:', _context3.t0);
+              // Fallback to existing data
+              if (_this3.client && Object.keys(_this3.client).length > 0) {
+                _this3.mapClientData(_this3.client);
+              }
+            case 19:
+            case "end":
+              return _context3.stop();
+          }
+        }, _callee3, null, [[5, 15]]);
+      }))();
+    },
+    closeModal: function closeModal() {
+      this.showClientEditModal = false;
+      this.$emit('close');
+    },
+    // Open modal with client data (fetch full data from API)
+    openModal: function openModal() {
+      var _arguments = arguments,
+        _this4 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+        var client, clientToEdit, response, fullClientData;
+        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+          while (1) switch (_context4.prev = _context4.next) {
+            case 0:
+              client = _arguments.length > 0 && _arguments[0] !== undefined ? _arguments[0] : null;
+              clientToEdit = client || _this4.client;
+              if (clientToEdit) {
+                _context4.next = 5;
+                break;
+              }
+              console.error('No client data provided for editing');
+              return _context4.abrupt("return");
+            case 5:
+              if (!clientToEdit.slug) {
+                _context4.next = 22;
+                break;
+              }
+              _context4.prev = 6;
+              console.log('Fetching full client data for edit modal...');
+              // Fetch complete client data from API
+              _context4.next = 10;
+              return _this4.$http.get("/api/clients/".concat(clientToEdit.slug));
+            case 10:
+              response = _context4.sent;
+              fullClientData = response.data.data || response.data;
+              console.log('Full client data received:', fullClientData);
+              _this4.mapClientData(fullClientData);
+              _context4.next = 20;
+              break;
+            case 16:
+              _context4.prev = 16;
+              _context4.t0 = _context4["catch"](6);
+              console.error('Error fetching full client data:', _context4.t0);
+              // Fallback to partial data if API call fails
+              _this4.mapClientData(clientToEdit);
+            case 20:
+              _context4.next = 23;
+              break;
+            case 22:
+              // Fallback to partial data if no slug
+              _this4.mapClientData(clientToEdit);
+            case 23:
+              _this4.showClientEditModal = true;
+              _this4.form = null;
+              _this4.isSubmitting = false;
+            case 26:
+            case "end":
+              return _context4.stop();
+          }
+        }, _callee4, null, [[6, 16]]);
+      }))();
+    }
+  }
+});
+;// ./resources/js/components/ClientEditModal.vue?vue&type=script&lang=js
+ /* harmony default export */ const components_ClientEditModalvue_type_script_lang_js = (ClientEditModalvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__(85072);
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ClientEditModal.vue?vue&type=style&index=0&id=2eaec3d9&prod&scoped=true&lang=css
+var ClientEditModalvue_type_style_index_0_id_2eaec3d9_prod_scoped_true_lang_css = __webpack_require__(22592);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ClientEditModal.vue?vue&type=style&index=0&id=2eaec3d9&prod&scoped=true&lang=css
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = injectStylesIntoStyleTag_default()(ClientEditModalvue_type_style_index_0_id_2eaec3d9_prod_scoped_true_lang_css/* default */.A, options);
+
+
+
+/* harmony default export */ const components_ClientEditModalvue_type_style_index_0_id_2eaec3d9_prod_scoped_true_lang_css = (ClientEditModalvue_type_style_index_0_id_2eaec3d9_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/components/ClientEditModal.vue?vue&type=style&index=0&id=2eaec3d9&prod&scoped=true&lang=css
+
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(14486);
+;// ./resources/js/components/ClientEditModal.vue
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,componentNormalizer/* default */.A)(
+  components_ClientEditModalvue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  "2eaec3d9",
+  null
+  
+)
+
+/* harmony default export */ const ClientEditModal = (component.exports);
 
 /***/ }),
 

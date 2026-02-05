@@ -1,107 +1,3679 @@
 (self["webpackChunk"] = self["webpackChunk"] || []).push([[7859],{
 
-/***/ 51900
-(module, __webpack_exports__, __webpack_require__) {
+/***/ 4880:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76798);
-/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
 // Imports
 
-var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, ".form-group[data-v-1def6f66]{margin-bottom:1rem}.form-group label[data-v-1def6f66]{color:#495057;font-size:.95rem;font-weight:500;margin-bottom:.5rem}.required[data-v-1def6f66]{color:#dc3545;font-weight:700}.form-control[data-v-1def6f66]{background:#fff!important;border:1px solid #e5e7eb;font-size:14px;padding:10px 16px}.form-control[data-v-1def6f66]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(51,160,217,.25)}.is-invalid[data-v-1def6f66]{border-color:#dc3545!important}textarea.form-control[data-v-1def6f66]{min-height:100px;resize:vertical}.v-select[data-v-1def6f66]{background:#fff!important;border:1px solid #e5e7eb;border-radius:10px}.v-select .vs__dropdown-toggle[data-v-1def6f66]{background:#fff!important;border:1px solid #e5e7eb;padding:10px 16px}.btn-success[data-v-1def6f66]{background:#2ab930!important;border:none!important;color:#fff!important;font-weight:500;padding:10px 20px!important}.btn-success[data-v-1def6f66]:hover{background:#229a26!important;box-shadow:0 4px 8px rgba(42,185,48,.3);transform:translateY(-1px)}.btn-secondary[data-v-1def6f66]{background:#6c757d!important;border:none!important;color:#fff!important;font-weight:500;padding:10px 20px!important}.btn-secondary[data-v-1def6f66]:hover{background:#5a6268!important;box-shadow:0 4px 8px hsla(208,7%,46%,.3);transform:translateY(-1px)}.create-button[data-v-1def6f66]{cursor:pointer;text-decoration:none}.row[data-v-1def6f66]{margin-bottom:1rem}.row[data-v-1def6f66]:last-child{margin-bottom:0}@media (max-width:768px){.form-control[data-v-1def6f66]{font-size:.9rem;padding:8px 12px}}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
 
-/***/ },
+/***/ }),
 
-/***/ 83049
-(module, __webpack_exports__, __webpack_require__) {
+/***/ 63617:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  A: () => (/* binding */ InvoiceSummaryTable)
+});
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/sales/InvoiceSummaryTable.vue?vue&type=template&id=a6df283c&scoped=true
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "table-responsive table-custom table-border-y-0"
+  }, [_c('table', {
+    staticClass: "table invoices-table"
+  }, [_c('tbody', [_c('tr', {
+    staticClass: "text-bold"
+  }, [_c('th', [_vm._v(_vm._s(_vm.$t("Subtotal")) + ":")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatNumber(_vm.subtotal)) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])])]), _vm._v(" "), _c('tr', {
+    staticClass: "text-bold"
+  }, [_c('th', [_vm._v(_vm._s(_vm.$t("After Discount")) + ":")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatNumber(_vm.afterDiscount)) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Total Tax")) + ":")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatNumber(_vm.totalTax)) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])])]), _vm._v(" "), _vm.transport > 0 ? _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Transport")) + ":")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatNumber(_vm.transport)) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])])]) : _vm._e(), _vm._v(" "), _c('tr', {
+    staticClass: "text-bold"
+  }, [_c('th', [_vm._v(_vm._s(_vm.$t("Grand Total")) + ":")]), _vm._v(" "), _c('td', [_vm._v("\n           \n          " + _vm._s(_vm.formatNumber(_vm.grandTotal)) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Total Paid")) + ":")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatNumber(_vm.paidAmount)) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])])]), _vm._v(" "), _c('tr', {
+    staticClass: "text-bold"
+  }, [_c('th', [_vm._v(_vm._s(_vm.$t("Due Amount")) + ":")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatNumber(_vm.dueAmount)) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])])])])])]);
+};
+var staticRenderFns = [];
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/sales/InvoiceSummaryTable.vue?vue&type=script&lang=js
+/* harmony default export */ const InvoiceSummaryTablevue_type_script_lang_js = ({
+  name: 'InvoiceSummaryTable',
+  props: {
+    subtotal: {
+      type: Number,
+      "default": 0
+    },
+    afterDiscount: {
+      type: Number,
+      "default": 0
+    },
+    totalTax: {
+      type: Number,
+      "default": 0
+    },
+    transport: {
+      type: Number,
+      "default": 0
+    },
+    grandTotal: {
+      type: Number,
+      "default": 0
+    },
+    paidAmount: {
+      type: Number,
+      "default": 0
+    },
+    dueAmount: {
+      type: Number,
+      "default": 0
+    }
+  },
+  methods: {
+    /**
+     * Format number to 2 decimal places
+     */
+    formatNumber: function formatNumber(value) {
+      if (value === null || value === undefined || isNaN(value)) {
+        return '0.00';
+      }
+      return parseFloat(value).toFixed(2);
+    }
+  }
+});
+;// ./resources/js/components/sales/InvoiceSummaryTable.vue?vue&type=script&lang=js
+ /* harmony default export */ const sales_InvoiceSummaryTablevue_type_script_lang_js = (InvoiceSummaryTablevue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__(85072);
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/sales/InvoiceSummaryTable.vue?vue&type=style&index=0&id=a6df283c&prod&scoped=true&lang=css
+var InvoiceSummaryTablevue_type_style_index_0_id_a6df283c_prod_scoped_true_lang_css = __webpack_require__(99597);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/sales/InvoiceSummaryTable.vue?vue&type=style&index=0&id=a6df283c&prod&scoped=true&lang=css
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = injectStylesIntoStyleTag_default()(InvoiceSummaryTablevue_type_style_index_0_id_a6df283c_prod_scoped_true_lang_css/* default */.A, options);
+
+
+
+/* harmony default export */ const sales_InvoiceSummaryTablevue_type_style_index_0_id_a6df283c_prod_scoped_true_lang_css = (InvoiceSummaryTablevue_type_style_index_0_id_a6df283c_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/components/sales/InvoiceSummaryTable.vue?vue&type=style&index=0&id=a6df283c&prod&scoped=true&lang=css
+
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(14486);
+;// ./resources/js/components/sales/InvoiceSummaryTable.vue
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,componentNormalizer/* default */.A)(
+  sales_InvoiceSummaryTablevue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  "a6df283c",
+  null
+  
+)
+
+/* harmony default export */ const InvoiceSummaryTable = (component.exports);
+
+/***/ }),
+
+/***/ 64557:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76798);
-/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
 // Imports
 
-var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".tabs-header-row[data-v-5dc72241]{margin-bottom:1.5rem}.nav-tabs[data-v-5dc72241]{align-self:center;background:#0775af1a;border:none;border-radius:10px;display:flex;gap:10px;justify-content:space-between;margin-bottom:0;padding:10px;width:20%}.nav-item[data-v-5dc72241]{flex:1 1 0}.nav-link[data-v-5dc72241]{align-items:center;border:none;border-radius:10px;color:#000;cursor:pointer;display:inline-flex;font-family:DINNextLTArabic;font-size:.95rem;font-weight:400;justify-content:center;padding:10px 12px;text-align:center;text-decoration:none;transition:all .2s ease;width:100%}.nav-link.active[data-v-5dc72241]{background:#0775af;color:#fff!important}.nav-link[data-v-5dc72241]:hover{filter:brightness(.96)}@media (max-width:576px){.nav-tabs[data-v-5dc72241]{gap:6px}.nav-link[data-v-5dc72241]{font-size:.85rem;padding:8px 10px}}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ },
-
-/***/ 12825
-(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76798);
-/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, ".create-btn[data-v-65c2e2a1]{align-items:center;background-color:#f8f9fa;border:1px solid #e5e7eb;border-left:none;cursor:pointer;display:flex;justify-content:center;padding:11px;transition:background-color .2s ease}.create-btn[data-v-65c2e2a1]:hover{background-color:#e9ecef}.create-btn i[data-v-65c2e2a1]{color:#33a0d9;font-size:18px}[dir=rtl] .create-btn[data-v-65c2e2a1]{border-left:1px solid #e5e7eb;border-radius:.25rem 0 0 .25rem;border-right:none}[dir=ltr] .create-btn[data-v-65c2e2a1]{border-left:none;border-radius:0 .25rem .25rem 0;border-right:1px solid #e5e7eb}.d-flex.w-100 .v-select[data-v-65c2e2a1]{flex:1}.d-flex.w-100 .v-select .vs__dropdown-toggle[data-v-65c2e2a1]{border-right:none}[dir=rtl] .d-flex.w-100 .v-select .vs__dropdown-toggle[data-v-65c2e2a1]{border-left:none;border-right:1px solid #e5e7eb}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
 
-/***/ },
+/***/ }),
 
-/***/ 83217
-(module, __webpack_exports__, __webpack_require__) {
+/***/ 64866:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  A: () => (/* binding */ DetailsActivityTabs)
+});
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/DetailsActivityTabs.vue?vue&type=template&id=5dc72241&scoped=true
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', [_c('div', {
+    staticClass: "row no-print tabs-header-row"
+  }, [_c('div', {
+    staticClass: "w-100 text-right float-right"
+  }, [_vm.showTabs ? _c('div', {
+    staticClass: "d-flex justify-content-between align-items-center"
+  }, [_c('ul', {
+    staticClass: "nav nav-tabs"
+  }, [_c('li', {
+    staticClass: "nav-item"
+  }, [_c('a', {
+    staticClass: "nav-link",
+    "class": {
+      active: _vm.activeTab === 'details'
+    },
+    attrs: {
+      "href": "#details",
+      "data-toggle": "tab"
+    },
+    on: {
+      "click": _vm.handleDetailsClick
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-info"
+  }), _vm._v("\n                " + _vm._s(_vm.$t("Details")) + "\n              ")])]), _vm._v(" "), _c('li', {
+    staticClass: "nav-item"
+  }, [_c('a', {
+    staticClass: "nav-link",
+    "class": {
+      active: _vm.activeTab === 'activity-log'
+    },
+    attrs: {
+      "href": "#activity-log",
+      "data-toggle": "tab"
+    },
+    on: {
+      "click": _vm.handleActivityClick
+    }
+  }, [_c('i', {
+    staticClass: "nav-icon fa fa-bell",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }), _vm._v("\n                " + _vm._s(_vm.$t("Activity log")) + "\n              ")])])]), _vm._v(" "), _vm._t("actions")], 2) : _vm._e()])]), _vm._v(" "), _c('div', {
+    staticClass: "tab-content"
+  }, [_c('div', {
+    staticClass: "tab-pane",
+    "class": {
+      active: _vm.activeTab === 'details'
+    },
+    attrs: {
+      "id": "details"
+    }
+  }, [_vm._t("details")], 2), _vm._v(" "), _c('div', {
+    staticClass: "tab-pane",
+    "class": {
+      active: _vm.activeTab === 'activity-log'
+    },
+    attrs: {
+      "id": "activity-log"
+    }
+  }, [_vm._t("activity-log")], 2)])]);
+};
+var staticRenderFns = [];
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/DetailsActivityTabs.vue?vue&type=script&lang=js
+/* harmony default export */ const DetailsActivityTabsvue_type_script_lang_js = ({
+  name: "DetailsActivityTabs",
+  props: {
+    showTabs: {
+      type: Boolean,
+      "default": true
+    },
+    defaultTab: {
+      type: String,
+      "default": "details"
+    }
+  },
+  data: function data() {
+    return {
+      activeTab: this.defaultTab
+    };
+  },
+  methods: {
+    handleDetailsClick: function handleDetailsClick() {
+      this.switchTab("details");
+      this.$emit("details-clicked");
+    },
+    handleActivityClick: function handleActivityClick() {
+      this.switchTab("activity-log");
+      this.$emit("activity-clicked");
+    },
+    switchTab: function switchTab(tab) {
+      if (this.activeTab === tab) {
+        return;
+      }
+      this.activeTab = tab;
+      this.$emit("tab-changed", tab);
+    }
+  },
+  mounted: function mounted() {
+    var _this = this;
+    // Set initial active tab
+    this.activeTab = this.defaultTab;
+
+    // Listen for Bootstrap tab events to keep state in sync
+    if (typeof $ !== "undefined") {
+      $('a[data-toggle="tab"]').on("shown.bs.tab", function (e) {
+        var target = $(e.target).attr("href");
+        if (target === "#details") {
+          _this.activeTab = "details";
+        } else if (target === "#activity-log") {
+          _this.activeTab = "activity-log";
+        }
+      });
+    }
+  }
+});
+;// ./resources/js/components/DetailsActivityTabs.vue?vue&type=script&lang=js
+ /* harmony default export */ const components_DetailsActivityTabsvue_type_script_lang_js = (DetailsActivityTabsvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__(85072);
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/DetailsActivityTabs.vue?vue&type=style&index=0&id=5dc72241&prod&scoped=true&lang=css
+var DetailsActivityTabsvue_type_style_index_0_id_5dc72241_prod_scoped_true_lang_css = __webpack_require__(90709);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/DetailsActivityTabs.vue?vue&type=style&index=0&id=5dc72241&prod&scoped=true&lang=css
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = injectStylesIntoStyleTag_default()(DetailsActivityTabsvue_type_style_index_0_id_5dc72241_prod_scoped_true_lang_css/* default */.A, options);
+
+
+
+/* harmony default export */ const components_DetailsActivityTabsvue_type_style_index_0_id_5dc72241_prod_scoped_true_lang_css = (DetailsActivityTabsvue_type_style_index_0_id_5dc72241_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/components/DetailsActivityTabs.vue?vue&type=style&index=0&id=5dc72241&prod&scoped=true&lang=css
+
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(14486);
+;// ./resources/js/components/DetailsActivityTabs.vue
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,componentNormalizer/* default */.A)(
+  components_DetailsActivityTabsvue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  "5dc72241",
+  null
+  
+)
+
+/* harmony default export */ const DetailsActivityTabs = (component.exports);
+
+/***/ }),
+
+/***/ 67859:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "default": () => (/* binding */ show)
+});
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/purchases/show.vue?vue&type=template&id=220487a0
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', [_c('breadcrumbs', {
+    attrs: {
+      "items": _vm.breadcrumbs,
+      "current": _vm.breadcrumbsCurrent
+    }
+  }), _vm._v(" "), _c('DetailsActivityTabs', {
+    attrs: {
+      "show-tabs": !!_vm.allData,
+      "default-tab": "details"
+    },
+    on: {
+      "details-clicked": _vm.getPurchase,
+      "activity-clicked": _vm.getActivity,
+      "tab-changed": _vm.handleTabChange
+    },
+    scopedSlots: _vm._u([{
+      key: "actions",
+      fn: function fn() {
+        return [_c('div', {
+          staticClass: "btn-group"
+        }, [_c('a', {
+          directives: [{
+            name: "tooltip",
+            rawName: "v-tooltip",
+            value: !_vm.communicationConfig.sms_configured ? _vm.$t('SMS settings not configured') : '',
+            expression: "!communicationConfig.sms_configured ? $t('SMS settings not configured') : ''"
+          }],
+          "class": ['btn', _vm.communicationConfig.sms_configured ? 'btn-secondary' : 'btn-secondary disabled'],
+          attrs: {
+            "href": "#",
+            "disabled": !_vm.communicationConfig.sms_configured,
+            "title": !_vm.communicationConfig.sms_configured ? _vm.$t('SMS settings not configured') : ''
+          },
+          on: {
+            "click": function click($event) {
+              _vm.communicationConfig.sms_configured ? _vm.notify(_vm.form.isSendSMS = true) : null;
+            }
+          }
+        }, [_c('i', {
+          staticClass: "fas fa-sms"
+        }), _vm._v(" " + _vm._s(_vm.$t("SMS")) + "\n          ")]), _vm._v(" "), _c('a', {
+          staticClass: "btn btn-success",
+          attrs: {
+            "href": "#"
+          },
+          on: {
+            "click": function click($event) {
+              _vm.notify(_vm.form.isSendEmail = true);
+            }
+          }
+        }, [_c('i', {
+          staticClass: "fas fa-paper-plane"
+        }), _vm._v(" " + _vm._s(_vm.$t("email")))]), _vm._v(" "), _c('a', {
+          staticClass: "btn btn-info",
+          attrs: {
+            "href": "#"
+          },
+          on: {
+            "click": _vm.previewPDF
+          }
+        }, [_c('i', {
+          staticClass: "fas fa-eye"
+        }), _vm._v(" " + _vm._s(_vm.$t("Preview PDF")) + "\n          ")]), _vm._v(" "), _c('a', {
+          staticClass: "btn btn-info",
+          attrs: {
+            "href": "#"
+          },
+          on: {
+            "click": _vm.downloadPDF
+          }
+        }, [_c('i', {
+          staticClass: "fas fa-download"
+        }), _vm._v(" " + _vm._s(_vm.$t("download")) + "\n          ")]), _vm._v(" "), _vm.allData && (_vm.allData.journalEntry || _vm.allData.journal_entry) && _vm.calculateDueAmount > 0 ? _c('a', {
+          staticClass: "btn btn-primary",
+          attrs: {
+            "href": "#"
+          },
+          on: {
+            "click": function click($event) {
+              $event.preventDefault();
+              return _vm.addPayment();
+            }
+          }
+        }, [_c('i', {
+          staticClass: "fas fa-money-bill"
+        }), _vm._v(" " + _vm._s(_vm.$t("Add Payment")) + "\n          ")]) : _vm._e(), _vm._v(" "), _vm.$can('purchase-return-create') && _vm.allData ? _c('a', {
+          staticClass: "btn btn-warning",
+          attrs: {
+            "href": "#"
+          },
+          on: {
+            "click": function click($event) {
+              $event.preventDefault();
+              return _vm.returnPurchase(_vm.allData);
+            }
+          }
+        }, [_c('i', {
+          staticClass: "fas fa-undo"
+        }), _vm._v(" " + _vm._s(_vm.$t("Return Purchase")) + "\n          ")]) : _vm._e(), _vm._v(" "), _vm.$can('purchase-edit') ? _c('router-link', {
+          staticClass: "btn btn-info",
+          attrs: {
+            "to": {
+              name: 'purchases.edit',
+              params: {
+                slug: _vm.allData.slug
+              }
+            }
+          }
+        }, [_c('i', {
+          staticClass: "fas fa-edit"
+        }), _vm._v(" " + _vm._s(_vm.$t("Edit")) + "\n          ")]) : _vm._e(), _vm._v(" "), _c('router-link', {
+          staticClass: "btn btn-info float-right",
+          attrs: {
+            "to": {
+              name: 'purchases.index'
+            }
+          }
+        }, [_vm.$i18n.locale === 'ar' || typeof _vm.document !== 'undefined' && _vm.document.documentElement.getAttribute('dir') === 'rtl' ? [_vm._v("\n\n              " + _vm._s(_vm.$t('Back')) + " "), _c('i', {
+          staticClass: "fas fa-long-arrow-alt-left"
+        })] : [_vm.$i18n.locale === 'ar' || typeof _vm.document !== 'undefined' && _vm.document.documentElement.getAttribute('dir') === 'rtl' ? [_vm._v("\n\n\n                " + _vm._s(_vm.$t('Back')) + " "), _c('i', {
+          staticClass: "fas fa-long-arrow-alt-left"
+        })] : [_c('i', {
+          staticClass: "fas fa-long-arrow-alt-left"
+        }), _vm._v(" " + _vm._s(_vm.$t('Back')) + "\n\n\n              ")]]], 2)], 1)];
+      },
+      proxy: true
+    }, {
+      key: "details",
+      fn: function fn() {
+        return [_c('div', {
+          staticClass: "row"
+        }, [_c('div', {
+          staticClass: "invoice p-3 mb-3 w-100",
+          attrs: {
+            "id": "content-to-pdf"
+          }
+        }, [_c('table-loading', {
+          directives: [{
+            name: "show",
+            rawName: "v-show",
+            value: _vm.loading,
+            expression: "loading"
+          }]
+        }), _vm._v(" "), _c('div', {
+          staticClass: "row invoice-info"
+        }, [_c('div', {
+          staticClass: "col-sm-4 invoice-col"
+        }, [_c('CompanyInfo')], 1), _vm._v(" "), _c('div', {
+          staticClass: "col-sm-8 invoice-col float-right text-md-right"
+        }, [_c('h5', [_vm._v(_vm._s(_vm.$t("Supplier Details")))]), _vm._v(" "), _vm.allData.supplier ? _c('div', [_c('strong', [_vm._v(_vm._s(_vm.$t("Supplier ID")) + ":")]), _vm._v("\n                " + _vm._s(_vm._f("withPrefix")(_vm.allData.supplier.supplierID, _vm.supplierPrefix))), _c('br'), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.$t("Supplier Name")) + ":")]), _vm._v("\n                " + _vm._s(_vm.allData.supplier.name)), _c('br'), _vm._v(" "), _vm.allData.supplier.companyName ? _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t("Company Name")) + ":")]), _vm._v("\n                  " + _vm._s(_vm.allData.supplier.companyName)), _c('br')]) : _vm._e(), _vm._v(" "), _vm.allData.supplier.email ? _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t("Email")) + ":")]), _vm._v("\n                  " + _vm._s(_vm.allData.supplier.email)), _c('br')]) : _vm._e(), _vm._v(" "), _vm.allData.supplier.phoneNumber ? _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t("Contact Number")) + ":")]), _vm._v("\n                  " + _vm._s(_vm.allData.supplier.phoneNumber)), _c('br')]) : _vm._e(), _vm._v(" "), _vm.allData.supplier.address ? _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t("Address")) + ":")]), _vm._v("\n                  " + _vm._s(_vm.allData.supplier.address)), _c('br')]) : _vm._e()]) : _vm._e()])]), _vm._v(" "), _c('div', {
+          staticClass: "row mt-3"
+        }, [_c('div', {
+          staticClass: "col-12"
+        }, [_c('GeneralTable', {
+          attrs: {
+            "columns": _vm.purchaseHeaderColumns,
+            "rows": _vm.purchaseHeaderRows,
+            "loading": _vm.loading,
+            "wrapper-class": ""
+          },
+          scopedSlots: _vm._u([{
+            key: "cell-purchaseNo",
+            fn: function fn(_ref) {
+              var value = _ref.value;
+              return [_vm._v("\n                  " + _vm._s(_vm._f("withPrefix")(value, _vm.purchasePrefix)) + "\n                ")];
+            }
+          }, {
+            key: "cell-purchaseDate",
+            fn: function fn(_ref2) {
+              var value = _ref2.value;
+              return [_vm._v("\n                  " + _vm._s(_vm._f("moment")(value, "Do MMM, YYYY")) + "\n                ")];
+            }
+          }, {
+            key: "cell-purchaseStatus",
+            fn: function fn(_ref3) {
+              var value = _ref3.value;
+              return [value === 'تم الاستلام' ? _c('span', {
+                staticClass: "badge bg-success"
+              }, [_vm._v("\n                    " + _vm._s(_vm.$t("Received")) + " (" + _vm._s(value) + ")\n                  ")]) : value === 'معلقة' ? _c('span', {
+                staticClass: "badge bg-warning"
+              }, [_vm._v("\n                    " + _vm._s(_vm.$t("Pending")) + " (" + _vm._s(value) + ")\n                  ")]) : _c('span', [_vm._v(_vm._s(value || '-'))])];
+            }
+          }, {
+            key: "cell-journalEntry",
+            fn: function fn(_ref4) {
+              var value = _ref4.value;
+              return [value && value.id ? _c('router-link', {
+                staticClass: "badge bg-info text-white",
+                staticStyle: {
+                  "text-decoration": "none"
+                },
+                attrs: {
+                  "to": {
+                    name: 'journal-entries.show',
+                    params: {
+                      id: value.id
+                    }
+                  }
+                }
+              }, [_vm._v("\n                    " + _vm._s(value.entry_number || "#".concat(value.id)) + "\n                  ")]) : _c('span', {
+                staticClass: "text-muted"
+              }, [_vm._v("-")])];
+            }
+          }, {
+            key: "cell-discountType",
+            fn: function fn(_ref5) {
+              var value = _ref5.value;
+              return [value === 'percentage' ? _c('span', [_vm._v(_vm._s(_vm.$t("%")))]) : value === 'fixed' ? _c('span', [_vm._v(_vm._s(_vm.$t("Fixed")))]) : _c('span', [_vm._v(_vm._s(value || '-'))])];
+            }
+          }, {
+            key: "cell-discountValue",
+            fn: function fn(_ref6) {
+              var value = _ref6.value,
+                row = _ref6.row;
+              return [value !== null && value !== undefined && value !== '' ? _c('span', [_vm._v("\n                    " + _vm._s(_vm.formatNumber(value)) + "\n                    "), row.discountType === 'percentage' ? _c('span', [_vm._v("%")]) : _c('span', {
+                staticClass: "saudi-riyal"
+              }, [_vm._v("ê")])]) : _c('span', {
+                staticClass: "text-muted"
+              }, [_vm._v("-")])];
+            }
+          }, {
+            key: "cell-discountAmount",
+            fn: function fn(_ref7) {
+              var value = _ref7.value;
+              return [value !== null && value !== undefined && value !== '' ? _c('span', [_vm._v("\n                    " + _vm._s(_vm.formatNumber(value)) + " "), _c('span', {
+                staticClass: "saudi-riyal"
+              }, [_vm._v("ê")])]) : _c('span', {
+                staticClass: "text-muted"
+              }, [_vm._v("-")])];
+            }
+          }])
+        })], 1)]), _vm._v(" "), _vm.allData.attachments && _vm.allData.attachments.length > 0 ? _c('div', {
+          staticClass: "row mt-3"
+        }, [_c('div', {
+          staticClass: "col-12"
+        }, [_c('div', {
+          staticClass: "table-responsive table-custom"
+        }, [_c('table', {
+          staticClass: "table invoices-table"
+        }, [_c('thead', [_c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Attachments")))])])]), _vm._v(" "), _c('tbody', [_c('tr', [_c('td', [_c('ul', {
+          staticClass: "list-unstyled mb-0"
+        }, _vm._l(_vm.allData.attachments, function (attachment, index) {
+          return _c('li', {
+            key: index,
+            staticClass: "mb-2"
+          }, [_c('a', {
+            staticClass: "d-flex align-items-center",
+            attrs: {
+              "href": attachment.url || attachment.path,
+              "target": "_blank"
+            }
+          }, [_c('i', {
+            staticClass: "fas fa-file mr-2"
+          }), _vm._v(" "), _c('span', [_vm._v(_vm._s(attachment.name || attachment.file_name || "Attachment ".concat(index + 1)))])])]);
+        }), 0)])])])])])])]) : _vm._e(), _vm._v(" "), _vm.allData.note ? _c('div', {
+          staticClass: "row mt-3"
+        }, [_c('div', {
+          staticClass: "col-12"
+        }, [_c('div', {
+          staticClass: "table-responsive table-custom"
+        }, [_c('table', {
+          staticClass: "table invoices-table"
+        }, [_c('thead', [_c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Notes")))])])]), _vm._v(" "), _c('tbody', [_c('tr', [_c('td', [_vm._v(_vm._s(_vm.allData.note))])])])])])])]) : _vm._e(), _vm._v(" "), _c('div', {
+          staticClass: "row mt-4"
+        }, [_c('div', {
+          staticClass: "col-12"
+        }, [_c('strong', {
+          staticClass: "mb-2 d-block"
+        }, [_vm._v(_vm._s(_vm.$t("Purchase Products")) + ":")]), _vm._v(" "), _c('GeneralTable', {
+          attrs: {
+            "columns": _vm.purchaseProductsColumns,
+            "rows": _vm.purchaseProductsRows,
+            "loading": _vm.loading,
+            "wrapper-class": ""
+          },
+          scopedSlots: _vm._u([{
+            key: "cell-code",
+            fn: function fn(_ref8) {
+              var value = _ref8.value;
+              return [_vm._v("\n                  " + _vm._s(_vm._f("withPrefix")(value, _vm.productPrefix)) + "\n                ")];
+            }
+          }, {
+            key: "cell-price",
+            fn: function fn(_ref9) {
+              var value = _ref9.value;
+              return [_vm._v("\n                  " + _vm._s(_vm.formatNumber(value)) + " "), _c('span', {
+                staticClass: "saudi-riyal"
+              }, [_vm._v("ê")])];
+            }
+          }, {
+            key: "cell-total",
+            fn: function fn(_ref0) {
+              var value = _ref0.value;
+              return [_vm._v("\n                  " + _vm._s(_vm.formatNumber(value)) + " "), _c('span', {
+                staticClass: "saudi-riyal"
+              }, [_vm._v("ê")])];
+            }
+          }, {
+            key: "cell-discount",
+            fn: function fn(_ref1) {
+              var value = _ref1.value;
+              return [value > 0 ? _c('span', [_vm._v("\n                    " + _vm._s(_vm.formatNumber(value)) + " "), _c('span', {
+                staticClass: "saudi-riyal"
+              }, [_vm._v("ê")])]) : _c('span', {
+                staticClass: "text-muted"
+              }, [_vm._v("\n                    " + _vm._s(_vm.$t('No Discount')) + "\n                  ")])];
+            }
+          }, {
+            key: "cell-totalAfterDiscount",
+            fn: function fn(_ref10) {
+              var value = _ref10.value;
+              return [_vm._v("\n                  " + _vm._s(_vm.formatNumber(value)) + " "), _c('span', {
+                staticClass: "saudi-riyal"
+              }, [_vm._v("ê")])];
+            }
+          }, {
+            key: "cell-vat",
+            fn: function fn(_ref11) {
+              var value = _ref11.value;
+              return [value > 0 ? _c('span', [_vm._v("\n                    " + _vm._s(_vm.formatNumber(value)) + " "), _c('span', {
+                staticClass: "saudi-riyal"
+              }, [_vm._v("ê")])]) : _c('span', {
+                staticClass: "text-muted"
+              }, [_vm._v("\n                    " + _vm._s(_vm.$t('No VAT')) + "\n                  ")])];
+            }
+          }, {
+            key: "cell-totalWithVat",
+            fn: function fn(_ref12) {
+              var value = _ref12.value;
+              return [_vm._v("\n                  " + _vm._s(_vm.formatNumber(value)) + " "), _c('span', {
+                staticClass: "saudi-riyal"
+              }, [_vm._v("ê")])];
+            }
+          }])
+        }), _vm._v(" "), _c('div', {
+          staticClass: "mt-2 text-center"
+        }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Subtotal")) + ": " + _vm._s(_vm.formatNumber(_vm.invoiceSubtotal)) + " "), _c('span', {
+          staticClass: "saudi-riyal"
+        }, [_vm._v("ê")])])])], 1)]), _vm._v(" "), _c('div', {
+          staticClass: "row mt-4",
+          attrs: {
+            "id": "page-break"
+          }
+        }, [_c('div', {
+          staticClass: "col-lg-12 col-xl-8"
+        }, [_vm.allData.payments && _vm.allData.payments.length > 0 ? _c('div', [_c('div', {
+          staticClass: "d-flex justify-content-between align-items-center mb-2"
+        }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Payment History")) + ":")]), _vm._v(" "), _vm.allData.paymentType !== undefined || _vm.allData.payment_type !== undefined ? _c('div', [_c('strong', [_vm._v(_vm._s(_vm.$t("Payment Type")) + ":")]), _vm._v(" "), _vm.allData.paymentType === 'paid' || _vm.allData.payment_type === 'paid' ? _c('span', {
+          staticClass: "badge bg-success ml-2"
+        }, [_vm._v("\n                      " + _vm._s(_vm.$t("Paid")) + " (مدفوع)\n                    ")]) : _c('span', {
+          staticClass: "badge bg-warning ml-2"
+        }, [_vm._v("\n                      " + _vm._s(_vm.$t("On Credit")) + " (أجل)\n                    ")]), _vm._v(" "), (_vm.allData.paymentType === 'paid' || _vm.allData.payment_type === 'paid') && (_vm.allData.paymentMethod || _vm.allData.payment_method_id) ? _c('span', {
+          staticClass: "ml-2"
+        }, [_vm._v("\n                      - " + _vm._s(_vm.allData.paymentMethod ? _vm.allData.paymentMethod.name : _vm.allData.payment_method_id ? _vm.getPaymentMethodName(_vm.allData.payment_method_id) : '-') + "\n                    ")]) : _vm._e()]) : _vm._e()]), _vm._v(" "), _c('GeneralTable', {
+          attrs: {
+            "columns": _vm.purchasePaymentHistoryColumns,
+            "rows": _vm.purchasePaymentHistoryRows,
+            "loading": _vm.loading,
+            "wrapper-class": ""
+          },
+          scopedSlots: _vm._u([{
+            key: "cell-amount",
+            fn: function fn(_ref13) {
+              var value = _ref13.value;
+              return [_vm._v("\n                    " + _vm._s(_vm.formatNumber(value)) + " "), _c('span', {
+                staticClass: "saudi-riyal"
+              }, [_vm._v("ê")])];
+            }
+          }, {
+            key: "cell-status",
+            fn: function fn(_ref14) {
+              var value = _ref14.value;
+              return [value === 1 ? _c('span', {
+                staticClass: "badge bg-success"
+              }, [_vm._v(_vm._s(_vm.$t("Active")))]) : _c('span', {
+                staticClass: "badge bg-danger"
+              }, [_vm._v(_vm._s(_vm.$t("Inactive")))])];
+            }
+          }], null, false, 1246411211)
+        }), _vm._v(" "), _c('div', {
+          staticClass: "mt-2 text-right"
+        }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Total Paid")) + ": " + _vm._s(_vm.formatNumber(_vm.allData.totalPaid)) + " "), _c('span', {
+          staticClass: "saudi-riyal"
+        }, [_vm._v("ê")])])])], 1) : _c('div', {
+          staticClass: "no-print mt-4 w-100"
+        }, [_c('InfoAlert', {
+          attrs: {
+            "message": _vm.$t('No payments available yet!')
+          }
+        }), _vm._v(" "), _vm.allData.paymentType !== undefined || _vm.allData.payment_type !== undefined ? _c('div', {
+          staticClass: "mt-3 text-right"
+        }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Payment Type")) + ":")]), _vm._v(" "), _vm.allData.paymentType === 'paid' || _vm.allData.payment_type === 'paid' ? _c('span', {
+          staticClass: "badge bg-success ml-2"
+        }, [_vm._v("\n                    " + _vm._s(_vm.$t("Paid")) + " (مدفوع)\n                  ")]) : _c('span', {
+          staticClass: "badge bg-warning ml-2"
+        }, [_vm._v("\n                    " + _vm._s(_vm.$t("On Credit")) + " (أجل)\n                  ")]), _vm._v(" "), (_vm.allData.paymentType === 'paid' || _vm.allData.payment_type === 'paid') && (_vm.allData.paymentMethod || _vm.allData.payment_method_id) ? _c('span', {
+          staticClass: "ml-2"
+        }, [_vm._v("\n                    - " + _vm._s(_vm.allData.paymentMethod ? _vm.allData.paymentMethod.name : _vm.allData.payment_method_id ? _vm.getPaymentMethodName(_vm.allData.payment_method_id) : '-') + "\n                  ")]) : _vm._e()]) : _vm._e()], 1)]), _vm._v(" "), _c('div', {
+          staticClass: "col-lg-12 col-xl-4 text-lg-right mt-4 pt-2"
+        }, [_vm.allData.supplier ? _c('InvoiceSummaryTable', {
+          attrs: {
+            "subtotal": _vm.invoiceSubtotal,
+            "after-discount": _vm.netAmountBeforeVAT,
+            "total-tax": _vm.vatAmount,
+            "transport": _vm.shippingCostTotal,
+            "grand-total": _vm.grandTotal,
+            "paid-amount": _vm.allData.totalPaid || 0,
+            "due-amount": _vm.calculateDueAmount
+          }
+        }) : _vm._e()], 1)])], 1)])];
+      },
+      proxy: true
+    }, {
+      key: "activity-log",
+      fn: function fn() {
+        return [_c('div', {
+          staticClass: "card custom-card w-100 mt-5 no-print"
+        }, [_c('div', {
+          staticClass: "card-header setings-header"
+        }, [_c('div', {
+          staticClass: "col-xl-4 col-4"
+        }, [_c('h3', {
+          staticClass: "card-title"
+        }, [_vm._v("\n              " + _vm._s(_vm.$t("Activity log")) + "\n            ")])]), _vm._v(" "), _c('div', {
+          staticClass: "col-xl-8 col-8 float-right text-right"
+        }, [_c('div', {
+          staticClass: "btn-group c-w-100"
+        }, [_c('a', {
+          directives: [{
+            name: "tooltip",
+            rawName: "v-tooltip",
+            value: _vm.$t('Refresh'),
+            expression: "$t('Refresh')"
+          }],
+          staticClass: "btn btn-success",
+          attrs: {
+            "href": "#"
+          },
+          on: {
+            "click": function click($event) {
+              return _vm.refreshTable();
+            }
+          }
+        }, [_c('i', {
+          staticClass: "fas fa-sync"
+        })])])])]), _vm._v(" "), _c('table-loading', {
+          directives: [{
+            name: "show",
+            rawName: "v-show",
+            value: _vm.loading,
+            expression: "loading"
+          }]
+        }), _vm._v(" "), _c('div', {
+          staticClass: "card-body position-relative"
+        }, [_c('div', {
+          staticClass: "row"
+        }, [_c('div', {
+          staticClass: "col-6 col-xl-4 mb-2"
+        }, [_c('search', {
+          on: {
+            "reset-pagination": function resetPagination($event) {
+              return _vm.resetPagination();
+            },
+            "reload": _vm.reload
+          },
+          model: {
+            value: _vm.query,
+            callback: function callback($$v) {
+              _vm.query = $$v;
+            },
+            expression: "query"
+          }
+        })], 1)]), _vm._v(" "), _c('div', {
+          staticClass: "table-responsive table-custom mt-3",
+          attrs: {
+            "id": "printMe"
+          }
+        }, [_vm._l(_vm.items, function (data, i) {
+          return _c('div', {
+            directives: [{
+              name: "show",
+              rawName: "v-show",
+              value: _vm.items.length > 0,
+              expression: "items.length > 0"
+            }],
+            key: i
+          }, [_c('div', {
+            staticClass: "card mb-0 border border-gray"
+          }, [_c('div', {
+            staticClass: "card-body py-1"
+          }, [_c('div', {
+            staticClass: "row"
+          }, [_c('div', {
+            staticClass: "col-1 d-flex justify-content-center align-items-center"
+          }, [data.event == 'Update' ? _c('i', {
+            staticClass: "fa fa-magic",
+            attrs: {
+              "aria-hidden": "true"
+            }
+          }) : _vm._e(), _vm._v(" "), data.event == 'Create' ? _c('i', {
+            staticClass: "fa fa-plus-circle",
+            attrs: {
+              "aria-hidden": "true"
+            }
+          }) : _vm._e(), _vm._v(" "), data.event == 'Delete' ? _c('i', {
+            staticClass: "fa fa-trash",
+            attrs: {
+              "aria-hidden": "true"
+            }
+          }) : _vm._e()]), _vm._v(" "), _c('div', {
+            staticClass: "col-11"
+          }, [_c('div', {
+            staticClass: "row"
+          }, [_c('div', {
+            staticClass: "col-12"
+          }, [_c('p', {
+            staticClass: "text-bold mb-0"
+          }, [_vm._v(_vm._s(data.causer_name))])]), _vm._v(" "), _c('div', {
+            staticClass: "col-12"
+          }, [_c('p', {
+            staticClass: "mb-0"
+          }, [_vm._v(_vm._s(_vm.$t(data.description)))])]), _vm._v(" "), _c('div', {
+            staticClass: "col-12"
+          }, [_c('p', {
+            staticClass: "mb-0"
+          }, [_vm._v(_vm._s(data.performedAt))])])])])])])])]);
+        }), _vm._v(" "), _c('div', {
+          directives: [{
+            name: "show",
+            rawName: "v-show",
+            value: !_vm.loading && !_vm.items.length,
+            expression: "!loading && !items.length"
+          }],
+          staticClass: "text-center"
+        }, [_c('EmptyTable')], 1)], 2)]), _vm._v(" "), _c('div', {
+          staticClass: "card-footer"
+        }, [_c('div', {
+          staticClass: "dtable-footer"
+        }, [_c('div', {
+          staticClass: "form-group row display-per-page"
+        }, [_c('label', [_vm._v(_vm._s(_vm.$t("per_page")) + " ")]), _vm._v(" "), _c('div', [_c('select', {
+          directives: [{
+            name: "model",
+            rawName: "v-model",
+            value: _vm.perPage,
+            expression: "perPage"
+          }],
+          staticClass: "form-control form-control-sm ml-1",
+          on: {
+            "change": [function ($event) {
+              var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+                return o.selected;
+              }).map(function (o) {
+                var val = "_value" in o ? o._value : o.value;
+                return val;
+              });
+              _vm.perPage = $event.target.multiple ? $$selectedVal : $$selectedVal[0];
+            }, _vm.updatePerPager]
+          }
+        }, [_c('option', {
+          attrs: {
+            "value": "10"
+          }
+        }, [_vm._v("10")]), _vm._v(" "), _c('option', {
+          attrs: {
+            "value": "25"
+          }
+        }, [_vm._v("25")]), _vm._v(" "), _c('option', {
+          attrs: {
+            "value": "50"
+          }
+        }, [_vm._v("50")]), _vm._v(" "), _c('option', {
+          attrs: {
+            "value": "100"
+          }
+        }, [_vm._v("100")])])])]), _vm._v(" "), _vm.pagination && _vm.pagination.last_page > 1 ? _c('pagination', {
+          staticClass: "justify-flex-end",
+          attrs: {
+            "pagination": _vm.pagination,
+            "offset": 5
+          },
+          on: {
+            "paginate": _vm.paginate
+          }
+        }) : _vm._e()], 1)])], 1)];
+      },
+      proxy: true
+    }])
+  }), _vm._v(" "), _c('InvoicePaymentModal', {
+    attrs: {
+      "show": _vm.showPaymentModal,
+      "type": "purchase",
+      "invoice-id": _vm.allData ? _vm.allData.id : null,
+      "invoice-no": _vm.allData ? _vm.allData.purchaseNo : '',
+      "invoice-prefix": _vm.purchasePrefix,
+      "invoice-total": _vm.grandTotal,
+      "due-amount": _vm.calculateDueAmount,
+      "invoice-status": _vm.allData ? _vm.allData.status : 1,
+      "purchase-slug": _vm.allData ? _vm.allData.slug : null
+    },
+    on: {
+      "close": function close($event) {
+        _vm.showPaymentModal = false;
+      },
+      "payment-saved": _vm.handlePaymentSaved
+    }
+  })], 1);
+};
+var staticRenderFns = [];
+
+// EXTERNAL MODULE: ./node_modules/vform/dist/vform.es.js
+var vform_es = __webpack_require__(63216);
+// EXTERNAL MODULE: ./node_modules/axios/index.js
+var axios = __webpack_require__(72505);
+var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
+// EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
+var vuex_esm = __webpack_require__(95353);
+// EXTERNAL MODULE: ./node_modules/sweetalert2/dist/sweetalert2.js
+var sweetalert2 = __webpack_require__(94948);
+// EXTERNAL MODULE: ./resources/js/components/GeneralTable.vue + 5 modules
+var GeneralTable = __webpack_require__(39173);
+// EXTERNAL MODULE: ./resources/js/components/sales/InvoiceSummaryTable.vue + 5 modules
+var InvoiceSummaryTable = __webpack_require__(63617);
+// EXTERNAL MODULE: ./resources/js/components/shared/InfoAlert.vue + 5 modules
+var InfoAlert = __webpack_require__(91640);
+// EXTERNAL MODULE: ./resources/js/components/DetailsActivityTabs.vue + 5 modules
+var DetailsActivityTabs = __webpack_require__(64866);
+// EXTERNAL MODULE: ./resources/js/components/InvoicePaymentModal.vue + 5 modules
+var InvoicePaymentModal = __webpack_require__(68601);
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/purchases/show.vue?vue&type=script&lang=js
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+
+
+
+
+
+
+
+
+
+/* harmony default export */ const showvue_type_script_lang_js = ({
+  middleware: ["auth", "check-permissions"],
+  metaInfo: function metaInfo() {
+    return {
+      title: this.$t("Purchase Details")
+    };
+  },
+  components: {
+    GeneralTable: GeneralTable["default"],
+    InvoiceSummaryTable: InvoiceSummaryTable/* default */.A,
+    InfoAlert: InfoAlert/* default */.A,
+    DetailsActivityTabs: DetailsActivityTabs/* default */.A,
+    InvoicePaymentModal: InvoicePaymentModal/* default */.A
+  },
+  data: function data() {
+    return {
+      breadcrumbsCurrent: "Purchase Details",
+      breadcrumbs: [{
+        name: "Dashboard",
+        url: "home"
+      }, {
+        name: "Purchases",
+        url: "purchases.index"
+      }, {
+        name: "Details",
+        url: ""
+      }],
+      allData: "",
+      purchaseSubTotal: 0,
+      purchaseReturn: 0,
+      purchaseProducts: [],
+      productPrefix: "",
+      purchasePrefix: "",
+      form: new vform_es/* default */.Ay({
+        isSendEmail: false,
+        isSendSMS: false
+      }),
+      isDemoMode: window.config.isDemoMode,
+      query: "",
+      perPage: 10,
+      // Communication configuration status
+      communicationConfig: {
+        email_configured: false,
+        sms_configured: false,
+        loading: true
+      },
+      showPaymentModal: false
+    };
+  },
+  computed: _objectSpread(_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["appInfo", "items", "loading", "pagination"])), {}, {
+    // Check if the country is Saudi Arabia
+    isSaudiArabia: function isSaudiArabia() {
+      return this.appInfo && this.appInfo.country === 'SA';
+    },
+    // Invoice Subtotal: Sum of all item totals BEFORE discount (qty × unit_price)
+    // This matches the create page logic: Subtotal = sum(item.grossTotal)
+    invoiceSubtotal: function invoiceSubtotal() {
+      if (!this.purchaseProducts || this.purchaseProducts.length === 0) return 0;
+      return this.roundToTwoDecimals(this.purchaseProducts.reduce(function (total, product) {
+        return total + parseFloat(product.grossTotal || 0);
+      }, 0));
+    },
+    // Invoice-Level Discount Amount: Calculated from discount_type and discount_value
+    // This matches the create page logic
+    invoiceLevelDiscountAmount: function invoiceLevelDiscountAmount() {
+      if (!this.allData || !this.hasPurchaseDiscount) return 0;
+      var discountType = this.purchaseDiscountType;
+      var discountValue = this.purchaseDiscountValue;
+      var subtotal = this.invoiceSubtotal;
+      if (!discountType || !discountValue || discountValue <= 0 || subtotal <= 0) {
+        return 0;
+      }
+      var discountAmount = 0;
+      if (discountType === 'percentage') {
+        discountAmount = this.roundToTwoDecimals(subtotal * discountValue / 100);
+      } else {
+        discountAmount = this.roundToTwoDecimals(parseFloat(discountValue));
+      }
+
+      // Ensure discount doesn't exceed the subtotal
+      return discountAmount > subtotal ? this.roundToTwoDecimals(subtotal) : discountAmount;
+    },
+    // Subtotal: Same as invoiceSubtotal (for backward compatibility)
+    subtotal: function subtotal() {
+      return this.invoiceSubtotal;
+    },
+    // Total Discount: Invoice-level discount amount (distributed proportionally across items)
+    // This matches the create page: discount is applied at invoice level
+    totalDiscount: function totalDiscount() {
+      return this.invoiceLevelDiscountAmount;
+    },
+    // Shipping Cost Total: Invoice-level shipping cost
+    // CRITICAL: When transport is taxable, allData.transport contains transport + VAT
+    // We need to return the total transport amount (including VAT) for display
+    // But for netAmountBeforeVAT calculation, we need transport before VAT
+    shippingCostTotal: function shippingCostTotal() {
+      if (!this.allData) return 0;
+      // For show page, we use the stored transport value (total amount including VAT if taxable)
+      var transportCost = parseFloat(this.allData.transport || 0);
+      return this.roundToTwoDecimals(transportCost);
+    },
+    // Transport Cost Before VAT: Calculate transport cost before VAT when taxable
+    // CRITICAL: When transport is taxable, allData.transport = transportCost + VAT
+    // We need to extract transportCost from the total to calculate netAmountBeforeVAT correctly
+    transportCostBeforeVAT: function transportCostBeforeVAT() {
+      if (!this.allData) return 0;
+      if (!this.isTransportTaxable) {
+        // Transport is non-taxable: transport value is the cost itself (no VAT)
+        return this.shippingCostTotal;
+      }
+
+      // Transport is taxable: calculate transport cost before VAT
+      // We need to reverse-calculate: transportTotal = transportCost + (transportCost × VAT rate)
+      // So: transportCost = transportTotal / (1 + VAT rate / 100)
+
+      var transportTotal = parseFloat(this.allData.transport || 0);
+      if (transportTotal <= 0) return 0;
+
+      // Get VAT rate - use weighted average from items or default 15%
+      var vatRate = 15; // Default VAT rate
+      if (this.purchaseProducts && this.purchaseProducts.length > 0) {
+        // Calculate weighted average VAT rate from items
+        var totalNetAmount = 0;
+        var weightedVatSum = 0;
+        this.purchaseProducts.forEach(function (product) {
+          var itemNetAmount = parseFloat(product.totalAfterDiscount || 0);
+          var itemTax = parseFloat(product.taxTotal || product.tax_amount || 0);
+          if (itemNetAmount > 0 && itemTax > 0) {
+            var itemVatRate = itemTax / itemNetAmount * 100;
+            totalNetAmount += itemNetAmount;
+            weightedVatSum += itemNetAmount * (itemVatRate / 100);
+          }
+        });
+        if (totalNetAmount > 0) {
+          vatRate = weightedVatSum / totalNetAmount * 100;
+        }
+      }
+
+      // Calculate transport cost before VAT: transportCost = transportTotal / (1 + vatRate/100)
+      var transportCost = transportTotal / (1 + vatRate / 100);
+      return this.roundToTwoDecimals(transportCost);
+    },
+    // Helper computed property to check if transport is taxable
+    // Returns true only if transport_taxable is explicitly true or 1
+    // Returns false if transport_taxable is false, 0, null, or undefined
+    // CRITICAL: When transport_taxable is NULL in DB, it means non-taxable (new behavior)
+    isTransportTaxable: function isTransportTaxable() {
+      if (!this.allData) return true; // Default to taxable for backward compatibility
+
+      // Check multiple possible field names (transport_taxable, transportIsTaxable, etc.)
+      var transportTaxable = this.allData.transport_taxable !== undefined ? this.allData.transport_taxable : this.allData.transportIsTaxable !== undefined ? this.allData.transportIsTaxable : null;
+
+      // Debug: Log the value to help diagnose issues (uncomment for debugging)
+      // console.log('transport_taxable value:', transportTaxable, 'type:', typeof transportTaxable, 'allData keys:', Object.keys(this.allData));
+
+      // Explicitly check for true or 1 (string or number)
+      if (transportTaxable === true || transportTaxable === 1 || transportTaxable === '1') {
+        return true;
+      }
+
+      // Everything else (false, 0, null, undefined, '0', 'false') is non-taxable
+      // This includes NULL from database which should be treated as non-taxable
+      // IMPORTANT: For purchases created with non-taxable transport, transport_taxable will be NULL/false
+      return false;
+    },
+    // Net Amount Before VAT: Calculated based on transport taxability
+    // CRITICAL: When transport is non-taxable, use DB values directly to avoid double-counting
+    // 
+    // If transport is taxable: Net Amount = Subtotal - Discount + Transport
+    // If transport is non-taxable: Net Amount = Sum of Item Totals After Discount (from DB)
+    //   Transport is NOT included in Net Amount when non-taxable
+    netAmountBeforeVAT: function netAmountBeforeVAT() {
+      if (!this.allData) return 0;
+      if (!this.isTransportTaxable) {
+        // Transport is non-taxable: calculate net amount after invoice-level discount
+        // CRITICAL: Must subtract invoice-level discount from subtotal
+        var _subtotal = this.invoiceSubtotal;
+        var invoiceDiscount = this.invoiceLevelDiscountAmount;
+
+        // Net amount = Subtotal - Invoice-level discount
+        // This represents items net after all discounts (before VAT and transport)
+        return this.roundToTwoDecimals(_subtotal - invoiceDiscount);
+      }
+
+      // Transport is taxable: include transport cost (before VAT) in Net Amount
+      // CRITICAL: We must use transport cost BEFORE VAT, not the total (which includes VAT)
+      // Net Amount = Subtotal - Discount + Transport Cost (before VAT)
+      // VAT will be calculated on this Net Amount, which includes transport cost
+      var subtotal = this.invoiceSubtotal;
+      var discount = this.invoiceLevelDiscountAmount;
+      var transportCostBeforeVAT = this.transportCostBeforeVAT;
+      return this.roundToTwoDecimals(subtotal - discount + transportCostBeforeVAT);
+    },
+    // Calculate due amount
+    calculateDueAmount: function calculateDueAmount() {
+      if (!this.allData) return 0;
+      var total = this.netTotal;
+      var paid = parseFloat(this.allData.totalPaid) || 0;
+      return total - paid;
+    },
+    // Check if purchase has discount (supports both old and new format)
+    hasPurchaseDiscount: function hasPurchaseDiscount() {
+      if (!this.allData) return false;
+      // Check new format first (discount_type/discount_value)
+      if (this.allData.discount_type && this.allData.discount_value && this.allData.discount_value > 0) {
+        return true;
+      }
+      // Check old format (discount/discountType)
+      if (this.allData.discount && this.allData.discount > 0) {
+        return true;
+      }
+      return false;
+    },
+    // Get purchase discount type (supports both old and new format)
+    purchaseDiscountType: function purchaseDiscountType() {
+      if (!this.allData) return null;
+      // New format: discount_type is already "percentage" or "fixed"
+      if (this.allData.discount_type) {
+        return this.allData.discount_type;
+      }
+      // Old format: discountType is 0 (fixed) or 1 (percentage)
+      if (this.allData.discountType !== null && this.allData.discountType !== undefined) {
+        return this.allData.discountType == 1 ? 'percentage' : 'fixed';
+      }
+      return null;
+    },
+    // Get purchase discount value (supports both old and new format)
+    purchaseDiscountValue: function purchaseDiscountValue() {
+      if (!this.allData) return 0;
+      // New format: discount_value
+      if (this.allData.discount_value !== null && this.allData.discount_value !== undefined) {
+        return this.allData.discount_value;
+      }
+      // Old format: discount
+      if (this.allData.discount !== null && this.allData.discount !== undefined) {
+        return this.allData.discount;
+      }
+      return 0;
+    },
+    // VAT Amount: Calculated based on transport taxability
+    // CRITICAL: When transport is non-taxable, use sum of tax_amount from DB directly
+    // This prevents double-counting and ensures accuracy
+    // 
+    // If transport is taxable: VAT = Net Amount × Weighted Average VAT Rate
+    // If transport is non-taxable: VAT = Sum of tax_amount from purchase_products (from DB)
+    // CRITICAL: If invoice-level discount is applied, VAT must be recalculated on discounted amount
+    vatAmount: function vatAmount() {
+      if (!this.purchaseProducts || this.purchaseProducts.length === 0) {
+        return 0;
+      }
+      if (!this.isTransportTaxable) {
+        // Transport is non-taxable: calculate VAT correctly accounting for invoice-level discount
+        // If invoice-level discount exists, recalculate VAT on discounted amount
+        var invoiceDiscount = this.invoiceLevelDiscountAmount;
+        var itemsNet = this.invoiceSubtotal;
+        if (invoiceDiscount > 0 && itemsNet > 0) {
+          // Calculate average VAT rate from original items
+          var _itemVatSum = this.purchaseProducts.reduce(function (total, product) {
+            var itemVat = parseFloat(product.tax_amount || product.taxTotal || 0);
+            return total + itemVat;
+          }, 0);
+
+          // Calculate average VAT rate
+          var averageVatRate = itemsNet > 0 ? _itemVatSum / itemsNet * 100 : 0;
+
+          // Recalculate VAT on discounted amount
+          var itemsNetAfterDiscount = itemsNet - invoiceDiscount;
+          var recalculatedVat = itemsNetAfterDiscount * (averageVatRate / 100);
+          return this.roundToTwoDecimals(recalculatedVat);
+        }
+
+        // No invoice discount: use sum of tax_amount from DB
+        var itemVatSum = this.purchaseProducts.reduce(function (total, product) {
+          var itemVat = parseFloat(product.tax_amount || product.taxTotal || 0);
+          return total + itemVat;
+        }, 0);
+        return this.roundToTwoDecimals(itemVatSum);
+      }
+
+      // Transport is taxable: calculate VAT using weighted average
+      var netAmount = this.netAmountBeforeVAT;
+      if (netAmount <= 0) {
+        return 0;
+      }
+
+      // Calculate weighted average VAT rate from all items
+      var totalNetAmountForWeighting = 0;
+      var weightedVatRateSum = 0;
+      this.purchaseProducts.forEach(function (product) {
+        var itemGrossTotal = parseFloat(product.grossTotal || 0);
+        var itemDiscountAmount = parseFloat(product.discountAmount || 0);
+        var itemNetAmount = itemGrossTotal - itemDiscountAmount;
+        if (itemNetAmount > 0) {
+          var itemTotalAfterDiscount = parseFloat(product.totalAfterDiscount || 0);
+          var itemTaxTotal = parseFloat(product.taxTotal || product.tax_amount || 0);
+          var vatRate = 0;
+          if (itemTotalAfterDiscount > 0 && itemTaxTotal > 0) {
+            vatRate = itemTaxTotal / itemTotalAfterDiscount * 100;
+          } else if (product.vatRate) {
+            vatRate = parseFloat(product.vatRate);
+          }
+          if (!isNaN(vatRate) && vatRate >= 0) {
+            totalNetAmountForWeighting += itemNetAmount;
+            weightedVatRateSum += itemNetAmount * (vatRate / 100);
+          }
+        }
+      });
+      if (totalNetAmountForWeighting <= 0) {
+        return 0;
+      }
+      var weightedAverageVatRate = weightedVatRateSum / totalNetAmountForWeighting * 100;
+      var vat = this.roundToTwoDecimals(netAmount * (weightedAverageVatRate / 100));
+      return vat;
+    },
+    // Total Tax: Same as vatAmount (for backward compatibility)
+    totalTax: function totalTax() {
+      return this.vatAmount;
+    },
+    // Grand Total: Calculated based on transport taxability
+    // CRITICAL: When transport is non-taxable, use sum of item totals from DB + transport
+    // This prevents double-counting and ensures accuracy
+    // 
+    // If transport is taxable: Grand Total = Net Amount + VAT
+    //   Where: Net Amount = Subtotal - Discount + Transport (transport included in VAT base)
+    // If transport is non-taxable: Grand Total = Sum of Item Totals After VAT + Transport
+    //   Where: Item Totals = itemAfterDiscount + tax_amount (from DB)
+    //   Transport is added only at invoice level, not distributed to items
+    grandTotal: function grandTotal() {
+      if (!this.allData) return 0;
+
+      // CRITICAL: Use purchase.subTotal (or sub_total) directly as the source of truth
+      // This is the correct grand total calculated during purchase creation
+      // It already includes: items net - invoice discount + VAT + transport
+      // Do NOT recalculate from purchase products as it may miss invoice-level discount allocation
+      // API returns subTotal (camelCase), but check both formats for compatibility
+      var subTotal = this.allData.subTotal !== undefined ? this.allData.subTotal : this.allData.sub_total;
+      if (subTotal !== undefined && subTotal !== null) {
+        return this.roundToTwoDecimals(parseFloat(subTotal));
+      }
+
+      // Fallback: Calculate if sub_total is not available (should not happen)
+      var shipping = this.shippingCostTotal;
+      if (!this.isTransportTaxable) {
+        // Transport is non-taxable: use sum of item totals after VAT from DB + transport
+        // This ensures item-level discounts and VAT are correctly included without double-counting
+        if (!this.purchaseProducts || this.purchaseProducts.length === 0) {
+          return this.roundToTwoDecimals(shipping);
+        }
+
+        // Sum of all item totals after VAT (from DB: lineTotal or totalAfterDiscount + tax_amount)
+        var sumOfItemTotals = this.purchaseProducts.reduce(function (total, product) {
+          // Use lineTotal if available (total with VAT), otherwise calculate from DB values
+          var itemTotal = parseFloat(product.lineTotal || 0);
+          if (itemTotal > 0) {
+            return total + itemTotal;
+          }
+          // Fallback: calculate from stored values
+          var itemAfterDiscount = parseFloat(product.totalAfterDiscount || 0);
+          var itemVat = parseFloat(product.tax_amount || product.taxTotal || 0);
+          return total + itemAfterDiscount + itemVat;
+        }, 0);
+
+        // Grand Total = Sum of Item Totals + Transport
+        // Transport is added only at invoice level when non-taxable
+        return this.roundToTwoDecimals(sumOfItemTotals + shipping);
+      }
+
+      // Transport is taxable: use Net Amount + VAT calculation
+      // Net Amount already includes transport cost (before VAT) in netAmountBeforeVAT
+      // VAT is calculated on Net Amount which includes transport cost
+      // Grand Total = Net Amount + VAT
+      // Example: Net Amount = 8300 (8000 - 200 + 500), VAT = 1245, Grand Total = 9545
+      var netAmount = this.netAmountBeforeVAT;
+      var vat = this.vatAmount;
+      return this.roundToTwoDecimals(netAmount + vat);
+    },
+    // Calculate net total (for backward compatibility - same as grandTotal)
+    netTotal: function netTotal() {
+      return this.grandTotal;
+    },
+    // Purchase header columns
+    purchaseHeaderColumns: function purchaseHeaderColumns() {
+      var columns = [{
+        key: "purchaseNo",
+        label: this.$t("Purchase No"),
+        align: "text-center"
+      }, {
+        key: "purchaseDate",
+        label: this.$t("Purchase Date"),
+        align: "text-center"
+      }, {
+        key: "createdBy",
+        label: this.$t("Created By"),
+        align: "text-center"
+      }];
+
+      // Add journal entry column if journal entry exists
+      if (this.allData && this.allData.journalEntry) {
+        columns.push({
+          key: "journalEntry",
+          label: this.$t("Journal Entry"),
+          align: "text-center"
+        });
+      }
+      if (this.allData && this.allData.costCenter) {
+        columns.push({
+          key: "costCenter",
+          label: this.$t("Cost Center"),
+          align: "text-center"
+        });
+      }
+      if (this.allData && this.allData.branch) {
+        columns.push({
+          key: "branch",
+          label: this.$t("Branch"),
+          align: "text-center"
+        });
+      }
+      if (this.allData && this.allData.purchase_status) {
+        columns.push({
+          key: "purchaseStatus",
+          label: this.$t("Purchase Status"),
+          align: "text-center"
+        });
+      }
+      if (this.allData && this.allData.reference) {
+        columns.push({
+          key: "reference",
+          label: this.$t("Reference Number"),
+          align: "text-center"
+        });
+      }
+      if (this.allData && (this.allData.paymentMethod || this.allData.payment_method_id)) {
+        columns.push({
+          key: "paymentMethod",
+          label: this.$t("Payment Method"),
+          align: "text-center"
+        });
+      }
+
+      // Add discount columns if purchase has discount
+      if (this.hasPurchaseDiscount) {
+        columns.push({
+          key: "discountType",
+          label: this.$t("Discount Type"),
+          align: "text-center"
+        }, {
+          key: "discountValue",
+          label: this.$t("Discount Value"),
+          align: "text-center"
+        }, {
+          key: "discountAmount",
+          label: this.$t("Discount Amount"),
+          align: "text-center"
+        });
+      }
+      return columns;
+    },
+    // Purchase header rows
+    purchaseHeaderRows: function purchaseHeaderRows() {
+      if (!this.allData) return [];
+      var row = {
+        purchaseNo: this.allData.purchaseNo || '',
+        purchaseDate: this.allData.purchaseDate || '',
+        createdBy: this.allData.createdBy || '-',
+        journalEntry: this.allData.journalEntry || null
+      };
+      if (this.allData.costCenter) {
+        row.costCenter = this.allData.costCenter.name || '-';
+      }
+      if (this.allData.branch) {
+        row.branch = this.allData.branch.name || '-';
+      }
+      if (this.allData.purchase_status) {
+        row.purchaseStatus = this.allData.purchase_status;
+      }
+      if (this.allData.reference) {
+        row.reference = this.allData.reference;
+      }
+      if (this.allData.paymentMethod || this.allData.payment_method_id) {
+        row.paymentMethod = this.allData.paymentMethod ? this.allData.paymentMethod.name : this.getPaymentMethodName(this.allData.payment_method_id);
+      }
+
+      // Add discount data if purchase has discount
+      if (this.hasPurchaseDiscount) {
+        row.discountType = this.purchaseDiscountType;
+        row.discountValue = this.purchaseDiscountValue;
+        row.discountAmount = this.invoiceLevelDiscountAmount;
+      }
+      return [row];
+    },
+    // Purchase products columns
+    purchaseProductsColumns: function purchaseProductsColumns() {
+      var columns = [{
+        key: "index",
+        label: this.$t("#"),
+        align: "text-center"
+      }, {
+        key: "code",
+        label: this.$t("Code"),
+        align: "text-center"
+      }, {
+        key: "name",
+        label: this.$t("Item Name"),
+        align: "text-center"
+      }, {
+        key: "quantity",
+        label: this.$t("Qty"),
+        align: "text-center"
+      }];
+      if (this.allData && this.allData.purchaseReturn) {
+        columns.push({
+          key: "returnQty",
+          label: this.$t("Return Qty"),
+          align: "text-center"
+        });
+      }
+      columns.push({
+        key: "price",
+        label: this.$t("Price"),
+        align: "text-center"
+      }, {
+        key: "total",
+        label: this.$t("Total"),
+        align: "text-center"
+      }, {
+        key: "discount",
+        label: this.$t("Discount"),
+        align: "text-center"
+      }, {
+        key: "totalAfterDiscount",
+        label: this.$t("Total After Discount"),
+        align: "text-center"
+      }, {
+        key: "vat",
+        label: this.$t("VAT"),
+        align: "text-center"
+      }, {
+        key: "totalWithVat",
+        label: this.$t("Total with VAT"),
+        align: "text-center"
+      });
+      return columns;
+    },
+    // Purchase products rows
+    purchaseProductsRows: function purchaseProductsRows() {
+      var _this = this;
+      if (!this.purchaseProducts || !this.purchaseProducts.length) return [];
+      return this.purchaseProducts.map(function (product, index) {
+        var row = {
+          index: index + 1,
+          code: product.productCode || '',
+          name: product.productName || '',
+          quantity: "".concat(product.quantity || 0, " ").concat(product.productUnit || ''),
+          price: parseFloat(product.purchasePrice) || 0,
+          total: parseFloat(product.grossTotal) || 0,
+          discount: parseFloat(product.discountAmount) || 0,
+          totalAfterDiscount: parseFloat(product.totalAfterDiscount) || 0,
+          vat: parseFloat(product.taxTotal) || 0,
+          totalWithVat: parseFloat(product.lineTotal) || 0,
+          _raw: product
+        };
+        if (_this.allData && _this.allData.purchaseReturn) {
+          row.returnQty = "".concat(product.returnQty > 0 ? product.returnQty : 0, " ").concat(product.productUnit || '');
+        }
+        return row;
+      });
+    },
+    // Purchase payment history columns
+    purchasePaymentHistoryColumns: function purchasePaymentHistoryColumns() {
+      return [{
+        key: "index",
+        label: this.$t("#"),
+        align: ""
+      }, {
+        key: "date",
+        label: this.$t("Payment Date"),
+        align: ""
+      }, {
+        key: "amount",
+        label: this.$t("Paid Amount"),
+        align: ""
+      }, {
+        key: "account",
+        label: this.$t("Account"),
+        align: ""
+      }, {
+        key: "chequeNo",
+        label: this.$t("Cheque No"),
+        align: ""
+      }, {
+        key: "receiptNo",
+        label: this.$t("Receipt No"),
+        align: ""
+      }, {
+        key: "status",
+        label: this.$t("Status"),
+        align: "text-right"
+      }];
+    },
+    // Purchase payment history rows
+    purchasePaymentHistoryRows: function purchasePaymentHistoryRows() {
+      if (!this.allData || !this.allData.payments) return [];
+      return this.allData.payments.map(function (payment, index) {
+        var _payment$purchase_pay, _payment$purchase_pay2, _payment$purchase_pay3;
+        return {
+          index: index + 1,
+          date: payment.date || "",
+          amount: payment.amount || 0,
+          account: (_payment$purchase_pay = payment.purchase_payment_transaction) !== null && _payment$purchase_pay !== void 0 && _payment$purchase_pay.cashbook_account ? "".concat(payment.purchase_payment_transaction.cashbook_account.bank_name, " (").concat(payment.purchase_payment_transaction.cashbook_account.account_number, ")") : "",
+          chequeNo: ((_payment$purchase_pay2 = payment.purchase_payment_transaction) === null || _payment$purchase_pay2 === void 0 ? void 0 : _payment$purchase_pay2.cheque_no) || "",
+          receiptNo: ((_payment$purchase_pay3 = payment.purchase_payment_transaction) === null || _payment$purchase_pay3 === void 0 ? void 0 : _payment$purchase_pay3.receipt_no) || "",
+          status: payment.status,
+          _raw: payment
+        };
+      });
+    }
+  }),
+  watch: {
+    // watch search data
+    query: function query(newQ) {
+      if (newQ === "") {
+        this.getActivity();
+      } else {
+        this.searchData();
+      }
+    }
+  },
+  created: function created() {
+    this.getPurchase();
+    this.loadCommunicationConfigStatus();
+    this.productPrefix = this.appInfo.productPrefix;
+    this.purchasePrefix = this.appInfo.purchasePrefix;
+    this.supplierPrefix = this.appInfo.supplierPrefix;
+  },
+  methods: {
+    // Handle tab change (optional, for additional logic if needed)
+    handleTabChange: function handleTabChange(tab) {
+      // Tab-specific actions are handled by details-clicked and activity-clicked events
+    },
+    // Format number to 2 decimal places
+    formatNumber: function formatNumber(value) {
+      if (value === null || value === undefined || value === '') return '0.00';
+      return parseFloat(value).toFixed(2);
+    },
+    // Helper method to round to 2 decimal places (for calculations in computed props)
+    roundToTwoDecimals: function roundToTwoDecimals(value) {
+      return Math.round((Number(value) + Number.EPSILON) * 100) / 100;
+    },
+    // Get payment method name by ID
+    getPaymentMethodName: function getPaymentMethodName(methodId) {
+      var methods = {
+        'cash': 'نقدي (Cash)',
+        'visa': 'فيزا (Visa)',
+        'mada': 'مدى (Mada)',
+        'mastercard': 'ماستركارد (Mastercard)',
+        'bank_transfer': 'تحويل بنكي (Bank Transfer)',
+        'stc_pay': 'STC Pay',
+        'amex': 'أمريكان إكسبريس (American Express)'
+      };
+      return methods[methodId] || methodId;
+    },
+    // Calculate total with VAT sum for all items
+    getTotalWithVatSum: function getTotalWithVatSum() {
+      if (!this.purchaseProducts) return 0;
+      return this.purchaseProducts.reduce(function (total, product) {
+        return total + (parseFloat(product.lineTotal) || 0);
+      }, 0);
+    },
+    // Load communication configuration status
+    loadCommunicationConfigStatus: function loadCommunicationConfigStatus() {
+      var _this2 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        var response;
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              _context.prev = 0;
+              _this2.communicationConfig.loading = true;
+              _context.next = 4;
+              return axios_default().get('/api/communication-config-status');
+            case 4:
+              response = _context.sent;
+              _this2.communicationConfig.email_configured = response.data.email_configured;
+              _this2.communicationConfig.sms_configured = response.data.sms_configured;
+              _this2.communicationConfig.loading = false;
+              _context.next = 16;
+              break;
+            case 10:
+              _context.prev = 10;
+              _context.t0 = _context["catch"](0);
+              console.error('Error loading communication config status:', _context.t0);
+              // Default to false if there's an error
+              _this2.communicationConfig.email_configured = false;
+              _this2.communicationConfig.sms_configured = false;
+              _this2.communicationConfig.loading = false;
+            case 16:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee, null, [[0, 10]]);
+      }))();
+    },
+    // get the purchase
+    getPurchase: function getPurchase() {
+      var _this3 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        var _yield$axios$get, data;
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              _this3.$store.state.operations.loading = true;
+              _context2.next = 3;
+              return axios_default().get(window.location.origin + "/api/purchases/" + _this3.$route.params.slug);
+            case 3:
+              _yield$axios$get = _context2.sent;
+              data = _yield$axios$get.data;
+              _this3.allData = data.data;
+              _this3.purchaseProducts = _this3.allData.products;
+              _this3.purchaseProducts.sort(_this3.sortProducts);
+              _this3.$store.state.operations.loading = false;
+            case 9:
+            case "end":
+              return _context2.stop();
+          }
+        }, _callee2);
+      }))();
+    },
+    sortProducts: function sortProducts(a, b) {
+      if (a.productCode < b.productCode) {
+        return -1;
+      }
+      if (a.productCode > b.productCode) {
+        return 1;
+      }
+      return 0;
+    },
+    // download pdf - now opens print page
+    generatePDF: function generatePDF() {
+      // Open the print page in a new window
+      var printUrl = "/print/purchase/".concat(this.$route.params.slug);
+      window.open(printUrl, '_blank');
+    },
+    // notify
+    notify: function notify() {
+      var _this4 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
+            case 0:
+              if (_this4.isDemoMode) {
+                _context3.next = 7;
+                break;
+              }
+              _this4.$store.state.operations.loading = true;
+              _context3.next = 4;
+              return _this4.form.post(window.location.origin + "/api/purchase/notify/" + _this4.$route.params.slug).then(function () {
+                toast.fire({
+                  type: "success",
+                  title: _this4.$t("Notification sent successfully")
+                });
+              })["catch"](function () {
+                toast.fire({
+                  type: "error",
+                  title: _this4.$t("Please check your input and try again.")
+                });
+              });
+            case 4:
+              _this4.$store.state.operations.loading = false;
+              _context3.next = 8;
+              break;
+            case 7:
+              toast.fire({
+                type: "warning",
+                title: _this4.$t("You are not allowed to do this in demo version.")
+              });
+            case 8:
+            case "end":
+              return _context3.stop();
+          }
+        }, _callee3);
+      }))();
+    },
+    // Commented out - replaced with downloadPDF method
+    // printWindow() {
+    //   // Open the print page in a new window
+    //   const printUrl = `/print/purchase/${this.$route.params.slug}`;
+    //   window.open(printUrl, '_blank');
+    // },
+    // download PDF
+    downloadPDF: function downloadPDF() {
+      var params = new URLSearchParams();
+      // Add token to URL
+      var token = this.$store.getters['auth/token'];
+      if (token) {
+        params.append('token', token);
+      }
+      var pdfUrl = "/print/purchase/".concat(this.$route.params.slug, "/pdf?").concat(params.toString());
+      window.location.href = pdfUrl;
+    },
+    // preview PDF
+    previewPDF: function previewPDF() {
+      var params = new URLSearchParams();
+      // Add token to URL
+      var token = this.$store.getters['auth/token'];
+      if (token) {
+        params.append('token', token);
+      }
+      var pdfUrl = "/print/purchase/".concat(this.$route.params.slug, "/preview?").concat(params.toString());
+      window.location.href = pdfUrl;
+    },
+    // print table
+    print: function print() {
+      var _this5 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+          while (1) switch (_context4.prev = _context4.next) {
+            case 0:
+              _context4.next = 2;
+              return _this5.$htmlToPaper("printMe");
+            case 2:
+            case "end":
+              return _context4.stop();
+          }
+        }, _callee4);
+      }))();
+    },
+    // get activity logs
+    getActivity: function getActivity() {
+      var _this6 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+        var currentPage, slug, modelName;
+        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+          while (1) switch (_context5.prev = _context5.next) {
+            case 0:
+              currentPage = _this6.pagination ? _this6.pagination.current_page : 1;
+              _this6.$store.state.operations.loading = true;
+              slug = _this6.$route.params.slug;
+              modelName = "Purchase";
+              _context5.next = 6;
+              return _this6.$store.dispatch("operations/fetchSpecificLogs", {
+                path: "/api/activity-log-specific?page=",
+                currentPage: currentPage + "&perPage=" + _this6.perPage,
+                slug: slug,
+                modelName: modelName
+              });
+            case 6:
+            case "end":
+              return _context5.stop();
+          }
+        }, _callee5);
+      }))();
+    },
+    // search data
+    searchData: function searchData() {
+      var _this7 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+        var slug, modelName;
+        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+          while (1) switch (_context6.prev = _context6.next) {
+            case 0:
+              _this7.$store.state.operations.loading = true;
+              slug = _this7.$route.params.slug;
+              modelName = "Purchase";
+              _context6.next = 5;
+              return _this7.$store.dispatch("operations/fetchSpecificLogs", {
+                path: "/api/activity-log-specific?page=",
+                currentPage: _this7.pagination.current_page + "&perPage=" + _this7.perPage,
+                term: _this7.query,
+                slug: slug,
+                modelName: modelName
+              });
+            case 5:
+            case "end":
+              return _context6.stop();
+          }
+        }, _callee6);
+      }))();
+    },
+    // pagination
+    paginate: function paginate() {
+      var _this8 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
+        return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+          while (1) switch (_context7.prev = _context7.next) {
+            case 0:
+              _this8.getActivity();
+            case 1:
+            case "end":
+              return _context7.stop();
+          }
+        }, _callee7);
+      }))();
+    },
+    updatePerPager: function updatePerPager() {
+      this.pagination.current_page = 1;
+      this.query === "" ? this.getActivity() : this.searchData();
+    },
+    // reload after search
+    reload: function reload() {
+      var _this9 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
+        return _regeneratorRuntime().wrap(function _callee8$(_context8) {
+          while (1) switch (_context8.prev = _context8.next) {
+            case 0:
+              _this9.query = "";
+            case 1:
+            case "end":
+              return _context8.stop();
+          }
+        }, _callee8);
+      }))();
+    },
+    // refresh table
+    refreshTable: function refreshTable() {
+      var _this0 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
+        return _regeneratorRuntime().wrap(function _callee9$(_context9) {
+          while (1) switch (_context9.prev = _context9.next) {
+            case 0:
+              _this0.query = "";
+              if (_this0.pagination) {
+                _this0.pagination.current_page = 1;
+              }
+              if (!(_this0.query === "")) {
+                _context9.next = 7;
+                break;
+              }
+              _context9.next = 5;
+              return _this0.getActivity();
+            case 5:
+              _context9.next = 9;
+              break;
+            case 7:
+              _context9.next = 9;
+              return _this0.searchData();
+            case 9:
+              _this0.$toast.success(_this0.$t("Refreshed"), _this0.$t("Activity log has been refreshed successfully"));
+            case 10:
+            case "end":
+              return _context9.stop();
+          }
+        }, _callee9);
+      }))();
+    },
+    // reset pagination
+    resetPagination: function resetPagination() {
+      var _this1 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee0() {
+        return _regeneratorRuntime().wrap(function _callee0$(_context0) {
+          while (1) switch (_context0.prev = _context0.next) {
+            case 0:
+              _this1.pagination.current_page = 1;
+            case 1:
+            case "end":
+              return _context0.stop();
+          }
+        }, _callee0);
+      }))();
+    },
+    // return purchase
+    returnPurchase: function returnPurchase(data) {
+      // Navigate to purchase return create page with pre-selected purchase
+      // We'll fetch the supplier info from the purchase on the create page
+      console.log('Full purchase data:', JSON.stringify(data, null, 2));
+      console.log('Purchase slug:', data.slug);
+      this.$router.push({
+        name: 'purchaseReturns.create',
+        query: {
+          purchase: data.slug
+        }
+      });
+    },
+    // Add payment to purchase
+    addPayment: function addPayment() {
+      // Open payment modal
+      if (!this.allData) {
+        return;
+      }
+      this.showPaymentModal = true;
+    },
+    // Handle payment saved event from modal
+    handlePaymentSaved: function handlePaymentSaved() {
+      // Refresh purchase data to show updated payment
+      this.getPurchase();
+    }
+  }
+});
+;// ./resources/js/pages/purchases/show.vue?vue&type=script&lang=js
+ /* harmony default export */ const purchases_showvue_type_script_lang_js = (showvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(14486);
+;// ./resources/js/pages/purchases/show.vue
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,componentNormalizer/* default */.A)(
+  purchases_showvue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* harmony default export */ const show = (component.exports);
+
+/***/ }),
+
+/***/ 68601:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  A: () => (/* binding */ InvoicePaymentModal)
+});
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/InvoicePaymentModal.vue?vue&type=template&id=65c2e2a1&scoped=true
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _vm.show ? _c('Modal', {
+    on: {
+      "close": _vm.handleClose
+    }
+  }, [_c('h5', {
+    attrs: {
+      "slot": "header"
+    },
+    slot: "header"
+  }, [_vm._v("\n    " + _vm._s(_vm.type === 'purchase' ? _vm.$t("Create purchase payment") : _vm.$t("Create invoice payment")) + " :\n    "), _vm.invoiceNo ? _c('span', [_vm._v(_vm._s(_vm.invoicePrefix) + _vm._s(_vm.invoiceNo))]) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "row",
+    attrs: {
+      "slot": "body"
+    },
+    slot: "body"
+  }, [_c('form', {
+    staticClass: "w-100",
+    attrs: {
+      "role": "form"
+    },
+    on: {
+      "submit": function submit($event) {
+        $event.preventDefault();
+        return _vm.savePayment.apply(null, arguments);
+      },
+      "keydown": function keydown($event) {
+        return _vm.paymentForm.onKeydown($event);
+      }
+    }
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "clientInvoiceTotal"
+    }
+  }, [_vm._v(_vm._s(_vm.type === 'purchase' ? _vm.$t("Purchase Total") : _vm.$t("Invoice Total")))]), _vm._v(" "), _c('input', {
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "readonly": ""
+    },
+    domProps: {
+      "value": _vm.formatNumber(_vm.invoiceTotal)
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "clientInvoiceDue"
+    }
+  }, [_vm._v(_vm._s(_vm.type === 'purchase' ? _vm.$t("Purchase Due") : _vm.$t("Invoice Due")))]), _vm._v(" "), _c('input', {
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "readonly": ""
+    },
+    domProps: {
+      "value": _vm.formatNumber(_vm.dueAmount)
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "form-group col-md-4"
+  }, [_c('label', {
+    attrs: {
+      "for": "paidAmount"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Paid Amount")))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.paymentForm.paidAmount,
+      expression: "paymentForm.paidAmount"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "number",
+      "step": "any",
+      "placeholder": _vm.$t('Enter an amount'),
+      "required": "",
+      "min": "1",
+      "max": _vm.dueAmount
+    },
+    domProps: {
+      "value": _vm.paymentForm.paidAmount
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.paymentForm, "paidAmount", $event.target.value);
+      }
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-8"
+  }, [_c('label', {
+    attrs: {
+      "for": "account"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Account")) + "\n            "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('div', {
+    staticClass: "d-flex w-100"
+  }, [_c('v-select', {
+    staticClass: "flex-grow-1",
+    "class": {
+      'is-invalid': _vm.paymentForm.errors.has('account')
+    },
+    attrs: {
+      "options": _vm.accounts,
+      "label": "label",
+      "name": "account",
+      "placeholder": _vm.$t('Select an account')
+    },
+    scopedSlots: _vm._u([{
+      key: "option",
+      fn: function fn(option) {
+        return [_c('img', {
+          staticStyle: {
+            "width": "30px",
+            "height": "30px"
+          },
+          attrs: {
+            "src": option.image
+          }
+        }), _vm._v("\n                " + _vm._s(option.label) + "\n              ")];
+      }
+    }], null, false, 25305259),
+    model: {
+      value: _vm.paymentForm.account,
+      callback: function callback($$v) {
+        _vm.$set(_vm.paymentForm, "account", $$v);
+      },
+      expression: "paymentForm.account"
+    }
+  }), _vm._v(" "), _c('AccountCreateModal', {
+    on: {
+      "accountCreated": _vm.handleAccountCreated
+    }
+  }, [_c('div', {
+    staticClass: "input-group-text create-btn"
+  }, [_c('i', {
+    staticClass: "fas fa-solid fa-plus-circle"
+  })])])], 1), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.paymentForm,
+      "field": "account"
+    }
+  })], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "paymentMethod"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Payment Method")))]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.paymentForm.payment_method_id,
+      expression: "paymentForm.payment_method_id"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.paymentForm.errors.has('payment_method_id')
+    },
+    attrs: {
+      "id": "paymentMethod",
+      "disabled": _vm.loadingPaymentMethods,
+      "name": "payment_method_id"
+    },
+    on: {
+      "change": function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.paymentForm, "payment_method_id", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": ""
+    }
+  }, [_vm._v(_vm._s(_vm.loadingPaymentMethods ? _vm.$t("Loading...") : _vm.$t("Select")))]), _vm._v(" "), !_vm.loadingPaymentMethods && _vm.paymentMethods.length === 0 ? _c('option', {
+    attrs: {
+      "value": "",
+      "disabled": ""
+    }
+  }, [_vm._v("\n              " + _vm._s(_vm.$t("No payment methods available")) + "\n            ")]) : _vm._e(), _vm._v(" "), _vm._l(_vm.paymentMethods, function (method) {
+    return _c('option', {
+      key: method.id,
+      domProps: {
+        "value": method.id
+      }
+    }, [_vm._v("\n              " + _vm._s(method.name) + "\n            ")]);
+  })], 2), _vm._v(" "), _vm.loadingPaymentMethods ? _c('small', {
+    staticClass: "form-text text-muted"
+  }, [_vm._v("\n            " + _vm._s(_vm.$t("Loading payment methods...")) + "\n          ")]) : _vm._e(), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.paymentForm,
+      "field": "payment_method_id"
+    }
+  })], 1), _vm._v(" "), _vm.selectedPaymentMethodAnalyticalAccount ? _c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "analyticalAccount"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Analytical Account")))]), _vm._v(" "), _c('input', {
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "readonly": ""
+    },
+    domProps: {
+      "value": _vm.selectedPaymentMethodAnalyticalAccount.name || '-'
+    }
+  }), _vm._v(" "), _c('small', {
+    staticClass: "form-text text-muted"
+  }, [_vm._v("\n            " + _vm._s(_vm.$t("Automatically set based on payment method")) + "\n          ")])]) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "receiptNo"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Receipt No")))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.paymentForm.receiptNo,
+      expression: "paymentForm.receiptNo"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.paymentForm.errors.has('receiptNo')
+    },
+    attrs: {
+      "type": "text",
+      "id": "receiptNo",
+      "placeholder": _vm.$t('Enter a receipt no')
+    },
+    domProps: {
+      "value": _vm.paymentForm.receiptNo
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.paymentForm, "receiptNo", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.paymentForm,
+      "field": "receiptNo"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "paymentDate"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Payment Date")))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.paymentForm.paymentDate,
+      expression: "paymentForm.paymentDate"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.paymentForm.errors.has('paymentDate')
+    },
+    attrs: {
+      "id": "paymentDate",
+      "type": "date",
+      "name": "paymentDate"
+    },
+    domProps: {
+      "value": _vm.paymentForm.paymentDate
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.paymentForm, "paymentDate", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.paymentForm,
+      "field": "paymentDate"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "status"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Status")))]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.paymentForm.status,
+      expression: "paymentForm.status"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.paymentForm.errors.has('status')
+    },
+    attrs: {
+      "id": "status",
+      "disabled": _vm.invoiceStatus === 0
+    },
+    on: {
+      "change": function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.paymentForm, "status", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_vm.invoiceStatus === 1 ? _c('option', {
+    attrs: {
+      "value": "1"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Active")))]) : _vm._e(), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "0"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Inactive")))])]), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.paymentForm,
+      "field": "status"
+    }
+  })], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "note"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Note")))]), _vm._v(" "), _c('textarea', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.paymentForm.note,
+      expression: "paymentForm.note"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.paymentForm.errors.has('note')
+    },
+    attrs: {
+      "id": "note",
+      "placeholder": _vm.$t('Write your note here!')
+    },
+    domProps: {
+      "value": _vm.paymentForm.note
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.paymentForm, "note", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.paymentForm,
+      "field": "note"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-12 d-flex flex-wrap"
+  }, [_c('div', {
+    staticClass: "pr-5 d-flex align-items-center"
+  }, [_c('toggle-button', {
+    attrs: {
+      "disabled": _vm.isDemoMode || _vm.communicationConfig.loading || !_vm.communicationConfig.email_configured
+    },
+    model: {
+      value: _vm.paymentForm.isSendEmail,
+      callback: function callback($$v) {
+        _vm.$set(_vm.paymentForm, "isSendEmail", $$v);
+      },
+      expression: "paymentForm.isSendEmail"
+    }
+  }), _vm._v(" "), _c('span', {
+    staticClass: "ml-3"
+  }, [_vm._v(_vm._s(_vm.$t("Send Email Notification")))]), _vm._v(" "), !_vm.communicationConfig.loading && !_vm.communicationConfig.email_configured ? _c('span', {
+    staticClass: "ml-2 text-muted small"
+  }, [_vm._v("\n            (" + _vm._s(_vm.$t("Email not configured")) + ")\n          ")]) : _vm._e()], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-12 d-flex flex-wrap"
+  }, [_c('div', {
+    staticClass: "pr-5 d-flex align-items-center"
+  }, [_c('toggle-button', {
+    attrs: {
+      "disabled": _vm.isDemoMode || _vm.communicationConfig.loading || !_vm.communicationConfig.sms_configured
+    },
+    model: {
+      value: _vm.paymentForm.isSendSMS,
+      callback: function callback($$v) {
+        _vm.$set(_vm.paymentForm, "isSendSMS", $$v);
+      },
+      expression: "paymentForm.isSendSMS"
+    }
+  }), _vm._v(" "), _c('span', {
+    staticClass: "ml-3"
+  }, [_vm._v(_vm._s(_vm.$t("Send SMS Notification")))]), _vm._v(" "), !_vm.communicationConfig.loading && !_vm.communicationConfig.sms_configured ? _c('span', {
+    staticClass: "ml-2 text-muted small"
+  }, [_vm._v("\n            (" + _vm._s(_vm.$t("SMS not configured")) + ")\n          ")]) : _vm._e()], 1)])])]), _vm._v(" "), _c('div', {
+    staticClass: "d-flex justify-content-end w-100",
+    attrs: {
+      "slot": "modal-footer"
+    },
+    slot: "modal-footer"
+  }, [_c('v-button', {
+    staticClass: "btn btn-success mr-2",
+    attrs: {
+      "loading": _vm.paymentForm.busy
+    },
+    on: {
+      "click": _vm.savePayment
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-save"
+  }), _vm._v(" " + _vm._s(_vm.$t("Save")) + "\n    ")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": _vm.handleClose
+    }
+  }, [_vm._v("\n      " + _vm._s(_vm.$t("Close")) + "\n    ")])], 1)]) : _vm._e();
+};
+var staticRenderFns = [];
+
+// EXTERNAL MODULE: ./node_modules/vform/dist/vform.es.js
+var vform_es = __webpack_require__(63216);
+// EXTERNAL MODULE: ./node_modules/axios/index.js
+var axios = __webpack_require__(72505);
+var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
+// EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
+var vuex_esm = __webpack_require__(95353);
+// EXTERNAL MODULE: ./node_modules/vue-js-toggle-button/dist/index.js
+var dist = __webpack_require__(12616);
+// EXTERNAL MODULE: ./resources/js/components/AccountCreateModal.vue + 5 modules
+var AccountCreateModal = __webpack_require__(92720);
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/InvoicePaymentModal.vue?vue&type=script&lang=js
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+
+
+
+
+
+/* harmony default export */ const InvoicePaymentModalvue_type_script_lang_js = ({
+  name: "InvoicePaymentModal",
+  components: {
+    ToggleButton: dist.ToggleButton,
+    AccountCreateModal: AccountCreateModal/* default */.A
+  },
+  props: {
+    show: {
+      type: Boolean,
+      "default": false
+    },
+    type: {
+      type: String,
+      "default": 'invoice',
+      // 'invoice' or 'purchase'
+      validator: function validator(value) {
+        return ['invoice', 'purchase'].includes(value);
+      }
+    },
+    invoiceId: {
+      type: [Number, String],
+      required: true
+    },
+    invoiceNo: {
+      type: String,
+      required: true
+    },
+    invoicePrefix: {
+      type: String,
+      "default": ""
+    },
+    invoiceTotal: {
+      type: Number,
+      required: true
+    },
+    dueAmount: {
+      type: Number,
+      required: true
+    },
+    invoiceStatus: {
+      type: Number,
+      "default": 1
+    },
+    purchaseSlug: {
+      type: String,
+      "default": null
+    }
+  },
+  data: function data() {
+    return {
+      accounts: [],
+      paymentMethods: [],
+      loadingPaymentMethods: false,
+      isDemoMode: window.config.isDemoMode,
+      communicationConfig: {
+        email_configured: false,
+        sms_configured: false,
+        loading: true
+      },
+      paymentForm: new vform_es/* default */.Ay({
+        invoice_id: "",
+        paidAmount: 1,
+        paymentDate: new Date().toISOString().slice(0, 10),
+        account: "",
+        receiptNo: "",
+        note: "",
+        status: 1,
+        isSendEmail: false,
+        isSendSMS: false,
+        payment_method_id: null
+      })
+    };
+  },
+  computed: _objectSpread(_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["appInfo"])), {}, {
+    // Get analytical account for selected payment method
+    selectedPaymentMethodAnalyticalAccount: function selectedPaymentMethodAnalyticalAccount() {
+      var _this = this;
+      if (!this.paymentForm.payment_method_id || !this.paymentMethods || this.paymentMethods.length === 0) {
+        return null;
+      }
+      var selectedMethod = this.paymentMethods.find(function (method) {
+        return method.id == _this.paymentForm.payment_method_id;
+      });
+      if (selectedMethod && selectedMethod.analytical_account) {
+        return selectedMethod.analytical_account;
+      }
+      return null;
+    }
+  }),
+  watch: {
+    show: {
+      handler: function handler(newVal) {
+        if (newVal) {
+          this.initializeForm();
+        }
+      },
+      immediate: true
+    },
+    dueAmount: {
+      handler: function handler(newVal) {
+        if (newVal && this.show) {
+          this.paymentForm.paidAmount = newVal > 0 ? newVal : 1;
+        }
+      },
+      immediate: true
+    },
+    invoiceId: {
+      handler: function handler(newVal) {
+        if (newVal && this.show) {
+          console.log('Update form invoice_id from prop:', newVal);
+          this.paymentForm.invoice_id = newVal;
+        }
+      },
+      immediate: true
+    }
+  },
+  created: function created() {
+    this.loadCommunicationConfigStatus();
+    this.getAccounts();
+    this.getPaymentMethods();
+  },
+  methods: {
+    // Format number to 2 decimal places
+    formatNumber: function formatNumber(value) {
+      if (value === null || value === undefined || isNaN(value)) return '0.00';
+      return parseFloat(value).toFixed(2);
+    },
+    // Load communication configuration status
+    loadCommunicationConfigStatus: function loadCommunicationConfigStatus() {
+      var _this2 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        var response;
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              _context.prev = 0;
+              _this2.communicationConfig.loading = true;
+              _context.next = 4;
+              return axios_default().get('/api/communication-config-status');
+            case 4:
+              response = _context.sent;
+              _this2.communicationConfig.email_configured = response.data.email_configured;
+              _this2.communicationConfig.sms_configured = response.data.sms_configured;
+              _this2.communicationConfig.loading = false;
+              _context.next = 16;
+              break;
+            case 10:
+              _context.prev = 10;
+              _context.t0 = _context["catch"](0);
+              console.error('Error loading communication config status:', _context.t0);
+              // Default to false if there's an error
+              _this2.communicationConfig.email_configured = false;
+              _this2.communicationConfig.sms_configured = false;
+              _this2.communicationConfig.loading = false;
+            case 16:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee, null, [[0, 10]]);
+      }))();
+    },
+    // Initialize form when modal opens
+    initializeForm: function initializeForm() {
+      if (this.type === 'purchase') {
+        // For purchases, we don't set invoice_id
+        this.paymentForm.invoice_id = null;
+      } else {
+        this.paymentForm.invoice_id = this.invoiceId;
+      }
+      var dueAmount = this.dueAmount;
+      // Set paid amount to total due amount as default
+      this.paymentForm.paidAmount = dueAmount > 0 ? dueAmount : 1;
+      this.paymentForm.status = this.invoiceStatus === 0 ? 0 : 1;
+      this.paymentForm.payment_method_id = null; // Reset payment method
+
+      // Set default account if available
+      if (this.accounts && this.accounts.length > 0 && !this.paymentForm.account) {
+        var _this$appInfo;
+        var defaultAccountSlug = (_this$appInfo = this.appInfo) === null || _this$appInfo === void 0 ? void 0 : _this$appInfo.defaultAccountSlug;
+        this.paymentForm.account = this.accounts.find(function (account) {
+          return account.slug == defaultAccountSlug;
+        }) || this.accounts[0];
+      }
+    },
+    // Get accounts
+    getAccounts: function getAccounts() {
+      var _this3 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        var _yield$axios$get, data, _this3$appInfo, defaultAccountSlug;
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return axios_default().get(window.location.origin + "/api/all-accounts");
+            case 2:
+              _yield$axios$get = _context2.sent;
+              data = _yield$axios$get.data;
+              _this3.accounts = data.data;
+
+              // assign default account
+              if (_this3.accounts && _this3.accounts.length > 0) {
+                defaultAccountSlug = (_this3$appInfo = _this3.appInfo) === null || _this3$appInfo === void 0 ? void 0 : _this3$appInfo.defaultAccountSlug;
+                _this3.paymentForm.account = _this3.accounts.find(function (account) {
+                  return account.slug == defaultAccountSlug;
+                });
+              }
+            case 6:
+            case "end":
+              return _context2.stop();
+          }
+        }, _callee2);
+      }))();
+    },
+    // Get payment methods
+    getPaymentMethods: function getPaymentMethods() {
+      var _this4 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        var response;
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
+            case 0:
+              _this4.loadingPaymentMethods = true;
+              _context3.prev = 1;
+              _context3.next = 4;
+              return axios_default().get(window.location.origin + '/api/payment-methods', {
+                params: {
+                  perPage: 1000
+                } // Get all payment methods
+              });
+            case 4:
+              response = _context3.sent;
+              // Handle both paginated and non-paginated responses
+              if (response.data) {
+                if (Array.isArray(response.data)) {
+                  _this4.paymentMethods = response.data;
+                } else if (response.data.data && Array.isArray(response.data.data)) {
+                  _this4.paymentMethods = response.data.data;
+                } else {
+                  _this4.paymentMethods = [];
+                }
+              } else {
+                _this4.paymentMethods = [];
+              }
+              _context3.next = 13;
+              break;
+            case 8:
+              _context3.prev = 8;
+              _context3.t0 = _context3["catch"](1);
+              console.error('Error loading payment methods:', _context3.t0);
+              _this4.paymentMethods = [];
+              _this4.$toast.error(_this4.$t('Error'), _this4.$t('Failed to load payment methods'));
+            case 13:
+              _context3.prev = 13;
+              _this4.loadingPaymentMethods = false;
+              return _context3.finish(13);
+            case 16:
+            case "end":
+              return _context3.stop();
+          }
+        }, _callee3, null, [[1, 8, 13, 16]]);
+      }))();
+    },
+    // Handle account created event
+    handleAccountCreated: function handleAccountCreated(newAccount) {
+      var _this5 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+        var account, accountById;
+        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+          while (1) switch (_context4.prev = _context4.next) {
+            case 0:
+              _context4.next = 2;
+              return _this5.getAccounts();
+            case 2:
+              if (!(newAccount && newAccount.id)) {
+                _context4.next = 7;
+                break;
+              }
+              _context4.next = 5;
+              return _this5.$nextTick();
+            case 5:
+              // Find the account by id, slug, or label
+              account = _this5.accounts.find(function (acc) {
+                return acc.id === newAccount.id || acc.slug === newAccount.slug || acc.label === newAccount.label || acc.bankName === newAccount.bankName && acc.accountNumber === newAccount.accountNumber;
+              });
+              if (account) {
+                _this5.paymentForm.account = account;
+              } else if (newAccount.id) {
+                // If not found by matching, try to find by id directly
+                accountById = _this5.accounts.find(function (acc) {
+                  return acc.id === newAccount.id;
+                });
+                if (accountById) {
+                  _this5.paymentForm.account = accountById;
+                }
+              }
+            case 7:
+            case "end":
+              return _context4.stop();
+          }
+        }, _callee4);
+      }))();
+    },
+    // Save payment
+    savePayment: function savePayment() {
+      var _this6 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+        var formData, apiEndpoint, successMessage, effectiveInvoiceId;
+        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+          while (1) switch (_context5.prev = _context5.next) {
+            case 0:
+              // Ensure invoice_id is set from props
+              if (_this6.type !== 'purchase' && _this6.invoiceId) {
+                // Always update from prop to ensure we have the latest ID
+                _this6.paymentForm.invoice_id = _this6.invoiceId;
+              } else if (!_this6.paymentForm.invoice_id && _this6.type !== 'purchase' && _this6.invoiceId) {
+                console.log('Fallback: Setting invoice_id from prop:', _this6.invoiceId);
+                _this6.paymentForm.invoice_id = _this6.invoiceId;
+              }
+              if (!(!_this6.paymentForm.account || !_this6.paymentForm.account.id)) {
+                _context5.next = 4;
+                break;
+              }
+              _this6.$toast.error(_this6.$t("Error"), _this6.$t("Please select an account"));
+              return _context5.abrupt("return");
+            case 4:
+              if (!(_this6.type === 'purchase')) {
+                _context5.next = 10;
+                break;
+              }
+              // Prepare form data for purchase payment
+              formData = {
+                selectedPurchase: {
+                  slug: _this6.purchaseSlug,
+                  due: _this6.dueAmount
+                },
+                paidAmount: parseFloat(_this6.paymentForm.paidAmount),
+                account: _this6.paymentForm.account,
+                receiptNo: _this6.paymentForm.receiptNo || '',
+                paymentDate: _this6.paymentForm.paymentDate || new Date().toISOString().slice(0, 10),
+                note: _this6.paymentForm.note || '',
+                status: _this6.paymentForm.status,
+                isSendEmail: _this6.paymentForm.isSendEmail || false,
+                isSendSMS: _this6.paymentForm.isSendSMS || false,
+                payment_method_id: _this6.paymentForm.payment_method_id || null
+              };
+              apiEndpoint = '/api/purchase-pay';
+              successMessage = _this6.$t("Purchase payment added successfully");
+              _context5.next = 19;
+              break;
+            case 10:
+              // Determine effective Invoice ID
+              // Try prop first (most reliable), then form data
+              effectiveInvoiceId = _this6.invoiceId;
+              if (!effectiveInvoiceId && _this6.paymentForm.invoice_id) {
+                console.log('Using invoice_id from paymentForm fallback:', _this6.paymentForm.invoice_id);
+                effectiveInvoiceId = _this6.paymentForm.invoice_id;
+              }
+
+              // Validation: Check if we have an ID
+              if (effectiveInvoiceId) {
+                _context5.next = 16;
+                break;
+              }
+              console.error('CRITICAL: Invoice ID missing in both prop and form');
+              _this6.$toast.error(_this6.$t("Error"), "System Error: Invoice ID not found. Please try refreshing or checking the invoice details.");
+              return _context5.abrupt("return");
+            case 16:
+              // Prepare form data for invoice payment
+              formData = {
+                invoice_id: effectiveInvoiceId,
+                paidAmount: parseFloat(_this6.paymentForm.paidAmount),
+                account: _this6.paymentForm.account,
+                receiptNo: _this6.paymentForm.receiptNo || '',
+                date: _this6.paymentForm.paymentDate || new Date().toISOString().slice(0, 10),
+                note: _this6.paymentForm.note || '',
+                netTotal: _this6.dueAmount,
+                isSendEmail: _this6.paymentForm.isSendEmail || false,
+                isSendSMS: _this6.paymentForm.isSendSMS || false,
+                payment_method_id: _this6.paymentForm.payment_method_id || null
+              };
+              apiEndpoint = '/api/invoices-pay';
+              successMessage = _this6.$t("Invoice payment added successfully");
+            case 19:
+              _context5.next = 21;
+              return axios_default().post(window.location.origin + apiEndpoint, formData).then(function () {
+                _this6.$toast.success(_this6.$t("Success!"), successMessage);
+                _this6.paymentForm.reset();
+                _this6.paymentForm.paymentDate = new Date().toISOString().slice(0, 10);
+                _this6.paymentForm.status = 1;
+                _this6.paymentForm.payment_method_id = null;
+                // Emit payment saved event
+                _this6.$emit('payment-saved');
+                // Close modal
+                _this6.handleClose();
+              })["catch"](function (error) {
+                if (error.response && error.response.status === 422 && error.response.data && error.response.data.errors) {
+                  var errors = error.response.data.errors;
+                  _this6.paymentForm.errors.set(errors);
+                  var messages = Object.values(errors).flat();
+                  _this6.$toast.error(_this6.$t('Validation Error'), messages.join('\n'));
+                } else {
+                  var _error$response;
+                  _this6.$toast.error(_this6.$t("Error"), ((_error$response = error.response) === null || _error$response === void 0 || (_error$response = _error$response.data) === null || _error$response === void 0 ? void 0 : _error$response.message) || _this6.$t("Please check your input and try again."));
+                }
+              });
+            case 21:
+            case "end":
+              return _context5.stop();
+          }
+        }, _callee5);
+      }))();
+    },
+    // Handle close
+    handleClose: function handleClose() {
+      this.$emit('close');
+    }
+  }
+});
+;// ./resources/js/components/InvoicePaymentModal.vue?vue&type=script&lang=js
+ /* harmony default export */ const components_InvoicePaymentModalvue_type_script_lang_js = (InvoicePaymentModalvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__(85072);
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/InvoicePaymentModal.vue?vue&type=style&index=0&id=65c2e2a1&prod&scoped=true&lang=css
+var InvoicePaymentModalvue_type_style_index_0_id_65c2e2a1_prod_scoped_true_lang_css = __webpack_require__(64557);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/InvoicePaymentModal.vue?vue&type=style&index=0&id=65c2e2a1&prod&scoped=true&lang=css
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = injectStylesIntoStyleTag_default()(InvoicePaymentModalvue_type_style_index_0_id_65c2e2a1_prod_scoped_true_lang_css/* default */.A, options);
+
+
+
+/* harmony default export */ const components_InvoicePaymentModalvue_type_style_index_0_id_65c2e2a1_prod_scoped_true_lang_css = (InvoicePaymentModalvue_type_style_index_0_id_65c2e2a1_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/components/InvoicePaymentModal.vue?vue&type=style&index=0&id=65c2e2a1&prod&scoped=true&lang=css
+
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(14486);
+;// ./resources/js/components/InvoicePaymentModal.vue
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,componentNormalizer/* default */.A)(
+  components_InvoicePaymentModalvue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  "65c2e2a1",
+  null
+  
+)
+
+/* harmony default export */ const InvoicePaymentModal = (component.exports);
+
+/***/ }),
+
+/***/ 90709:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76798);
-/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
 // Imports
 
-var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".table-responsive[data-v-a6df283c]{background-color:#fff}.invoices-table[data-v-a6df283c]{border:1px solid #cbd0dd;border-collapse:separate;border-radius:8px;border-spacing:0;font-size:.9rem;padding:10px 15px;width:100%}.invoices-table tbody th[data-v-a6df283c]{border:none;font-size:.9rem;font-weight:500;padding:6px 10px;text-align:right}.invoices-table tbody td[data-v-a6df283c]{border:none;font-size:.9rem;padding:6px 10px;text-align:left}.invoices-table tbody tr[data-v-a6df283c]{background-color:#fff;border-bottom:1px solid #e5e7eb}.invoices-table tbody tr[data-v-a6df283c]:last-child{border-bottom:none}.text-bold[data-v-a6df283c]{font-weight:700}.equal-sign[data-v-a6df283c]{font-weight:600;margin-left:4px;margin-right:4px}.saudi-riyal[data-v-a6df283c]{font-family:Arial,sans-serif}[dir=rtl] .invoices-table tbody th[data-v-a6df283c]{text-align:right}[dir=rtl] .invoices-table tbody td[data-v-a6df283c]{text-align:left}[dir=ltr] .invoices-table tbody th[data-v-a6df283c]{text-align:right}[dir=ltr] .invoices-table tbody td[data-v-a6df283c]{text-align:left}.invoices-table tbody tr[data-v-a6df283c]{margin-bottom:2px}.table-custom[data-v-a6df283c]{border:none!important}.table-border-y-0[data-v-a6df283c]{border-bottom:none!important;border-top:none!important}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".tabs-header-row[data-v-5dc72241]{margin-bottom:1.5rem}.nav-tabs[data-v-5dc72241]{align-self:center;background:#0775af1a;border:none;border-radius:10px;display:flex;gap:10px;justify-content:space-between;margin-bottom:0;padding:10px;width:20%}.nav-item[data-v-5dc72241]{flex:1 1 0}.nav-link[data-v-5dc72241]{align-items:center;border:none;border-radius:10px;color:#000;cursor:pointer;display:inline-flex;font-family:DINNextLTArabic;font-size:.95rem;font-weight:400;justify-content:center;padding:10px 12px;text-align:center;text-decoration:none;transition:all .2s ease;width:100%}.nav-link.active[data-v-5dc72241]{background:#0775af;color:#fff!important}.nav-link[data-v-5dc72241]:hover{filter:brightness(.96)}@media (max-width:576px){.nav-tabs[data-v-5dc72241]{gap:6px}.nav-link[data-v-5dc72241]{font-size:.85rem;padding:8px 10px}}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
 
-/***/ },
+/***/ }),
 
-/***/ 63930
-(module, __webpack_exports__, __webpack_require__) {
+/***/ 91494:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76798);
-/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
 // Imports
 
-var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, ".info-alert[data-v-f7e366da]{align-items:center;background:#fff5f5;border:1px solid #d64545;border-radius:10px;color:#000;display:flex;font-family:DINNextLTArabic;font-size:14px;font-style:Bold;font-weight:700;margin:20px;padding:15px 20px}.info-alert i[data-v-f7e366da]{color:#d64545;font-size:16px;margin-right:10px}[dir=rtl] .info-alert i[data-v-f7e366da]{margin-left:10px;margin-right:0}@media only screen and (max-width:767px){.info-alert[data-v-f7e366da]{display:block!important}.info-alert i[data-v-f7e366da]{margin-right:8px}[dir=rtl] .info-alert i[data-v-f7e366da]{margin-left:8px;margin-right:0}}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
 
-/***/ },
+/***/ }),
 
-/***/ 94948
-(module) {
+/***/ 91640:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  A: () => (/* binding */ InfoAlert)
+});
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/shared/InfoAlert.vue?vue&type=template&id=f7e366da&scoped=true
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c,
+    _setup = _vm._self._setupProxy;
+  return _c('div', {
+    staticClass: "info-alert"
+  }, [_c('i', {
+    "class": _setup.iconClass
+  }), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.message))])]);
+};
+var staticRenderFns = [];
+
+// EXTERNAL MODULE: ./node_modules/vue/dist/vue.esm.js
+var vue_esm = __webpack_require__(62893);
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/shared/InfoAlert.vue?vue&type=script&setup=true&lang=js
+
+/* harmony default export */ const InfoAlertvue_type_script_setup_true_lang_js = ({
+  __name: 'InfoAlert',
+  props: {
+    message: {
+      type: String,
+      required: true
+    },
+    icon: {
+      type: String,
+      "default": 'info'
+    }
+  },
+  setup: function setup(__props) {
+    var props = __props;
+    var iconClass = (0,vue_esm.computed)(function () {
+      var iconMap = {
+        info: 'fas fa-exclamation-circle',
+        warning: 'fas fa-exclamation-triangle',
+        error: 'fas fa-exclamation-circle',
+        success: 'fas fa-check-circle'
+      };
+      return iconMap[props.icon] || iconMap.info;
+    });
+    return {
+      __sfc: true,
+      props: props,
+      iconClass: iconClass
+    };
+  }
+});
+;// ./resources/js/components/shared/InfoAlert.vue?vue&type=script&setup=true&lang=js
+ /* harmony default export */ const shared_InfoAlertvue_type_script_setup_true_lang_js = (InfoAlertvue_type_script_setup_true_lang_js); 
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__(85072);
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/shared/InfoAlert.vue?vue&type=style&index=0&id=f7e366da&prod&scoped=true&lang=css
+var InfoAlertvue_type_style_index_0_id_f7e366da_prod_scoped_true_lang_css = __webpack_require__(91494);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/shared/InfoAlert.vue?vue&type=style&index=0&id=f7e366da&prod&scoped=true&lang=css
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = injectStylesIntoStyleTag_default()(InfoAlertvue_type_style_index_0_id_f7e366da_prod_scoped_true_lang_css/* default */.A, options);
+
+
+
+/* harmony default export */ const shared_InfoAlertvue_type_style_index_0_id_f7e366da_prod_scoped_true_lang_css = (InfoAlertvue_type_style_index_0_id_f7e366da_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/components/shared/InfoAlert.vue?vue&type=style&index=0&id=f7e366da&prod&scoped=true&lang=css
+
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(14486);
+;// ./resources/js/components/shared/InfoAlert.vue
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,componentNormalizer/* default */.A)(
+  shared_InfoAlertvue_type_script_setup_true_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  "f7e366da",
+  null
+  
+)
+
+/* harmony default export */ const InfoAlert = (component.exports);
+
+/***/ }),
+
+/***/ 92720:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  A: () => (/* binding */ AccountCreateModal)
+});
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/AccountCreateModal.vue?vue&type=template&id=1def6f66&scoped=true
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', [_c('VModal', {
+    on: {
+      "close": _vm.closeModal
+    },
+    scopedSlots: _vm._u([{
+      key: "title",
+      fn: function fn() {
+        return [_vm._v(_vm._s(_vm.$t("Create Bank Account")))];
+      },
+      proxy: true
+    }]),
+    model: {
+      value: _vm.showModal,
+      callback: function callback($$v) {
+        _vm.showModal = $$v;
+      },
+      expression: "showModal"
+    }
+  }, [_vm._v(" "), _c('div', {
+    staticClass: "w-100",
+    on: {
+      "click": function click($event) {
+        $event.stopPropagation();
+      }
+    }
+  }, [_c('form', {
+    attrs: {
+      "role": "form"
+    },
+    on: {
+      "keydown": function keydown($event) {
+        return _vm.form.onKeydown($event);
+      },
+      "submit": function submit($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+      }
+    }
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "form-group col-md-12"
+  }, [_c('label', {
+    attrs: {
+      "for": "bankName"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Bank Name')) + "\n              "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.bankName,
+      expression: "form.bankName"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('bankName')
+    },
+    attrs: {
+      "id": "bankName",
+      "type": "text",
+      "name": "bankName",
+      "placeholder": _vm.$t('Enter a bank name')
+    },
+    domProps: {
+      "value": _vm.form.bankName
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "bankName", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "bankName"
+    }
+  })], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "branchName"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Branch Name')))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.branchName,
+      expression: "form.branchName"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('branchName')
+    },
+    attrs: {
+      "id": "branchName",
+      "type": "text",
+      "name": "branchName",
+      "placeholder": _vm.$t('Enter a branch name')
+    },
+    domProps: {
+      "value": _vm.form.branchName
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "branchName", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "branchName"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "accountNumber"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Account Number')) + "\n              "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.accountNumber,
+      expression: "form.accountNumber"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('accountNumber')
+    },
+    attrs: {
+      "id": "accountNumber",
+      "type": "text",
+      "name": "accountNumber",
+      "placeholder": _vm.$t('Enter an account number')
+    },
+    domProps: {
+      "value": _vm.form.accountNumber
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "accountNumber", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "accountNumber"
+    }
+  })], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "chartOfAccountId"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Chart of Account')) + "\n              "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('v-select', {
+    "class": {
+      'is-invalid': _vm.form.errors.has('chartOfAccountId')
+    },
+    attrs: {
+      "options": _vm.chartOfAccounts,
+      "label": "name",
+      "reduce": function reduce(option) {
+        return option.id;
+      },
+      "track-by": "id",
+      "name": "chartOfAccountId",
+      "placeholder": _vm.$t('Select a Chart of Account')
+    },
+    scopedSlots: _vm._u([{
+      key: "option",
+      fn: function fn(_ref) {
+        var name = _ref.name,
+          code = _ref.code,
+          type = _ref.type;
+        return [_c('div', [_c('strong', [_vm._v(_vm._s(name))]), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
+          staticClass: "text-muted"
+        }, [_vm._v(_vm._s(code) + " - " + _vm._s(type))])])];
+      }
+    }]),
+    model: {
+      value: _vm.form.chartOfAccountId,
+      callback: function callback($$v) {
+        _vm.$set(_vm.form, "chartOfAccountId", $$v);
+      },
+      expression: "form.chartOfAccountId"
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "chartOfAccountId"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "status"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Status')))]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.status,
+      expression: "form.status"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('status')
+    },
+    attrs: {
+      "id": "status"
+    },
+    on: {
+      "change": function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.form, "status", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "1"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Active')))]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "0"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Inactive')))])]), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "status"
+    }
+  })], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "note"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Note')))]), _vm._v(" "), _c('textarea', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.note,
+      expression: "form.note"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('note')
+    },
+    attrs: {
+      "id": "note",
+      "placeholder": _vm.$t('Write your note here!'),
+      "rows": "3"
+    },
+    domProps: {
+      "value": _vm.form.note
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "note", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "note"
+    }
+  })], 1)])]), _vm._v(" "), _c('div', {
+    attrs: {
+      "slot": "modal-footer"
+    },
+    slot: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-success",
+    attrs: {
+      "loading": _vm.form.busy
+    },
+    on: {
+      "click": function click($event) {
+        $event.stopPropagation();
+        return _vm.saveAccount.apply(null, arguments);
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-save"
+  }), _vm._v(" " + _vm._s(_vm.$t("Save")) + "\n      ")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-secondary ml-2",
+    on: {
+      "click": function click($event) {
+        $event.stopPropagation();
+        return _vm.closeModal.apply(null, arguments);
+      }
+    }
+  }, [_vm._v("\n        " + _vm._s(_vm.$t("Cancel")) + "\n      ")])])]), _vm._v(" "), _c('a', {
+    staticClass: "create-button",
+    on: {
+      "click": _vm.toggleModal
+    }
+  }, [_vm._t("default")], 2)], 1);
+};
+var staticRenderFns = [];
+
+// EXTERNAL MODULE: ./node_modules/vform/dist/vform.es.js
+var vform_es = __webpack_require__(63216);
+// EXTERNAL MODULE: ./node_modules/axios/index.js
+var axios = __webpack_require__(72505);
+var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/AccountCreateModal.vue?vue&type=script&lang=js
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+/* harmony default export */ const AccountCreateModalvue_type_script_lang_js = ({
+  middleware: ["auth", "check-permissions"],
+  data: function data() {
+    return {
+      showModal: false,
+      form: new vform_es/* default */.Ay({
+        bankName: '',
+        branchName: '',
+        accountNumber: '',
+        date: new Date().toISOString().slice(0, 10),
+        note: '',
+        status: 1,
+        chartOfAccountId: ''
+      }),
+      chartOfAccounts: []
+    };
+  },
+  created: function created() {
+    this.loadChartOfAccounts();
+  },
+  methods: {
+    toggleModal: function toggleModal() {
+      this.showModal = !this.showModal;
+      if (this.showModal) {
+        // Reset form when opening modal
+        this.resetForm();
+        // Refresh chart of accounts list
+        this.loadChartOfAccounts();
+      }
+    },
+    closeModal: function closeModal(event) {
+      // Stop event propagation to prevent closing parent modals
+      if (event) {
+        event.stopPropagation();
+        event.preventDefault();
+      }
+      this.showModal = false;
+      this.resetForm();
+    },
+    resetForm: function resetForm() {
+      this.form.reset();
+      this.form.status = 1;
+      this.form.date = new Date().toISOString().slice(0, 10);
+      this.form.chartOfAccountId = '';
+    },
+    // Load chart of accounts
+    loadChartOfAccounts: function loadChartOfAccounts() {
+      var _this = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        var response;
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              _context.prev = 0;
+              _context.next = 3;
+              return axios_default().get('/api/accounts/chart-of-accounts');
+            case 3:
+              response = _context.sent;
+              _this.chartOfAccounts = response.data.data || [];
+              _context.next = 10;
+              break;
+            case 7:
+              _context.prev = 7;
+              _context.t0 = _context["catch"](0);
+              console.error('Error loading chart of accounts:', _context.t0);
+            case 10:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee, null, [[0, 7]]);
+      }))();
+    },
+    // Save account
+    saveAccount: function saveAccount(event) {
+      var _this2 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              // Stop event propagation to prevent closing parent modals
+              if (event) {
+                event.stopPropagation();
+                event.preventDefault();
+              }
+              _context2.next = 3;
+              return _this2.form.post(window.location.origin + '/api/accounts').then(function (response) {
+                toast.fire({
+                  type: 'success',
+                  title: _this2.$t('Account added successfully')
+                });
+
+                // Get the created account data from response
+                // AccountResource returns data in response.data.data
+                var accountData = response.data.data || response.data;
+
+                // Format account for the select dropdown (matching the format used in getAccounts)
+                // AccountResource already provides bankName, accountNumber, label, etc.
+                var newAccount = {
+                  id: accountData.id,
+                  slug: accountData.slug,
+                  label: accountData.label || "".concat(accountData.bankName, " [").concat(accountData.accountNumber, "]"),
+                  bankName: accountData.bankName,
+                  accountNumber: accountData.accountNumber,
+                  availableBalance: accountData.availableBalance || 0,
+                  image: accountData.image || null
+                };
+
+                // Emit event with created account data to refresh and select in parent
+                _this2.$emit('accountCreated', newAccount);
+
+                // Reset form
+                _this2.resetForm();
+                // Close only this modal, not parent modals
+                _this2.showModal = false;
+              })["catch"](function (error) {
+                if (error.response && error.response.status === 422 && error.response.data && error.response.data.errors) {
+                  var errors = error.response.data.errors;
+                  if (_this2.form && _this2.form.errors && typeof _this2.form.errors.set === 'function') {
+                    _this2.form.errors.set(errors);
+                  }
+                  var messages = Object.values(errors).flat();
+                  var firstMessage = messages && messages.length ? messages[0] : _this2.$t('Validation Error');
+                  toast.fire({
+                    type: 'error',
+                    title: firstMessage
+                  });
+                } else {
+                  var _error$response;
+                  toast.fire({
+                    type: 'error',
+                    title: ((_error$response = error.response) === null || _error$response === void 0 || (_error$response = _error$response.data) === null || _error$response === void 0 ? void 0 : _error$response.message) || _this2.$t('Please check your input and try again.')
+                  });
+                }
+              });
+            case 3:
+            case "end":
+              return _context2.stop();
+          }
+        }, _callee2);
+      }))();
+    }
+  }
+});
+;// ./resources/js/components/AccountCreateModal.vue?vue&type=script&lang=js
+ /* harmony default export */ const components_AccountCreateModalvue_type_script_lang_js = (AccountCreateModalvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__(85072);
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/AccountCreateModal.vue?vue&type=style&index=0&id=1def6f66&prod&scoped=true&lang=css
+var AccountCreateModalvue_type_style_index_0_id_1def6f66_prod_scoped_true_lang_css = __webpack_require__(4880);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/AccountCreateModal.vue?vue&type=style&index=0&id=1def6f66&prod&scoped=true&lang=css
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = injectStylesIntoStyleTag_default()(AccountCreateModalvue_type_style_index_0_id_1def6f66_prod_scoped_true_lang_css/* default */.A, options);
+
+
+
+/* harmony default export */ const components_AccountCreateModalvue_type_style_index_0_id_1def6f66_prod_scoped_true_lang_css = (AccountCreateModalvue_type_style_index_0_id_1def6f66_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/components/AccountCreateModal.vue?vue&type=style&index=0&id=1def6f66&prod&scoped=true&lang=css
+
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(14486);
+;// ./resources/js/components/AccountCreateModal.vue
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,componentNormalizer/* default */.A)(
+  components_AccountCreateModalvue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  "1def6f66",
+  null
+  
+)
+
+/* harmony default export */ const AccountCreateModal = (component.exports);
+
+/***/ }),
+
+/***/ 94948:
+/***/ (function(module) {
 
 /*!
 * sweetalert2 v8.19.1
@@ -3040,3583 +6612,26 @@ return Swal;
 if (typeof this !== 'undefined' && this.Sweetalert2){  this.swal = this.sweetAlert = this.Swal = this.SweetAlert = this.Sweetalert2}
 
 
-/***/ },
+/***/ }),
 
-/***/ 55558
-(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  A: () => (/* binding */ AccountCreateModal)
-});
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/AccountCreateModal.vue?vue&type=template&id=1def6f66&scoped=true
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', [_c('VModal', {
-    on: {
-      "close": _vm.closeModal
-    },
-    scopedSlots: _vm._u([{
-      key: "title",
-      fn: function fn() {
-        return [_vm._v(_vm._s(_vm.$t("Create Bank Account")))];
-      },
-      proxy: true
-    }]),
-    model: {
-      value: _vm.showModal,
-      callback: function callback($$v) {
-        _vm.showModal = $$v;
-      },
-      expression: "showModal"
-    }
-  }, [_vm._v(" "), _c('div', {
-    staticClass: "w-100",
-    on: {
-      "click": function click($event) {
-        $event.stopPropagation();
-      }
-    }
-  }, [_c('form', {
-    attrs: {
-      "role": "form"
-    },
-    on: {
-      "keydown": function keydown($event) {
-        return _vm.form.onKeydown($event);
-      },
-      "submit": function submit($event) {
-        $event.preventDefault();
-        $event.stopPropagation();
-      }
-    }
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-12"
-  }, [_c('label', {
-    attrs: {
-      "for": "bankName"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Bank Name')) + "\n              "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.bankName,
-      expression: "form.bankName"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('bankName')
-    },
-    attrs: {
-      "id": "bankName",
-      "type": "text",
-      "name": "bankName",
-      "placeholder": _vm.$t('Enter a bank name')
-    },
-    domProps: {
-      "value": _vm.form.bankName
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "bankName", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "bankName"
-    }
-  })], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "branchName"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Branch Name')))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.branchName,
-      expression: "form.branchName"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('branchName')
-    },
-    attrs: {
-      "id": "branchName",
-      "type": "text",
-      "name": "branchName",
-      "placeholder": _vm.$t('Enter a branch name')
-    },
-    domProps: {
-      "value": _vm.form.branchName
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "branchName", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "branchName"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "accountNumber"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Account Number')) + "\n              "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.accountNumber,
-      expression: "form.accountNumber"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('accountNumber')
-    },
-    attrs: {
-      "id": "accountNumber",
-      "type": "text",
-      "name": "accountNumber",
-      "placeholder": _vm.$t('Enter an account number')
-    },
-    domProps: {
-      "value": _vm.form.accountNumber
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "accountNumber", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "accountNumber"
-    }
-  })], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "chartOfAccountId"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Chart of Account')) + "\n              "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('v-select', {
-    "class": {
-      'is-invalid': _vm.form.errors.has('chartOfAccountId')
-    },
-    attrs: {
-      "options": _vm.chartOfAccounts,
-      "label": "name",
-      "reduce": function reduce(option) {
-        return option.id;
-      },
-      "track-by": "id",
-      "name": "chartOfAccountId",
-      "placeholder": _vm.$t('Select a Chart of Account')
-    },
-    scopedSlots: _vm._u([{
-      key: "option",
-      fn: function fn(_ref) {
-        var name = _ref.name,
-          code = _ref.code,
-          type = _ref.type;
-        return [_c('div', [_c('strong', [_vm._v(_vm._s(name))]), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
-          staticClass: "text-muted"
-        }, [_vm._v(_vm._s(code) + " - " + _vm._s(type))])])];
-      }
-    }]),
-    model: {
-      value: _vm.form.chartOfAccountId,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "chartOfAccountId", $$v);
-      },
-      expression: "form.chartOfAccountId"
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "chartOfAccountId"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "status"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Status')))]), _vm._v(" "), _c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.status,
-      expression: "form.status"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('status')
-    },
-    attrs: {
-      "id": "status"
-    },
-    on: {
-      "change": function change($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.$set(_vm.form, "status", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-      }
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": "1"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Active')))]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "0"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Inactive')))])]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "status"
-    }
-  })], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "note"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Note')))]), _vm._v(" "), _c('textarea', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.note,
-      expression: "form.note"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('note')
-    },
-    attrs: {
-      "id": "note",
-      "placeholder": _vm.$t('Write your note here!'),
-      "rows": "3"
-    },
-    domProps: {
-      "value": _vm.form.note
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "note", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "note"
-    }
-  })], 1)])]), _vm._v(" "), _c('div', {
-    attrs: {
-      "slot": "modal-footer"
-    },
-    slot: "modal-footer"
-  }, [_c('button', {
-    staticClass: "btn btn-success",
-    attrs: {
-      "loading": _vm.form.busy
-    },
-    on: {
-      "click": function click($event) {
-        $event.stopPropagation();
-        return _vm.saveAccount.apply(null, arguments);
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-save"
-  }), _vm._v(" " + _vm._s(_vm.$t("Save")) + "\n      ")]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-secondary ml-2",
-    on: {
-      "click": function click($event) {
-        $event.stopPropagation();
-        return _vm.closeModal.apply(null, arguments);
-      }
-    }
-  }, [_vm._v("\n        " + _vm._s(_vm.$t("Cancel")) + "\n      ")])])]), _vm._v(" "), _c('a', {
-    staticClass: "create-button",
-    on: {
-      "click": _vm.toggleModal
-    }
-  }, [_vm._t("default")], 2)], 1);
-};
-var staticRenderFns = [];
-
-// EXTERNAL MODULE: ./node_modules/vform/dist/vform.es.js
-var vform_es = __webpack_require__(63216);
-// EXTERNAL MODULE: ./node_modules/axios/index.js
-var axios = __webpack_require__(72505);
-var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/AccountCreateModal.vue?vue&type=script&lang=js
-function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
-function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
-function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
-function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
-
-
-/* harmony default export */ const AccountCreateModalvue_type_script_lang_js = ({
-  middleware: ["auth", "check-permissions"],
-  data: function data() {
-    return {
-      showModal: false,
-      form: new vform_es/* default */.Ay({
-        bankName: '',
-        branchName: '',
-        accountNumber: '',
-        date: new Date().toISOString().slice(0, 10),
-        note: '',
-        status: 1,
-        chartOfAccountId: ''
-      }),
-      chartOfAccounts: []
-    };
-  },
-  created: function created() {
-    this.loadChartOfAccounts();
-  },
-  methods: {
-    toggleModal: function toggleModal() {
-      this.showModal = !this.showModal;
-      if (this.showModal) {
-        // Reset form when opening modal
-        this.resetForm();
-        // Refresh chart of accounts list
-        this.loadChartOfAccounts();
-      }
-    },
-    closeModal: function closeModal(event) {
-      // Stop event propagation to prevent closing parent modals
-      if (event) {
-        event.stopPropagation();
-        event.preventDefault();
-      }
-      this.showModal = false;
-      this.resetForm();
-    },
-    resetForm: function resetForm() {
-      this.form.reset();
-      this.form.status = 1;
-      this.form.date = new Date().toISOString().slice(0, 10);
-      this.form.chartOfAccountId = '';
-    },
-    // Load chart of accounts
-    loadChartOfAccounts: function loadChartOfAccounts() {
-      var _this = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-        var response, _t;
-        return _regenerator().w(function (_context) {
-          while (1) switch (_context.p = _context.n) {
-            case 0:
-              _context.p = 0;
-              _context.n = 1;
-              return axios_default().get('/api/accounts/chart-of-accounts');
-            case 1:
-              response = _context.v;
-              _this.chartOfAccounts = response.data.data || [];
-              _context.n = 3;
-              break;
-            case 2:
-              _context.p = 2;
-              _t = _context.v;
-              console.error('Error loading chart of accounts:', _t);
-            case 3:
-              return _context.a(2);
-          }
-        }, _callee, null, [[0, 2]]);
-      }))();
-    },
-    // Save account
-    saveAccount: function saveAccount(event) {
-      var _this2 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
-        return _regenerator().w(function (_context2) {
-          while (1) switch (_context2.n) {
-            case 0:
-              // Stop event propagation to prevent closing parent modals
-              if (event) {
-                event.stopPropagation();
-                event.preventDefault();
-              }
-              _context2.n = 1;
-              return _this2.form.post(window.location.origin + '/api/accounts').then(function (response) {
-                toast.fire({
-                  type: 'success',
-                  title: _this2.$t('Account added successfully')
-                });
-
-                // Get the created account data from response
-                // AccountResource returns data in response.data.data
-                var accountData = response.data.data || response.data;
-
-                // Format account for the select dropdown (matching the format used in getAccounts)
-                // AccountResource already provides bankName, accountNumber, label, etc.
-                var newAccount = {
-                  id: accountData.id,
-                  slug: accountData.slug,
-                  label: accountData.label || "".concat(accountData.bankName, " [").concat(accountData.accountNumber, "]"),
-                  bankName: accountData.bankName,
-                  accountNumber: accountData.accountNumber,
-                  availableBalance: accountData.availableBalance || 0,
-                  image: accountData.image || null
-                };
-
-                // Emit event with created account data to refresh and select in parent
-                _this2.$emit('accountCreated', newAccount);
-
-                // Reset form
-                _this2.resetForm();
-                // Close only this modal, not parent modals
-                _this2.showModal = false;
-              })["catch"](function (error) {
-                if (error.response && error.response.status === 422 && error.response.data && error.response.data.errors) {
-                  var errors = error.response.data.errors;
-                  if (_this2.form && _this2.form.errors && typeof _this2.form.errors.set === 'function') {
-                    _this2.form.errors.set(errors);
-                  }
-                  var messages = Object.values(errors).flat();
-                  var firstMessage = messages && messages.length ? messages[0] : _this2.$t('Validation Error');
-                  toast.fire({
-                    type: 'error',
-                    title: firstMessage
-                  });
-                } else {
-                  var _error$response;
-                  toast.fire({
-                    type: 'error',
-                    title: ((_error$response = error.response) === null || _error$response === void 0 || (_error$response = _error$response.data) === null || _error$response === void 0 ? void 0 : _error$response.message) || _this2.$t('Please check your input and try again.')
-                  });
-                }
-              });
-            case 1:
-              return _context2.a(2);
-          }
-        }, _callee2);
-      }))();
-    }
-  }
-});
-;// ./resources/js/components/AccountCreateModal.vue?vue&type=script&lang=js
- /* harmony default export */ const components_AccountCreateModalvue_type_script_lang_js = (AccountCreateModalvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-var injectStylesIntoStyleTag = __webpack_require__(85072);
-var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/AccountCreateModal.vue?vue&type=style&index=0&id=1def6f66&prod&scoped=true&lang=css
-var AccountCreateModalvue_type_style_index_0_id_1def6f66_prod_scoped_true_lang_css = __webpack_require__(51900);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/AccountCreateModal.vue?vue&type=style&index=0&id=1def6f66&prod&scoped=true&lang=css
-
-            
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = injectStylesIntoStyleTag_default()(AccountCreateModalvue_type_style_index_0_id_1def6f66_prod_scoped_true_lang_css/* default */.A, options);
-
-
-
-/* harmony default export */ const components_AccountCreateModalvue_type_style_index_0_id_1def6f66_prod_scoped_true_lang_css = (AccountCreateModalvue_type_style_index_0_id_1def6f66_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/components/AccountCreateModal.vue?vue&type=style&index=0&id=1def6f66&prod&scoped=true&lang=css
-
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/components/AccountCreateModal.vue
-
-
-
-;
-
-
-/* normalize component */
-
-var component = (0,componentNormalizer/* default */.A)(
-  components_AccountCreateModalvue_type_script_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  "1def6f66",
-  null
-  
-)
-
-/* harmony default export */ const AccountCreateModal = (component.exports);
-
-/***/ },
-
-/***/ 1121
-(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ 99597:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  A: () => (/* binding */ DetailsActivityTabs)
-});
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/DetailsActivityTabs.vue?vue&type=template&id=5dc72241&scoped=true
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', [_c('div', {
-    staticClass: "row no-print tabs-header-row"
-  }, [_c('div', {
-    staticClass: "w-100 text-right float-right"
-  }, [_vm.showTabs ? _c('div', {
-    staticClass: "d-flex justify-content-between align-items-center"
-  }, [_c('ul', {
-    staticClass: "nav nav-tabs"
-  }, [_c('li', {
-    staticClass: "nav-item"
-  }, [_c('a', {
-    staticClass: "nav-link",
-    "class": {
-      active: _vm.activeTab === 'details'
-    },
-    attrs: {
-      "href": "#details",
-      "data-toggle": "tab"
-    },
-    on: {
-      "click": _vm.handleDetailsClick
-    }
-  }, [_c('i', {
-    staticClass: "fa fa-info"
-  }), _vm._v("\n                " + _vm._s(_vm.$t("Details")) + "\n              ")])]), _vm._v(" "), _c('li', {
-    staticClass: "nav-item"
-  }, [_c('a', {
-    staticClass: "nav-link",
-    "class": {
-      active: _vm.activeTab === 'activity-log'
-    },
-    attrs: {
-      "href": "#activity-log",
-      "data-toggle": "tab"
-    },
-    on: {
-      "click": _vm.handleActivityClick
-    }
-  }, [_c('i', {
-    staticClass: "nav-icon fa fa-bell",
-    attrs: {
-      "aria-hidden": "true"
-    }
-  }), _vm._v("\n                " + _vm._s(_vm.$t("Activity log")) + "\n              ")])])]), _vm._v(" "), _vm._t("actions")], 2) : _vm._e()])]), _vm._v(" "), _c('div', {
-    staticClass: "tab-content"
-  }, [_c('div', {
-    staticClass: "tab-pane",
-    "class": {
-      active: _vm.activeTab === 'details'
-    },
-    attrs: {
-      "id": "details"
-    }
-  }, [_vm._t("details")], 2), _vm._v(" "), _c('div', {
-    staticClass: "tab-pane",
-    "class": {
-      active: _vm.activeTab === 'activity-log'
-    },
-    attrs: {
-      "id": "activity-log"
-    }
-  }, [_vm._t("activity-log")], 2)])]);
-};
-var staticRenderFns = [];
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/DetailsActivityTabs.vue?vue&type=script&lang=js
-/* harmony default export */ const DetailsActivityTabsvue_type_script_lang_js = ({
-  name: "DetailsActivityTabs",
-  props: {
-    showTabs: {
-      type: Boolean,
-      "default": true
-    },
-    defaultTab: {
-      type: String,
-      "default": "details"
-    }
-  },
-  data: function data() {
-    return {
-      activeTab: this.defaultTab
-    };
-  },
-  methods: {
-    handleDetailsClick: function handleDetailsClick() {
-      this.switchTab("details");
-      this.$emit("details-clicked");
-    },
-    handleActivityClick: function handleActivityClick() {
-      this.switchTab("activity-log");
-      this.$emit("activity-clicked");
-    },
-    switchTab: function switchTab(tab) {
-      if (this.activeTab === tab) {
-        return;
-      }
-      this.activeTab = tab;
-      this.$emit("tab-changed", tab);
-    }
-  },
-  mounted: function mounted() {
-    var _this = this;
-    // Set initial active tab
-    this.activeTab = this.defaultTab;
-
-    // Listen for Bootstrap tab events to keep state in sync
-    if (typeof $ !== "undefined") {
-      $('a[data-toggle="tab"]').on("shown.bs.tab", function (e) {
-        var target = $(e.target).attr("href");
-        if (target === "#details") {
-          _this.activeTab = "details";
-        } else if (target === "#activity-log") {
-          _this.activeTab = "activity-log";
-        }
-      });
-    }
-  }
-});
-;// ./resources/js/components/DetailsActivityTabs.vue?vue&type=script&lang=js
- /* harmony default export */ const components_DetailsActivityTabsvue_type_script_lang_js = (DetailsActivityTabsvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-var injectStylesIntoStyleTag = __webpack_require__(85072);
-var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/DetailsActivityTabs.vue?vue&type=style&index=0&id=5dc72241&prod&scoped=true&lang=css
-var DetailsActivityTabsvue_type_style_index_0_id_5dc72241_prod_scoped_true_lang_css = __webpack_require__(83049);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/DetailsActivityTabs.vue?vue&type=style&index=0&id=5dc72241&prod&scoped=true&lang=css
-
-            
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = injectStylesIntoStyleTag_default()(DetailsActivityTabsvue_type_style_index_0_id_5dc72241_prod_scoped_true_lang_css/* default */.A, options);
-
-
-
-/* harmony default export */ const components_DetailsActivityTabsvue_type_style_index_0_id_5dc72241_prod_scoped_true_lang_css = (DetailsActivityTabsvue_type_style_index_0_id_5dc72241_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/components/DetailsActivityTabs.vue?vue&type=style&index=0&id=5dc72241&prod&scoped=true&lang=css
-
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/components/DetailsActivityTabs.vue
-
-
-
-;
-
-
-/* normalize component */
-
-var component = (0,componentNormalizer/* default */.A)(
-  components_DetailsActivityTabsvue_type_script_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  "5dc72241",
-  null
-  
-)
-
-/* harmony default export */ const DetailsActivityTabs = (component.exports);
-
-/***/ },
-
-/***/ 22367
-(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  A: () => (/* binding */ InvoicePaymentModal)
-});
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/InvoicePaymentModal.vue?vue&type=template&id=65c2e2a1&scoped=true
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _vm.show ? _c('Modal', {
-    on: {
-      "close": _vm.handleClose
-    }
-  }, [_c('h5', {
-    attrs: {
-      "slot": "header"
-    },
-    slot: "header"
-  }, [_vm._v("\n    " + _vm._s(_vm.type === 'purchase' ? _vm.$t("Create purchase payment") : _vm.$t("Create invoice payment")) + " :\n    "), _vm.invoiceNo ? _c('span', [_vm._v(_vm._s(_vm.invoicePrefix) + _vm._s(_vm.invoiceNo))]) : _vm._e()]), _vm._v(" "), _c('div', {
-    staticClass: "row",
-    attrs: {
-      "slot": "body"
-    },
-    slot: "body"
-  }, [_c('form', {
-    staticClass: "w-100",
-    attrs: {
-      "role": "form"
-    },
-    on: {
-      "submit": function submit($event) {
-        $event.preventDefault();
-        return _vm.savePayment.apply(null, arguments);
-      },
-      "keydown": function keydown($event) {
-        return _vm.paymentForm.onKeydown($event);
-      }
-    }
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "clientInvoiceTotal"
-    }
-  }, [_vm._v(_vm._s(_vm.type === 'purchase' ? _vm.$t("Purchase Total") : _vm.$t("Invoice Total")))]), _vm._v(" "), _c('input', {
-    staticClass: "form-control",
-    attrs: {
-      "type": "text",
-      "readonly": ""
-    },
-    domProps: {
-      "value": _vm.formatNumber(_vm.invoiceTotal)
-    }
-  })]), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "clientInvoiceDue"
-    }
-  }, [_vm._v(_vm._s(_vm.type === 'purchase' ? _vm.$t("Purchase Due") : _vm.$t("Invoice Due")))]), _vm._v(" "), _c('input', {
-    staticClass: "form-control",
-    attrs: {
-      "type": "text",
-      "readonly": ""
-    },
-    domProps: {
-      "value": _vm.formatNumber(_vm.dueAmount)
-    }
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-4"
-  }, [_c('label', {
-    attrs: {
-      "for": "paidAmount"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Paid Amount")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.paymentForm.paidAmount,
-      expression: "paymentForm.paidAmount"
-    }],
-    staticClass: "form-control",
-    attrs: {
-      "type": "number",
-      "step": "any",
-      "placeholder": _vm.$t('Enter an amount'),
-      "required": "",
-      "min": "1",
-      "max": _vm.dueAmount
-    },
-    domProps: {
-      "value": _vm.paymentForm.paidAmount
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.paymentForm, "paidAmount", $event.target.value);
-      }
-    }
-  })]), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-8"
-  }, [_c('label', {
-    attrs: {
-      "for": "account"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Account")) + "\n            "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('div', {
-    staticClass: "d-flex w-100"
-  }, [_c('v-select', {
-    staticClass: "flex-grow-1",
-    "class": {
-      'is-invalid': _vm.paymentForm.errors.has('account')
-    },
-    attrs: {
-      "options": _vm.accounts,
-      "label": "label",
-      "name": "account",
-      "placeholder": _vm.$t('Select an account')
-    },
-    scopedSlots: _vm._u([{
-      key: "option",
-      fn: function fn(option) {
-        return [_c('img', {
-          staticStyle: {
-            "width": "30px",
-            "height": "30px"
-          },
-          attrs: {
-            "src": option.image
-          }
-        }), _vm._v("\n                " + _vm._s(option.label) + "\n              ")];
-      }
-    }], null, false, 25305259),
-    model: {
-      value: _vm.paymentForm.account,
-      callback: function callback($$v) {
-        _vm.$set(_vm.paymentForm, "account", $$v);
-      },
-      expression: "paymentForm.account"
-    }
-  }), _vm._v(" "), _c('AccountCreateModal', {
-    on: {
-      "accountCreated": _vm.handleAccountCreated
-    }
-  }, [_c('div', {
-    staticClass: "input-group-text create-btn"
-  }, [_c('i', {
-    staticClass: "fas fa-solid fa-plus-circle"
-  })])])], 1), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.paymentForm,
-      "field": "account"
-    }
-  })], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "paymentMethod"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Payment Method")))]), _vm._v(" "), _c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.paymentForm.payment_method_id,
-      expression: "paymentForm.payment_method_id"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.paymentForm.errors.has('payment_method_id')
-    },
-    attrs: {
-      "id": "paymentMethod",
-      "disabled": _vm.loadingPaymentMethods,
-      "name": "payment_method_id"
-    },
-    on: {
-      "change": function change($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.$set(_vm.paymentForm, "payment_method_id", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-      }
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": ""
-    }
-  }, [_vm._v(_vm._s(_vm.loadingPaymentMethods ? _vm.$t("Loading...") : _vm.$t("Select")))]), _vm._v(" "), !_vm.loadingPaymentMethods && _vm.paymentMethods.length === 0 ? _c('option', {
-    attrs: {
-      "value": "",
-      "disabled": ""
-    }
-  }, [_vm._v("\n              " + _vm._s(_vm.$t("No payment methods available")) + "\n            ")]) : _vm._e(), _vm._v(" "), _vm._l(_vm.paymentMethods, function (method) {
-    return _c('option', {
-      key: method.id,
-      domProps: {
-        "value": method.id
-      }
-    }, [_vm._v("\n              " + _vm._s(method.name) + "\n            ")]);
-  })], 2), _vm._v(" "), _vm.loadingPaymentMethods ? _c('small', {
-    staticClass: "form-text text-muted"
-  }, [_vm._v("\n            " + _vm._s(_vm.$t("Loading payment methods...")) + "\n          ")]) : _vm._e(), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.paymentForm,
-      "field": "payment_method_id"
-    }
-  })], 1), _vm._v(" "), _vm.selectedPaymentMethodAnalyticalAccount ? _c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "analyticalAccount"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Analytical Account")))]), _vm._v(" "), _c('input', {
-    staticClass: "form-control",
-    attrs: {
-      "type": "text",
-      "readonly": ""
-    },
-    domProps: {
-      "value": _vm.selectedPaymentMethodAnalyticalAccount.name || '-'
-    }
-  }), _vm._v(" "), _c('small', {
-    staticClass: "form-text text-muted"
-  }, [_vm._v("\n            " + _vm._s(_vm.$t("Automatically set based on payment method")) + "\n          ")])]) : _vm._e()]), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "receiptNo"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Receipt No")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.paymentForm.receiptNo,
-      expression: "paymentForm.receiptNo"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.paymentForm.errors.has('receiptNo')
-    },
-    attrs: {
-      "type": "text",
-      "id": "receiptNo",
-      "placeholder": _vm.$t('Enter a receipt no')
-    },
-    domProps: {
-      "value": _vm.paymentForm.receiptNo
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.paymentForm, "receiptNo", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.paymentForm,
-      "field": "receiptNo"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "paymentDate"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Payment Date")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.paymentForm.paymentDate,
-      expression: "paymentForm.paymentDate"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.paymentForm.errors.has('paymentDate')
-    },
-    attrs: {
-      "id": "paymentDate",
-      "type": "date",
-      "name": "paymentDate"
-    },
-    domProps: {
-      "value": _vm.paymentForm.paymentDate
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.paymentForm, "paymentDate", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.paymentForm,
-      "field": "paymentDate"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "status"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Status")))]), _vm._v(" "), _c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.paymentForm.status,
-      expression: "paymentForm.status"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.paymentForm.errors.has('status')
-    },
-    attrs: {
-      "id": "status",
-      "disabled": _vm.invoiceStatus === 0
-    },
-    on: {
-      "change": function change($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.$set(_vm.paymentForm, "status", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-      }
-    }
-  }, [_vm.invoiceStatus === 1 ? _c('option', {
-    attrs: {
-      "value": "1"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Active")))]) : _vm._e(), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "0"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Inactive")))])]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.paymentForm,
-      "field": "status"
-    }
-  })], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "note"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Note")))]), _vm._v(" "), _c('textarea', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.paymentForm.note,
-      expression: "paymentForm.note"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.paymentForm.errors.has('note')
-    },
-    attrs: {
-      "id": "note",
-      "placeholder": _vm.$t('Write your note here!')
-    },
-    domProps: {
-      "value": _vm.paymentForm.note
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.paymentForm, "note", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.paymentForm,
-      "field": "note"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-12 d-flex flex-wrap"
-  }, [_c('div', {
-    staticClass: "pr-5 d-flex align-items-center"
-  }, [_c('toggle-button', {
-    attrs: {
-      "disabled": _vm.isDemoMode || _vm.communicationConfig.loading || !_vm.communicationConfig.email_configured
-    },
-    model: {
-      value: _vm.paymentForm.isSendEmail,
-      callback: function callback($$v) {
-        _vm.$set(_vm.paymentForm, "isSendEmail", $$v);
-      },
-      expression: "paymentForm.isSendEmail"
-    }
-  }), _vm._v(" "), _c('span', {
-    staticClass: "ml-3"
-  }, [_vm._v(_vm._s(_vm.$t("Send Email Notification")))]), _vm._v(" "), !_vm.communicationConfig.loading && !_vm.communicationConfig.email_configured ? _c('span', {
-    staticClass: "ml-2 text-muted small"
-  }, [_vm._v("\n            (" + _vm._s(_vm.$t("Email not configured")) + ")\n          ")]) : _vm._e()], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-12 d-flex flex-wrap"
-  }, [_c('div', {
-    staticClass: "pr-5 d-flex align-items-center"
-  }, [_c('toggle-button', {
-    attrs: {
-      "disabled": _vm.isDemoMode || _vm.communicationConfig.loading || !_vm.communicationConfig.sms_configured
-    },
-    model: {
-      value: _vm.paymentForm.isSendSMS,
-      callback: function callback($$v) {
-        _vm.$set(_vm.paymentForm, "isSendSMS", $$v);
-      },
-      expression: "paymentForm.isSendSMS"
-    }
-  }), _vm._v(" "), _c('span', {
-    staticClass: "ml-3"
-  }, [_vm._v(_vm._s(_vm.$t("Send SMS Notification")))]), _vm._v(" "), !_vm.communicationConfig.loading && !_vm.communicationConfig.sms_configured ? _c('span', {
-    staticClass: "ml-2 text-muted small"
-  }, [_vm._v("\n            (" + _vm._s(_vm.$t("SMS not configured")) + ")\n          ")]) : _vm._e()], 1)])])]), _vm._v(" "), _c('div', {
-    staticClass: "d-flex justify-content-end w-100",
-    attrs: {
-      "slot": "modal-footer"
-    },
-    slot: "modal-footer"
-  }, [_c('v-button', {
-    staticClass: "btn btn-success mr-2",
-    attrs: {
-      "loading": _vm.paymentForm.busy
-    },
-    on: {
-      "click": _vm.savePayment
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-save"
-  }), _vm._v(" " + _vm._s(_vm.$t("Save")) + "\n    ")]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-secondary",
-    attrs: {
-      "type": "button"
-    },
-    on: {
-      "click": _vm.handleClose
-    }
-  }, [_vm._v("\n      " + _vm._s(_vm.$t("Close")) + "\n    ")])], 1)]) : _vm._e();
-};
-var staticRenderFns = [];
-
-// EXTERNAL MODULE: ./node_modules/vform/dist/vform.es.js
-var vform_es = __webpack_require__(63216);
-// EXTERNAL MODULE: ./node_modules/axios/index.js
-var axios = __webpack_require__(72505);
-var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
-// EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
-var vuex_esm = __webpack_require__(95353);
-// EXTERNAL MODULE: ./node_modules/vue-js-toggle-button/dist/index.js
-var dist = __webpack_require__(12616);
-// EXTERNAL MODULE: ./resources/js/components/AccountCreateModal.vue + 5 modules
-var AccountCreateModal = __webpack_require__(55558);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/InvoicePaymentModal.vue?vue&type=script&lang=js
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
-function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
-function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
-function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
-function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-
-
-
-
-
-/* harmony default export */ const InvoicePaymentModalvue_type_script_lang_js = ({
-  name: "InvoicePaymentModal",
-  components: {
-    ToggleButton: dist.ToggleButton,
-    AccountCreateModal: AccountCreateModal/* default */.A
-  },
-  props: {
-    show: {
-      type: Boolean,
-      "default": false
-    },
-    type: {
-      type: String,
-      "default": 'invoice',
-      // 'invoice' or 'purchase'
-      validator: function validator(value) {
-        return ['invoice', 'purchase'].includes(value);
-      }
-    },
-    invoiceId: {
-      type: [Number, String],
-      required: true
-    },
-    invoiceNo: {
-      type: String,
-      required: true
-    },
-    invoicePrefix: {
-      type: String,
-      "default": ""
-    },
-    invoiceTotal: {
-      type: Number,
-      required: true
-    },
-    dueAmount: {
-      type: Number,
-      required: true
-    },
-    invoiceStatus: {
-      type: Number,
-      "default": 1
-    },
-    purchaseSlug: {
-      type: String,
-      "default": null
-    }
-  },
-  data: function data() {
-    return {
-      accounts: [],
-      paymentMethods: [],
-      loadingPaymentMethods: false,
-      isDemoMode: window.config.isDemoMode,
-      communicationConfig: {
-        email_configured: false,
-        sms_configured: false,
-        loading: true
-      },
-      paymentForm: new vform_es/* default */.Ay({
-        invoice_id: "",
-        paidAmount: 1,
-        paymentDate: new Date().toISOString().slice(0, 10),
-        account: "",
-        receiptNo: "",
-        note: "",
-        status: 1,
-        isSendEmail: false,
-        isSendSMS: false,
-        payment_method_id: null
-      })
-    };
-  },
-  computed: _objectSpread(_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["appInfo"])), {}, {
-    // Get analytical account for selected payment method
-    selectedPaymentMethodAnalyticalAccount: function selectedPaymentMethodAnalyticalAccount() {
-      var _this = this;
-      if (!this.paymentForm.payment_method_id || !this.paymentMethods || this.paymentMethods.length === 0) {
-        return null;
-      }
-      var selectedMethod = this.paymentMethods.find(function (method) {
-        return method.id == _this.paymentForm.payment_method_id;
-      });
-      if (selectedMethod && selectedMethod.analytical_account) {
-        return selectedMethod.analytical_account;
-      }
-      return null;
-    }
-  }),
-  watch: {
-    show: {
-      handler: function handler(newVal) {
-        if (newVal) {
-          this.initializeForm();
-        }
-      },
-      immediate: true
-    },
-    dueAmount: {
-      handler: function handler(newVal) {
-        if (newVal && this.show) {
-          this.paymentForm.paidAmount = newVal > 0 ? newVal : 1;
-        }
-      },
-      immediate: true
-    },
-    invoiceId: {
-      handler: function handler(newVal) {
-        if (newVal && this.show) {
-          console.log('Update form invoice_id from prop:', newVal);
-          this.paymentForm.invoice_id = newVal;
-        }
-      },
-      immediate: true
-    }
-  },
-  created: function created() {
-    this.loadCommunicationConfigStatus();
-    this.getAccounts();
-    this.getPaymentMethods();
-  },
-  methods: {
-    // Format number to 2 decimal places
-    formatNumber: function formatNumber(value) {
-      if (value === null || value === undefined || isNaN(value)) return '0.00';
-      return parseFloat(value).toFixed(2);
-    },
-    // Load communication configuration status
-    loadCommunicationConfigStatus: function loadCommunicationConfigStatus() {
-      var _this2 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-        var response, _t;
-        return _regenerator().w(function (_context) {
-          while (1) switch (_context.p = _context.n) {
-            case 0:
-              _context.p = 0;
-              _this2.communicationConfig.loading = true;
-              _context.n = 1;
-              return axios_default().get('/api/communication-config-status');
-            case 1:
-              response = _context.v;
-              _this2.communicationConfig.email_configured = response.data.email_configured;
-              _this2.communicationConfig.sms_configured = response.data.sms_configured;
-              _this2.communicationConfig.loading = false;
-              _context.n = 3;
-              break;
-            case 2:
-              _context.p = 2;
-              _t = _context.v;
-              console.error('Error loading communication config status:', _t);
-              // Default to false if there's an error
-              _this2.communicationConfig.email_configured = false;
-              _this2.communicationConfig.sms_configured = false;
-              _this2.communicationConfig.loading = false;
-            case 3:
-              return _context.a(2);
-          }
-        }, _callee, null, [[0, 2]]);
-      }))();
-    },
-    // Initialize form when modal opens
-    initializeForm: function initializeForm() {
-      if (this.type === 'purchase') {
-        // For purchases, we don't set invoice_id
-        this.paymentForm.invoice_id = null;
-      } else {
-        this.paymentForm.invoice_id = this.invoiceId;
-      }
-      var dueAmount = this.dueAmount;
-      // Set paid amount to total due amount as default
-      this.paymentForm.paidAmount = dueAmount > 0 ? dueAmount : 1;
-      this.paymentForm.status = this.invoiceStatus === 0 ? 0 : 1;
-      this.paymentForm.payment_method_id = null; // Reset payment method
-
-      // Set default account if available
-      if (this.accounts && this.accounts.length > 0 && !this.paymentForm.account) {
-        var _this$appInfo;
-        var defaultAccountSlug = (_this$appInfo = this.appInfo) === null || _this$appInfo === void 0 ? void 0 : _this$appInfo.defaultAccountSlug;
-        this.paymentForm.account = this.accounts.find(function (account) {
-          return account.slug == defaultAccountSlug;
-        }) || this.accounts[0];
-      }
-    },
-    // Get accounts
-    getAccounts: function getAccounts() {
-      var _this3 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
-        var _yield$axios$get, data, _this3$appInfo, defaultAccountSlug;
-        return _regenerator().w(function (_context2) {
-          while (1) switch (_context2.n) {
-            case 0:
-              _context2.n = 1;
-              return axios_default().get(window.location.origin + "/api/all-accounts");
-            case 1:
-              _yield$axios$get = _context2.v;
-              data = _yield$axios$get.data;
-              _this3.accounts = data.data;
-
-              // assign default account
-              if (_this3.accounts && _this3.accounts.length > 0) {
-                defaultAccountSlug = (_this3$appInfo = _this3.appInfo) === null || _this3$appInfo === void 0 ? void 0 : _this3$appInfo.defaultAccountSlug;
-                _this3.paymentForm.account = _this3.accounts.find(function (account) {
-                  return account.slug == defaultAccountSlug;
-                });
-              }
-            case 2:
-              return _context2.a(2);
-          }
-        }, _callee2);
-      }))();
-    },
-    // Get payment methods
-    getPaymentMethods: function getPaymentMethods() {
-      var _this4 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
-        var response, _t2;
-        return _regenerator().w(function (_context3) {
-          while (1) switch (_context3.p = _context3.n) {
-            case 0:
-              _this4.loadingPaymentMethods = true;
-              _context3.p = 1;
-              _context3.n = 2;
-              return axios_default().get(window.location.origin + '/api/payment-methods', {
-                params: {
-                  perPage: 1000
-                } // Get all payment methods
-              });
-            case 2:
-              response = _context3.v;
-              // Handle both paginated and non-paginated responses
-              if (response.data) {
-                if (Array.isArray(response.data)) {
-                  _this4.paymentMethods = response.data;
-                } else if (response.data.data && Array.isArray(response.data.data)) {
-                  _this4.paymentMethods = response.data.data;
-                } else {
-                  _this4.paymentMethods = [];
-                }
-              } else {
-                _this4.paymentMethods = [];
-              }
-              _context3.n = 4;
-              break;
-            case 3:
-              _context3.p = 3;
-              _t2 = _context3.v;
-              console.error('Error loading payment methods:', _t2);
-              _this4.paymentMethods = [];
-              _this4.$toast.error(_this4.$t('Error'), _this4.$t('Failed to load payment methods'));
-            case 4:
-              _context3.p = 4;
-              _this4.loadingPaymentMethods = false;
-              return _context3.f(4);
-            case 5:
-              return _context3.a(2);
-          }
-        }, _callee3, null, [[1, 3, 4, 5]]);
-      }))();
-    },
-    // Handle account created event
-    handleAccountCreated: function handleAccountCreated(newAccount) {
-      var _this5 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
-        var account, accountById;
-        return _regenerator().w(function (_context4) {
-          while (1) switch (_context4.n) {
-            case 0:
-              _context4.n = 1;
-              return _this5.getAccounts();
-            case 1:
-              if (!(newAccount && newAccount.id)) {
-                _context4.n = 3;
-                break;
-              }
-              _context4.n = 2;
-              return _this5.$nextTick();
-            case 2:
-              // Find the account by id, slug, or label
-              account = _this5.accounts.find(function (acc) {
-                return acc.id === newAccount.id || acc.slug === newAccount.slug || acc.label === newAccount.label || acc.bankName === newAccount.bankName && acc.accountNumber === newAccount.accountNumber;
-              });
-              if (account) {
-                _this5.paymentForm.account = account;
-              } else if (newAccount.id) {
-                // If not found by matching, try to find by id directly
-                accountById = _this5.accounts.find(function (acc) {
-                  return acc.id === newAccount.id;
-                });
-                if (accountById) {
-                  _this5.paymentForm.account = accountById;
-                }
-              }
-            case 3:
-              return _context4.a(2);
-          }
-        }, _callee4);
-      }))();
-    },
-    // Save payment
-    savePayment: function savePayment() {
-      var _this6 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
-        var formData, apiEndpoint, successMessage, effectiveInvoiceId;
-        return _regenerator().w(function (_context5) {
-          while (1) switch (_context5.n) {
-            case 0:
-              // Ensure invoice_id is set from props
-              if (_this6.type !== 'purchase' && _this6.invoiceId) {
-                // Always update from prop to ensure we have the latest ID
-                _this6.paymentForm.invoice_id = _this6.invoiceId;
-              } else if (!_this6.paymentForm.invoice_id && _this6.type !== 'purchase' && _this6.invoiceId) {
-                console.log('Fallback: Setting invoice_id from prop:', _this6.invoiceId);
-                _this6.paymentForm.invoice_id = _this6.invoiceId;
-              }
-              if (!(!_this6.paymentForm.account || !_this6.paymentForm.account.id)) {
-                _context5.n = 1;
-                break;
-              }
-              _this6.$toast.error(_this6.$t("Error"), _this6.$t("Please select an account"));
-              return _context5.a(2);
-            case 1:
-              if (!(_this6.type === 'purchase')) {
-                _context5.n = 2;
-                break;
-              }
-              // Prepare form data for purchase payment
-              formData = {
-                selectedPurchase: {
-                  slug: _this6.purchaseSlug,
-                  due: _this6.dueAmount
-                },
-                paidAmount: parseFloat(_this6.paymentForm.paidAmount),
-                account: _this6.paymentForm.account,
-                receiptNo: _this6.paymentForm.receiptNo || '',
-                paymentDate: _this6.paymentForm.paymentDate || new Date().toISOString().slice(0, 10),
-                note: _this6.paymentForm.note || '',
-                status: _this6.paymentForm.status,
-                isSendEmail: _this6.paymentForm.isSendEmail || false,
-                isSendSMS: _this6.paymentForm.isSendSMS || false,
-                payment_method_id: _this6.paymentForm.payment_method_id || null
-              };
-              apiEndpoint = '/api/purchase-pay';
-              successMessage = _this6.$t("Purchase payment added successfully");
-              _context5.n = 4;
-              break;
-            case 2:
-              // Determine effective Invoice ID
-              // Try prop first (most reliable), then form data
-              effectiveInvoiceId = _this6.invoiceId;
-              if (!effectiveInvoiceId && _this6.paymentForm.invoice_id) {
-                console.log('Using invoice_id from paymentForm fallback:', _this6.paymentForm.invoice_id);
-                effectiveInvoiceId = _this6.paymentForm.invoice_id;
-              }
-
-              // Validation: Check if we have an ID
-              if (effectiveInvoiceId) {
-                _context5.n = 3;
-                break;
-              }
-              console.error('CRITICAL: Invoice ID missing in both prop and form');
-              _this6.$toast.error(_this6.$t("Error"), "System Error: Invoice ID not found. Please try refreshing or checking the invoice details.");
-              return _context5.a(2);
-            case 3:
-              // Prepare form data for invoice payment
-              formData = {
-                invoice_id: effectiveInvoiceId,
-                paidAmount: parseFloat(_this6.paymentForm.paidAmount),
-                account: _this6.paymentForm.account,
-                receiptNo: _this6.paymentForm.receiptNo || '',
-                date: _this6.paymentForm.paymentDate || new Date().toISOString().slice(0, 10),
-                note: _this6.paymentForm.note || '',
-                netTotal: _this6.dueAmount,
-                isSendEmail: _this6.paymentForm.isSendEmail || false,
-                isSendSMS: _this6.paymentForm.isSendSMS || false,
-                payment_method_id: _this6.paymentForm.payment_method_id || null
-              };
-              apiEndpoint = '/api/invoices-pay';
-              successMessage = _this6.$t("Invoice payment added successfully");
-            case 4:
-              _context5.n = 5;
-              return axios_default().post(window.location.origin + apiEndpoint, formData).then(function () {
-                _this6.$toast.success(_this6.$t("Success!"), successMessage);
-                _this6.paymentForm.reset();
-                _this6.paymentForm.paymentDate = new Date().toISOString().slice(0, 10);
-                _this6.paymentForm.status = 1;
-                _this6.paymentForm.payment_method_id = null;
-                // Emit payment saved event
-                _this6.$emit('payment-saved');
-                // Close modal
-                _this6.handleClose();
-              })["catch"](function (error) {
-                if (error.response && error.response.status === 422 && error.response.data && error.response.data.errors) {
-                  var errors = error.response.data.errors;
-                  _this6.paymentForm.errors.set(errors);
-                  var messages = Object.values(errors).flat();
-                  _this6.$toast.error(_this6.$t('Validation Error'), messages.join('\n'));
-                } else {
-                  var _error$response;
-                  _this6.$toast.error(_this6.$t("Error"), ((_error$response = error.response) === null || _error$response === void 0 || (_error$response = _error$response.data) === null || _error$response === void 0 ? void 0 : _error$response.message) || _this6.$t("Please check your input and try again."));
-                }
-              });
-            case 5:
-              return _context5.a(2);
-          }
-        }, _callee5);
-      }))();
-    },
-    // Handle close
-    handleClose: function handleClose() {
-      this.$emit('close');
-    }
-  }
-});
-;// ./resources/js/components/InvoicePaymentModal.vue?vue&type=script&lang=js
- /* harmony default export */ const components_InvoicePaymentModalvue_type_script_lang_js = (InvoicePaymentModalvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-var injectStylesIntoStyleTag = __webpack_require__(85072);
-var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/InvoicePaymentModal.vue?vue&type=style&index=0&id=65c2e2a1&prod&scoped=true&lang=css
-var InvoicePaymentModalvue_type_style_index_0_id_65c2e2a1_prod_scoped_true_lang_css = __webpack_require__(12825);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/InvoicePaymentModal.vue?vue&type=style&index=0&id=65c2e2a1&prod&scoped=true&lang=css
-
-            
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = injectStylesIntoStyleTag_default()(InvoicePaymentModalvue_type_style_index_0_id_65c2e2a1_prod_scoped_true_lang_css/* default */.A, options);
-
-
-
-/* harmony default export */ const components_InvoicePaymentModalvue_type_style_index_0_id_65c2e2a1_prod_scoped_true_lang_css = (InvoicePaymentModalvue_type_style_index_0_id_65c2e2a1_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/components/InvoicePaymentModal.vue?vue&type=style&index=0&id=65c2e2a1&prod&scoped=true&lang=css
-
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/components/InvoicePaymentModal.vue
-
-
-
-;
-
-
-/* normalize component */
-
-var component = (0,componentNormalizer/* default */.A)(
-  components_InvoicePaymentModalvue_type_script_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  "65c2e2a1",
-  null
-  
-)
-
-/* harmony default export */ const InvoicePaymentModal = (component.exports);
-
-/***/ },
-
-/***/ 87968
-(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  A: () => (/* binding */ InvoiceSummaryTable)
-});
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/sales/InvoiceSummaryTable.vue?vue&type=template&id=a6df283c&scoped=true
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', {
-    staticClass: "table-responsive table-custom table-border-y-0"
-  }, [_c('table', {
-    staticClass: "table invoices-table"
-  }, [_c('tbody', [_c('tr', {
-    staticClass: "text-bold"
-  }, [_c('th', [_vm._v(_vm._s(_vm.$t("Subtotal")) + ":")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatNumber(_vm.subtotal)) + " "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])])]), _vm._v(" "), _c('tr', {
-    staticClass: "text-bold"
-  }, [_c('th', [_vm._v(_vm._s(_vm.$t("After Discount")) + ":")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatNumber(_vm.afterDiscount)) + " "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Total Tax")) + ":")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatNumber(_vm.totalTax)) + " "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])])]), _vm._v(" "), _vm.transport > 0 ? _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Transport")) + ":")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatNumber(_vm.transport)) + " "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])])]) : _vm._e(), _vm._v(" "), _c('tr', {
-    staticClass: "text-bold"
-  }, [_c('th', [_vm._v(_vm._s(_vm.$t("Grand Total")) + ":")]), _vm._v(" "), _c('td', [_vm._v("\n           \n          " + _vm._s(_vm.formatNumber(_vm.grandTotal)) + " "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Total Paid")) + ":")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatNumber(_vm.paidAmount)) + " "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])])]), _vm._v(" "), _c('tr', {
-    staticClass: "text-bold"
-  }, [_c('th', [_vm._v(_vm._s(_vm.$t("Due Amount")) + ":")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatNumber(_vm.dueAmount)) + " "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])])])])])]);
-};
-var staticRenderFns = [];
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/sales/InvoiceSummaryTable.vue?vue&type=script&lang=js
-/* harmony default export */ const InvoiceSummaryTablevue_type_script_lang_js = ({
-  name: 'InvoiceSummaryTable',
-  props: {
-    subtotal: {
-      type: Number,
-      "default": 0
-    },
-    afterDiscount: {
-      type: Number,
-      "default": 0
-    },
-    totalTax: {
-      type: Number,
-      "default": 0
-    },
-    transport: {
-      type: Number,
-      "default": 0
-    },
-    grandTotal: {
-      type: Number,
-      "default": 0
-    },
-    paidAmount: {
-      type: Number,
-      "default": 0
-    },
-    dueAmount: {
-      type: Number,
-      "default": 0
-    }
-  },
-  methods: {
-    /**
-     * Format number to 2 decimal places
-     */
-    formatNumber: function formatNumber(value) {
-      if (value === null || value === undefined || isNaN(value)) {
-        return '0.00';
-      }
-      return parseFloat(value).toFixed(2);
-    }
-  }
-});
-;// ./resources/js/components/sales/InvoiceSummaryTable.vue?vue&type=script&lang=js
- /* harmony default export */ const sales_InvoiceSummaryTablevue_type_script_lang_js = (InvoiceSummaryTablevue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-var injectStylesIntoStyleTag = __webpack_require__(85072);
-var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/sales/InvoiceSummaryTable.vue?vue&type=style&index=0&id=a6df283c&prod&scoped=true&lang=css
-var InvoiceSummaryTablevue_type_style_index_0_id_a6df283c_prod_scoped_true_lang_css = __webpack_require__(83217);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/sales/InvoiceSummaryTable.vue?vue&type=style&index=0&id=a6df283c&prod&scoped=true&lang=css
-
-            
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = injectStylesIntoStyleTag_default()(InvoiceSummaryTablevue_type_style_index_0_id_a6df283c_prod_scoped_true_lang_css/* default */.A, options);
-
-
-
-/* harmony default export */ const sales_InvoiceSummaryTablevue_type_style_index_0_id_a6df283c_prod_scoped_true_lang_css = (InvoiceSummaryTablevue_type_style_index_0_id_a6df283c_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/components/sales/InvoiceSummaryTable.vue?vue&type=style&index=0&id=a6df283c&prod&scoped=true&lang=css
-
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/components/sales/InvoiceSummaryTable.vue
-
-
-
-;
-
-
-/* normalize component */
-
-var component = (0,componentNormalizer/* default */.A)(
-  sales_InvoiceSummaryTablevue_type_script_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  "a6df283c",
-  null
-  
-)
-
-/* harmony default export */ const InvoiceSummaryTable = (component.exports);
-
-/***/ },
-
-/***/ 47866
-(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  A: () => (/* binding */ InfoAlert)
-});
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/shared/InfoAlert.vue?vue&type=template&id=f7e366da&scoped=true
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c,
-    _setup = _vm._self._setupProxy;
-  return _c('div', {
-    staticClass: "info-alert"
-  }, [_c('i', {
-    "class": _setup.iconClass
-  }), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.message))])]);
-};
-var staticRenderFns = [];
-
-// EXTERNAL MODULE: ./node_modules/vue/dist/vue.esm.js
-var vue_esm = __webpack_require__(62893);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/shared/InfoAlert.vue?vue&type=script&setup=true&lang=js
-
-/* harmony default export */ const InfoAlertvue_type_script_setup_true_lang_js = ({
-  __name: 'InfoAlert',
-  props: {
-    message: {
-      type: String,
-      required: true
-    },
-    icon: {
-      type: String,
-      "default": 'info'
-    }
-  },
-  setup: function setup(__props) {
-    var props = __props;
-    var iconClass = (0,vue_esm.computed)(function () {
-      var iconMap = {
-        info: 'fas fa-exclamation-circle',
-        warning: 'fas fa-exclamation-triangle',
-        error: 'fas fa-exclamation-circle',
-        success: 'fas fa-check-circle'
-      };
-      return iconMap[props.icon] || iconMap.info;
-    });
-    return {
-      __sfc: true,
-      props: props,
-      iconClass: iconClass
-    };
-  }
-});
-;// ./resources/js/components/shared/InfoAlert.vue?vue&type=script&setup=true&lang=js
- /* harmony default export */ const shared_InfoAlertvue_type_script_setup_true_lang_js = (InfoAlertvue_type_script_setup_true_lang_js); 
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-var injectStylesIntoStyleTag = __webpack_require__(85072);
-var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/shared/InfoAlert.vue?vue&type=style&index=0&id=f7e366da&prod&scoped=true&lang=css
-var InfoAlertvue_type_style_index_0_id_f7e366da_prod_scoped_true_lang_css = __webpack_require__(63930);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/shared/InfoAlert.vue?vue&type=style&index=0&id=f7e366da&prod&scoped=true&lang=css
-
-            
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = injectStylesIntoStyleTag_default()(InfoAlertvue_type_style_index_0_id_f7e366da_prod_scoped_true_lang_css/* default */.A, options);
-
-
-
-/* harmony default export */ const shared_InfoAlertvue_type_style_index_0_id_f7e366da_prod_scoped_true_lang_css = (InfoAlertvue_type_style_index_0_id_f7e366da_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/components/shared/InfoAlert.vue?vue&type=style&index=0&id=f7e366da&prod&scoped=true&lang=css
-
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/components/shared/InfoAlert.vue
-
-
-
-;
-
-
-/* normalize component */
-
-var component = (0,componentNormalizer/* default */.A)(
-  shared_InfoAlertvue_type_script_setup_true_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  "f7e366da",
-  null
-  
-)
-
-/* harmony default export */ const InfoAlert = (component.exports);
-
-/***/ },
-
-/***/ 67859
-(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  "default": () => (/* binding */ show)
-});
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/purchases/show.vue?vue&type=template&id=220487a0
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', [_c('breadcrumbs', {
-    attrs: {
-      "items": _vm.breadcrumbs,
-      "current": _vm.breadcrumbsCurrent
-    }
-  }), _vm._v(" "), _c('DetailsActivityTabs', {
-    attrs: {
-      "show-tabs": !!_vm.allData,
-      "default-tab": "details"
-    },
-    on: {
-      "details-clicked": _vm.getPurchase,
-      "activity-clicked": _vm.getActivity,
-      "tab-changed": _vm.handleTabChange
-    },
-    scopedSlots: _vm._u([{
-      key: "actions",
-      fn: function fn() {
-        return [_c('div', {
-          staticClass: "btn-group"
-        }, [_c('a', {
-          directives: [{
-            name: "tooltip",
-            rawName: "v-tooltip",
-            value: !_vm.communicationConfig.sms_configured ? _vm.$t('SMS settings not configured') : '',
-            expression: "!communicationConfig.sms_configured ? $t('SMS settings not configured') : ''"
-          }],
-          "class": ['btn', _vm.communicationConfig.sms_configured ? 'btn-secondary' : 'btn-secondary disabled'],
-          attrs: {
-            "href": "#",
-            "disabled": !_vm.communicationConfig.sms_configured,
-            "title": !_vm.communicationConfig.sms_configured ? _vm.$t('SMS settings not configured') : ''
-          },
-          on: {
-            "click": function click($event) {
-              _vm.communicationConfig.sms_configured ? _vm.notify(_vm.form.isSendSMS = true) : null;
-            }
-          }
-        }, [_c('i', {
-          staticClass: "fas fa-sms"
-        }), _vm._v(" " + _vm._s(_vm.$t("SMS")) + "\n          ")]), _vm._v(" "), _c('a', {
-          staticClass: "btn btn-success",
-          attrs: {
-            "href": "#"
-          },
-          on: {
-            "click": function click($event) {
-              _vm.notify(_vm.form.isSendEmail = true);
-            }
-          }
-        }, [_c('i', {
-          staticClass: "fas fa-paper-plane"
-        }), _vm._v(" " + _vm._s(_vm.$t("email")))]), _vm._v(" "), _c('a', {
-          staticClass: "btn btn-info",
-          attrs: {
-            "href": "#"
-          },
-          on: {
-            "click": _vm.previewPDF
-          }
-        }, [_c('i', {
-          staticClass: "fas fa-eye"
-        }), _vm._v(" " + _vm._s(_vm.$t("Preview PDF")) + "\n          ")]), _vm._v(" "), _c('a', {
-          staticClass: "btn btn-info",
-          attrs: {
-            "href": "#"
-          },
-          on: {
-            "click": _vm.downloadPDF
-          }
-        }, [_c('i', {
-          staticClass: "fas fa-download"
-        }), _vm._v(" " + _vm._s(_vm.$t("download")) + "\n          ")]), _vm._v(" "), _vm.allData && (_vm.allData.journalEntry || _vm.allData.journal_entry) && _vm.calculateDueAmount > 0 ? _c('a', {
-          staticClass: "btn btn-primary",
-          attrs: {
-            "href": "#"
-          },
-          on: {
-            "click": function click($event) {
-              $event.preventDefault();
-              return _vm.addPayment();
-            }
-          }
-        }, [_c('i', {
-          staticClass: "fas fa-money-bill"
-        }), _vm._v(" " + _vm._s(_vm.$t("Add Payment")) + "\n          ")]) : _vm._e(), _vm._v(" "), _vm.$can('purchase-return-create') && _vm.allData ? _c('a', {
-          staticClass: "btn btn-warning",
-          attrs: {
-            "href": "#"
-          },
-          on: {
-            "click": function click($event) {
-              $event.preventDefault();
-              return _vm.returnPurchase(_vm.allData);
-            }
-          }
-        }, [_c('i', {
-          staticClass: "fas fa-undo"
-        }), _vm._v(" " + _vm._s(_vm.$t("Return Purchase")) + "\n          ")]) : _vm._e(), _vm._v(" "), _vm.$can('purchase-edit') ? _c('router-link', {
-          staticClass: "btn btn-info",
-          attrs: {
-            "to": {
-              name: 'purchases.edit',
-              params: {
-                slug: _vm.allData.slug
-              }
-            }
-          }
-        }, [_c('i', {
-          staticClass: "fas fa-edit"
-        }), _vm._v(" " + _vm._s(_vm.$t("Edit")) + "\n          ")]) : _vm._e(), _vm._v(" "), _c('router-link', {
-          staticClass: "btn btn-info float-right",
-          attrs: {
-            "to": {
-              name: 'purchases.index'
-            }
-          }
-        }, [_vm.$i18n.locale === 'ar' || typeof _vm.document !== 'undefined' && _vm.document.documentElement.getAttribute('dir') === 'rtl' ? [_vm._v("\n\n              " + _vm._s(_vm.$t('Back')) + " "), _c('i', {
-          staticClass: "fas fa-long-arrow-alt-left"
-        })] : [_vm.$i18n.locale === 'ar' || typeof _vm.document !== 'undefined' && _vm.document.documentElement.getAttribute('dir') === 'rtl' ? [_vm._v("\n\n\n                " + _vm._s(_vm.$t('Back')) + " "), _c('i', {
-          staticClass: "fas fa-long-arrow-alt-left"
-        })] : [_c('i', {
-          staticClass: "fas fa-long-arrow-alt-left"
-        }), _vm._v(" " + _vm._s(_vm.$t('Back')) + "\n\n\n              ")]]], 2)], 1)];
-      },
-      proxy: true
-    }, {
-      key: "details",
-      fn: function fn() {
-        return [_c('div', {
-          staticClass: "row"
-        }, [_c('div', {
-          staticClass: "invoice p-3 mb-3 w-100",
-          attrs: {
-            "id": "content-to-pdf"
-          }
-        }, [_c('table-loading', {
-          directives: [{
-            name: "show",
-            rawName: "v-show",
-            value: _vm.loading,
-            expression: "loading"
-          }]
-        }), _vm._v(" "), _c('div', {
-          staticClass: "row invoice-info"
-        }, [_c('div', {
-          staticClass: "col-sm-4 invoice-col"
-        }, [_c('CompanyInfo')], 1), _vm._v(" "), _c('div', {
-          staticClass: "col-sm-8 invoice-col float-right text-md-right"
-        }, [_c('h5', [_vm._v(_vm._s(_vm.$t("Supplier Details")))]), _vm._v(" "), _vm.allData.supplier ? _c('div', [_c('strong', [_vm._v(_vm._s(_vm.$t("Supplier ID")) + ":")]), _vm._v("\n                " + _vm._s(_vm._f("withPrefix")(_vm.allData.supplier.supplierID, _vm.supplierPrefix))), _c('br'), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.$t("Supplier Name")) + ":")]), _vm._v("\n                " + _vm._s(_vm.allData.supplier.name)), _c('br'), _vm._v(" "), _vm.allData.supplier.companyName ? _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t("Company Name")) + ":")]), _vm._v("\n                  " + _vm._s(_vm.allData.supplier.companyName)), _c('br')]) : _vm._e(), _vm._v(" "), _vm.allData.supplier.email ? _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t("Email")) + ":")]), _vm._v("\n                  " + _vm._s(_vm.allData.supplier.email)), _c('br')]) : _vm._e(), _vm._v(" "), _vm.allData.supplier.phoneNumber ? _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t("Contact Number")) + ":")]), _vm._v("\n                  " + _vm._s(_vm.allData.supplier.phoneNumber)), _c('br')]) : _vm._e(), _vm._v(" "), _vm.allData.supplier.address ? _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t("Address")) + ":")]), _vm._v("\n                  " + _vm._s(_vm.allData.supplier.address)), _c('br')]) : _vm._e()]) : _vm._e()])]), _vm._v(" "), _c('div', {
-          staticClass: "row mt-3"
-        }, [_c('div', {
-          staticClass: "col-12"
-        }, [_c('GeneralTable', {
-          attrs: {
-            "columns": _vm.purchaseHeaderColumns,
-            "rows": _vm.purchaseHeaderRows,
-            "loading": _vm.loading,
-            "wrapper-class": ""
-          },
-          scopedSlots: _vm._u([{
-            key: "cell-purchaseNo",
-            fn: function fn(_ref) {
-              var value = _ref.value;
-              return [_vm._v("\n                  " + _vm._s(_vm._f("withPrefix")(value, _vm.purchasePrefix)) + "\n                ")];
-            }
-          }, {
-            key: "cell-purchaseDate",
-            fn: function fn(_ref2) {
-              var value = _ref2.value;
-              return [_vm._v("\n                  " + _vm._s(_vm._f("moment")(value, "Do MMM, YYYY")) + "\n                ")];
-            }
-          }, {
-            key: "cell-purchaseStatus",
-            fn: function fn(_ref3) {
-              var value = _ref3.value;
-              return [value === 'تم الاستلام' ? _c('span', {
-                staticClass: "badge bg-success"
-              }, [_vm._v("\n                    " + _vm._s(_vm.$t("Received")) + " (" + _vm._s(value) + ")\n                  ")]) : value === 'معلقة' ? _c('span', {
-                staticClass: "badge bg-warning"
-              }, [_vm._v("\n                    " + _vm._s(_vm.$t("Pending")) + " (" + _vm._s(value) + ")\n                  ")]) : _c('span', [_vm._v(_vm._s(value || '-'))])];
-            }
-          }, {
-            key: "cell-journalEntry",
-            fn: function fn(_ref4) {
-              var value = _ref4.value;
-              return [value && value.id ? _c('router-link', {
-                staticClass: "badge bg-info text-white",
-                staticStyle: {
-                  "text-decoration": "none"
-                },
-                attrs: {
-                  "to": {
-                    name: 'journal-entries.show',
-                    params: {
-                      id: value.id
-                    }
-                  }
-                }
-              }, [_vm._v("\n                    " + _vm._s(value.entry_number || "#".concat(value.id)) + "\n                  ")]) : _c('span', {
-                staticClass: "text-muted"
-              }, [_vm._v("-")])];
-            }
-          }, {
-            key: "cell-discountType",
-            fn: function fn(_ref5) {
-              var value = _ref5.value;
-              return [value === 'percentage' ? _c('span', [_vm._v(_vm._s(_vm.$t("%")))]) : value === 'fixed' ? _c('span', [_vm._v(_vm._s(_vm.$t("Fixed")))]) : _c('span', [_vm._v(_vm._s(value || '-'))])];
-            }
-          }, {
-            key: "cell-discountValue",
-            fn: function fn(_ref6) {
-              var value = _ref6.value,
-                row = _ref6.row;
-              return [value !== null && value !== undefined && value !== '' ? _c('span', [_vm._v("\n                    " + _vm._s(_vm.formatNumber(value)) + "\n                    "), row.discountType === 'percentage' ? _c('span', [_vm._v("%")]) : _c('span', {
-                staticClass: "saudi-riyal"
-              }, [_vm._v("ê")])]) : _c('span', {
-                staticClass: "text-muted"
-              }, [_vm._v("-")])];
-            }
-          }, {
-            key: "cell-discountAmount",
-            fn: function fn(_ref7) {
-              var value = _ref7.value;
-              return [value !== null && value !== undefined && value !== '' ? _c('span', [_vm._v("\n                    " + _vm._s(_vm.formatNumber(value)) + " "), _c('span', {
-                staticClass: "saudi-riyal"
-              }, [_vm._v("ê")])]) : _c('span', {
-                staticClass: "text-muted"
-              }, [_vm._v("-")])];
-            }
-          }])
-        })], 1)]), _vm._v(" "), _vm.allData.attachments && _vm.allData.attachments.length > 0 ? _c('div', {
-          staticClass: "row mt-3"
-        }, [_c('div', {
-          staticClass: "col-12"
-        }, [_c('div', {
-          staticClass: "table-responsive table-custom"
-        }, [_c('table', {
-          staticClass: "table invoices-table"
-        }, [_c('thead', [_c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Attachments")))])])]), _vm._v(" "), _c('tbody', [_c('tr', [_c('td', [_c('ul', {
-          staticClass: "list-unstyled mb-0"
-        }, _vm._l(_vm.allData.attachments, function (attachment, index) {
-          return _c('li', {
-            key: index,
-            staticClass: "mb-2"
-          }, [_c('a', {
-            staticClass: "d-flex align-items-center",
-            attrs: {
-              "href": attachment.url || attachment.path,
-              "target": "_blank"
-            }
-          }, [_c('i', {
-            staticClass: "fas fa-file mr-2"
-          }), _vm._v(" "), _c('span', [_vm._v(_vm._s(attachment.name || attachment.file_name || "Attachment ".concat(index + 1)))])])]);
-        }), 0)])])])])])])]) : _vm._e(), _vm._v(" "), _vm.allData.note ? _c('div', {
-          staticClass: "row mt-3"
-        }, [_c('div', {
-          staticClass: "col-12"
-        }, [_c('div', {
-          staticClass: "table-responsive table-custom"
-        }, [_c('table', {
-          staticClass: "table invoices-table"
-        }, [_c('thead', [_c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Notes")))])])]), _vm._v(" "), _c('tbody', [_c('tr', [_c('td', [_vm._v(_vm._s(_vm.allData.note))])])])])])])]) : _vm._e(), _vm._v(" "), _c('div', {
-          staticClass: "row mt-4"
-        }, [_c('div', {
-          staticClass: "col-12"
-        }, [_c('strong', {
-          staticClass: "mb-2 d-block"
-        }, [_vm._v(_vm._s(_vm.$t("Purchase Products")) + ":")]), _vm._v(" "), _c('GeneralTable', {
-          attrs: {
-            "columns": _vm.purchaseProductsColumns,
-            "rows": _vm.purchaseProductsRows,
-            "loading": _vm.loading,
-            "wrapper-class": ""
-          },
-          scopedSlots: _vm._u([{
-            key: "cell-code",
-            fn: function fn(_ref8) {
-              var value = _ref8.value;
-              return [_vm._v("\n                  " + _vm._s(_vm._f("withPrefix")(value, _vm.productPrefix)) + "\n                ")];
-            }
-          }, {
-            key: "cell-price",
-            fn: function fn(_ref9) {
-              var value = _ref9.value;
-              return [_vm._v("\n                  " + _vm._s(_vm.formatNumber(value)) + " "), _c('span', {
-                staticClass: "saudi-riyal"
-              }, [_vm._v("ê")])];
-            }
-          }, {
-            key: "cell-total",
-            fn: function fn(_ref0) {
-              var value = _ref0.value;
-              return [_vm._v("\n                  " + _vm._s(_vm.formatNumber(value)) + " "), _c('span', {
-                staticClass: "saudi-riyal"
-              }, [_vm._v("ê")])];
-            }
-          }, {
-            key: "cell-discount",
-            fn: function fn(_ref1) {
-              var value = _ref1.value;
-              return [value > 0 ? _c('span', [_vm._v("\n                    " + _vm._s(_vm.formatNumber(value)) + " "), _c('span', {
-                staticClass: "saudi-riyal"
-              }, [_vm._v("ê")])]) : _c('span', {
-                staticClass: "text-muted"
-              }, [_vm._v("\n                    " + _vm._s(_vm.$t('No Discount')) + "\n                  ")])];
-            }
-          }, {
-            key: "cell-totalAfterDiscount",
-            fn: function fn(_ref10) {
-              var value = _ref10.value;
-              return [_vm._v("\n                  " + _vm._s(_vm.formatNumber(value)) + " "), _c('span', {
-                staticClass: "saudi-riyal"
-              }, [_vm._v("ê")])];
-            }
-          }, {
-            key: "cell-vat",
-            fn: function fn(_ref11) {
-              var value = _ref11.value;
-              return [value > 0 ? _c('span', [_vm._v("\n                    " + _vm._s(_vm.formatNumber(value)) + " "), _c('span', {
-                staticClass: "saudi-riyal"
-              }, [_vm._v("ê")])]) : _c('span', {
-                staticClass: "text-muted"
-              }, [_vm._v("\n                    " + _vm._s(_vm.$t('No VAT')) + "\n                  ")])];
-            }
-          }, {
-            key: "cell-totalWithVat",
-            fn: function fn(_ref12) {
-              var value = _ref12.value;
-              return [_vm._v("\n                  " + _vm._s(_vm.formatNumber(value)) + " "), _c('span', {
-                staticClass: "saudi-riyal"
-              }, [_vm._v("ê")])];
-            }
-          }])
-        }), _vm._v(" "), _c('div', {
-          staticClass: "mt-2 text-center"
-        }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Subtotal")) + ": " + _vm._s(_vm.formatNumber(_vm.invoiceSubtotal)) + " "), _c('span', {
-          staticClass: "saudi-riyal"
-        }, [_vm._v("ê")])])])], 1)]), _vm._v(" "), _c('div', {
-          staticClass: "row mt-4",
-          attrs: {
-            "id": "page-break"
-          }
-        }, [_c('div', {
-          staticClass: "col-lg-12 col-xl-8"
-        }, [_vm.allData.payments && _vm.allData.payments.length > 0 ? _c('div', [_c('div', {
-          staticClass: "d-flex justify-content-between align-items-center mb-2"
-        }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Payment History")) + ":")]), _vm._v(" "), _vm.allData.paymentType !== undefined || _vm.allData.payment_type !== undefined ? _c('div', [_c('strong', [_vm._v(_vm._s(_vm.$t("Payment Type")) + ":")]), _vm._v(" "), _vm.allData.paymentType === 'paid' || _vm.allData.payment_type === 'paid' ? _c('span', {
-          staticClass: "badge bg-success ml-2"
-        }, [_vm._v("\n                      " + _vm._s(_vm.$t("Paid")) + " (مدفوع)\n                    ")]) : _c('span', {
-          staticClass: "badge bg-warning ml-2"
-        }, [_vm._v("\n                      " + _vm._s(_vm.$t("On Credit")) + " (أجل)\n                    ")]), _vm._v(" "), (_vm.allData.paymentType === 'paid' || _vm.allData.payment_type === 'paid') && (_vm.allData.paymentMethod || _vm.allData.payment_method_id) ? _c('span', {
-          staticClass: "ml-2"
-        }, [_vm._v("\n                      - " + _vm._s(_vm.allData.paymentMethod ? _vm.allData.paymentMethod.name : _vm.allData.payment_method_id ? _vm.getPaymentMethodName(_vm.allData.payment_method_id) : '-') + "\n                    ")]) : _vm._e()]) : _vm._e()]), _vm._v(" "), _c('GeneralTable', {
-          attrs: {
-            "columns": _vm.purchasePaymentHistoryColumns,
-            "rows": _vm.purchasePaymentHistoryRows,
-            "loading": _vm.loading,
-            "wrapper-class": ""
-          },
-          scopedSlots: _vm._u([{
-            key: "cell-amount",
-            fn: function fn(_ref13) {
-              var value = _ref13.value;
-              return [_vm._v("\n                    " + _vm._s(_vm.formatNumber(value)) + " "), _c('span', {
-                staticClass: "saudi-riyal"
-              }, [_vm._v("ê")])];
-            }
-          }, {
-            key: "cell-status",
-            fn: function fn(_ref14) {
-              var value = _ref14.value;
-              return [value === 1 ? _c('span', {
-                staticClass: "badge bg-success"
-              }, [_vm._v(_vm._s(_vm.$t("Active")))]) : _c('span', {
-                staticClass: "badge bg-danger"
-              }, [_vm._v(_vm._s(_vm.$t("Inactive")))])];
-            }
-          }], null, false, 1246411211)
-        }), _vm._v(" "), _c('div', {
-          staticClass: "mt-2 text-right"
-        }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Total Paid")) + ": " + _vm._s(_vm.formatNumber(_vm.allData.totalPaid)) + " "), _c('span', {
-          staticClass: "saudi-riyal"
-        }, [_vm._v("ê")])])])], 1) : _c('div', {
-          staticClass: "no-print mt-4 w-100"
-        }, [_c('InfoAlert', {
-          attrs: {
-            "message": _vm.$t('No payments available yet!')
-          }
-        }), _vm._v(" "), _vm.allData.paymentType !== undefined || _vm.allData.payment_type !== undefined ? _c('div', {
-          staticClass: "mt-3 text-right"
-        }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Payment Type")) + ":")]), _vm._v(" "), _vm.allData.paymentType === 'paid' || _vm.allData.payment_type === 'paid' ? _c('span', {
-          staticClass: "badge bg-success ml-2"
-        }, [_vm._v("\n                    " + _vm._s(_vm.$t("Paid")) + " (مدفوع)\n                  ")]) : _c('span', {
-          staticClass: "badge bg-warning ml-2"
-        }, [_vm._v("\n                    " + _vm._s(_vm.$t("On Credit")) + " (أجل)\n                  ")]), _vm._v(" "), (_vm.allData.paymentType === 'paid' || _vm.allData.payment_type === 'paid') && (_vm.allData.paymentMethod || _vm.allData.payment_method_id) ? _c('span', {
-          staticClass: "ml-2"
-        }, [_vm._v("\n                    - " + _vm._s(_vm.allData.paymentMethod ? _vm.allData.paymentMethod.name : _vm.allData.payment_method_id ? _vm.getPaymentMethodName(_vm.allData.payment_method_id) : '-') + "\n                  ")]) : _vm._e()]) : _vm._e()], 1)]), _vm._v(" "), _c('div', {
-          staticClass: "col-lg-12 col-xl-4 text-lg-right mt-4 pt-2"
-        }, [_vm.allData.supplier ? _c('InvoiceSummaryTable', {
-          attrs: {
-            "subtotal": _vm.invoiceSubtotal,
-            "after-discount": _vm.netAmountBeforeVAT,
-            "total-tax": _vm.vatAmount,
-            "transport": _vm.shippingCostTotal,
-            "grand-total": _vm.grandTotal,
-            "paid-amount": _vm.allData.totalPaid || 0,
-            "due-amount": _vm.calculateDueAmount
-          }
-        }) : _vm._e()], 1)])], 1)])];
-      },
-      proxy: true
-    }, {
-      key: "activity-log",
-      fn: function fn() {
-        return [_c('div', {
-          staticClass: "card custom-card w-100 mt-5 no-print"
-        }, [_c('div', {
-          staticClass: "card-header setings-header"
-        }, [_c('div', {
-          staticClass: "col-xl-4 col-4"
-        }, [_c('h3', {
-          staticClass: "card-title"
-        }, [_vm._v("\n              " + _vm._s(_vm.$t("Activity log")) + "\n            ")])]), _vm._v(" "), _c('div', {
-          staticClass: "col-xl-8 col-8 float-right text-right"
-        }, [_c('div', {
-          staticClass: "btn-group c-w-100"
-        }, [_c('a', {
-          directives: [{
-            name: "tooltip",
-            rawName: "v-tooltip",
-            value: _vm.$t('Refresh'),
-            expression: "$t('Refresh')"
-          }],
-          staticClass: "btn btn-success",
-          attrs: {
-            "href": "#"
-          },
-          on: {
-            "click": function click($event) {
-              return _vm.refreshTable();
-            }
-          }
-        }, [_c('i', {
-          staticClass: "fas fa-sync"
-        })])])])]), _vm._v(" "), _c('table-loading', {
-          directives: [{
-            name: "show",
-            rawName: "v-show",
-            value: _vm.loading,
-            expression: "loading"
-          }]
-        }), _vm._v(" "), _c('div', {
-          staticClass: "card-body position-relative"
-        }, [_c('div', {
-          staticClass: "row"
-        }, [_c('div', {
-          staticClass: "col-6 col-xl-4 mb-2"
-        }, [_c('search', {
-          on: {
-            "reset-pagination": function resetPagination($event) {
-              return _vm.resetPagination();
-            },
-            "reload": _vm.reload
-          },
-          model: {
-            value: _vm.query,
-            callback: function callback($$v) {
-              _vm.query = $$v;
-            },
-            expression: "query"
-          }
-        })], 1)]), _vm._v(" "), _c('div', {
-          staticClass: "table-responsive table-custom mt-3",
-          attrs: {
-            "id": "printMe"
-          }
-        }, [_vm._l(_vm.items, function (data, i) {
-          return _c('div', {
-            directives: [{
-              name: "show",
-              rawName: "v-show",
-              value: _vm.items.length > 0,
-              expression: "items.length > 0"
-            }],
-            key: i
-          }, [_c('div', {
-            staticClass: "card mb-0 border border-gray"
-          }, [_c('div', {
-            staticClass: "card-body py-1"
-          }, [_c('div', {
-            staticClass: "row"
-          }, [_c('div', {
-            staticClass: "col-1 d-flex justify-content-center align-items-center"
-          }, [data.event == 'Update' ? _c('i', {
-            staticClass: "fa fa-magic",
-            attrs: {
-              "aria-hidden": "true"
-            }
-          }) : _vm._e(), _vm._v(" "), data.event == 'Create' ? _c('i', {
-            staticClass: "fa fa-plus-circle",
-            attrs: {
-              "aria-hidden": "true"
-            }
-          }) : _vm._e(), _vm._v(" "), data.event == 'Delete' ? _c('i', {
-            staticClass: "fa fa-trash",
-            attrs: {
-              "aria-hidden": "true"
-            }
-          }) : _vm._e()]), _vm._v(" "), _c('div', {
-            staticClass: "col-11"
-          }, [_c('div', {
-            staticClass: "row"
-          }, [_c('div', {
-            staticClass: "col-12"
-          }, [_c('p', {
-            staticClass: "text-bold mb-0"
-          }, [_vm._v(_vm._s(data.causer_name))])]), _vm._v(" "), _c('div', {
-            staticClass: "col-12"
-          }, [_c('p', {
-            staticClass: "mb-0"
-          }, [_vm._v(_vm._s(_vm.$t(data.description)))])]), _vm._v(" "), _c('div', {
-            staticClass: "col-12"
-          }, [_c('p', {
-            staticClass: "mb-0"
-          }, [_vm._v(_vm._s(data.performedAt))])])])])])])])]);
-        }), _vm._v(" "), _c('div', {
-          directives: [{
-            name: "show",
-            rawName: "v-show",
-            value: !_vm.loading && !_vm.items.length,
-            expression: "!loading && !items.length"
-          }],
-          staticClass: "text-center"
-        }, [_c('EmptyTable')], 1)], 2)]), _vm._v(" "), _c('div', {
-          staticClass: "card-footer"
-        }, [_c('div', {
-          staticClass: "dtable-footer"
-        }, [_c('div', {
-          staticClass: "form-group row display-per-page"
-        }, [_c('label', [_vm._v(_vm._s(_vm.$t("per_page")) + " ")]), _vm._v(" "), _c('div', [_c('select', {
-          directives: [{
-            name: "model",
-            rawName: "v-model",
-            value: _vm.perPage,
-            expression: "perPage"
-          }],
-          staticClass: "form-control form-control-sm ml-1",
-          on: {
-            "change": [function ($event) {
-              var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-                return o.selected;
-              }).map(function (o) {
-                var val = "_value" in o ? o._value : o.value;
-                return val;
-              });
-              _vm.perPage = $event.target.multiple ? $$selectedVal : $$selectedVal[0];
-            }, _vm.updatePerPager]
-          }
-        }, [_c('option', {
-          attrs: {
-            "value": "10"
-          }
-        }, [_vm._v("10")]), _vm._v(" "), _c('option', {
-          attrs: {
-            "value": "25"
-          }
-        }, [_vm._v("25")]), _vm._v(" "), _c('option', {
-          attrs: {
-            "value": "50"
-          }
-        }, [_vm._v("50")]), _vm._v(" "), _c('option', {
-          attrs: {
-            "value": "100"
-          }
-        }, [_vm._v("100")])])])]), _vm._v(" "), _vm.pagination && _vm.pagination.last_page > 1 ? _c('pagination', {
-          staticClass: "justify-flex-end",
-          attrs: {
-            "pagination": _vm.pagination,
-            "offset": 5
-          },
-          on: {
-            "paginate": _vm.paginate
-          }
-        }) : _vm._e()], 1)])], 1)];
-      },
-      proxy: true
-    }])
-  }), _vm._v(" "), _c('InvoicePaymentModal', {
-    attrs: {
-      "show": _vm.showPaymentModal,
-      "type": "purchase",
-      "invoice-id": _vm.allData ? _vm.allData.id : null,
-      "invoice-no": _vm.allData ? _vm.allData.purchaseNo : '',
-      "invoice-prefix": _vm.purchasePrefix,
-      "invoice-total": _vm.grandTotal,
-      "due-amount": _vm.calculateDueAmount,
-      "invoice-status": _vm.allData ? _vm.allData.status : 1,
-      "purchase-slug": _vm.allData ? _vm.allData.slug : null
-    },
-    on: {
-      "close": function close($event) {
-        _vm.showPaymentModal = false;
-      },
-      "payment-saved": _vm.handlePaymentSaved
-    }
-  })], 1);
-};
-var staticRenderFns = [];
-
-// EXTERNAL MODULE: ./node_modules/vform/dist/vform.es.js
-var vform_es = __webpack_require__(63216);
-// EXTERNAL MODULE: ./node_modules/axios/index.js
-var axios = __webpack_require__(72505);
-var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
-// EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
-var vuex_esm = __webpack_require__(95353);
-// EXTERNAL MODULE: ./node_modules/sweetalert2/dist/sweetalert2.js
-var sweetalert2 = __webpack_require__(94948);
-// EXTERNAL MODULE: ./resources/js/components/GeneralTable.vue + 5 modules
-var GeneralTable = __webpack_require__(16430);
-// EXTERNAL MODULE: ./resources/js/components/sales/InvoiceSummaryTable.vue + 5 modules
-var InvoiceSummaryTable = __webpack_require__(87968);
-// EXTERNAL MODULE: ./resources/js/components/shared/InfoAlert.vue + 5 modules
-var InfoAlert = __webpack_require__(47866);
-// EXTERNAL MODULE: ./resources/js/components/DetailsActivityTabs.vue + 5 modules
-var DetailsActivityTabs = __webpack_require__(1121);
-// EXTERNAL MODULE: ./resources/js/components/InvoicePaymentModal.vue + 5 modules
-var InvoicePaymentModal = __webpack_require__(22367);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/purchases/show.vue?vue&type=script&lang=js
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
-function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
-function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
-function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
-function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-
-
-
-
-
-
-
-
-
-/* harmony default export */ const showvue_type_script_lang_js = ({
-  middleware: ["auth", "check-permissions"],
-  metaInfo: function metaInfo() {
-    return {
-      title: this.$t("Purchase Details")
-    };
-  },
-  components: {
-    GeneralTable: GeneralTable["default"],
-    InvoiceSummaryTable: InvoiceSummaryTable/* default */.A,
-    InfoAlert: InfoAlert/* default */.A,
-    DetailsActivityTabs: DetailsActivityTabs/* default */.A,
-    InvoicePaymentModal: InvoicePaymentModal/* default */.A
-  },
-  data: function data() {
-    return {
-      breadcrumbsCurrent: "Purchase Details",
-      breadcrumbs: [{
-        name: "Dashboard",
-        url: "home"
-      }, {
-        name: "Purchases",
-        url: "purchases.index"
-      }, {
-        name: "Details",
-        url: ""
-      }],
-      allData: "",
-      purchaseSubTotal: 0,
-      purchaseReturn: 0,
-      purchaseProducts: [],
-      productPrefix: "",
-      purchasePrefix: "",
-      form: new vform_es/* default */.Ay({
-        isSendEmail: false,
-        isSendSMS: false
-      }),
-      isDemoMode: window.config.isDemoMode,
-      query: "",
-      perPage: 10,
-      // Communication configuration status
-      communicationConfig: {
-        email_configured: false,
-        sms_configured: false,
-        loading: true
-      },
-      showPaymentModal: false
-    };
-  },
-  computed: _objectSpread(_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["appInfo", "items", "loading", "pagination"])), {}, {
-    // Check if the country is Saudi Arabia
-    isSaudiArabia: function isSaudiArabia() {
-      return this.appInfo && this.appInfo.country === 'SA';
-    },
-    // Invoice Subtotal: Sum of all item totals BEFORE discount (qty × unit_price)
-    // This matches the create page logic: Subtotal = sum(item.grossTotal)
-    invoiceSubtotal: function invoiceSubtotal() {
-      if (!this.purchaseProducts || this.purchaseProducts.length === 0) return 0;
-      return this.roundToTwoDecimals(this.purchaseProducts.reduce(function (total, product) {
-        return total + parseFloat(product.grossTotal || 0);
-      }, 0));
-    },
-    // Invoice-Level Discount Amount: Calculated from discount_type and discount_value
-    // This matches the create page logic
-    invoiceLevelDiscountAmount: function invoiceLevelDiscountAmount() {
-      if (!this.allData || !this.hasPurchaseDiscount) return 0;
-      var discountType = this.purchaseDiscountType;
-      var discountValue = this.purchaseDiscountValue;
-      var subtotal = this.invoiceSubtotal;
-      if (!discountType || !discountValue || discountValue <= 0 || subtotal <= 0) {
-        return 0;
-      }
-      var discountAmount = 0;
-      if (discountType === 'percentage') {
-        discountAmount = this.roundToTwoDecimals(subtotal * discountValue / 100);
-      } else {
-        discountAmount = this.roundToTwoDecimals(parseFloat(discountValue));
-      }
-
-      // Ensure discount doesn't exceed the subtotal
-      return discountAmount > subtotal ? this.roundToTwoDecimals(subtotal) : discountAmount;
-    },
-    // Subtotal: Same as invoiceSubtotal (for backward compatibility)
-    subtotal: function subtotal() {
-      return this.invoiceSubtotal;
-    },
-    // Total Discount: Invoice-level discount amount (distributed proportionally across items)
-    // This matches the create page: discount is applied at invoice level
-    totalDiscount: function totalDiscount() {
-      return this.invoiceLevelDiscountAmount;
-    },
-    // Shipping Cost Total: Invoice-level shipping cost
-    // CRITICAL: When transport is taxable, allData.transport contains transport + VAT
-    // We need to return the total transport amount (including VAT) for display
-    // But for netAmountBeforeVAT calculation, we need transport before VAT
-    shippingCostTotal: function shippingCostTotal() {
-      if (!this.allData) return 0;
-      // For show page, we use the stored transport value (total amount including VAT if taxable)
-      var transportCost = parseFloat(this.allData.transport || 0);
-      return this.roundToTwoDecimals(transportCost);
-    },
-    // Transport Cost Before VAT: Calculate transport cost before VAT when taxable
-    // CRITICAL: When transport is taxable, allData.transport = transportCost + VAT
-    // We need to extract transportCost from the total to calculate netAmountBeforeVAT correctly
-    transportCostBeforeVAT: function transportCostBeforeVAT() {
-      if (!this.allData) return 0;
-      if (!this.isTransportTaxable) {
-        // Transport is non-taxable: transport value is the cost itself (no VAT)
-        return this.shippingCostTotal;
-      }
-
-      // Transport is taxable: calculate transport cost before VAT
-      // We need to reverse-calculate: transportTotal = transportCost + (transportCost × VAT rate)
-      // So: transportCost = transportTotal / (1 + VAT rate / 100)
-
-      var transportTotal = parseFloat(this.allData.transport || 0);
-      if (transportTotal <= 0) return 0;
-
-      // Get VAT rate - use weighted average from items or default 15%
-      var vatRate = 15; // Default VAT rate
-      if (this.purchaseProducts && this.purchaseProducts.length > 0) {
-        // Calculate weighted average VAT rate from items
-        var totalNetAmount = 0;
-        var weightedVatSum = 0;
-        this.purchaseProducts.forEach(function (product) {
-          var itemNetAmount = parseFloat(product.totalAfterDiscount || 0);
-          var itemTax = parseFloat(product.taxTotal || product.tax_amount || 0);
-          if (itemNetAmount > 0 && itemTax > 0) {
-            var itemVatRate = itemTax / itemNetAmount * 100;
-            totalNetAmount += itemNetAmount;
-            weightedVatSum += itemNetAmount * (itemVatRate / 100);
-          }
-        });
-        if (totalNetAmount > 0) {
-          vatRate = weightedVatSum / totalNetAmount * 100;
-        }
-      }
-
-      // Calculate transport cost before VAT: transportCost = transportTotal / (1 + vatRate/100)
-      var transportCost = transportTotal / (1 + vatRate / 100);
-      return this.roundToTwoDecimals(transportCost);
-    },
-    // Helper computed property to check if transport is taxable
-    // Returns true only if transport_taxable is explicitly true or 1
-    // Returns false if transport_taxable is false, 0, null, or undefined
-    // CRITICAL: When transport_taxable is NULL in DB, it means non-taxable (new behavior)
-    isTransportTaxable: function isTransportTaxable() {
-      if (!this.allData) return true; // Default to taxable for backward compatibility
-
-      // Check multiple possible field names (transport_taxable, transportIsTaxable, etc.)
-      var transportTaxable = this.allData.transport_taxable !== undefined ? this.allData.transport_taxable : this.allData.transportIsTaxable !== undefined ? this.allData.transportIsTaxable : null;
-
-      // Debug: Log the value to help diagnose issues (uncomment for debugging)
-      // console.log('transport_taxable value:', transportTaxable, 'type:', typeof transportTaxable, 'allData keys:', Object.keys(this.allData));
-
-      // Explicitly check for true or 1 (string or number)
-      if (transportTaxable === true || transportTaxable === 1 || transportTaxable === '1') {
-        return true;
-      }
-
-      // Everything else (false, 0, null, undefined, '0', 'false') is non-taxable
-      // This includes NULL from database which should be treated as non-taxable
-      // IMPORTANT: For purchases created with non-taxable transport, transport_taxable will be NULL/false
-      return false;
-    },
-    // Net Amount Before VAT: Calculated based on transport taxability
-    // CRITICAL: When transport is non-taxable, use DB values directly to avoid double-counting
-    // 
-    // If transport is taxable: Net Amount = Subtotal - Discount + Transport
-    // If transport is non-taxable: Net Amount = Sum of Item Totals After Discount (from DB)
-    //   Transport is NOT included in Net Amount when non-taxable
-    netAmountBeforeVAT: function netAmountBeforeVAT() {
-      if (!this.allData) return 0;
-      if (!this.isTransportTaxable) {
-        // Transport is non-taxable: calculate net amount after invoice-level discount
-        // CRITICAL: Must subtract invoice-level discount from subtotal
-        var _subtotal = this.invoiceSubtotal;
-        var invoiceDiscount = this.invoiceLevelDiscountAmount;
-
-        // Net amount = Subtotal - Invoice-level discount
-        // This represents items net after all discounts (before VAT and transport)
-        return this.roundToTwoDecimals(_subtotal - invoiceDiscount);
-      }
-
-      // Transport is taxable: include transport cost (before VAT) in Net Amount
-      // CRITICAL: We must use transport cost BEFORE VAT, not the total (which includes VAT)
-      // Net Amount = Subtotal - Discount + Transport Cost (before VAT)
-      // VAT will be calculated on this Net Amount, which includes transport cost
-      var subtotal = this.invoiceSubtotal;
-      var discount = this.invoiceLevelDiscountAmount;
-      var transportCostBeforeVAT = this.transportCostBeforeVAT;
-      return this.roundToTwoDecimals(subtotal - discount + transportCostBeforeVAT);
-    },
-    // Calculate due amount
-    calculateDueAmount: function calculateDueAmount() {
-      if (!this.allData) return 0;
-      var total = this.netTotal;
-      var paid = parseFloat(this.allData.totalPaid) || 0;
-      return total - paid;
-    },
-    // Check if purchase has discount (supports both old and new format)
-    hasPurchaseDiscount: function hasPurchaseDiscount() {
-      if (!this.allData) return false;
-      // Check new format first (discount_type/discount_value)
-      if (this.allData.discount_type && this.allData.discount_value && this.allData.discount_value > 0) {
-        return true;
-      }
-      // Check old format (discount/discountType)
-      if (this.allData.discount && this.allData.discount > 0) {
-        return true;
-      }
-      return false;
-    },
-    // Get purchase discount type (supports both old and new format)
-    purchaseDiscountType: function purchaseDiscountType() {
-      if (!this.allData) return null;
-      // New format: discount_type is already "percentage" or "fixed"
-      if (this.allData.discount_type) {
-        return this.allData.discount_type;
-      }
-      // Old format: discountType is 0 (fixed) or 1 (percentage)
-      if (this.allData.discountType !== null && this.allData.discountType !== undefined) {
-        return this.allData.discountType == 1 ? 'percentage' : 'fixed';
-      }
-      return null;
-    },
-    // Get purchase discount value (supports both old and new format)
-    purchaseDiscountValue: function purchaseDiscountValue() {
-      if (!this.allData) return 0;
-      // New format: discount_value
-      if (this.allData.discount_value !== null && this.allData.discount_value !== undefined) {
-        return this.allData.discount_value;
-      }
-      // Old format: discount
-      if (this.allData.discount !== null && this.allData.discount !== undefined) {
-        return this.allData.discount;
-      }
-      return 0;
-    },
-    // VAT Amount: Calculated based on transport taxability
-    // CRITICAL: When transport is non-taxable, use sum of tax_amount from DB directly
-    // This prevents double-counting and ensures accuracy
-    // 
-    // If transport is taxable: VAT = Net Amount × Weighted Average VAT Rate
-    // If transport is non-taxable: VAT = Sum of tax_amount from purchase_products (from DB)
-    // CRITICAL: If invoice-level discount is applied, VAT must be recalculated on discounted amount
-    vatAmount: function vatAmount() {
-      if (!this.purchaseProducts || this.purchaseProducts.length === 0) {
-        return 0;
-      }
-      if (!this.isTransportTaxable) {
-        // Transport is non-taxable: calculate VAT correctly accounting for invoice-level discount
-        // If invoice-level discount exists, recalculate VAT on discounted amount
-        var invoiceDiscount = this.invoiceLevelDiscountAmount;
-        var itemsNet = this.invoiceSubtotal;
-        if (invoiceDiscount > 0 && itemsNet > 0) {
-          // Calculate average VAT rate from original items
-          var _itemVatSum = this.purchaseProducts.reduce(function (total, product) {
-            var itemVat = parseFloat(product.tax_amount || product.taxTotal || 0);
-            return total + itemVat;
-          }, 0);
-
-          // Calculate average VAT rate
-          var averageVatRate = itemsNet > 0 ? _itemVatSum / itemsNet * 100 : 0;
-
-          // Recalculate VAT on discounted amount
-          var itemsNetAfterDiscount = itemsNet - invoiceDiscount;
-          var recalculatedVat = itemsNetAfterDiscount * (averageVatRate / 100);
-          return this.roundToTwoDecimals(recalculatedVat);
-        }
-
-        // No invoice discount: use sum of tax_amount from DB
-        var itemVatSum = this.purchaseProducts.reduce(function (total, product) {
-          var itemVat = parseFloat(product.tax_amount || product.taxTotal || 0);
-          return total + itemVat;
-        }, 0);
-        return this.roundToTwoDecimals(itemVatSum);
-      }
-
-      // Transport is taxable: calculate VAT using weighted average
-      var netAmount = this.netAmountBeforeVAT;
-      if (netAmount <= 0) {
-        return 0;
-      }
-
-      // Calculate weighted average VAT rate from all items
-      var totalNetAmountForWeighting = 0;
-      var weightedVatRateSum = 0;
-      this.purchaseProducts.forEach(function (product) {
-        var itemGrossTotal = parseFloat(product.grossTotal || 0);
-        var itemDiscountAmount = parseFloat(product.discountAmount || 0);
-        var itemNetAmount = itemGrossTotal - itemDiscountAmount;
-        if (itemNetAmount > 0) {
-          var itemTotalAfterDiscount = parseFloat(product.totalAfterDiscount || 0);
-          var itemTaxTotal = parseFloat(product.taxTotal || product.tax_amount || 0);
-          var vatRate = 0;
-          if (itemTotalAfterDiscount > 0 && itemTaxTotal > 0) {
-            vatRate = itemTaxTotal / itemTotalAfterDiscount * 100;
-          } else if (product.vatRate) {
-            vatRate = parseFloat(product.vatRate);
-          }
-          if (!isNaN(vatRate) && vatRate >= 0) {
-            totalNetAmountForWeighting += itemNetAmount;
-            weightedVatRateSum += itemNetAmount * (vatRate / 100);
-          }
-        }
-      });
-      if (totalNetAmountForWeighting <= 0) {
-        return 0;
-      }
-      var weightedAverageVatRate = weightedVatRateSum / totalNetAmountForWeighting * 100;
-      var vat = this.roundToTwoDecimals(netAmount * (weightedAverageVatRate / 100));
-      return vat;
-    },
-    // Total Tax: Same as vatAmount (for backward compatibility)
-    totalTax: function totalTax() {
-      return this.vatAmount;
-    },
-    // Grand Total: Calculated based on transport taxability
-    // CRITICAL: When transport is non-taxable, use sum of item totals from DB + transport
-    // This prevents double-counting and ensures accuracy
-    // 
-    // If transport is taxable: Grand Total = Net Amount + VAT
-    //   Where: Net Amount = Subtotal - Discount + Transport (transport included in VAT base)
-    // If transport is non-taxable: Grand Total = Sum of Item Totals After VAT + Transport
-    //   Where: Item Totals = itemAfterDiscount + tax_amount (from DB)
-    //   Transport is added only at invoice level, not distributed to items
-    grandTotal: function grandTotal() {
-      if (!this.allData) return 0;
-
-      // CRITICAL: Use purchase.subTotal (or sub_total) directly as the source of truth
-      // This is the correct grand total calculated during purchase creation
-      // It already includes: items net - invoice discount + VAT + transport
-      // Do NOT recalculate from purchase products as it may miss invoice-level discount allocation
-      // API returns subTotal (camelCase), but check both formats for compatibility
-      var subTotal = this.allData.subTotal !== undefined ? this.allData.subTotal : this.allData.sub_total;
-      if (subTotal !== undefined && subTotal !== null) {
-        return this.roundToTwoDecimals(parseFloat(subTotal));
-      }
-
-      // Fallback: Calculate if sub_total is not available (should not happen)
-      var shipping = this.shippingCostTotal;
-      if (!this.isTransportTaxable) {
-        // Transport is non-taxable: use sum of item totals after VAT from DB + transport
-        // This ensures item-level discounts and VAT are correctly included without double-counting
-        if (!this.purchaseProducts || this.purchaseProducts.length === 0) {
-          return this.roundToTwoDecimals(shipping);
-        }
-
-        // Sum of all item totals after VAT (from DB: lineTotal or totalAfterDiscount + tax_amount)
-        var sumOfItemTotals = this.purchaseProducts.reduce(function (total, product) {
-          // Use lineTotal if available (total with VAT), otherwise calculate from DB values
-          var itemTotal = parseFloat(product.lineTotal || 0);
-          if (itemTotal > 0) {
-            return total + itemTotal;
-          }
-          // Fallback: calculate from stored values
-          var itemAfterDiscount = parseFloat(product.totalAfterDiscount || 0);
-          var itemVat = parseFloat(product.tax_amount || product.taxTotal || 0);
-          return total + itemAfterDiscount + itemVat;
-        }, 0);
-
-        // Grand Total = Sum of Item Totals + Transport
-        // Transport is added only at invoice level when non-taxable
-        return this.roundToTwoDecimals(sumOfItemTotals + shipping);
-      }
-
-      // Transport is taxable: use Net Amount + VAT calculation
-      // Net Amount already includes transport cost (before VAT) in netAmountBeforeVAT
-      // VAT is calculated on Net Amount which includes transport cost
-      // Grand Total = Net Amount + VAT
-      // Example: Net Amount = 8300 (8000 - 200 + 500), VAT = 1245, Grand Total = 9545
-      var netAmount = this.netAmountBeforeVAT;
-      var vat = this.vatAmount;
-      return this.roundToTwoDecimals(netAmount + vat);
-    },
-    // Calculate net total (for backward compatibility - same as grandTotal)
-    netTotal: function netTotal() {
-      return this.grandTotal;
-    },
-    // Purchase header columns
-    purchaseHeaderColumns: function purchaseHeaderColumns() {
-      var columns = [{
-        key: "purchaseNo",
-        label: this.$t("Purchase No"),
-        align: "text-center"
-      }, {
-        key: "purchaseDate",
-        label: this.$t("Purchase Date"),
-        align: "text-center"
-      }, {
-        key: "createdBy",
-        label: this.$t("Created By"),
-        align: "text-center"
-      }];
-
-      // Add journal entry column if journal entry exists
-      if (this.allData && this.allData.journalEntry) {
-        columns.push({
-          key: "journalEntry",
-          label: this.$t("Journal Entry"),
-          align: "text-center"
-        });
-      }
-      if (this.allData && this.allData.costCenter) {
-        columns.push({
-          key: "costCenter",
-          label: this.$t("Cost Center"),
-          align: "text-center"
-        });
-      }
-      if (this.allData && this.allData.branch) {
-        columns.push({
-          key: "branch",
-          label: this.$t("Branch"),
-          align: "text-center"
-        });
-      }
-      if (this.allData && this.allData.purchase_status) {
-        columns.push({
-          key: "purchaseStatus",
-          label: this.$t("Purchase Status"),
-          align: "text-center"
-        });
-      }
-      if (this.allData && this.allData.reference) {
-        columns.push({
-          key: "reference",
-          label: this.$t("Reference Number"),
-          align: "text-center"
-        });
-      }
-      if (this.allData && (this.allData.paymentMethod || this.allData.payment_method_id)) {
-        columns.push({
-          key: "paymentMethod",
-          label: this.$t("Payment Method"),
-          align: "text-center"
-        });
-      }
-
-      // Add discount columns if purchase has discount
-      if (this.hasPurchaseDiscount) {
-        columns.push({
-          key: "discountType",
-          label: this.$t("Discount Type"),
-          align: "text-center"
-        }, {
-          key: "discountValue",
-          label: this.$t("Discount Value"),
-          align: "text-center"
-        }, {
-          key: "discountAmount",
-          label: this.$t("Discount Amount"),
-          align: "text-center"
-        });
-      }
-      return columns;
-    },
-    // Purchase header rows
-    purchaseHeaderRows: function purchaseHeaderRows() {
-      if (!this.allData) return [];
-      var row = {
-        purchaseNo: this.allData.purchaseNo || '',
-        purchaseDate: this.allData.purchaseDate || '',
-        createdBy: this.allData.createdBy || '-',
-        journalEntry: this.allData.journalEntry || null
-      };
-      if (this.allData.costCenter) {
-        row.costCenter = this.allData.costCenter.name || '-';
-      }
-      if (this.allData.branch) {
-        row.branch = this.allData.branch.name || '-';
-      }
-      if (this.allData.purchase_status) {
-        row.purchaseStatus = this.allData.purchase_status;
-      }
-      if (this.allData.reference) {
-        row.reference = this.allData.reference;
-      }
-      if (this.allData.paymentMethod || this.allData.payment_method_id) {
-        row.paymentMethod = this.allData.paymentMethod ? this.allData.paymentMethod.name : this.getPaymentMethodName(this.allData.payment_method_id);
-      }
-
-      // Add discount data if purchase has discount
-      if (this.hasPurchaseDiscount) {
-        row.discountType = this.purchaseDiscountType;
-        row.discountValue = this.purchaseDiscountValue;
-        row.discountAmount = this.invoiceLevelDiscountAmount;
-      }
-      return [row];
-    },
-    // Purchase products columns
-    purchaseProductsColumns: function purchaseProductsColumns() {
-      var columns = [{
-        key: "index",
-        label: this.$t("#"),
-        align: "text-center"
-      }, {
-        key: "code",
-        label: this.$t("Code"),
-        align: "text-center"
-      }, {
-        key: "name",
-        label: this.$t("Item Name"),
-        align: "text-center"
-      }, {
-        key: "quantity",
-        label: this.$t("Qty"),
-        align: "text-center"
-      }];
-      if (this.allData && this.allData.purchaseReturn) {
-        columns.push({
-          key: "returnQty",
-          label: this.$t("Return Qty"),
-          align: "text-center"
-        });
-      }
-      columns.push({
-        key: "price",
-        label: this.$t("Price"),
-        align: "text-center"
-      }, {
-        key: "total",
-        label: this.$t("Total"),
-        align: "text-center"
-      }, {
-        key: "discount",
-        label: this.$t("Discount"),
-        align: "text-center"
-      }, {
-        key: "totalAfterDiscount",
-        label: this.$t("Total After Discount"),
-        align: "text-center"
-      }, {
-        key: "vat",
-        label: this.$t("VAT"),
-        align: "text-center"
-      }, {
-        key: "totalWithVat",
-        label: this.$t("Total with VAT"),
-        align: "text-center"
-      });
-      return columns;
-    },
-    // Purchase products rows
-    purchaseProductsRows: function purchaseProductsRows() {
-      var _this = this;
-      if (!this.purchaseProducts || !this.purchaseProducts.length) return [];
-      return this.purchaseProducts.map(function (product, index) {
-        var row = {
-          index: index + 1,
-          code: product.productCode || '',
-          name: product.productName || '',
-          quantity: "".concat(product.quantity || 0, " ").concat(product.productUnit || ''),
-          price: parseFloat(product.purchasePrice) || 0,
-          total: parseFloat(product.grossTotal) || 0,
-          discount: parseFloat(product.discountAmount) || 0,
-          totalAfterDiscount: parseFloat(product.totalAfterDiscount) || 0,
-          vat: parseFloat(product.taxTotal) || 0,
-          totalWithVat: parseFloat(product.lineTotal) || 0,
-          _raw: product
-        };
-        if (_this.allData && _this.allData.purchaseReturn) {
-          row.returnQty = "".concat(product.returnQty > 0 ? product.returnQty : 0, " ").concat(product.productUnit || '');
-        }
-        return row;
-      });
-    },
-    // Purchase payment history columns
-    purchasePaymentHistoryColumns: function purchasePaymentHistoryColumns() {
-      return [{
-        key: "index",
-        label: this.$t("#"),
-        align: ""
-      }, {
-        key: "date",
-        label: this.$t("Payment Date"),
-        align: ""
-      }, {
-        key: "amount",
-        label: this.$t("Paid Amount"),
-        align: ""
-      }, {
-        key: "account",
-        label: this.$t("Account"),
-        align: ""
-      }, {
-        key: "chequeNo",
-        label: this.$t("Cheque No"),
-        align: ""
-      }, {
-        key: "receiptNo",
-        label: this.$t("Receipt No"),
-        align: ""
-      }, {
-        key: "status",
-        label: this.$t("Status"),
-        align: "text-right"
-      }];
-    },
-    // Purchase payment history rows
-    purchasePaymentHistoryRows: function purchasePaymentHistoryRows() {
-      if (!this.allData || !this.allData.payments) return [];
-      return this.allData.payments.map(function (payment, index) {
-        var _payment$purchase_pay, _payment$purchase_pay2, _payment$purchase_pay3;
-        return {
-          index: index + 1,
-          date: payment.date || "",
-          amount: payment.amount || 0,
-          account: (_payment$purchase_pay = payment.purchase_payment_transaction) !== null && _payment$purchase_pay !== void 0 && _payment$purchase_pay.cashbook_account ? "".concat(payment.purchase_payment_transaction.cashbook_account.bank_name, " (").concat(payment.purchase_payment_transaction.cashbook_account.account_number, ")") : "",
-          chequeNo: ((_payment$purchase_pay2 = payment.purchase_payment_transaction) === null || _payment$purchase_pay2 === void 0 ? void 0 : _payment$purchase_pay2.cheque_no) || "",
-          receiptNo: ((_payment$purchase_pay3 = payment.purchase_payment_transaction) === null || _payment$purchase_pay3 === void 0 ? void 0 : _payment$purchase_pay3.receipt_no) || "",
-          status: payment.status,
-          _raw: payment
-        };
-      });
-    }
-  }),
-  watch: {
-    // watch search data
-    query: function query(newQ) {
-      if (newQ === "") {
-        this.getActivity();
-      } else {
-        this.searchData();
-      }
-    }
-  },
-  created: function created() {
-    this.getPurchase();
-    this.loadCommunicationConfigStatus();
-    this.productPrefix = this.appInfo.productPrefix;
-    this.purchasePrefix = this.appInfo.purchasePrefix;
-    this.supplierPrefix = this.appInfo.supplierPrefix;
-  },
-  methods: {
-    // Handle tab change (optional, for additional logic if needed)
-    handleTabChange: function handleTabChange(tab) {
-      // Tab-specific actions are handled by details-clicked and activity-clicked events
-    },
-    // Format number to 2 decimal places
-    formatNumber: function formatNumber(value) {
-      if (value === null || value === undefined || value === '') return '0.00';
-      return parseFloat(value).toFixed(2);
-    },
-    // Helper method to round to 2 decimal places (for calculations in computed props)
-    roundToTwoDecimals: function roundToTwoDecimals(value) {
-      return Math.round((Number(value) + Number.EPSILON) * 100) / 100;
-    },
-    // Get payment method name by ID
-    getPaymentMethodName: function getPaymentMethodName(methodId) {
-      var methods = {
-        'cash': 'نقدي (Cash)',
-        'visa': 'فيزا (Visa)',
-        'mada': 'مدى (Mada)',
-        'mastercard': 'ماستركارد (Mastercard)',
-        'bank_transfer': 'تحويل بنكي (Bank Transfer)',
-        'stc_pay': 'STC Pay',
-        'amex': 'أمريكان إكسبريس (American Express)'
-      };
-      return methods[methodId] || methodId;
-    },
-    // Calculate total with VAT sum for all items
-    getTotalWithVatSum: function getTotalWithVatSum() {
-      if (!this.purchaseProducts) return 0;
-      return this.purchaseProducts.reduce(function (total, product) {
-        return total + (parseFloat(product.lineTotal) || 0);
-      }, 0);
-    },
-    // Load communication configuration status
-    loadCommunicationConfigStatus: function loadCommunicationConfigStatus() {
-      var _this2 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-        var response, _t;
-        return _regenerator().w(function (_context) {
-          while (1) switch (_context.p = _context.n) {
-            case 0:
-              _context.p = 0;
-              _this2.communicationConfig.loading = true;
-              _context.n = 1;
-              return axios_default().get('/api/communication-config-status');
-            case 1:
-              response = _context.v;
-              _this2.communicationConfig.email_configured = response.data.email_configured;
-              _this2.communicationConfig.sms_configured = response.data.sms_configured;
-              _this2.communicationConfig.loading = false;
-              _context.n = 3;
-              break;
-            case 2:
-              _context.p = 2;
-              _t = _context.v;
-              console.error('Error loading communication config status:', _t);
-              // Default to false if there's an error
-              _this2.communicationConfig.email_configured = false;
-              _this2.communicationConfig.sms_configured = false;
-              _this2.communicationConfig.loading = false;
-            case 3:
-              return _context.a(2);
-          }
-        }, _callee, null, [[0, 2]]);
-      }))();
-    },
-    // get the purchase
-    getPurchase: function getPurchase() {
-      var _this3 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
-        var _yield$axios$get, data;
-        return _regenerator().w(function (_context2) {
-          while (1) switch (_context2.n) {
-            case 0:
-              _this3.$store.state.operations.loading = true;
-              _context2.n = 1;
-              return axios_default().get(window.location.origin + "/api/purchases/" + _this3.$route.params.slug);
-            case 1:
-              _yield$axios$get = _context2.v;
-              data = _yield$axios$get.data;
-              _this3.allData = data.data;
-              _this3.purchaseProducts = _this3.allData.products;
-              _this3.purchaseProducts.sort(_this3.sortProducts);
-              _this3.$store.state.operations.loading = false;
-            case 2:
-              return _context2.a(2);
-          }
-        }, _callee2);
-      }))();
-    },
-    sortProducts: function sortProducts(a, b) {
-      if (a.productCode < b.productCode) {
-        return -1;
-      }
-      if (a.productCode > b.productCode) {
-        return 1;
-      }
-      return 0;
-    },
-    // download pdf - now opens print page
-    generatePDF: function generatePDF() {
-      // Open the print page in a new window
-      var printUrl = "/print/purchase/".concat(this.$route.params.slug);
-      window.open(printUrl, '_blank');
-    },
-    // notify
-    notify: function notify() {
-      var _this4 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
-        return _regenerator().w(function (_context3) {
-          while (1) switch (_context3.n) {
-            case 0:
-              if (_this4.isDemoMode) {
-                _context3.n = 2;
-                break;
-              }
-              _this4.$store.state.operations.loading = true;
-              _context3.n = 1;
-              return _this4.form.post(window.location.origin + "/api/purchase/notify/" + _this4.$route.params.slug).then(function () {
-                toast.fire({
-                  type: "success",
-                  title: _this4.$t("Notification sent successfully")
-                });
-              })["catch"](function () {
-                toast.fire({
-                  type: "error",
-                  title: _this4.$t("Please check your input and try again.")
-                });
-              });
-            case 1:
-              _this4.$store.state.operations.loading = false;
-              _context3.n = 3;
-              break;
-            case 2:
-              toast.fire({
-                type: "warning",
-                title: _this4.$t("You are not allowed to do this in demo version.")
-              });
-            case 3:
-              return _context3.a(2);
-          }
-        }, _callee3);
-      }))();
-    },
-    // Commented out - replaced with downloadPDF method
-    // printWindow() {
-    //   // Open the print page in a new window
-    //   const printUrl = `/print/purchase/${this.$route.params.slug}`;
-    //   window.open(printUrl, '_blank');
-    // },
-    // download PDF
-    downloadPDF: function downloadPDF() {
-      var params = new URLSearchParams();
-      // Add token to URL
-      var token = this.$store.getters['auth/token'];
-      if (token) {
-        params.append('token', token);
-      }
-      var pdfUrl = "/print/purchase/".concat(this.$route.params.slug, "/pdf?").concat(params.toString());
-      window.location.href = pdfUrl;
-    },
-    // preview PDF
-    previewPDF: function previewPDF() {
-      var params = new URLSearchParams();
-      // Add token to URL
-      var token = this.$store.getters['auth/token'];
-      if (token) {
-        params.append('token', token);
-      }
-      var pdfUrl = "/print/purchase/".concat(this.$route.params.slug, "/preview?").concat(params.toString());
-      window.location.href = pdfUrl;
-    },
-    // print table
-    print: function print() {
-      var _this5 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
-        return _regenerator().w(function (_context4) {
-          while (1) switch (_context4.n) {
-            case 0:
-              _context4.n = 1;
-              return _this5.$htmlToPaper("printMe");
-            case 1:
-              return _context4.a(2);
-          }
-        }, _callee4);
-      }))();
-    },
-    // get activity logs
-    getActivity: function getActivity() {
-      var _this6 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
-        var currentPage, slug, modelName;
-        return _regenerator().w(function (_context5) {
-          while (1) switch (_context5.n) {
-            case 0:
-              currentPage = _this6.pagination ? _this6.pagination.current_page : 1;
-              _this6.$store.state.operations.loading = true;
-              slug = _this6.$route.params.slug;
-              modelName = "Purchase";
-              _context5.n = 1;
-              return _this6.$store.dispatch("operations/fetchSpecificLogs", {
-                path: "/api/activity-log-specific?page=",
-                currentPage: currentPage + "&perPage=" + _this6.perPage,
-                slug: slug,
-                modelName: modelName
-              });
-            case 1:
-              return _context5.a(2);
-          }
-        }, _callee5);
-      }))();
-    },
-    // search data
-    searchData: function searchData() {
-      var _this7 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
-        var slug, modelName;
-        return _regenerator().w(function (_context6) {
-          while (1) switch (_context6.n) {
-            case 0:
-              _this7.$store.state.operations.loading = true;
-              slug = _this7.$route.params.slug;
-              modelName = "Purchase";
-              _context6.n = 1;
-              return _this7.$store.dispatch("operations/fetchSpecificLogs", {
-                path: "/api/activity-log-specific?page=",
-                currentPage: _this7.pagination.current_page + "&perPage=" + _this7.perPage,
-                term: _this7.query,
-                slug: slug,
-                modelName: modelName
-              });
-            case 1:
-              return _context6.a(2);
-          }
-        }, _callee6);
-      }))();
-    },
-    // pagination
-    paginate: function paginate() {
-      var _this8 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7() {
-        return _regenerator().w(function (_context7) {
-          while (1) switch (_context7.n) {
-            case 0:
-              _this8.getActivity();
-            case 1:
-              return _context7.a(2);
-          }
-        }, _callee7);
-      }))();
-    },
-    updatePerPager: function updatePerPager() {
-      this.pagination.current_page = 1;
-      this.query === "" ? this.getActivity() : this.searchData();
-    },
-    // reload after search
-    reload: function reload() {
-      var _this9 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee8() {
-        return _regenerator().w(function (_context8) {
-          while (1) switch (_context8.n) {
-            case 0:
-              _this9.query = "";
-            case 1:
-              return _context8.a(2);
-          }
-        }, _callee8);
-      }))();
-    },
-    // refresh table
-    refreshTable: function refreshTable() {
-      var _this0 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee9() {
-        return _regenerator().w(function (_context9) {
-          while (1) switch (_context9.n) {
-            case 0:
-              _this0.query = "";
-              if (_this0.pagination) {
-                _this0.pagination.current_page = 1;
-              }
-              if (!(_this0.query === "")) {
-                _context9.n = 2;
-                break;
-              }
-              _context9.n = 1;
-              return _this0.getActivity();
-            case 1:
-              _context9.n = 3;
-              break;
-            case 2:
-              _context9.n = 3;
-              return _this0.searchData();
-            case 3:
-              _this0.$toast.success(_this0.$t("Refreshed"), _this0.$t("Activity log has been refreshed successfully"));
-            case 4:
-              return _context9.a(2);
-          }
-        }, _callee9);
-      }))();
-    },
-    // reset pagination
-    resetPagination: function resetPagination() {
-      var _this1 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee0() {
-        return _regenerator().w(function (_context0) {
-          while (1) switch (_context0.n) {
-            case 0:
-              _this1.pagination.current_page = 1;
-            case 1:
-              return _context0.a(2);
-          }
-        }, _callee0);
-      }))();
-    },
-    // return purchase
-    returnPurchase: function returnPurchase(data) {
-      // Navigate to purchase return create page with pre-selected purchase
-      // We'll fetch the supplier info from the purchase on the create page
-      console.log('Full purchase data:', JSON.stringify(data, null, 2));
-      console.log('Purchase slug:', data.slug);
-      this.$router.push({
-        name: 'purchaseReturns.create',
-        query: {
-          purchase: data.slug
-        }
-      });
-    },
-    // Add payment to purchase
-    addPayment: function addPayment() {
-      // Open payment modal
-      if (!this.allData) {
-        return;
-      }
-      this.showPaymentModal = true;
-    },
-    // Handle payment saved event from modal
-    handlePaymentSaved: function handlePaymentSaved() {
-      // Refresh purchase data to show updated payment
-      this.getPurchase();
-    }
-  }
-});
-;// ./resources/js/pages/purchases/show.vue?vue&type=script&lang=js
- /* harmony default export */ const purchases_showvue_type_script_lang_js = (showvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/pages/purchases/show.vue
-
-
-
-
-
-/* normalize component */
-;
-var component = (0,componentNormalizer/* default */.A)(
-  purchases_showvue_type_script_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* harmony default export */ const show = (component.exports);
-
-/***/ }
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".table-responsive[data-v-a6df283c]{background-color:#fff}.invoices-table[data-v-a6df283c]{border:1px solid #cbd0dd;border-collapse:separate;border-radius:8px;border-spacing:0;font-size:.9rem;padding:10px 15px;width:100%}.invoices-table tbody th[data-v-a6df283c]{border:none;font-size:.9rem;font-weight:500;padding:6px 10px;text-align:right}.invoices-table tbody td[data-v-a6df283c]{border:none;font-size:.9rem;padding:6px 10px;text-align:left}.invoices-table tbody tr[data-v-a6df283c]{background-color:#fff;border-bottom:1px solid #e5e7eb}.invoices-table tbody tr[data-v-a6df283c]:last-child{border-bottom:none}.text-bold[data-v-a6df283c]{font-weight:700}.equal-sign[data-v-a6df283c]{font-weight:600;margin-left:4px;margin-right:4px}.saudi-riyal[data-v-a6df283c]{font-family:Arial,sans-serif}[dir=rtl] .invoices-table tbody th[data-v-a6df283c]{text-align:right}[dir=rtl] .invoices-table tbody td[data-v-a6df283c]{text-align:left}[dir=ltr] .invoices-table tbody th[data-v-a6df283c]{text-align:right}[dir=ltr] .invoices-table tbody td[data-v-a6df283c]{text-align:left}.invoices-table tbody tr[data-v-a6df283c]{margin-bottom:2px}.table-custom[data-v-a6df283c]{border:none!important}.table-border-y-0[data-v-a6df283c]{border-bottom:none!important;border-top:none!important}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ })
 
 }]);

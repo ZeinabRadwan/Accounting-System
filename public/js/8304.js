@@ -1,41 +1,46 @@
 "use strict";
 (self["webpackChunk"] = self["webpackChunk"] || []).push([[8304],{
 
-/***/ 60434
-(module, __webpack_exports__, __webpack_require__) {
+/***/ 1634:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76798);
-/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
 // Imports
 
-var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".btn-group.c-w-100[data-v-27dc9d50]{gap:10px}.header-buttons[data-v-27dc9d50]{margin-bottom:15px}.footer-buttons[data-v-27dc9d50]{display:flex;gap:10px}.footer-buttons .btn[data-v-27dc9d50]{margin-right:10px}.footer-buttons .btn[data-v-27dc9d50]:last-child{margin-right:0}.card[data-v-27dc9d50]{border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:30px}.card-footer[data-v-27dc9d50]{background-color:#fff;border-radius:0 0 20px 20px;border-top:1px solid #ced4da;padding:0 1.25rem .625rem}.form-control[data-v-27dc9d50]{background:#fff!important}.btn-primary[data-v-27dc9d50]{background:#2ab930!important}.btn-primary[data-v-27dc9d50],.btn-secondary[data-v-27dc9d50]{border:none!important;color:#fff!important;padding:10px 20px!important}.btn-secondary[data-v-27dc9d50]{background:#33a0d9!important}.btn-secondary[data-v-27dc9d50]:hover{background:#2a8bc4!important;box-shadow:0 4px 8px rgba(51,160,217,.3);transform:translateY(-1px)}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".dtable-footer{align-items:center;display:flex;flex-direction:column;justify-content:space-between;margin-top:30px;padding:0 0 0 10px}.card-footer .form-group.row.display-per-page{align-items:center;display:flex;gap:10px;justify-content:flex-end;width:100%}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
 
-/***/ },
+/***/ }),
 
-/***/ 88304
-(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ 98304:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  "default": () => (/* binding */ edit)
+  "default": () => (/* binding */ plans)
 });
 
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/inventory/adjustments/edit.vue?vue&type=template&id=27dc9d50&scoped=true
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/central/plans/index.vue?vue&type=template&id=7db48c28
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', [_c('div', {
+  return _c('div', [_c('breadcrumbs', {
+    attrs: {
+      "items": _vm.breadcrumbs,
+      "current": _vm.breadcrumbsCurrent
+    }
+  }), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-lg-12"
@@ -43,673 +48,510 @@ var render = function render() {
     staticClass: "card custom-card w-100"
   }, [_c('div', {
     staticClass: "card-header setings-header"
-  }, [_c('breadcrumbs', {
-    attrs: {
-      "items": _vm.breadcrumbs,
-      "current": _vm.breadcrumbsCurrent
-    }
-  }), _vm._v(" "), _c('div', {
+  }, [_c('div', {
+    staticClass: "col-xl-4 col-4"
+  }, [_c('h3', {
+    staticClass: "card-title"
+  }, [_vm._v("\n                            " + _vm._s(_vm.$t('Plans')) + "\n                        ")])]), _vm._v(" "), _c('div', {
     staticClass: "col-xl-8 col-8 float-right text-right"
   }, [_c('div', {
-    staticClass: "btn-group c-w-100 header-buttons"
-  }, [_c('router-link', {
-    staticClass: "btn btn-info",
-    attrs: {
-      "to": {
-        name: 'adjustments.index'
-      }
-    }
-  }, [_vm.$i18n.locale === 'ar' || typeof _vm.document !== 'undefined' && _vm.document.documentElement.getAttribute('dir') === 'rtl' ? [_vm._v("\n\n                  " + _vm._s(_vm.$t('Back')) + " "), _c('i', {
-    staticClass: "fas fa-long-arrow-alt-left"
-  })] : [_vm.$i18n.locale === 'ar' || typeof _vm.document !== 'undefined' && _vm.document.documentElement.getAttribute('dir') === 'rtl' ? [_vm._v("\n\n\n                    " + _vm._s(_vm.$t('Back')) + " "), _c('i', {
-    staticClass: "fas fa-long-arrow-alt-left"
-  })] : [_c('i', {
-    staticClass: "fas fa-long-arrow-alt-left"
-  }), _vm._v(" " + _vm._s(_vm.$t('Back')) + "\n\n\n                  ")]]], 2), _vm._v(" "), _c('button', {
+    staticClass: "btn-group c-w-100"
+  }, [_c('a', {
+    directives: [{
+      name: "tooltip",
+      rawName: "v-tooltip",
+      value: _vm.$t('Refresh'),
+      expression: "$t('Refresh')"
+    }],
     staticClass: "btn btn-success",
     attrs: {
-      "type": "submit",
-      "form": 'adjustmentEditForm',
-      "title": _vm.$t('Save')
+      "href": "#"
+    },
+    on: {
+      "click": function click($event) {
+        return _vm.refreshTable();
+      }
     }
   }, [_c('i', {
-    staticClass: "fas fa-save"
-  })])], 1)])], 1), _vm._v(" "), _c('form', {
+    staticClass: "fas fa-sync"
+  })]), _vm._v(" "), _c('router-link', {
+    staticClass: "btn btn-primary",
     attrs: {
-      "id": "adjustmentEditForm",
-      "role": "form"
-    },
+      "to": {
+        name: 'plans.create'
+      }
+    }
+  }, [_vm._v("\n                                " + _vm._s(_vm.$t('Create')) + "\n                                "), _c('i', {
+    staticClass: "fas fa-plus-circle d-none d-sm-inline-block"
+  })])], 1)])]), _vm._v(" "), _c('div', {
+    staticClass: "card-body position-relative"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-6 col-xl-4 mb-2"
+  }, [_c('search', {
     on: {
-      "submit": function submit($event) {
-        $event.preventDefault();
-        return _vm.updateAdjustment.apply(null, arguments);
+      "reset-pagination": function resetPagination($event) {
+        return _vm.resetPagination();
       },
-      "keydown": function keydown($event) {
-        return _vm.form.onKeydown($event);
-      }
-    }
-  }, [_c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "adjustmentNo"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Adjustment No')))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.adjustmentNo,
-      expression: "form.adjustmentNo"
-    }],
-    staticClass: "form-control",
-    attrs: {
-      "id": "adjustmentNo",
-      "type": "text",
-      "name": "adjustmentReason",
-      "readonly": ""
-    },
-    domProps: {
-      "value": _vm.form.adjustmentNo
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "adjustmentNo", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "adjustmentNo"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "adjustmentReason"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Adjustment Reason')))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.adjustmentReason,
-      expression: "form.adjustmentReason"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('adjustmentReason')
-    },
-    attrs: {
-      "id": "adjustmentReason",
-      "type": "text",
-      "name": "adjustmentReason",
-      "placeholder": _vm.$t('Enter a reason')
-    },
-    domProps: {
-      "value": _vm.form.adjustmentReason
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "adjustmentReason", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "adjustmentReason"
-    }
-  })], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_vm.products ? _c('div', {
-    staticClass: "form-group col-md-12"
-  }, [_c('label', {
-    attrs: {
-      "for": "product"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Select Products')) + "\n                  "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('v-select', {
-    "class": {
-      'is-invalid': _vm.form.errors.has('selectedProducts')
-    },
-    attrs: {
-      "options": _vm.products,
-      "label": "label",
-      "name": "product",
-      "placeholder": _vm.$t('Search products')
-    },
-    on: {
-      "input": function input($event) {
-        return _vm.storeProduct(_vm.form.product);
-      }
+      "reload": _vm.reload
     },
     model: {
-      value: _vm.form.product,
+      value: _vm.query,
       callback: function callback($$v) {
-        _vm.$set(_vm.form, "product", $$v);
+        _vm.query = $$v;
       },
-      expression: "form.product"
+      expression: "query"
     }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "selectedProducts"
-    }
-  })], 1) : _vm._e()]), _vm._v(" "), _vm.form.selectedProducts && _vm.form.selectedProducts.length > 0 ? _c('div', {
-    staticClass: "row mt-3 mb-2"
-  }, [_c('div', {
-    staticClass: "table-responsive table-custom w-95 m-auto"
-  }, [_c('table', {
-    staticClass: "table table-sm"
-  }, [_c('thead', [_c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t('#')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Code')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Name')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Stock')))]), _vm._v(" "), _c('th', {
-    staticClass: "w-200px"
-  }, [_vm._v("\n                        " + _vm._s(_vm.$t('Adjustment Type')) + "\n                      ")]), _vm._v(" "), _c('th', {
-    staticClass: "w-250px"
-  }, [_vm._v(_vm._s(_vm.$t('Quantity')))]), _vm._v(" "), _c('th', {
-    staticClass: "text-right"
-  }, [_vm._v(_vm._s(_vm.$t('Action')))])])]), _vm._v(" "), _c('tbody', _vm._l(_vm.form.selectedProducts, function (item, i) {
-    return _c('tr', {
-      key: i
-    }, [_c('td', [_vm._v(_vm._s(++i))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm._f("withPrefix")(item.itemCode, _vm.productPrefix)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.name))]), _vm._v(" "), _c('td', [_c('span', {
-      staticClass: "btn btn-warning btn-sm"
-    }, [_vm._v(_vm._s(item.stockQty))])]), _vm._v(" "), _c('td', [_c('select', {
-      staticClass: "form-control w-200px",
-      attrs: {
-        "id": "adjustType-".concat(i),
-        "required": ""
-      },
-      on: {
-        "change": function change($event) {
-          return _vm.updateProduct($event.target.value, 'adjustType', i - 1);
-        }
-      }
-    }, [_c('option', {
-      attrs: {
-        "value": "Increment"
-      },
-      domProps: {
-        "selected": item.adjustType == 'Increment'
-      }
-    }, [_vm._v("\n                            " + _vm._s(_vm.$t('Increment')) + "\n                          ")]), _vm._v(" "), _c('option', {
-      attrs: {
-        "value": "Decrement"
-      },
-      domProps: {
-        "selected": item.adjustType == 'Decrement'
-      }
-    }, [_vm._v("\n                            " + _vm._s(_vm.$t('Decrement')) + "\n                          ")])])]), _vm._v(" "), _c('td', [_c('div', {
-      staticClass: "input-group custom-qty-input"
-    }, [_c('input', {
-      staticClass: "button-minus icon-shape icon-sm btn-danger",
-      attrs: {
-        "type": "button",
-        "value": "-",
-        "data-field": "quantity"
-      },
-      on: {
-        "click": function click($event) {
-          return _vm.updateProduct(item.adjustQty > 1 ? item.adjustQty - 1 : 1, 'quantity', i - 1);
-        }
-      }
-    }), _vm._v(" "), _c('input', {
-      staticClass: "quantity-field border-0 incrementor",
-      attrs: {
-        "type": "number",
-        "step": "any",
-        "id": "Qty-".concat(i),
-        "name": "quantity",
-        "placeholder": _vm.$t('Quantity'),
-        "min": "1",
-        "max": item.maxQty,
-        "required": ""
-      },
-      domProps: {
-        "value": item.adjustQty
-      },
-      on: {
-        "change": function change($event) {
-          return _vm.updateProduct($event.target.value, 'quantity', i - 1);
-        },
-        "keyup": function keyup($event) {
-          return _vm.updateProduct($event.target.value, 'quantity', i - 1);
-        }
-      }
-    }), _vm._v(" "), _c('input', {
-      staticClass: "button-plus icon-shape icon-sm btn-primary",
-      attrs: {
-        "type": "button",
-        "value": "+",
-        "data-field": "quantity"
-      },
-      on: {
-        "click": function click($event) {
-          return _vm.updateProduct(item.adjustQty + 1, 'quantity', i - 1);
-        }
-      }
-    })])]), _vm._v(" "), _c('td', {
-      staticClass: "text-right"
-    }, [_c('button', {
-      staticClass: "btn btn-danger",
-      attrs: {
-        "type": "button"
-      },
-      on: {
-        "click": function click($event) {
-          return _vm.removeItem(item);
-        }
-      }
-    }, [_c('i', {
-      staticClass: "fas fa-times"
-    })])])]);
-  }), 0)])])]) : _vm._e(), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "note"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Note')))]), _vm._v(" "), _c('textarea', {
+  })], 1)]), _vm._v(" "), _c('table-loading', {
     directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.note,
-      expression: "form.note"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('note')
-    },
+      name: "show",
+      rawName: "v-show",
+      value: _vm.loading,
+      expression: "loading"
+    }]
+  }), _vm._v(" "), _c('GeneralTable', {
     attrs: {
-      "id": "note",
-      "placeholder": _vm.$t('Write your note here!')
+      "columns": _vm.planColumns,
+      "rows": _vm.plansWithIndex,
+      "loading": _vm.loading,
+      "table-id": "printMe",
+      "wrapper-class": "mt-3",
+      "show-actions": true
     },
-    domProps: {
-      "value": _vm.form.note
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "note", $event.target.value);
+    scopedSlots: _vm._u([{
+      key: "cell-image",
+      fn: function fn(_ref) {
+        var row = _ref.row;
+        return [row.image ? _c('a', {
+          attrs: {
+            "href": "#",
+            "id": "show-modal"
+          },
+          on: {
+            "click": function click($event) {
+              return _vm.previewModal(row.image);
+            }
+          }
+        }, [_c('img', {
+          staticClass: "rounded preview-sm",
+          attrs: {
+            "src": row.image,
+            "loading": "lazy"
+          }
+        })]) : _c('div', {
+          staticClass: "bg-secondary rounded no-preview-sm"
+        }, [_c('small', [_vm._v(_vm._s(_vm.$t('No Preview')))])])];
       }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "note"
-    }
+    }, {
+      key: "cell-currency",
+      fn: function fn(_ref2) {
+        var row = _ref2.row;
+        return [_vm._v("\n                        " + _vm._s(_vm.appInfo.currency.code) + "\n                      ")];
+      }
+    }, {
+      key: "actions",
+      fn: function fn(_ref3) {
+        var row = _ref3.row;
+        return [_c('div', {
+          staticClass: "btn-group"
+        }, [_c('router-link', {
+          directives: [{
+            name: "tooltip",
+            rawName: "v-tooltip",
+            value: _vm.$t('Edit'),
+            expression: "$t('Edit')"
+          }],
+          staticClass: "btn btn-info btn-sm",
+          attrs: {
+            "to": {
+              name: 'plans.edit',
+              params: {
+                id: row.id
+              }
+            }
+          }
+        }, [_c('i', {
+          staticClass: "fas fa-edit"
+        })]), _vm._v(" "), _c('a', {
+          directives: [{
+            name: "tooltip",
+            rawName: "v-tooltip",
+            value: _vm.$t('Delete'),
+            expression: "$t('Delete')"
+          }],
+          staticClass: "btn btn-danger btn-sm",
+          attrs: {
+            "href": "#"
+          },
+          on: {
+            "click": function click($event) {
+              return _vm.deleteData(row.id);
+            }
+          }
+        }, [_c('i', {
+          staticClass: "fas fa-trash"
+        })])], 1)];
+      }
+    }])
   })], 1), _vm._v(" "), _c('div', {
-    staticClass: "row"
+    staticClass: "card-footer"
   }, [_c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "adjustmentDate"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Adjustment Date')))]), _vm._v(" "), _c('input', {
+    staticClass: "dtable-footer"
+  }, [_c('div', {
+    staticClass: "form-group row display-per-page"
+  }, [_c('label', [_vm._v(_vm._s(_vm.$t('per_page')) + " ")]), _vm._v(" "), _c('div', [_c('select', {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.form.adjustmentDate,
-      expression: "form.adjustmentDate"
+      value: _vm.perPage,
+      expression: "perPage"
     }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('adjustmentDate')
-    },
-    attrs: {
-      "id": "adjustmentDate",
-      "type": "date",
-      "name": "adjustmentDate"
-    },
-    domProps: {
-      "value": _vm.form.adjustmentDate
-    },
+    staticClass: "form-control form-control-sm ml-1",
     on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "adjustmentDate", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "adjustmentDate"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "status"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Status')))]), _vm._v(" "), _c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.status,
-      expression: "form.status"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('status')
-    },
-    attrs: {
-      "id": "status"
-    },
-    on: {
-      "change": function change($event) {
+      "change": [function ($event) {
         var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
           return o.selected;
         }).map(function (o) {
           var val = "_value" in o ? o._value : o.value;
           return val;
         });
-        _vm.$set(_vm.form, "status", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-      }
+        _vm.perPage = $event.target.multiple ? $$selectedVal : $$selectedVal[0];
+      }, _vm.updatePerPager]
     }
   }, [_c('option', {
     attrs: {
-      "value": "1"
+      "value": "10"
     }
-  }, [_vm._v(_vm._s(_vm.$t('Active')))]), _vm._v(" "), _c('option', {
+  }, [_vm._v("10")]), _vm._v(" "), _c('option', {
     attrs: {
-      "value": "0"
+      "value": "25"
     }
-  }, [_vm._v(_vm._s(_vm.$t('Inactive')))])]), _vm._v(" "), _c('has-error', {
+  }, [_vm._v("25")]), _vm._v(" "), _c('option', {
     attrs: {
-      "form": _vm.form,
-      "field": "status"
+      "value": "50"
     }
-  })], 1)])]), _vm._v(" "), _c('div', {
-    staticClass: "card-footer"
-  }, [_c('div', {
-    staticClass: "dtable-footer"
-  }, [_c('div', {
-    staticClass: "form-group row display-per-page footer-buttons d-flex justify-content-between w-100"
-  }, [_c('v-button', {
+  }, [_vm._v("50")]), _vm._v(" "), _c('option', {
     attrs: {
-      "loading": _vm.form.busy,
-      "type": "success"
+      "value": "100"
     }
-  }, [_c('i', {
-    staticClass: "fas fa-edit"
-  }), _vm._v(" " + _vm._s(_vm.$t('Save changes')) + "\n                ")]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-info",
+  }, [_vm._v("100")])])])]), _vm._v(" "), _vm.pagination && _vm.pagination.last_page > 1 ? _c('pagination', {
+    staticClass: "justify-flex-end",
     attrs: {
-      "type": "reset"
+      "pagination": _vm.pagination,
+      "offset": 5
     },
     on: {
-      "click": function click($event) {
-        return _vm.form.reset();
+      "paginate": _vm.paginate
+    }
+  }) : _vm._e()], 1)])]), _vm._v(" "), _vm.showModal ? _c('Modal', {
+    on: {
+      "close": function close($event) {
+        return _vm.previewModal();
       }
     }
-  }, [_c('i', {
-    staticClass: "fas fa-power-off"
-  }), _vm._v(" " + _vm._s(_vm.$t('Reset')) + "\n                ")])], 1)])])])])])])]);
+  }, [_c('h5', {
+    attrs: {
+      "slot": "header"
+    },
+    slot: "header"
+  }, [_vm._v("\n                    " + _vm._s(_vm.$t('Plan Logo')) + "\n                ")]), _vm._v(" "), _c('div', {
+    staticClass: "w-100",
+    attrs: {
+      "slot": "body"
+    },
+    slot: "body"
+  }, [_c('img', {
+    staticClass: "rounded img-fluid",
+    attrs: {
+      "src": _vm.imagePath,
+      "loading": "lazy"
+    }
+  })])]) : _vm._e()], 1)])], 1);
 };
 var staticRenderFns = [];
 
-// EXTERNAL MODULE: ./node_modules/vform/dist/vform.es.js
-var vform_es = __webpack_require__(63216);
-// EXTERNAL MODULE: ./node_modules/axios/index.js
-var axios = __webpack_require__(72505);
-var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
 // EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
 var vuex_esm = __webpack_require__(95353);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/inventory/adjustments/edit.vue?vue&type=script&lang=js
+// EXTERNAL MODULE: ./resources/js/components/GeneralTable.vue + 5 modules
+var GeneralTable = __webpack_require__(39173);
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/central/plans/index.vue?vue&type=script&lang=js
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
-function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
-function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
-function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
 
-
-/* harmony default export */ const editvue_type_script_lang_js = ({
+/* harmony default export */ const plansvue_type_script_lang_js = ({
+  layout: 'central',
   middleware: ['auth', 'check-permissions'],
+  components: {
+    GeneralTable: GeneralTable["default"]
+  },
   metaInfo: function metaInfo() {
     return {
-      title: this.$t('Edit Adjustment')
+      title: this.$t('Plans')
     };
   },
   data: function data() {
     return {
-      breadcrumbsCurrent: 'Edit Adjustment',
+      breadcrumbsCurrent: 'Plans',
       breadcrumbs: [{
         name: 'Dashboard',
         url: 'home'
       }, {
-        name: 'Adjustments',
-        url: 'adjustments.index'
-      }, {
-        name: 'Edit',
+        name: 'Plans',
         url: ''
       }],
-      form: new vform_es/* default */.Ay({
-        adjustmentNo: '',
-        selectedProducts: [],
-        adjustmentReason: '',
-        adjustmentDate: new Date().toISOString().slice(0, 10),
-        note: '',
-        status: 1
-      }),
-      products: '',
-      productPrefix: '',
-      adjustmentPrefix: ''
+      showModal: false,
+      imagePath: '',
+      query: '',
+      perPage: 10,
+      isDemoMode: window.config.isDemoMode
     };
   },
-  computed: _objectSpread({}, (0,vuex_esm/* mapGetters */.L8)('operations', ['items', 'appInfo'])),
-  created: function created() {
-    this.getProducts();
-    this.getAdjustment();
-    this.productPrefix = this.appInfo.productPrefix;
-    this.adjustmentPrefix = this.appInfo.adjustmentPrefix;
+  // Map Getters
+  computed: _objectSpread(_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)('operations', ['appInfo', 'items', 'loading', 'pagination'])), {}, {
+    planColumns: function planColumns() {
+      return [{
+        key: "index",
+        label: this.$t("#"),
+        sortable: false
+      }, {
+        key: "image",
+        label: this.$t("Image")
+      }, {
+        key: "name",
+        label: this.$t("Name")
+      }, {
+        key: "amount",
+        label: this.$t("Amount")
+      }, {
+        key: "currency",
+        label: this.$t("Currency")
+      }, {
+        key: "description",
+        label: this.$t("Description")
+      }];
+    },
+    plansWithIndex: function plansWithIndex() {
+      var _this = this;
+      return this.items.map(function (item, index) {
+        return _objectSpread(_objectSpread({}, item), {}, {
+          index: _this.pagination && _this.pagination.current_page > 1 ? _this.pagination.per_page * (_this.pagination.current_page - 1) + (index + 1) : index + 1
+        });
+      });
+    }
+  }),
+  watch: {
+    // watch search data
+    query: function query(newQ) {
+      if (newQ === '') {
+        this.getData();
+      } else {
+        this.searchData();
+      }
+    }
   },
-  mounted: function mounted() {
-    var _this = this;
-    // Load temporary data after component is mounted
-    this.$nextTick(function () {
-      _this.loadTemporaryData();
-    });
+  created: function created() {
+    this.getData();
   },
   methods: {
-    // get the adjustment
-    getAdjustment: function getAdjustment() {
+    // update per page count
+    updatePerPager: function updatePerPager() {
+      this.pagination.current_page = 1;
+      this.query === '' ? this.getData() : this.searchData();
+    },
+    // get data
+    getData: function getData() {
       var _this2 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-        var _yield$axios$get, data;
-        return _regenerator().w(function (_context) {
-          while (1) switch (_context.n) {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        var currentPage;
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
             case 0:
-              _context.n = 1;
-              return axios_default().get(window.location.origin + '/api/inventory-adjustments/' + _this2.$route.params.slug);
-            case 1:
-              _yield$axios$get = _context.v;
-              data = _yield$axios$get.data;
-              _this2.form.adjustmentNo = _this2.$options.filters.withPrefix(data.data.code, _this2.adjustmentPrefix);
-              _this2.form.adjustmentReason = data.data.reason;
-              _this2.form.adjustmentDate = data.data.date;
-              _this2.form.note = data.data.note;
-              _this2.form.status = data.data.status;
-              _this2.assignProducts(data.data.adjustmentProducts);
-            case 2:
-              return _context.a(2);
+              _this2.$store.state.operations.loading = true;
+              currentPage = _this2.pagination ? _this2.pagination.current_page : 1;
+              _context.next = 4;
+              return _this2.$store.dispatch('operations/fetchData', {
+                path: '/api/plans?page=',
+                currentPage: currentPage + '&perPage=' + _this2.perPage
+              });
+            case 4:
+            case "end":
+              return _context.stop();
           }
         }, _callee);
       }))();
     },
-    // get products
-    getProducts: function getProducts() {
+    // Pagination
+    paginate: function paginate() {
       var _this3 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
-        var _yield$axios$get2, data;
-        return _regenerator().w(function (_context2) {
-          while (1) switch (_context2.n) {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
             case 0:
-              _context2.n = 1;
-              return axios_default().get(window.location.origin + '/api/all-products');
-            case 1:
-              _yield$axios$get2 = _context2.v;
-              data = _yield$axios$get2.data;
-              _this3.products = data.data;
-            case 2:
-              return _context2.a(2);
+              if (!(_this3.query === '')) {
+                _context2.next = 5;
+                break;
+              }
+              _context2.next = 3;
+              return _this3.getData();
+            case 3:
+              _context2.next = 7;
+              break;
+            case 5:
+              _context2.next = 7;
+              return _this3.searchData();
+            case 7:
+            case "end":
+              return _context2.stop();
           }
         }, _callee2);
       }))();
     },
-    // store item in array
-    storeProduct: function storeProduct(product) {
-      var index = this.form.selectedProducts.findIndex(function (x) {
-        return x.id == product.id;
-      });
-      var qunatity = 1;
-      if (index === -1) {
-        // store product
-        this.form.selectedProducts.unshift({
-          id: product.id,
-          slug: product.slug,
-          name: product.name,
-          itemCode: product.code,
-          purchasePrice: product.avgPurchasePrice,
-          stockQty: product.inventoryCount,
-          adjustType: 'Increment',
-          adjustQty: qunatity,
-          maxQty: 9999
-        });
-      } else {
-        // update qty
-        if (this.form.selectedProducts[index]) {
-          qunatity = this.form.selectedProducts[index].adjustQty ? this.form.selectedProducts[index].adjustQty + 1 : 1;
-          this.form.selectedProducts[index].adjustQty = qunatity;
-        }
-      }
-      return;
-    },
-    // update array
-    updateProduct: function updateProduct(value, type, index) {
-      var selectedProduct = this.form.selectedProducts[index];
-      if (selectedProduct) {
-        if (type == 'quantity' && selectedProduct.adjustQty >= 1) {
-          selectedProduct.adjustQty = value;
-        } else if (type == 'adjustType') {
-          selectedProduct.adjustType = value;
-          if (selectedProduct.adjustType == 'Decrement') {
-            selectedProduct.maxQty = selectedProduct.stockQty;
-          } else {
-            selectedProduct.maxQty = 9999;
-          }
-        } else {
-          selectedProduct.purchasePrice = value;
-        }
-      }
-      this.form.selectedProducts[index] = selectedProduct;
-      return;
-    },
-    // remove item from array
-    removeItem: function removeItem(item) {
-      var index = this.form.selectedProducts.indexOf(item);
-      if (index > -1) {
-        this.form.selectedProducts.splice(index, 1);
-      }
-      return;
-    },
-    // get order products
-    assignProducts: function assignProducts(products) {
-      for (var key in products) {
-        var adjustmentItem = products[key];
-        this.form.selectedProducts.unshift({
-          id: adjustmentItem.productID,
-          slug: adjustmentItem.productSlug,
-          name: adjustmentItem.productName,
-          itemCode: adjustmentItem.productCode,
-          itemUnit: adjustmentItem.productUnit,
-          purchasePrice: adjustmentItem.purchasePrice,
-          stockQty: adjustmentItem.productStock,
-          oriAdjustType: adjustmentItem.type == 1 ? 'Increment' : 'Decrement',
-          oriAdjustQty: adjustmentItem.quantity,
-          adjustType: adjustmentItem.type == 1 ? 'Increment' : 'Decrement',
-          adjustQty: adjustmentItem.quantity,
-          maxQty: adjustmentItem.type == 0 ? adjustmentItem.productStock : 9999
-        });
-      }
-    },
-    // update adjustments
-    updateAdjustment: function updateAdjustment() {
+    // Reset pagination
+    resetPagination: function resetPagination() {
       var _this4 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
-        return _regenerator().w(function (_context3) {
-          while (1) switch (_context3.n) {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
             case 0:
-              _context3.n = 1;
-              return _this4.form.patch(window.location.origin + '/api/inventory-adjustments/' + _this4.$route.params.slug).then(function () {
-                // Clear temporary data after successful save
-                _this4.clearTemporaryData();
-                toast.fire({
-                  type: 'success',
-                  title: _this4.$t('Adjustment updated successfully')
-                });
-                _this4.$router.push({
-                  name: 'adjustments.index'
-                });
-              })["catch"](function () {
-                toast.fire({
-                  type: 'error',
-                  title: _this4.$t('Please check your input and try again.')
-                });
-              });
+              _this4.pagination.current_page = 1;
             case 1:
-              return _context3.a(2);
+            case "end":
+              return _context3.stop();
           }
         }, _callee3);
       }))();
     },
-    // save form data temporarily
-    saveTemporary: function saveTemporary() {
-      var tempData = {
-        adjustmentReason: this.form.adjustmentReason,
-        selectedProducts: this.form.selectedProducts,
-        status: this.form.status,
-        timestamp: new Date().toISOString()
-      };
-      localStorage.setItem('inventoryAdjustmentEditTempData', JSON.stringify(tempData));
+    // search data
+    searchData: function searchData() {
+      var _this5 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+        var currentPage;
+        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+          while (1) switch (_context4.prev = _context4.next) {
+            case 0:
+              _this5.$store.state.operations.loading = true;
+              currentPage = _this5.pagination ? _this5.pagination.current_page : 1;
+              _context4.next = 4;
+              return _this5.$store.dispatch('operations/searchData', {
+                term: _this5.query,
+                path: '/api/plans/search/',
+                currentPage: currentPage + '&perPage=' + _this5.perPage
+              });
+            case 4:
+            case "end":
+              return _context4.stop();
+          }
+        }, _callee4);
+      }))();
     },
-    // load temporary data
-    loadTemporaryData: function loadTemporaryData() {
-      var tempData = localStorage.getItem('inventoryAdjustmentEditTempData');
-      if (tempData) {
-        try {
-          var data = JSON.parse(tempData);
-          this.form.adjustmentReason = data.adjustmentReason || this.form.adjustmentReason;
-          this.form.selectedProducts = data.selectedProducts || this.form.selectedProducts;
-          this.form.status = data.status !== undefined ? data.status : this.form.status;
-        } catch (error) {
-          console.error('Error loading temporary data:', error);
-        }
+    // Reload after search
+    reload: function reload() {
+      var _this6 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+          while (1) switch (_context5.prev = _context5.next) {
+            case 0:
+              _this6.query = '';
+            case 1:
+            case "end":
+              return _context5.stop();
+          }
+        }, _callee5);
+      }))();
+    },
+    // refresh table
+    refreshTable: function refreshTable() {
+      this.query = '';
+      this.query === '' ? this.getData() : this.searchData();
+    },
+    // display modal
+    previewModal: function previewModal(image) {
+      this.imagePath = image;
+      if (this.showModal) {
+        return this.showModal = false;
       }
+      return this.showModal = true;
     },
-    // clear temporary data
-    clearTemporaryData: function clearTemporaryData() {
-      localStorage.removeItem('inventoryAdjustmentEditTempData');
+    // print table
+    print: function print() {
+      var _this7 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+          while (1) switch (_context6.prev = _context6.next) {
+            case 0:
+              _context6.next = 2;
+              return _this7.$htmlToPaper('printMe');
+            case 2:
+            case "end":
+              return _context6.stop();
+          }
+        }, _callee6);
+      }))();
+    },
+    // delete data
+    deleteData: function deleteData(id) {
+      var _this8 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
+        return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+          while (1) switch (_context7.prev = _context7.next) {
+            case 0:
+              if (!_this8.isDemoMode) {
+                _context7.next = 2;
+                break;
+              }
+              return _context7.abrupt("return", toast.fire({
+                type: 'warning',
+                title: _this8.$t('You are not allowed to do this in demo version.')
+              }));
+            case 2:
+              Swal.fire({
+                title: _this8.$t('Are you sure?'),
+                text: _this8.$t('You will not be able to return to this!'),
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: _this8.$t('Delete')
+              }).then(function (result) {
+                // Send request to the server
+                if (result.value) {
+                  _this8.$store.dispatch('operations/deleteData', {
+                    path: '/api/plans/',
+                    slug: id
+                  }).then(function (response) {
+                    if (response === true) {
+                      _this8.$toast.success(_this8.$t('Deleted!'), _this8.$t('Deleted successfully.'));
+                      _this8.getData();
+                    } else {
+                      _this8.$toast.warning(_this8.$t('Failed!'), _this8.$t('There was something wrong.'));
+                    }
+                  });
+                }
+              });
+            case 3:
+            case "end":
+              return _context7.stop();
+          }
+        }, _callee7);
+      }))();
     }
   }
 });
-;// ./resources/js/pages/inventory/adjustments/edit.vue?vue&type=script&lang=js
- /* harmony default export */ const adjustments_editvue_type_script_lang_js = (editvue_type_script_lang_js); 
+;// ./resources/js/pages/central/plans/index.vue?vue&type=script&lang=js
+ /* harmony default export */ const central_plansvue_type_script_lang_js = (plansvue_type_script_lang_js); 
 // EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(85072);
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/inventory/adjustments/edit.vue?vue&type=style&index=0&id=27dc9d50&prod&scoped=true&lang=css
-var editvue_type_style_index_0_id_27dc9d50_prod_scoped_true_lang_css = __webpack_require__(60434);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/inventory/adjustments/edit.vue?vue&type=style&index=0&id=27dc9d50&prod&scoped=true&lang=css
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/central/plans/index.vue?vue&type=style&index=0&id=7db48c28&prod&lang=css
+var plansvue_type_style_index_0_id_7db48c28_prod_lang_css = __webpack_require__(1634);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/central/plans/index.vue?vue&type=style&index=0&id=7db48c28&prod&lang=css
 
             
 
@@ -718,16 +560,16 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = injectStylesIntoStyleTag_default()(editvue_type_style_index_0_id_27dc9d50_prod_scoped_true_lang_css/* default */.A, options);
+var update = injectStylesIntoStyleTag_default()(plansvue_type_style_index_0_id_7db48c28_prod_lang_css/* default */.A, options);
 
 
 
-/* harmony default export */ const adjustments_editvue_type_style_index_0_id_27dc9d50_prod_scoped_true_lang_css = (editvue_type_style_index_0_id_27dc9d50_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/pages/inventory/adjustments/edit.vue?vue&type=style&index=0&id=27dc9d50&prod&scoped=true&lang=css
+/* harmony default export */ const central_plansvue_type_style_index_0_id_7db48c28_prod_lang_css = (plansvue_type_style_index_0_id_7db48c28_prod_lang_css/* default */.A.locals || {});
+;// ./resources/js/pages/central/plans/index.vue?vue&type=style&index=0&id=7db48c28&prod&lang=css
 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/pages/inventory/adjustments/edit.vue
+;// ./resources/js/pages/central/plans/index.vue
 
 
 
@@ -737,18 +579,18 @@ var componentNormalizer = __webpack_require__(14486);
 /* normalize component */
 
 var component = (0,componentNormalizer/* default */.A)(
-  adjustments_editvue_type_script_lang_js,
+  central_plansvue_type_script_lang_js,
   render,
   staticRenderFns,
   false,
   null,
-  "27dc9d50",
+  null,
   null
   
 )
 
-/* harmony default export */ const edit = (component.exports);
+/* harmony default export */ const plans = (component.exports);
 
-/***/ }
+/***/ })
 
 }]);

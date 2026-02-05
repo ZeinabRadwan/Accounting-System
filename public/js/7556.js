@@ -1,8 +1,8 @@
 "use strict";
 (self["webpackChunk"] = self["webpackChunk"] || []).push([[7556],{
 
-/***/ 27556
-(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ 27556:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
@@ -84,6 +84,6 @@ var component = (0,componentNormalizer/* default */.A)(
 
 /* harmony default export */ const edit = (component.exports);
 
-/***/ }
+/***/ })
 
 }]);

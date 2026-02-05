@@ -1,8 +1,8 @@
 "use strict";
 (self["webpackChunk"] = self["webpackChunk"] || []).push([[8790],{
 
-/***/ 88790
-(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ 88790:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -28,6 +28,6 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
 
-/***/ }
+/***/ })
 
 }]);
