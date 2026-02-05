@@ -26,7 +26,7 @@ class ExportGroupAccountStatement implements FromCollection, WithHeadings, Shoul
     {
         $reportController = new ReportController();
         $response = $reportController->groupAccountStatement(new \Illuminate\Http\Request($this->filters));
-        
+
         // Check if the response has the expected structure
         if (isset($response['success']) && $response['success'] && isset($response['data'])) {
             $data = $response['data'];
@@ -34,13 +34,13 @@ class ExportGroupAccountStatement implements FromCollection, WithHeadings, Shoul
             // If the response doesn't have the expected structure, use it directly
             $data = $response;
         }
-        
+
         $formattedData = collect([]);
-        
+
         // Add report header
         $formattedData->push(['GROUP ACCOUNT STATEMENT', '', '', '', '', '']);
         $formattedData->push(['', '', '', '', '', '']);
-        
+
         // Add account information
         if (isset($data['chart_of_accounts']) && is_array($data['chart_of_accounts'])) {
             $formattedData->push(['Selected Accounts:', '', '', '', '', '']);
@@ -49,7 +49,7 @@ class ExportGroupAccountStatement implements FromCollection, WithHeadings, Shoul
             }
             $formattedData->push(['', '', '', '', '', '']);
         }
-        
+
         // Add period information
         if (isset($data['filters'])) {
             $filters = $data['filters'];
@@ -58,7 +58,7 @@ class ExportGroupAccountStatement implements FromCollection, WithHeadings, Shoul
             }
         }
         $formattedData->push(['', '', '', '', '', '']);
-        
+
         // Add summary
         if (isset($data['summary'])) {
             $summary = $data['summary'];
@@ -69,10 +69,10 @@ class ExportGroupAccountStatement implements FromCollection, WithHeadings, Shoul
             $formattedData->push(['Total Closing Balance:', $summary['total_closing_balance'] ?? 0, $summary['total_closing_balance_type'] ?? '', '', '', '']);
             $formattedData->push(['', '', '', '', '', '']);
         }
-        
+
         // Add table headers
-        $formattedData->push(['#', 'Date', 'Account', 'Particulars', 'Debit', 'Credit']);
-        
+        $formattedData->push(['#', 'Date', 'Account', 'Analytical Account', 'Particulars', 'Debit', 'Credit']);
+
         // Add entries data
         if (isset($data['entries']) && is_array($data['entries'])) {
             foreach ($data['entries'] as $index => $entry) {
@@ -82,6 +82,7 @@ class ExportGroupAccountStatement implements FromCollection, WithHeadings, Shoul
                             $index + 1,
                             $entry['entry_date'] ?? '',
                             $accountEntry['code'] ?? '',
+                            $accountEntry['analytical_account_name'] ?? '-',
                             $entry['description'] ?? '',
                             $accountEntry['debit'] ?? 0,
                             $accountEntry['credit'] ?? 0,
@@ -92,6 +93,7 @@ class ExportGroupAccountStatement implements FromCollection, WithHeadings, Shoul
                         $index + 1,
                         $entry['entry_date'] ?? '',
                         $entry['account_code'] ?? '',
+                        $entry['analytical_account_name'] ?? '-',
                         $entry['description'] ?? '',
                         $entry['debit_amount'] ?? 0,
                         $entry['credit_amount'] ?? 0,
@@ -99,7 +101,7 @@ class ExportGroupAccountStatement implements FromCollection, WithHeadings, Shoul
                 }
             }
         }
-        
+
         return $formattedData;
     }
 
@@ -115,6 +117,7 @@ class ExportGroupAccountStatement implements FromCollection, WithHeadings, Shoul
             'Field 4',
             'Field 5',
             'Field 6',
+            'Field 7',
         ];
     }
 
@@ -125,7 +128,7 @@ class ExportGroupAccountStatement implements FromCollection, WithHeadings, Shoul
     {
         return [
             AfterSheet::class => function (AfterSheet $event) {
-                $event->sheet->getStyle('A1:F1')->applyFromArray([
+                $event->sheet->getStyle('A1:G1')->applyFromArray([
                     'font' => [
                         'bold' => true,
                     ],

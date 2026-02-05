@@ -19,9 +19,9 @@
                 class="btn tree-btn">
                 <i class="fas fa-list"></i>
               </router-link>
-              <router-link v-if="hasPermission('create') && resolveRoute('create')" :to="resolveRoute('create')"
-                class="btn btn-primary">
-                <i class="fas fa-plus-circle"></i> {{ $t('Create') }}
+              <router-link v-if="hasPermission('create') && resolveRoute('create')" :to="createRoute"
+                class="btn btn-primary" v-tooltip="selectedItem ? $t('Add Sub Account to') + ' ' + resolveDisplayName(selectedItem) : $t('Create New Account')">
+                <i :class="selectedItem ? 'fas fa-plus' : 'fas fa-plus-circle'"></i> {{ createButtonLabel }}
               </router-link>
             </div>
           </div>
@@ -37,7 +37,7 @@
         :can-drag="enableDragAndDrop ? canDragItem : null" :get-display-name="resolveDisplayName"
         :is-last-sibling="isLastSibling" @toggle-expand="toggleExpand" @reset-pagination="resetPagination"
         @reload="reload" @drag-start="handleDragStart" @drag-over="handleDragOver" @drag-leave="handleDragLeave"
-        @drop="handleDrop" @drag-end="handleDragEnd">
+        @drop="handleDrop" @drag-end="handleDragEnd" @select-account="item => selectedItem = item">
         <template v-if="$scopedSlots.badges" #badges="{ item }">
           <slot name="badges" :item="item" />
         </template>
@@ -106,6 +106,7 @@ export default {
     draggedItemId: null,
     draggedItem: null,
     dragOverItemId: null,
+    selectedItem: null,
   }),
   computed: {
     ...mapGetters("operations", ["loading", "appInfo"]),
@@ -132,6 +133,15 @@ export default {
     },
     storeLocale() {
       return this.$store?.getters?.["lang/locale"];
+    },
+    createRoute() {
+      if (this.selectedItem) {
+        return this.resolveRoute('createChild', this.selectedItem) || this.resolveRoute('create');
+      }
+      return this.resolveRoute('create');
+    },
+    createButtonLabel() {
+      return this.selectedItem ? this.$t('Add Sub Account') : this.$t('Create');
     },
   },
   watch: {
@@ -401,6 +411,7 @@ export default {
     refreshTree() {
       this.query = "";
       this.expandedNodes.clear();
+      this.selectedItem = null;
       this.getData();
     },
     async resetPagination() {

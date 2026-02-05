@@ -68,6 +68,16 @@
                   </div>
                 </div>
 
+                <!-- Analytical Account Filter -->
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="analytical_account_id">{{ $t("Analytical Account") }}</label>
+                    <v-select v-model="filters.analyticalAccountId" :options="analyticalAccounts"
+                      :reduce="account => account.id" label="display_name" :placeholder="$t('Select Analytical Account')"
+                      :searchable="true" :clearable="true" :loading="loadingAnalyticalAccounts" @search="searchAnalyticalAccounts" />
+                  </div>
+                </div>
+
                 <!-- Account Level Filter -->
                 <div class="col-md-3">
                   <div class="form-group">
@@ -440,6 +450,7 @@ export default {
         chartOfAccountId: null,
         subChartOfAccountId: null,
         costCenterId: null,
+        analyticalAccountId: null,
         accountLevel: null,
         fromDate: null,
         toDate: null,
@@ -449,10 +460,12 @@ export default {
       chartOfAccounts: [],
       subChartOfAccounts: [],
       costCenters: [],
+      analyticalAccounts: [],
       accountLevels: [1, 2, 3, 4, 5],
       loadingChartOfAccounts: false,
       loadingSubChartOfAccounts: false,
       loadingCostCenters: false,
+      loadingAnalyticalAccounts: false,
     };
   },
   computed: {
@@ -491,6 +504,9 @@ export default {
       if (this.filters.costCenterId) {
         params.append('cost_center_id', this.filters.costCenterId);
       }
+      if (this.filters.analyticalAccountId) {
+        params.append('analytical_account_id', this.filters.analyticalAccountId);
+      }
       if (this.filters.accountLevel) {
         params.append('account_level', this.filters.accountLevel);
       }
@@ -517,6 +533,7 @@ export default {
       await Promise.all([
         this.loadChartOfAccounts(),
         this.loadCostCenters(),
+        this.loadAnalyticalAccounts(),
       ]);
     },
 
@@ -641,6 +658,70 @@ export default {
       }
     },
 
+    async loadAnalyticalAccounts() {
+      this.loadingAnalyticalAccounts = true;
+      try {
+        const response = await axios.get("/api/analytical-accounts/all", {
+          params: { limit: 100 }
+        });
+        if (response.data && Array.isArray(response.data)) {
+          this.analyticalAccounts = response.data.map(account => ({
+            ...account,
+            display_name: `[${account.code}] ${account.name}`
+          }));
+        } else if (response.data && response.data.data && Array.isArray(response.data.data)) {
+          this.analyticalAccounts = response.data.data.map(account => ({
+            ...account,
+            display_name: `[${account.code}] ${account.name}`
+          }));
+        } else {
+          this.analyticalAccounts = [];
+        }
+      } catch (error) {
+        console.error('Error loading analytical accounts:', error);
+        this.$toast.error('', error.response?.data?.message || this.$t("Failed to load analytical accounts"));
+        this.analyticalAccounts = [];
+      } finally {
+        this.loadingAnalyticalAccounts = false;
+      }
+    },
+
+    async searchAnalyticalAccounts(search, loading) {
+      if (loading) {
+        loading(true);
+      } else {
+        this.loadingAnalyticalAccounts = true;
+      }
+      try {
+        const response = await axios.get("/api/analytical-accounts/all", {
+          params: { search, limit: 100 }
+        });
+        if (response.data && Array.isArray(response.data)) {
+          this.analyticalAccounts = response.data.map(account => ({
+            ...account,
+            display_name: `[${account.code}] ${account.name}`
+          }));
+        } else if (response.data && response.data.data && Array.isArray(response.data.data)) {
+          this.analyticalAccounts = response.data.data.map(account => ({
+            ...account,
+            display_name: `[${account.code}] ${account.name}`
+          }));
+        } else {
+          this.analyticalAccounts = [];
+        }
+      } catch (error) {
+        console.error('Error searching analytical accounts:', error);
+        this.$toast.error('', error.response?.data?.message || this.$t("Failed to search analytical accounts"));
+        this.analyticalAccounts = [];
+      } finally {
+        if (loading) {
+          loading(false);
+        } else {
+          this.loadingAnalyticalAccounts = false;
+        }
+      }
+    },
+
     onChartOfAccountChange(accountId) {
       this.filters.subChartOfAccountId = null;
       this.subChartOfAccounts = [];
@@ -671,6 +752,9 @@ export default {
         }
         if (this.filters.costCenterId) {
           params.append('cost_center_id', this.filters.costCenterId);
+        }
+        if (this.filters.analyticalAccountId) {
+          params.append('analytical_account_id', this.filters.analyticalAccountId);
         }
         if (this.filters.accountLevel) {
           params.append('account_level', this.filters.accountLevel);
@@ -785,6 +869,7 @@ export default {
         const requestData = {
           account_id: accountId,
           cost_center_id: this.filters.costCenterId,
+          analytical_account_id: this.filters.analyticalAccountId,
           from_date: this.filters.fromDate,
           to_date: this.filters.toDate,
         };

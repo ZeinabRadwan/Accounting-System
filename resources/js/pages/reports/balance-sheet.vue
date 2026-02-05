@@ -77,6 +77,26 @@
             </div>
           </div>
 
+          <!-- Cost Center Filter -->
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>{{ $t("Cost Center") }}</label>
+              <v-select v-model="filters.costCenterId" :options="costCenters"
+                :reduce="center => center.id" label="display_name" :placeholder="$t('Select Cost Center')"
+                :searchable="true" :clearable="true" :loading="loadingCostCenters" @search="searchCostCenters" />
+            </div>
+          </div>
+
+          <!-- Analytical Account Filter -->
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>{{ $t("Analytical Account") }}</label>
+              <v-select v-model="filters.analyticalAccountId" :options="analyticalAccounts"
+                :reduce="account => account.id" label="display_name" :placeholder="$t('Select Analytical Account')"
+                :searchable="true" :clearable="true" :loading="loadingAnalyticalAccounts" @search="searchAnalyticalAccounts" />
+            </div>
+          </div>
+
           <!-- Action Buttons -->
           <div class="col-12">
             <div class="form-group btn-group c-w-100">
@@ -294,7 +314,13 @@ export default {
       accountingPeriodId: null,
       fromDate: null,
       toDate: null,
+      costCenterId: null,
+      analyticalAccountId: null,
     },
+    costCenters: [],
+    analyticalAccounts: [],
+    loadingCostCenters: false,
+    loadingAnalyticalAccounts: false,
   }),
 
   computed: {
@@ -313,6 +339,12 @@ export default {
       }
       if (this.filters.toDate) {
         params.append('to_date', this.filters.toDate);
+      }
+      if (this.filters.costCenterId) {
+        params.append('cost_center_id', this.filters.costCenterId);
+      }
+      if (this.filters.analyticalAccountId) {
+        params.append('analytical_account_id', this.filters.analyticalAccountId);
       }
       
       return `/reports/balance-sheet/export?${params.toString()}`;
@@ -333,6 +365,12 @@ export default {
       }
       if (this.filters.toDate) {
         params.append('to_date', this.filters.toDate);
+      }
+      if (this.filters.costCenterId) {
+        params.append('cost_center_id', this.filters.costCenterId);
+      }
+      if (this.filters.analyticalAccountId) {
+        params.append('analytical_account_id', this.filters.analyticalAccountId);
       }
       
       // Add token to URL
@@ -371,6 +409,8 @@ export default {
   created() {
     try {
       this.loadFiscalYears();
+      this.loadCostCenters();
+      this.loadAnalyticalAccounts();
     } catch (error) {
       console.error("Error in created():", error);
     }
@@ -463,6 +503,122 @@ export default {
       }
     },
 
+    async loadCostCenters() {
+      this.loadingCostCenters = true;
+      try {
+        const response = await axios.get("/api/cost-centers/all", {
+          params: { limit: 100 }
+        });
+        if (response.data && Array.isArray(response.data)) {
+          this.costCenters = response.data;
+        } else if (response.data && response.data.data && Array.isArray(response.data.data)) {
+          this.costCenters = response.data.data;
+        } else {
+          this.costCenters = [];
+        }
+      } catch (error) {
+        console.error('Error loading cost centers:', error);
+        this.$toast.error('', error.response?.data?.message || this.$t("Failed to load cost centers"));
+        this.costCenters = [];
+      } finally {
+        this.loadingCostCenters = false;
+      }
+    },
+
+    async searchCostCenters(search, loading) {
+      if (loading) {
+        loading(true);
+      } else {
+        this.loadingCostCenters = true;
+      }
+      try {
+        const response = await axios.get("/api/cost-centers/all", {
+          params: { search, limit: 100 }
+        });
+        if (response.data && Array.isArray(response.data)) {
+          this.costCenters = response.data;
+        } else if (response.data && response.data.data && Array.isArray(response.data.data)) {
+          this.costCenters = response.data.data;
+        } else {
+          this.costCenters = [];
+        }
+      } catch (error) {
+        console.error('Error searching cost centers:', error);
+        this.$toast.error('', error.response?.data?.message || this.$t("Failed to search cost centers"));
+        this.costCenters = [];
+      } finally {
+        if (loading) {
+          loading(false);
+        } else {
+          this.loadingCostCenters = false;
+        }
+      }
+    },
+
+    async loadAnalyticalAccounts() {
+      this.loadingAnalyticalAccounts = true;
+      try {
+        const response = await axios.get("/api/analytical-accounts/all", {
+          params: { limit: 100 }
+        });
+        if (response.data && Array.isArray(response.data)) {
+          this.analyticalAccounts = response.data.map(account => ({
+            ...account,
+            display_name: `[${account.code}] ${account.name}`
+          }));
+        } else if (response.data && response.data.data && Array.isArray(response.data.data)) {
+          this.analyticalAccounts = response.data.data.map(account => ({
+            ...account,
+            display_name: `[${account.code}] ${account.name}`
+          }));
+        } else {
+          this.analyticalAccounts = [];
+        }
+      } catch (error) {
+        console.error('Error loading analytical accounts:', error);
+        this.$toast.error('', error.response?.data?.message || this.$t("Failed to load analytical accounts"));
+        this.analyticalAccounts = [];
+      } finally {
+        this.loadingAnalyticalAccounts = false;
+      }
+    },
+
+    async searchAnalyticalAccounts(search, loading) {
+      if (loading) {
+        loading(true);
+      } else {
+        this.loadingAnalyticalAccounts = true;
+      }
+      try {
+        const response = await axios.get("/api/analytical-accounts/all", {
+          params: { search, limit: 100 }
+        });
+        if (response.data && Array.isArray(response.data)) {
+          this.analyticalAccounts = response.data.map(account => ({
+            ...account,
+            display_name: `[${account.code}] ${account.name}`
+          }));
+        } else if (response.data && response.data.data && Array.isArray(response.data.data)) {
+          this.analyticalAccounts = response.data.data.map(account => ({
+            ...account,
+            display_name: `[${account.code}] ${account.name}`
+          }));
+        } else {
+          this.analyticalAccounts = [];
+        }
+      } catch (error) {
+        console.error('Error searching analytical accounts:', error);
+        this.$toast.error('', error.response?.data?.message || this.$t("Failed to search analytical accounts"));
+        this.analyticalAccounts = [];
+      } finally {
+        if (loading) {
+          loading(false);
+        } else {
+          this.loadingAnalyticalAccounts = false;
+        }
+      }
+    },
+
     // Generate balance sheet report
     async generateReport() {
       this.loading = true;
@@ -480,6 +636,12 @@ export default {
         }
         if (this.filters.toDate) {
           params.append('to_date', this.filters.toDate);
+        }
+        if (this.filters.costCenterId) {
+          params.append('cost_center_id', this.filters.costCenterId);
+        }
+        if (this.filters.analyticalAccountId) {
+          params.append('analytical_account_id', this.filters.analyticalAccountId);
         }
 
         const { data } = await axios.get(
@@ -506,6 +668,8 @@ export default {
         accountingPeriodId: null,
         fromDate: null,
         toDate: null,
+        costCenterId: null,
+        analyticalAccountId: null,
       };
       this.accountingPeriods = [];
       this.balanceData = null;
@@ -533,6 +697,12 @@ export default {
       if (this.filters.toDate) {
         params.append('to_date', this.filters.toDate);
       }
+      if (this.filters.costCenterId) {
+        params.append('cost_center_id', this.filters.costCenterId);
+      }
+      if (this.filters.analyticalAccountId) {
+        params.append('analytical_account_id', this.filters.analyticalAccountId);
+      }
       
       // Redirect to backend PDF route with query parameters
       // Add token to URL
@@ -559,6 +729,12 @@ export default {
       }
       if (this.filters.toDate) {
         params.append('to_date', this.filters.toDate);
+      }
+      if (this.filters.costCenterId) {
+        params.append('cost_center_id', this.filters.costCenterId);
+      }
+      if (this.filters.analyticalAccountId) {
+        params.append('analytical_account_id', this.filters.analyticalAccountId);
       }
       
       // Redirect to backend PDF route with query parameters

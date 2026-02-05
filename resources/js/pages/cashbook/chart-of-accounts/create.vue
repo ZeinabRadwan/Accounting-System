@@ -124,10 +124,12 @@
                   <has-error :form="form" field="type_id" />
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="parent_id">{{ $t('Parent Account') }}</label>
+                  <label for="parent_id">{{ $t('Parent Account') }}
+                    <span v-if="$route.query.parent_id" class="required">*</span>
+                  </label>
                   <v-select v-model="form.parent_id" :options="parentAccounts" label="name"
                     :class="{ 'is-invalid': form.errors.has('parent_id') }" name="parent_id"
-                    :placeholder="parentAccounts.length === 0 ? $t('No compatible parent accounts available') : $t('Select parent account (optional)')" />
+                    :placeholder="parentAccounts.length === 0 ? $t('No compatible parent accounts available') : ($route.query.parent_id ? $t('Select parent account') : $t('Select parent account (optional)'))" />
                   <small v-if="parentAccounts.length === 0 && form.type_id" class="text-muted">
                     <i class="fas fa-info-circle mr-1"></i>
                     {{ $t('No parent accounts available for the selected account type') }}
@@ -230,6 +232,18 @@ export default {
       const parent = this.allParentAccounts.find(p => p.id === parentId);
       if (parent) {
         this.form.parent_id = parent;
+        
+        // Automatically set account type from parent
+        const parentTypeId = parent.type_id || (parent.type ? parent.type.id : null);
+        if (parentTypeId) {
+          const type = this.accountTypes.find(t => t.id === parentTypeId);
+          if (type) {
+            this.form.type_id = type;
+            // Filter parents based on the newly set type
+            this.filterParentAccounts();
+          }
+        }
+
         // Auto-generate code if in automatic mode
         if (this.form.code_generation === 'automatic') {
           await this.generateCode();
@@ -407,6 +421,15 @@ export default {
 
     // save chart of account
     async saveAccount() {
+      // client-side validation for mandatory parent when creating sub-account
+      if (this.$route.query.parent_id && !this.form.parent_id) {
+        toast.fire({
+          type: 'error',
+          title: this.$t('Parent account is required')
+        })
+        return
+      }
+
       // Extract IDs from the selected objects before sending
       const formData = {
         ...this.form.data(),
