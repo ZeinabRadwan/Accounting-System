@@ -4613,9 +4613,14 @@ class ReportController extends Controller
 
     /**
      * Get Trial Balance report data with hierarchical tree structure
+     * OPTIMIZED: Calculates all balances in a single query for instant loading
      */
     public function trialBalance(Request $request)
     {
+        // Increase memory limit and execution time for large datasets
+        ini_set('memory_limit', '1G');
+        set_time_limit(300);
+
         try {
             // Validate request
             $this->validate($request, [
@@ -4626,8 +4631,6 @@ class ReportController extends Controller
                 'account_level' => 'nullable|integer|min:1|max:10',
                 'from_date' => 'required|date',
                 'to_date' => 'required|date|after_or_equal:from_date',
-                'page' => 'nullable|numeric|min:1',
-                'per_page' => 'nullable|numeric|min:1|max:100',
             ]);
 
             $chartOfAccountId = $request->chart_of_account_id;
@@ -4637,8 +4640,6 @@ class ReportController extends Controller
             $accountLevel = $request->account_level;
             $fromDate = $request->from_date;
             $toDate = $request->to_date;
-            $page = (int) ($request->page ?? 1);
-            $perPage = (int) ($request->per_page ?? ($page === 1 ? 999999 : 30)); // Page 1 loads all, others use chunks
 
             // Load ALL chart of accounts first (much faster) - load complete hierarchy
             $branchId = Auth::user()->default_branch_id ?? null;
@@ -4652,6 +4653,9 @@ class ReportController extends Controller
                 'to_date' => $toDate,
                 'branch_id' => $branchId,
             ];
+
+            Log::info('Trial Balance - Starting calculation with filters:', $filters);
+
             $allAccountsQuery = \App\Models\ChartOfAccount::forBranch($branchId)
                 ->with($this->getCompleteHierarchyEagerLoad())
                 ->where('is_active', true)
@@ -4664,18 +4668,15 @@ class ReportController extends Controller
                     ->findOrFail($subChartOfAccountId);
 
                 $allAccounts = collect([$selectedAccount]);
-                $totalCount = 1;
             } elseif ($chartOfAccountId) {
                 $selectedAccount = \App\Models\ChartOfAccount::forBranch($branchId)
                     ->with($this->getCompleteHierarchyEagerLoad())
                     ->findOrFail($chartOfAccountId);
 
                 $allAccounts = collect([$selectedAccount]);
-                $totalCount = 1;
             } else {
                 // Load ALL accounts at once (much faster than pagination)
                 $allAccounts = $allAccountsQuery->orderBy('code')->get();
-                $totalCount = $allAccounts->count();
             }
 
             // Filter by account level if specified
@@ -4683,26 +4684,17 @@ class ReportController extends Controller
                 $allAccounts = $this->filterAccountsByLevel($allAccounts, $accountLevel);
             }
 
-            // Always return ALL accounts with zero balances (no pagination)
-            $trialBalanceData = $this->buildTrialBalanceHierarchyWithZeroBalances($allAccounts);
+            Log::info('Trial Balance - Building hierarchy with real balances for ' . count($allAccounts) . ' root accounts');
+
+            // Build the hierarchical trial balance with REAL calculated balances
+            // This calculates all balances in optimized database queries
+            $trialBalanceData = $this->buildTrialBalanceHierarchy($allAccounts, $filters);
             $totalCount = count($trialBalanceData);
 
-            // Since all accounts have zero balances, grand totals should also be zero
-            $grandTotals = [
-                'total_debits' => 0,
-                'total_credits' => 0,
-                'opening_debit' => 0,
-                'opening_credit' => 0,
-                'movement_debit' => 0,
-                'movement_credit' => 0,
-                'net_movement_debit' => 0,
-                'net_movement_credit' => 0,
-                'closing_debit' => 0,
-                'closing_credit' => 0,
-                'difference' => 0,
-            ];
+            // Calculate grand totals from real data
+            $grandTotals = $this->calculateGrandTotals($trialBalanceData);
 
-            Log::info("Trial Balance - All accounts loaded: {$totalCount} accounts with zero balances");
+            Log::info('Trial Balance - Calculation complete. Total accounts: ' . $totalCount);
 
             return [
                 'success' => true,
@@ -4714,6 +4706,10 @@ class ReportController extends Controller
                 ],
             ];
         } catch (\Exception $e) {
+            Log::error('Trial Balance Error: ' . $e->getMessage(), [
+                'trace' => $e->getTraceAsString(),
+            ]);
+
             return response()->json([
                 'success' => false,
                 'message' => 'Failed to generate trial balance',

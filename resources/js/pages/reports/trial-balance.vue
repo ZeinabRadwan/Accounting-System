@@ -112,15 +112,8 @@
 
               <div class="row">
                 <div class="col-md-12">
-                  <!-- <button
-                    @click="printReport"
-                    class="btn btn-success mb-3"
-                    :disabled="!reportData"
-                  >
-                    <i class="fas fa-print me-1"></i>
-                    {{ $t("Print") }}
-                  </button> -->
-                  <!-- <button v-if="reportData && reportData.trial_balance && reportData.trial_balance.length > 0"
+                  <!-- Expand/Collapse Controls -->
+                  <button v-if="reportData && reportData.trial_balance && reportData.trial_balance.length > 0"
                     @click="expandAll" class="btn btn-outline-success mb-3" :disabled="loading">
                     <i class="fas fa-expand-arrows-alt me-1"></i>
                     {{ $t("Expand All") }}
@@ -129,7 +122,9 @@
                     @click="collapseAll" class="btn btn-outline-warning mb-3" :disabled="loading">
                     <i class="fas fa-compress-arrows-alt me-1"></i>
                     {{ $t("Collapse All") }}
-                  </button> -->
+                  </button>
+                  
+                  <!-- Export Buttons -->
                   <button @click="exportToExcel" class="btn export-excel-btn mb-3" :disabled="!reportData">
                     <i class="fa fa-arrow-circle-down"></i>
                   </button>
@@ -139,18 +134,6 @@
                   </button>
                   <button v-if="reportData" @click="previewPDF" v-tooltip="$t('Preview')" class="btn preview-btn mb-3">
                     <i class="fas fa-eye"></i>
-                  </button>
-                  <button v-if="hasMoreData" @click="toggleAutoLoad" class="mb-3"
-                    :class="['btn', autoLoadMore ? 'btn-success' : 'btn-outline-success']"
-                    :disabled="loading || loadingMore">
-                    <i :class="['fas', autoLoadMore ? 'fa-pause' : 'fa-play']" class="me-1"></i>
-                    {{ autoLoadMore ? $t("Stop Calculating") : $t("Auto-Calculate Balances") }}
-                  </button>
-                  <button v-if="hasMoreData && !autoLoadMore" @click="loadMoreData" class="btn btn-primary mb-3"
-                    :disabled="loading || loadingMore">
-                    <i class="fas fa-calculator me-1" v-if="!loadingMore"></i>
-                    <i class="fas fa-spinner fa-spin me-1" v-if="loadingMore"></i>
-                    {{ loadingMore ? $t("Calculating...") : $t("Calculate Balances") }}
                   </button>
                 </div>
               </div>
@@ -731,6 +714,8 @@ export default {
     },
 
 
+
+
     async generateReport() {
       if (!this.filters.fromDate || !this.filters.toDate) {
         this.$toast.error('', this.$t('Please select date range'));
@@ -765,15 +750,17 @@ export default {
         const response = await axios.get(`/api/reports/trial-balance?${params.toString()}`);
 
         if (response.data && response.data.success === true) {
-          // Load all accounts with zero balances
+          // All balances are already calculated by the backend!
           this.reportData = response.data.data;
           this.allAccounts = [...(response.data.data?.trial_balance || [])];
-          this.$toast.success('', this.$t("Trial balance structure loaded. Calculating balances..."));
-
-          // Start calculating balances in chunks
-          if (this.allAccounts.length > 0) {
-            this.startBalanceCalculations();
-          }
+          
+          // Mark all accounts as NOT calculating since they're already calculated
+          this.calculatingAccounts.clear();
+          
+          // Automatically expand all nodes to show the full hierarchy
+          this.expandAll();
+          
+          this.$toast.success('', this.$t("Trial balance loaded successfully"));
         } else {
           const errorMsg = response.data?.message || this.$t("Failed to generate trial balance report");
           console.error('API Error:', errorMsg);
@@ -797,22 +784,14 @@ export default {
       }
     },
 
+    // DEPRECATED: No longer needed - balances are calculated server-side
     startBalanceCalculations() {
-      // Get all account IDs
-      const allAccountIds = this.getAllAccountIds(this.allAccounts);
-
-      // Mark all accounts as calculating
-      allAccountIds.forEach(accountId => {
-        this.calculatingAccounts.add(accountId);
-      });
-
-      // Update accounts to show calculating state
-      this.updateAccountsCalculatingState(allAccountIds, true);
-
-      // Calculate balances in chunks
-      this.calculateBalancesInChunks(allAccountIds);
+      // This method is no longer used
+      // All balances are now calculated on the server in a single query
+      console.warn('startBalanceCalculations is deprecated - balances are now calculated server-side');
     },
 
+    // DEPRECATED: No longer needed - balances are calculated server-side
     getAllAccountIds(accounts) {
       const accountIds = [];
 
@@ -829,6 +808,7 @@ export default {
       return accountIds;
     },
 
+    // DEPRECATED: No longer needed - balances are calculated server-side
     updateAccountsCalculatingState(accountIds, isCalculating) {
       const updateAccount = (accountList) => {
         accountList.forEach(account => {
@@ -844,48 +824,17 @@ export default {
       updateAccount(this.allAccounts);
     },
 
+    // DEPRECATED: No longer needed - balances are calculated server-side
     async calculateBalancesInChunks(accountIds) {
-      for (let i = 0; i < accountIds.length; i++) {
-        const accountId = accountIds[i];
-
-        try {
-          await this.calculateSingleAccountBalance(accountId);
-
-          // Small delay between accounts to prevent overwhelming the server
-          if (i < accountIds.length - 1) {
-            await new Promise(resolve => setTimeout(resolve, 50));
-          }
-        } catch (error) {
-          console.error(`Error processing account ${accountId}:`, error);
-        }
-      }
-
-      // Calculate totals after all accounts are loaded
-      this.calculateGrandTotals();
+      console.warn('calculateBalancesInChunks is deprecated - balances are now calculated server-side');
     },
 
+    // DEPRECATED: No longer needed - balances are calculated server-side
     async calculateSingleAccountBalance(accountId) {
-      try {
-        const requestData = {
-          account_id: accountId,
-          cost_center_id: this.filters.costCenterId,
-          analytical_account_id: this.filters.analyticalAccountId,
-          from_date: this.filters.fromDate,
-          to_date: this.filters.toDate,
-        };
-
-        const response = await axios.post('/api/reports/calculate-account-balances', requestData);
-
-        if (response.data && response.data.success === true) {
-          this.updateSingleAccountBalance(response.data.data.account);
-        } else {
-          console.error('Balance calculation failed for account', accountId, ':', response.data?.message);
-        }
-      } catch (error) {
-        console.error('Error calculating balance for account', accountId, ':', error);
-      }
+      console.warn('calculateSingleAccountBalance is deprecated - balances are now calculated server-side');
     },
 
+    // DEPRECATED: No longer needed - balances are calculated server-side
     updateSingleAccountBalance(calculatedAccount) {
       // Find and update the account in the hierarchy
       const updated = this.updateAccountInHierarchy(this.allAccounts, calculatedAccount);
