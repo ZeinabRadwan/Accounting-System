@@ -109,14 +109,15 @@ class StoreSupplierRequest extends BaseRequest
             $rules['city'] = 'required|string|max:100';
             $rules['country'] = 'required|string|size:2';
             $rules['buildingNumber'] = 'required|string|max:5';
-            $rules['streetNumber'] = 'required|string|max:5';
+            // Street name can be longer text, keep required for taxable but with higher max length
+            $rules['streetNumber'] = 'required|string|max:255';
             $rules['districtNumber'] = 'required|string|max:5';
             $rules['unitNumber'] = 'required|string|max:5';
             $rules['taxRegistrationNumber'] = 'required|string|size:15|regex:/^[0-9]{15}$/';
         } else {
             $rules['commercialRegister'] = 'nullable|string|max:100';
             $rules['buildingNumber'] = 'nullable|string|max:5';
-            $rules['streetNumber'] = 'nullable|string|max:5';
+            $rules['streetNumber'] = 'nullable|string|max:255';
             $rules['districtNumber'] = 'nullable|string|max:5';
             $rules['unitNumber'] = 'nullable|string|max:5';
             $rules['taxRegistrationNumber'] = 'nullable|string|max:100';

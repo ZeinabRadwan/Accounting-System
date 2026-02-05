@@ -355,12 +355,12 @@
               </div>
               <div class="form-group col-md-6">
                 <label for="streetNumber">
-                  {{ $t("Street Number") }} <span v-if="form.taxStatus === 'taxable'" class="required">*</span><span
+                  {{ $t("Street Name") }} <span v-if="form.taxStatus === 'taxable'" class="required">*</span><span
                     v-else class="text-muted">({{ $t("Optional") }})</span>
                 </label>
                 <input id="streetNumber" v-model="form.streetNumber" type="text" class="form-control"
                   :class="{ 'is-invalid': form.errors.has('streetNumber') }" name="streetNumber"
-                  :placeholder="$t('Enter street number')" maxlength="5" />
+                  :placeholder="$t('Enter street name')" />
                 <has-error :form="form" field="streetNumber" />
               </div>
             </div>
@@ -1264,7 +1264,7 @@ export default {
 
       if (this.form.type === 'Company' && this.form.taxStatus === 'taxable' && this.form.country === 'SA') {
         if (!this.form.streetNumber || this.form.streetNumber.trim() === '') {
-          this.form.errors.set('streetNumber', this.$t('Street number is required (Saudi National Address)'));
+          this.form.errors.set('streetNumber', this.$t('Street name is required (Saudi National Address)'));
           isValid = false;
         }
         if (!this.form.buildingNumber || this.form.buildingNumber.trim() === '') {

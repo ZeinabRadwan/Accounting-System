@@ -450,6 +450,14 @@ export default {
         this.form = null;
         this.isSubmitting = false;
         this.validationErrors = {};
+
+        // Ensure a fresh client code is loaded every time the modal opens
+        // ClientForm.resetForm() will internally call loadNextCodeNumber()
+        this.$nextTick(() => {
+          if (this.$refs.clientForm && typeof this.$refs.clientForm.resetForm === 'function') {
+            this.$refs.clientForm.resetForm();
+          }
+        });
       } else {
         // Clear validation errors when closing modal
         this.validationErrors = {};
@@ -485,7 +493,7 @@ export default {
         commercialRegister: this.$t('Commercial Register'),
         taxCard: this.$t('Tax Card'),
         buildingNumber: this.$t('Building Number'),
-        streetNumber: this.$t('Street Number'),
+        streetNumber: this.$t('Street Name'),
         districtNumber: this.$t('District Number'),
         unitNumber: this.$t('Unit Number'),
         additionalNumber: this.$t('Additional Number'),
@@ -532,7 +540,7 @@ export default {
         commercialRegister: this.$t('Commercial Register'),
         taxCard: this.$t('Tax Card'),
         buildingNumber: this.$t('Building Number'),
-        streetNumber: this.$t('Street Number'),
+        streetNumber: this.$t('Street Name'),
         districtNumber: this.$t('District Number'),
         unitNumber: this.$t('Unit Number'),
         additionalNumber: this.$t('Additional Number'),

@@ -1,0 +1,1613 @@
+"use strict";
+(self["webpackChunk"] = self["webpackChunk"] || []).push([[7789],{
+
+/***/ 76797
+(module, __webpack_exports__, __webpack_require__) {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76798);
+/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ },
+
+/***/ 53200
+(module, __webpack_exports__, __webpack_require__) {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76798);
+/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".btn-group.c-w-100[data-v-417ab877]{gap:10px}.header-buttons[data-v-417ab877]{margin-bottom:15px}.footer-buttons[data-v-417ab877]{display:flex;gap:10px}.footer-buttons .btn[data-v-417ab877]{margin-right:10px}.footer-buttons .btn[data-v-417ab877]:last-child{margin-right:0}.card[data-v-417ab877]{border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:30px}.card-footer[data-v-417ab877]{background-color:#fff;border-radius:0 0 20px 20px;border-top:1px solid #ced4da;padding:0 1.25rem .625rem}.form-control[data-v-417ab877]{background:#fff!important}.btn-primary[data-v-417ab877]{background:#2ab930!important}.btn-primary[data-v-417ab877],.btn-secondary[data-v-417ab877]{border:none!important;color:#fff!important;padding:10px 20px!important}.btn-secondary[data-v-417ab877]{background:#33a0d9!important}.btn-secondary[data-v-417ab877]:hover{background:#2a8bc4!important;box-shadow:0 4px 8px rgba(51,160,217,.3);transform:translateY(-1px)}.btn-outline-custom[data-v-417ab877]{border-color:#33a0d9;border-radius:10px;color:#33a0d9;font-weight:500;padding:8px 16px;transition:background-color .3s,color .3s,border-color .3s}.btn-custom-active[data-v-417ab877],.btn-outline-custom[data-v-417ab877]:hover{background-color:#33a0d9;border-color:#33a0d9;color:#fff}h1[data-v-417ab877],h2[data-v-417ab877]{font-weight:400}ul[data-v-417ab877]{list-style-type:none;padding:0}li[data-v-417ab877]{display:inline-block;margin:0 10px}a[data-v-417ab877]{color:#42b983}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ },
+
+/***/ 19585
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  A: () => (/* binding */ ProductForm)
+});
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductForm.vue?vue&type=template&id=bbb16f8e&scoped=true
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "product-form-container"
+  }, [_vm.mode === 'page' ? _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-lg-12"
+  }, [_c('div', {
+    staticClass: "card custom-card w-100"
+  }, [_c('div', {
+    staticClass: "card-header setings-header"
+  }, [_c('breadcrumbs', {
+    attrs: {
+      "items": _vm.breadcrumbs,
+      "current": _vm.breadcrumbsCurrent
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "col-xl-8 col-8 float-right text-right"
+  }, [_c('div', {
+    staticClass: "btn-group c-w-100 header-buttons"
+  }, [_c('router-link', {
+    staticClass: "btn btn-info",
+    attrs: {
+      "to": {
+        name: 'products.index'
+      }
+    }
+  }, [_vm.isRTL ? [_vm._v("\n                  " + _vm._s(_vm.$t('Back')) + " "), _c('i', {
+    staticClass: "fas fa-long-arrow-alt-left"
+  })] : [_c('i', {
+    staticClass: "fas fa-long-arrow-alt-left"
+  }), _vm._v(" " + _vm._s(_vm.$t('Back')) + "\n                ")]], 2), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-success",
+    attrs: {
+      "type": "button",
+      "disabled": _vm.form.busy,
+      "title": "Save"
+    },
+    on: {
+      "click": _vm.submitForm
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-save"
+  })])], 1)])], 1), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_c('product-form-template', {
+    attrs: {
+      "form": _vm.form,
+      "form-id": _vm.formId,
+      "product": _vm.product,
+      "categories": _vm.categories,
+      "units": _vm.units,
+      "taxes": _vm.taxes,
+      "chart-of-accounts": _vm.chartOfAccounts,
+      "prefix": _vm.prefix,
+      "url": _vm.url,
+      "is-sales-account-automatic": _vm.isSalesAccountAutomatic,
+      "is-purchase-account-automatic": _vm.isPurchaseAccountAutomatic,
+      "is-edit-mode": _vm.isEditMode
+    },
+    on: {
+      "calculate-price": _vm.calculatePrice,
+      "on-file-change": _vm.onFileChange,
+      "on-override-sales-account-change": _vm.onOverrideSalesAccountChange,
+      "on-override-purchase-account-change": _vm.onOverridePurchaseAccountChange,
+      "submit-form": _vm.submitForm,
+      "save-temporary": _vm.saveTemporary,
+      "reset-form": _vm.resetForm
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "card-footer",
+    staticStyle: {
+      "display": "none"
+    }
+  }, [_c('div', {
+    staticClass: "dtable-footer"
+  }, [_c('div', {
+    staticClass: "form-group row display-per-page footer-buttons d-flex justify-content-between w-100"
+  }, [_c('VButton', {
+    attrs: {
+      "loading": _vm.form.busy,
+      "type": "success",
+      "native-type": "button"
+    },
+    on: {
+      "click": function click($event) {
+        $event.preventDefault();
+        return _vm.submitForm.apply(null, arguments);
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-save"
+  }), _vm._v(" " + _vm._s(_vm.$t('Save')) + "\n              ")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-info",
+    attrs: {
+      "type": "reset"
+    },
+    on: {
+      "click": function click($event) {
+        return _vm.form.reset();
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-power-off"
+  }), _vm._v(" " + _vm._s(_vm.$t('Reset')) + "\n              ")])], 1)])])])])]) : _c('div', [_c('VModal', {
+    attrs: {
+      "size": "lg"
+    },
+    on: {
+      "close": _vm.closeModal
+    },
+    scopedSlots: _vm._u([{
+      key: "title",
+      fn: function fn() {
+        return [_vm._v(_vm._s(_vm.modalTitle))];
+      },
+      proxy: true
+    }]),
+    model: {
+      value: _vm.showModal,
+      callback: function callback($$v) {
+        _vm.showModal = $$v;
+      },
+      expression: "showModal"
+    }
+  }, [_vm._v(" "), _c('div', {
+    staticClass: "w-100"
+  }, [_c('product-form-template', {
+    attrs: {
+      "form": _vm.form,
+      "form-id": _vm.formId,
+      "product": _vm.product,
+      "categories": _vm.categories,
+      "units": _vm.units,
+      "taxes": _vm.taxes,
+      "chart-of-accounts": _vm.chartOfAccounts,
+      "prefix": _vm.prefix,
+      "url": _vm.url,
+      "is-sales-account-automatic": _vm.isSalesAccountAutomatic,
+      "is-purchase-account-automatic": _vm.isPurchaseAccountAutomatic,
+      "is-edit-mode": _vm.isEditMode
+    },
+    on: {
+      "calculate-price": _vm.calculatePrice,
+      "on-file-change": _vm.onFileChange,
+      "on-override-sales-account-change": _vm.onOverrideSalesAccountChange,
+      "on-override-purchase-account-change": _vm.onOverridePurchaseAccountChange,
+      "submit-form": _vm.submitForm,
+      "save-temporary": _vm.saveTemporary,
+      "reset-form": _vm.resetForm
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    attrs: {
+      "slot": "modal-footer"
+    },
+    slot: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-secondary mr-2",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": _vm.closeModal
+    }
+  }, [_vm._v("\n          " + _vm._s(_vm.$t("Cancel")) + "\n        ")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-success",
+    attrs: {
+      "disabled": _vm.form.busy
+    },
+    on: {
+      "click": _vm.submitForm
+    }
+  }, [_vm.form.busy ? _c('i', {
+    staticClass: "fas fa-spinner fa-spin"
+  }) : _c('i', {
+    staticClass: "fas fa-save"
+  }), _vm._v("\n          " + _vm._s(_vm.submitButtonText) + "\n        ")])])]), _vm._v(" "), _c('a', {
+    staticClass: "create-button",
+    on: {
+      "click": _vm.openModal
+    }
+  }, [_vm._t("default")], 2)], 1)]);
+};
+var staticRenderFns = [];
+
+// EXTERNAL MODULE: ./node_modules/vform/dist/vform.es.js
+var vform_es = __webpack_require__(63216);
+// EXTERNAL MODULE: ./node_modules/axios/index.js
+var axios = __webpack_require__(72505);
+var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
+// EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
+var vuex_esm = __webpack_require__(95353);
+// EXTERNAL MODULE: ./node_modules/sweetalert2/dist/sweetalert2.all.js
+var sweetalert2_all = __webpack_require__(78465);
+var sweetalert2_all_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_all);
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductForm.vue?vue&type=script&lang=js
+function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
+function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+
+
+
+
+var toast = sweetalert2_all_default().mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true
+});
+/* harmony default export */ const ProductFormvue_type_script_lang_js = ({
+  name: "ProductForm",
+  components: {
+    VModal: function VModal() {
+      return Promise.resolve(/* import() */).then(__webpack_require__.bind(__webpack_require__, 77227));
+    },
+    VButton: function VButton() {
+      return Promise.resolve(/* import() */).then(__webpack_require__.bind(__webpack_require__, 63377));
+    },
+    Breadcrumbs: function Breadcrumbs() {
+      return Promise.resolve(/* import() */).then(__webpack_require__.bind(__webpack_require__, 60361));
+    },
+    ProductFormTemplate: function ProductFormTemplate() {
+      return __webpack_require__.e(/* import() */ 1810).then(__webpack_require__.bind(__webpack_require__, 31810));
+    }
+  },
+  props: {
+    mode: {
+      type: String,
+      "default": 'page',
+      // 'page' or 'modal'
+      validator: function validator(value) {
+        return ['page', 'modal'].includes(value);
+      }
+    },
+    product: {
+      type: Object,
+      "default": null
+    },
+    formId: {
+      type: String,
+      "default": 'productForm'
+    }
+  },
+  data: function data() {
+    return {
+      showModal: false,
+      url: null,
+      form: new vform_es/* default */.Ay({
+        itemType: "product",
+        itemName: "",
+        itemCode: "",
+        itemModel: "",
+        barcodeSymbology: "CODE128",
+        subCategory: "",
+        brand: "",
+        itemUnit: "",
+        productTax: "",
+        taxType: "Exclusive",
+        regularPrice: "",
+        servicePurchasePrice: "",
+        openingStockCount: "",
+        openingStockEntryUnit: null,
+        openingStockEntryQuantity: "",
+        openingStockUnitPrice: "",
+        newOpeningStockCount: "",
+        newOpeningStockUnitPrice: "",
+        isOpeningStock: false,
+        discount: "",
+        sellingPrice: "",
+        note: "",
+        alertQuantity: 1,
+        status: 1,
+        image: "",
+        salesAccountId: "",
+        purchaseAccountId: "",
+        overrideSalesAccount: false,
+        overridePurchaseAccount: false,
+        unitConversions: []
+      }),
+      categories: [],
+      brands: [],
+      units: [],
+      taxes: [],
+      chartOfAccounts: [],
+      prefix: "",
+      accountRoutingSettings: null,
+      isSalesAccountAutomatic: false,
+      isPurchaseAccountAutomatic: false,
+      breadcrumbsCurrent: '',
+      breadcrumbs: []
+    };
+  },
+  computed: _objectSpread(_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["items", "appInfo"])), {}, {
+    modalTitle: function modalTitle() {
+      return this.product ? this.$t("Edit Product") : this.$t("Create Product");
+    },
+    submitButtonText: function submitButtonText() {
+      return this.product ? this.$t("Update") : this.$t("Save");
+    },
+    isEditMode: function isEditMode() {
+      return !!this.product;
+    },
+    isRTL: function isRTL() {
+      if (this.$i18n.locale === 'ar') {
+        return true;
+      }
+      if (typeof document !== 'undefined' && document.documentElement) {
+        return document.documentElement.getAttribute('dir') === 'rtl';
+      }
+      return false;
+    }
+  }),
+  watch: {
+    'form.itemUnit': {
+      handler: function handler(newUnit) {
+        if (newUnit && this.form.itemType === 'product') {
+          this.form.openingStockEntryUnit = newUnit;
+        }
+      },
+      immediate: false
+    }
+  },
+  created: function created() {
+    console.log('ProductForm: Component created', {
+      form: this.form,
+      formBusy: this.form.busy,
+      formErrors: this.form.errors.any(),
+      formMethods: Object.getOwnPropertyNames(Object.getPrototypeOf(this.form)),
+      formHasPost: typeof this.form.post === 'function',
+      formHasData: typeof this.form.data === 'function'
+    });
+    this.initializeForm();
+    this.loadData();
+  },
+  methods: {
+    initializeForm: function initializeForm() {
+      if (this.mode === 'page') {
+        this.breadcrumbsCurrent = this.product ? this.$t('Edit Item') : this.$t('Create Item');
+        this.breadcrumbs = [{
+          name: this.$t('Dashboard'),
+          url: 'home'
+        }, {
+          name: this.$t('Items'),
+          url: 'products.index'
+        }, {
+          name: this.product ? this.$t('Edit') : this.$t('Create'),
+          url: ''
+        }];
+      }
+    },
+    loadData: function loadData() {
+      var _this = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+        return _regenerator().w(function (_context) {
+          while (1) switch (_context.n) {
+            case 0:
+              _context.n = 1;
+              return Promise.all([_this.getSubCategories(), _this.getUnits(), _this.getTaxes(), _this.loadChartOfAccounts(), _this.loadAccountRoutingSettings()]);
+            case 1:
+              if (!_this.product) {
+                _this.getItemCode();
+              } else {
+                // Wait a bit to ensure chartOfAccounts is loaded before loading product data
+                _this.$nextTick(function () {
+                  _this.loadProductData(_this.product);
+                });
+              }
+            case 2:
+              return _context.a(2);
+          }
+        }, _callee);
+      }))();
+    },
+    openModal: function openModal() {
+      this.showModal = true;
+      if (this.showModal) {
+        this.loadAccountRoutingSettings();
+      }
+    },
+    closeModal: function closeModal() {
+      this.showModal = false;
+      this.form.reset();
+      this.url = null;
+    },
+    submitForm: function submitForm() {
+      var _this2 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+        return _regenerator().w(function (_context2) {
+          while (1) switch (_context2.n) {
+            case 0:
+              console.log('ProductForm: submitForm called - EVENT RECEIVED!', {
+                isEditMode: !!_this2.product,
+                formData: _this2.form.data(),
+                formErrors: _this2.form.errors.any()
+              });
+              if (!_this2.product) {
+                _context2.n = 2;
+                break;
+              }
+              _context2.n = 1;
+              return _this2.updateProduct();
+            case 1:
+              _context2.n = 3;
+              break;
+            case 2:
+              _context2.n = 3;
+              return _this2.saveProduct();
+            case 3:
+              return _context2.a(2);
+          }
+        }, _callee2);
+      }))();
+    },
+    saveTemporary: function saveTemporary(event) {
+      // Prevent any form submission or navigation
+      if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+
+      // Save form data to localStorage for temporary storage
+      var formData = this.form.data();
+      localStorage.setItem('productFormTemporary', JSON.stringify(formData));
+
+      // Show success message
+      toast.fire({
+        type: "success",
+        title: "Form saved temporarily"
+      });
+      console.log('Form data saved temporarily:', formData);
+
+      // Return false to prevent any further event handling
+      return false;
+    },
+    resetForm: function resetForm() {
+      this.form.reset();
+      this.url = null;
+    },
+    // get all product categories
+    getSubCategories: function getSubCategories() {
+      var _this3 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+        var _yield$_this3$form$ge, data, _t;
+        return _regenerator().w(function (_context3) {
+          while (1) switch (_context3.p = _context3.n) {
+            case 0:
+              _context3.p = 0;
+              _context3.n = 1;
+              return _this3.form.get(window.location.origin + "/api/all-product-sub-categories");
+            case 1:
+              _yield$_this3$form$ge = _context3.v;
+              data = _yield$_this3$form$ge.data;
+              _this3.categories = data.data;
+              _context3.n = 3;
+              break;
+            case 2:
+              _context3.p = 2;
+              _t = _context3.v;
+              console.error("Error fetching categories:", _t);
+            case 3:
+              return _context3.a(2);
+          }
+        }, _callee3, null, [[0, 2]]);
+      }))();
+    },
+    // get all brands
+    getBrands: function getBrands() {
+      var _this4 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
+        var _yield$axios$get, data, _t2;
+        return _regenerator().w(function (_context4) {
+          while (1) switch (_context4.p = _context4.n) {
+            case 0:
+              _context4.p = 0;
+              _context4.n = 1;
+              return axios_default().get(window.location.origin + "/api/all-brands");
+            case 1:
+              _yield$axios$get = _context4.v;
+              data = _yield$axios$get.data;
+              _this4.brands = data.data;
+              _context4.n = 3;
+              break;
+            case 2:
+              _context4.p = 2;
+              _t2 = _context4.v;
+              console.error("Error fetching brands:", _t2);
+            case 3:
+              return _context4.a(2);
+          }
+        }, _callee4, null, [[0, 2]]);
+      }))();
+    },
+    // get all units
+    getUnits: function getUnits() {
+      var _this5 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
+        var _yield$axios$get2, data, _t3;
+        return _regenerator().w(function (_context5) {
+          while (1) switch (_context5.p = _context5.n) {
+            case 0:
+              _context5.p = 0;
+              _context5.n = 1;
+              return axios_default().get(window.location.origin + "/api/all-units");
+            case 1:
+              _yield$axios$get2 = _context5.v;
+              data = _yield$axios$get2.data;
+              _this5.units = data.data;
+              _context5.n = 3;
+              break;
+            case 2:
+              _context5.p = 2;
+              _t3 = _context5.v;
+              console.error("Error fetching units:", _t3);
+            case 3:
+              return _context5.a(2);
+          }
+        }, _callee5, null, [[0, 2]]);
+      }))();
+    },
+    // get all taxes
+    getTaxes: function getTaxes() {
+      var _this6 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
+        var _yield$axios$get3, data, defaultVatRateSlug, _t4;
+        return _regenerator().w(function (_context6) {
+          while (1) switch (_context6.p = _context6.n) {
+            case 0:
+              _context6.p = 0;
+              _context6.n = 1;
+              return axios_default().get(window.location.origin + "/api/all-vat-rates");
+            case 1:
+              _yield$axios$get3 = _context6.v;
+              data = _yield$axios$get3.data;
+              _this6.taxes = data.data;
+              // assign default vat rate
+              if (_this6.taxes && _this6.taxes.length > 0) {
+                defaultVatRateSlug = _this6.appInfo.defaultVatRateSlug;
+                _this6.form.productTax = _this6.taxes.find(function (tax) {
+                  return tax.slug === defaultVatRateSlug;
+                });
+              }
+              _this6.calculatePrice();
+              _context6.n = 3;
+              break;
+            case 2:
+              _context6.p = 2;
+              _t4 = _context6.v;
+              console.error("Error fetching taxes:", _t4);
+            case 3:
+              return _context6.a(2);
+          }
+        }, _callee6, null, [[0, 2]]);
+      }))();
+    },
+    // get item code
+    getItemCode: function getItemCode() {
+      var _this7 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7() {
+        var _yield$axios$get4, data, _t5;
+        return _regenerator().w(function (_context7) {
+          while (1) switch (_context7.p = _context7.n) {
+            case 0:
+              _context7.p = 0;
+              _context7.n = 1;
+              return axios_default().get(window.location.origin + "/api/generate-itemcode");
+            case 1:
+              _yield$axios$get4 = _context7.v;
+              data = _yield$axios$get4.data;
+              _this7.form.itemCode = data.code;
+              _this7.prefix = data.prefix;
+              _context7.n = 3;
+              break;
+            case 2:
+              _context7.p = 2;
+              _t5 = _context7.v;
+              console.error("Error fetching item code:", _t5);
+            case 3:
+              return _context7.a(2);
+          }
+        }, _callee7, null, [[0, 2]]);
+      }))();
+    },
+    // Load chart of accounts
+    loadChartOfAccounts: function loadChartOfAccounts() {
+      var _this8 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee8() {
+        var _yield$axios$get5, data, _t6;
+        return _regenerator().w(function (_context8) {
+          while (1) switch (_context8.p = _context8.n) {
+            case 0:
+              _context8.p = 0;
+              _context8.n = 1;
+              return axios_default().get(window.location.origin + "/api/products/chart-of-accounts");
+            case 1:
+              _yield$axios$get5 = _context8.v;
+              data = _yield$axios$get5.data;
+              _this8.chartOfAccounts = data || [];
+              _context8.n = 3;
+              break;
+            case 2:
+              _context8.p = 2;
+              _t6 = _context8.v;
+              console.error("Error loading chart of accounts:", _t6);
+              _this8.chartOfAccounts = [];
+            case 3:
+              return _context8.a(2);
+          }
+        }, _callee8, null, [[0, 2]]);
+      }))();
+    },
+    // Load account routing settings
+    loadAccountRoutingSettings: function loadAccountRoutingSettings() {
+      var _this9 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee9() {
+        var response, _t7;
+        return _regenerator().w(function (_context9) {
+          while (1) switch (_context9.p = _context9.n) {
+            case 0:
+              _context9.p = 0;
+              _context9.n = 1;
+              return axios_default().get(window.location.origin + "/api/account-routing-settings/product-account-routing");
+            case 1:
+              response = _context9.v;
+              _this9.accountRoutingSettings = response.data.data || {};
+
+              // Set flags for automatic routing
+              _this9.isSalesAccountAutomatic = _this9.accountRoutingSettings.sales && _this9.accountRoutingSettings.sales.routing_type === 'automatic';
+              _this9.isPurchaseAccountAutomatic = _this9.accountRoutingSettings.purchase && _this9.accountRoutingSettings.purchase.routing_type === 'automatic';
+
+              // If automatic routing is enabled, set the account IDs from routing settings
+              if (_this9.isSalesAccountAutomatic && _this9.accountRoutingSettings.sales.main_account_id) {
+                _this9.form.salesAccountId = _this9.accountRoutingSettings.sales.main_account_id;
+              }
+              if (_this9.isPurchaseAccountAutomatic && _this9.accountRoutingSettings.purchase.main_account_id) {
+                _this9.form.purchaseAccountId = _this9.accountRoutingSettings.purchase.main_account_id;
+              }
+              _context9.n = 3;
+              break;
+            case 2:
+              _context9.p = 2;
+              _t7 = _context9.v;
+              console.error("Error loading account routing settings:", _t7);
+              _this9.isSalesAccountAutomatic = false;
+              _this9.isPurchaseAccountAutomatic = false;
+            case 3:
+              return _context9.a(2);
+          }
+        }, _callee9, null, [[0, 2]]);
+      }))();
+    },
+    // calculate selling price
+    calculatePrice: function calculatePrice() {
+      if (this.form.regularPrice && this.form.productTax && this.form.taxType) {
+        var discount = 0;
+        if (this.form.discount && this.form.discount > 0) {
+          discount = this.form.discount / 100 * this.form.regularPrice;
+        }
+        var currentPrice = this.form.regularPrice - discount;
+        var taxAmount = 0;
+        var totalTax = 0;
+        if (this.form.productTax.rate > 0) {
+          taxAmount = this.form.productTax.rate / 100;
+        }
+        if (this.form.taxType == "Exclusive") {
+          totalTax = currentPrice * taxAmount;
+        } else {
+          totalTax = currentPrice - currentPrice / (1 + taxAmount);
+        }
+        if (this.form.taxType == "Exclusive") {
+          this.form.sellingPrice = this.form.regularPrice - discount + totalTax;
+        } else {
+          this.form.sellingPrice = (this.form.regularPrice - discount) / (1 + taxAmount) + totalTax;
+        }
+        return;
+      }
+      this.form.sellingPrice = this.form.regularPrice;
+    },
+    // vue file upload
+    onFileChange: function onFileChange(e) {
+      var _this0 = this;
+      var file = e.target.files[0];
+      var reader = new FileReader();
+      if (file.size < 2111775 && (file.type === "image/jpeg" || file.type === "image/png" || file.type === "image/gif")) {
+        reader.onloadend = function () {
+          _this0.form.image = reader.result;
+        };
+        reader.readAsDataURL(file);
+        this.url = URL.createObjectURL(file);
+      } else {
+        this.$toast.error(this.$t("Error!"), this.$t("Please select a valid thumbnail with size less than 2 MB"));
+      }
+    },
+    // save product
+    saveProduct: function saveProduct() {
+      var _this1 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee0() {
+        var needsSalesAccount, message, needsPurchaseAccount, _message, unitConvValidation, openingStockCount, formDataToSend, processedForm, response, newProduct, formattedProduct, autoAssignedSalesAccountId, autoAssignedPurchaseAccountId, _error$response, _error$response2, status, serverErrors, _error$response3, errorMessage, _t8;
+        return _regenerator().w(function (_context0) {
+          while (1) switch (_context0.p = _context0.n) {
+            case 0:
+              console.log('ProductForm: saveProduct called', {
+                formData: _this1.form.data(),
+                formErrors: _this1.form.errors.any(),
+                formBusy: _this1.form.busy,
+                formMethods: Object.getOwnPropertyNames(Object.getPrototypeOf(_this1.form)),
+                formHasPost: typeof _this1.form.post === 'function'
+              });
+
+              // Validate required fields based on item type
+              if (!(_this1.form.itemType === 'service' && !_this1.form.servicePurchasePrice)) {
+                _context0.n = 1;
+                break;
+              }
+              toast.fire({
+                type: "error",
+                title: "Service Purchase Price is required for services"
+              });
+              return _context0.a(2);
+            case 1:
+              // Validate sales account - required if not automatic OR if override is checked
+              needsSalesAccount = !_this1.isSalesAccountAutomatic || _this1.form.overrideSalesAccount;
+              console.log('ProductForm: Sales account validation', {
+                isSalesAccountAutomatic: _this1.isSalesAccountAutomatic,
+                overrideSalesAccount: _this1.form.overrideSalesAccount,
+                needsSalesAccount: needsSalesAccount,
+                salesAccountId: _this1.form.salesAccountId
+              });
+
+              // If automatic routing is enabled and user hasn't overridden, use the auto-assigned account
+              if (_this1.isSalesAccountAutomatic && !_this1.form.overrideSalesAccount) {
+                if (_this1.accountRoutingSettings && _this1.accountRoutingSettings.sales && _this1.accountRoutingSettings.sales.main_account_id) {
+                  _this1.form.salesAccountId = _this1.accountRoutingSettings.sales.main_account_id;
+                  console.log('ProductForm: Using auto-assigned sales account:', _this1.form.salesAccountId);
+                }
+              }
+              if (!(needsSalesAccount && !_this1.form.salesAccountId)) {
+                _context0.n = 2;
+                break;
+              }
+              console.log('ProductForm: Sales account validation failed');
+              message = _this1.form.overrideSalesAccount ? "Please select a Sales Account from the dropdown" : "Sales Account is required";
+              toast.fire({
+                type: "error",
+                title: message
+              });
+              return _context0.a(2);
+            case 2:
+              // Validate purchase account - required if not automatic OR if override is checked
+              needsPurchaseAccount = !_this1.isPurchaseAccountAutomatic || _this1.form.overridePurchaseAccount;
+              console.log('ProductForm: Purchase account validation', {
+                isPurchaseAccountAutomatic: _this1.isPurchaseAccountAutomatic,
+                overridePurchaseAccount: _this1.form.overridePurchaseAccount,
+                needsPurchaseAccount: needsPurchaseAccount,
+                purchaseAccountId: _this1.form.purchaseAccountId
+              });
+
+              // If automatic routing is enabled and user hasn't overridden, use the auto-assigned account
+              if (_this1.isPurchaseAccountAutomatic && !_this1.form.overridePurchaseAccount) {
+                if (_this1.accountRoutingSettings && _this1.accountRoutingSettings.purchase && _this1.accountRoutingSettings.purchase.main_account_id) {
+                  _this1.form.purchaseAccountId = _this1.accountRoutingSettings.purchase.main_account_id;
+                  console.log('ProductForm: Using auto-assigned purchase account:', _this1.form.purchaseAccountId);
+                }
+              }
+              if (!(needsPurchaseAccount && !_this1.form.purchaseAccountId)) {
+                _context0.n = 3;
+                break;
+              }
+              console.log('ProductForm: Purchase account validation failed');
+              _message = _this1.form.overridePurchaseAccount ? "Please select a Purchase Account from the dropdown" : "Purchase Account is required";
+              toast.fire({
+                type: "error",
+                title: _message
+              });
+              return _context0.a(2);
+            case 3:
+              if (!_this1.form.errors.any()) {
+                _context0.n = 4;
+                break;
+              }
+              console.log('ProductForm: Form has validation errors', _this1.form.errors.all());
+              toast.fire({
+                type: "error",
+                title: "Please fix the form errors before submitting"
+              });
+              return _context0.a(2);
+            case 4:
+              unitConvValidation = _this1.validateUnitConversions();
+              if (unitConvValidation.valid) {
+                _context0.n = 5;
+                break;
+              }
+              toast.fire({
+                type: "error",
+                title: unitConvValidation.message
+              });
+              return _context0.a(2);
+            case 5:
+              console.log('ProductForm: Form validation passed, proceeding with submission');
+
+              // Ensure backend saves opening_stock_count when user entered opening stock (unit × factor)
+              if (_this1.form.itemType === 'product') {
+                openingStockCount = parseFloat(_this1.form.openingStockCount) || 0;
+                _this1.form.isOpeningStock = openingStockCount > 0;
+              }
+              console.log('ProductForm: Making POST request to /api/products');
+              formDataToSend = _this1.form.data();
+              console.log('ProductForm: Form data being sent:', formDataToSend);
+              formDataToSend.unit_conversions = _this1.buildUnitConversionsPayload();
+
+              // Check for object values that should be IDs
+              Object.keys(formDataToSend).forEach(function (key) {
+                var value = formDataToSend[key];
+                if (value && _typeof(value) === 'object' && !Array.isArray(value)) {
+                  console.log("ProductForm: Field '".concat(key, "' is an object:"), value);
+                  if (value.id) {
+                    formDataToSend[key] = value.id;
+                    console.log("ProductForm: Converted '".concat(key, "' to ID:"), value.id);
+                  }
+                }
+              });
+              console.log('ProductForm: Processed form data:', formDataToSend);
+              console.log('ProductForm: Form headers:', _this1.form.headers);
+              console.log('ProductForm: Form busy before request:', _this1.form.busy);
+
+              // Set form as busy before making the request
+              _this1.form.busy = true;
+              console.log('ProductForm: Form busy after setting:', _this1.form.busy);
+              _context0.p = 6;
+              // Create a new form instance with processed data
+              processedForm = new vform_es/* default */.Ay(formDataToSend);
+              processedForm.busy = true;
+              _context0.n = 7;
+              return processedForm.post(window.location.origin + "/api/products");
+            case 7:
+              response = _context0.v;
+              console.log('ProductForm: POST request successful', response);
+              toast.fire({
+                type: "success",
+                title: _this1.$t("Product added successfully")
+              });
+
+              // Emit the newly created product data
+              if (response.data && response.data.data) {
+                newProduct = response.data.data;
+                formattedProduct = {
+                  id: newProduct.id,
+                  slug: newProduct.slug,
+                  name: newProduct.name,
+                  code: newProduct.code,
+                  label: "".concat(newProduct.name, " [").concat(newProduct.code, "]"),
+                  itemType: newProduct.itemType,
+                  itemModel: newProduct.itemModel || '',
+                  avgPurchasePrice: newProduct.avgPurchasePrice || 0,
+                  regularPrice: newProduct.regularPrice || 0,
+                  priceWithDiscount: newProduct.sellingPrice,
+                  sellingPrice: newProduct.sellingPrice,
+                  taxAmount: newProduct.taxAmount || 0,
+                  taxType: newProduct.taxType,
+                  taxRate: newProduct.taxRate,
+                  productTax: newProduct.productTax,
+                  inventoryCount: newProduct.inventoryCount || 0,
+                  image: newProduct.image || '',
+                  sales_account_id: newProduct.sales_account_id,
+                  purchase_account_id: newProduct.purchase_account_id
+                };
+                _this1.$emit('productCreated', formattedProduct);
+              }
+
+              // Store auto-assigned account IDs before reset
+              autoAssignedSalesAccountId = _this1.isSalesAccountAutomatic ? _this1.form.salesAccountId : null;
+              autoAssignedPurchaseAccountId = _this1.isPurchaseAccountAutomatic ? _this1.form.purchaseAccountId : null;
+              _this1.form.reset();
+              _this1.form.itemType = "product"; // Reset to default
+              _this1.form.overrideSalesAccount = false; // Reset override flags
+              _this1.form.overridePurchaseAccount = false;
+
+              // Restore auto-assigned account IDs after reset
+              if (autoAssignedSalesAccountId) {
+                _this1.form.salesAccountId = autoAssignedSalesAccountId;
+              }
+              if (autoAssignedPurchaseAccountId) {
+                _this1.form.purchaseAccountId = autoAssignedPurchaseAccountId;
+              }
+              if (_this1.mode === 'modal') {
+                _this1.showModal = false;
+              } else {
+                _this1.$router.push({
+                  name: 'products.index'
+                });
+              }
+              _this1.$emit('reloadProducts');
+
+              // Reset form busy state
+              _this1.form.busy = false;
+              console.log('ProductForm: Form busy after success:', _this1.form.busy);
+              _context0.n = 9;
+              break;
+            case 8:
+              _context0.p = 8;
+              _t8 = _context0.v;
+              console.error("Error creating product:", _t8);
+              console.log('ProductForm: POST request failed', {
+                error: _t8,
+                response: _t8.response,
+                status: (_error$response = _t8.response) === null || _error$response === void 0 ? void 0 : _error$response.status,
+                data: (_error$response2 = _t8.response) === null || _error$response2 === void 0 ? void 0 : _error$response2.data
+              });
+
+              // Check if this is a validation error (status 422)
+              status = _t8 && _t8.response && _t8.response.status;
+              serverErrors = _t8 && _t8.response && _t8.response.data && _t8.response.data.errors; // Handle validation errors
+              if (_t8.response && _t8.response.data && _t8.response.data.errors) {
+                _this1.form.errors.set(_t8.response.data.errors);
+                console.log('ProductForm: Validation errors set:', _t8.response.data.errors);
+              }
+              if (status === 422 && serverErrors) {
+                // Show toast notification for validation errors
+                toast.fire({
+                  type: 'error',
+                  title: _this1.$t('Validation Error'),
+                  text: _this1.$t('Please check the form for errors and try again.')
+                });
+
+                // Scroll to the first invalid input after DOM updates
+                _this1.$nextTick(function () {
+                  // Wait a bit more to ensure vform has added the is-invalid class
+                  setTimeout(function () {
+                    var invalid = _this1.$el.querySelector('.is-invalid');
+                    if (invalid && typeof invalid.scrollIntoView === 'function') {
+                      invalid.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center'
+                      });
+                    }
+                  }, 100);
+                });
+              } else {
+                // For other errors, show generic error message
+                errorMessage = ((_error$response3 = _t8.response) === null || _error$response3 === void 0 || (_error$response3 = _error$response3.data) === null || _error$response3 === void 0 ? void 0 : _error$response3.message) || _this1.$t("Please check your input and try again.");
+                toast.fire({
+                  type: "error",
+                  title: String(errorMessage)
+                });
+              }
+
+              // Reset form busy state
+              _this1.form.busy = false;
+              console.log('ProductForm: Form busy after error:', _this1.form.busy);
+            case 9:
+              return _context0.a(2);
+          }
+        }, _callee0, null, [[6, 8]]);
+      }))();
+    },
+    // update product
+    updateProduct: function updateProduct() {
+      var _this10 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee1() {
+        var productSlug, productId, identifier, unitConvValidation, formData, response, _t9;
+        return _regenerator().w(function (_context1) {
+          while (1) switch (_context1.p = _context1.n) {
+            case 0:
+              _context1.p = 0;
+              if (_this10.product) {
+                _context1.n = 1;
+                break;
+              }
+              console.error('No product available for update');
+              toast.fire({
+                type: "error",
+                title: _this10.$t("No product selected for update")
+              });
+              return _context1.a(2);
+            case 1:
+              productSlug = _this10.product.slug || _this10.product.productSlug || _this10.product.product_slug;
+              productId = _this10.product.id || _this10.product.productID || _this10.product.product_id;
+              if (!(!productSlug && !productId)) {
+                _context1.n = 2;
+                break;
+              }
+              console.error('No product identifier (slug or ID) available for update');
+              toast.fire({
+                type: "error",
+                title: _this10.$t("Product identifier missing. Cannot update product.")
+              });
+              return _context1.a(2);
+            case 2:
+              identifier = productSlug;
+              if (!productSlug && productId) {
+                identifier = productId;
+              }
+
+              // Validate required fields based on item type
+              if (!(_this10.form.itemType === 'service' && !_this10.form.servicePurchasePrice)) {
+                _context1.n = 3;
+                break;
+              }
+              toast.fire({
+                type: "error",
+                title: _this10.$t("Service Purchase Price is required for services")
+              });
+              return _context1.a(2);
+            case 3:
+              if (_this10.form.salesAccountId) {
+                _context1.n = 4;
+                break;
+              }
+              toast.fire({
+                type: "error",
+                title: _this10.$t("Sales Account is required")
+              });
+              return _context1.a(2);
+            case 4:
+              if (_this10.form.purchaseAccountId) {
+                _context1.n = 5;
+                break;
+              }
+              toast.fire({
+                type: "error",
+                title: _this10.$t("Purchase Account is required")
+              });
+              return _context1.a(2);
+            case 5:
+              unitConvValidation = _this10.validateUnitConversions();
+              if (unitConvValidation.valid) {
+                _context1.n = 6;
+                break;
+              }
+              toast.fire({
+                type: "error",
+                title: unitConvValidation.message
+              });
+              return _context1.a(2);
+            case 6:
+              // Transform object fields to IDs before sending
+              formData = _this10.form.data();
+              formData.unit_conversions = _this10.buildUnitConversionsPayload();
+
+              // Transform v-select objects to IDs
+              if (formData.subCategory && _typeof(formData.subCategory) === 'object') {
+                formData.subCategory = formData.subCategory.id;
+              }
+              if (formData.brand && _typeof(formData.brand) === 'object') {
+                formData.brand = formData.brand.id;
+              }
+              if (formData.itemUnit && _typeof(formData.itemUnit) === 'object') {
+                formData.itemUnit = formData.itemUnit.id;
+              }
+              if (formData.productTax && _typeof(formData.productTax) === 'object') {
+                formData.productTax = formData.productTax.id;
+              }
+              _context1.n = 7;
+              return axios_default().put("/api/products/".concat(identifier), formData);
+            case 7:
+              response = _context1.v;
+              if (response.data.success) {
+                toast.fire({
+                  type: "success",
+                  title: _this10.$t("Product updated successfully")
+                });
+                if (_this10.mode === 'modal') {
+                  _this10.showModal = false;
+                } else {
+                  _this10.$router.push({
+                    name: 'products.index'
+                  });
+                }
+                _this10.$emit("reloadProducts");
+                _this10.$emit("productUpdated", {
+                  originalProduct: _this10.product,
+                  updatedData: formData
+                });
+                _this10.form.reset();
+                _this10.url = null;
+              }
+              _context1.n = 9;
+              break;
+            case 8:
+              _context1.p = 8;
+              _t9 = _context1.v;
+              if (_t9.response && _t9.response.data) {
+                if (_t9.response.data.errors) {
+                  _this10.form.errors.set(_t9.response.data.errors);
+                } else {
+                  toast.fire({
+                    type: "error",
+                    title: _t9.response.data.message || _this10.$t("Error updating product")
+                  });
+                }
+              } else {
+                toast.fire({
+                  type: "error",
+                  title: _this10.$t("Error updating product")
+                });
+              }
+              console.error('Error updating product:', _t9);
+            case 9:
+              return _context1.a(2);
+          }
+        }, _callee1, null, [[0, 8]]);
+      }))();
+    },
+    loadProductData: function loadProductData(product) {
+      var _this11 = this;
+      this.form.itemType = product.item_type || product.itemType || "product";
+      this.form.itemName = product.name || product.item_name || "";
+      this.form.itemModel = product.model || product.item_model || "";
+      this.form.itemCode = product.code || product.item_code || "";
+      this.form.barcodeSymbology = product.barcode_symbology || product.barcodeSymbology || product.symbology || "CODE128";
+
+      // Handle subCategory - find the exact object from categories array
+      if (product.subCategory) {
+        if (_typeof(product.subCategory) === 'object' && product.subCategory.id) {
+          var categoryObject = this.categories.find(function (cat) {
+            return cat.id == product.subCategory.id;
+          });
+          this.form.subCategory = categoryObject || product.subCategory;
+        } else {
+          var _categoryObject = this.categories.find(function (cat) {
+            return cat.id == product.subCategory;
+          });
+          this.form.subCategory = _categoryObject || product.subCategory;
+        }
+      } else {
+        var categoryId = product.sub_category_id || product.category_id;
+        if (categoryId) {
+          var _categoryObject2 = this.categories.find(function (cat) {
+            return cat.id == categoryId;
+          });
+          this.form.subCategory = _categoryObject2 || "";
+        } else {
+          this.form.subCategory = "";
+        }
+      }
+
+      // Handle unit - find the exact object from units array
+      if (product.itemUnit) {
+        if (_typeof(product.itemUnit) === 'object' && product.itemUnit.id) {
+          var unitObject = this.units.find(function (unit) {
+            return unit.id == product.itemUnit.id;
+          });
+          this.form.itemUnit = unitObject || product.itemUnit;
+        } else {
+          var _unitObject = this.units.find(function (unit) {
+            return unit.id == product.itemUnit;
+          });
+          this.form.itemUnit = _unitObject || product.itemUnit;
+        }
+      } else {
+        var unitId = product.unit_id || product.item_unit || product.unit;
+        if (unitId) {
+          var _unitObject2 = this.units.find(function (unit) {
+            return unit.id == unitId;
+          });
+          this.form.itemUnit = _unitObject2 || "";
+        } else {
+          this.form.itemUnit = "";
+        }
+      }
+
+      // Load unit conversions (additional units only; base unit has factor 1)
+      var baseUnitId = this.form.itemUnit && (this.form.itemUnit.id || this.form.itemUnit);
+      var conversions = product.unitConversions || [];
+      this.form.unitConversions = conversions.filter(function (c) {
+        var uid = c.unit_id || c.unit && c.unit.id;
+        var factor = parseFloat(c.conversion_factor);
+        return uid != baseUnitId && !isNaN(factor) && factor > 0;
+      }).map(function (c) {
+        var unitObj = _this11.units.find(function (u) {
+          return u.id == (c.unit_id || c.unit && c.unit.id);
+        });
+        return {
+          unit: unitObj || null,
+          conversion_factor: c.conversion_factor
+        };
+      });
+      if (!Array.isArray(this.form.unitConversions)) {
+        this.form.unitConversions = [];
+      }
+
+      // Handle tax field - find the exact object from taxes array
+      if (product.itemTax) {
+        if (_typeof(product.itemTax) === 'object' && product.itemTax.id) {
+          var taxObject = this.taxes.find(function (tax) {
+            return tax.id == product.itemTax.id;
+          });
+          this.form.productTax = taxObject || product.itemTax;
+        } else {
+          var _taxObject = this.taxes.find(function (tax) {
+            return tax.id == product.itemTax;
+          });
+          this.form.productTax = _taxObject || product.itemTax;
+        }
+      } else if (product.tax_id || product.tax || product.item_tax || product.vat_rate_id) {
+        var taxId = product.tax_id || product.tax || product.item_tax || product.vat_rate_id;
+        var _taxObject2 = this.taxes.find(function (tax) {
+          return tax.id == taxId;
+        });
+        this.form.productTax = _taxObject2 || "";
+      } else {
+        this.form.productTax = "";
+      }
+      this.form.taxType = product.tax_type || product.taxType || "Exclusive";
+      this.form.regularPrice = product.regular_price || product.regularPrice || product.price || "";
+      this.form.servicePurchasePrice = product.service_purchase_price || product.servicePurchasePrice || "";
+      this.form.discount = product.discount || 0;
+      this.form.sellingPrice = product.selling_price || product.sellingPrice || "";
+      this.form.openingStockCount = product.opening_stock_count || product.openingStockCount || "";
+      this.form.openingStockEntryUnit = this.form.itemUnit || null;
+      this.form.openingStockEntryQuantity = product.opening_stock_count != null && product.opening_stock_count !== '' ? product.opening_stock_count || product.openingStockCount || "" : "";
+      this.form.openingStockUnitPrice = product.opening_stock_unit_price || product.openingStockUnitPrice || "";
+      this.form.note = product.note || product.description || "";
+      this.form.status = product.status || "1";
+      this.form.alertQuantity = product.alert_quantity || product.alertQuantity || product.alert_qty || 1;
+      // Handle sales account - find the exact object from chartOfAccounts array
+      var salesAccountId = product.sales_account_id || (product.sales_account ? product.sales_account.id : "");
+      if (salesAccountId) {
+        var salesAccountObject = this.chartOfAccounts.find(function (account) {
+          return account.id == salesAccountId;
+        });
+        this.form.salesAccountId = salesAccountObject ? salesAccountObject.id : salesAccountId;
+      } else {
+        this.form.salesAccountId = "";
+      }
+
+      // Handle purchase account - find the exact object from chartOfAccounts array
+      var purchaseAccountId = product.purchase_account_id || (product.purchase_account ? product.purchase_account.id : "");
+      if (purchaseAccountId) {
+        var purchaseAccountObject = this.chartOfAccounts.find(function (account) {
+          return account.id == purchaseAccountId;
+        });
+        this.form.purchaseAccountId = purchaseAccountObject ? purchaseAccountObject.id : purchaseAccountId;
+      } else {
+        this.form.purchaseAccountId = "";
+      }
+      this.url = product.image || "";
+
+      // Calculate selling price after loading data
+      this.$nextTick(function () {
+        _this11.calculatePrice();
+      });
+    },
+    // Handle Select it manually checkbox change
+    onOverrideSalesAccountChange: function onOverrideSalesAccountChange() {
+      if (this.form.overrideSalesAccount) {
+        this.form.salesAccountId = "";
+      } else {
+        if (this.isSalesAccountAutomatic && this.accountRoutingSettings.sales.main_account_id) {
+          this.form.salesAccountId = this.accountRoutingSettings.sales.main_account_id;
+        }
+      }
+    },
+    // Handle Select it manually checkbox change
+    onOverridePurchaseAccountChange: function onOverridePurchaseAccountChange() {
+      if (this.form.overridePurchaseAccount) {
+        this.form.purchaseAccountId = "";
+      } else {
+        if (this.isPurchaseAccountAutomatic && this.accountRoutingSettings.purchase.main_account_id) {
+          this.form.purchaseAccountId = this.accountRoutingSettings.purchase.main_account_id;
+        }
+      }
+    },
+    getConversionFactor: function getConversionFactor(unit) {
+      if (!unit) return 0;
+      var baseId = this.form.itemUnit && (this.form.itemUnit.id || this.form.itemUnit);
+      var id = unit.id || unit;
+      if (id == baseId) return 1;
+      var row = (this.form.unitConversions || []).find(function (r) {
+        return (r.unit && (r.unit.id || r.unit)) == id;
+      });
+      return row ? parseFloat(row.conversion_factor) || 0 : 0;
+    },
+    validateUnitConversions: function validateUnitConversions() {
+      var baseUnitId = this.form.itemUnit && (this.form.itemUnit.id || this.form.itemUnit);
+      if (!baseUnitId) {
+        return {
+          valid: false,
+          message: this.$t("Unit is required (base unit).")
+        };
+      }
+      var additional = (this.form.unitConversions || []).filter(function (r) {
+        return r.unit || r.conversion_factor !== '' && r.conversion_factor !== null;
+      });
+      for (var i = 0; i < additional.length; i++) {
+        var r = additional[i];
+        if (!r.unit) {
+          return {
+            valid: false,
+            message: this.$t("Please select a unit for all conversion rows or remove empty rows.")
+          };
+        }
+        var factor = parseFloat(r.conversion_factor);
+        if (isNaN(factor) || factor <= 0) {
+          return {
+            valid: false,
+            message: this.$t("Conversion factor must be a number greater than 0.")
+          };
+        }
+      }
+      if (this.form.itemType === 'product') {
+        var q = parseFloat(this.form.openingStockEntryQuantity);
+        if (!isNaN(q) && q > 0) {
+          if (!this.form.openingStockEntryUnit) {
+            return {
+              valid: false,
+              message: this.$t("Please select a unit for opening stock.")
+            };
+          }
+          var _factor = this.getConversionFactor(this.form.openingStockEntryUnit);
+          if (_factor <= 0) {
+            return {
+              valid: false,
+              message: this.$t("Opening stock unit must have a valid conversion factor.")
+            };
+          }
+          if (q < 0) {
+            return {
+              valid: false,
+              message: this.$t("Opening stock quantity must be zero or greater.")
+            };
+          }
+        }
+      }
+      return {
+        valid: true,
+        message: ''
+      };
+    },
+    buildUnitConversionsPayload: function buildUnitConversionsPayload() {
+      var baseUnitId = this.form.itemUnit && (this.form.itemUnit.id || this.form.itemUnit);
+      if (!baseUnitId) return [];
+      return [{
+        unit_id: baseUnitId,
+        conversion_factor: 1
+      }].concat(_toConsumableArray((this.form.unitConversions || []).filter(function (r) {
+        return r.unit;
+      }).map(function (r) {
+        return {
+          unit_id: r.unit && (r.unit.id || r.unit),
+          conversion_factor: parseFloat(r.conversion_factor) || 0
+        };
+      }).filter(function (r) {
+        return r.unit_id && r.conversion_factor > 0;
+      })));
+    }
+  }
+});
+;// ./resources/js/components/ProductForm.vue?vue&type=script&lang=js
+ /* harmony default export */ const components_ProductFormvue_type_script_lang_js = (ProductFormvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__(85072);
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductForm.vue?vue&type=style&index=0&id=bbb16f8e&prod&scoped=true&lang=css
+var ProductFormvue_type_style_index_0_id_bbb16f8e_prod_scoped_true_lang_css = __webpack_require__(76797);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductForm.vue?vue&type=style&index=0&id=bbb16f8e&prod&scoped=true&lang=css
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = injectStylesIntoStyleTag_default()(ProductFormvue_type_style_index_0_id_bbb16f8e_prod_scoped_true_lang_css/* default */.A, options);
+
+
+
+/* harmony default export */ const components_ProductFormvue_type_style_index_0_id_bbb16f8e_prod_scoped_true_lang_css = (ProductFormvue_type_style_index_0_id_bbb16f8e_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/components/ProductForm.vue?vue&type=style&index=0&id=bbb16f8e&prod&scoped=true&lang=css
+
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(14486);
+;// ./resources/js/components/ProductForm.vue
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,componentNormalizer/* default */.A)(
+  components_ProductFormvue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  "bbb16f8e",
+  null
+  
+)
+
+/* harmony default export */ const ProductForm = (component.exports);
+
+/***/ },
+
+/***/ 77789
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "default": () => (/* binding */ edit)
+});
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/products/edit.vue?vue&type=template&id=417ab877&scoped=true
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "mb-50"
+  }, [_c('product-form', {
+    attrs: {
+      "mode": "page",
+      "product": _vm.product,
+      "form-id": 'productEditForm'
+    }
+  })], 1);
+};
+var staticRenderFns = [];
+
+// EXTERNAL MODULE: ./resources/js/components/ProductForm.vue + 5 modules
+var ProductForm = __webpack_require__(19585);
+// EXTERNAL MODULE: ./node_modules/axios/index.js
+var axios = __webpack_require__(72505);
+var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/products/edit.vue?vue&type=script&lang=js
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+
+
+/* harmony default export */ const editvue_type_script_lang_js = ({
+  middleware: ['auth', 'check-permissions'],
+  metaInfo: function metaInfo() {
+    return {
+      title: this.$t('Edit Item')
+    };
+  },
+  components: {
+    ProductForm: ProductForm/* default */.A
+  },
+  data: function data() {
+    return {
+      product: null
+    };
+  },
+  created: function created() {
+    var _this = this;
+    return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+      return _regenerator().w(function (_context) {
+        while (1) switch (_context.n) {
+          case 0:
+            _context.n = 1;
+            return _this.getProduct();
+          case 1:
+            return _context.a(2);
+        }
+      }, _callee);
+    }))();
+  },
+  methods: {
+    getProduct: function getProduct() {
+      var _this2 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+        var _yield$axios$get, data, _t;
+        return _regenerator().w(function (_context2) {
+          while (1) switch (_context2.p = _context2.n) {
+            case 0:
+              _context2.p = 0;
+              _context2.n = 1;
+              return axios_default().get(window.location.origin + '/api/products/' + _this2.$route.params.slug);
+            case 1:
+              _yield$axios$get = _context2.v;
+              data = _yield$axios$get.data;
+              _this2.product = data.data;
+              _context2.n = 3;
+              break;
+            case 2:
+              _context2.p = 2;
+              _t = _context2.v;
+              console.error('Error fetching product:', _t);
+              _this2.$router.push({
+                name: 'products.index'
+              });
+            case 3:
+              return _context2.a(2);
+          }
+        }, _callee2, null, [[0, 2]]);
+      }))();
+    }
+  }
+});
+;// ./resources/js/pages/products/edit.vue?vue&type=script&lang=js
+ /* harmony default export */ const products_editvue_type_script_lang_js = (editvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__(85072);
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/products/edit.vue?vue&type=style&index=0&id=417ab877&prod&scoped=true&lang=css
+var editvue_type_style_index_0_id_417ab877_prod_scoped_true_lang_css = __webpack_require__(53200);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/products/edit.vue?vue&type=style&index=0&id=417ab877&prod&scoped=true&lang=css
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = injectStylesIntoStyleTag_default()(editvue_type_style_index_0_id_417ab877_prod_scoped_true_lang_css/* default */.A, options);
+
+
+
+/* harmony default export */ const products_editvue_type_style_index_0_id_417ab877_prod_scoped_true_lang_css = (editvue_type_style_index_0_id_417ab877_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/pages/products/edit.vue?vue&type=style&index=0&id=417ab877&prod&scoped=true&lang=css
+
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(14486);
+;// ./resources/js/pages/products/edit.vue
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,componentNormalizer/* default */.A)(
+  products_editvue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  "417ab877",
+  null
+  
+)
+
+/* harmony default export */ const edit = (component.exports);
+
+/***/ }
+
+}]);

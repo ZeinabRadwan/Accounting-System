@@ -78,7 +78,8 @@ export default {
         slug: clientData.slug,
         
         // Account Details
-        codeNumber: clientData.codeNumber || clientData.clientID || clientData.code_number || '000001',
+        // Always show the stored code number when editing
+        codeNumber: clientData.codeNumber || clientData.code_number || '',
         billingMethod: clientData.billingMethod || 'print',
         currency: clientData.currency || 'EGP',
         classification: clientData.classification || '',

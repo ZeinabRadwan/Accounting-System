@@ -141,7 +141,7 @@ class ClientController extends Controller
                 $imageName = time().'.'.$fileExtension;
                 $imagePath = public_path('images/clients/');
                 // Ensure directory exists
-                if (!File::exists($imagePath)) {
+                if (! File::exists($imagePath)) {
                     File::makeDirectory($imagePath, 0755, true);
                 }
                 Image::make($request->image)->save($imagePath.$imageName);
@@ -322,7 +322,7 @@ class ClientController extends Controller
                 $imageName = time().'.'.$fileExtension;
                 $imagePath = public_path('images/clients/');
                 // Ensure directory exists
-                if (!File::exists($imagePath)) {
+                if (! File::exists($imagePath)) {
                     File::makeDirectory($imagePath, 0755, true);
                 }
                 Image::make($uploadedFile->getRealPath())->save($imagePath.$imageName);
@@ -365,7 +365,7 @@ class ClientController extends Controller
                 $imageName = time().'.'.$fileExtension;
                 $imagePath = public_path('images/clients/');
                 // Ensure directory exists
-                if (!File::exists($imagePath)) {
+                if (! File::exists($imagePath)) {
                     File::makeDirectory($imagePath, 0755, true);
                 }
                 Image::make($request->image)->save($imagePath.$imageName);

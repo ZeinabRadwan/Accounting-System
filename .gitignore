@@ -101,3 +101,4 @@ public/hot
 /public/images
 !/public/images/default-avatar.jpeg
 /public/fonts
+composer.lock
