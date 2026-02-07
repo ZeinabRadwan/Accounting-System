@@ -39,6 +39,7 @@ class EmployeeResource extends JsonResource
             'role' => isset($this->user_id) && $this->user->roles->count() > 0 ? $this->user->roles[0] : '',
             'status' => (int) $this->status,
             'image' => getAvatarWithFallback($this->image_path, 'employees'),
+            'allowedAccountIds' => $this->allowed_account_ids ?? [],
         ];
     }
 }

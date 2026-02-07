@@ -244,6 +244,24 @@
                   </div>
                 </div>
               </div>
+              <div class="row">
+                <div class="form-group col-md-12">
+                  <label for="allowed_account_ids">{{ $t('Allowed Banks / Accounts') }}</label>
+                  <v-select
+                    v-model="form.allowed_account_ids"
+                    :options="allowedAccountsOptions"
+                    label="label"
+                    :reduce="a => a.id"
+                    multiple
+                    :close-on-select="false"
+                    :placeholder="$t('Select bank or cash accounts')"
+                    :class="{ 'is-invalid': form.errors.has('allowed_account_ids') }"
+                    name="allowed_account_ids"
+                  />
+                  <has-error :form="form" field="allowed_account_ids" />
+                  <small class="form-text text-muted">{{ $t('allowed_banks_description') }}</small>
+                </div>
+              </div>
               <div class="form-check">
                 <input v-model="form.allowLogin" type="checkbox" class="form-check-input" id="allowLogin" />
                 <label class="form-check-label" for="allowLogin" style="padding: 0 20px">{{
@@ -343,10 +361,12 @@ export default {
       password: '',
       role: '',
       branch_id: null,
+      allowed_account_ids: [],
     }),
     options: [],
     roles: '',
     branches: [],
+    allowedAccountsOptions: [],
     url: null,
   }),
   computed: {
@@ -356,6 +376,7 @@ export default {
     this.getDepartments()
     this.getRoles()
     this.getBranches()
+    this.getAllowedAccountsOptions()
     this.getEmployee()
   },
   mounted() {
@@ -375,6 +396,20 @@ export default {
         window.location.origin + '/api/all-roles'
       )
       this.roles = data.data
+    },
+
+    // get all bank/cash accounts for Allowed Banks multi-select
+    async getAllowedAccountsOptions() {
+      try {
+        const { data } = await axios.get(
+          window.location.origin + '/api/all-accounts',
+          { params: { for_employee_assignment: 1 } }
+        )
+        this.allowedAccountsOptions = Array.isArray(data.data) ? data.data : []
+      } catch (e) {
+        console.error('Error loading accounts for allowed banks:', e)
+        this.allowedAccountsOptions = []
+      }
     },
 
     // get employee
@@ -400,6 +435,7 @@ export default {
       this.form.email = data.data.email
       this.form.role = data.data.role
       this.form.branch_id = data.data.branch_id
+      this.form.allowed_account_ids = data.data.allowedAccountIds || []
       this.url = data.data.image
     },
 

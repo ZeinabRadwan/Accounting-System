@@ -2,29 +2,30 @@
 
 namespace App\Http\Controllers\API;
 
-use Exception;
-use App\Models\Role;
-use App\Models\User;
-use App\Models\Payroll;
-use App\Models\Employee;
-use App\Models\Department;
-use Illuminate\Http\Request;
-use App\Services\ImageService;
-use App\Models\SalaryIncrement;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use App\Http\Resources\PayrollResource;
-use App\Http\Resources\EmployeeResource;
-use Intervention\Image\Facades\Image as Image;
-use App\Http\Resources\SalaryIncrementResource;
 use App\Http\Requests\Employee\StoreEmployeeRequest;
 use App\Http\Requests\Employee\UpdateEmployeeRequest;
+use App\Http\Resources\EmployeeResource;
+use App\Http\Resources\PayrollResource;
+use App\Http\Resources\SalaryIncrementResource;
+use App\Models\Department;
+use App\Models\Employee;
+use App\Models\Payroll;
+use App\Models\Role;
+use App\Models\SalaryIncrement;
+use App\Models\User;
+use App\Services\ImageService;
+use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Intervention\Image\Facades\Image;
 
 class EmployeeController extends Controller
 {
     private $imageService;
+
     // define middleware
     public function __construct(ImageService $imageService)
     {
@@ -45,20 +46,21 @@ class EmployeeController extends Controller
     public function index(Request $request)
     {
         $query = Employee::with('department', 'user');
-        
+
         // Apply branch filter for non-superadmin users
         $user = Auth::user();
         // if ((int) $user->account_role !== 1) {
-            $branchIds = $this->getUserBranchIds($user);
-            $query->whereIn('branch_id', $branchIds);
+        $branchIds = $this->getUserBranchIds($user);
+        $query->whereIn('branch_id', $branchIds);
         // }
-        
+
         return EmployeeResource::collection($query->latest()->paginate($request->perPage));
     }
-    
+
     private function getUserBranchIds($user)
     {
         $defaultBranchId = (int) ($user->default_branch_id ?? 0);
+
         return [$defaultBranchId > 0 ? $defaultBranchId : 0];
     }
 
@@ -87,18 +89,18 @@ class EmployeeController extends Controller
             // upload thumbnail and set the name
             $imageName = '';
             if ($request->image) {
-                $imageName = time() . '.' . explode(
+                $imageName = time().'.'.explode(
                     '/',
                     explode(':', substr($request->image, 0, strpos($request->image, ';')))[1]
                 )[1];
-                Image::make($request->image)->save(public_path('images/employees/') . $imageName);
+                Image::make($request->image)->save(public_path('images/employees/').$imageName);
             }
 
             // create a user if allowLogin is true
             if ($request->allowLogin == true) {
                 // get role
                 $role = Role::where('slug', $request->role['slug'])->first();
-                
+
                 // Authorization: Super admin (account_role === 1) can select any branch; normal users must belong to branch
                 $currentUser = Auth::user();
                 $branchId = (int) $request->branch_id;
@@ -108,7 +110,7 @@ class EmployeeController extends Controller
                         ->where('user_id', $currentUser->id)
                         ->where('branch_id', $branchId)
                         ->exists();
-                    if (!$belongs) {
+                    if (! $belongs) {
                         throw new Exception(__('You can only add users to branches you belong to.'));
                     }
                 }
@@ -134,7 +136,7 @@ class EmployeeController extends Controller
             }
 
             // create employee
-           $employee = Employee::create([
+            $employee = Employee::create([
                 'name' => $request->employeeName,
                 'emp_id' => $code,
                 'department_id' => $request->department['id'],
@@ -153,27 +155,29 @@ class EmployeeController extends Controller
                 'image_path' => $imageName,
                 'user_id' => isset($user) ? $user->id : null,
                 'branch_id' => (int) ($request->branch_id ?? Auth::user()->default_branch_id ?? 0),
+                'allowed_account_ids' => $request->allowed_account_ids ?? [],
             ]);
 
-                        // add activity log
+            // add activity log
             activity()
-            ->causedBy(Auth::user())
-            ->performedOn($employee)
-            ->withProperties([
-                'name' => "",
-                'code' => '[' . $request->employeeName . ']',
-                'event' => 'Create',
-                'slug' => $employee->slug,
-                'routeName' => 'employees.show'
-            ])
-            ->useLog('Employee Created')
-            ->log('Employee Created');
+                ->causedBy(Auth::user())
+                ->performedOn($employee)
+                ->withProperties([
+                    'name' => '',
+                    'code' => '['.$request->employeeName.']',
+                    'event' => 'Create',
+                    'slug' => $employee->slug,
+                    'routeName' => 'employees.show',
+                ])
+                ->useLog('Employee Created')
+                ->log('Employee Created');
 
             DB::commit();
 
             return $this->responseWithSuccess('Employee added successfully');
         } catch (Exception $e) {
             DB::rollback();
+
             return $this->responseWithError($e->getMessage());
         }
     }
@@ -216,25 +220,25 @@ class EmployeeController extends Controller
             $imageName = $employee->image_path;
             if ($request->image) {
                 if ($imageName) {
-                    @unlink(public_path('images/employees/' . $imageName));
+                    @unlink(public_path('images/employees/'.$imageName));
                 }
-                $imageName = time() . '.' . explode(
+                $imageName = time().'.'.explode(
                     '/',
                     explode(':', substr($request->image, 0, strpos($request->image, ';')))[1]
                 )[1];
-                Image::make($request->image)->save(public_path('images/employees/') . $imageName);
+                Image::make($request->image)->save(public_path('images/employees/').$imageName);
             }
 
             // Branch authorization
             $currentUser = Auth::user();
             $branchId = (int) $request->branch_id;
-            
+
             if ((int) $currentUser->account_role !== 1) {
                 $belongs = DB::table('branch_user')
                     ->where('user_id', $currentUser->id)
                     ->where('branch_id', $branchId)
                     ->exists();
-                if (!$belongs) {
+                if (! $belongs) {
                     throw new Exception(__('You can only assign users to branches you belong to.'));
                 }
             }
@@ -259,7 +263,7 @@ class EmployeeController extends Controller
                     ]);
                     $user->roles()->sync($role->id);
                     $user->permissions()->sync($user->roles[0]->permissions);
-                    
+
                     // Update branch assignment
                     DB::table('branch_user')->updateOrInsert(
                         ['user_id' => $user->id, 'branch_id' => $branchId],
@@ -276,7 +280,7 @@ class EmployeeController extends Controller
                     ]);
                     $user->roles()->attach($role->id);
                     $user->permissions()->attach($user->roles[0]->permissions);
-                    
+
                     // attach user to branch
                     DB::table('branch_user')->insert([
                         'user_id' => $user->id,
@@ -312,27 +316,29 @@ class EmployeeController extends Controller
                 'image_path' => $imageName,
                 'user_id' => isset($user) ? $user->id : null,
                 'branch_id' => $branchId,
+                'allowed_account_ids' => $request->allowed_account_ids ?? [],
             ]);
 
             // add activity log
             activity()
-            ->causedBy(Auth::user())
-            ->performedOn($employee)
-            ->withProperties([
-                'name' => "",
-                'code' => '[' . $request->employeeName . ']',
-                'event' => 'Update',
-                'slug' => $employee->slug,
-                'routeName' => 'employees.show'
-            ])
-            ->useLog('Employee Updated')
-            ->log('Employee Updated');
+                ->causedBy(Auth::user())
+                ->performedOn($employee)
+                ->withProperties([
+                    'name' => '',
+                    'code' => '['.$request->employeeName.']',
+                    'event' => 'Update',
+                    'slug' => $employee->slug,
+                    'routeName' => 'employees.show',
+                ])
+                ->useLog('Employee Updated')
+                ->log('Employee Updated');
 
             DB::commit();
 
             return $this->responseWithSuccess('Employee updated successfully');
         } catch (Exception $e) {
             DB::rollback();
+
             return $this->responseWithError($e->getMessage());
         }
     }
@@ -349,11 +355,10 @@ class EmployeeController extends Controller
             DB::beginTransaction();
 
             $employee = Employee::where('slug', $slug)->first();
-            //delete employee image
+            // delete employee image
             if ($employee->image_path) {
-                @unlink(public_path('images/employees/' . $employee->image_path));
+                @unlink(public_path('images/employees/'.$employee->image_path));
             }
-
 
             // remove user login
             if (isset($employee->user)) {
@@ -368,16 +373,15 @@ class EmployeeController extends Controller
 
             // add activity log
             activity()
-            ->causedBy(Auth::user())
-            ->performedOn($employee)
-            ->withProperties([
-                'name' => "",
-                'code' => '[' . $employee->name . ']',
-                'event' => 'Delete'
-            ])
-            ->useLog('Employee Deleted')
-            ->log('Employee Deleted');
-
+                ->causedBy(Auth::user())
+                ->performedOn($employee)
+                ->withProperties([
+                    'name' => '',
+                    'code' => '['.$employee->name.']',
+                    'event' => 'Delete',
+                ])
+                ->useLog('Employee Deleted')
+                ->log('Employee Deleted');
 
             $employee->delete();
 
@@ -386,6 +390,7 @@ class EmployeeController extends Controller
             return $this->responseWithSuccess('Employee deleted successfully');
         } catch (Exception $e) {
             DB::rollback();
+
             return $this->responseWithError($e->getMessage());
         }
     }
@@ -435,7 +440,7 @@ class EmployeeController extends Controller
     {
         $user = Auth::user();
         $branchIds = $this->getUserBranchIds($user);
-        
+
         $allEmployees = Employee::with('department')
             ->where('status', 1)
             ->whereIn('branch_id', $branchIds)

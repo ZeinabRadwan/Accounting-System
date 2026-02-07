@@ -11,6 +11,7 @@ use App\Models\Account;
 use App\Models\AccountRoutingSetting;
 use App\Models\AccountTransaction;
 use App\Models\ChartOfAccount;
+use App\Models\Employee;
 use App\Services\ImageService;
 use App\Traits\ApiResponse;
 use Exception;
@@ -373,18 +374,32 @@ class AccountController extends Controller
 
     /**
      * Display a listing of the resource.
+     * When for_employee_assignment=1, returns all accounts (for employee create/edit).
+     * Otherwise, if current user has an employee with allowed_account_ids, returns only those accounts.
      *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function allAccounts()
+    public function allAccounts(Request $request)
     {
-        // Global scope automatically filters by user's default branch
-        $accounts = Account::where('status', 1)
+        $query = Account::where('status', 1)
             ->with('chartOfAccount.type')
-            ->latest()
-            ->get();
+            ->latest();
 
-        return AccountResource::collection($accounts);
+        // For employee create/edit: return all accounts so admin can assign any
+        if ($request->boolean('for_employee_assignment')) {
+            return AccountResource::collection($query->get());
+        }
+
+        // For payment screens: filter by current user's employee allowed accounts
+        $user = Auth::user();
+        if ($user) {
+            $employee = Employee::where('user_id', $user->id)->first();
+            if ($employee && is_array($employee->allowed_account_ids) && count($employee->allowed_account_ids) > 0) {
+                $query->whereIn('id', $employee->allowed_account_ids);
+            }
+        }
+
+        return AccountResource::collection($query->get());
     }
 
     // return account transactions

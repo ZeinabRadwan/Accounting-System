@@ -42,6 +42,8 @@ class StoreEmployeeRequest extends BaseRequest
             'email' => $this->allowLogin == true ? 'required|string|email:rfc,dns|max:255|unique:users,email' : 'nullable',
             'password' => $this->allowLogin == true ? 'required|string|max:255|min:8' : 'nullable',
             'role' => $this->allowLogin == true ? 'required' : 'nullable',
+            'allowed_account_ids' => 'nullable|array',
+            'allowed_account_ids.*' => 'integer|exists:accounts,id',
         ];
     }
 }

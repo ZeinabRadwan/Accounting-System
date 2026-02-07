@@ -130,6 +130,21 @@
                       allData.user.role.name
                     }}</span>
                   </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <strong>{{ $t("Allowed Banks / Accounts") }}</strong>
+                    <span class="text-right flex-grow-1 ml-2">
+                      <template v-if="allowedAccountLabels.length > 0">
+                        <span
+                          v-for="(label, idx) in allowedAccountLabels"
+                          :key="idx"
+                          class="badge bg-secondary mr-1 mb-1"
+                        >
+                          {{ label }}
+                        </span>
+                      </template>
+                      <span v-else class="text-muted">{{ $t("All accounts") }}</span>
+                    </span>
+                  </li>
                 </ul>
                 <span
                   v-if="allData.status === 1"
@@ -579,6 +594,7 @@ export default {
     allActivityLogPagination: "",
     activityLoading: false,
     perPage: 10,
+    allowedAccountsOptions: [],
     options: [
       { value: "10", text: "10" },
       { value: "25", text: "25" },
@@ -697,6 +713,19 @@ export default {
       });
     },
 
+    // Allowed accounts labels for display (resolve IDs to labels from options)
+    allowedAccountLabels() {
+      if (!this.allData || !this.allData.allowedAccountIds || !Array.isArray(this.allData.allowedAccountIds)) {
+        return [];
+      }
+      if (!this.allowedAccountsOptions || this.allowedAccountsOptions.length === 0) {
+        return this.allData.allowedAccountIds.map((id) => `#${id}`);
+      }
+      return this.allData.allowedAccountIds.map((id) => {
+        const acc = this.allowedAccountsOptions.find((a) => a.id === id);
+        return acc ? acc.label : `#${id}`;
+      });
+    },
     // Increments actions
     incrementsActions() {
       return [
@@ -760,6 +789,7 @@ export default {
 
   created() {
     this.getEmployee();
+    this.getAllowedAccountsOptions();
     this.getEmployeePayroll();
     this.employeePrefix = this.appInfo.employeePrefix;
     Fire.$on("AfterDelete", () => {
@@ -779,6 +809,20 @@ export default {
         window.location.origin + "/api/employees/" + this.$route.params.slug
       );
       this.allData = data.data;
+    },
+
+    // load all accounts (for resolving allowed_account_ids to labels)
+    async getAllowedAccountsOptions() {
+      try {
+        const { data } = await axios.get(
+          window.location.origin + "/api/all-accounts",
+          { params: { for_employee_assignment: 1 } }
+        );
+        this.allowedAccountsOptions = Array.isArray(data.data) ? data.data : [];
+      } catch (e) {
+        console.error("Error loading accounts for display:", e);
+        this.allowedAccountsOptions = [];
+      }
     },
 
     // update per page count
