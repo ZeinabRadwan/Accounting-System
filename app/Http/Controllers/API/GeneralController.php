@@ -84,6 +84,7 @@ class GeneralController extends Controller
             'fiscalYears' => $this->getAllFiscalYears(),
             'accountingPeriods' => $this->getAllAccountingPeriods(),
             'systemType' => $query->where('key', 'system_type')->first()?->value ?? '',
+            'eInvoiceSubmissionMode' => $query->where('key', 'e_invoice_submission_mode')->first()?->value ?? 'auto',
         ];
 
         return $settings;
@@ -273,6 +274,14 @@ class GeneralController extends Controller
             GeneralSetting::updateOrCreate(
                 ['key' => 'system_type'],
                 ['display_name' => 'System Type', 'value' => $request->systemType]
+            );
+        }
+
+        // Update e-invoice submission mode (auto vs manual)
+        if ($request->has('eInvoiceSubmissionMode') && in_array($request->eInvoiceSubmissionMode, ['auto', 'manual'])) {
+            GeneralSetting::updateOrCreate(
+                ['key' => 'e_invoice_submission_mode'],
+                ['display_name' => 'E-Invoice Submission Mode', 'value' => $request->eInvoiceSubmissionMode]
             );
         }
 

@@ -554,6 +554,24 @@
                                         </div>
                                     </div>
                                     <div class="row">
+                                        <div class="form-group col-md-12">
+                                            <label for="eInvoiceSubmissionMode">{{
+                                                $t("e_invoice_submission_mode")
+                                            }}</label>
+                                            <select v-model="form.eInvoiceSubmissionMode" id="eInvoiceSubmissionMode"
+                                                name="eInvoiceSubmissionMode" class="form-control" :class="{
+                                                    'is-invalid': form.errors.has('eInvoiceSubmissionMode'),
+                                                }">
+                                                <option value="auto">{{ $t('e_invoice_submission_auto') }}</option>
+                                                <option value="manual">{{ $t('e_invoice_submission_manual') }}</option>
+                                            </select>
+                                            <has-error :form="form" field="eInvoiceSubmissionMode" />
+                                            <small class="form-text text-muted">
+                                                {{ $t('e_invoice_submission_mode_description') }}
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <div class="row">
                                         <!-- Fiscal Year Selection -->
                                         <div class="form-group col-md-6">
                                             <label for="currentFiscalYear">{{
@@ -1025,6 +1043,7 @@ export default {
             defaultVatRate: '',
             currentFiscalYear: '',
             currentAccountingPeriod: '',
+            eInvoiceSubmissionMode: 'auto',
         }),
         logo: '',
         blackLogo: '',
@@ -1182,6 +1201,7 @@ export default {
                 this.form.invoiceThankYouMessage = this.appInfo.invoiceThankYouMessage;
                 this.form.taxRegistrationNumber = this.appInfo.taxRegistrationNumber;
                 this.form.systemType = this.appInfo.systemType || '';
+                this.form.eInvoiceSubmissionMode = this.appInfo.eInvoiceSubmissionMode || 'auto';
 
                 // Assign fiscal year and accounting period
                 if (this.appInfo.currentFiscalYear && this.fiscalYears.length > 0) {

@@ -207,11 +207,12 @@ class InvoiceController extends Controller
                 return $this->responseWithError('The configured accounting period does not belong to the configured fiscal year.');
             }
 
-            // Get country setting to determine status
+            // Get country and e-invoice submission mode
             $country = GeneralSetting::where('key', 'country')->first()?->value ?? 'SA';
             $isSaudiArabia = $country === 'SA';
+            $eInvoiceSubmissionMode = GeneralSetting::where('key', 'e_invoice_submission_mode')->first()?->value ?? 'auto';
 
-            // Set status based on country: KSA invoices created inactive (0) so they can be sent to ZATCA
+            // Set status based on country: KSA invoices created inactive (0) so they can be sent to ZATCA (or auto-sent when mode is auto)
             $invoiceStatus = $isSaudiArabia ? 0 : $request->status;
 
             // calculate is paid - use isPaid from request if provided, otherwise calculate from payment amount
@@ -319,18 +320,17 @@ class InvoiceController extends Controller
                 ]);
             }
 
-            // Create journal entry for invoice sale (skip for Saudi Arabia)
-            // $journalEntriesCreated = false;
-            // if (!$isSaudiArabia) {
-            try {
-                $journalService = new BusinessTransactionJournalService;
-                $journalEntry = $journalService->createInvoiceSaleJournal($invoice, $userId);
-                $journalEntriesCreated = true;
-            } catch (\Exception $e) {
-                // Log the error but don't fail the invoice creation
-                Log::error('Failed to create journal entry for invoice: '.$e->getMessage());
+            // Create journal entry for invoice sale (skip for Saudi Arabia; KSA uses sendToZatca/sendToZatcaInternal)
+            $journalEntriesCreated = false;
+            if (! $isSaudiArabia) {
+                try {
+                    $journalService = new BusinessTransactionJournalService;
+                    $journalEntry = $journalService->createInvoiceSaleJournal($invoice, $userId);
+                    $journalEntriesCreated = true;
+                } catch (\Exception $e) {
+                    Log::error('Failed to create journal entry for invoice: '.$e->getMessage());
+                }
             }
-            // }
 
             // Handle payment creation when isPaid is true or addPayment is 1
             $shouldCreatePayment = ($isPaid == 1 && $request->payment_method_id) || ($request->addPayment == 1);
@@ -456,6 +456,21 @@ class InvoiceController extends Controller
                 ->log('Invoice Created');
 
             DB::commit();
+
+            // Auto-send to tax authority when Saudi Arabia and setting is auto (even if invoice has errors, attempt submit)
+            if ($isSaudiArabia && $eInvoiceSubmissionMode === 'auto') {
+                try {
+                    $invoice->load(['client.chartOfAccount', 'invoiceProducts.product', 'invoicePayments']);
+                    if ($invoice->client && ! $invoice->client->relationLoaded('chartOfAccount')) {
+                        $invoice->client->load('chartOfAccount');
+                    }
+                    $this->sendToZatcaInternal($invoice, $userId);
+                    $invoice->refresh();
+                    $journalEntriesCreated = true;
+                } catch (\Exception $e) {
+                    Log::error('Auto-send to ZATCA failed after invoice create: '.$e->getMessage());
+                }
+            }
 
             return $this->responseWithSuccess('Invoice added successfully', [
                 'id' => $invoice->id,
@@ -1102,8 +1117,11 @@ class InvoiceController extends Controller
     private function sendToZatcaInternal($invoice, $userId)
     {
         try {
-            // Load relationships
-            $invoice->load('client', 'invoiceProducts.product', 'invoicePayments');
+            // Load relationships (include client chartOfAccount for journal entry)
+            $invoice->load('client.chartOfAccount', 'invoiceProducts.product', 'invoicePayments');
+            if ($invoice->client && ! $invoice->client->relationLoaded('chartOfAccount')) {
+                $invoice->client->load('chartOfAccount');
+            }
 
             // Create journal entry for invoice sale (now that we're sending to ZATCA)
             try {

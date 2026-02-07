@@ -10,6 +10,10 @@
       @activity-clicked="getActivity"
       @tab-changed="handleTabChange">
       <template #actions>
+        <div class="d-flex flex-wrap align-items-center gap-2">
+          <span v-if="isSaudiArabia && submissionModeLabel" class="badge bg-secondary align-self-center mr-2">
+            {{ $t("E-Invoice") }}: {{ submissionModeLabel }}
+          </span>
         <div class="btn-group">
           <a @click="communicationConfig.sms_configured ? notify((form.isSendSMS = true)) : null" href="#" :class="[
             'btn',
@@ -32,9 +36,9 @@
           <a @click="downloadPDF" href="#" class="btn btn-info">
             <i class="fas fa-download"></i> {{ $t("download") }}
           </a>
-          <a v-if="isSaudiArabia && allData && allData.status === 0" @click="sendInvoice(allData)" href="#"
+          <a v-if="showSendToAuthorityButton" @click="sendInvoice(allData)" href="#"
             class="btn btn-success">
-            <i class="fas fa-paper-plane"></i> {{ $t("Send Invoice to ZATCA") }}
+            <i class="fas fa-paper-plane"></i> {{ $t("Send to Authority") }}
           </a>
 
           <router-link v-if="$can('invoice-edit') && !(isSaudiArabia && allData && allData.status === 1)" :to="{
@@ -87,6 +91,7 @@
               </template>
             </template>
           </router-link>
+        </div>
         </div>
       </template>
       <template #details>
@@ -585,8 +590,25 @@ export default {
     // Check if country is Saudi Arabia or not selected (default to Saudi Arabia)
     isSaudiArabia() {
       const result = !this.appInfo?.country || this.appInfo.country === 'SA';
-      console.log('[InvoiceDetails] isSaudiArabia:', result, 'appInfo.country:', this.appInfo?.country);
       return result;
+    },
+
+    // E-invoice submission mode from system settings (auto | manual)
+    eInvoiceSubmissionMode() {
+      return this.appInfo?.eInvoiceSubmissionMode || 'auto';
+    },
+
+    // Show "Send to Authority" only in manual mode when invoice is draft (status 0)
+    showSendToAuthorityButton() {
+      return this.isSaudiArabia && this.allData && this.allData.status === 0 && this.eInvoiceSubmissionMode === 'manual';
+    },
+
+    // Label for current submission mode (for display)
+    submissionModeLabel() {
+      if (!this.isSaudiArabia) return null;
+      return this.eInvoiceSubmissionMode === 'auto'
+        ? this.$t('e_invoice_submission_auto')
+        : this.$t('e_invoice_submission_manual');
     },
 
 
@@ -1216,8 +1238,8 @@ export default {
       console.log('data.status:', data.status);
 
       SwalOriginal.fire({
-        title: this.$t("Send Invoice to ZATCA"),
-        text: this.$t("Do you want to send this invoice to ZATCA?"),
+        title: this.$t("Send to Authority"),
+        text: this.$t("Do you want to send this invoice to the tax authority?"),
         type: "question",
         showCancelButton: true,
         confirmButtonText: this.$t("Yes"),

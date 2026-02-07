@@ -54,6 +54,7 @@ class StoreGeneralSettingRequest extends BaseRequest
             'currentFiscalYear' => 'nullable|array',
             'currentAccountingPeriod' => 'nullable|array',
             'systemType' => 'nullable|in:accounting,pos,both',
+            'eInvoiceSubmissionMode' => 'nullable|in:auto,manual',
         ];
 
         // Add ZATCA validation rules if the request contains ZATCA fields
