@@ -893,7 +893,7 @@ export default {
     // update items
     updateItem(value, index) {
       let selectedProduct = this.form.selectedProducts[index]
-      if (selectedProduct && value >= 0 && value <= selectedProduct.maxQty) {
+      if (selectedProduct && value >= 0) {
         selectedProduct.returnQty = Number(value)
 
         // Force reactivity update
@@ -908,8 +908,6 @@ export default {
     updateItemReactively(item) {
       if (item.returnQty < 0) {
         item.returnQty = 0
-      } else if (item.returnQty > item.maxQty) {
-        item.returnQty = item.maxQty
       }
 
       // Find the index of the item
@@ -1154,13 +1152,8 @@ export default {
         isValid = false
       }
 
-      // Check if return quantities exceed available quantities
+      // Validate return quantities (no stock check - returns allowed regardless of inventory)
       this.form.selectedProducts.forEach((product) => {
-        if (product.returnQty > product.qty) {
-          errors.push(this.$t('Return quantity for {name} cannot exceed available quantity', { name: product.name }))
-          isValid = false
-        }
-
         if (product.returnQty < 0) {
           errors.push(this.$t('Return quantity for {name} cannot be negative', { name: product.name }))
           isValid = false
@@ -1397,7 +1390,7 @@ export default {
     handleItemChange({ value, type, index, action }) {
       if (type === 'qty') {
         if (action === 'increment') {
-          this.updateItem(Math.min(this.form.selectedProducts[index].maxQty, Number(value) + 1), index)
+          this.updateItem(Number(value) + 1, index)
         } else if (action === 'decrement') {
           this.updateItem(Math.max(0, Number(value) - 1), index)
         } else {
@@ -1669,18 +1662,6 @@ export default {
 
 .clickable-badge:active {
   transform: scale(0.95);
-}
-
-/* Insufficient stock input styling */
-.insufficient-stock-input {
-  border: 2px solid #dc3545 !important;
-  background-color: #fff5f5 !important;
-  color: #dc3545 !important;
-}
-
-.insufficient-stock-input:focus {
-  border-color: #dc3545 !important;
-  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
 }
 
 /* Debug Panel Styles */
