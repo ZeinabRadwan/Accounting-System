@@ -72,7 +72,7 @@ class BranchController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'code' => 'nullable|string|max:50',
+            'code' => 'nullable|string|max:50|unique:branches,code',
             'address' => 'nullable|string',
             'phone' => 'nullable|string|max:20',
             'email' => 'nullable|email|max:255',
@@ -93,9 +93,13 @@ class BranchController extends Controller
                 $counter++;
             }
 
+            $code = $request->filled('code')
+                ? trim($request->code)
+                : $this->generateUniqueBranchCode($request->name);
+
             $branch = Branch::create([
                 'name' => $request->name,
-                'code' => $request->code,
+                'code' => $code,
                 'slug' => $slug,
                 'address' => $request->address,
                 'phone' => $request->phone,
@@ -127,6 +131,28 @@ class BranchController extends Controller
                 'error' => $e->getMessage(),
             ], 500);
         }
+    }
+
+    /**
+     * Generate a unique branch code when none is provided.
+     * Uses slug from name, then BR-{timestamp} with uniqueness check.
+     */
+    private function generateUniqueBranchCode(?string $name): string
+    {
+        $base = $name
+            ? substr(preg_replace('/[^a-zA-Z0-9-]/', '', \Illuminate\Support\Str::slug($name)), 0, 45)
+            : 'BR';
+        if ($base === '') {
+            $base = 'BR';
+        }
+        $code = $base;
+        $counter = 1;
+        while (Branch::where('code', $code)->exists()) {
+            $code = $base.'-'.$counter;
+            $counter++;
+        }
+
+        return substr($code, 0, 50);
     }
 
     /**

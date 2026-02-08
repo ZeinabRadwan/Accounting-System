@@ -3711,6 +3711,7 @@
 "Please select a branch": "Please select a branch",
 "Enter branch name": "Enter branch name",
 "Enter branch code": "Enter branch code",
+"Leave empty to auto-generate from branch name": "Leave empty to auto-generate from branch name",
 "Enter phone number": "Enter phone number",
 "Enter email address": "Enter email address",
 "Enter branch address": "Enter branch address",

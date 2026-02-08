@@ -57,10 +57,11 @@
                   <has-error :form="form" field="name" />
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="code">{{ $t("Code") }}</label>
+                  <label for="code">{{ $t("Code") }} <span class="required">*</span></label>
                   <input id="code" v-model="form.code" type="text" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('code') }" name="code"
-                    :placeholder="$t('Enter branch code')" />
+                    :placeholder="$t('Enter branch code')" maxlength="50" />
+                  <small class="form-text text-muted">{{ $t('Leave empty to auto-generate from branch name') }}</small>
                   <has-error :form="form" field="code" />
                 </div>
               </div>
@@ -157,14 +158,49 @@ export default {
     ];
   },
   methods: {
+    /**
+     * Generate a default branch code from name (slug) or fallback to BR-timestamp.
+     */
+    getDefaultBranchCode() {
+      if (this.form.name && String(this.form.name).trim()) {
+        const slug = String(this.form.name)
+          .trim()
+          .toLowerCase()
+          .replace(/\s+/g, '-')
+          .replace(/[^a-z0-9-]/g, '');
+        if (slug) {
+          return slug.substring(0, 50);
+        }
+      }
+      return 'BR-' + Date.now();
+    },
+
     async createBranch() {
+      this.form.errors.clear();
+
+      const code = this.form.code != null ? String(this.form.code).trim() : '';
+      const payload = {
+        name: this.form.name,
+        code: code || this.getDefaultBranchCode(),
+        phone: this.form.phone,
+        email: this.form.email,
+        address: this.form.address,
+        description: this.form.description,
+        is_active: this.form.is_active
+      };
+
       try {
-        const { data } = await this.$axios.post("/api/branches", this.form);
-        
-        this.$toast.success(this.$t("Success"), this.$t("Branch created successfully"));
-        this.$router.push({ name: "branches.index" });
+        const { data } = await this.$axios.post('/api/branches', payload);
+
+        this.$toast.success(this.$t('Success'), this.$t('Branch created successfully'));
+        this.$router.push({ name: 'branches.index' });
       } catch (error) {
-        this.$toast.error(this.$t("Error"), error.response?.data?.message || this.$t("Failed to create branch"));
+        const message = error.response?.data?.message || this.$t('Failed to create branch');
+        const errors = error.response?.data?.errors;
+        if (errors) {
+          this.form.errors.set(errors);
+        }
+        this.$toast.error(this.$t('Error'), message);
       }
     }
   }

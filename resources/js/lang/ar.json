@@ -3978,6 +3978,7 @@
     "Please select a branch": "يرجى اختيار فرع",
     "Enter branch name": "أدخل اسم الفرع",
     "Enter branch code": "أدخل رمز الفرع",
+    "Leave empty to auto-generate from branch name": "اتركه فارغاً لإنشاء رمز تلقائي من اسم الفرع",
     "Enter branch address": "أدخل عنوان الفرع",
     "Branch created successfully": "تم إنشاء الفرع بنجاح",
     "Branch updated successfully": "تم تحديث الفرع بنجاح",
