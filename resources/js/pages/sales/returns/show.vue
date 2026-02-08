@@ -8,7 +8,7 @@
         <div class="d-flex justify-content-between align-items-center" v-if="allData">
           <div class="btn-group">
             <ul class="nav nav-tabs">
-              <li class="nav-item">
+              <li>
                 <a
                   class="nav-link"
                   :class="{ active: activeTab === 'details' }"
@@ -20,7 +20,7 @@
                   {{ $t("Details") }}</a
                 >
               </li>
-              <li class="nav-item">
+              <li>
                 <a
                   @click="handleTabClick('activity-log')"
                   class="nav-link"
@@ -32,7 +32,7 @@
                   {{ $t("Activity log") }}</a
                 >
               </li>
-              <li class="nav-item">
+              <li>
                 <a 
                   @click="handleTabClick('journal-entry')"
                   class="nav-link" 
@@ -1446,12 +1446,7 @@ export default {
   background: #0775AF1A;
   padding: 10px;
   border-radius: 10px;
-  width: 20%;
   align-self: center;
-}
-
-.nav-item {
-  flex: 1 1 0;
 }
 
 .nav-link {
