@@ -3,91 +3,31 @@
          xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
          bootstrap="vendor/autoload.php"
          colors="true"
-         processIsolation="false"
-         stopOnFailure="false"
-         cacheDirectory=".phpunit.cache"
-         backupGlobals="false"
-         convertErrorsToExceptions="true"
-         convertNoticesToExceptions="true"
-         convertWarningsToExceptions="true"
-         beStrictAboutTestsThatDoNotTestAnything="false"
-         beStrictAboutOutputDuringTests="true"
-         beStrictAboutTodoAnnotatedTests="true"
-         failOnWarning="false"
-         failOnRisky="false"
-         failOnEmptyTestSuite="false"
-         verbose="true"
-         testdox="true"
-         coverageCacheDirectory=".phpunit.cache/coverage"
-         cacheResult="true"
 >
     <testsuites>
         <testsuite name="Unit">
-            <directory suffix="Test.php">./tests/Unit</directory>
+            <directory>tests/Unit</directory>
         </testsuite>
         <testsuite name="Feature">
-            <directory suffix="Test.php">./tests/Feature</directory>
-        </testsuite>
-        <testsuite name="Browser">
-            <directory suffix="Test.php">./tests/Browser</directory>
-        </testsuite>
-        <testsuite name="Integration">
-            <directory suffix="Test.php">./tests/Integration</directory>
+            <directory>tests/Feature</directory>
         </testsuite>
     </testsuites>
     <source>
         <include>
-            <directory suffix=".php">./app</directory>
+            <directory>app</directory>
         </include>
-        <exclude>
-            <directory suffix=".php">./app/Console</directory>
-            <directory suffix=".php">./app/Exceptions</directory>
-            <directory suffix=".php">./app/Http/Middleware</directory>
-            <directory suffix=".php">./app/Providers</directory>
-        </exclude>
     </source>
     <php>
         <env name="APP_ENV" value="testing"/>
+        <env name="APP_MAINTENANCE_DRIVER" value="file"/>
         <env name="BCRYPT_ROUNDS" value="4"/>
-        <env name="CACHE_DRIVER" value="array"/>
-        <env name="DB_CONNECTION" value="sqlite"/>
-        <env name="DB_DATABASE" value=":memory:"/>
+        <env name="CACHE_STORE" value="array"/>
+        <!-- <env name="DB_CONNECTION" value="sqlite"/> -->
+        <!-- <env name="DB_DATABASE" value=":memory:"/> -->
         <env name="MAIL_MAILER" value="array"/>
+        <env name="PULSE_ENABLED" value="false"/>
         <env name="QUEUE_CONNECTION" value="sync"/>
         <env name="SESSION_DRIVER" value="array"/>
         <env name="TELESCOPE_ENABLED" value="false"/>
-        <env name="SANCTUM_STATEFUL_DOMAINS" value="localhost"/>
-        <env name="SESSION_DOMAIN" value="localhost"/>
-        <env name="DB_FOREIGN_KEYS" value="true"/>
-        <env name="FILESYSTEM_DISK" value="local"/>
-        <env name="BROADCAST_DRIVER" value="log"/>
-        <env name="LOG_CHANNEL" value="single"/>
-        <env name="LOG_LEVEL" value="debug"/>
-        <env name="CACHE_PREFIX" value="testing_"/>
-        <env name="QUEUE_PREFIX" value="testing_"/>
-        <env name="SESSION_PREFIX" value="testing_"/>
     </php>
-    <coverage>
-        <include>
-            <directory suffix=".php">./app</directory>
-        </include>
-        <exclude>
-            <directory suffix=".php">./app/Console</directory>
-            <directory suffix=".php">./app/Exceptions</directory>
-            <directory suffix=".php">./app/Http/Middleware</directory>
-            <directory suffix=".php">./app/Providers</directory>
-            <directory suffix=".php">./app/Models</directory>
-            <file>./app/Helpers/helpers.php</file>
-        </exclude>
-        <report>
-            <html outputDirectory="coverage/html"/>
-            <clover outputFile="coverage/clover.xml"/>
-            <text outputFile="coverage/coverage.txt"/>
-        </report>
-    </coverage>
-    <logging>
-        <junit outputFile="coverage/junit.xml"/>
-        <testdoxHtml outputFile="coverage/testdox.html"/>
-        <testdoxText outputFile="coverage/testdox.txt"/>
-    </logging>
 </phpunit>

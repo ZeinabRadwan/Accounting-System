@@ -1,7 +1,0 @@
-Arabic PDFSupport (Tests\Feature\ArabicPDFSupport)
- [x] Quotations pdf controller method exists
- [x] Invoices pdf controller method exists
- [x] Arabic support method exists
- [x] Quotations pdf route exists
- [x] Invoices pdf route exists
-

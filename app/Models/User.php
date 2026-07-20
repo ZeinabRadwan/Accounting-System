@@ -2,57 +2,41 @@
 
 namespace App\Models;
 
-use App\Notifications\ResetPassword;
-use App\Notifications\VerifyEmail;
-use App\Traits\HasPermissions;
-use Cviebrock\EloquentSluggable\Sluggable;
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Domain\Auth\Enums\UserRole;
+use App\Domain\Auth\Models\Permission;
+use App\Domain\Auth\Services\ProfilePhotoService;
+use App\Domain\Branch\Models\Branch;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, Notifiable, HasPermissions, Sluggable, HasFactory;
-
-    /**
-     * Return the sluggable configuration array for this model.
-     *
-     * @return array
-     */
-    public function sluggable(): array
-    {
-        return [
-            'slug' => [
-                'source' => 'name',
-            ],
-        ];
-    }
+    use HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
      *
-     * @var array
+     * @var array<int, string>
      */
     protected $fillable = [
         'name',
         'email',
+        'profile_photo',
         'password',
-        'account_role',
+        'branch_id',
+        'role',
         'is_active',
-        'locale',
-        'profile_image',
-        'default_branch_id',
-    ];
-
-    protected $attributes = [
-        'locale' => 'ar', // Set default locale
     ];
 
     /**
-     * The attributes that should be hidden for arrays.
+     * The attributes that should be hidden for serialization.
      *
-     * @var array
+     * @var array<int, string>
      */
     protected $hidden = [
         'password',
@@ -60,167 +44,114 @@ class User extends Authenticatable
     ];
 
     /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-
-    /**
      * The accessors to append to the model's array form.
      *
-     * @var array
+     * @var list<string>
      */
     protected $appends = [
-        'photo_url',
+        'profile_photo_url',
     ];
 
     /**
-     * Get the profile photo URL attribute.
+     * Get the attributes that should be cast.
      *
-     * @return string
+     * @return array<string, string>
      */
-    public function getPhotoUrlAttribute()
+    protected function casts(): array
     {
-        if ($this->profile_image) {
-            // Use relative URL to avoid domain issues in multi-tenant setup
-            return '/images/users/' . $this->profile_image;
-        }
-        
-        return vsprintf('https://www.gravatar.com/avatar/%s.jpg?s=200&d=%s', [
-            md5(strtolower($this->email)),
-            $this->name ? urlencode("https://ui-avatars.com/api/$this->name") : 'mp',
-        ]);
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+            'role' => UserRole::class,
+            'is_active' => 'boolean',
+        ];
     }
 
-    /**
-     * Get the oauth providers.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function oauthProviders()
+    protected static function booted(): void
     {
-        return $this->hasMany(OAuthProvider::class);
+        static::deleting(function (User $user) {
+            app(ProfilePhotoService::class)->delete($user->profile_photo);
+        });
     }
 
-    /**
-     * Send the password reset notification.
-     *
-     * @param  string  $token
-     * @return void
-     */
-    public function sendPasswordResetNotification($token)
+    public function branch(): BelongsTo
     {
-        $this->notify(new ResetPassword($token));
+        return $this->belongsTo(Branch::class);
     }
 
-    /**
-     * Send the email verification notification.
-     *
-     * @return void
-     */
-    public function sendEmailVerificationNotification()
+    public function permissions(): BelongsToMany
     {
-        $this->notify(new VerifyEmail);
-    }
-
-    public function receivesBroadcastNotificationsOn()
-    {
-        return 'App.Models.User.'.$this->id;
-    }
-
-    /**
-     * @return int
-     */
-    public function getJWTIdentifier()
-    {
-        return $this->getKey();
-    }
-
-    /**
-     * @return array
-     */
-    public function getJWTCustomClaims()
-    {
-        return [];
-    }
-
-    /**
-     * @return array
-     */
-    public function hasRole(...$roles)
-    {
-        return $this->roles()->whereIn('slug', $roles)->count();
-    }
-
-    /**
-     * The roles that belong to the user.
-     */
-    public function roles()
-    {
-        return $this->belongsToMany(Role::class, 'user_role');
-    }
-
-    /**
-     * @return array
-     */
-    public function permissions()
-    {
-        return $this->belongsToMany(Permission::class, 'user_permission');
-    }
-
-    /**
-     * Get the Accounts.
-     */
-    public function cashbookAccounts()
-    {
-        return $this->hasMany(Account::class, 'created_by');
-    }
-
-    public function employee()
-    {
-        return $this->hasOne(Employee::class);
-    }
-
-    /**
-     * Get the branches this user belongs to
-     */
-    public function branches()
-    {
-        return $this->belongsToMany(Branch::class, 'branch_user')
-            ->withPivot('role')
+        return $this->belongsToMany(Permission::class, 'user_permissions')
             ->withTimestamps();
     }
 
-    /**
-     * Get the default branch for this user
-     */
-    public function defaultBranch()
+    protected function profilePhotoUrl(): Attribute
     {
-        return $this->belongsTo(Branch::class, 'default_branch_id');
+        return Attribute::get(function (): ?string {
+            return app(ProfilePhotoService::class)->url($this->profile_photo);
+        });
     }
 
-    /**
-     * Get the current branch context
-     */
-    public function currentBranch()
+    public function roleEnum(): ?UserRole
     {
-        $branchId = session('current_branch_id') ?? $this->default_branch_id;
-        
-        if ($branchId) {
-            return Branch::find($branchId);
+        return UserRole::tryFromMixed($this->role);
+    }
+
+    public function isSuperAdmin(): bool
+    {
+        return $this->roleEnum() === UserRole::SuperAdmin;
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->roleEnum() === UserRole::Admin;
+    }
+
+    public function isSales(): bool
+    {
+        return $this->roleEnum() === UserRole::Sales;
+    }
+
+    public function canAccessAdminPanel(): bool
+    {
+        return $this->roleEnum()?->canAccessAdminPanel() ?? false;
+    }
+
+    public function bypassesInvoiceVisibility(): bool
+    {
+        return $this->roleEnum()?->bypassesInvoiceVisibility() ?? false;
+    }
+
+    public function hasPermission(string $key): bool
+    {
+        // Super Admin and Admin have full module permissions.
+        // Sales invoice visibility is enforced separately via policies/queries.
+        if ($this->isSuperAdmin() || $this->isAdmin()) {
+            return true;
         }
-        
-        return $this->branches()->active()->first();
+
+        return $this->permissions->contains(fn (Permission $p) => $p->key === $key && $p->is_active);
     }
 
-    /**
-     * Check if user has access to a branch
-     */
-    public function hasAccessToBranch($branchId): bool
+    public function hasAnyPermission(array $keys): bool
     {
-        return $this->branches()->where('branches.id', $branchId)->exists();
+        foreach ($keys as $key) {
+            if ($this->hasPermission($key)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public function hasAllPermissions(array $keys): bool
+    {
+        foreach ($keys as $key) {
+            if (! $this->hasPermission($key)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

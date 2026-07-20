@@ -2,49 +2,67 @@
 
 namespace App\Http\Requests\Product;
 
-use App\Http\Requests\BaseRequest;
-use App\Models\Product;
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\Validator;
+use App\Domain\Product\Models\Product;
 
-
-class UpdateProductRequest extends BaseRequest
+class UpdateProductRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
+    public function authorize(): bool
     {
-        return auth()->check();
+        return $this->user()?->canAccessAdminPanel() ?? false;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, mixed>
-     */
-    public function rules()
+    public function rules(): array
     {
-        $slug  = $this->route('product');
-
-        $product = Product::where('slug', $slug)->first();
-
+        /** @var Product|null $product */
+        $product = $this->route('product');
+        $id = $product?->id;
         return [
-            'itemName' => 'required|string|max:255',
-            'itemCode' => 'required|numeric|max:99999|unique:products,code,'.$product->id,
-            'itemModel' => 'nullable|string|min:2|max:255',
-            'barcodeSymbology' => 'required|string|max:20',
-            'subCategory' => 'required',
-            'brand' => 'nullable',
-            'itemUnit' => 'required',
-            'productTax' => 'required',
-            'taxType' => 'required',
-            'regularPrice' => 'required|numeric|min:0',
-            'discount' => 'nullable|numeric|min:0|max:100',
-            'note' => 'nullable|string|max:255',
-            'alertQuantity' => 'nullable|numeric|min:1|max:1000',
-            'salesAccountId' => 'nullable|exists:chart_of_accounts,id',
-            'purchaseAccountId' => 'nullable|exists:chart_of_accounts,id'
+            'category_id' => ['required', 'integer', 'exists:categories,id'],
+            'display_name' => ['required', 'string', 'max:255'],
+            'sku' => ['required', 'string', 'max:100', Rule::unique('products', 'sku')->ignore($id)],
+            'price1' => ['required', 'numeric', 'min:0'],
+            'price2' => ['nullable', 'numeric', 'min:0'],
+            'price3' => ['nullable', 'numeric', 'min:0'],
+            'base_unit' => ['required', 'string', 'max:50'],
+            'units' => ['required', 'array', 'min:1'],
+            'units.*.unit_name' => ['required', 'string', 'max:50', 'distinct:ignore_case'],
+            'units.*.conversion_factor' => ['required', 'numeric', 'gt:0'],
+            'units.*.price1' => ['nullable', 'numeric', 'min:0'],
+            'units.*.price2' => ['nullable', 'numeric', 'min:0'],
+            'units.*.price3' => ['nullable', 'numeric', 'min:0'],
+            'units.*.is_base' => ['boolean'],
         ];
     }
+
+    public function withValidator(Validator $validator): void
+    {
+        $validator->after(function (Validator $validator) {
+            $units = $this->input('units', []);
+            if (! is_array($units) || $units === []) {
+                return;
+            }
+
+            $baseCount = 0;
+            foreach ($units as $index => $unit) {
+                $isBase = filter_var($unit['is_base'] ?? false, FILTER_VALIDATE_BOOLEAN);
+                if ($isBase) {
+                    $baseCount++;
+                    if ((float) ($unit['conversion_factor'] ?? 0) != 1.0) {
+                        $validator->errors()->add(
+                            "units.{$index}.conversion_factor",
+                            'Base unit conversion factor must be 1.'
+                        );
+                    }
+                }
+            }
+
+            if ($baseCount !== 1) {
+                $validator->errors()->add('units', 'Exactly one base unit is required.');
+            }
+        });
+    }
 }
+

@@ -1,0 +1,126 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --color-primary: #2563eb;
+    --color-secondary: #64748b;
+    --color-success: #16a34a;
+    --color-warning: #d97706;
+    --color-danger: #dc2626;
+    --color-bg: #f1f5f9;
+    --color-card: #ffffff;
+    --radius-card: 12px;
+    --shadow-card: 0 1px 3px 0 rgb(0 0 0 / 0.06), 0 1px 2px -1px rgb(0 0 0 / 0.06);
+}
+
+@layer base {
+    html {
+        @apply antialiased;
+    }
+
+    body {
+        @apply bg-slate-100 text-slate-800 font-sans;
+    }
+
+    [x-cloak] {
+        display: none !important;
+    }
+}
+
+@layer components {
+    .ui-focus {
+        @apply focus:outline-none focus:ring-2 focus:ring-primary-500/40 focus:border-primary-500;
+    }
+
+    .ui-transition {
+        @apply transition-all duration-150 ease-out;
+    }
+
+    .pos-product-card {
+        @apply ui-transition;
+        transform: translateZ(0);
+    }
+
+    .pos-product-card:hover {
+        transform: translateY(-2px);
+    }
+
+    .pos-product-card:active {
+        transform: scale(0.97);
+    }
+
+    .pos-cart-item {
+        animation: pos-cart-in 0.28s ease-out both;
+    }
+
+    .pos-cart-pulse {
+        animation: pos-cart-pulse 0.45s ease-out;
+    }
+
+    .pos-totals-bump {
+        animation: pos-totals-bump 0.35s ease-out;
+    }
+
+    .pos-success-pop {
+        animation: pos-success-pop 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+}
+
+@keyframes pos-cart-in {
+    from {
+        opacity: 0;
+        transform: translateX(12px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+}
+
+@keyframes pos-cart-pulse {
+    0% {
+        box-shadow: inset 0 0 0 0 rgb(128 0 32 / 0);
+    }
+    35% {
+        box-shadow: inset 0 0 0 2px rgb(128 0 32 / 0.35);
+    }
+    100% {
+        box-shadow: inset 0 0 0 0 rgb(128 0 32 / 0);
+    }
+}
+
+@keyframes pos-totals-bump {
+    0% {
+        transform: scale(1);
+    }
+    40% {
+        transform: scale(1.03);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes pos-success-pop {
+    from {
+        opacity: 0;
+        transform: scale(0.92);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .pos-product-card:hover,
+    .pos-product-card:active,
+    .pos-cart-item,
+    .pos-cart-pulse,
+    .pos-totals-bump,
+    .pos-success-pop {
+        animation: none !important;
+        transform: none !important;
+    }
+}

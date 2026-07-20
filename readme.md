@@ -1,117 +1,66 @@
-# Arqam
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-Arqam SAAS - Mulitenancy Based Ultimate Sales, Inventory, Accounting Management System
+<p align="center">
+<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+</p>
 
-> Arqam is an all-in-one management system that enables you to manage expenses, purchases, sales, payments, accounting, loans, assets, payroll, and many more.
+## About Laravel
 
-## Setup Instructions
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-- Clone this repository to your device and run this commands:
+- [Simple, fast routing engine](https://laravel.com/docs/routing).
+- [Powerful dependency injection container](https://laravel.com/docs/container).
+- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
+- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
+- [Robust background job processing](https://laravel.com/docs/queues).
+- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-- Copy `.env.example` file to `.env` and configure `.env` file with your own credentials
+Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-```sh
-cp .env.example .env
-```
+## Learning Laravel
 
-> **REQUIRED FIELDS [DEV]**
+Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-```dotenv
-APP_URL=http://arqam.sa
-CENTRAL_DOMAIN=arqam.sa
+You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
 
-STRIPE_KEY=required
-STRIPE_SECRET=required
-```
+If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
----
-> **REQUIRED FIELDS [PROD]**
+## Laravel Sponsors
 
-```dotenv
-MAIL_FROM_ADDRESS=noreply@arqam.sa
-```
+We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
 
-> **INSTALL COMMANDS [DEV]**
+### Premium Partners
 
----
+- **[Vehikl](https://vehikl.com/)**
+- **[Tighten Co.](https://tighten.co)**
+- **[WebReinvent](https://webreinvent.com/)**
+- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
+- **[64 Robots](https://64robots.com)**
+- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
+- **[Cyber-Duck](https://cyber-duck.co.uk)**
+- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
+- **[Jump24](https://jump24.co.uk)**
+- **[Redberry](https://redberry.international/laravel/)**
+- **[Active Logic](https://activelogic.com)**
+- **[byte5](https://byte5.de)**
+- **[OP.GG](https://op.gg)**
 
-```sh
-composer install 
+## Contributing
 
-# if fails use 
-composer update rachidlaasri/laravel-installer
+Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-# then generate a new token for composer
-https://github.com/settings/tokens/new?scopes=repo&description=Composer
+## Code of Conduct
 
-# paste that token in terminal
-# it wil work now
+In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-npm install
+## Security Vulnerabilities
 
-php artisan key:generate
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-php artisan migrate --seed
+## License
 
-npm run dev
-```
-
----
-
-> **INSTALL COMMANDS [PROD]**
-
-- Coming Soon!
-
-## **Translation Generate** **(MAKE SURE `VUE CLI` IS INSTALLED ON YOUR DEVICE)**
-- Do not use _ (underscore) style translate able strings anymore.
-```vue
-// wrong
-$t('user.first_name')
-
-// right
-$t('First Name')
-```
-
-- Do not use . (full stop) in translate able sting
-```vue
-// wrong
-$t('Thanks for subscribing. We will notify you every week.')
-
-// right
-$t('Thanks for subscribing') + '.' + $t('We will notify you every week') + '.'
-
-// best maybe?
-{{ `${$t('Thanks for subscribing')}. ${$t('We will notify you every week')}.` }}
-```
-
-- Generate Translate Able Keys:
-```shell
-# for vue pages
-npx vue-i18n-extract report --vueFiles './resources/js/pages/**/*.vue' --languageFiles './resources/js/lang/en.json' --add
-
-# for vue components
-npx vue-i18n-extract report --vueFiles './resources/js/components/**/*.vue' --languageFiles './resources/js/lang/en.json' --add
-```
-## Project setup for Import functionality
-
-### Please follow the below steps to run the application
-#### 1. Create 'demo-csv-file' folder in the public directory of the project
-#### 2. Create these empty files in the 'demo-csv-file' folder
-* brand.csv
-* sub-categories.csv
-* taxes.csv
-* units.csv
-### 3. Provide these two files in the 'demo-csv-file' folder for examples
-* products.csv (name, model, barcode_symbology, sub_cat_id, brand_id, unit_id, tax_id, tax_type, regular_price, discount, note, alert_qty, status )
-* demo.csv (name, phone, email, company_name, address)
-
-
-## For Demo Setup
-
-1) Web route welcome page in demo but not in production
-2) Login page user credentials add in demo version
-3) Dashboard Alert add in demo version
-4) Database Export not in demo version [Central, Tenant]
-5) Profile Update disabled in demo version [Central, Tenant]
-6) Role Create and Update disabled in demo version [Central, Tenant]
-7) Update general settings disabled in demo version [Central, Tenant]
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
