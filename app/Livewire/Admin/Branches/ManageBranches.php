@@ -33,6 +33,12 @@ class ManageBranches extends Component
     public ?string $address = null;
     public bool $is_active = true;
 
+    public bool $showLocationSettings = false;
+    public ?int $locationBranchId = null;
+    public ?string $geo_latitude = null;
+    public ?string $geo_longitude = null;
+    public ?int $geo_allowed_radius = 200;
+
     public function updatedSearch(): void
     {
         $this->resetPage();
@@ -107,6 +113,65 @@ class ManageBranches extends Component
         $this->showBranchForm = false;
         $this->resetForm();
         $this->toast($message);
+    }
+
+    public function openLocationSettings(int $id): void
+    {
+        $branch = Branch::findOrFail($id);
+        $this->locationBranchId = $branch->id;
+        $this->geo_latitude = $branch->latitude ? (string) $branch->latitude : null;
+        $this->geo_longitude = $branch->longitude ? (string) $branch->longitude : null;
+        $this->geo_allowed_radius = $branch->allowed_radius ?: 200;
+        $this->showLocationSettings = true;
+    }
+
+    public function closeLocationSettings(): void
+    {
+        $this->showLocationSettings = false;
+        $this->locationBranchId = null;
+        $this->resetErrorBag();
+    }
+
+    public function saveLocation(BranchService $service): void
+    {
+        if (! $this->locationBranchId) {
+            return;
+        }
+
+        $validated = $this->validate([
+            'geo_latitude' => ['required', 'numeric', 'between:-90,90'],
+            'geo_longitude' => ['required', 'numeric', 'between:-180,180'],
+            'geo_allowed_radius' => ['required', 'integer', 'min:50', 'max:50000'],
+        ]);
+
+        $branch = Branch::findOrFail($this->locationBranchId);
+        $service->updateGeofence(
+            $branch,
+            (float) $validated['geo_latitude'],
+            (float) $validated['geo_longitude'],
+            (int) $validated['geo_allowed_radius'],
+        );
+
+        $this->showLocationSettings = false;
+        $this->locationBranchId = null;
+        $this->toast('Branch location saved successfully.');
+    }
+
+    public function clearGeofence(BranchService $service): void
+    {
+        if (! $this->locationBranchId) {
+            return;
+        }
+
+        $branch = Branch::findOrFail($this->locationBranchId);
+        $service->updateGeofence($branch, null, null, null);
+
+        $this->geo_latitude = null;
+        $this->geo_longitude = null;
+        $this->geo_allowed_radius = 200;
+        $this->showLocationSettings = false;
+        $this->locationBranchId = null;
+        $this->toast('Geofence removed from branch.');
     }
 
     public function prepareDelete(int $id): void

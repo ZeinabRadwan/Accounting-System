@@ -49,5 +49,6 @@
         </main>
     </div>
     <x-ui.toast />
+    <x-geofence-check />
 </body>
 </html>

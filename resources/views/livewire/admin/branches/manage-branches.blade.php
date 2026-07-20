@@ -109,7 +109,20 @@
                     </div>
 
                     <div class="border-t border-slate-100 px-4 py-3 bg-slate-50/60 flex items-center justify-between">
-                        <span class="text-xs text-slate-500">{{ __('Actions') }}</span>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs text-slate-500">{{ __('Actions') }}</span>
+                            <button
+                                type="button"
+                                wire:click="openLocationSettings({{ $branch->id }})"
+                                class="inline-flex items-center gap-1 text-xs font-medium text-primary-600 hover:text-primary-700"
+                                title="{{ __('Location Settings') }}"
+                            >
+                                <x-ui.icon name="map-pin" class="w-3.5 h-3.5" />
+                                @if ($branch->latitude && $branch->longitude && $branch->allowed_radius)
+                                    <span class="w-1.5 h-1.5 rounded-full bg-success-500"></span>
+                                @endif
+                            </button>
+                        </div>
                         <x-ui.row-actions
                             :on-view="'$wire.startView('.$branch->id.')'"
                             :on-edit="'$wire.startEdit('.$branch->id.')'"
@@ -246,6 +259,108 @@
             <p class="text-sm text-slate-500">{{ __('Branch not found.') }}</p>
         @endif
     </x-ui.drawer>
+
+    {{-- Location Settings Modal --}}
+    <x-ui.modal name="location-settings" :title="__('Location Settings')" maxWidth="2xl" show-property="showLocationSettings">
+        <div
+            x-data="{
+                lat: @entangle('geo_latitude'),
+                lng: @entangle('geo_longitude'),
+                radius: @entangle('geo_allowed_radius'),
+                map: null,
+                marker: null,
+                circle: null,
+                loaded: false,
+                initMap() {
+                    if (this.loaded) return;
+                    this.loaded = true;
+
+                    this.$nextTick(() => {
+                        const el = this.$refs.leafletMap;
+                        if (!el) return;
+
+                        const startLat = this.lat ? parseFloat(this.lat) : 30.0444;
+                        const startLng = this.lng ? parseFloat(this.lng) : 31.2357;
+                        const startZoom = this.lat ? 15 : 6;
+
+                        this.map = L.map(el).setView([startLat, startLng], startZoom);
+                        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                            attribution: '&copy; OpenStreetMap'
+                        }).addTo(this.map);
+
+                        if (this.lat && this.lng) {
+                            this.placeMarker(parseFloat(this.lat), parseFloat(this.lng));
+                        }
+
+                        this.map.on('click', (e) => {
+                            this.lat = e.latlng.lat.toFixed(7);
+                            this.lng = e.latlng.lng.toFixed(7);
+                            this.placeMarker(e.latlng.lat, e.latlng.lng);
+                        });
+
+                        setTimeout(() => this.map.invalidateSize(), 200);
+                    });
+                },
+                placeMarker(lat, lng) {
+                    if (this.marker) this.marker.setLatLng([lat, lng]);
+                    else this.marker = L.marker([lat, lng]).addTo(this.map);
+
+                    this.updateCircle(lat, lng);
+                    this.map.setView([lat, lng], Math.max(this.map.getZoom(), 14));
+                },
+                updateCircle(lat, lng) {
+                    const r = parseInt(this.radius) || 200;
+                    if (this.circle) {
+                        this.circle.setLatLng([lat, lng]);
+                        this.circle.setRadius(r);
+                    } else {
+                        this.circle = L.circle([lat, lng], {
+                            radius: r,
+                            color: '#3b82f6',
+                            fillColor: '#3b82f6',
+                            fillOpacity: 0.15,
+                            weight: 2,
+                        }).addTo(this.map);
+                    }
+                }
+            }"
+            x-init="$watch('radius', () => { if (marker) updateCircle(parseFloat(lat), parseFloat(lng)); })"
+            x-effect="if ($wire.showLocationSettings) { $nextTick(() => initMap()); }"
+        >
+            <div class="space-y-4">
+                <p class="text-sm text-slate-600">{{ __('Click on the map to set the branch location. Sales users will only be able to use the system within the allowed radius.') }}</p>
+
+                <div x-ref="leafletMap" class="w-full h-72 rounded-xl border border-slate-200 bg-slate-100 z-0"></div>
+
+                <div class="grid grid-cols-3 gap-3">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">{{ __('Latitude') }}</label>
+                        <input type="text" x-model="lat" wire:model="geo_latitude" readonly
+                            class="block w-full rounded-xl border-slate-200 bg-slate-50 text-sm text-slate-800 shadow-sm">
+                        @error('geo_latitude') <p class="mt-1 text-xs text-danger-600">{{ $message }}</p> @enderror
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">{{ __('Longitude') }}</label>
+                        <input type="text" x-model="lng" wire:model="geo_longitude" readonly
+                            class="block w-full rounded-xl border-slate-200 bg-slate-50 text-sm text-slate-800 shadow-sm">
+                        @error('geo_longitude') <p class="mt-1 text-xs text-danger-600">{{ $message }}</p> @enderror
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">{{ __('Radius (m)') }}</label>
+                        <input type="number" x-model.number="radius" wire:model="geo_allowed_radius" min="50" max="50000" step="50"
+                            class="block w-full rounded-xl border-slate-200 bg-white text-sm text-slate-800 shadow-sm ui-focus">
+                        @error('geo_allowed_radius') <p class="mt-1 text-xs text-danger-600">{{ $message }}</p> @enderror
+                    </div>
+                </div>
+            </div>
+        </div>
+        <x-slot:footer>
+            <x-ui.button variant="ghost" wire:click="clearGeofence" class="!text-danger-600 hover:!bg-danger-50">{{ __('Remove Geofence') }}</x-ui.button>
+            <div class="flex-1"></div>
+            <x-ui.button variant="secondary" wire:click="closeLocationSettings">{{ __('Cancel') }}</x-ui.button>
+            <x-ui.button wire:click="saveLocation" wire:loading.attr="disabled">{{ __('Save Location') }}</x-ui.button>
+        </x-slot:footer>
+    </x-ui.modal>
 
     <x-ui.modal name="delete-branch" title="{{ __('Delete Branch') }}" maxWidth="sm" show-property="showDeleteConfirm">
         <p class="text-sm text-slate-600">{{ __('Are you sure you want to delete this branch?') }}</p>

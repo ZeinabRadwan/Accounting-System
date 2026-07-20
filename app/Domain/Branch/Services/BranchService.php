@@ -35,11 +35,30 @@ class BranchService
 
     public function update(Branch $branch, array $data): Branch
     {
-        $branch->fill([
+        $fill = [
             'name' => $data['name'],
             'code' => $data['code'],
             'address' => $data['address'] ?? null,
             'is_active' => (bool) ($data['is_active'] ?? $branch->is_active),
+        ];
+
+        if (array_key_exists('latitude', $data)) {
+            $fill['latitude'] = $data['latitude'];
+            $fill['longitude'] = $data['longitude'];
+            $fill['allowed_radius'] = $data['allowed_radius'];
+        }
+
+        $branch->fill($fill)->save();
+
+        return $branch->refresh();
+    }
+
+    public function updateGeofence(Branch $branch, ?float $latitude, ?float $longitude, ?int $allowedRadius): Branch
+    {
+        $branch->fill([
+            'latitude' => $latitude,
+            'longitude' => $longitude,
+            'allowed_radius' => $allowedRadius,
         ])->save();
 
         return $branch->refresh();

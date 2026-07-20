@@ -16,6 +16,14 @@ $nav = [
     ['label' => __('Reports'), 'route' => 'admin.reports.index', 'icon' => 'chart-bar'],
     ['label' => __('Settings'), 'route' => 'admin.settings.index', 'icon' => 'cog'],
 ];
+
+if (auth()->user()?->isSuperAdmin()) {
+    array_splice($nav, count($nav) - 1, 0, [[
+        'label' => __('Daily Closings'),
+        'route' => 'admin.daily-closings.index',
+        'icon' => 'calendar',
+    ]]);
+}
 @endphp
 
 <aside {{ $attributes->merge(['class' => 'flex flex-col h-full bg-white border-e border-slate-200']) }}>

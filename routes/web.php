@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Reports\CustomerStatementPrintController;
+use App\Http\Controllers\Reports\DailyClosingPrintController;
 use App\Http\Controllers\Reports\SupplierStatementPrintController;
 use App\Http\Controllers\Sales\InvoicePrintController;
 use App\Livewire\Admin\Branches\ManageBranches;
@@ -13,6 +14,8 @@ use App\Livewire\Admin\Products\ManageCategories;
 use App\Livewire\Admin\Products\ManageProducts;
 use App\Livewire\Admin\Purchases\ManagePurchases;
 use App\Livewire\Admin\Reports\CustomerReport;
+use App\Livewire\Admin\Reports\DailyClosingShow;
+use App\Livewire\Admin\Reports\DailyClosingsIndex;
 use App\Livewire\Admin\Reports\CustomerStatement;
 use App\Livewire\Admin\Reports\InventoryReport;
 use App\Livewire\Admin\Reports\ProductReport;
@@ -93,6 +96,9 @@ Route::middleware(['auth', 'role:super_admin,admin'])->prefix('admin')->name('ad
     Route::get('/reports/product', ProductReport::class)->name('reports.product');
     Route::get('/reports/customer', CustomerReport::class)->name('reports.customer');
     Route::get('/reports/customer-statement', CustomerStatement::class)->name('reports.customer-statement');
+    Route::get('/reports/daily-closings', DailyClosingsIndex::class)->name('daily-closings.index');
+    Route::get('/reports/daily-closings/{closing}', DailyClosingShow::class)->name('daily-closings.show');
+    Route::get('/reports/daily-closings/{closing}/print', DailyClosingPrintController::class)->name('daily-closings.print');
     Route::get('/reports/profit', ProfitReport::class)->name('reports.profit');
     Route::get('/reports/treasury', TreasuryReport::class)->name('reports.treasury');
 
@@ -107,5 +113,8 @@ Route::middleware(['auth', 'role:super_admin,admin,sales'])->group(function () {
     Route::get('/pos', Pos::class)->name('pos');
     Route::get('/invoices/{invoice}/print', InvoicePrintController::class)->name('invoices.print');
 });
+
+Route::middleware(['auth'])->post('/api/geofence/check', \App\Http\Controllers\Geofence\GeofenceCheckController::class)
+    ->name('geofence.check');
 
 require __DIR__.'/auth.php';

@@ -2,15 +2,16 @@
     <x-ui.page-header title="{{ __('Reports') }}" subtitle="{{ __('Operational and financial insights.') }}" />
 
     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
-        @foreach ([
+        @foreach (collect([
             [__('Inventory Report'), __('Stock by branch and product'), 'admin.reports.inventory', 'archive', 'primary'],
             [__('Product Report'), __('Sales and movement by SKU'), 'admin.reports.product', 'cube', 'success'],
             [__('Customer Report'), __('Balances and purchase history'), 'admin.reports.customer', 'user-group', 'warning'],
             [__('Client Statement'), __('Ledger for a selected customer'), 'admin.reports.customer-statement', 'clipboard', 'primary'],
             [__('Supplier Statement'), __('Ledger for a selected supplier'), 'admin.suppliers.index', 'truck', 'warning'],
+            auth()->user()?->isSuperAdmin() ? [__('Daily Closings'), __('Immutable automatic closing snapshots'), 'admin.daily-closings.index', 'calendar', 'success'] : null,
             [__('Profit Report'), __('Margins and net performance'), 'admin.reports.profit', 'chart-bar', 'danger'],
             [__('Treasury Report'), __('Balances, income, and expenses'), 'admin.reports.treasury', 'cash', 'primary'],
-        ] as $card)
+        ])->filter() as $card)
             <a href="{{ route($card[2]) }}" class="block group">
                 <x-ui.card class="h-full !p-5 group-hover:border-primary-200 group-hover:shadow-soft ui-transition">
                     <div class="rounded-xl w-10 h-10 flex items-center justify-center mb-4
