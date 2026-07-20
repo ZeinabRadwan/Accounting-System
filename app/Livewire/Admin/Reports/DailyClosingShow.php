@@ -20,7 +20,11 @@ class DailyClosingShow extends Component
         $this->closing = $closing;
 
         auth()->user()?->unreadNotifications()
-            ->where('data->closing_id', $closing->id)
+            ->where(function ($q) use ($closing) {
+                $q->where('data->closing_id', $closing->id)
+                    ->orWhere('data->meta->closing_id', $closing->id)
+                    ->orWhere('data->fingerprint', 'daily_closing|'.$closing->id);
+            })
             ->update(['read_at' => now()]);
     }
 

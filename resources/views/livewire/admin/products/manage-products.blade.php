@@ -90,6 +90,15 @@
                     @endforeach
                 </x-ui.select>
                 <x-ui.input label="{{ __('Product Name') }}" wire:model="display_name" :error="$errors->first('display_name')" placeholder="{{ __('Product name (saved as Name - Category)') }}" />
+                <x-ui.input
+                    type="number"
+                    step="0.01"
+                    min="0"
+                    label="{{ __('Minimum Stock (Base Unit)') }}"
+                    wire:model="minimum_stock"
+                    :error="$errors->first('minimum_stock')"
+                    placeholder="10"
+                />
             </div>
 
             <div class="border-t border-slate-100 pt-4">
@@ -194,6 +203,10 @@
                 <div>
                     <dt class="text-slate-500">{{ __('Product Name') }}</dt>
                     <dd class="font-medium text-slate-900 mt-0.5">{{ $viewingProduct->full_display_name }}</dd>
+                </div>
+                <div>
+                    <dt class="text-slate-500">{{ __('Minimum Stock (Base Unit)') }}</dt>
+                    <dd class="mt-0.5">{{ rtrim(rtrim(number_format((float) ($viewingProduct->minimum_stock ?? 0), 2, '.', ''), '0'), '.') }}</dd>
                 </div>
                 <div>
                     <dt class="text-slate-500 mb-2">{{ __('Units') }}</dt>

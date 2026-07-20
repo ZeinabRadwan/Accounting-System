@@ -2,6 +2,7 @@
 
 namespace App\Domain\Settings\DailyVisibility\Services;
 
+use App\Domain\Notifications\Services\SystemNotifier;
 use App\Domain\Settings\DailyVisibility\Models\DailyVisibilitySetting;
 use App\Domain\Settings\DailyVisibility\Models\DailyVisibleInvoiceSet;
 use App\Domain\Settings\DailyVisibility\Models\DailyVisibleInvoiceSetItem;
@@ -56,6 +57,13 @@ class DailyInvoiceVisibilityService
                 return $exists->load('items');
             }
 
+            $previouslyVisibleIds = SalesInvoice::query()
+                ->where('branch_id', $branchId)
+                ->whereDate('created_at', $date->toDateString())
+                ->where('visible_for_sales', true)
+                ->pluck('id')
+                ->all();
+
             $set = DailyVisibleInvoiceSet::create([
                 'branch_id' => $branchId,
                 'business_date' => $date->toDateString(),
@@ -108,6 +116,22 @@ class DailyInvoiceVisibilityService
             $set->finalized_at = now();
             $set->save();
 
+            $newlyVisibleIds = array_values(array_diff($selectedIds, $previouslyVisibleIds));
+            $businessDate = $date->toDateString();
+            $selectedCount = count($selectedIds);
+
+            DB::afterCommit(function () use ($branchId, $businessDate, $selectedCount, $newlyVisibleIds) {
+                $notifier = app(SystemNotifier::class);
+                $notifier->dailyVisibilityGenerated($branchId, $businessDate, $selectedCount);
+
+                foreach ($newlyVisibleIds as $invoiceId) {
+                    $invoice = SalesInvoice::query()->find($invoiceId);
+                    if ($invoice) {
+                        $notifier->salesInvoiceVisible($invoice);
+                    }
+                }
+            });
+
             return $set->load('items');
         });
     }
@@ -121,7 +145,8 @@ class DailyInvoiceVisibilityService
         }
 
         return DB::transaction(function () use ($branchId, $date, $setting) {
-            // Delete previous set + reset flags for today/branch
+            // Delete previous set; visibility flags are reset inside generateForDate
+            // after capturing previously-visible IDs (avoids re-notify spam on regenerate).
             if ($prev = DailyVisibleInvoiceSet::query()
                 ->where('branch_id', $branchId)
                 ->whereDate('business_date', $date->toDateString())
@@ -129,10 +154,6 @@ class DailyInvoiceVisibilityService
                 DailyVisibleInvoiceSetItem::query()->where('daily_visible_invoice_set_id', $prev->id)->delete();
                 $prev->delete();
             }
-            SalesInvoice::query()
-                ->where('branch_id', $branchId)
-                ->whereDate('created_at', $date->toDateString())
-                ->update(['visible_for_sales' => false, 'daily_visible_invoice_set_id' => null]);
 
             return $this->generateForDate($branchId, $date, (float) $setting->daily_limit);
         });

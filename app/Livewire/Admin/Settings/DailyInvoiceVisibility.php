@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin\Settings;
 
 use App\Domain\Branch\Models\Branch;
+use App\Domain\Notifications\Services\SystemNotifier;
 use App\Domain\Settings\DailyVisibility\Models\DailyVisibilitySetting;
 use App\Domain\Settings\DailyVisibility\Models\DailyVisibleInvoiceSet;
 use App\Domain\Settings\DailyVisibility\Services\DailyInvoiceVisibilityService;
@@ -113,6 +114,8 @@ class DailyInvoiceVisibility extends Component
             );
         }
 
+        app(SystemNotifier::class)->settingsChanged('Daily visibility limits');
+
         $this->toast('Daily visibility settings saved');
         $this->loadSettings();
     }
@@ -120,7 +123,7 @@ class DailyInvoiceVisibility extends Component
     public function generate(DailyInvoiceVisibilityService $svc): void
     {
         if (! $this->selected_branch_id) {
-            $this->toast('Select a branch first.');
+            $this->toastWarning('Select a branch first.');
 
             return;
         }
@@ -133,7 +136,7 @@ class DailyInvoiceVisibility extends Component
     public function prepareRegenerate(): void
     {
         if (! $this->selected_branch_id) {
-            $this->toast('Select a branch first.');
+            $this->toastWarning('Select a branch first.');
 
             return;
         }
@@ -157,7 +160,7 @@ class DailyInvoiceVisibility extends Component
             $this->loadTodaySet();
             $this->toast("Today's visibility set regenerated");
         } catch (InvalidArgumentException $e) {
-            $this->toast($e->getMessage());
+            $this->toastError($e->getMessage());
         } finally {
             $this->showRegenerateConfirm = false;
         }

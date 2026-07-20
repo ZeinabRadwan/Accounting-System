@@ -83,7 +83,7 @@ class PermissionsManager extends Component
     {
         $user = $this->currentUser();
         if (! $user) {
-            $this->toast('Select a user first.');
+            $this->toastWarning('Select a user first.');
 
             return;
         }

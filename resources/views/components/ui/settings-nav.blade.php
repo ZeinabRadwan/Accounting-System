@@ -7,6 +7,10 @@
         [__('Permissions'), 'admin.settings.permissions'],
         [__('Daily Visibility'), 'admin.settings.daily_visibility'],
     ];
+
+    if (auth()->user()?->isSuperAdmin()) {
+        $settingsNav[] = [__('Notification Settings'), 'admin.settings.notifications'];
+    }
 @endphp
 
 <x-ui.card class="lg:col-span-1 !p-3">

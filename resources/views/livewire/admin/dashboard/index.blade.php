@@ -38,8 +38,12 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
         <x-ui.stat-card label="{{ __('Expenses Today') }}" :value="'EGP '.number_format($expensesToday, 2)" icon="receipt-refund" tone="danger" />
         <x-ui.stat-card label="{{ __('Purchases Today') }}" :value="'EGP '.number_format($purchasesToday, 2)" icon="clipboard" tone="warning" />
-        <x-ui.stat-card label="{{ __('Low Stock') }}" :value="(string) $lowStock" hint="{{ __('Qty 1–10') }}" icon="exclamation" tone="warning" />
-        <x-ui.stat-card label="{{ __('Out of Stock') }}" :value="(string) $outOfStock" hint="{{ __('Qty 0 or less') }}" icon="x" tone="danger" />
+        <a href="{{ route('admin.inventory.alerts', ['status' => 'low_stock']) }}" class="block">
+            <x-ui.stat-card label="{{ __('Low Stock Products') }}" :value="(string) $lowStock" hint="{{ __('At or below minimum stock') }}" icon="exclamation" tone="warning" />
+        </a>
+        <a href="{{ route('admin.inventory.alerts', ['status' => 'out_of_stock']) }}" class="block">
+            <x-ui.stat-card label="{{ __('Out of Stock Products') }}" :value="(string) $outOfStock" hint="{{ __('Qty 0 or less') }}" icon="x" tone="danger" />
+        </a>
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">

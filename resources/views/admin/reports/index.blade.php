@@ -4,6 +4,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
         @foreach (collect([
             [__('Inventory Report'), __('Stock by branch and product'), 'admin.reports.inventory', 'archive', 'primary'],
+            [__('Inventory Alerts Report'), __('Low stock and out of stock analysis'), 'admin.reports.inventory-alerts', 'exclamation', 'warning'],
             [__('Product Report'), __('Sales and movement by SKU'), 'admin.reports.product', 'cube', 'success'],
             [__('Customer Report'), __('Balances and purchase history'), 'admin.reports.customer', 'user-group', 'warning'],
             [__('Client Statement'), __('Ledger for a selected customer'), 'admin.reports.customer-statement', 'clipboard', 'primary'],

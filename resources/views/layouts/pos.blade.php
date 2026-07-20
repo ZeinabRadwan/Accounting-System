@@ -35,6 +35,7 @@
                     </span>
                 </button>
                 <x-ui.locale-switcher />
+                <livewire:notifications.notification-bell />
                 @if (auth()->user()?->canAccessAdminPanel())
                     <x-ui.button variant="secondary" size="sm" href="{{ route('admin.dashboard') }}">
                         <x-ui.icon name="home" class="w-4 h-4" />

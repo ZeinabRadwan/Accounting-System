@@ -4,6 +4,7 @@ namespace App\Domain\Purchase\Services;
 
 use App\Domain\Inventory\Enums\MovementType;
 use App\Domain\Inventory\Services\InventoryService;
+use App\Domain\Notifications\Services\SystemNotifier;
 use App\Domain\Purchase\Models\PurchaseInvoice;
 use App\Domain\Purchase\Models\PurchaseInvoiceItem;
 use App\Domain\Purchase\Models\PurchaseReturn;
@@ -110,7 +111,10 @@ class PurchaseReturnService
                 );
             }
 
-            return $ret->load('items');
+            $ret = $ret->load('items');
+            DB::afterCommit(fn () => app(SystemNotifier::class)->purchaseReturnCreated($ret));
+
+            return $ret;
         });
     }
 }

@@ -129,8 +129,24 @@ class ManageInventory extends Component
                             ->orWhere('sku', 'like', "%{$term}%");
                     });
                 })
-                ->when($this->filter_status === 'in_stock', fn ($q) => $q->where('quantity', '>', 10))
-                ->when($this->filter_status === 'low_stock', fn ($q) => $q->where('quantity', '>', 0)->where('quantity', '<=', 10))
+                ->when($this->filter_status === 'in_stock', function ($q) {
+                    $q->where('quantity', '>', 0)
+                        ->whereExists(function ($sub) {
+                            $sub->selectRaw('1')
+                                ->from('products')
+                                ->whereColumn('products.id', 'inventory_stocks.product_id')
+                                ->whereColumn('inventory_stocks.quantity', '>', 'products.minimum_stock');
+                        });
+                })
+                ->when($this->filter_status === 'low_stock', function ($q) {
+                    $q->where('quantity', '>', 0)
+                        ->whereExists(function ($sub) {
+                            $sub->selectRaw('1')
+                                ->from('products')
+                                ->whereColumn('products.id', 'inventory_stocks.product_id')
+                                ->whereColumn('inventory_stocks.quantity', '<=', 'products.minimum_stock');
+                        });
+                })
                 ->when($this->filter_status === 'out_of_stock', fn ($q) => $q->where('quantity', '<=', 0))
                 ->when($this->filter_status === 'expiring_soon', function ($q) {
                     $q->whereExists(function ($sub) {
@@ -183,6 +199,8 @@ class ManageInventory extends Component
             }
         }
 
+        $alertCounts = app(\App\Domain\Inventory\Services\InventoryAlertService::class)->counts($branchId);
+
         return $this->adminView('livewire.admin.inventory.manage-inventory', [
             'rows' => $rows,
             'branches' => $branches,
@@ -191,8 +209,8 @@ class ManageInventory extends Component
             'branchStocks' => $branchStocks,
             'recentMovements' => $recentMovements,
             'totalSkus' => (int) InventoryStock::query()->selectRaw('count(distinct product_id) as aggregate')->value('aggregate'),
-            'lowStock' => InventoryStock::where('quantity', '<=', 10)->where('quantity', '>', 0)->count(),
-            'outOfStock' => InventoryStock::where('quantity', '<=', 0)->count(),
+            'lowStock' => $alertCounts['low_stock'],
+            'outOfStock' => $alertCounts['out_of_stock'],
             'expiringSoon' => InventoryLot::query()->expiringSoon(30)->count(),
             'expiredLots' => InventoryLot::query()->expired()->count(),
             'productCount' => Product::where('is_active', true)->count(),

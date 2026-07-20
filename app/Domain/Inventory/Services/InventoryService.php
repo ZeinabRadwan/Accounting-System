@@ -6,6 +6,7 @@ use App\Domain\Inventory\Enums\MovementType;
 use App\Domain\Inventory\Models\InventoryLot;
 use App\Domain\Inventory\Models\InventoryStock;
 use App\Domain\Inventory\Models\StockMovement;
+use App\Domain\Notifications\Services\SystemNotifier;
 use DomainException;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -27,7 +28,8 @@ class InventoryService
     {
         return DB::transaction(function () use ($branchId, $productId, $quantity, $meta, $type) {
             $stock = $this->stockService->lockAndGet($branchId, $productId);
-            $stock->quantity = (float) $stock->quantity + $quantity;
+            $previousQty = (float) $stock->quantity;
+            $stock->quantity = $previousQty + $quantity;
             $stock->save();
 
             $expiry = $this->normalizeExpiry($meta['expiry_date'] ?? null);
@@ -43,7 +45,10 @@ class InventoryService
 
             $this->logMovement($productId, null, $branchId, $type, $quantity, $meta);
 
-            return $stock->refresh();
+            $stock = $stock->refresh();
+            DB::afterCommit(fn () => app(SystemNotifier::class)->inventoryChanged($stock, $previousQty));
+
+            return $stock;
         });
     }
 
@@ -54,18 +59,22 @@ class InventoryService
     {
         return DB::transaction(function () use ($branchId, $productId, $quantity, $meta, $type) {
             $stock = $this->stockService->lockAndGet($branchId, $productId);
-            if ((float) $stock->quantity < $quantity) {
+            $previousQty = (float) $stock->quantity;
+            if ($previousQty < $quantity) {
                 throw new DomainException('Insufficient stock.');
             }
 
-            $stock->quantity = (float) $stock->quantity - $quantity;
+            $stock->quantity = $previousQty - $quantity;
             $stock->save();
 
             $this->consumeLots($branchId, $productId, $quantity);
 
             $this->logMovement($productId, $branchId, null, $type, $quantity, $meta);
 
-            return $stock->refresh();
+            $stock = $stock->refresh();
+            DB::afterCommit(fn () => app(SystemNotifier::class)->inventoryChanged($stock, $previousQty));
+
+            return $stock;
         });
     }
 
@@ -76,14 +85,16 @@ class InventoryService
     {
         DB::transaction(function () use ($fromBranchId, $toBranchId, $productId, $quantity, $meta) {
             $from = $this->stockService->lockAndGet($fromBranchId, $productId);
-            if ((float) $from->quantity < $quantity) {
+            $previousFromQty = (float) $from->quantity;
+            if ($previousFromQty < $quantity) {
                 throw new DomainException('Insufficient stock for transfer.');
             }
 
             $to = $this->stockService->lockAndGet($toBranchId, $productId);
+            $previousToQty = (float) $to->quantity;
 
-            $from->quantity = (float) $from->quantity - $quantity;
-            $to->quantity = (float) $to->quantity + $quantity;
+            $from->quantity = $previousFromQty - $quantity;
+            $to->quantity = $previousToQty + $quantity;
 
             $from->save();
             $to->save();
@@ -101,6 +112,14 @@ class InventoryService
 
             $this->logMovement($productId, $fromBranchId, $toBranchId, MovementType::TransferOut, $quantity, $meta);
             $this->logMovement($productId, $fromBranchId, $toBranchId, MovementType::TransferIn, $quantity, $meta);
+
+            $from = $from->refresh();
+            $to = $to->refresh();
+            DB::afterCommit(function () use ($from, $to, $previousFromQty, $previousToQty) {
+                $notifier = app(SystemNotifier::class);
+                $notifier->inventoryChanged($from, $previousFromQty);
+                $notifier->inventoryChanged($to, $previousToQty);
+            });
         });
     }
 

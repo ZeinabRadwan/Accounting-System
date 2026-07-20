@@ -52,7 +52,7 @@ class ManageSales extends Component
             $this->showInvoiceDrawer = false;
             $this->viewingId = null;
         } catch (\DomainException $e) {
-            $this->toast($e->getMessage());
+            $this->toastError($e->getMessage());
         }
     }
 

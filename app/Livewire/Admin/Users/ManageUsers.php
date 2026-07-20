@@ -5,6 +5,7 @@ namespace App\Livewire\Admin\Users;
 use App\Domain\Auth\Enums\UserRole;
 use App\Domain\Auth\Services\ProfilePhotoService;
 use App\Domain\Branch\Models\Branch;
+use App\Domain\Notifications\Services\SystemNotifier;
 use App\Livewire\Concerns\InteractsWithAdminLayout;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
@@ -153,6 +154,7 @@ class ManageUsers extends Component
 
         if ($this->editingId) {
             $user = $this->findManagedUserOrAbort($this->editingId);
+            $oldRole = $user->role instanceof UserRole ? $user->role->value : (string) $user->role;
 
             $user->fill([
                 'name' => $validated['name'],
@@ -173,13 +175,18 @@ class ManageUsers extends Component
             }
 
             $user->save();
+
+            if ($oldRole !== $validated['role']) {
+                app(SystemNotifier::class)->userRoleChanged($user, $oldRole, $validated['role']);
+            }
+
             $message = 'User updated successfully.';
         } else {
             $path = $this->profile_photo
                 ? $photos->store($this->profile_photo)
                 : null;
 
-            User::create([
+            $user = User::create([
                 'name' => $validated['name'],
                 'email' => $validated['email'],
                 'password' => Hash::make($validated['password']),
@@ -188,6 +195,8 @@ class ManageUsers extends Component
                 'is_active' => $validated['is_active'],
                 'profile_photo' => $path,
             ]);
+
+            app(SystemNotifier::class)->userCreated($user);
             $message = 'User created successfully.';
         }
 
@@ -220,11 +229,12 @@ class ManageUsers extends Component
         if ((int) $user->id === (int) Auth::id()) {
             $this->showDeleteConfirm = false;
             $this->deletingId = null;
-            $this->toast('You cannot delete your own account.');
+            $this->toastWarning('You cannot delete your own account.');
 
             return;
         }
 
+        app(SystemNotifier::class)->userDeleted($user);
         $user->delete();
 
         if ($this->viewingId === $this->deletingId) {

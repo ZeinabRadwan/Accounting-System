@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Geofence;
 
-use App\Domain\Branch\Models\Branch;
+use App\Domain\Notifications\Services\SystemNotifier;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -32,6 +32,10 @@ class GeofenceCheckController extends Controller
             (float) $validated['latitude'],
             (float) $validated['longitude'],
         );
+
+        if (! $allowed) {
+            app(SystemNotifier::class)->outsideGeofence($user);
+        }
 
         return response()->json([
             'allowed' => $allowed,

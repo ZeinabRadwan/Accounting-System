@@ -2,6 +2,7 @@
 
 namespace App\Domain\Settings\Services;
 
+use App\Domain\Notifications\Services\SystemNotifier;
 use App\Domain\Settings\Models\Setting;
 use Illuminate\Support\Facades\Cache;
 
@@ -67,6 +68,8 @@ class SettingsService
         foreach (['store_name', 'logo_path', 'address', 'phone', 'receipt_header', 'receipt_footer'] as $k) {
             $this->set('invoice', $k, $data[$k] ?? '', $updatedBy);
         }
+
+        app(SystemNotifier::class)->invoiceTemplateUpdated();
     }
 
     public function getDailySettings(): array
@@ -83,5 +86,7 @@ class SettingsService
         $this->set('daily', 'daily_sales_limit', (float) ($data['daily_sales_limit'] ?? 0), $updatedBy);
         $this->set('daily', 'invoice_prefix', (string) ($data['invoice_prefix'] ?? 'INV-'), $updatedBy);
         $this->set('daily', 'default_payment_method', (string) ($data['default_payment_method'] ?? 'cash'), $updatedBy);
+
+        app(SystemNotifier::class)->settingsChanged('Daily settings');
     }
 }

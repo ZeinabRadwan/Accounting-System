@@ -79,7 +79,7 @@ new class extends Component
         $this->existing_profile_photo_url = $user->fresh()->profile_photo_url;
 
         $this->dispatch('profile-updated', name: $user->name);
-        $this->js('window.Alpine && Alpine.store("toast") && Alpine.store("toast").show('.json_encode(__('Profile updated successfully.')).')');
+        $this->js(\App\Support\Toast::script(\App\Support\Toast::make('Profile updated successfully.')));
     }
 
     public function sendVerification(): void

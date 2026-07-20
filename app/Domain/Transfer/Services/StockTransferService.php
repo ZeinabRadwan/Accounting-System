@@ -3,6 +3,7 @@
 namespace App\Domain\Transfer\Services;
 
 use App\Domain\Inventory\Services\InventoryService;
+use App\Domain\Notifications\Services\SystemNotifier;
 use App\Domain\Transfer\Models\StockTransfer;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -51,7 +52,10 @@ class StockTransferService
                 ]);
             }
 
-            return $transfer->load('items');
+            $transfer = $transfer->load('items');
+            DB::afterCommit(fn () => app(SystemNotifier::class)->transferCompleted($transfer));
+
+            return $transfer;
         });
     }
 }

@@ -80,7 +80,7 @@ class ManageTreasuries extends Component
                 $message = 'Treasury created successfully.';
             }
         } catch (DomainException $e) {
-            $this->toast($e->getMessage());
+            $this->toastError($e->getMessage());
 
             return;
         }
@@ -113,7 +113,7 @@ class ManageTreasuries extends Component
         if ($treasury->transactions_count > 0 || (float) $treasury->current_balance != 0.0) {
             $this->showDeleteConfirm = false;
             $this->deletingId = null;
-            $this->toast('Cannot delete a treasury that has balance or transactions. Deactivate it instead.');
+            $this->toastWarning('Cannot delete a treasury that has balance or transactions. Deactivate it instead.');
 
             return;
         }

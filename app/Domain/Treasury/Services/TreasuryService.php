@@ -2,6 +2,7 @@
 
 namespace App\Domain\Treasury\Services;
 
+use App\Domain\Notifications\Services\SystemNotifier;
 use App\Domain\Treasury\Enums\PaymentMethod;
 use App\Domain\Treasury\Enums\TreasuryTransactionType;
 use App\Domain\Treasury\Models\Treasury;
@@ -244,7 +245,7 @@ class TreasuryService
 
         $treasury->save();
 
-        return TreasuryTransaction::query()->create([
+        $transaction = TreasuryTransaction::query()->create([
             'treasury_id' => $treasury->id,
             'type' => $type->value,
             'amount' => $amount,
@@ -253,5 +254,13 @@ class TreasuryService
             'description' => $description,
             'created_by' => $createdBy,
         ]);
+
+        DB::afterCommit(fn () => app(SystemNotifier::class)->treasuryTransaction(
+            $treasury,
+            $amount,
+            $type->value === 'income' ? 'Income' : 'Expense',
+        ));
+
+        return $transaction;
     }
 }

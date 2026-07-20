@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Reports\CustomerStatementPrintController;
 use App\Http\Controllers\Reports\DailyClosingPrintController;
+use App\Http\Controllers\Reports\InventoryAlertsPrintController;
 use App\Http\Controllers\Reports\SupplierStatementPrintController;
 use App\Http\Controllers\Sales\InvoicePrintController;
 use App\Livewire\Admin\Branches\ManageBranches;
@@ -9,6 +10,7 @@ use App\Livewire\Admin\Customers\CustomerAccountStatement;
 use App\Livewire\Admin\Customers\ManageCustomers;
 use App\Livewire\Admin\Dashboard\Dashboard;
 use App\Livewire\Admin\Expenses\ManageExpenses;
+use App\Livewire\Admin\Inventory\InventoryAlerts;
 use App\Livewire\Admin\Inventory\ManageInventory;
 use App\Livewire\Admin\Products\ManageCategories;
 use App\Livewire\Admin\Products\ManageProducts;
@@ -17,6 +19,7 @@ use App\Livewire\Admin\Reports\CustomerReport;
 use App\Livewire\Admin\Reports\DailyClosingShow;
 use App\Livewire\Admin\Reports\DailyClosingsIndex;
 use App\Livewire\Admin\Reports\CustomerStatement;
+use App\Livewire\Admin\Reports\InventoryAlertsReport;
 use App\Livewire\Admin\Reports\InventoryReport;
 use App\Livewire\Admin\Reports\ProductReport;
 use App\Livewire\Admin\Reports\ProfitReport;
@@ -25,7 +28,9 @@ use App\Livewire\Admin\Sales\ManageSales;
 use App\Livewire\Admin\Settings\DailyInvoiceVisibility;
 use App\Livewire\Admin\Settings\DailySettings;
 use App\Livewire\Admin\Settings\InvoiceSettings;
+use App\Livewire\Admin\Settings\NotificationSettings;
 use App\Livewire\Admin\Settings\PermissionsManager;
+use App\Livewire\Notifications\NotificationsIndex;
 use App\Livewire\Admin\Suppliers\ManageSuppliers;
 use App\Livewire\Admin\Suppliers\SupplierAccountStatement;
 use App\Livewire\Admin\Transfers\ManageTransfers;
@@ -66,6 +71,10 @@ Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/notifications', NotificationsIndex::class)->name('notifications.index');
+});
+
 Route::middleware(['auth', 'role:super_admin,admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', Dashboard::class)->name('dashboard');
 
@@ -83,6 +92,8 @@ Route::middleware(['auth', 'role:super_admin,admin'])->prefix('admin')->name('ad
     Route::get('/products/categories', ManageCategories::class)->name('products.categories');
 
     Route::get('/inventory', ManageInventory::class)->name('inventory.index');
+    Route::get('/inventory/alerts', InventoryAlerts::class)->name('inventory.alerts');
+    Route::get('/inventory/alerts/print', InventoryAlertsPrintController::class)->name('inventory.alerts.print');
     Route::get('/sales', ManageSales::class)->name('sales.index');
     Route::get('/purchases', ManagePurchases::class)->name('purchases.index');
     Route::get('/returns', ManageReturns::class)->name('returns.index');
@@ -93,6 +104,7 @@ Route::middleware(['auth', 'role:super_admin,admin'])->prefix('admin')->name('ad
 
     Route::view('/reports', 'admin.reports.index')->name('reports.index');
     Route::get('/reports/inventory', InventoryReport::class)->name('reports.inventory');
+    Route::get('/reports/inventory-alerts', InventoryAlertsReport::class)->name('reports.inventory-alerts');
     Route::get('/reports/product', ProductReport::class)->name('reports.product');
     Route::get('/reports/customer', CustomerReport::class)->name('reports.customer');
     Route::get('/reports/customer-statement', CustomerStatement::class)->name('reports.customer-statement');
@@ -107,6 +119,7 @@ Route::middleware(['auth', 'role:super_admin,admin'])->prefix('admin')->name('ad
     Route::get('/settings/daily', DailySettings::class)->name('settings.daily');
     Route::get('/settings/permissions', PermissionsManager::class)->name('settings.permissions');
     Route::get('/settings/daily-visibility', DailyInvoiceVisibility::class)->name('settings.daily_visibility');
+    Route::get('/settings/notifications', NotificationSettings::class)->name('settings.notifications');
 });
 
 Route::middleware(['auth', 'role:super_admin,admin,sales'])->group(function () {

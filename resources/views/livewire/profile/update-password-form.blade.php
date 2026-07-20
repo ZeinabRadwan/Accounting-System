@@ -32,7 +32,7 @@ new class extends Component
         $this->reset('current_password', 'password', 'password_confirmation');
 
         $this->dispatch('password-updated');
-        $this->js('window.Alpine && Alpine.store("toast") && Alpine.store("toast").show('.json_encode(__('Password updated successfully.')).')');
+        $this->js(\App\Support\Toast::script(\App\Support\Toast::make('Password updated successfully.')));
     }
 }; ?>
 

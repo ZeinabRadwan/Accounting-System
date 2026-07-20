@@ -1,5 +1,6 @@
 <div>
     <x-ui.page-header title="{{ __('Inventory') }}" subtitle="{{ __('Stock levels across branches.') }}">
+        <x-ui.button variant="secondary" href="{{ route('admin.inventory.alerts') }}">{{ __('Inventory Alerts') }}</x-ui.button>
         <x-ui.button variant="secondary" href="{{ route('admin.products.index') }}">{{ __('Products') }}</x-ui.button>
         <x-ui.button variant="secondary" href="{{ route('admin.purchases.index') }}">{{ __('Purchases') }}</x-ui.button>
         <x-ui.button variant="secondary" href="{{ route('admin.transfers.index') }}">{{ __('Transfers') }}</x-ui.button>
@@ -8,8 +9,12 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
         <x-ui.stat-card label="{{ __('Active Products') }}" :value="(string) $productCount" icon="cube" tone="primary" />
         <x-ui.stat-card label="{{ __('Stocked SKUs') }}" :value="(string) $totalSkus" icon="archive" tone="slate" />
-        <x-ui.stat-card label="{{ __('Low Stock') }}" :value="(string) $lowStock" hint="{{ __('Qty 1–10') }}" icon="exclamation" tone="warning" />
-        <x-ui.stat-card label="{{ __('Out of Stock') }}" :value="(string) $outOfStock" icon="x" tone="danger" />
+        <a href="{{ route('admin.inventory.alerts', ['status' => 'low_stock']) }}" class="block">
+            <x-ui.stat-card label="{{ __('Low Stock') }}" :value="(string) $lowStock" hint="{{ __('At or below minimum stock') }}" icon="exclamation" tone="warning" />
+        </a>
+        <a href="{{ route('admin.inventory.alerts', ['status' => 'out_of_stock']) }}" class="block">
+            <x-ui.stat-card label="{{ __('Out of Stock') }}" :value="(string) $outOfStock" icon="x" tone="danger" />
+        </a>
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">

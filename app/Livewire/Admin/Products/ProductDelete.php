@@ -29,7 +29,7 @@ class ProductDelete extends Component
             Product::whereKey($this->id)->delete();
         }
         $this->dispatch('close-modal', name: 'product-delete');
-        session()->flash('status', 'Product deleted');
+        \App\Support\Toast::flash('Item deleted successfully.');
         $this->redirect(request()->fullUrl(), navigate: true);
     }
 

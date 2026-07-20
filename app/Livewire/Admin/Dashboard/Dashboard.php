@@ -6,7 +6,6 @@ use App\Domain\Branch\Models\Branch;
 use App\Domain\Customer\Models\Customer;
 use App\Domain\Expense\Models\Expense;
 use App\Domain\Inventory\Models\InventoryLot;
-use App\Domain\Inventory\Models\InventoryStock;
 use App\Domain\Purchase\Models\PurchaseInvoice;
 use App\Domain\Sales\Models\SalesInvoice;
 use App\Domain\Treasury\Models\Treasury;
@@ -33,14 +32,9 @@ class Dashboard extends Component
         $todayPaid = (float) (clone $salesTodayQuery)->sum('paid_amount');
         $openReceivables = (float) $this->activeSales()->sum('remaining_amount');
 
-        $lowStock = (int) InventoryStock::query()
-            ->where('quantity', '>', 0)
-            ->where('quantity', '<=', 10)
-            ->count();
-
-        $outOfStock = (int) InventoryStock::query()
-            ->where('quantity', '<=', 0)
-            ->count();
+        $counts = app(\App\Domain\Inventory\Services\InventoryAlertService::class)->counts();
+        $lowStock = $counts['low_stock'];
+        $outOfStock = $counts['out_of_stock'];
 
         $expiredLots = (int) InventoryLot::query()->expired()->count();
         $expiringSoonLots = (int) InventoryLot::query()->expiringSoon(30)->count();

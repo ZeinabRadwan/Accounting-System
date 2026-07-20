@@ -43,5 +43,6 @@
             </div>
         </div>
     </div>
+    <x-ui.toast />
 </body>
 </html>

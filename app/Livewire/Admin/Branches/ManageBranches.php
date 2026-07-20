@@ -200,7 +200,7 @@ class ManageBranches extends Component
         } catch (DomainException $e) {
             $this->showDeleteConfirm = false;
             $this->deletingId = null;
-            $this->toast($e->getMessage());
+            $this->toastError($e->getMessage());
 
             return;
         }
@@ -257,7 +257,13 @@ class ManageBranches extends Component
                 ->withCount([
                     'inventoryStocks as products_count' => fn ($q) => $q->where('quantity', '>', 0),
                     'inventoryStocks as out_of_stock_count' => fn ($q) => $q->where('quantity', '<=', 0),
-                    'inventoryStocks as low_stock_count' => fn ($q) => $q->where('quantity', '>', 0)->where('quantity', '<=', 10),
+                    'inventoryStocks as low_stock_count' => fn ($q) => $q->where('quantity', '>', 0)
+                        ->whereExists(function ($sub) {
+                            $sub->selectRaw('1')
+                                ->from('products')
+                                ->whereColumn('products.id', 'inventory_stocks.product_id')
+                                ->whereColumn('inventory_stocks.quantity', '<=', 'products.minimum_stock');
+                        }),
                 ])
                 ->withSum('inventoryStocks as inventory_qty', 'quantity')
                 ->find($this->viewingId);

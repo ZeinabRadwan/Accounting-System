@@ -105,6 +105,7 @@ class SupplierAccountStatement extends Component
             ]);
         } catch (DomainException $e) {
             $this->addError('pay_amount', $e->getMessage());
+            $this->toastError($e->getMessage());
 
             return;
         }

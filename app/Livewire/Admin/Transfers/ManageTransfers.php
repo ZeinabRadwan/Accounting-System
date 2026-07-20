@@ -198,7 +198,7 @@ class ManageTransfers extends Component
                 ])->values()->all(),
             ]);
         } catch (DomainException $e) {
-            $this->toast($e->getMessage());
+            $this->toastError($e->getMessage());
 
             return;
         }

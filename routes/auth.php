@@ -31,6 +31,8 @@ Route::middleware('auth')->group(function () {
         request()->session()->invalidate();
         request()->session()->regenerateToken();
 
+        \App\Support\Toast::flash('You have been logged out successfully.');
+
         return redirect('/');
     })->name('logout');
 });

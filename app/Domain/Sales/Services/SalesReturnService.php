@@ -4,6 +4,7 @@ namespace App\Domain\Sales\Services;
 
 use App\Domain\Inventory\Enums\MovementType;
 use App\Domain\Inventory\Services\InventoryService;
+use App\Domain\Notifications\Services\SystemNotifier;
 use App\Domain\Sales\Models\SalesInvoice;
 use App\Domain\Sales\Models\SalesInvoiceItem;
 use App\Domain\Sales\Models\SalesReturn;
@@ -110,7 +111,10 @@ class SalesReturnService
                 );
             }
 
-            return $ret->load('items');
+            $ret = $ret->load('items');
+            DB::afterCommit(fn () => app(SystemNotifier::class)->salesReturnCreated($ret));
+
+            return $ret;
         });
     }
 }

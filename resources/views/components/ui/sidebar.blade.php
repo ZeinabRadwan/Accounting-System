@@ -7,6 +7,7 @@ $nav = [
     ['label' => __('Customers'), 'route' => 'admin.customers.index', 'icon' => 'user-group'],
     ['label' => __('Suppliers'), 'route' => 'admin.suppliers.index', 'icon' => 'truck'],
     ['label' => __('Inventory'), 'route' => 'admin.inventory.index', 'icon' => 'archive'],
+    ['label' => __('Inventory Alerts'), 'route' => 'admin.inventory.alerts', 'icon' => 'exclamation'],
     ['label' => __('Sales'), 'route' => 'admin.sales.index', 'icon' => 'shopping-cart'],
     ['label' => __('Purchases'), 'route' => 'admin.purchases.index', 'icon' => 'clipboard'],
     ['label' => __('Returns'), 'route' => 'admin.returns.index', 'icon' => 'receipt-refund'],

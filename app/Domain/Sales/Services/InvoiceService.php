@@ -8,6 +8,7 @@ use App\Domain\Customer\Models\CustomerPaymentApplication;
 use App\Domain\Customer\Services\CustomerService;
 use App\Domain\Inventory\Enums\MovementType;
 use App\Domain\Inventory\Services\InventoryService;
+use App\Domain\Notifications\Services\SystemNotifier;
 use App\Domain\Product\Models\Product;
 use App\Domain\Sales\Models\SalesInvoice;
 use App\Domain\Treasury\Enums\PaymentMethod;
@@ -127,7 +128,10 @@ class InvoiceService
                 );
             }
 
-            return $invoice->load('items');
+            $invoice = $invoice->load('items');
+            DB::afterCommit(fn () => app(SystemNotifier::class)->salesInvoiceCreated($invoice));
+
+            return $invoice;
         });
     }
 
@@ -274,7 +278,10 @@ class InvoiceService
                 userId: $userId,
             );
 
-            return $invoice->refresh();
+            $invoice = $invoice->refresh();
+            DB::afterCommit(fn () => app(SystemNotifier::class)->salesInvoiceCancelled($invoice));
+
+            return $invoice;
         });
     }
 

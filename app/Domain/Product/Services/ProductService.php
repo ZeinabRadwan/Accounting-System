@@ -2,6 +2,7 @@
 
 namespace App\Domain\Product\Services;
 
+use App\Domain\Notifications\Services\SystemNotifier;
 use App\Domain\Product\Models\Category;
 use App\Domain\Product\Models\Product;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -54,12 +55,16 @@ class ProductService
                 'price2' => $base['price2'],
                 'price3' => $base['price3'],
                 'base_unit' => $base['unit_name'],
+                'minimum_stock' => (float) ($data['minimum_stock'] ?? 10),
                 'is_active' => (bool) ($data['is_active'] ?? true),
             ]);
 
             $this->createOrUpdateUnits($product, $units);
 
-            return $product->load(['category', 'units']);
+            $product = $product->load(['category', 'units']);
+            DB::afterCommit(fn () => app(SystemNotifier::class)->productCreated($product));
+
+            return $product;
         });
     }
 
@@ -90,13 +95,19 @@ class ProductService
                 'price2' => $base['price2'] ?? $product->price2,
                 'price3' => $base['price3'] ?? $product->price3,
                 'base_unit' => $base['unit_name'] ?? $product->base_unit,
+                'minimum_stock' => array_key_exists('minimum_stock', $data)
+                    ? (float) $data['minimum_stock']
+                    : $product->minimum_stock,
             ])->save();
 
             if ($units !== null) {
                 $this->syncUnits($product, $units);
             }
 
-            return $product->load(['category', 'units']);
+            $product = $product->load(['category', 'units']);
+            DB::afterCommit(fn () => app(SystemNotifier::class)->productUpdated($product));
+
+            return $product;
         });
     }
 
@@ -255,6 +266,7 @@ class ProductService
 
     public function delete(Product $product): void
     {
+        app(SystemNotifier::class)->productDeleted($product);
         $product->delete();
     }
 }

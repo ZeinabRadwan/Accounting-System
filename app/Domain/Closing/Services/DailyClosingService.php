@@ -2,17 +2,15 @@
 
 namespace App\Domain\Closing\Services;
 
-use App\Domain\Auth\Enums\UserRole;
 use App\Domain\Closing\Models\DailyClosing;
 use App\Domain\Expense\Models\Expense;
+use App\Domain\Notifications\Services\SystemNotifier;
 use App\Domain\Purchase\Models\PurchaseInvoice;
 use App\Domain\Purchase\Models\PurchaseReturn;
 use App\Domain\Sales\Models\SalesInvoice;
 use App\Domain\Sales\Models\SalesReturn;
 use App\Domain\Treasury\Enums\TreasuryTransactionType;
 use App\Domain\Treasury\Models\Treasury;
-use App\Models\User;
-use App\Notifications\DailyClosingCompleted;
 use Carbon\CarbonInterface;
 use DomainException;
 use Illuminate\Support\Facades\DB;
@@ -195,10 +193,7 @@ class DailyClosingService
 
     protected function notifySuperAdmins(DailyClosing $closing): void
     {
-        User::query()
-            ->where('role', UserRole::SuperAdmin->value)
-            ->get()
-            ->each(fn (User $user) => $user->notify(new DailyClosingCompleted($closing)));
+        DB::afterCommit(fn () => app(SystemNotifier::class)->dailyClosingCompleted($closing));
     }
 
     protected function activeSalesInvoicesQuery(CarbonInterface $closingAt)

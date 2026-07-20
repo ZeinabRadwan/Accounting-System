@@ -3,6 +3,7 @@
 namespace App\Domain\Branch\Services;
 
 use App\Domain\Branch\Models\Branch;
+use App\Domain\Notifications\Services\SystemNotifier;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 use DomainException;
@@ -25,16 +26,22 @@ class BranchService
 
     public function create(array $data): Branch
     {
-        return Branch::create([
+        $branch = Branch::create([
             'name' => $data['name'],
             'code' => $data['code'],
             'address' => $data['address'] ?? null,
             'is_active' => (bool) ($data['is_active'] ?? true),
         ]);
+
+        app(SystemNotifier::class)->branchCreated($branch);
+
+        return $branch;
     }
 
     public function update(Branch $branch, array $data): Branch
     {
+        $wasActive = (bool) $branch->is_active;
+
         $fill = [
             'name' => $data['name'],
             'code' => $data['code'],
@@ -49,8 +56,15 @@ class BranchService
         }
 
         $branch->fill($fill)->save();
+        $branch = $branch->refresh();
 
-        return $branch->refresh();
+        app(SystemNotifier::class)->branchUpdated(
+            $branch,
+            statusChanged: $wasActive !== (bool) $branch->is_active,
+            wasActive: $wasActive,
+        );
+
+        return $branch;
     }
 
     public function updateGeofence(Branch $branch, ?float $latitude, ?float $longitude, ?int $allowedRadius): Branch
@@ -61,7 +75,10 @@ class BranchService
             'allowed_radius' => $allowedRadius,
         ])->save();
 
-        return $branch->refresh();
+        $branch = $branch->refresh();
+        app(SystemNotifier::class)->branchGeofenceChanged($branch);
+
+        return $branch;
     }
 
     public function delete(Branch $branch): void
@@ -72,8 +89,8 @@ class BranchService
                 throw new DomainException('Cannot delete branch with assigned users.');
             }
 
+            DB::afterCommit(fn () => app(SystemNotifier::class)->branchDeleted($branch));
             $branch->delete();
         });
     }
 }
-

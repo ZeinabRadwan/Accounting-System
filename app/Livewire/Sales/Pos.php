@@ -10,6 +10,7 @@ use App\Domain\Customer\Services\CustomerService;
 use App\Domain\Product\Models\Category;
 use App\Domain\Product\Models\Product;
 use App\Domain\Sales\Services\InvoiceService;
+use App\Livewire\Concerns\InteractsWithToasts;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -17,6 +18,7 @@ use Livewire\Component;
 
 class Pos extends Component
 {
+    use InteractsWithToasts;
     public ?int $customer_id = null;
     public string $customer_name = '';
     public string $customer_phone = '';
@@ -309,7 +311,7 @@ class Pos extends Component
 
         if ($branchId <= 0) {
             $this->addError('items', __('No branch available for this sale. Create an active branch first.'));
-            $this->toast(__('No branch available for this sale.'), 'danger');
+            $this->toastError('No branch available for this sale.');
             $this->fx('error');
 
             return;
@@ -353,11 +355,7 @@ class Pos extends Component
         if ($stockErrors !== []) {
             $message = implode(' ', $stockErrors);
             $this->addError('items', $message);
-            $this->js(
-                'window.Alpine && Alpine.store("toast") && Alpine.store("toast").show('
-                .json_encode($message).', '
-                .json_encode('danger').')'
-            );
+            $this->toastWarning('Insufficient stock to complete this operation.');
             $this->fx('error');
 
             return;
@@ -386,14 +384,14 @@ class Pos extends Component
             $invoice = $service->createInvoice($payload);
         } catch (\DomainException $e) {
             $this->addError('items', $e->getMessage());
-            $this->toast($e->getMessage(), 'danger');
+            $this->toastError($e->getMessage());
             $this->fx('error');
 
             return;
         } catch (\Throwable $e) {
             report($e);
             $this->addError('items', __('Could not save invoice. Please try again.'));
-            $this->toast(__('Could not save invoice. Please try again.'), 'danger');
+            $this->toastError('Could not save invoice. Please try again.');
             $this->fx('error');
 
             return;
@@ -403,7 +401,7 @@ class Pos extends Component
         $this->last_invoice_number = (string) $invoice->invoice_number;
         $this->showSaveSuccess = true;
         $this->resetSale(keepSuccess: true);
-        $this->toast(__('Invoice :number saved', ['number' => $invoice->invoice_number]));
+        $this->toastSuccess('Invoice :number saved', ['number' => $invoice->invoice_number]);
         $this->fx('success');
         $this->dispatch('saved', invoiceId: $invoice->id, invoiceNumber: $invoice->invoice_number);
     }
@@ -494,15 +492,6 @@ class Pos extends Component
         if (! $keepSuccess) {
             $this->closeSaveSuccess();
         }
-    }
-
-    protected function toast(string $message, string $type = 'success'): void
-    {
-        $this->js(
-            'window.Alpine && Alpine.store("toast") && Alpine.store("toast").show('
-            .json_encode($message).', '
-            .json_encode($type).')'
-        );
     }
 
     protected function fx(string $sound): void

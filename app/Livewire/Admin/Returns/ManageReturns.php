@@ -225,6 +225,7 @@ class ManageReturns extends Component
 
         if ($selectedLines->isEmpty()) {
             $this->addError('lines', 'Select at least one line with a return quantity.');
+            $this->toastWarning('Please fill in all required fields.');
 
             return;
         }
@@ -232,6 +233,7 @@ class ManageReturns extends Component
         foreach ($selectedLines as $i => $line) {
             if ((float) $line['quantity'] > (float) $line['max_qty'] + 1e-6) {
                 $this->addError('lines', __('Return qty exceeds remaining for :product.', ['product' => $line['product_name']]));
+                $this->toastWarning('Return qty exceeds remaining for :product.', ['product' => $line['product_name']]);
 
                 return;
             }
@@ -274,7 +276,7 @@ class ManageReturns extends Component
                 $message = __('Sales return :number saved', ['number' => $ret->return_number]);
             }
         } catch (DomainException $e) {
-            $this->toast($e->getMessage());
+            $this->toastError($e->getMessage());
 
             return;
         }

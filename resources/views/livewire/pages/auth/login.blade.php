@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\Forms\LoginForm;
+use App\Support\Toast;
 use Illuminate\Support\Facades\Session;
 use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
@@ -44,6 +45,7 @@ new #[Layout('layouts.auth')] class extends Component
                 }
 
                 if (! $branch->isWithinGeofence($this->user_lat, $this->user_lng)) {
+                    app(\App\Domain\Notifications\Services\SystemNotifier::class)->outsideGeofence($user);
                     auth()->logout();
                     Session::invalidate();
                     Session::regenerateToken();
@@ -55,6 +57,8 @@ new #[Layout('layouts.auth')] class extends Component
         }
 
         Session::regenerate();
+        Session::put('auth_session_started_at', now()->timestamp);
+        Toast::flash('Logged in successfully.');
 
         $role = $user->role;
         $roleValue = $role instanceof \App\Domain\Auth\Enums\UserRole ? $role->value : $role;

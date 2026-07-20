@@ -19,6 +19,7 @@ class Product extends Model
         'price2',
         'price3',
         'base_unit',
+        'minimum_stock',
         'is_active',
     ];
 
@@ -26,6 +27,7 @@ class Product extends Model
         'price1' => 'decimal:2',
         'price2' => 'decimal:2',
         'price3' => 'decimal:2',
+        'minimum_stock' => 'decimal:4',
         'is_active' => 'boolean',
     ];
 

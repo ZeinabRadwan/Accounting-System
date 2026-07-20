@@ -2,10 +2,11 @@
 
 namespace App\Domain\Purchase\Services;
 
+use App\Domain\Inventory\Services\InventoryService;
+use App\Domain\Notifications\Services\SystemNotifier;
 use App\Domain\Product\Models\Product;
 use App\Domain\Product\Services\ProductService;
 use App\Domain\Purchase\Models\PurchaseInvoice;
-use App\Domain\Inventory\Services\InventoryService;
 use App\Domain\Treasury\Enums\PaymentMethod;
 use App\Domain\Treasury\Services\TreasuryService;
 use Illuminate\Support\Facades\DB;
@@ -165,7 +166,10 @@ class PurchaseService
                 );
             }
 
-            return $invoice->load('items');
+            $invoice = $invoice->load('items');
+            DB::afterCommit(fn () => app(SystemNotifier::class)->purchaseInvoiceCreated($invoice));
+
+            return $invoice;
         });
     }
 

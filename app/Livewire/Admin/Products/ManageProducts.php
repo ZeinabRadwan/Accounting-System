@@ -33,6 +33,7 @@ class ManageProducts extends Component
 
     public ?int $category_id = null;
     public string $display_name = '';
+    public float|string $minimum_stock = 10;
 
     /** @var array<int, array{unit_name: string, is_base: bool, conversion_factor: mixed, price1: mixed, price2: mixed, price3: mixed}> */
     public array $units = [];
@@ -129,6 +130,7 @@ class ManageProducts extends Component
         $this->editingId = $p->id;
         $this->category_id = $p->category_id;
         $this->display_name = Product::extractProductName((string) $p->display_name, $p->category?->name);
+        $this->minimum_stock = (float) ($p->minimum_stock ?? 10);
         $this->units = $p->units
             ->sortByDesc('is_base')
             ->values()
@@ -195,6 +197,7 @@ class ManageProducts extends Component
         $validated = $this->validate([
             'category_id' => ['required', 'integer', 'exists:categories,id'],
             'display_name' => ['required', 'string', 'max:255'],
+            'minimum_stock' => ['required', 'numeric', 'min:0'],
             'units' => ['required', 'array', 'min:1'],
             'units.*.unit_name' => ['required', 'string', 'max:50', 'distinct:ignore_case'],
             'units.*.is_base' => ['boolean'],
@@ -205,6 +208,7 @@ class ManageProducts extends Component
         ], [
             'category_id.required' => 'Category is required.',
             'display_name.required' => 'Product name is required.',
+            'minimum_stock.required' => 'Minimum stock is required.',
             'units.required' => 'At least one unit is required.',
             'units.min' => 'At least one unit is required.',
             'units.*.unit_name.required' => 'Unit name is required.',
@@ -216,6 +220,7 @@ class ManageProducts extends Component
         $payload = [
             'category_id' => $validated['category_id'],
             'display_name' => $validated['display_name'],
+            'minimum_stock' => (float) $validated['minimum_stock'],
             'units' => collect($this->units)->map(function ($unit) {
                 $isBase = filter_var($unit['is_base'] ?? false, FILTER_VALIDATE_BOOLEAN);
 
@@ -233,13 +238,13 @@ class ManageProducts extends Component
         try {
             if ($this->editingId) {
                 $service->update(Product::findOrFail($this->editingId), $payload);
-                $message = 'Product updated successfully.';
+                $message = 'Data updated successfully.';
             } else {
                 $service->create($payload);
                 $message = 'Product created successfully.';
             }
         } catch (InvalidArgumentException|DomainException $e) {
-            $this->toast($e->getMessage());
+            $this->toastError($e->getMessage());
 
             return;
         }
@@ -276,7 +281,7 @@ class ManageProducts extends Component
 
         $this->deletingId = null;
         $this->showDeleteConfirm = false;
-        $this->toast('Product deleted successfully.');
+        $this->toast('Item deleted successfully.');
     }
 
     protected function resetForm(): void
@@ -284,6 +289,7 @@ class ManageProducts extends Component
         $this->editingId = null;
         $this->category_id = null;
         $this->display_name = '';
+        $this->minimum_stock = 10;
         $this->units = [];
         $this->resetErrorBag();
     }

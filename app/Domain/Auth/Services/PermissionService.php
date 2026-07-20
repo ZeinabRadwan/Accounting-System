@@ -3,6 +3,7 @@
 namespace App\Domain\Auth\Services;
 
 use App\Domain\Auth\Models\Permission;
+use App\Domain\Notifications\Services\SystemNotifier;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -45,6 +46,7 @@ class PermissionService
     {
         $perms = $this->ensurePermissionsExist($keys);
         $user->permissions()->sync($perms->pluck('id')->all());
+        app(SystemNotifier::class)->userPermissionsChanged($user);
     }
 }
 

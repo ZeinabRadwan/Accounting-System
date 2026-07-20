@@ -16,7 +16,7 @@
         <div class="hidden md:block w-56">
             <x-ui.search placeholder="{{ __('Search...') }}" />
         </div>
-        <x-ui.notifications-menu />
+        <livewire:notifications.notification-bell />
         <x-ui.locale-switcher />
         <x-ui.user-menu :user="auth()->user()" />
     </div>

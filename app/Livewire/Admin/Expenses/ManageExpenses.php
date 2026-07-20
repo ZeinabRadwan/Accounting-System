@@ -123,7 +123,7 @@ class ManageExpenses extends Component
                 'created_by' => Auth::id(),
             ]);
         } catch (DomainException $e) {
-            $this->toast($e->getMessage());
+            $this->toastError($e->getMessage());
 
             return;
         }

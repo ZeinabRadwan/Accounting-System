@@ -78,7 +78,7 @@ class ProductCrud extends Component
         }
 
         $this->dispatch('close-modal', name: 'product-form');
-        session()->flash('status', 'Product saved');
+        \App\Support\Toast::flash('Data updated successfully.');
 
         return redirect(request()->fullUrl());
     }
